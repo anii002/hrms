@@ -1,0 +1,221 @@
+
+    .full {
+        background: url("../images/bg.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -o-background-size: cover;
+        height:100%;
+    }
+    
+    .centerDiv{
+        position:absolute;
+        top:50%;
+        left:50%;
+        padding:15px;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+     span {
+        color: #fff;
+        font-size: 12px;
+        line-height: 28px;
+        white-space: nowrap;
+        display: inline-block;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .input {
+        color: rgb(38, 38, 38);
+        display: block;
+        height: 36px;
+        max-width: 100%;
+        text-decoration: none solid rgb(38, 38, 38);
+        text-size-adjust: 100%;
+        width: 348px;
+        column-rule-color: rgb(38, 38, 38);
+        perspective-origin: 174px 18px;
+        transform-origin: 174px 18px;
+        caret-color: rgb(38, 38, 38);
+        background: rgba(255, 255, 255, 0.4) none repeat scroll 0% 0% / auto padding-box border-box;
+        border-top: 0px solid rgba(0, 0, 0, 0.8);
+        border-right: 0px solid rgba(0, 0, 0, 0.8);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+        border-left: 0px solid rgba(0, 0, 0, 0.8);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(38, 38, 38) none 0px;
+        padding: 6px 10px 6px 0px;
+    }/*#INPUT_1*/
+    
+    .input:after {
+        box-sizing: border-box;
+        color: rgb(38, 38, 38);
+        text-decoration: none solid rgb(38, 38, 38);
+        text-size-adjust: 100%;
+        column-rule-color: rgb(38, 38, 38);
+        caret-color: rgb(38, 38, 38);
+        border: 0px none rgb(38, 38, 38);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(38, 38, 38) none 0px;
+    }/*#INPUT_1:after*/
+    
+    .input:before {
+        box-sizing: border-box;
+        color: rgb(38, 38, 38);
+        text-decoration: none solid rgb(38, 38, 38);
+        text-size-adjust: 100%;
+        column-rule-color: rgb(38, 38, 38);
+        caret-color: rgb(38, 38, 38);
+        border: 0px none rgb(38, 38, 38);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(38, 38, 38) none 0px;
+    }
+    
+
+    .buttond {
+        bottom: 0px;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        height: 32px;
+        left: 0px;
+        max-width: 100%;
+        min-width: 108px;
+        position: relative;
+        right: 0px;
+        text-align: center;
+        text-decoration: none solid rgb(255, 255, 255);
+        text-size-adjust: 100%;
+        text-overflow: ellipsis;
+        top: 0px;
+        touch-action: manipulation;
+        vertical-align: middle;
+        white-space: nowrap;
+        width: 108px;
+        column-rule-color: rgb(255, 255, 255);
+        align-items: flex-start;
+        perspective-origin: 54px 16px;
+        transform-origin: 54px 16px;
+        user-select: none;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(0, 103, 184) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(0, 103, 184);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(255, 255, 255) none 0px;
+        overflow: hidden;
+        padding: 4px 12px;
+    }/*#INPUT_1*/
+    
+    .buttond:after {
+        box-sizing: border-box;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none solid rgb(255, 255, 255);
+        text-size-adjust: 100%;
+        white-space: nowrap;
+        column-rule-color: rgb(255, 255, 255);
+        user-select: none;
+        caret-color: rgb(255, 255, 255);
+        border: 0px none rgb(255, 255, 255);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(255, 255, 255) none 0px;
+    }/*#INPUT_1:after*/
+    
+    .buttond:before {
+        box-sizing: border-box;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none solid rgb(255, 255, 255);
+        text-size-adjust: 100%;
+        white-space: nowrap;
+        column-rule-color: rgb(255, 255, 255);
+        user-select: none;
+        caret-color: rgb(255, 255, 255);
+        border: 0px none rgb(255, 255, 255);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(255, 255, 255) none 0px;
+    }/*#INPUT_1:before*/
+    
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        overflow: visible;
+        z-index: 99;
+        clear: both;
+        background-color: rgba(0,0,0,0.6);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#99000000', endColorstr='#99000000');
+    }
+
+
+    .a-bottom {
+        color: #ffffff;
+        text-decoration: none;
+    }
+    
+    .a-bottom:hover 
+    {
+         color:#ffffff; 
+         text-decoration:underline;
+    }
+
+
+
+    .checkbox {
+        bottom: 0px;
+        color: rgb(38, 38, 38);
+        cursor: default;
+        display: block;
+        height: 20px;
+        left: 14px;
+        max-width: 100%;
+        position: relative;
+        text-decoration: none solid rgb(38, 38, 38);
+        text-size-adjust: 100%;
+        top: 0px;
+        width: 20px;
+        column-rule-color: rgb(38, 38, 38);
+        perspective-origin: 10px 10px;
+        transform-origin: 10px 10px;
+        caret-color: rgb(38, 38, 38);
+        background: rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(38, 38, 38);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        margin-top: 5px;
+        outline: rgb(38, 38, 38) none 0px;
+        padding: 0px;
+    }/*#INPUT_1*/
+    
+    .checkbox:after {
+        box-sizing: border-box;
+        color: rgb(38, 38, 38);
+        cursor: default;
+        text-decoration: none solid rgb(38, 38, 38);
+        text-size-adjust: 100%;
+        column-rule-color: rgb(38, 38, 38);
+        caret-color: rgb(38, 38, 38);
+        border: 0px none rgb(38, 38, 38);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(38, 38, 38) none 0px;
+    }/*#INPUT_1:after*/
+    
+    .checkbox:before {
+        box-sizing: border-box;
+        color: rgb(38, 38, 38);
+        cursor: default;
+        text-decoration: none solid rgb(38, 38, 38);
+        text-size-adjust: 100%;
+        column-rule-color: rgb(38, 38, 38);
+        caret-color: rgb(38, 38, 38);
+        border: 0px none rgb(38, 38, 38);
+        font: normal normal 400 normal 15px / 20px "Segoe UI Webfont", -apple-system, "Helvetica Neue", "Lucida Grande", Roboto, Ebrima, "Nirmala UI", Gadugi, "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", Tunga, "Lao UI", Raavi, "Iskoola Pota", Latha, Leelawadee, "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math";
+        outline: rgb(38, 38, 38) none 0px;
+    }/*#INPUT_1:before*/
+    
+    
+    

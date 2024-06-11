@@ -1,0 +1,128 @@
+
+/* Enhancement for printing */
+
+
+
+
+@media print {
+
+
+
+  /* added */ 
+ body * { float: none !important; } 
+
+/* original code  */
+  .no-print {
+    display: none;
+  }
+
+  .left-side,
+  .header,
+  .content-header {
+    display: none;
+  }
+
+  .right-side {
+    margin: 0;
+  }
+
+
+  /* for components */ 
+
+  /* Added custom code to prevent page-break in box */ 
+ .table-responsive > .table thead th
+ {
+	 background:red;
+	-webkit-print-color-adjust: exact;
+ }
+  
+   .box {
+   display: inline-block; 
+   page-break-inside: avoid !important;
+   page-break-before: auto; 
+  }
+
+/* original code */   
+  .callout {
+   margin: 0 0 20px 0;
+   padding: 1px 30px 1px 5px;
+   border-left: 2px solid #eee;
+  } 
+
+  .invoice {
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .invoice-col {
+    float: left;
+    width: 33.3333333%;
+  }
+
+  .table-responsive {
+    overflow: auto;
+  }
+
+  .table-responsive > .table tr th,
+  .table-responsive > .table tr td {
+    white-space: normal!important;
+  }
+
+body{
+		  background:white;
+		  -webkit-print-color-adjust:exact;
+	  }
+      th{
+        text-decoration: none;	
+		background:red;
+		border:1px solid black;
+      }
+	  html{overflow:auto;}
+	  .table>thead>tr>td
+{
+		  
+	  }
+      .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td
+	  {
+        border: 1px solid black;
+        text-align: left;
+		font-weight: bold;
+		    line-height: .8;
+			
+      }
+      tbody, tfoot {
+        background-color: white;
+		border:1px solid black;
+      }
+      .border {
+        border: 1px solid black;
+      }
+      .bottom{
+        border-bottom: 1px solid black;
+      }
+      .dark {
+        border: 1px solid black;
+      }
+      .text{
+        font-weight: bold;
+        font-size: 16px;
+      }
+	  .id-1{
+		  text-align:center;
+		  background:#f9dd7b;
+		  border:1px solid black;
+      }
+	  
+	  .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td
+	  {
+        border: 1px solid black;
+		}
+	  }
+
+
+
+}
+
+/* End of media print */

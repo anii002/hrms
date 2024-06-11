@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IR:: HRMS</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=PT+Serif:400"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <style type="text/css">
+      .text-center {
+        color: #fff;
+      }
+      a {
+        text-decoration: none !important;
+      }
+      body {
+        overflow-x: unset !important;
+        font-family: "PT", serif !important;
+        font-weight: 400;
+        font-size: 17px;
+        height: 100%;
+      }
+      .footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        border-bottom-left-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+        background-color: black;
+        opacity: 0.7;
+        color: white;
+        left: 0;
+      }
+      #right_panel::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      #right_panel::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.3);
+      }
+
+      #right_panel::-webkit-scrollbar-thumb {
+        background-color: white;
+        margin-right: 10px;
+        outline: 1px solid slategrey;
+        border-bottom-left-radius: 10px !important;
+        border-bottom-right-radius: 10px !important;
+        border-top-left-radius: 10px !important;
+        border-top-right-radius: 10px !important;
+      }
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 1s;
+        width: 30%;
+        border-radius: 5px;
+        float: left;
+        margin: 10px;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        padding: 5px 16px;
+        width: 100%;
+      }
+
+      @media screen and (max-width: 800px) {
+        a {
+          text-decoration: none !important;
+        }
+        .card {
+          width: 100%;
+        }
+        .footer {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          border-bottom-left-radius: 0px !important;
+          border-bottom-right-radius: 0px !important;
+          background-color: black;
+          opacity: 0.7;
+          color: white;
+          left: 0;
+        }
+        .col-md-4 {
+          border-color: white;
+          border: 1px solid #fff;
+          border-top-left-radius: 0px !important;
+          border-bottom-left-radius: 0px !important;
+          border-top-right-radius: 0px !important;
+          border-bottom-right-radius: 0px !important;
+        }
+        .col-md-8 {
+          border-color: white;
+          border: 1px solid #fff;
+          border-top-left-radius: 0px !important;
+          border-bottom-left-radius: 0px !important;
+          border-top-right-radius: 0px !important;
+          border-bottom-right-radius: 0px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="background: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99)"
+  >
+    <div
+      class="row"
+      style="overflow-x: hidden !important; margin: 2%; margin-top: 4%"
+    >
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="form-group">
+          <div class="col-md-12" style="padding: 0px !important">
+            <div
+              class="col-md-4 text-center"
+              style="
+                background: #3b8d99;
+                padding: 50px;
+                height: 85vh;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+              "
+            >
+              <img src="logo.png" style="height: 120px; width: 120px" /><br />
+              <h2 style="color: #fff">CENTRAL RAILWAY</h2>
+              <img
+                src="separator.png"
+                style="height: 10px; width: 150px"
+              /><br />
+              <h3 class="card-header" style="color: #fff; font-weight: 600">
+                SOLAPUR DIVISION
+              </h3>
+              <br />
+              <h3 class="card-header" style="color: #fff; font-weight: 600">
+                HRMS
+              </h3>
+              <h3
+                class="card-header"
+                style="color: #fff; font-weight: 600; font-size: 22px"
+              >
+                Human Resource Management System
+              </h3>
+              <br />
+              <a
+                class="card-header pull-right"
+                style="color: #fff; font-weight: 600; font-size: 22px"
+                href="signup/register.php"
+                >SIGN UP</a
+              >
+            </div>
+            <div
+              class="col-md-8"
+              id="right_panel"
+              style="
+                padding: 50px;
+                overflow-x: auto;
+                background: #fff;
+                height: 85vh;
+                border: 1px;
+                border-color: #2b3b55 !important;
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+                border-bottom-left-radius: 20px;
+                border-top-left-radius: 20px;
+              "
+            >
+              <div class="card" style="background-color: #a5b557">
+                <a href="e-sr/">
+                  <center>
+                    <img
+                      src="hrms_icon/sr.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-SR Book</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #21b6a8">
+                <a href="e-apar/">
+                  <center>
+                    <img
+                      src="hrms_icon/apar.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-APAR</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #485c5a">
+                <a href="http://drmpsur-hrms.in/new_eta/" target="_blank">
+                  <center>
+                    <img
+                      src="hrms_icon/cga.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>TAMM</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #485c5a">
+                <a href="eims/index.php">
+                  <center>
+                    <img
+                      src="hrms_icon/online-office.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>EIMS</b></h4>
+                  </div>
+                </a>
+              </div>
+              <!--div class="card" style="background-color: #421C52">
+						<a href="office-order/">
+						  <center><img src="hrms_icon/online-office.png" alt="Avatar" style="width:33.33%; height: 80px; margin-top: 10px"></center>
+						  <div class="container">
+						    <h4 class="text-center"><b>Online Office Order</b></h4> 
+						  </div>
+					  	</a>
+					</div>
+					<div class="card" style="background-color: #4A79A5">
+						<a href="e-notification/index.php?val=notification">
+						  <center><img src="hrms_icon/e-notification.png" alt="Avatar" style="width:33.33%; height: 80px; margin-top: 10px"></center>
+						  <div class="container">
+						    <h4 class="text-center"><b>e-Notification</b></h4> 
+						  </div>
+					  	</a>
+					</div>
+					
+					<div class="card" style="background-color: #7F7C5D">
+						<a href="e-notification/login.php">
+						  <center><img src="hrms_icon/circular.png" alt="Avatar" style="width:33.33%; height: 80px; margin-top: 10px"></center>
+						  <div class="container">
+						    <h4 class="text-center"><b>Seniority</b></h4> 
+						  </div>
+					  	</a>
+					</div>
+					<div class="card" style="background-color: #A5524C">
+						<a href="e-notification/index.php?val=circular">
+						  <center><img src="hrms_icon/circular.png" alt="Avatar" style="width:33.33%; height: 80px; margin-top: 10px"></center>
+						  <div class="container">
+						    <h4 class="text-center"><b>e-Circular</b></h4> 
+						  </div>
+					  	</a>
+					</div-->
+              <div class="card" style="background-color: #b69521">
+                <a href="e-pf/remark/base/">
+                  <center>
+                    <img
+                      src="hrms_icon/pf.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-PF</b></h4>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card" style="background-color: #397249">
+                <a href="e-notification/login.php">
+                  <center>
+                    <img
+                      src="hrms_icon/circular.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>S1 Form</b></h4>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card" style="background-color: #cccc00">
+                <a href="#">
+                  <center>
+                    <img
+                      src="hrms_icon/pension_booklet.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-Pension Booklet</b></h4>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card" style="background-color: #e49135">
+                <a href="e-gr/">
+                  <center>
+                    <img
+                      src="hrms_icon/gr.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-Grievance</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #ec799a">
+                <a href="it particular/index.php">
+                  <center>
+                    <img
+                      src="hrms_icon/IT.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>Income Tax Particulars</b></h4>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card" style="background-color: #006666">
+                <a href="e-selection/">
+                  <center>
+                    <img
+                      src="hrms_icon/cga.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-Selection Calender</b></h4>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card" style="background-color: #c22cc9">
+                <a href="e-notification/login.php">
+                  <center>
+                    <img
+                      src="hrms_icon/circular.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>CTG Application</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #5288db">
+                <a href="e-notification/login.php">
+                  <center>
+                    <img
+                      src="hrms_icon/circular.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>PC Advance</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #999fad">
+                <a href="e-notification/login.php">
+                  <center>
+                    <img
+                      src="hrms_icon/circular.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>PC Office</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #2a2c05">
+                <a href="#">
+                  <center>
+                    <img
+                      src="hrms_icon/e-pass.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>e-Pass</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #79bedb">
+                <a href="#">
+                  <center>
+                    <img
+                      src="hrms_icon/pf.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>NPS</b></h4>
+                  </div>
+                </a>
+              </div>
+
+              <div class="card" style="background-color: #fd795b">
+                <a href="#">
+                  <center>
+                    <img
+                      src="hrms_icon/cga.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>CGA</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #744150">
+                <a href="#">
+                  <center>
+                    <img
+                      src="hrms_icon/welfare.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>Welfare</b></h4>
+                  </div>
+                </a>
+              </div>
+              <div class="card" style="background-color: #e9bc55">
+                <a href="#">
+                  <center>
+                    <img
+                      src="hrms_icon/sbf.png"
+                      alt="Avatar"
+                      style="width: 33.33%; height: 80px; margin-top: 10px"
+                    />
+                  </center>
+                  <div class="container">
+                    <h4 class="text-center"><b>SBF</b></h4>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin: 0%; margin-top: -15px !important">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="form-group">
+          <div class="col-md-12">
+            <div class="footer text-center">
+              &copy; SALGEM Infoigy Tech Pvt Ltd 2018
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

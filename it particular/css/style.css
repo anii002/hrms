@@ -1,0 +1,20 @@
+.signinbox {
+    text-align: center;
+    border: 4px solid #ccc;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+.login-page-bg{
+	background: #fff;
+}
+.signinbox input {
+    border-color: #ddd !important;
+    box-shadow: none !important;
+    border-radius: 5px !important;
+}
+.loginbtn button {
+    padding: 5px 40px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 600;
+}

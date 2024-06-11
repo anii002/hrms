@@ -1,0 +1,53 @@
+
+/****** Responsive Media *******/
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	.login-box-body{
+		padding:0px 20px !important;
+	}
+	.login-page{
+		padding: 20px;
+	}
+	.login-img{
+		border-right: none !important;
+	}
+	.login-form h2{
+		margin-top: 0px;
+		font-size: 22px;
+	}
+	#logo img {
+    	max-width: 178px;
+    	width: 100%;
+    	background: none;
+    	border: none;
+    	padding: 0;
+    	border-radius: 0;
+	}
+	.fa-remove::before, .fa-close::before, .fa-times::before {
+	    content: "\f00d";
+    	color: #fff;
+	}
+	footer h5{
+		text-align: center;
+		line-height: 25px;
+	}
+	.socialmedia ul{
+		text-align: center;
+		padding-top: 10px;
+	}
+}
+
+
+@media only screen and (min-device-width : 481px) and (max-device-width : 768px) {
+	.fa-remove::before, .fa-close::before, .fa-times::before {
+	    content: "\f00d";
+    	color: #fff;
+	}
+	.login-page{
+		padding: 20px;
+	}
+	.login-form h2{
+		margin-top: 0px;
+		font-size: 22px;
+	}
+}
+

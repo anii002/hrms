@@ -1,0 +1,13 @@
+.modalfull {
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+.mldPreview {
+    width: 100% !important;
+    max-width: 1000px;
+    left: 31% !important;
+    right: 0px !important;
+}

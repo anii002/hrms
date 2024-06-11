@@ -1,0 +1,341 @@
+.navbar{
+	display:none;
+}
+.modal{
+	display:none;
+}
+.breadcrumb{
+	margin-bottom:0px !important;
+}
+.dataTables_paginate {
+	display:none;
+}
+.example_length{
+	display:none;
+}
+
+.x_panel{
+    border: 0px;
+}
+#current_date{
+		display:visible;
+}
+
+.dataTables_info{
+	display:none;
+}
+.breadcrumb li{
+	list-style:none;
+	float:left;
+	color:#000;
+	margin-left:10px;
+	font-size:15px;	
+	font-weight:bold !important; 
+}
+.breadcrumb li a{
+	font-size:15px;	
+	font-weight:bold !important; 
+}
+.btn{
+	display:none
+}
+
+.nav{
+	display:none;
+}
+.pull-right hidden-xs
+{
+		display:none;
+}
+.main-footer{
+		display:none;
+}
+.form-control{
+display:none;
+}
+.NoPrint{
+display:none;
+}
+.toolbar{
+display:none;
+}
+.pull-left ,.info
+{
+	display:none;
+}
+
+#logo{
+	display:visible;
+}
+#example_length{
+	display:none;
+}
+#example_filter{
+	display:none;
+}
+#avatar{
+	display:none;
+}
+#print{
+	display:visible;
+}
+tr > td > #logohead
+{
+    margin-top: -37px;
+    margin-left: 75px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+tr > td > #logohead1
+{
+    margin-top: -37px;
+    margin-left: 20px;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+tr > td > img > b > #yashodhara
+{
+	margin-top: 0px;
+	/* margin-bottom: -20cm; */
+	width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-left: 10px;
+		
+}
+.col-md-4{
+	position: relative;
+    min-height: 5px;
+    float: left;
+	font-size:10px;
+    padding-right: 10%;
+    padding-left:15%;
+
+}
+body {
+    font-family:'Cambria' !important;
+}
+/* header */
+/* { */
+	/* display:none; */
+	
+/* } */
+footer
+{
+	display:none;
+}
+
+a{
+	text-decoration:none;
+	color:#000;
+	font-size:15px;	
+	font-weight:bold !important; 
+}
+ul{
+display:none;
+}
+li{
+display:none;
+}
+
+button{
+display:none;
+}
+label{
+display:none;
+}
+hr{
+/* display:none; */
+}
+select{
+display:none;
+}
+h5{
+display:none;
+}
+h3{
+	display:none;
+}
+h1{
+	background-image:url("../Global_Data/images/icon.png");
+	background-repeat:no-repeat;
+	color:Green;
+	text-align: center;	
+}
+
+
+@media print body {
+	font-family: Cambria;
+	font-size: 1em;
+	color: #000;
+	/* margin-top: 2cm; */
+	margin-right: 1cm;
+	margin-bottom: 1.5cm;
+	margin-left: 1cm;
+	text-align: center;
+	
+	a:link:after, a:visited:after {
+    content: "";
+}
+}
+
+
+@page 
+    {
+        size:  auto;   /* auto is the initial value */
+          /* this affects the margin in the printer settings */
+		text-align: left;
+		padding:0;
+
+	}
+  
+#Note{
+	display:none;
+}
+#SalReg
+{
+	font-size:15px;
+}
+#font{
+	font-size:50px;
+	text-align: left;
+	}
+@media print 
+{
+  a[href]:after { content: none !important; }
+  
+}
+
+
+
+table{
+	font-size:17px;
+	margin-left:10px;
+	margin-top:auto;
+	width:98%;
+	border: 1px solid #000;
+	vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+	border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom:50px;
+    
+}
+
+tbody{
+	 border: 1px solid #000;
+}
+/*title{
+	display:none;
+}*/
+
+bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #000;
+	text-align: left;
+	
+}
+
+ .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {  
+	
+     
+	  padding: 5px;
+      vertical-align: top;
+	  border-top: 1px solid #000;
+	  text-align: left;   
+  }  
+/* custom css*/
+@media print{
+	
+	#Employee_AllAttedanceReport
+	{
+		display:none;
+	}
+	#Employee_MonthlyAttedanceReport
+	{
+		display:none;
+	}
+	#Employee_PeriodicAttedanceReport
+	{
+		display:none;
+	}
+	#Employee_DatewiseAttedanceReport
+	{
+		display:none;
+	}
+	#Employee_DailyAttedanceReport
+	{
+		display:none;
+		visibility:hidden;
+	}
+	#tbl_employee_wrapper
+	{
+		display:none;
+	}
+	#Short_label
+	{
+		display:none;
+	}
+	#select_dept
+	{
+		display:none;
+	}
+	#content_individual
+	{
+		display:none;
+	}
+	#page_title{
+		display:none;
+	}
+	#x_panel_for_print{
+		display:none;
+	}
+	#title_right{
+		display:none;
+	}
+	#x_content_for_print{
+		display:none;
+	}
+	#clear_print{
+		display:none;
+	}   
+	@page{
+		size:auto; 
+		margin-bottom:5mm;
+		margin-top:5mm;
+	}
+	#tbl_employee{
+		display:none;
+	}
+	#tbl_employee_2{
+		display:none;
+	}
+	#tbl_employee_3{
+		display:none;
+	}
+	#tbl_employee_4{
+		display:none;
+	}
+	strong{
+		font-size:14px;
+	}
+	#dept_tab{
+		display:none;
+	}
+	h2{
+		margin-top: -18%;
+		padding:0px;
+		
+	}
+	#tbl_timesheet{
+		padding: 0px;
+		margin:0px;
+		font-size:11px;
+	}
+	span{
+		font-size:14px;
+	}
+}

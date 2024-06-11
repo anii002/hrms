@@ -1,0 +1,75 @@
+.text-tabbed {
+    text-indent: 5em;
+}
+
+
+/* sf3 */
+.text-tabbed {
+    text-indent: 05em;
+}
+.text-tabbed2 {
+    text-indent: 09em;
+}
+.text-tabbed3 {
+    text-indent: 06em;
+}
+
+/*sf4 */
+.sf4-text-tabbed1 {
+        text-indent: 15em;
+    }
+.sf4-text-tabbed2 {
+        text-indent:3em;
+    }
+
+/*sf6 */
+.sf6-text-tabbed1 {
+        text-indent: 10em;
+    }
+.sf6-text-tabbed2 {
+        text-indent:3em;
+    }
+
+.left {
+        width: 45%;
+        float: left;
+        padding-left: 20px;
+
+    }
+
+    .right {
+        width: 55%;
+        float: left;
+
+
+    }
+
+/* sf no1 */
+.left1 {
+        width: 50%;
+        float: left;
+        padding-left:9em;
+
+    }
+
+    .right1 {
+        width: 50%;
+        float: left;
+
+
+    }
+
+    .pleft1 {
+        width: 100%;
+        
+        padding-left:4em;
+
+    }
+    .sf1-text-tabbed {
+    text-indent: 07em;
+}
+
+/*sf no2*/
+.sf2-text-tabbed {
+    text-indent: 07em;
+}

@@ -1,0 +1,298 @@
+.navbar{
+	display:none;
+}
+.modal{
+	display:none;
+}
+.breadcrumb{
+	margin-bottom:50px !important;
+}
+.dataTables_paginate {
+	display:none;
+}
+.example_length{
+	display:none;
+}
+
+.x_panel{
+    border: 0px;
+}
+
+title{
+display:visible;
+}
+
+.dataTables_info{
+	display:none;
+}
+.breadcrumb li{
+	list-style:none;
+	float:left;
+	color:#000;
+	margin-left:10px;
+	font-size:15px;	
+	font-weight:bold !important; 
+}
+.breadcrumb li a{
+	font-size:15px;	
+	font-weight:bold !important; 
+}
+body {
+    font-family:'Cambria' !important;
+}
+
+a{
+	text-decoration:none;
+	color:#000;
+	font-size:15px;	
+	font-weight:bold !important; 
+}
+
+#img{
+display:visible;
+float:left;
+}
+
+.block{
+margin-top:0px !important;
+}
+.btn{
+	display:none
+}
+#logo{
+	display:visible;
+}
+#example_length{
+	display:none;
+}
+#example_filter{
+	display:none;
+}
+#avatar{
+	display:none;
+}
+#print{
+	display:none;
+}
+.nav{
+	display:none;
+}
+.pull-right hidden-xs
+{
+		display:none;
+}
+.main-footer{
+		display:none;
+}	
+#search_class{
+	display:none;
+}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #ddd;
+}
+
+td{
+	/* border-top:1px solid;
+	border-left:none; */
+	padding:1px;
+	border: 1px solid #ddd;
+}
+.empty{
+	display:none;
+}
+th.outer,td.outer{
+ border-left: 2px solid #ddd;
+ border-right: 2px solid #ddd;
+ border-top: 2px solid #ddd;
+padding:1.0em;
+}
+th{
+	 border: 1px solid #ddd;
+	 vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+	text-align: center;
+}
+table{
+	font-size:9px;
+	margin-left:10px;
+	margin-top:0px;
+	width:80%;
+	border: 1px solid #ddd;
+	vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+	border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom:25px;
+}
+bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #ddd;
+	text-align: left;
+}
+tbody{
+	 border: 1px solid #ddd;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	
+    padding: 10px;
+    line-height:1px;
+    vertical-align: top;
+	border-top: 1px solid #ddd;
+	text-align: left; 
+}
+#noch{
+
+margin-top:0px;
+	display:visible;
+} 
+ul{
+display:none;
+}
+li{
+display:none;
+}
+
+button{
+display:none;
+}
+label{
+display:none;
+}
+hr{
+/* display:none; */
+}
+select{
+display:none;
+}
+h1{
+
+margin-top:0px;
+}
+
+button,input, select, textarea {
+
+}
+button {
+display:visible;
+}
+.DTTT_container
+{
+display:none;
+}
+
+.form-control{
+display:none;
+}
+.NoPrint{
+display:none;
+}
+.toolbar{
+display:none;
+}
+.pull-left ,.info
+{
+	display:none;
+}
+h5{
+display:none;
+}
+h3{
+	display:none;
+}
+h1{
+	margin:auto;
+	text-align: center;
+}
+@media print body {
+	font-family: Cambria;
+	font-size: 1em;
+	color: #333333;
+	margin-top: 2cm;
+	margin-right: 1cm;
+	margin-bottom: 1.5cm;
+	margin-left: 1cm;
+	text-align: center;
+	
+	a:link:after, a:visited:after {
+    content: "";
+}
+}
+
+  
+@page {
+   margin:auto;
+   padding:0;
+   text-align: left;
+}
+
+@media print 
+{
+  a[href]:after { content: none !important; }
+  img[src]:after { content: none !important; }
+}
+
+
+.x_panel{
+    border: 0px;
+}
+.icons{
+display:none;
+}
+header
+{
+display:none;
+}
+.logo >.logo-lg
+{
+	display:visible;
+}
+button{
+display:none;
+}
+
+strong{
+	display:none;
+}
+	
+#Note{
+	display:none;
+}
+#SalReg
+{
+	font-size:15px;
+}
+#font{
+
+
+	font-size:50px;
+text-align: left;
+	}
+.col-md-4{
+	
+	position: relative;
+    min-height: 5px;
+    float: left;
+    padding-right: 20px;
+    padding-left:210px;
+
+}
+b, strong {
+    font-weight: bolder;
+	text-align: center;
+}
+tr > td > img > b > #yashodhara
+{
+		margin-top: 0px;
+		/* margin-bottom: -20cm; */
+		
+}
+
+footer
+{
+	display:none;
+}

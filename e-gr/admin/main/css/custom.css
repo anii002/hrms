@@ -1,0 +1,19 @@
+.bgshades {
+    background: #ededed;
+    height: 33px;
+    padding: 8px;
+}
+
+/* move to left menu top and footer */
+.nav-lg .top_nav {
+    margin-left: 0px;
+}
+
+.nav-lg footer {
+    margin-left: 0px;
+}
+
+/* hidden left menu */
+.nav-lg .left_col {
+    display: none;
+}

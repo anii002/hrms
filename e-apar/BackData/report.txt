@@ -1,0 +1,172 @@
+<?php 
+ session_start();
+ if(!isset($_SESSION['SESS_MEMBER_NAME']))
+ {
+	 echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
+ }
+include_once('../global/header.php');
+include_once('../global/topbar.php');
+include_once('../global/sidebaradmin.php');
+
+?>
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+		  <h1>
+			Employee Management
+		  </h1>
+		  <ol class="breadcrumb">
+		   
+			<li class="active">
+				<a href="frmsample.php"><button type="button" class="btn btn-success" id="#btn1"><i class="fa fa-mail-reply"> Back</i></button></a>
+		
+		  </li>
+		  </ol>
+		  <br>
+		</section>
+	
+		<!-- Main content -->
+		<section class="content">
+		  <!-- Small boxes (Stat box) -->
+		
+			<div class="row">
+			<div class="box-body">
+			
+				<label class="col-md-1 col-sm-4">Department </label>
+							<div class="ccol-md-4 col-sm-4">
+							<div class="input-group">
+								<select class="form-control"  id="txtdept" name="txtdept" >
+								<option value="" selected hidden disabled>-- Select Department --</option>
+								<?php
+								$sqlDept=mysql_query("select * from tbl_department");
+								while($rwDept=mysql_fetch_array($sqlDept))
+								{
+									$rowDept= $rwDept["dept_id"];
+								?>
+								<option value="<?php echo $rwDept["deptname"]; ?>"><?php echo $rwDept["deptname"]; ?></option>
+								<?php
+								}
+							
+							?>
+								</select>
+							</div><br>
+							</div>
+							<label class="col-md-1 col-sm-4">Category </label>
+							<div class="ccol-md-4 col-sm-4">
+							<div class="input-group">
+								<select class="form-control"  id="txtcategory" name="txtcategory" >
+								<option value="" selected hidden disabled>-- Select Category --</option>
+								<option value="ALL">All Report</option>
+								<option value="YEAR WISE">YEAR WISE</option>
+								</select>
+							</div><br>
+							</div>
+							
+							<div class="ccol-md-4 col-sm-4">
+							<div class="input-group">
+								<button class="btn btn-success btn-flat" id="btnshow" name="btnshow" onclick="showDeptReport(this)">SHOW</button>
+							</div><br>
+							</div>
+			
+						<div class="form-group" id="customdate">
+									<label class="col-md-1">Year :</label>
+									<div class="col-md-4">
+										<div class="input-group">
+										<select class="form-control" id="txtstartyear" name="txtstartyear" onChange="showReport(this)">
+											<option value="" selected hidden disabled>-- Start Number Of Year --</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+										</select>
+										</div>
+									</div>
+								</div>
+			</div>
+			
+			<div id="showcustomedetails"></div>
+			
+				<div id="showyearrecords"></div>
+								
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+
+	
+<script>
+
+//---------Document Script----------------//
+$(document).ready(function() {
+	$('#showcustomedetails').hide(); 
+	$('#showyearrecords').hide(); 
+	$('#customdate').hide(); 
+	
+	
+$('#txtcategory').change(function(){
+	if($('#txtcategory').val() == 'YEAR WISE') 
+	{
+		$('#customdate').show(); 
+	
+	}else if($('#txtcategory').val() == 'ALL') 
+	{
+		$('#showcustomedetails').show(); 
+		$('#showyearrecords').hide(); 
+		$('#customdate').hide(); 
+	} else
+	{
+		
+	}
+	});
+	
+	
+	
+	
+function showDeptReport(sel) 
+	{
+		var txtcategory = document.getElementById('txtcategory').value;
+		var dept = document.getElementById('txtdept').value;
+		if(txtcategory=='ALL')
+		{
+				$.ajax({
+					type: "POST",
+					url: "fetch_all_record.php",
+					data: "txtcategory=" + txtcategory+"&dept="+dept,
+					cache: false,
+					beforeSend: function() {
+						$('#showcustomedetails').html('<img src="../resources/loader.gif" alt="" width="24" height="24">');
+					},
+					success: function(html) 
+					{
+						$("#showcustomedetails").html(html);
+						$("#showcustomedetails").show();
+					}
+				});
+		}
+		else
+		{
+			var customdate = document.getElementById('customdate').value;
+			$.ajax({
+					type: "POST",
+					url: "fetch_year_record.php",
+					data: "customdate=" + customdate+"&dept="+dept,
+					cache: false,
+					beforeSend: function() {
+						$('#showyearrecords').html('<img src="../resources/loader.gif" alt="" width="24" height="24">');
+					},
+					success: function(html) 
+					{
+						$("#showyearrecords").html(html);
+						$("#showyearrecords").show();
+					}
+				});
+		}
+	}
+</script>
+	
+  <?php
+ include_once('../global/footer.php');
+ ?> 
