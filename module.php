@@ -218,13 +218,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 
-<?php }
+<?php
+        }
     }
-
-
     if ($name == 'sar') {
         $sar = explode(',', $row['e_sar']);
-        for ($i = 0; $i < count($sar); $i++) { ?>
+        for ($i = 0; $i < count($sar); $i++) {
+
+        ?>
 
 
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -232,11 +233,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php if ($sar[$i] == "0") {
                     ?>
         <label class="form-check-label"><input class="form-check-input" type="radio" name="sar" id="admin" value="0">
-            Admin</label>
+            Admin </label>
         <?php }
                     if ($sar[$i] == 1) { ?>
         <label class="form-check-label"> <input class="form-check-input" type="radio" name="sar" id="clerk" value="1">
-            Clerk</label>
+            Clerk </label>
         <?php }
                     if ($sar[$i] == 2) { ?>
         <label class="form-check-label"> <input class="form-check-input" type="radio" name="sar" id="employee" value="2"
@@ -245,7 +246,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 
-<?php }
+<?php
+        }
     }
 
 
@@ -410,7 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php }
     }
-    
+
     if ($name == 'dar') {
         $dar = explode(',', $row['dar']);
         for ($i = 0; $i < count($dar); $i++) { ?>
@@ -437,4 +439,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 
-<?php }}} ?>
+<?php }
+    }
+} ?>

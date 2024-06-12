@@ -1,98 +1,65 @@
 <?php
 session_start();
-error_reporting(0);
+error_reporting(E_ALL); // Enable error reporting for debugging
+
+// Include necessary files
 include('admin/create_log.php');
 include('dbconfig/dbcon.php');
 
-// Establish connection to the first database
+// Connect to the first database
 $conn = dbcon();
-
-// Check if the connection is established
 if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+function hashPassword($password, $salt1 = "2345#$%@3e", $salt2 = "taesa%#@2%^#")
+{
+	// Use stronger hashing algorithms like bcrypt instead of sha1 and md5
+	return password_hash($salt2 . $password . $salt1, PASSWORD_DEFAULT);
+}
 
-/*................................................... Admin .....................................................*/
-$query = "SELECT * FROM tbl_login WHERE username='$username' AND password='" . hashPassword($password, SALT1, SALT2) . "'";
-$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-$row = mysqli_fetch_array($result);
-$num_row = mysqli_num_rows($result);
+// Check if username and password are submitted via POST
+if (isset($_POST['username']) && isset($_POST['password'])) {
+	// Retrieve username and password from POST data
+	$username = $_POST['username'];
+	$password = $_POST['password'];
 
-if ($num_row > 0) {
-	$_SESSION['id'] = $row['adminid'];
-	$id = $_SESSION['id'];
-	$adminusername = $row['username'];
-	$_SESSION['SESS_MEMBER_ID'] = $row['adminid'];
-	$_SESSION['SESS_ADMIN_FULLNAME'] = $row['adminname'];
-	$_SESSION['SESSION_ROLE'] = $row['role'];
-	$_SESSION['SESS_MEMBER_NAME'] = $row['username'];
-	$_SESSION['SESS_ADMIN_NAME'] = $adminusername;
-	$_SESSION['set_update_pf'] = '';
-	$_SESSION['same_pf_no'] = '';
+	// Hash the password
+	$hashedPassword = hashPassword($password);
 
-	$action = "Logged In Successfully";
-	$action_on = $_SESSION['set_update_pf'];
-	create_log($action, $action_on);
+	// Prepare and execute the query for admin login
+	$stmt = $conn->prepare("SELECT * FROM tbl_login WHERE username=?");
+	$stmt->bind_param("s", $username);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
 
-	session_write_close();
-
-	echo '<script>
-    $.jGrowl("You have successfully logged in", {life: 200, close: function(e, m) { window.location="admin/index.php"; }});
-    </script>';
-} else {
-	// Establish connection to the second database
-	$conn1 = dbcon1();
-
-	// Check if the connection is established
-	if (!$conn1) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
-
-	$query = "SELECT * FROM user_login WHERE username='$username' AND password='" . hashPassword($password, SALT1, SALT2) . "' AND act_deact='0'";
-	$result = mysqli_query($conn1, $query) or die(mysqli_error($conn1));
-	$row = mysqli_fetch_array($result);
-	$num_row = mysqli_num_rows($result);
-
-	if ($num_row > 0) {
+	// Verify password
+	if ($row && password_verify($salt2 . $password . $salt1, $row['password'])) {
+		// Set session variables
 		$_SESSION['id'] = $row['adminid'];
-		$id = $_SESSION['id'];
-		$adminusername = $row['username'];
 		$_SESSION['SESS_MEMBER_ID'] = $row['adminid'];
 		$_SESSION['SESS_ADMIN_FULLNAME'] = $row['adminname'];
 		$_SESSION['SESSION_ROLE'] = $row['role'];
 		$_SESSION['SESS_MEMBER_NAME'] = $row['username'];
-		$_SESSION['SESS_ADMIN_NAME'] = $adminusername;
+		$_SESSION['SESS_ADMIN_NAME'] = $username;
 		$_SESSION['set_update_pf'] = '';
 		$_SESSION['same_pf_no'] = '';
 
-		$action = "Logged In Successfully";
-		$action_on = $_SESSION['set_update_pf'];
-		create_log($action, $action_on);
+		// Log the successful login
+		create_log("Logged In Successfully", $_SESSION['set_update_pf']);
 
-		session_write_close();
-
-		echo '<script>
-        $.jGrowl("You have successfully logged in", {life: 200, close: function(e, m) { window.location="admin/index.php"; }});
-        </script>';
+		// Redirect to admin index page
+		header("Location: admin/index.php");
+		exit;
 	} else {
+		// If login fails, display an error message
 		echo '<script>
-        $.jGrowl("Please check Username OR Password", {life: 400, close: function(e, m) { window.location="index.php"; }});
-        </script>';
+            $.jGrowl("Please check Username or Password", {life: 400, close: function(e, m) { window.location="index.php"; }});
+            </script>';
 	}
+
+	// Close statement and connection
+	$stmt->close();
+	$conn->close();
 }
-?>
-<html>
-
-<head>
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <script type="text/javascript" src="plugins/js_glow/jquery.jgrowl.js"></script>
-    <link rel="stylesheet" href="plugins/js_glow/jquery.jgrowl.css" type="text/css" />
-</head>
-
-<body style="background-color:white;">
-</body>
-
-</html>
