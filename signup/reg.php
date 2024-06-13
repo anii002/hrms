@@ -20,13 +20,13 @@
 		$dob = date('d/m/Y',strtotime($_POST['dob']));
 		$password = hashPassword($dob);
 
-		$sql_fet = "SELECT * FROM resgister_user WHERE emp_no = '$pf_no'";
+		$sql_fet = "SELECT * FROM register_user WHERE emp_no = '$pf_no'";
 		$result_fet = mysql_query($sql_fet);
 		$count = mysql_num_rows($result_fet);
 
 		if($count == 0)
 		{
-			$sql = "INSERT INTO resgister_user (emp_no, name, designation, department, bill_unit, station, dob, doa, basic_pay, 7th_pay_level, mobile, password) VALUES ('$pf_no', '$name', '$designation', '$department', '$bill_unit', '$station', '$dob', '$doa', '$basic_pay', '$pay_level', '$mobile', '$password')";
+			$sql = "INSERT INTO register_user (emp_no, name, designation, department, bill_unit, station, dob, doa, basic_pay, 7th_pay_level, mobile, password) VALUES ('$pf_no', '$name', '$designation', '$department', '$bill_unit', '$station', '$dob', '$doa', '$basic_pay', '$pay_level', '$mobile', '$password')";
 
 			$result = mysql_query($sql);
 

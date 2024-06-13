@@ -19,7 +19,7 @@
 			$result = mysql_query($_SESSION['reg_data']);
 			if($result)
 			{
-			    $sql_reg = "SELECT * FROM resgister_user WHERE emp_no = '$pf_num'";
+			    $sql_reg = "SELECT * FROM register_user WHERE emp_no = '$pf_num'";
 				$result_reg = mysql_query($sql_reg);
 				$row_reg = mysql_fetch_assoc($result_reg);
 				$dept=$row_reg['department'];

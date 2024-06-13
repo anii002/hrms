@@ -47,7 +47,7 @@
 		$handi = $_POST['handi'];
 		$gender = $_POST['gender'];
 
-		$sql_fet = "SELECT * FROM resgister_user WHERE emp_no = '$pf_no'";
+		$sql_fet = "SELECT * FROM register_user WHERE emp_no = '$pf_no'";
 		$result_fet = mysql_query($sql_fet);
 		$count = mysql_num_rows($result_fet);
 		// print_r($count);exit();
@@ -61,7 +61,7 @@
 			//echo mysql_error();exit();
 			if($result)
 			{
-			    $sql_reg = "SELECT * FROM resgister_user WHERE emp_no = '$pf_no'";
+			    $sql_reg = "SELECT * FROM register_user WHERE emp_no = '$pf_no'";
 				$result_reg = mysql_query($sql_reg);
 				$row_reg = mysql_fetch_assoc($result_reg);
 

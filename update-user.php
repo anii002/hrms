@@ -1,8 +1,8 @@
 <?php 
 
 	require_once 'common/db.php';
-	$user = "esoluhp6_test";
-	$pass = "root@123";
+	$user = "root";
+	$pass = "";
 	$host = "localhost";
 	$db = "esoluhp6_travel_allowance1";
 	mysqli_connect($host,$user,$pass);
@@ -142,12 +142,9 @@
         $date = date('Y-m-d H:i:s');
     
     
-    
-    
-    
  $sql = "UPDATE user_permission SET tamm = '$tamm', e_grievance = '$e_gr', e_notification = '$eims', cga = '$cga', it_form = '$itp', e_app = '$app', forms = '$frm', e_sar = '$sar', e_apar = '$apar', e_dak = '$dak', feedback = '$feed', sbf = '$sbf', dar = '$dar' WHERE pf_num = '$pf_num'";
 
-	$result = mysql_query($sql);
+	$result = mysqli_query($sql);
 	if($result)
 	{
 		echo "<script>alert('User Permission Updated Successfully')</script>";

@@ -1,11 +1,9 @@
 <?php
 	require_once 'common/db.php';
 	$pf_num = $_SESSION['pf_num'];
-
-	$sql_reg = "SELECT * FROM resgister_user WHERE emp_no = '$pf_num'";
+	$sql_reg = "SELECT * FROM register_user WHERE emp_no = '$pf_num'";
 	$result_reg = mysqli_query($conn, $sql_reg);
 	$row = mysqli_fetch_assoc($result_reg);
-
 
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
@@ -288,7 +286,7 @@
 		
 		if(isset($_POST['e_gr']))
 		{
-			mysqli_connect('localhost', 'drmpsurh_test', '');
+			mysqli_connect('localhost', 'root', '');
 			if(mysqli_select_db($conn ,'drmpsurh_e_gr'))
 			{
 				//echo "Connected";
@@ -391,19 +389,19 @@
 			if ($_POST['eims'] == 0) 
 			{
 				$_SESSION['user'] = 'admin';
-				echo "<script>window.location.href='../eims/dashboard.php';</script>";
+				echo "<script>window.location.href='./eims/dashboard.php';</script>";
 			}
 
 			if ($_POST['eims'] == 1) 
 			{
 				$_SESSION['user'] = $row['emp_no'];
-				echo "<script>window.location.href='../eims/dashboard.php';</script>";
+				echo "<script>window.location.href='./eims/dashboard.php';</script>";
 			}
 
 			if ($_POST['eims'] == 2) 
 			{
 				$_SESSION['user'] = $row['emp_no'];
-				echo "<script>window.location.href='../eims/emp_dashboard.php';</script>";
+				echo "<script>window.location.href='./eims/emp_dashboard.php';</script>";
 			}
 		}
 
@@ -411,7 +409,7 @@
 		if (isset($_POST['cga'])) 
 		{
 
-			mysqli_connect('localhost', 'drmpsurh_test', '');
+			mysqli_connect('localhost', 'root', '');
 			if(mysqli_select_db($conn, 'drmpsurh_cga'))
 			{
 				//echo "Connected";
@@ -645,14 +643,8 @@
 					alert('Your Login is restricted! Please Contact to Recruitment Cell Clerk');
 					window.location.href='index.php';
 					</script>";
-				}
-
-				
-			}
-		
-		
-
-			
+				}				
+			}	
 		}
 
 		if(isset($_POST['itp']))
@@ -687,7 +679,7 @@
 			if($_POST['sar'] == 0)
 			{
 			    
-			    mysqli_connect('localhost', 'drmpsurh_test', '');
+			    mysqli_connect('localhost', 'root', '');
     			if(mysqli_select_db($conn, 'drmpsurh_srnew'))
     			{
     				//echo "Connected";
@@ -711,7 +703,7 @@
  			if($_POST['sar'] == 1)
  			{
  			    
- 			    mysqli_connect('localhost', 'drmpsurh_test', '');
+ 			    mysqli_connect('localhost', 'root', '');
     			if(mysqli_select_db($conn, 'drmpsurh_sr'))
     			{
     				//echo "Connected";
@@ -724,7 +716,6 @@
 			    $sql_sar = "SELECT * FROM user_login WHERE pf_no = '$pf_num' AND act_deact = '0'";
 			    $result_sar = mysqli_query($conn, $sql_sar);
 			    $row_sar = mysqli_fetch_assoc($result_sar);
-			   
  				$_SESSION['id'] = $row_sar['adminid'];
 			    $_SESSION['SESS_MEMBER_ID'] = $row_sar['adminid'];
 			    $_SESSION['SESS_ADMIN_FULLNAME'] = $row_sar['adminname'];		
@@ -760,8 +751,6 @@
 				$_SESSION['user'] = 'employee';
 				echo "<script>window.location.href='../forms/dashboard.php';</script>";
 			}
-
-			
 		}
 		
 		
@@ -799,7 +788,7 @@
 
 			if($_POST['apar'] == 1)
 			{
-				mysqli_connect('localhost','drmpsurh_test','');
+				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn,'drmpsurh_eapar'))
 				{
 					//echo "Connected";
@@ -819,14 +808,13 @@
 				$_SESSION['SESS_MEMBER_NAME'] = $row_usr['username'];
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
-
 				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
 			}
 			
 			if($_POST['apar'] == 2)
 			{
 			    
-				mysqli_connect('localhost','drmpsurh_test','');
+				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn,'drmpsurh_eapar'))
 				{
 					//echo "Connected";
@@ -854,7 +842,7 @@
 			
 			if($_POST['apar'] == 3)
 			{
-				mysqli_connect('localhost','drmpsurh_test','');
+				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn,'drmpsurh_eapar'))
 				{
 					//echo "Connected";
@@ -867,7 +855,6 @@
 				$sql_usr = "SELECT * FROM tbl_user WHERE username = '$pf_num' AND accesslevel = 'Officer Departmental'";
 				$result_usr = mysqli_query($conn, $sql_usr);
 				$row_usr = mysqli_fetch_assoc($result_usr);	
-
 				$_SESSION['staff'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_ID'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_NAME'] = $row_usr['fullname'];
@@ -880,7 +867,7 @@
 			
 			if($_POST['apar'] == 4)
 			{
-				mysqli_connect('localhost','drmpsurh_test','');
+				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn ,'drmpsurh_eapar'))
 				{
 					//echo "Connected";
@@ -893,20 +880,18 @@
 				$sql_usr = "SELECT * FROM tbl_user WHERE username = '$pf_num' AND accesslevel = 'Cadder Cheif Office Superitendent'";
 				$result_usr = mysqli_query($conn, $sql_usr);
 				$row_usr = mysqli_fetch_assoc($result_usr);	
-
 				$_SESSION['staff'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_ID'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_NAME'] = $row_usr['fullname'];
 				$_SESSION['SESS_MEMBER_NAME'] = $row_usr['username'];
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
-
 				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
 			}
 			
 			if($_POST['apar'] == 5)
 			{
-				mysqli_connect('localhost','drmpsurh_test','');
+				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn ,'drmpsurh_eapar'))
 				{
 					//echo "Connected";
@@ -919,7 +904,6 @@
 				$sql_usr = "SELECT * FROM tbl_user WHERE username = '$pf_num' AND accesslevel = 'Techinical'";
 				$result_usr = mysqli_query($conn ,$sql_usr);
 				$row_usr = mysqli_fetch_assoc($result_usr);	
-
 				$_SESSION['staff'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_ID'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_NAME'] = $row_usr['fullname'];
@@ -932,7 +916,7 @@
 
 			if($_POST['apar'] == 6)
 			{
-				mysqli_connect('localhost','drmpsurh_test','');
+				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn, 'drmpsurh_eapar'))
 				{
 					//echo "Connected";
@@ -946,7 +930,6 @@
 				$sql_emp = "SELECT * FROM tbl_employee WHERE username = '$pf_num'";
 				$result_emp = mysqli_query($conn, $sql_emp);
 				$row_emp = mysqli_fetch_assoc($result_emp);
-
 				$_SESSION['EMP_PF_NO'] = $row_emp['emplcode'];
 				$_SESSION['employee'] = $row_emp['empid'];
 				$_SESSION['SESS_EMPLOYEE_ID'] = $row_emp['empid'];
@@ -955,7 +938,6 @@
 				$_SESSION['EMP_PF_NO'] = $row_emp['emplcode'];
 				$_SESSION['SESS_YEAR'] = $row_emp['year'];
 				$_SESSION['Access_level'] = "none";
-
 				echo "<script>window.location.href='../e-apar/main/user/frmemployeedetails.php';</script>";
 			}			
 		}
@@ -965,7 +947,6 @@
 		{
 			unset($_SESSION['user']);
 			unset($_SESSION['user_role']);
-
 			if ($_POST['e_app'] == 0) 
 			{
 			    $_SESSION['user'] = $pf_num;
@@ -998,8 +979,6 @@
 				print_r($_SESSION);exit();*/
 				echo "<script>window.location.href='../e-application/dashboard.php';</script>";
 			}
-
-		
 		}
 		
 				if(isset($_POST['dak']))
@@ -1010,9 +989,7 @@
 			unset($_SESSION['section']);
 			unset($_SESSION['dept']);
 			unset($_SESSION['desig']);
-
-			mysqli_connect('localhost','drmpsurh_test','');
-
+			mysqli_connect('localhost','root','');
 			if(mysqli_select_db($conn , 'drmpsurh_e_dak'))
 			{
 				//echo "Connected";
@@ -1066,8 +1043,6 @@
 		{
 			unset($_SESSION['user']);
 			unset($_SESSION['user_role']);
-
-
 			if($_POST['feed'] == 0)
 			{
 				$_SESSION['user'] = $pf_num;
@@ -1151,8 +1126,6 @@
 				
 			}
 
-			
-
 		}
 
 
@@ -1165,7 +1138,7 @@
 			unset($_SESSION["id"]);
 
 
-			mysqli_connect('localhost','drmpsurh_test','');
+			mysqli_connect('localhost','root','');
 
 			if(mysqli_select_db($conn ,'drmpsurh_e_dar'))
 			{
@@ -1230,16 +1203,9 @@
 				$_SESSION['username'] = $pf_num;
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION["id"] = $row_dar["id"];
-
-			    	echo "<script>window.location.href='../e-dar/employee/index.php';</script>";
-			
-				
+			    echo "<script>window.location.href='../e-dar/employee/index.php';</script>";	
 			}
-
-			
-
 		}
-
 	  }
 	  else
 	  {
@@ -1250,5 +1216,4 @@
 	  }
 
 	}
-
 ?>

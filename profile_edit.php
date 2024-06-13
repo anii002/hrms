@@ -13,7 +13,7 @@ require_once 'operations/CommonFunctions.php';
 			
 			$password = hashPassword($_POST['password']);
             
-		$sql_pass = "UPDATE resgister_user SET password = '$password' WHERE emp_no = '$pf_no'";
+		$sql_pass = "UPDATE register_user SET password = '$password' WHERE emp_no = '$pf_no'";
 		//echo $sql_pass;exit();
 			$result_pass = mysqli_query($conn , $sql_pass);
             //print_r($result_pass);exit();
@@ -66,7 +66,7 @@ require_once 'operations/CommonFunctions.php';
 
 			if(move_uploaded_file($_FILES['image']['tmp_name'],'images/profile/'.$image))
 			{
-				$sql_img = "UPDATE resgister_user SET image = '$image' WHERE emp_no = '$pf_no'";
+				$sql_img = "UPDATE register_user SET image = '$image' WHERE emp_no = '$pf_no'";
 						$result_img = mysqli_query($conn , $sql_img);
 
 						if($result_img)

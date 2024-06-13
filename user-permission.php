@@ -15,7 +15,7 @@
 
 			if($count == 0)
 			{
-				$sql_fetch1 = "SELECT * FROM resgister_user WHERE emp_no = '$pf_num' AND delete_status = 0";
+				$sql_fetch1 = "SELECT * FROM register_user WHERE emp_no = '$pf_num' AND delete_status = 0";
 				$result_fetch1 = mysql_query($sql_fetch1);
 				$row = mysql_fetch_assoc($result_fetch1);
 

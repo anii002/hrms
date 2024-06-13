@@ -106,7 +106,7 @@ if ($Flag == "PFNoVerify") {
 
 
 
-    $sql = "INSERT INTO `resgister_user`(`emp_no`, `name`, `designation`, `department`, `bill_unit`, `station`, `dob`, `doa`, `basic_pay`, `7th_pay_level`, `mobile`, `password`, `empType`) VALUES ('$empno','$name','$desigation','$department','$bill_unit','$station','$dob','$doa','$basic_pay','$pay_level','$mobile','$password','$empType')";
+    $sql = "INSERT INTO `register_user`(`emp_no`, `name`, `designation`, `department`, `bill_unit`, `station`, `dob`, `doa`, `basic_pay`, `7th_pay_level`, `mobile`, `password`, `empType`) VALUES ('$empno','$name','$desigation','$department','$bill_unit','$station','$dob','$doa','$basic_pay','$pay_level','$mobile','$password','$empType')";
 
     if (mysqli_query($conn , $sql)) {
 

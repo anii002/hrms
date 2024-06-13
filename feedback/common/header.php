@@ -164,11 +164,11 @@ include('dbcon.php');
 						 	else
 						 	{
 						 	   
-						 	    $query = mysql_query("SELECT `name` FROM `resgister_user` WHERE `emp_no` = '".$_SESSION['user']."'");
+						 	    $query = mysql_query("SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['user']."'");
 						 	    $row = mysql_fetch_array($query);
 						 	    echo $row['name'];   
 						 	    echo mysql_error();
-						 	    //echo "SELECT `name` FROM `resgister_user` WHERE `emp_no` = '".$_SESSION['user']."'";
+						 	    //echo "SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['user']."'";
 						 	}
 						 	?>
 						 </span>

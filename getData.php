@@ -4,7 +4,7 @@ $draw = $_POST['draw'];
 $row = $_POST['start'];
 $rowperpage = $_POST['length']; // Rows display per page
 $searchValue = $_POST['search']['value']; // Search value
-$tbl='resgister_user';
+$tbl='register_user';
 ## Search 
 $searchQuery = "";
 if($searchValue != ''){

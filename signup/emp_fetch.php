@@ -7,7 +7,7 @@
 		$pf_no = $_POST['pf_no'];
 		//echo json_encode($pf_no);exit();
 
-		$sql1 = "SELECT * FROM resgister_user WHERE emp_no = '$pf_no'";
+		$sql1 = "SELECT * FROM register_user WHERE emp_no = '$pf_no'";
 		$result1 = mysql_query($sql1);
 		$count1 = mysql_num_rows($result1);
 

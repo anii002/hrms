@@ -48,7 +48,7 @@ $GLOBALS['flag']="3";
           if($row_fetch['delete_status'] == 0)
           {
           $pf_no = $row_fetch['pf_num'];
-      $sql_reg = "SELECT department, designation FROM resgister_user WHERE emp_no = '$pf_no'";
+      $sql_reg = "SELECT department, designation FROM register_user WHERE emp_no = '$pf_no'";
       $result_reg = mysql_query($sql_reg);
       $row_reg = mysql_fetch_assoc($result_reg);
         ?>
@@ -59,7 +59,7 @@ $GLOBALS['flag']="3";
                 <?php
 
                   // $dept = $row_reg['department'];
-                   $sql_emp = "SELECT name FROM resgister_user WHERE emp_no = '$pf_no'";
+                   $sql_emp = "SELECT name FROM register_user WHERE emp_no = '$pf_no'";
                    $result_emp = mysql_query($sql_emp);
                    $row_emp = mysql_fetch_assoc($result_emp);
                    echo $row_emp['name'];

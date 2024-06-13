@@ -1,6 +1,6 @@
 <?php 
 include_once("common/headerlogin.php"); 
-password_hash("Sachin@1234", PASSWORD_DEFAULT);
+// password_hash("Sachin@1234", PASSWORD_DEFAULT);
 ?>
 
 <div class="row">

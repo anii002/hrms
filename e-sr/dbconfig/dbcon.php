@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(0);
 
 // Function for the first database connection using MySQLi

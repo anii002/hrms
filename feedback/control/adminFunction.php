@@ -9,7 +9,7 @@ function fetch_employee_details($id)
 {
   global $con;
   dbcon();
-  $query = "select * from resgister_user where emp_no = '$id'";
+  $query = "select * from register_user where emp_no = '$id'";
   $result = mysql_query($query);
   // dbcon3();
   // $query_check = mysql_query("SELECT user_pfno FROM add_user WHERE user_pfno = '$id'");

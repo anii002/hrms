@@ -35,7 +35,7 @@
 		$handi = $_POST['handi'];
 		$gender = $_POST['gender'];
 
-		 $sql = "UPDATE resgister_user SET emp_no = '$pf_no', name = '$name', department = '$department', designation = '$designation', bill_unit = '$bill_unit', 7th_pay_level = '$pay_level', mobile = '$mobile', dob = '$dob', station = '$station', doa = '$doa', basic_pay = '$basic_pay', empType = '$emp_type', emp_address1 = '$add1', emp_address2 = '$add2', emp_email = '$email', emp_aadhar = '$aadhar', emp_state = '$state', emp_city = '$city', emp_pincode = '$pin', office = '$office', office_emp_state = '$off_state', office_emp_city = '$off_city', office_emp_address1 = '$off_add1', office_emp_address2 = '$off_add2', office_emp_pincode = '$off_pin', handicap_status = '$handi', gender = '$gender', community = '$community'   WHERE id = '$id'";
+		 $sql = "UPDATE register_user SET emp_no = '$pf_no', name = '$name', department = '$department', designation = '$designation', bill_unit = '$bill_unit', 7th_pay_level = '$pay_level', mobile = '$mobile', dob = '$dob', station = '$station', doa = '$doa', basic_pay = '$basic_pay', empType = '$emp_type', emp_address1 = '$add1', emp_address2 = '$add2', emp_email = '$email', emp_aadhar = '$aadhar', emp_state = '$state', emp_city = '$city', emp_pincode = '$pin', office = '$office', office_emp_state = '$off_state', office_emp_city = '$off_city', office_emp_address1 = '$off_add1', office_emp_address2 = '$off_add2', office_emp_pincode = '$off_pin', handicap_status = '$handi', gender = '$gender', community = '$community'   WHERE id = '$id'";
 
 		$result = mysql_query($sql);
 		echo mysql_error();

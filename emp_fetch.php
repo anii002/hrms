@@ -15,7 +15,7 @@
 
 		 if($count_up == 0)
 		 {
-			$sql_reg = "SELECT * FROM resgister_user WHERE emp_no = '$pf_num'";
+			$sql_reg = "SELECT * FROM register_user WHERE emp_no = '$pf_num'";
 			$result_reg = mysql_query($sql_reg);
 			$row_reg = mysql_fetch_assoc($result_reg);
 			$count_reg = mysql_num_rows($result_reg);

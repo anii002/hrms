@@ -8,7 +8,7 @@ function fetchEmployee1($id)
 {
   //global $con;
   dbcon2();
-  $query = "select * from resgister_user where emp_no = '$id'";
+  $query = "select * from register_user where emp_no = '$id'";
   $result = mysql_query($query);
   $value = mysql_fetch_array($result);
       $data['empid']=$value['emp_no'];

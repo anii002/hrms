@@ -15,7 +15,7 @@
             // print_r($row_otp);exit();
 		$pf_num = $row_otp['emp_id'];
 			
-			$sql = "UPDATE resgister_user SET password = '$password' WHERE emp_no = '$pf_num'";
+			$sql = "UPDATE register_user SET password = '$password' WHERE emp_no = '$pf_num'";
 			$result = mysql_query($sql);
 
 			if($result)

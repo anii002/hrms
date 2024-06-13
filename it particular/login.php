@@ -54,7 +54,7 @@ session_start();
 						else
 						{
 							dbcon2();
-							$query2 = mysql_query("select * from resgister_user WHERE emp_no='$username' AND password='".hashPassword($password,SALT1,SALT2)."'");
+							$query2 = mysql_query("select * from register_user WHERE emp_no='$username' AND password='".hashPassword($password,SALT1,SALT2)."'");
 							$row=mysql_fetch_array($query2);
 							$count=mysql_num_rows($query2);
 							

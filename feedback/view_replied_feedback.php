@@ -100,7 +100,7 @@
 							while($row = mysql_fetch_array($qry))
 							{
 								dbcon();
-								$qry1 = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+								$qry1 = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['pfno']."'");
 								while($row1 = mysql_fetch_array($qry1))
 								{
 

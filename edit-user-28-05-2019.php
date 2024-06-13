@@ -73,7 +73,7 @@ $GLOBALS['flag']="0";
         
         
   
-        $sql_fet = "SELECT * FROM resgister_user WHERE emp_no = '$pf_num'";
+        $sql_fet = "SELECT * FROM register_user WHERE emp_no = '$pf_num'";
         $result_fet = mysql_query($sql_fet);
         $row_fet = mysql_fetch_assoc($result_fet); 
         // echo "<pre>";

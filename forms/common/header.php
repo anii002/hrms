@@ -158,7 +158,7 @@ include('dbcon.php');
 						 	<?php 
 						 	
 						 	    dbcon2();
-						 	    $query = mysql_query("SELECT `name` FROM `resgister_user` WHERE `emp_no` = '".$_SESSION['pf_num']."'");
+						 	    $query = mysql_query("SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['pf_num']."'");
 						 	    $row = mysql_fetch_array($query);
 						 	    echo $row['name'];   
 						 	
