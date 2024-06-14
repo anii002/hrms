@@ -178,23 +178,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($name == 'sar') {
         $sar = explode(',', $row['e_sar']);
-        for ($i = 0; $i < count($sar); $i++) {?>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        for ($i = 0; $i < count($sar); $i++) {
+            ?>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-check">
-                    <?php if ($sar[$i] == "0") { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="sar" id="admin" value="0"> Admin </label>
-                    <?php }
-                    if ($sar[$i] == 1) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="sar" id="clerk" value="1"> Clerk </label>
-                    <?php }
-                    if ($sar[$i] == 2) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="sar" id="employee" value="2" checked> Employee</label>
-                    <?php } ?>
+                    <div class="radio-container" style="display: flex; justify-content: space-between;">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sar" id="admin" value="0" <?php if ($sar[$i] == "0") echo 'checked'; ?>>
+                            Admin
+                        </label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sar" id="clerk" value="1" <?php if ($sar[$i] == "1") echo 'checked'; ?>>
+                            Clerk
+                        </label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="sar" id="employee" value="2" <?php if ($sar[$i] == "2") echo 'checked'; ?>>
+                            Employee
+                        </label>
+                    </div>
                 </div>
             </div>
-        <?php }
+            <?php
+        }
     }
-
+    
+    
+    
+    
 
     if ($name == 'frm') {
         $forms = explode(',', $row['forms']);
