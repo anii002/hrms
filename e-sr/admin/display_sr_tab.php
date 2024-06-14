@@ -1,15 +1,16 @@
 <?php
 session_start();
 $GLOBALS['a'] = 'display_sr';
-include_once('../global/header.php');
-include_once('../global/topbar.php');
+require_once('../global/header.php');
+// require_once('../global/topbar.php');
 //error_reporting(0);
-include('mini_function.php');
-include('fetch_all_column.php');
-include_once('../dbconfig/dbcon.php');
-dbcon1();
+require('mini_function.php');
+require('fetch_all_column.php');
+require_once('../dbconfig/dbcon.php');
+// dbcon1();
+$conn1 = dbcon1();
+// include('create_log.php');
 
-include('create_log.php');
 ?>
 <style>
 	.table tbody tr td {
@@ -92,14 +93,16 @@ include('create_log.php');
 
 // Bio
 $pf_no = $_GET['pf'];
-echo"<script>alert('$pf_no');</script>";
-$query = mysqli_query("Select * from biodata_temp where pf_number='$pf_no'");
-
+// echo"<script>alert('$pf_no');</script>";
+$query = mysqli_query($conn1,"select * from biodata_temp where pf_number='$pf_no'");
+// $result = mysqli_fetch_assoc($query);
+// print_r($result['pf_number']);
 if (mysqli_num_rows($query) <= 0) {
 	echo "<script>alert('This PF Number is not Registered');</script>";
 	$pf_number = $oldpf_number = $identity_number = $sr_no = $dob = $mobile_number = $emp_name = $emp_old_name = $f_h_selction = $f_h_name = $cug = $aadhar_number = $email = $pan_number = $present_address = $pre_statecode = $pre_pincode = $permanent_address = $per_statecode = $per_pincode = $identification_mark = $religion = $community = $caste = $gender = $marrital_status = $recruit_code = $group_col = $education_ini = $edu_desc_ini = $education_sub = $edu_desc_sub = $bank_name = $account_number = $micr_number = $ifsc_code = $ruid_no = $bank_address = $nps_no = $imagefile = "";
 } else {
-	while ($result = mysqli_fetch_assoc($query)) {
+	// while ($result = mysqli_fetch_assoc($query)) {
+		$result = mysqli_fetch_assoc($query);
 		$pf_number_bio = $result['pf_number'];
 		$oldpf_number = $result['oldpf_number'];
 		$identity_number = $result['identity_number'];
@@ -123,16 +126,25 @@ if (mysqli_num_rows($query) <= 0) {
 		$per_statecode = $result['per_statecode'];
 		$per_pincode = $result['per_pincode'];
 		$identification_mark = $result['identification_mark'];
-		$religion = get_religion($result['religion']);
-		$community = get_community($result['community']);
+		$religion = $result['religion'];
+		// $religion = get_religion($result['religion']);
+		// $community = get_community($result['community']);
+		$community = $result['community'];
 		$caste = $result['caste'];
-		$gender = get_gender($result['gender']);
-		$marrital_status = got_mr($result['marrital_status']);
-		$recruit_code = get_recruitment_code($result['recruit_code']);
-		$group_col = get_group($result['group_col']);
-		$education_ini = get_initial_edu($result['education_ini']);
+		// $gender = get_gender($result['gender']);
+		$gender = $result['gender'];
+		// $marrital_status = got_mr($result['marrital_status']);
+		$marrital_status = $result['marrital_status'];
+		// $recruit_code = get_recruitment_code($result['recruit_code']);
+		$recruit_code = $result['recruit_code'];
+		// $group_col = get_group($result['group_col']);
+		$group_col = $result['group_col'];
+		// $education_ini = get_initial_edu($result['education_ini']);
+		$education_ini = $result['education_ini'];
 		$edu_desc_ini = $result['edu_desc_ini'];
-		$education_sub = get_sub_edu($result['education_sub']);
+		// $education_sub = get_sub_edu($result['education_sub']);
+		$education_sub = $result['education_sub'];
+		// echo $pf_number_bio;
 		$edu_desc_sub = $result['edu_desc_sub'];
 		$bank_name = $result['bank_name'];
 		$account_number = $result['account_number'];
@@ -142,290 +154,290 @@ if (mysqli_num_rows($query) <= 0) {
 		$bank_address = $result['bank_address'];
 		$nps_no = $result['nps_no'];
 		$imagefile = $result['imagefile'];
-	}
+	// }
 }
 //Appointment
-dbcon1();
-$pf_no = $_GET['pf'];
-$query = mysqli_query("Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysql_error());
-//$resultset = mysqli_fetch_array($query);
-$result = mysqli_fetch_array($query);
-//{
-$app_pf_number = $result['app_pf_number'];
-$app_designation = get_designation($result['app_designation']);
-$app_department = get_department($result['app_department']);
-$app_type = get_appointment_type($result['app_type']);
-$app_designation = get_designation($result['app_designation']);
-$app_date = $result['app_date'];
-$app_regul_date = $result['app_regul_date'];
-$app_payscale = get_pay_scale_type($result['app_payscale']);
-if ($result['app_payscale'] == '1' || $result['app_payscale'] == '2' || $result['app_payscale'] == '3' || $result['app_payscale'] = '4') {
-	$app_scale = ($result['app_scale']);
-	$app_level = '-';
-} else if ($result['app_payscale'] == '5') {
-	$app_scale = '-';
-	$app_level = ($result['app_level']);
-} else {
-	$app_scale = 'NA';
-	$app_level = 'NA';
-}
+// dbcon1();
+// $pf_no = $_GET['pf'];
+// $query = mysqli_query($conn1,"Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysql_error());
+// //$resultset = mysqli_fetch_array($query);
+// $result = mysqli_fetch_array($query);
+// //{
+// $app_pf_number = $result['app_pf_number'];
+// $app_designation = get_designation($result['app_designation']);
+// $app_department = get_department($result['app_department']);
+// $app_type = get_appointment_type($result['app_type']);
+// $app_designation = get_designation($result['app_designation']);
+// $app_date = $result['app_date'];
+// $app_regul_date = $result['app_regul_date'];
+// $app_payscale = get_pay_scale_type($result['app_payscale']);
+// if ($result['app_payscale'] == '1' || $result['app_payscale'] == '2' || $result['app_payscale'] == '3' || $result['app_payscale'] = '4') {
+// 	$app_scale = ($result['app_scale']);
+// 	$app_level = '-';
+// } else if ($result['app_payscale'] == '5') {
+// 	$app_scale = '-';
+// 	$app_level = ($result['app_level']);
+// } else {
+// 	$app_scale = 'NA';
+// 	$app_level = 'NA';
+// }
 
-//$app_level=($result['app_level']);  
-$app_group = get_group($result['app_group']);
-$app_station = get_station($result['app_station']);
-//$other_station=($result['other_station']);  
-//$app_billunit=get_billunit($result['app_billunit']);  
-$app_rop = ($result['app_rop']);
-$app_depot = get_depot($result['app_depot']);
-$app_refno = ($result['app_refno']);
-$app_letter_date = ($result['app_letter_date']);
-$app_remark = ($result['app_remark']);
+// //$app_level=($result['app_level']);  
+// $app_group = get_group($result['app_group']);
+// $app_station = get_station($result['app_station']);
+// //$other_station=($result['other_station']);  
+// //$app_billunit=get_billunit($result['app_billunit']);  
+// $app_rop = ($result['app_rop']);
+// $app_depot = get_depot($result['app_depot']);
+// $app_refno = ($result['app_refno']);
+// $app_letter_date = ($result['app_letter_date']);
+// $app_remark = ($result['app_remark']);
 //$date_time=($result['date_time']);  
 //$app_remark=($result['app_remark']);  
 //}
 
 // Present Appointment
-dbcon1();
-$pf_no = $_GET['pf'];
-$query = mysqli_query("Select * from present_work_temp where preapp_pf_number='$pf_no'");
-($result = mysqli_fetch_assoc($query));
-//{
-$preapp_pf_number = $result['preapp_pf_number'];
-$pre_app_department = get_department($result['preapp_department']);
-$pre_app_designation = get_designation($result['preapp_designation']);
-$pre_app_scale_type = get_pay_scale_type($result['ps_type']);
-$pre_app_scale = ($result['preapp_scale']);
-$pre_app_billunit = get_billunit($result['preapp_billunit']);
-$pre_app_level = $result['preapp_level'];
-$pre_app_group_col = get_group($result['preapp_group']);
-$pre_app_station = get_station($result['preapp_station']);
-$pre_app_other = $result['preapp_station'];
-$pre_app_depot = get_depot($result['preapp_depot']);
-$pre_app_rop = $result['preapp_rop'];
-$preapp_remark = $result['preapp_remark'];
-$sgd_dropdwn = $result['sgd_dropdwn'];
-//$sgd_dropdwn_value="$sgd_dropdwn"; 
-if ($sgd_dropdwn == '1') {
-	$sgd_dropdwn_value = "YES";
-} else if ($sgd_dropdwn == '2') {
-	$sgd_dropdwn_value = "No";
-} else {
-	$sgd_dropdwn_value = "";
-}
-$sgd_designation = get_designation($result['sgd_designation']);
-$presgd_otherdesign = $result['presgd_otherdesign'];
-$sgd_pst = get_pay_scale_type($result['sgd_pst']);
-$sgd_scale = $result['sgd_scale'];
-$sgd_level = $result['sgd_level'];
-$sgd_billunit = get_billunit($result['sgd_billunit']);
-$sgd_depot = get_depot($result['sgd_depot']);
-$sgd_station = get_station($result['sgd_station']);
-$sgd_group = get_group($result['sgd_group']);
-$ogd_desig = get_designation($result['ogd_desig']);
-$preogd_otherdesign = $result['preogd_otherdesign'];
-$ogd_pst = get_pay_scale_type($result['ogd_pst']);
-$ogd_scale = $result['ogd_scale'];
-$ogd_level = $result['ogd_level'];
-$ogd_billunit = get_billunit($result['ogd_billunit']);
-$ogd_depot = get_depot($result['ogd_depot']);
-$ogd_station = get_station($result['ogd_station']);
-$ogd_group = get_group($result['ogd_group']);
-$ogd_rop = $result['ogd_rop'];
+// dbcon1();
+// $pf_no = $_GET['pf'];
+// $query = mysqli_query($conn1,"Select * from present_work_temp where preapp_pf_number='$pf_no'");
+// ($result = mysqli_fetch_assoc($query));
+// //{
+// $preapp_pf_number = $result['preapp_pf_number'];
+// $pre_app_department = get_department($result['preapp_department']);
+// $pre_app_designation = get_designation($result['preapp_designation']);
+// $pre_app_scale_type = get_pay_scale_type($result['ps_type']);
+// $pre_app_scale = ($result['preapp_scale']);
+// $pre_app_billunit = get_billunit($result['preapp_billunit']);
+// $pre_app_level = $result['preapp_level'];
+// $pre_app_group_col = get_group($result['preapp_group']);
+// $pre_app_station = get_station($result['preapp_station']);
+// $pre_app_other = $result['preapp_station'];
+// $pre_app_depot = get_depot($result['preapp_depot']);
+// $pre_app_rop = $result['preapp_rop'];
+// $preapp_remark = $result['preapp_remark'];
+// $sgd_dropdwn = $result['sgd_dropdwn'];
+// //$sgd_dropdwn_value="$sgd_dropdwn"; 
+// if ($sgd_dropdwn == '1') {
+// 	$sgd_dropdwn_value = "YES";
+// } else if ($sgd_dropdwn == '2') {
+// 	$sgd_dropdwn_value = "No";
+// } else {
+// 	$sgd_dropdwn_value = "";
+// }
+// $sgd_designation = get_designation($result['sgd_designation']);
+// $presgd_otherdesign = $result['presgd_otherdesign'];
+// $sgd_pst = get_pay_scale_type($result['sgd_pst']);
+// $sgd_scale = $result['sgd_scale'];
+// $sgd_level = $result['sgd_level'];
+// $sgd_billunit = get_billunit($result['sgd_billunit']);
+// $sgd_depot = get_depot($result['sgd_depot']);
+// $sgd_station = get_station($result['sgd_station']);
+// $sgd_group = get_group($result['sgd_group']);
+// $ogd_desig = get_designation($result['ogd_desig']);
+// $preogd_otherdesign = $result['preogd_otherdesign'];
+// $ogd_pst = get_pay_scale_type($result['ogd_pst']);
+// $ogd_scale = $result['ogd_scale'];
+// $ogd_level = $result['ogd_level'];
+// $ogd_billunit = get_billunit($result['ogd_billunit']);
+// $ogd_depot = get_depot($result['ogd_depot']);
+// $ogd_station = get_station($result['ogd_station']);
+// $ogd_group = get_group($result['ogd_group']);
+// $ogd_rop = $result['ogd_rop'];
 
-//}
+// //}
 
-//awards query
-dbcon1();
-$pf_no = $_GET['pf'];
-$sql = mysqli_query("select * from  award_temp where awd_pf_number='$pf_no'");
-if ($sql) {
-	($fetch_sql = mysqli_fetch_array($sql));
-	//{
-	$awd_pf_number = $fetch_sql['awd_pf_number'];
-	$awd_award_date	 = $fetch_sql['awd_date'];
-	$awd_awarded_by = get_awarded_by($fetch_sql['awd_by']);
-	$awd_award_type = got_award($fetch_sql['awd_type']);
-	$awd_other_award = $fetch_sql['awd_other'];
-	$awd_award_detail = $fetch_sql['awd_detail'];
-	//}
-}
+// //awards query
+// // dbcon1();
+// // $pf_no = $_GET['pf'];
+// $sql = mysqli_query($conn1,"select * from  award_temp where awd_pf_number='$pf_no'");
+// if ($sql) {
+// 	($fetch_sql = mysqli_fetch_array($sql));
+// 	//{
+// 	$awd_pf_number = $fetch_sql['awd_pf_number'];
+// 	$awd_award_date	 = $fetch_sql['awd_date'];
+// 	$awd_awarded_by = get_awarded_by($fetch_sql['awd_by']);
+// 	$awd_award_type = got_award($fetch_sql['awd_type']);
+// 	$awd_other_award = $fetch_sql['awd_other'];
+// 	$awd_award_detail = $fetch_sql['awd_detail'];
+// 	//}
+// }
 
-//advance query
-dbcon1();
-$pf_no = $_GET['pf'];
-$sql = mysqli_query("select * from  advance_temp where adv_pf_number='$pf_no'");
-if ($sql) {
-	$fetch_sql = mysqli_fetch_array($sql);
-	//{
-	$pf_no = $fetch_sql['adv_pf_number'];
-	$advance_type = $fetch_sql['adv_type'];
-	$letter_number = $fetch_sql['adv_letterno'];
-	$letter_date = $fetch_sql['adv_letterdate'];
-	$wef_date = $fetch_sql['adv_wefdate'];
-	$amount = $fetch_sql['adv_amount'];
-	$tot_amt = $fetch_sql['adv_principle'];
-	$interest = $fetch_sql['adv_interest'];
-	$date_frm = $fetch_sql['adv_from'];
-	$date_to = $fetch_sql['adv_to'];
-	$remark = $fetch_sql['adv_remark'];
-	//}
-}
+// //advance query
+// // dbcon1();
+// // $pf_no = $_GET['pf'];
+// $sql = mysqli_query($conn1,"select * from  advance_temp where adv_pf_number='$pf_no'");
+// if ($sql) {
+// 	$fetch_sql = mysqli_fetch_array($sql);
+// 	//{
+// 	$pf_no = $fetch_sql['adv_pf_number'];
+// 	$advance_type = $fetch_sql['adv_type'];
+// 	$letter_number = $fetch_sql['adv_letterno'];
+// 	$letter_date = $fetch_sql['adv_letterdate'];
+// 	$wef_date = $fetch_sql['adv_wefdate'];
+// 	$amount = $fetch_sql['adv_amount'];
+// 	$tot_amt = $fetch_sql['adv_principle'];
+// 	$interest = $fetch_sql['adv_interest'];
+// 	$date_frm = $fetch_sql['adv_from'];
+// 	$date_to = $fetch_sql['adv_to'];
+// 	$remark = $fetch_sql['adv_remark'];
+// 	//}
+// }
 
 
 
 
 //increment query	
-dbcon1();
-$pf_no = $_GET['pf'];
-$sql = mysqli_query("select * from  increment_temp where incr_pf_number='$pf_no'");
-if ($sql) {
-	($fetch_sql = mysqli_fetch_array($sql));
-	//{
-	$inc_pf_number = $fetch_sql['incr_pf_number'];
-	$inc_increment_type = get_increment_type($fetch_sql['incr_type']);
+// dbcon1();
+// $pf_no = $_GET['pf'];
+// $sql = mysqli_query($conn1,"select * from  increment_temp where incr_pf_number='$pf_no'");
+// if ($sql) {
+// 	($fetch_sql = mysqli_fetch_array($sql));
+// 	//{
+// 	$inc_pf_number = $fetch_sql['incr_pf_number'];
+// 	$inc_increment_type = get_increment_type($fetch_sql['incr_type']);
 
-	$inc_increment_date = $fetch_sql['incr_date'];
-	if ($inc_increment_date != '')
-		$inc_increment_date = date('Y-m-d', strtotime($fetch_sql['incr_date']));
-	else
-		$inc_increment_date = "";
-	// $date=date_create($inc_increment_date);
-	// $inc_increment_date = date_format($date,"d/m/Y");
-	$inc_scale_type = get_pay_scale_type($fetch_sql['ps_type']);
-	$inc_scale = $fetch_sql['incr_scale'];
-	$inc_level = $fetch_sql['incr_level'];
-	$inc_old_rop = $fetch_sql['incr_oldrop'];
-	$inc_rop = $fetch_sql['incr_rop'];
-	$inc_personal_pay = $fetch_sql['incr_personel'];
-	$inc_special_pay = $fetch_sql['incr_special'];
-	$inc_next_incr_date = $fetch_sql['incr_nextdate'];
-	if ($inc_next_incr_date != '')
-		$inc_next_incr_date = date('Y-m-d', strtotime($fetch_sql['incr_nextdate']));
-	else
-		$inc_next_incr_date = '';
-	// $date=date_create($inc_next_incr_date);
-	// $inc_next_incr_date = date_format($date,"d/m/Y");
-	$inc_remark = $fetch_sql['incr_remark'];
-	//}
-}
+// 	$inc_increment_date = $fetch_sql['incr_date'];
+// 	if ($inc_increment_date != '')
+// 		$inc_increment_date = date('Y-m-d', strtotime($fetch_sql['incr_date']));
+// 	else
+// 		$inc_increment_date = "";
+// 	// $date=date_create($inc_increment_date);
+// 	// $inc_increment_date = date_format($date,"d/m/Y");
+// 	$inc_scale_type = get_pay_scale_type($fetch_sql['ps_type']);
+// 	$inc_scale = $fetch_sql['incr_scale'];
+// 	$inc_level = $fetch_sql['incr_level'];
+// 	$inc_old_rop = $fetch_sql['incr_oldrop'];
+// 	$inc_rop = $fetch_sql['incr_rop'];
+// 	$inc_personal_pay = $fetch_sql['incr_personel'];
+// 	$inc_special_pay = $fetch_sql['incr_special'];
+// 	$inc_next_incr_date = $fetch_sql['incr_nextdate'];
+// 	if ($inc_next_incr_date != '')
+// 		$inc_next_incr_date = date('Y-m-d', strtotime($fetch_sql['incr_nextdate']));
+// 	else
+// 		$inc_next_incr_date = '';
+// 	// $date=date_create($inc_next_incr_date);
+// 	// $inc_next_incr_date = date_format($date,"d/m/Y");
+// 	$inc_remark = $fetch_sql['incr_remark'];
+// 	//}
+// }
 
 //Last Entry query
-dbcon1();
-$pf_no = $_GET['pf'];
+// dbcon1();
+// $pf_no = $_GET['pf'];
 
-$query = mysqli_query("Select * from lastentry_temp where pf_number='$pf_no' ");
+// $query = mysqli_query("Select * from lastentry_temp where pf_number='$pf_no' ");
 
-($result = mysqli_fetch_assoc($query));
-// {
-$pf_number = $result['pf_number'];
-$doj = $result['date_of_join'];
-$retire_type = get_retirement_type($result['retire_type']);
-$dor = $result['retire_date'];
-$desig_or = get_designation($result['retire_designation']);
-$dept = get_department($result['department']);
-$station = $result['station'];
-$rop = $result['rop'];
-$bill_unit = get_billunit($result['bill_unit']);
-$scale_lvl = $result['scale'];
-$depot = get_depot($result['depot']);
-$emp_cat = $result['emp_category'];
-$tot_years = $result['total_years'];
-$tot_months = $result['total_months'];
-$tot_days = $result['total_days'];
-$no_years = $result['no_years'];
-$no_months = $result['no_months'];
-$no_days = $result['no_days'];
-//$nqs=$result['qualification_service'];
-$lap = $result['lap'];
-$lhap = $result['lhap'];
-$ad_leaves = $result['advance_leave'];
-//   }
+// ($result = mysqli_fetch_assoc($query));
+// // {
+// $pf_number = $result['pf_number'];
+// $doj = $result['date_of_join'];
+// $retire_type = get_retirement_type($result['retire_type']);
+// $dor = $result['retire_date'];
+// $desig_or = get_designation($result['retire_designation']);
+// $dept = get_department($result['department']);
+// $station = $result['station'];
+// $rop = $result['rop'];
+// $bill_unit = get_billunit($result['bill_unit']);
+// $scale_lvl = $result['scale'];
+// $depot = get_depot($result['depot']);
+// $emp_cat = $result['emp_category'];
+// $tot_years = $result['total_years'];
+// $tot_months = $result['total_months'];
+// $tot_days = $result['total_days'];
+// $no_years = $result['no_years'];
+// $no_months = $result['no_months'];
+// $no_days = $result['no_days'];
+// //$nqs=$result['qualification_service'];
+// $lap = $result['lap'];
+// $lhap = $result['lhap'];
+// $ad_leaves = $result['advance_leave'];
+// //   }
 
-//Prft promotion Code Start
+// //Prft promotion Code Start
 
-$pf_no = $_GET['pf'];
-$query = mysqli_query("Select * from prft_promotion_temp where pro_pf_no='$pf_no'");
-// echo "Select * from prft_promotion_temp where pro_pf_no='$pf_no'".mysql_error();
-while ($result = mysqli_fetch_assoc($query)) {
-	$pro_pf_no = $result['pro_pf_no'];
-	$pro_order_type = $result['pro_order_type'];
-	$pro_letter_no = $result['pro_letter_no'];
-	$pro_letter_date = $result['pro_letter_date'];
-	$pro_wef = $result['pro_wef'];
-	$pro_frm_dept = $result['pro_frm_dept'];
-	$pro_frm_desig = $result['pro_frm_desig'];
-	$pro_frm_othr_desig = $result['pro_frm_othr_desig'];
-	$pro_frm_pay_scale_type = $result['pro_frm_pay_scale_type'];
-	$pro_frm_scale = $result['pro_frm_scale'];
-	$pro_frm_level = $result['pro_frm_level'];
-	$pro_frm_group = $result['pro_frm_group'];
-	$pro_frm_station = $result['pro_frm_station'];
-	$pro_frm_othr_station = $result['pro_frm_othr_station'];
-	$pro_frm_rop = $result['pro_frm_rop'];
-	$pro_frm_billunit = $result['pro_frm_billunit'];
-	$pro_frm_depot = $result['pro_frm_depot'];
-	$pro_to_dept = $result['pro_to_dept'];
-	$pro_to_desig = $result['pro_to_desig'];
-	$pro_to_othr_desig = $result['pro_to_othr_desig'];
-	$pro_to_pay_scale_type = $result['pro_to_pay_scale_type'];
-	$pro_to_scale = $result['pro_to_scale'];
-	$pro_to_level = $result['pro_to_level'];
-	$pro_to_group = $result['pro_to_group'];
-	$pro_to_station = $result['pro_to_station'];
-	$pro_to_othr_station = $result['pro_to_othr_station'];
-	$rop_to = $result['rop_to'];
-	$pro_to_billunit = $result['pro_to_billunit'];
-	$pro_to_depot = $result['pro_to_depot'];
-	$pro_carried_out_type = $result['pro_carried_out_type'];
-	$pro_carri_wef = $result['pro_carri_wef'];
-	$pro_carri_date_of_incr = $result['pro_carri_date_of_incr'];
-	$pro_car_re_accept_ltr_no = $result['pro_car_re_accept_ltr_no'];
-	$pro_car_re_accept_ltr_date = $result['pro_car_re_accept_ltr_date'];
-	$pro_car_re_wef_date = $result['pro_car_re_wef_date'];
-	$pro_car_re_remark = $result['pro_car_re_remark'];
-}
+// // $pf_no = $_GET['pf'];
+// $query = mysqli_query($conn1,"Select * from prft_promotion_temp where pro_pf_no='$pf_no'");
+// // echo "Select * from prft_promotion_temp where pro_pf_no='$pf_no'".mysql_error();
+// while ($result = mysqli_fetch_assoc($query)) {
+// 	$pro_pf_no = $result['pro_pf_no'];
+// 	$pro_order_type = $result['pro_order_type'];
+// 	$pro_letter_no = $result['pro_letter_no'];
+// 	$pro_letter_date = $result['pro_letter_date'];
+// 	$pro_wef = $result['pro_wef'];
+// 	$pro_frm_dept = $result['pro_frm_dept'];
+// 	$pro_frm_desig = $result['pro_frm_desig'];
+// 	$pro_frm_othr_desig = $result['pro_frm_othr_desig'];
+// 	$pro_frm_pay_scale_type = $result['pro_frm_pay_scale_type'];
+// 	$pro_frm_scale = $result['pro_frm_scale'];
+// 	$pro_frm_level = $result['pro_frm_level'];
+// 	$pro_frm_group = $result['pro_frm_group'];
+// 	$pro_frm_station = $result['pro_frm_station'];
+// 	$pro_frm_othr_station = $result['pro_frm_othr_station'];
+// 	$pro_frm_rop = $result['pro_frm_rop'];
+// 	$pro_frm_billunit = $result['pro_frm_billunit'];
+// 	$pro_frm_depot = $result['pro_frm_depot'];
+// 	$pro_to_dept = $result['pro_to_dept'];
+// 	$pro_to_desig = $result['pro_to_desig'];
+// 	$pro_to_othr_desig = $result['pro_to_othr_desig'];
+// 	$pro_to_pay_scale_type = $result['pro_to_pay_scale_type'];
+// 	$pro_to_scale = $result['pro_to_scale'];
+// 	$pro_to_level = $result['pro_to_level'];
+// 	$pro_to_group = $result['pro_to_group'];
+// 	$pro_to_station = $result['pro_to_station'];
+// 	$pro_to_othr_station = $result['pro_to_othr_station'];
+// 	$rop_to = $result['rop_to'];
+// 	$pro_to_billunit = $result['pro_to_billunit'];
+// 	$pro_to_depot = $result['pro_to_depot'];
+// 	$pro_carried_out_type = $result['pro_carried_out_type'];
+// 	$pro_carri_wef = $result['pro_carri_wef'];
+// 	$pro_carri_date_of_incr = $result['pro_carri_date_of_incr'];
+// 	$pro_car_re_accept_ltr_no = $result['pro_car_re_accept_ltr_no'];
+// 	$pro_car_re_accept_ltr_date = $result['pro_car_re_accept_ltr_date'];
+// 	$pro_car_re_wef_date = $result['pro_car_re_wef_date'];
+// 	$pro_car_re_remark = $result['pro_car_re_remark'];
+// }
 //prft reversion code
-$pf_no = $_GET['pf'];
-$query = mysqli_query("Select * from prft_reversion_temp where rev_pf_no='$pf_no' ");
-while ($result = mysqli_fetch_assoc($query)) {
-	$rev_pf_no = $result['rev_pf_no'];
-	$rev_order_type = $result['rev_order_type'];
-	$rev_letter_no = $result['rev_letter_no'];
-	$rev_letter_date = $result['rev_letter_date'];
-	$rev_wef = $result['rev_wef'];
-	$rev_frm_dept = $result['rev_frm_dept'];
-	$rev_frm_desig = $result['rev_frm_desig'];
-	$rev_frm_othr_desig = $result['rev_frm_othr_desig'];
-	$rev_frm_pay_scale_type = $result['rev_frm_pay_scale_type'];
-	$rev_frm_scale = $result['rev_frm_scale'];
-	$rev_frm_level = $result['rev_frm_level'];
-	$rev_frm_group = $result['rev_frm_group'];
-	$rev_frm_station = $result['rev_frm_station'];
-	$rev_frm_othr_station = $result['rev_frm_othr_station'];
-	$rev_frm_rop = $result['rev_frm_rop'];
-	$rev_frm_billunit = $result['rev_frm_billunit'];
-	$rev_frm_depot = $result['rev_frm_depot'];
-	$rev_to_dept = $result['rev_to_dept'];
-	$rev_to_desig = $result['rev_to_desig'];
-	$rev_to_othr_desig = $result['rev_to_othr_desig'];
-	$rev_to_pay_scale_type = $result['rev_to_pay_scale_type'];
-	$rev_to_scale = $result['rev_to_scale'];
-	$rev_to_level = $result['rev_to_level'];
-	$rev_to_group = $result['rev_to_group'];
-	$rev_to_station = $result['rev_to_station'];
-	$rev_to_othr_station = $result['rev_to_othr_station'];
-	$rev_to_rop = $result['rev_to_rop'];
-	$rev_to_billunit = $result['rev_to_billunit'];
-	$rev_to_depot = $result['rev_to_depot'];
-	$rev_carried_out_type = $result['rev_carried_out_type'];
-	$rev_carri_wef = $result['rev_carri_wef'];
-	$rev_carri_date_of_incr = $result['rev_carri_date_of_incr'];
-	$rev_car_re_accept_ltr_no = $result['rev_car_re_accept_ltr_no'];
-	$rev_car_re_accept_ltr_date = $result['rev_car_re_accept_ltr_date'];
-	$rev_car_re_wef_date = $result['rev_car_re_wef_date'];
-	$rev_car_re_remark = $result['rev_car_re_remark'];
-}
-?>
+// $pf_no = $_GET['pf'];
+// $query = mysqli_query($conn1,"Select * from prft_reversion_temp where rev_pf_no='$pf_no' ");
+// while ($result = mysqli_fetch_assoc($query)) {
+// 	$rev_pf_no = $result['rev_pf_no'];
+// 	$rev_order_type = $result['rev_order_type'];
+// 	$rev_letter_no = $result['rev_letter_no'];
+// 	$rev_letter_date = $result['rev_letter_date'];
+// 	$rev_wef = $result['rev_wef'];
+// 	$rev_frm_dept = $result['rev_frm_dept'];
+// 	$rev_frm_desig = $result['rev_frm_desig'];
+// 	$rev_frm_othr_desig = $result['rev_frm_othr_desig'];
+// 	$rev_frm_pay_scale_type = $result['rev_frm_pay_scale_type'];
+// 	$rev_frm_scale = $result['rev_frm_scale'];
+// 	$rev_frm_level = $result['rev_frm_level'];
+// 	$rev_frm_group = $result['rev_frm_group'];
+// 	$rev_frm_station = $result['rev_frm_station'];
+// 	$rev_frm_othr_station = $result['rev_frm_othr_station'];
+// 	$rev_frm_rop = $result['rev_frm_rop'];
+// 	$rev_frm_billunit = $result['rev_frm_billunit'];
+// 	$rev_frm_depot = $result['rev_frm_depot'];
+// 	$rev_to_dept = $result['rev_to_dept'];
+// 	$rev_to_desig = $result['rev_to_desig'];
+// 	$rev_to_othr_desig = $result['rev_to_othr_desig'];
+// 	$rev_to_pay_scale_type = $result['rev_to_pay_scale_type'];
+// 	$rev_to_scale = $result['rev_to_scale'];
+// 	$rev_to_level = $result['rev_to_level'];
+// 	$rev_to_group = $result['rev_to_group'];
+// 	$rev_to_station = $result['rev_to_station'];
+// 	$rev_to_othr_station = $result['rev_to_othr_station'];
+// 	$rev_to_rop = $result['rev_to_rop'];
+// 	$rev_to_billunit = $result['rev_to_billunit'];
+// 	$rev_to_depot = $result['rev_to_depot'];
+// 	$rev_carried_out_type = $result['rev_carried_out_type'];
+// 	$rev_carri_wef = $result['rev_carri_wef'];
+// 	$rev_carri_date_of_incr = $result['rev_carri_date_of_incr'];
+// 	$rev_car_re_accept_ltr_no = $result['rev_car_re_accept_ltr_no'];
+// 	$rev_car_re_accept_ltr_date = $result['rev_car_re_accept_ltr_date'];
+// 	$rev_car_re_wef_date = $result['rev_car_re_wef_date'];
+// 	$rev_car_re_remark = $result['rev_car_re_remark'];
+// }
+// ?>
 
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -433,7 +445,7 @@ while ($result = mysqli_fetch_assoc($query)) {
 		<li class="tab_view active"><a href="#" data-toggle="tab" class="visit" id="tab_view"><b>Tabular</b></a></li>
 		<li class="tab_single"><a href="#" data-toggle="tab" class="visit" id='single_view'><b>Single</b></a></li>
 	</ul>
-	<section class="content-header1" style="display:none" id="singles">
+	<section class="content-header1" id="singles">
 		<div class="box box-warning box-solid">
 			<div class="modal-body">
 				<div class="row">
@@ -448,7 +460,7 @@ while ($result = mysqli_fetch_assoc($query)) {
 									</tr>
 									<tr>
 										<td><label class="control-label labelhed ">PF Number</label></td>
-										<td> <label class="control-label labelhdata"> <?php echo $pf_number_bio ?></label></td>
+										<td> <label class="control-label labelhdata"> <?php echo $pf_number_bio; ?></label></td>
 										<td><label class="control-label labelhed "> Old PF Number</label></td>
 										<td> <label class="control-label labelhdata"> <?php echo $oldpf_number ?></label></td>
 										<td><label class="control-label labelhed">SR NO</label></td>

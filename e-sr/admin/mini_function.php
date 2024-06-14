@@ -1,14 +1,15 @@
 <?php
 include_once('../dbconfig/dbcon.php');
+
 error_reporting(0);
 
 function bill_depot1($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) 
 		{
 			$sql = "SELECT * FROM `billunit` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['billunit']."&nbsp;".$res['deopt'];
 			}	
@@ -22,11 +23,11 @@ function bill_depot1($id)
 	
 	function bill_depot($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) 
 		{
 			$sql = "SELECT * FROM `billunit` WHERE `billunit` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['billunit']."&nbsp;".$res['deopt'];
 			}	
@@ -36,11 +37,11 @@ function bill_depot1($id)
 	
 	function bill_id($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) 
 		{
 			$sql = "SELECT * FROM `billunit` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['id'];
 			}	
@@ -55,7 +56,7 @@ function bill_depot1($id)
 		if (!empty($id)) 
 		{
 			$sql = "SELECT * FROM `billunit` WHERE `billunit` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['id'];
 			}	
@@ -67,11 +68,11 @@ function bill_depot1($id)
 
 	function get_religion($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) 
 		{
 			$sql = "SELECT * FROM `religion` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['longdesc'];
 			}	
@@ -81,11 +82,11 @@ function bill_depot1($id)
 	
 	function get_community($id)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
 			$sql = "SELECT * FROM `community` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['LONGDESC'];
 			}
@@ -95,11 +96,11 @@ function bill_depot1($id)
 	
 	function get_depot($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
 			$sql = "SELECT * FROM `billunit` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['deopt'];
 			}
@@ -115,10 +116,10 @@ function bill_depot1($id)
 	}
 	function get_gender($id)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
-			$sql=mysql_query("select * from gender where id='$id'");
+			$sql=mysql_query($conn,"select * from gender where id='$id'");
 			$res=mysql_fetch_assoc($sql);
 			$gender=$res['gender'];
 			return $gender;
@@ -128,10 +129,10 @@ function bill_depot1($id)
 	
 	
 	function get_group($id){
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
-			$sql=mysql_query("select * from group_col where id='$id'");
+			$sql=mysql_query($conn,"select * from group_col where id='$id'");
 			$res=mysql_fetch_assoc($sql);
 			$group_col=$res['group_col'];
 			return $group_col;
@@ -141,11 +142,11 @@ function bill_depot1($id)
 	
 	function get_department($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) 
 		{
 			$sql = "SELECT * FROM `department` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['DEPTDESC'];
 			}
@@ -154,11 +155,11 @@ function bill_depot1($id)
 	}
 	function get_designation($id)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
 			$sql = "SELECT * FROM `designation` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['desiglongdesc'];
 			}
@@ -167,11 +168,11 @@ function bill_depot1($id)
 	}
 	function get_appointment_type($id)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
 			$sql = "SELECT * FROM `appointment_type` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['type'];
 			}
@@ -180,10 +181,10 @@ function bill_depot1($id)
 	}
 	function get_medi_category($id)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) {
 			$sql = "SELECT * FROM `medical_classi` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['longdesc'];
 			}
@@ -193,10 +194,10 @@ function bill_depot1($id)
 	
 	function get_station($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) {
 			$sql = "SELECT * FROM `station` WHERE `stationcode` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn, $sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['stationdesc'];
 			}
@@ -206,10 +207,10 @@ function bill_depot1($id)
 	
 	function get_billunit($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) {
 			$sql = "SELECT * FROM `billunit` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['billunit'];
 			}
@@ -232,10 +233,10 @@ function bill_depot1($id)
 	
 	function get_advance($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) {
 			$sql = "SELECT * FROM `advance` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['long_desc'];
 			}
@@ -245,10 +246,10 @@ function bill_depot1($id)
 	
 	function get_relation($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) {
 			$sql = "SELECT * FROM `relation` WHERE `code` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['longdesc'];
 			}
@@ -258,10 +259,10 @@ function bill_depot1($id)
 	
 	function get_nom_type($id) 
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id)) {
 			$sql = "SELECT * FROM `nomination_type` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+			$query = mysql_query($conn,$sql) or trigger_error("Query Failed: " . mysql_error());
 			while($res=mysql_fetch_array($query)){
 				return $res['nomination_type'];
 			}
@@ -272,9 +273,9 @@ function bill_depot1($id)
 	
 	function got_mr($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($mr)) {
-			$marital_status=mysql_query("select * from marital_status where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from marital_status where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['shortdesc'];
@@ -286,10 +287,10 @@ function bill_depot1($id)
 	}
 	function got_award($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($mr)) 
 		{
-			$marital_status=mysql_query("select * from awards where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from awards where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['awards'];
@@ -300,10 +301,10 @@ function bill_depot1($id)
 	}
 	function fetch_user($user)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($user)) 
 		{
-			$sql=mysql_query("select * from tbl_login where adminid='$user'");
+			$sql=mysql_query($conn,"select * from tbl_login where adminid='$user'");
 			while($result=mysql_fetch_array($sql)){
 				$username=$result['username'];
 			}
@@ -314,10 +315,10 @@ function bill_depot1($id)
 	
 	function fetch_user_name($user)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($user)) 
 		{
-			$sql=mysql_query("select * from tbl_login where adminid='$user'");
+			$sql=mysql_query($conn,"select * from tbl_login where adminid='$user'");
 			while($result=mysql_fetch_array($sql)){
 				$username=$result['adminname'];
 			}
@@ -328,10 +329,10 @@ function bill_depot1($id)
 	
 	function get_recruitment_code($user)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($user)) 
 		{
-			$sql=mysql_query("select * from  recruitment where id='$user'");
+			$sql=mysql_query($conn,"select * from  recruitment where id='$user'");
 			while($result=mysql_fetch_array($sql)){
 				$username=$result['shortdesc'];
 			}
@@ -342,13 +343,13 @@ function bill_depot1($id)
 	
 	function get_initial_edu($user)
 	{
-		dbcon();
+		$conn = dbcon();
 		$data=explode(",",$user);
 		$edu="";
 		
 		foreach($data as $out)
 		{
-			$sql=mysql_query("select education from education where id='$out'");
+			$sql=mysql_query($conn,"select education from education where id='$out'");
 			while($result=mysql_fetch_array($sql))
 			{
 				$edu.=" ".$result['education'];
@@ -358,13 +359,13 @@ function bill_depot1($id)
 	}
 	function get_source_typ($src)
 	{
-		dbcon();
+		$conn = dbcon();
 		$data=explode(",",$src);
 		$edu="";
 		
 		foreach($data as $out)
 		{
-			$sql=mysql_query("select property_source from property_source where id='$out'");
+			$sql=mysql_query($conn,"select property_source from property_source where id='$out'");
 			while($result=mysql_fetch_array($sql))
 			{
 				$edu.=" ".$result['property_source']."<br>";
@@ -375,13 +376,13 @@ function bill_depot1($id)
 	
 	function get_sub_edu($user)
 	{
-		dbcon();
+		$conn = dbcon();
 		$data=explode(",",$user);
 		$edu="";
 		
 		foreach($data as $out)
 		{
-			$sql=mysql_query("select education from education where id='$out'");
+			$sql=mysql_query($conn,"select education from education where id='$out'");
 			while($result=mysql_fetch_array($sql))
 			{
 				$edu.=" ".$result['education'];
@@ -393,10 +394,10 @@ function bill_depot1($id)
 	
 	function get_pme($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from medical_pme_class where short_desc='$mr'");
+			$marital_status=mysql_query($conn,"select * from medical_pme_class where short_desc='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['short_desc'];
@@ -408,10 +409,10 @@ function bill_depot1($id)
 	
 	 function get_appo_type($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from appointment_type where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from appointment_type where id='$mr'");
 			$fetch_mr=mysql_fetch_array($marital_status);
 				return $fetch_mr['type']; 
 		}
@@ -420,10 +421,10 @@ function bill_depot1($id)
 	
 	function get_pay_scale_type($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from  pay_scale_type where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from  pay_scale_type where id='$mr'");
 			
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{	
@@ -435,10 +436,10 @@ function bill_depot1($id)
 	
 	function get_order_type_pro_rev($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from  order_type_pro_rev where shortdesc='$mr'");
+			$marital_status=mysql_query($conn,"select * from  order_type_pro_rev where shortdesc='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['longdesc'];
@@ -450,10 +451,10 @@ function bill_depot1($id)
 	
 	function get_order_type_transfer($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from  order_type_transfer where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from  order_type_transfer where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['type'];
@@ -465,10 +466,10 @@ function bill_depot1($id)
 	
 	function get_order_type_fixation($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from  order_type_fixation where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from  order_type_fixation where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['type'];
@@ -480,10 +481,10 @@ function bill_depot1($id)
 	
 	function get_penalty_type($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from penalty_type where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from penalty_type where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				return $fetch_mr['type'];
@@ -494,10 +495,10 @@ function bill_depot1($id)
 	
 	function get_increment_type($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from increment_type where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from increment_type where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['increment_type'];
@@ -509,10 +510,10 @@ function bill_depot1($id)
 	
 	function get_awarded_by($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from awarded_by where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from awarded_by where id='$mr'");
 			//echo "select * from awarded_by where id='$mr'".mysql_error();
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
@@ -525,10 +526,10 @@ function bill_depot1($id)
 	
 	function get_awards($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from awards where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from awards where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['awards'];
@@ -541,10 +542,10 @@ function bill_depot1($id)
 	
 	function get_property_type($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from property_type where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from property_type where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['type'];
@@ -556,10 +557,10 @@ function bill_depot1($id)
 	
 	function get_property_item($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from property_item where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from property_item where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['item'];
@@ -571,10 +572,10 @@ function bill_depot1($id)
 	
 	function get_property_source($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from property_source where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from property_source where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['property_source'];
@@ -585,10 +586,10 @@ function bill_depot1($id)
 	}
 	function get_training_type($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from training_type where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from training_type where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['type'];
@@ -599,10 +600,10 @@ function bill_depot1($id)
 	}
 	function get_charge_sheet_status($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from charge_sheet_status where id='$mr'");
+			$marital_status=mysql_query($conn,"select * from charge_sheet_status where id='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['charge_sheet_status'];
@@ -614,10 +615,10 @@ function bill_depot1($id)
 	
 	function get_emp_name($mr)
 	{
-		dbcon1();
+		$conn1 = dbcon1();
 		if(!empty($mr))
 		{
-			$marital_status=mysql_query("select * from biodata_temp where `pf_number`='$mr'");
+			$marital_status=mysql_query($conn1,"select * from biodata_temp where `pf_number`='$mr'");
 			while($fetch_mr=mysql_fetch_array($marital_status))
 			{
 				$g_mr=$fetch_mr['emp_name'];
@@ -630,10 +631,10 @@ function bill_depot1($id)
 
 	function get_billunit_report($mr)
 	{
-		dbcon();
+		$conn = dbcon();
 		if(!empty($mr))
 		{
-			$sql=mysql_query("select * from billunit where billunit='$mr'");
+			$sql=mysql_query($conn,"select * from billunit where billunit='$mr'");
 			$f=mysql_fetch_array($sql);
 			$ans=$f['id'];
 			return $ans;
@@ -645,10 +646,10 @@ function bill_depot1($id)
 	
 	function get_fam_name($id)
 	{
-		dbcon1();
+		$conn1 = dbcon1();
 		if (!empty($id))
 		{
-			$sql=mysql_query("select * from family_temp where id='$id'")or die(mysql_error());
+			$sql=mysql_query($conn1,"select * from family_temp where id='$id'")or die(mysql_error());
 			//echo "select * from nominee_temp where id='$id'";
 			$res=mysql_fetch_array($sql);
 			$nom_name=$res['fmy_member'];
@@ -659,10 +660,10 @@ function bill_depot1($id)
 	
 	function get_retirement_type($id)
 	{
-		dbcon();
+		$conn = dbcon();
 		if (!empty($id))
 		{
-			$sql=mysql_query("select * from retirement_type where id='$id'")or die(mysql_error());
+			$sql=mysql_query($conn,"select * from retirement_type where id='$id'")or die(mysql_error());
 			$res=mysql_fetch_array($sql);
 			$nom_name=$res['retirement_type'];
 			return $nom_name;
@@ -672,32 +673,32 @@ function bill_depot1($id)
 	
 	function get_pf_designation($pf)
 	{
-		dbcon1();
-		$sql=mysql_query("select preapp_designation from present_work_temp where preapp_pf_number='$pf'");
+		$conn1 = dbcon1();
+		$sql=mysql_query($conn1,"select preapp_designation from present_work_temp where preapp_pf_number='$pf'");
 		$res=mysql_fetch_array($sql);
 		return get_designation($res['preapp_designation']);
 	}
 
 	function get_pf_aadhar($pf)
 	{
-		dbcon1();
-		$sql=mysql_query("select aadhar_number from biodata_temp where pf_number='$pf_no'");
+		$conn1 = dbcon1();
+		$sql=mysql_query($conn1,"select aadhar_number from biodata_temp where pf_number='$pf_no'");
 		$res=mysql_fetch_array($sql);
 		return $res['aadhar_number'];
 	}
 
 	function get_pf_department($pf)
 	{
-		dbcon1();
-		$sql=mysql_query("select preapp_department from present_work_temp where preapp_pf_number='$pf'");
+		$conn1 = dbcon1();
+		$sql=mysql_query($conn1,"select preapp_department from present_work_temp where preapp_pf_number='$pf'");
 		$res=mysql_fetch_array($sql);
 		return $res['preapp_department'];
 	}
 
 	function get_pf_billunit($billunit)
 	{
-		dbcon1();
-		$sql=mysql_query("select preapp_billunit from present_work_temp where preapp_pf_number='$billunit'");
+		$conn1 = dbcon1();
+		$sql=mysql_query($conn1,"select preapp_billunit from present_work_temp where preapp_pf_number='$billunit'");
 		echo "select preapp_billunit from present_work_temp where preapp_pf_no='$billunit'".mysql_error();
 		$res=mysql_fetch_array($sql);
 		return $sql;
