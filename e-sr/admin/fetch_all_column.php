@@ -1,5 +1,5 @@
 <?php
-include_once('../dbconfig/dbcon.php');
+require_once('../dbconfig/dbcon.php');
 
 function get_medical_classi($id) 
 	{

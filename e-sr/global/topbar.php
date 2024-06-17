@@ -1,6 +1,8 @@
 <?php
 error_reporting(0);
- //echo $_SESSION['SESSION_ROLE'];
+ echo $_SESSION['SESSION_ROLE'];
+require_once('../dbconfig/dbcon.php');
+ $conn1 = dbcon1();
  ?>
 
 <style>
@@ -64,16 +66,11 @@ error_reporting(0);
     <!-- Header Navbar: style can be found in header.less -->
 
     <nav class="navbar navbar-static-top">
-
-
-
         <!-- Sidebar toggle button-->
         <!--a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
 		<span class="sr-only">Toggle navigation</span>
 		</a-->
         <ul class="nav navbar-nav" style="margin-left:10px;">
-
-
             <?php if($_SESSION['name']=='guest') {?>
             <!--<li class=""><a href="../index.php" style="">HOME</a></li>-->
             <li>
@@ -87,8 +84,8 @@ error_reporting(0);
 
             <?php }?>
             <?php if($_SESSION['SESSION_ROLE']=='guest'){?>
-            <li class="" <?php if($_GLOBALS['a']=='index'){echo 'class="active"';}?>><a href="index.php"
-                    style="">HOME</a></li>
+            <li class="" <?php if($_GLOBALS['a']=='index'){echo 'class="active"';}?>>
+                <a href="index.php" style="">HOME</a></li>
             <li>
                 <div class="dropdown" style="">
                     <button class="dropbtn" style="font-size:17px;margin-top:3px;">TRANSACTIONS&nbsp;<i
@@ -104,10 +101,9 @@ error_reporting(0);
             <?php }?>
             <?php  
 			   if($_SESSION['SESSION_ROLE']=='superadmin') {?>
-            <li class="" <?php if($_GLOBALS['a']=='index'){echo 'class="active"';}?>><a href="index.php"
+            <li class="" 
+            <?php if($_GLOBALS['a']=='index'){echo 'class="active"';}?>><a href="index.php"
                     style="">HOME</a></li>
-
-
             <li>
                 <div class="dropdown" style="">
                     <button class="dropbtn" style="font-size:17px;margin-top:3px;">TRANSACTIONS&nbsp;<i
@@ -153,10 +149,8 @@ error_reporting(0);
                         <a href="add_increment_type.php"><span>Increment Type</span></a>
                         <a href="add_penalty_award.php"><span>Penalty Awarded</span></a>
                         <a href="add_penalty_effected.php"><span></span>Penalty Effected</a>
-
                         <a href="add_property_source.php"><span>Property Source</span></a>
                         <a href="add_awards.php"><span>Awards</span></a>
-
                         <a href="add_movable_item.php"><span>Property Item Movable</span></a>
                         <a href="add_inmovable_item.php"><span>Property Item Inmovable</span></a>
                         <a href="community.php"><span>Community</span></a>
@@ -179,61 +173,46 @@ error_reporting(0);
 
 
         <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown user-menu">
+            <?php
+            //session_start();
+            if($_SESSION['SESSION_ROLE']=='superadmin'){
+                // dbcon();
+                $sqladmin = mysqli_query($conn1, "SELECT * FROM tbl_login WHERE role='" . $_SESSION['SESSION_ROLE'] . "'");
+            } else {
+                // dbcon1();
+                $sqladmin = mysqli_query($conn1, "SELECT * FROM user_login WHERE adminid='" . $_SESSION['SESS_MEMBER_ID'] . "'");
+            }
 
+            while($rwAdmin = mysqli_fetch_array($sqladmin, MYSQLI_BOTH)) {
+                $rwname = $rwAdmin["adminname"];
+                //echo "$rwname";
+            ?>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <img src="../plugins/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+                <span class="d-none d-md-inline">
+                    <?php echo $rwname;?>
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <!-- User image -->
+                <div class="dropdown-header text-center">
+                    <img src="../plugins/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <p><?php echo $rwname;?></p>
+                </div>
+                <!-- Menu Footer-->
+                <div class="dropdown-footer d-flex justify-content-between">
+                    <a href="../admin/frmadminprofile.php" class="btn btn-default btn-flat">Profile</a>
+                    <a href="../logout.php" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+            </div>
+            <?php
+            }
+            ?>
+        </li>
+    </ul>
+</div>
 
-                <li class="dropdown user user-menu">
-                    <?php
-				//session_start();
-				if($_SESSION['SESSION_ROLE']=='superadmin'){
-					dbcon();
-			  $sqladmin=mysql_query("select * from tbl_login where role='".$_SESSION['SESSION_ROLE']."'");
-				}
-				else
-				{	dbcon1();
-					$sqladmin=mysql_query("select * from user_login where adminid='".$_SESSION['SESS_MEMBER_ID']."' ");
-				}
-			  while($rwAdmin=mysql_fetch_array($sqladmin,MYSQL_BOTH))
-			  {
-			  $rwname=$rwAdmin["adminname"];
-			 //echo "$rwname";
-			  ?>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="../plugins/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">
-                            <?php echo $rwname;?>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src="../plugins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                            <p>
-                                <?php echo $rwname;?>
-                            </p>
-                        </li>
-
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="../admin/frmadminprofile.php" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="../logout.php" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <?php
-			}
-			?>
-                </li>
-                <!-- Control Sidebar Toggle Button -->
-                <!--li>
-            <a href="../index.php" data-toggle="control-sidebar"><i class="fa fa-power-off text-yellow" ></i> Logout</a>
-          </li-->
-            </ul>
-
-        </div>
     </nav>
 </header>

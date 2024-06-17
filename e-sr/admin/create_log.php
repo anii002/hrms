@@ -2,6 +2,7 @@
 
 define('ENCRYPTION_KEY', 'E26C86962EB738FC817A48EF8971B67A9C68DA95B916B8ECFCDD067D3A445E43');
 
+
 function create_log($action, $action_on)
 {
     $conn = dbcon1();
