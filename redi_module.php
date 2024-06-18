@@ -680,7 +680,7 @@
 			{
 			    
 			    mysqli_connect('localhost', 'root', '');
-    			if(mysqli_select_db($conn, 'drmpsurh_srnew'))
+    			if(mysqli_select_db($conn, 'drmpsurh_sr'))
     			{
     				//echo "Connected";
     			}
@@ -697,23 +697,23 @@
     			$_SESSION['SESS_ADMIN_NAME'] = 'drmsr';
     			/*$_SESSION['set_update_pf']='';
     			$_SESSION['same_pf_no']='';*/
-    			echo "<script>window.location.href='../e-sr/admin/index.php';</script>";
+    			echo "<script>window.location.href='e-sr/admin/index.php';</script>";
 			}
 
  			if($_POST['sar'] == 1)
  			{
  			    
  			    mysqli_connect('localhost', 'root', '');
-    			if(mysqli_select_db($conn, 'drmpsurh_sr'))
+    			if(mysqli_select_db($conn, 'drmpsurh_srnew'))
     			{
-    				//echo "Connected";
+    				// echo "Connected";
     			}
     			else
     			{
-    				//echo "Not Connected";
+    				// echo "Not Connected";
     			}
-    			//exit();
-			    $sql_sar = "SELECT * FROM user_login WHERE pf_no = '$pf_num' AND act_deact = '0'";
+    			// exit();
+			    // $sql_sar = "SELECT * FROM user_login WHERE pf_no = '$pf_num' AND act_deact = '0'";
 			    $result_sar = mysqli_query($conn, $sql_sar);
 			    $row_sar = mysqli_fetch_assoc($result_sar);
  				$_SESSION['id'] = $row_sar['adminid'];
@@ -724,7 +724,7 @@
 			    $_SESSION['SESS_ADMIN_NAME'] = $row_sar['username'];
 			    $_SESSION['set_update_pf']='';
 			    $_SESSION['same_pf_no']='';
- 				echo "<script>window.location.href='../e-sr/admin/index.php';</script>";
+ 				echo "<script>window.location.href='e-sr/admin/index.php';</script>";
  			}
 			
 			if($_POST['sar'] == 2)
