@@ -56,7 +56,8 @@ function bill_id($id)
 
 function bill_to_id($id) 
 {
-	$conn = dbcon();
+ $conn = dbcon1();
+
 	if (!empty($id)) 
 	{
 		$sql = "SELECT * FROM `billunit` WHERE `billunit` = ?";

@@ -700,32 +700,50 @@
     			echo "<script>window.location.href='e-sr/admin/index.php';</script>";
 			}
 
- 			if($_POST['sar'] == 1)
- 			{
- 			    
- 			    mysqli_connect('localhost', 'root', '');
-    			if(mysqli_select_db($conn, 'drmpsurh_srnew'))
-    			{
-    				// echo "Connected";
-    			}
-    			else
-    			{
-    				// echo "Not Connected";
-    			}
-    			// exit();
-			    // $sql_sar = "SELECT * FROM user_login WHERE pf_no = '$pf_num' AND act_deact = '0'";
-			    $result_sar = mysqli_query($conn, $sql_sar);
-			    $row_sar = mysqli_fetch_assoc($result_sar);
- 				$_SESSION['id'] = $row_sar['adminid'];
-			    $_SESSION['SESS_MEMBER_ID'] = $row_sar['adminid'];
-			    $_SESSION['SESS_ADMIN_FULLNAME'] = $row_sar['adminname'];		
-			    $_SESSION['SESSION_ROLE'] = $row_sar['role'];
-			    $_SESSION['SESS_MEMBER_NAME'] = $row_sar['username'];
-			    $_SESSION['SESS_ADMIN_NAME'] = $row_sar['username'];
-			    $_SESSION['set_update_pf']='';
-			    $_SESSION['same_pf_no']='';
- 				echo "<script>window.location.href='e-sr/admin/index.php';</script>";
- 			}
+			
+
+			if ($_POST['sar'] == 1) {
+				
+				// Create the connection to the database
+				$conn = new mysqli('localhost', 'root', '', 'drmpsurh_sr');
+				
+				// Check the connection
+				if ($conn->connect_error) {
+					die("Connection failed: " . $conn->connect_error);
+				}
+			
+				// Define the SQL query
+				$pf_num = $_SESSION['pf_num']; // Assuming $pf_num is stored in the session
+				$sql_sar = "SELECT * FROM user_login WHERE pf_no = '$pf_num' AND act_deact = '0'";
+			
+				// Execute the query
+				$result_sar = $conn->query($sql_sar);
+			
+				if ($result_sar && $result_sar->num_rows > 0) {
+					$row_sar = $result_sar->fetch_assoc();
+					
+					// Store the results in session variables
+					$_SESSION['id'] = $row_sar['adminid'];
+					$_SESSION['SESS_MEMBER_ID'] = $row_sar['adminid'];
+					$_SESSION['SESS_ADMIN_FULLNAME'] = $row_sar['adminname'];		
+					$_SESSION['SESSION_ROLE'] = $row_sar['role'];
+					$_SESSION['SESS_MEMBER_NAME'] = $row_sar['username'];
+					$_SESSION['SESS_ADMIN_NAME'] = $row_sar['username'];
+					$_SESSION['set_update_pf'] = '';
+					$_SESSION['same_pf_no'] = '';
+			
+					// Redirect to the admin index page
+					echo "<script>window.location.href='e-sr/admin/index.php';</script>";
+				} else {
+					// Handle the case where no results are found
+					echo "<script>alert('User not found or inactive.');</script>";
+				}
+			
+				// Close the connection
+				$conn->close();
+			}
+			
+			
 			
 			if($_POST['sar'] == 2)
 			{

@@ -6,7 +6,7 @@ include_once('../global/topbar.php');
 require_once('../dbconfig/dbcon.php');
 error_reporting(0);
 
-// require_once('mini_function.php');
+require_once('mini_function.php');
 // require_once('create_log.php');
 //include_once('../global/sidebaradmin.php');
 $conn1 = dbcon1();
@@ -95,7 +95,7 @@ if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
 										for ($i = 0; $i < $count1; $i++) {
 											$billunit = $bill1[$i];
 											$a = bill_to_id($billunit);
-
+											
 											$query2 = mysqli_query($conn1, "SELECT * FROM present_work_temp WHERE preapp_billunit='$a'");
 											if (!$query2) {
 												die("Query failed: " . mysqli_error($conn1));
