@@ -172,6 +172,7 @@ Page Header
   margin: 0;
   padding: 0;
   float: right;
+  background-color: red;
 }
 .page-header.navbar .top-menu .navbar-nav {
   padding: 0;

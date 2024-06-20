@@ -5,7 +5,6 @@ require_once('../global/header.php');
 include_once('../global/topbar.php');
 require_once('../dbconfig/dbcon.php');
 error_reporting(0);
-
 require_once('mini_function.php');
 // require_once('create_log.php');
 //include_once('../global/sidebaradmin.php');

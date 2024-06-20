@@ -108,19 +108,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         for ($i = 0; $i < count($eims); $i++) { ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($eims[$i] == "0") { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="eims" id="admin" value="0"> Admin </label>
-                    <?php }
-                    if ($eims[$i] == 1) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="eims" id="sectionalincharge" value="1"> Sectional Incharge </label>
-                    <?php }
-                    if ($eims[$i] == 2) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="eims" id="employee" value="2" checked> Employee </label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="eims" id="admin" value="0" <?php echo ($eims[$i] == "0") ? 'checked' : ''; ?>> Admin
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="eims" id="sectionalincharge" value="1" <?php echo ($eims[$i] == 1) ? 'checked' : ''; ?>> Sectional Incharge
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="eims" id="employee" value="2" <?php echo ($eims[$i] == 2) ? 'checked' : ''; ?>> Employee
+                    </label>
                 </div>
             </div>
         <?php }
     }
+    
+    
 
     if ($name == 'cga') {
         $cga = explode(',', $row['cga']);

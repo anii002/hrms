@@ -4,7 +4,7 @@ require_once 'common/db.php';
 session_start();
 
 if (!isset($_SESSION["UserName"])) {
-    echo "<script>window.location.href='Login.php';</script>";
+    echo "<script>window.location.href='index.php';</script>";
     exit;
 }
 

@@ -1,12 +1,11 @@
 <?php
 include_once('../dbconfig/dbcon.php');
-$conn1 = //dbcon1();
+$conn1 = $dbcon1();
 include('mini_function.php');
 include('fetch_all_column.php');
 include_once('functions.php');
 if (isset($_REQUEST['action'])) {
-	switch (strtolower($_REQUEST['action'])) { 
-              
+	switch (strtolower($_REQUEST['action'])) {  
            case 'get_pending_pf_report':
 				$data='';
 				$count=0;
