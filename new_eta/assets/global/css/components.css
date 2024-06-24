@@ -12228,10 +12228,12 @@ Transparent Button
   color: #888;
 }
 
-/*.loginas{
-  margin-top: 5px;
+ .loginas{
+  /* margin-top: 5px; */
+  margin-bottom: 0 !important;
   margin-right: 10px;
+ 
 }
 .loginas li{list-style: none;}
-.loginas li a{color: #fff;}*/
+.loginas li a{color: #fff;} 
 

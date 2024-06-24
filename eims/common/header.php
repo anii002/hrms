@@ -18,85 +18,97 @@ if (!isset($_SESSION['user'])) {
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-	 
-    <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
+    <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Khand:300,400,500,600,700&amp;subset=devanagari" rel="stylesheet">
+    <!-- <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link href="../../new_eta/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
-    <link href="../../new_eta/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
+    <link href="../../hrms/new_eta/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta//global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
-    <link href="../../new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-    <link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/select2/select2.css" />
+    <link rel="stylesheet" type="text/css" href="../../hrms/new_eta/assets/global/plugins/select2/select2.css" />
     <!-- Datatable css-->
-    <!-- <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" /> -->
-    <!-- <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" /> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" /> -->
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../hrms/new_eta/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
     <!-- BEGIN PAGE STYLES -->
-    <link href="../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <link href="../../new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="../../new_eta/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="../../new_eta/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+    <link href="../../hrms/new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../../hrms/new_eta/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="../../hrms/new_eta/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
-    <link rel="stylesheet" href="../../new_eta/assets/other/plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="../../new_eta/assets/other/plugins/datepicker/datepicker3.css">
-    <link rel="stylesheet" href="../../new_eta/assets/css/preloader/preloader-style.css">
-    <link rel="shortcut icon" href="../../new_eta/assets/img/logo1.png" />
-    <style type="text/css">
-        .pre-loader {
-            background-color: #ffff;
-            position: fixed;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 100%;
-            width: 100%;
-            left: 0;
-            top: 0;
-            z-index: 10000000;
-        }
 
-        .btn-orange-moon {
-            background: #FF416C;
-            background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
-            background: linear-gradient(to right, #FF416C, #FF4B2B);
-            color: #fff;
-        }
+    <link rel="stylesheet" href="../../hrms/new_eta/assets/other/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../../hrms/new_eta/assets/other/plugins/datepicker/datepicker3.css">
 
-        .modal-width {
-            width: 100% !important;
-            max-width: 700px;
-            left: 45% !important;
-        }
+    <link rel="stylesheet" href="../../hrms/new_eta/assets/css/preloader/preloader-style.css">
+    <link rel="shortcut icon" href="../../hrms/new_eta/assets/img/logo1.png" />
 
-        .loginas {
-            margin-top: 5px;
-            margin-right: 10px;
-        }
+    <!-- <style type="text/css">
 
-        .loginas li {
-            list-style: none;
-        }
+.pre-loader {
+    background-color: #ffff;
+    /*background-image: url("img/abc.gif");*/
+    position: fixed;
+    background-repeat:no-repeat;
+    background-position:center;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10000000;
+}
 
-        .loginas li a {
-            color: #fff;
-        }
-    </style>
+
+.btn-orange-moon {
+    background: #FF416C;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FF416C, #FF4B2B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    /*border: 3px solid #eee;*/
+}
+
+.modal-width {
+    width: 100% !important;
+    max-width: 700px;
+    left: 45% !important;
+}
+
+.loginas{
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.loginas li{
+    list-style: none;
+}
+
+.loginas li a{
+    color: #fff;
+}
+</style> -->
 </head>
+
+
 
 <body class="page-header-fixed page-quick-sidebar-over-content page-style-square page-sidebar-closed">
     <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
-        <div class="pre-loader preloader-single shadow-inner mg-t-30">
+        <!-- <div class="pre-loader preloader-single shadow-inner mg-t-30">
             <div class="ts_preloading_box">
                 <div id="ts-preloader-absolute30">
                     <div id="absolute30">
@@ -104,7 +116,7 @@ if (!isset($_SESSION['user'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="page-header-inner">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
@@ -126,13 +138,13 @@ if (!isset($_SESSION['user'])) {
                             <?php
                             if (!isset($_SESSION['profile_image'])) {
                             ?>
-                                <img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
+                                <img alt="" class="img-circle" src="../../hrms/new_eta/assets/admin/layout/img/avatar3_small.jpg" />
                             <?php
                             } else { ?>
-                                <img alt="" class="img-circle" src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" />
+                                <img alt="" class="img-circle" src="../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
                             <?php } ?>
                             <span class="username username-hide-on-mobile">
-                                <!-- <span class="empname" style="color: floralwhite;">
+                                <span class="empname" style="color: floralwhite;">
                                     <?php
                                     $user = "root";
                                     $pass = "";
@@ -147,7 +159,7 @@ if (!isset($_SESSION['user'])) {
                                         echo $row['name'];
                                     }
                                     ?>
-                                </span> -->
+                                </span>
                             </span>
                             <i class="fa fa-angle-down"></i>
                         </a>
@@ -168,7 +180,7 @@ if (!isset($_SESSION['user'])) {
                     </li>
                 </ul>
                 <ul class="loginas pull-right">
-                    <li><a class="btn btn-info" data-toggle="modal" onClick="modu('eims')" href="#" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Login As</a></li>
+                    <li> <a class="btn btn-info" data-toggle="modal" onClick="modu('eims')" href="#" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Login As</a></li>
                 </ul>
                 <div id="myModal" class="modal modal-width fade modal-scroll" data-replace="true" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-header btn-orange-moon">
@@ -194,5 +206,3 @@ if (!isset($_SESSION['user'])) {
         <!-- END HEADER INNER -->
     </div>
     <!-- END HEADER -->
-
-

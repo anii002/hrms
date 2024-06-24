@@ -4,7 +4,6 @@ include('common/header.php');
 include('common/sidebar.php'); 
 include('control/function.php'); 
 
-
 ?>
 
 	<div class="page-content-wrapper">

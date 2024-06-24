@@ -1,9 +1,9 @@
 <?php
-	
 	$GLOBALS['flag']="5.1";
 	include('common/header.php');
-	//include('dbcon.php');
+	include('dbcon.php');
 	include('common/sidebar.php');
+	$conn1 = dbcon1();
 ?>
 
 	<!-- BEGIN CONTENT -->
@@ -43,10 +43,10 @@
 						<div class="details">
 							<div class="number">
 								 <?php
-								   dbcon1();
-									$qry1 = mysql_query("SELECT * FROM `office_order`");
+								//    dbcon1();
+									$qry1 = mysqli_query($conn1,"SELECT * FROM `office_order`");
 									//echo "SELECT * FROM `office_order1`".mysql_error();
-									echo $count = mysql_num_rows($qry1); 
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -66,9 +66,9 @@
 						<div class="details">
 							<div class="number">
 								 <?php
-								 dbcon1();
-									$qry2 = mysql_query("SELECT * FROM `seniority_list`");
-									echo $count = mysql_num_rows($qry2); 
+								//  dbcon1();
+									$qry2 = mysqli_query($conn1,"SELECT * FROM `seniority_list`");
+									echo $count = mysqli_num_rows($qry2); 
 								?> 
 							</div>
 							<div class="desc">
@@ -88,9 +88,9 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								dbcon1();
-									$qry3 = mysql_query("SELECT * FROM `e-notification1`");
-									echo $count = mysql_num_rows($qry3); 
+								// dbcon1();
+									$qry3 = mysqli_query($conn1,"SELECT * FROM `e-notification1`");
+									echo $count = mysqli_num_rows($qry3); 
 								?> 
 							</div>
 							<div class="desc">  
@@ -109,7 +109,11 @@
 						</div>
 						<div class="details">
 							<div class="number">
-								
+							<?php
+								// dbcon1();
+									$qry7 = mysqli_query($conn1,"SELECT * FROM `circular`");
+									echo $count = mysqli_num_rows($qry7); 
+								?> 
 							</div>
 							<div class="desc">
 								<p>All</br>Circulars</p> 
@@ -121,14 +125,14 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat red-intense">
 						<div class="visual">
 							<i class="fas fa-users"></i>
 						</div>
 						<div class="details">
 							<div class="number">
-								
+							
 							</div>
 							<div class="desc">
 								<p></br>RESS</p>
@@ -138,7 +142,7 @@
 						अधिक जानकारी / View more <i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
-				</div>
+				</div> -->
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
 						<div class="visual">
@@ -147,9 +151,9 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								 dbcon1();
-									$qry4 = mysql_query("SELECT * FROM `checklist`");
-									echo $count = mysql_num_rows($qry4); 
+								//  dbcon1();
+									$qry4 = mysqli_query($conn1,"SELECT * FROM `checklist`");
+									echo $count = mysqli_num_rows($qry4); 
 								?>
 							</div>
 							<div class="desc">
@@ -169,9 +173,9 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								 dbcon1();
-									$qry6 = mysql_query("SELECT * FROM `photo_gallary`");
-									echo $count = mysql_num_rows($qry6); 
+								//  dbcon1();
+									$qry6 = mysqli_query($conn1,"SELECT * FROM `photo_gallary`");
+									echo $count = mysqli_num_rows($qry6); 
 								?>
 							</div>
 							<div class="desc">
@@ -191,9 +195,9 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								 dbcon1();
-									$qry5 = mysql_query("SELECT * FROM `transfer_registration`");
-									echo $count = mysql_num_rows($qry5); 
+								//  dbcon1();
+									$qry5 = mysqli_query($conn1,"SELECT * FROM `transfer_registration`");
+									echo $count = mysqli_num_rows($qry5); 
 								?>
 							</div>
 							<div class="desc">

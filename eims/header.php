@@ -56,7 +56,6 @@ include('../dbconfig/dbcon.php');
 
 <link rel="stylesheet" href="../assets/other/plugins/daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="../assets/other/plugins/datepicker/datepicker3.css">
-
 <link rel="stylesheet" href="../assets/css/preloader/preloader-style.css">
 <link rel="shortcut icon" href="../assets/img/logo1.png"/>
 </head>
@@ -67,7 +66,7 @@ include('../dbconfig/dbcon.php');
     /*background-image: url("img/abc.gif");*/
     position: fixed;
     background-repeat:no-repeat;
-  background-position:center;
+    background-position:center;
     height: 100%;
     width: 100%;
     left: 0;
@@ -124,9 +123,9 @@ include('../dbconfig/dbcon.php');
 				<li class="dropdown dropdown-user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					 <?php 
-					 dbcon();
-				$query = mysql_query("select img from employees where pfno='".$_SESSION['user']."'");
-				$result = mysql_fetch_array($query);
+					 $conn = dbcon();
+				$query = mysqli_query( $conn ,"select img from employees where pfno='".$_SESSION['user']."'");
+				$result = mysqli_fetch_array($query);
 				if($result['img']=="")
 				{
 			?>

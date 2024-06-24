@@ -35,13 +35,13 @@
 		
 	 	echo '<script type="text/javascript">$.jGrowl("Successfully logged out...", { header: "Logout" }); 
 	 		var delay = 1000;
-            setTimeout(function(){ window.location = "index.php" }, delay);           
+            setTimeout(function(){ window.location = "login.php" }, delay);           
 	      </script>';
 	      
 	}else{
 		echo '<script type="text/javascript">$.jGrowl("Session timout...", { header: "Logout" }); 
 	 		var delay = 1000;
-            setTimeout(function(){ window.location = "index.php" }, delay);           
+            setTimeout(function(){ window.location = "login.php" }, delay);           
 	      </script>';
 	}
 	

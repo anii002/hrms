@@ -1,7 +1,7 @@
 <?php
 $GLOBALS['flag'] = "5.1";
 include('common/header.php');
-include('common/sidebar1.php');
+include('common/sidebar.php');
 include('dbcon.php');
 $conn1 = dbcon1();
 ?>
@@ -14,7 +14,7 @@ $conn1 = dbcon1();
             Dashboard / डॅशबोर्ड
         </h3>
         <div class="page-bar">
-            <ul class="page-breadcrumb">
+            <ul class="page-breadcrumb d-flex">
                 <li>
                     <i class="fa fa-home"></i>
                     <a href="dashboard.php">Home / मुख पृष्ठ</a>
@@ -57,7 +57,7 @@ $conn1 = dbcon1();
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="dashboard-stat dashboard-stat purple-plum">
+                <div class="dashboard-stat purple-plum">
                     <div class="visual">
                         <i class="fas fa-users"></i>
                     </div>
@@ -156,7 +156,7 @@ $conn1 = dbcon1();
                     <div class="details">
                         <div class="number">
                             <?php
-                            $conn1 = dbcon1();
+                            // $conn1 = dbcon1();
                             $qry5 = mysqli_query($conn1, "SELECT * FROM `transfer_registration`");
                             echo $count = mysqli_num_rows($qry5);
                             // mysqli_close($conn1);
@@ -204,3 +204,5 @@ include('common/footer.php');
 		});
 	});
 </script>
+</body>
+</html>
