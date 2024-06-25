@@ -137,12 +137,12 @@
 				<li>
 				<?php } ?>
 				
-					<a href="http://10.31.3.3/pers/circular/view.asp">
+					<!-- <a href="http://10.31.3.3/pers/circular/view.asp">
 					<i class="fas fa-edit"></i>
 					<span class="title">Circulars</span>
 					<span class="selected"></span>
-					<!-- <span class="arrow "></span> -->
-					</a>
+					<span class="arrow "></span>
+					</a> -->
 					
 				</li>
 

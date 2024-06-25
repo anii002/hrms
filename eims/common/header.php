@@ -165,15 +165,15 @@ if (!isset($_SESSION['user'])) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="../../../profile.php">
+                                <a href="../../hrms/profile.php">
                                     <i class="far fa-user"></i> My Profile </a>
                             </li>
                             <li>
-                                <a href="../../../index.php">
+                                <a href="../../hrms/eims/dashboard.php">
                                     <i class="fas fa-home"></i> Home </a>
                             </li>
                             <li>
-                                <a href="../../../Logout.php">
+                                <a href="../../hrms/Logout.php">
                                     <i class="fas fa-sign-out-alt"></i> Log Out </a>
                             </li>
                         </ul>

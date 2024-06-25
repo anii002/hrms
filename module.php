@@ -10,67 +10,89 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //echo $name;exit();
     if ($name == 'tamm') {
         $tamm = explode(',', $row['tamm']);
-        for ($i = 0; $i < count($tamm); $i++) { ?>
+        for ($i = 0; $i < count($tamm); $i++) {
+?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <?php if ($tamm[$i] == "0") { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="superadmin" value="0"> Super Admin </label>
-                    <?php }
-                    if ($tamm[$i] == 1) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="superaccount" value="1"> Super Account </label>
-                    <?php }
-                    if ($tamm[$i] == 11) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="departmentadmin" value="11"> Department Admin </label>
-                    <?php }
-                    if ($tamm[$i] == 12) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="controllingincharge" value="12"> Controlling Incharge </label>
-                    <?php }
-                    if ($tamm[$i] == 13) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="controllingoffice" value="13"> Controlling Office </label>
-                    <?php }
-                    if ($tamm[$i] == 5) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="accountant" value="5"> Accountant </label>
-                    <?php }
-                    if ($tamm[$i] == 4) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="employee" value="4" checked> Employee</label>
-                    <?php }
-                    if ($tamm[$i] == 14) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="personneladmin" value="14"> Personnel Admin </label>
-                        <?php ?>
-
-                    <?php }
-                    if ($tamm[$i] == 15) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="branchofficer" value="15"> Branch Officer</label>
-                    <?php }
-                    if ($tamm[$i] == 16) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="personnelclerk" value="16"> Personnel Clerk</label>
-                    <?php }
-                    if ($tamm[$i] == 17) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="apo" value="17">
-                            APO </label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="superadmin" value="0"> Super Admin
+                        </label>
                     <?php } ?>
-
-                    <?php if ($tamm[$i] == 21) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="acc_emp" value="21"> Employee</label>
+                    <?php if ($tamm[$i] == "1") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="superaccount" value="1"> Super Account
+                        </label>
                     <?php } ?>
-
-                    <?php if ($tamm[$i] == 22) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="so" value="22">
-                            SO</label>
+                    <?php if ($tamm[$i] == "11") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="departmentadmin" value="11"> Department Admin
+                        </label>
                     <?php } ?>
-
-                    <?php if ($tamm[$i] == 23) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="soa" value="23">
-                            SO Admin</label>
+                    <?php if ($tamm[$i] == "12") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="controllingincharge" value="12"> Controlling Incharge
+                        </label>
                     <?php } ?>
-
-                    <?php if ($tamm[$i] == 24) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="tamm" id="adfm" value="24">
-                            ADFM</label>
+                    <?php if ($tamm[$i] == "13") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="controllingoffice" value="13"> Controlling Office
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "5") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="accountant" value="5"> Accountant
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "4") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="employee" value="4" <?php if ($tamm[$i] == "4") echo 'checked'; ?>> Employee
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "14") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="personneladmin" value="14"> Personnel Admin
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "15") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="branchofficer" value="15"> Branch Officer
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "16") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="personnelclerk" value="16"> Personnel Clerk
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "17") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="apo" value="17"> APO
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "21") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="acc_emp" value="21"> Employee
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "22") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="so" value="22"> SO
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "23") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="soa" value="23"> SO Admin
+                        </label>
+                    <?php } ?>
+                    <?php if ($tamm[$i] == "24") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tamm" id="adfm" value="24"> ADFM
+                        </label>
                     <?php } ?>
                 </div>
             </div>
-        <?php }
+        <?php
+        }
     }
 
     if ($name == 'e_gr') {
@@ -129,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         <?php }
     }
-    
-    
+
+
 
     if ($name == 'cga') {
         $cga = explode(',', $row['cga']);
@@ -189,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($name == 'sar') {
         $sar = explode(',', $row['e_sar']);
         for ($i = 0; $i < count($sar); $i++) {
-            ?>
+        ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-check">
                     <div class="radio-container" style="display: flex; justify-content: space-between;">
@@ -208,13 +230,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
             </div>
-            <?php
+        <?php
         }
     }
-    
-    
-    
-    
+
+
+
+
 
     if ($name == 'frm') {
         $forms = explode(',', $row['forms']);
@@ -291,21 +313,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($name == 'dak') {
         $dak = explode(',', $row['e_dak']);
-        for ($i = 0; $i < count($dak); $i++) { ?>
+        // Possible values for radio buttons
+        $radioValues = ["0", "1", "2"];
+
+        foreach ($radioValues as $value) {
+            $checked = in_array($value, $dak) ? 'checked' : '';
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($dak[$i] == "0") { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dak" id="admin" value="0"> Admin </label>
-                    <?php }
-                    if ($dak[$i] == 1) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dak" id="clerk" value="1"> Clerk </label>
-                    <?php }
-                    if ($dak[$i] == 2) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dak" id="sectionuser" value="2"> Section User </label>
+                    <?php if ($value == "0") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="dak" id="admin" value="0" <?php echo $checked; ?>> Admin
+                        </label>
+                    <?php } ?>
+                    <?php if ($value == "1") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="dak" id="clerk" value="1" <?php echo $checked; ?>> Clerk
+                        </label>
+                    <?php } ?>
+                    <?php if ($value == "2") { ?>
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="dak" id="sectionuser" value="2" <?php echo $checked; ?>> Section User
+                        </label>
                     <?php } ?>
                 </div>
             </div>
-        <?php }
+        <?php
+        }
     }
 
     if ($name == 'feed') {
@@ -373,10 +407,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
 
-        <?php }
+<?php }
     }
 } ?>
-
-
-
-

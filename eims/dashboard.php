@@ -4,6 +4,7 @@
 	include('dbcon.php');
 	include('common/sidebar.php');
 	$conn1 = dbcon1();
+	
 ?>
 
 	<!-- BEGIN CONTENT -->
@@ -102,7 +103,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
 						<div class="visual">
 							<i class="fas fa-users"></i>
@@ -111,20 +112,20 @@
 							<div class="number">
 							<?php
 								// dbcon1();
-									$qry7 = mysqli_query($conn1,"SELECT * FROM `circular`");
-									echo $count = mysqli_num_rows($qry7); 
+									// $qry7 = mysqli_query($conn1,"SELECT * FROM `circular`");
+									// echo $count = mysqli_num_rows($qry7); 
 								?> 
 							</div>
 							<div class="desc">
 								<p>All</br>Circulars</p> 
 							</div>
 						</div>
-						<!--<a class="more" href="circular1.php">-->
+						<a class="more" href="circular1.php">-
 						<a class="more" target="_blank" href="http://10.31.3.3/pers/circular/view.asp">
 						अधिक जानकारी / View more <i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
-				</div>
+				</div> -->
 				<!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat red-intense">
 						<div class="visual">

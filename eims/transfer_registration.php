@@ -2,6 +2,8 @@
 	$GLOBALS['flag']="4.98";
 	include('common/header.php');
 	include('common/sidebar.php');
+	include('dbcon.php');
+$conn1 = dbcon1();
 ?>
 
 	<!-- BEGIN CONTENT -->
@@ -32,10 +34,7 @@
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN DASHBOARD STATS -->
-			<div class="row">
-				
-				
-				
+			<div class="row">	
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -48,8 +47,6 @@
 							
 						</div>
 						<div class="portlet-body">
-						
-						
 						
 							<div class="table-toolbar">
 								<div class="row">
@@ -75,20 +72,16 @@
 								<th>Transfer Registration</th>
 								<th>DEPARTMENT</th>
 								<th>Action</th>
-								
-								
-					
-								
 							</tr>
 							</thead>
 							<tbody>
 							<?php
 							$counter = 0;
-							dbcon1();
-							$qry = mysql_query("SELECT * FROM `transfer_registration`");
+							// dbcon1();
+							$qry = mysqli_query($conn1,"SELECT * FROM `transfer_registration`");
 							//$row = mysql_fetch_array($qry);
 							//print_r($row);
-							while($row = mysql_fetch_array($qry))
+							while($row = mysqli_fetch_array($qry))
 							{
 							?>
 							<tr class="odd gradeX">

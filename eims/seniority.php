@@ -2,6 +2,8 @@
 	$GLOBALS['flag']="4.92";
 	include('common/header.php');
 	include('common/sidebar.php');
+	include('dbcon.php');
+$conn1 = dbcon1();
 ?>
 
 	<!-- BEGIN CONTENT -->
@@ -93,11 +95,11 @@
 							<tbody>
 							<?php
 							$counter = 0;
-							dbcon1();
-							$qry = mysql_query("SELECT * FROM `seniority_list` ORDER BY id DESC");
+							// dbcon1();
+							$qry = mysqli_query($conn1,"SELECT * FROM `seniority_list` ORDER BY id DESC");
 							//$row = mysql_fetch_array($qry);
 							//print_r($row);
-							while($row = mysql_fetch_array($qry))
+							while($row = mysqli_fetch_array($qry))
 							{
 							?>
 							<tr class="odd gradeX">

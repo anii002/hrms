@@ -11,12 +11,12 @@
   <title>EIMS </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="../../new_eta/assets/img/logo1.png" rel="icon" />
+    <link href="../../hrms/new_eta/assets/img/logo1.png" rel="icon" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="../../new_eta/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../hrms/new_eta/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="../../new_eta/assets/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../hrms/new_eta/assets/css/AdminLTE.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=PT+Serif:400' rel='stylesheet' type='text/css'>
@@ -138,10 +138,10 @@ a#login-as-guest:hover{ color: red; }
   </div>
 
 
-<script src="../../new_eta/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../hrms/new_eta/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript" src="../../new_eta/assets/global/plugins/js_glow/jquery.jgrowl.js"></script>
-<link rel="stylesheet" href="../../new_eta/assets/global/plugins/js_glow/jquery.jgrowl.css" type="text/css"/>
+<script type="text/javascript" src="../../hrms/new_eta/assets/global/plugins/js_glow/jquery.jgrowl.js"></script>
+<link rel="stylesheet" href="../../hrms/new_eta/assets/global/plugins/js_glow/jquery.jgrowl.css" type="text/css"/>
 
 
 <script type="text/javascript">

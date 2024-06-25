@@ -4,269 +4,215 @@ date_default_timezone_set("Asia/kolkata");
 include("function.php");
 session_start();
 //adminProcee requests
-
-function AddAdmin($empid,$username,$psw,$role,$dept,$station)
+function AddAdmin($empid, $username, $psw, $role, $dept, $station)
 {
   global $con;
-  dbcon1();
-  $query = "insert into users1(empid,username,password,role,dept, station) values('$empid','$username','".hashPassword($psw,SALT1,SALT2)."','$role','$dept','$station')";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
+  $conn1 = dbcon1();
+  $hashed_password = hashPassword($psw, SALT1, SALT2);
+  $query = "INSERT INTO users1 (empid, username, password, role, dept, station) 
+              VALUES (?, ?, ?, ?, ?, ?)";
+  $stmt = mysqli_prepare($conn1, $query);
+  mysqli_stmt_bind_param($stmt, "ssssss", $empid, $username, $hashed_password, $role, $dept, $station);
+  $result = mysqli_stmt_execute($stmt);
+
+  if ($result) {
+    mysqli_stmt_close($stmt); // Close prepared statement
+    mysqli_close($conn1); // Close database connection
     return true;
-  else
-    return false;
+  } else {
+    $error_message = mysqli_error($conn1);
+    mysqli_stmt_close($stmt); // Close prepared statement
+    mysqli_close($conn1); // Close database connection
+    die("Error: " . $error_message); // Die or handle the error as per your application's error handling strategy
+  }
 }
-function activeUser1($pfno,$active){
-  global $con;
-  dbcon1();
-  $query = "update users1 set status='$active' where empid='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
+function activeUser1($pfno, $active)
+{
+  $conn = dbcon1();
+  $query = "UPDATE users1 SET status='$active' WHERE empid='$pfno'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
-    return false;
-}
-function deactiveUser1($pfno,$active){
-  global $con;
-  dbcon1();
-  $query = "update users1 set status='$active' where empid='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
-    return true;
-  else
-    return false;
+  } else {
+    mysqli_close($conn);
+    die("Error: " . mysqli_error($conn));
+  }
 }
 
-function changeimg($name,$tmp_name)
+function deactiveUser1($pfno, $active)
+{
+  $conn = dbcon1();
+  $query = "UPDATE users1 SET status='$active' WHERE empid='$pfno'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
+    return true;
+  } else {
+    mysqli_close($conn);
+    die("Error: " . mysqli_error($conn));
+  }
+}
+
+function updateUser($fname, $email, $mobile, $design)
+{
+  $conn = dbcon1();
+  $query = "UPDATE users1 SET fname='$fname', designation='$design', mobile='$mobile', email='$email' WHERE id='" . $_SESSION['admin_id'] . "'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
+    return true;
+  } else {
+    mysqli_close($conn);
+    die("Error: " . mysqli_error($conn));
+  }
+}
+
+function activeUser2($pfno, $active)
+{
+  $conn = dbcon1();
+  $query = "UPDATE users1 SET status='$active' WHERE username='$pfno'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
+    return true;
+  } else {
+    mysqli_close($conn);
+    die("Error: " . mysqli_error($conn));
+  }
+}
+
+function deactiveUser2($pfno, $active)
+{
+  $conn = dbcon1();
+  $query = "UPDATE users1 SET status='$active' WHERE username='$pfno'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
+    return true;
+  } else {
+    mysqli_close($conn);
+    die("Error: " . mysqli_error($conn));
+  }
+}
+
+// Image Handling Function
+function changeimg($name, $tmp_name)
 {
   dbcon2();
-	$upload_dir = "../profile/".$_SESSION['empid'].".jpg";
-	$dir = "profile/".$_SESSION['empid'].".jpg";
-	if (move_uploaded_file($tmp_name, $upload_dir)) {
-		$query = mysql_query("update employees set img='$dir' where pfno='".$_SESSION['empid']."'");
-        return true;
+  $upload_dir = "../profile/" . $_SESSION['empid'] . ".jpg";
+  $dir = "profile/" . $_SESSION['empid'] . ".jpg";
+  if (move_uploaded_file($tmp_name, $upload_dir)) {
+    $conn = dbcon1();
+    $query = "UPDATE employees SET img='$dir' WHERE pfno='" . $_SESSION['empid'] . "'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+      mysqli_close($conn);
+      return true;
     } else {
-        return false;
+      mysqli_close($conn);
+      return false;
     }
-}
-function updateUser($fname,$email,$mobile,$design)
-{
-  global $con;
-  dbcon1();
-  $query = "update users1 set fname='$fname', designation='$design', mobile='$mobile', email='$email' where id='".$_SESSION['admin_id']."'";
-  $result = mysql_query($query);
-  if($result)
-    return true;
-  else
+  } else {
     return false;
-}
-
-
-
-//--------------------------------------------------------
-
- 
-
-
-//----------------------------------------------------------
-function changePass($pass,$confirm)
-{
-  dbcon2();
-  global $con;
-  $query = "update prmaemp set psw='".hashPassword($pass,SALT1,SALT2)."' where empno='".$_SESSION['user']."'";
-  $result = mysql_query($query);
-  if($result) 
-    return true;
-  else
-    return false;
-}
-
-function FetchEmployee($id)
-{
-  global $con;
-  dbcon();
-  $query = "select * from employees where id = '$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data['empid']=$value['pfno'];
-  $data['empname']=$value['name'];
-  $data['billunit']=$value['BU'];
-  $data['mobile']=$value['mobile'];
-  $data['email']=$value['gp'];
-  $data['panno']=$value['panno'];
-  $data['designation']=fetch_design_profile($value['desig']);
-  $data['level']=fetch_pay_level($value['level']);
-  return json_encode($data);
-}
-
-function fetchEmployee1($id)
-{
-  global $con;
-  dbcon2();
-  $query = "select * from prmaemp where empno = '$id'";
-  $result = mysql_query($query);
-  dbcon1();
-  $qu=mysql_query("select empid from users1 where empid='$id'");
-  $res=mysql_num_rows($qu);
-  if($res > 0)
-  {
-     return 1;
-  }
-  else
-  {
-      $value = mysql_fetch_array($result);
-      $data['empid']=$value['empno'];
-      $data['empname']=$value['empname'];
-      $data['billunit']=$value['billunit'];
-      $data['phoneno']=$value['phoneno'];
-      $data['email2']=$value['email2'];
-      $data['pan']=$value['pan'];
-      $data['desigcode']=$value['desigcode'];
-      $data['pc7_level']=$value['pc7_level'];
-      $data['dept']=getdepartment($value['deptcode']);
-      return json_encode($data);
   }
 }
 
-
-function AddUser($empid,$username,$psw,$role)
-{
-  global $con;
-  dbcon1();
-  $query = "insert into users1(empid,username,password,role) values('$empid','$username','".hashPassword($psw,SALT1,SALT2)."','$role')";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
-    return true;
-  else
-    return false;
-}
-
-function activeUser($pfno,$active){
-  global $con;
-  dbcon1();
-  $query = "update employees set status='$active' where pfno='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
-    return true;
-  else
-    return false;
-}
-
-
-function deactiveUser($pfno,$active){
-  global $con;
-  dbcon1();
-  $query = "update employees set status='$active' where pfno='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
-    return true;
-  else
-    return false;
-}
-
-
-
+// Other Database Operation Functions
 function deleteOffice($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from office_order where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM office_order WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
+  }
 }
+
 function deletenotification($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from `e-notification1` where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM `e-notification1` WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
+  }
 }
+
 function deleteseniority($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from seniority_list where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM seniority_list WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
+  }
 }
+
 function deletecircular($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from circular where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM circular WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
-}
-function activeUser2($pfno,$active){
-  global $con;
-  dbcon1();
-  $query = "update users1 set status='$active' where username='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
-    return true;
-  else
-    return false;
-}
-
-
-function deactiveUser2($pfno,$active){
-  global $con;
-  dbcon1();
-  $query = "update users1 set status='$active' where username='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
-  if($result)
-    return true;
-  else
-    return false;
+  }
 }
 
 function deletechecklist($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from checklist where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM checklist WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
+  }
 }
-
 
 function deletetransfer($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from transfer_registration where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM transfer_registration WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
+  }
 }
-
 
 function deletePhoto_Gallary($id)
 {
-  global $con;
-  dbcon1();
-  $query = "delete from photo_gallary where id='$id'";
-  $result = mysql_query($query);
-  if($result)
+  $conn = dbcon1();
+  $query = "DELETE FROM photo_gallary WHERE id='$id'";
+  $result = mysqli_query($conn, $query);
+  if ($result) {
+    mysqli_close($conn);
     return true;
-  else
+  } else {
+    mysqli_close($conn);
     return false;
+  }
 }

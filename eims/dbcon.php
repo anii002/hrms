@@ -1,8 +1,12 @@
 <?php
-// dbcon.php
 
 // Check if dbcon2 function is already defined
 if (!function_exists('dbcon2')) {
+    /**
+     * Establish a database connection to drmpsurh_sur_railway
+     * 
+     * @return mysqli The database connection
+     */
     function dbcon2()
     {
         $user  = "root";
@@ -20,6 +24,11 @@ if (!function_exists('dbcon2')) {
 
 // Check if dbcon1 function is already defined
 if (!function_exists('dbcon1')) {
+    /**
+     * Establish a database connection to drmpsurh_new_eims
+     * 
+     * @return mysqli The database connection
+     */
     function dbcon1()
     {
         $user1  = "root";
