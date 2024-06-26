@@ -1,6 +1,7 @@
 <?php 
 	
 	include("dbcon.php");
+	$conn1 = dbcon1();
 	session_start();
 
 	date_default_timezone_set('Asia/Kolkata');
@@ -29,8 +30,8 @@
     	if(move_uploaded_file($_FILES["attach"]["tmp_name"],$dir.$file))
     	{
       
-     	 		dbcon1();
-      			$query = mysql_query("INSERT INTO `office_order`(`Order No`, `Order Date`, `L No`, `Department`, url) VALUES ('$order_no','$order_date','$l_no','$department' ,'$filepath')");
+     	 		// dbcon1();
+      			$query = mysqli_query($conn1,"INSERT INTO `office_order`(`Order No`, `Order Date`, `L No`, `Department`, url) VALUES ('$order_no','$order_date','$l_no','$department' ,'$filepath')");
       			if($query == TRUE)
       			{
       				echo "<script>alert('Order Submitted successfully');window.location='office_order.php';</script>"; 

@@ -1,20 +1,18 @@
 <?php
+include('../../dbconfig/dbcon.php');
+$conn = dbcon();
 
-	include('../../dbconfig/dbcon.php');
-	dbcon(); 
-	
-	session_start();
-$emp_id = ($_REQUEST["empcode"] <> "") ? trim($_REQUEST["empcode"] ) : "";
-$show = ($_REQUEST["btnshow"] <> "") ? trim($_REQUEST["btnshow"] ) : "";
-//if ($emp_id <> "")
- //{
- 
-	$emp_id=$_POST["empcode"];
-	$year=$_POST["btnshow"];
-   
-	?>
-	 <link href="dist/css/lightgallery.css" rel="stylesheet">
-	  <style type="text/css">
+session_start();
+$emp_id = ($_REQUEST["empcode"] <> "") ? trim($_REQUEST["empcode"]) : "";
+$show = ($_REQUEST["btnshow"] <> "") ? trim($_REQUEST["btnshow"]) : "";
+
+$emp_id = $_POST["empcode"];
+$year = $_POST["btnshow"];
+?>
+
+<link href="dist/css/lightgallery.css" rel="stylesheet">
+
+<style type="text/css">
             body{
                 background-color: #152836
             }
@@ -133,81 +131,59 @@ $show = ($_REQUEST["btnshow"] <> "") ? trim($_REQUEST["btnshow"] ) : "";
               padding-bottom: 80px;
             }
         </style>
-		<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-		  
-		<div class="row">
-		<div class="clearfix"></div><br>
-			<label class="col-md-4">&nbsp;&nbsp;&nbsp;APAR REPORT :</label>
-			<div class="clearfix"></div><br>
-					<div class="col-md-8">
-					<div class='demo-gallery'>
-						<ul id='lightgallery' class='list-unstyled row'>
-						
-						
-					<?php 
-					
-					{
-					$sqlEAPAR=mysql_query("select * from scanned_img where empid='$emp_id' ");
-							while($rwEAPAR=mysql_fetch_array($sqlEAPAR,MYSQL_ASSOC))
-						{
-							
-						
-							$imgid=$rwEAPAR["empid"];
-							$file=$rwEAPAR["image"];
-							$fileyear=$rwEAPAR["year"];
-							//$file=$rwEAPAR["empname"];
-							//echo $file;
-						if($file!="")
-						{
-						
-						?>
-						
-			<?php 			
-							echo"<li class='col-xs-6 col-sm-4 col-md-3' data-responsive='../resources/NAME_PFNO/$emp_id/$fileyear/$file' data-src='../resources/NAME_PFNO/$emp_id/$fileyear/$file'>
-							<a href='../resources/NAME_PFNO/$emp_id/$fileyear/$file'>
-							<img src='../resources/NAME_PFNO/$emp_id/$fileyear/$file' style='width:250px;height:250px;' alt='$fileyear'>
-							</a>";
-							$permission = mysql_query("select * from tbl_accesspermission where accesslevel='".$_SESSION['Access_level']."'");
-						$ResultSet = mysql_fetch_array($permission);
-						if($ResultSet['deleting']=='on')
-						{
-						echo "<a href='../Ajaxdelete.php?empid=".$emp_id."&year=".$fileyear."&image=".$file."' class='btn btn-primary btn-flat btn-sm'  id='btnYear' name='btnYear' ><i class='fa fa-trash'></i> DELETE $fileyear</a></li>"; 
-						}else
-						{
-							echo "<label> $fileyear</label></li>";  
-						}
-							
-			?>
-		   
-					  
-				 <?php
-						}else
-						{
-							$file="";
-						}
-						
-						}
-					}
-						?>
-				
-						 </ul>
-					   </div>
-					<br>
-					</div>
-		</div>
-					
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#lightgallery').lightGallery();
-        });
-        </script>
-        <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
-        <script src="demo/js/lightgallery.js"></script>
-        <script src="demo/js/lg-fullscreen.js"></script>
-        <script src="demo/js/lg-thumbnail.js"></script>
-        <script src="demo/js/lg-video.js"></script>
-        <script src="demo/js/lg-autoplay.js"></script>
-        <script src="demo/js/lg-zoom.js"></script>
-        <script src="demo/js/lg-hash.js"></script>
-        <script src="demo/js/lg-pager.js"></script>
-        <script src="demo/js/jquery.mousewheel.min.js"></script>	
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+<div class="row">
+    <div class="clearfix"></div><br>
+    <label class="col-md-4">&nbsp;&nbsp;&nbsp;APAR REPORT :</label>
+    <div class="clearfix"></div><br>
+    <div class="col-md-8">
+        <div class='demo-gallery'>
+            <ul id='lightgallery' class='list-unstyled row'>
+                <?php
+                $sqlEAPAR = mysqli_query($conn, "select * from scanned_img where empid='$emp_id'");
+                while ($rwEAPAR = mysqli_fetch_array($sqlEAPAR, MYSQLI_ASSOC)) {
+                    $imgid = $rwEAPAR["empid"];
+                    $file = $rwEAPAR["image"];
+                    $fileyear = $rwEAPAR["year"];
+
+                    if ($file != "") {
+                        echo "<li class='col-xs-6 col-sm-4 col-md-3' data-responsive='../resources/NAME_PFNO/$emp_id/$fileyear/$file' data-src='../resources/NAME_PFNO/$emp_id/$fileyear/$file'>
+                            <a href='../resources/NAME_PFNO/$emp_id/$fileyear/$file'>
+                            <img src='../resources/NAME_PFNO/$emp_id/$fileyear/$file' style='width:250px;height:250px;' alt='$fileyear'>
+                            </a>";
+
+                        $permission = mysqli_query($conn, "select * from tbl_accesspermission where accesslevel='" . $_SESSION['Access_level'] . "'");
+                        $ResultSet = mysqli_fetch_array($permission);
+                        if ($ResultSet['deleting'] == 'on') {
+                            echo "<a href='../Ajaxdelete.php?empid=" . $emp_id . "&year=" . $fileyear . "&image=" . $file . "' class='btn btn-primary btn-flat btn-sm'  id='btnYear' name='btnYear' ><i class='fa fa-trash'></i> DELETE $fileyear</a></li>";
+                        } else {
+                            echo "<label> $fileyear</label></li>";
+                        }
+                    }
+                }
+                ?>
+            </ul>
+        </div>
+        <br>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#lightgallery').lightGallery();
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+<script src="demo/js/lightgallery.js"></script>
+<script src="demo/js/lg-fullscreen.js"></script>
+<script src="demo/js/lg-thumbnail.js"></script>
+<script src="demo/js/lg-video.js"></script>
+<script src="demo/js/lg-autoplay.js"></script>
+<script src="demo/js/lg-zoom.js"></script>
+<script src="demo/js/lg-hash.js"></script>
+<script src="demo/js/lg-pager.js"></script>
+<script src="demo/js/jquery.mousewheel.min.js"></script>
+
+
+

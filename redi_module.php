@@ -956,7 +956,7 @@
 				$_SESSION['EMP_PF_NO'] = $row_emp['emplcode'];
 				$_SESSION['SESS_YEAR'] = $row_emp['year'];
 				$_SESSION['Access_level'] = "none";
-				echo "<script>window.location.href='../e-apar/main/user/frmemployeedetails.php';</script>";
+				echo "<script>window.location.href='../hrms/e-apar/main/user/frmemployeedetails.php';</script>";
 			}			
 		}
 		

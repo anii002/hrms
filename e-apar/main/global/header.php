@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title> E - APAR </title>
   <?php
-	include("../../main/dbconfig/dbcon.php");
-	dbcon();
+	// include_once("../dbconfig/dbcon.php");
+	// $onn = dbcon();
   ?>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -60,7 +60,7 @@
 	
 	<!--Icon-->
 	<!--<link rel="shortcut icon" href="../../main/resources/admin/Image.png">-->
-	<link rel="shortcut icon" href="../../new_eta/assets/img/logo1.png">
+	<link rel="shortcut icon" href="../../hrms/new_eta/assets/img/logo1.png">
 		<style>
 			.example-modal .modal {
 			  position: relative;

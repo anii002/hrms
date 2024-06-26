@@ -1,7 +1,9 @@
 <?php
 	$GLOBALS['flag']="4.94";
 	include('common/header.php');
-	include('common/sidebar1.php');
+	include('common/sidebar.php');
+	include('dbcon.php');
+$conn1 = dbcon1();
 ?>
 
 	<!-- BEGIN CONTENT -->
@@ -92,11 +94,11 @@
 							<tbody>
 							<?php
 							$counter = 0;
-							dbcon1();
-							mysql_query("set names 'utf8'");
-							$qry = mysql_query("SELECT `id`, `ref_no`, `notification_date`, `subject`, `url`, `status` FROM `e-notification1` ORDER BY id DESC");
-							echo  mysql_error();
-							while($row = mysql_fetch_array($qry))
+							// dbcon1();
+							mysqli_query($conn1,"set names 'utf8'");
+							$qry = mysqli_query($conn1,"SELECT `id`, `ref_no`, `notification_date`, `subject`, `url`, `status` FROM `e-notification1` ORDER BY id DESC");
+							echo  mysqli_error($conn1);
+							while($row = mysqli_fetch_array($qry))
 							{
 							?>
 							<tr class="odd gradeX">
