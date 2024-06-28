@@ -5,12 +5,9 @@ include('../dbconfig/dbcon.php');
 		$Grpname = $_POST['Grpname'];
 		$grpdesc = $_POST['grpdesc'];
 		$cnt = $_POST['member_cnt'];
-		
-		
-		$sql_insert1 = mysql_query("insert into group_master(group_name,group_desc,member_count,createdby,createddate) values('$Grpname','$grpdesc','$cnt','".$_SESSION['SESS_MEMBER_NAME']."',NOW())");
-		
-		$sql_select=mysql_query("select * from group_master order by group_id desc LIMIT 1");
-		 $result=mysql_fetch_array($sql_select);
+		$sql_insert1 = mysqli_query($conn,"insert into group_master(group_name,group_desc,member_count,createdby,createddate) values('$Grpname','$grpdesc','$cnt','".$_SESSION['SESS_MEMBER_NAME']."',NOW())");
+		$sql_select=mysqli_query($conn,"select * from group_master order by group_id desc LIMIT 1");
+		 $result=mysqli_fetch_array($sql_select);
 		 $id=$result['group_id'];
 		
 		
@@ -19,14 +16,14 @@ include('../dbconfig/dbcon.php');
 				
 				foreach($_POST['list'][$keys[$i]] as $key => $value) 
 				{
-					$sql_insert2=mysql_query("insert into group_details(group_id,empid,year) values('$id','".$keys[$i]."','$value')") or die(mysql_error());
+					$sql_insert2=mysqli_query($conn,"insert into group_details(group_id,empid,year) values('$id','".$keys[$i]."','$value')") or die(mysqli_error($conn));
 					
 				}
 				
 			}
 		if($sql_insert1)
 		{
-			mysql_query("insert into tbl_audit(message,action,updatePerson,date) values('$Grpname Group created successfully','adding','Super Admin',NOW())");
+			mysqli_query($conn,"insert into tbl_audit(message,action,updatePerson,date) values('$Grpname Group created successfully','adding','Super Admin',NOW())");
 			echo "<script>alert('Group created successfully'); window.location='frmsample.php'</script>";
 		}
 ?>

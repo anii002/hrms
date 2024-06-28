@@ -1,5 +1,5 @@
 <?php
 
 include("../dbconfig/dbcon.php");
-dbcon();
+$conn= dbcon();
 ?>

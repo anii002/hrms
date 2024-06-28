@@ -1,7 +1,7 @@
 <?php
       
 	  include('main/dbconfig/dbcon.php');
-		dbcon(); 
+		$conn = dbcon(); 
 		?>
 		<html>
 		<head>
@@ -17,20 +17,20 @@
 		
 		/*................................................... Admin .....................................................*/
 		$query = "SELECT * FROM tbl_login WHERE username='$username' AND password='".hashPassword($password, SALT1, SALT2)."'";
-		$result = mysql_query($query)or die(mysql_error());
-		$row = mysql_fetch_array($result);
-		$num_row = mysql_num_rows($result);
+		$result = mysqli_query($conn,$query)or die(mysqli_error($conn));
+		$row = mysqli_fetch_array($result);
+		$num_row = mysqli_num_rows($result);
 			
 		/*................................................... User ..............................................*/
-		$query_staff = mysql_query("SELECT * FROM tbl_user WHERE username='$username' AND password='".hashPassword($password, SALT1, SALT2)."'")or die(mysql_error());
-		$num_row_staff = mysql_num_rows($query_staff);
-		$row_staff = mysql_fetch_array($query_staff); 
+		$query_staff = mysqli_query($conn,"SELECT * FROM tbl_user WHERE username='$username' AND password='".hashPassword($password, SALT1, SALT2)."'")or die(mysqli_error($conn));
+		$num_row_staff = mysqli_num_rows($query_staff);
+		$row_staff = mysqli_fetch_array($query_staff); 
 		
 		
 		/*................................................... Employee ..............................................*/
-		$query_employee = mysql_query("SELECT * FROM tbl_employee WHERE (emplcode='$username' AND pan='$password') or (emplcode='$username' AND password='$password')")or die(mysql_error());
-		$num_row_employee = mysql_num_rows($query_employee);
-		$row_employee = mysql_fetch_array($query_employee); 
+		$query_employee = mysqli_query($conn,"SELECT * FROM tbl_employee WHERE (emplcode='$username' AND pan='$password') or (emplcode='$username' AND password='$password')")or die(mysqli_error($conn));
+		$num_row_employee = mysqli_num_rows($query_employee);
+		$row_employee = mysqli_fetch_array($query_employee); 
 		
 
 		
@@ -41,7 +41,7 @@
 			$adminusername=$row['username'];
 			//echo "$username";
 			//$member = mysql_fetch_assoc($result);
-			$member = mysql_fetch_array($result);
+			$member = mysqli_fetch_array($result);
 			$_SESSION['SESS_MEMBER_ID'] = $row['adminid'];
 			$_SESSION['SESS_ADMIN_FULLNAME'] = $row['adminname'];
 			$_SESSION['SESS_MEMBER_NAME'] = $row['username'];
@@ -50,7 +50,7 @@
 			
 			session_write_close();
 			
-			mysql_query("insert into tbl_userlog (username,login_startdate,admin_id,status)values('$username',NOW(),".$row['adminid'].",1)")or die(mysql_error());
+			mysqli_query($conn,"insert into tbl_userlog (username,login_startdate,admin_id,status)values('$username',NOW(),".$row['adminid'].",1)")or die(mysqli_error($conn));
 			echo '<script>
 			$.jGrowl("You have successfully logged in",{life : 200 , close : function(e,m){window.location="main/admin/index.php";}});
 			</script>';
@@ -58,15 +58,15 @@
 			{
 				session_regenerate_id();
 				$_SESSION['staff']=$row_staff['userid'];
-				$member1 = mysql_fetch_assoc($result);
+				$member1 = mysqli_fetch_assoc($result);
 				$_SESSION['SESS_USER_ID'] = $row_staff['userid'];
 				$_SESSION['SESS_USER_NAME'] = $row_staff['fullname'];
 				$_SESSION['SESS_MEMBER_NAME']=$username;
 				$_SESSION['Department']=$row_staff['dept'];
 				$_SESSION['Access_level']=$row_staff['accesslevel'];
 
-				$sql_query=mysql_query("select * from tbl_user where username='$username'");
-				while($rwUser=mysql_fetch_array($sql_query))
+				$sql_query=mysqli_query($conn,"select * from tbl_user where username='$username'");
+				while($rwUser=mysqli_fetch_array($sql_query))
 				{
 					$status=$rwUser["status"];
 				}
@@ -76,7 +76,7 @@
 				}else
 			{
 				session_write_close();
-			  mysql_query("insert into tbl_userlog(username,login_startdate,staffid,status)values('$username',NOW(),".$row_staff['userid'].",1)")or die(mysql_error());
+			  mysqli_query($conn,"insert into tbl_userlog(username,login_startdate,staffid,status)values('$username',NOW(),".$row_staff['userid'].",1)")or die(mysqli_error($conn));
 				
 				echo "<script>
 				alert('You Have logged in!!!!!');
@@ -99,7 +99,7 @@
 				}
 				session_regenerate_id();
 				$_SESSION['employee']=$row_employee['empid'];
-				$member1 = mysql_fetch_assoc($result);
+				$member1 = mysqli_fetch_assoc($result);
 				$_SESSION['SESS_EMPLOYEE_ID'] = $row_employee['empid'];
 				$_SESSION['SESS_EMPLOYEE_NAME'] = $row_employee['empname'];
 				$_SESSION['SESS_MEMBER_NAME']=$username;
@@ -111,7 +111,7 @@
 				//echo $emppfno;
 				
 				session_write_close();
-			  mysql_query("insert into tbl_userlog(username,login_startdate,employeeid,status)values('$username',NOW(),".$row_employee['empid'].",1)")or die(mysql_error());
+			  mysqli_query($conn,"insert into tbl_userlog(username,login_startdate,employeeid,status)values('$username',NOW(),".$row_employee['empid'].",1)")or die(mysqli_error($conn));
 				
 				echo "<script>
 				alert('You Have logged in!!!!!');

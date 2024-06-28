@@ -1,10 +1,10 @@
 <?php
 
 include("../dbconfig/dbcon.php");
-dbcon();
+$conn=dbcon();
 $groupid = $_GET["grp"];
 
-$sql_query = mysql_query("delete from tbl_finalgroupgrade where groupid=$groupid");
+$sql_query = mysqli_query($conn,"delete from tbl_finalgroupgrade where groupid=$groupid");
 	echo "<script>window.location='frmgroupreport.php?gid=$groupid';</script>";
-	echo mysql_error(); 
+	echo mysqli_error($conn); 
 ?>

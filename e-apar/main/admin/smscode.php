@@ -1,8 +1,9 @@
 <?php
 
 ////Message integration code starts here......
-function send_sms1($data){
-print_r($data);
+function send_sms1($data)
+{
+	print_r($data);
 	//Your Username key
 	$username = "infores";
 	//Your Username key
@@ -15,7 +16,7 @@ print_r($data);
 	$message = $data["message"];
 	//Your Request id to send, Add URL encoding here.
 	$fl = "0";
-	
+
 	$postData = array(
 		'user' => $username,
 		'password' => $password,
@@ -24,12 +25,12 @@ print_r($data);
 		'msg' => $message,
 		'fl' => "0",
 	);
-	
+
 	// http://103.242.119.152/vendorsms/pushsms.aspx?user=abc&password=xyz&msisdn=919898xxxxxx&sid=SenderId& msg=test%20message&fl=0
-	
-	
+
+
 	//API URL
-	$url="http://103.242.119.152/vendorsms/pushsms.aspx";
+	$url = "http://103.242.119.152/vendorsms/pushsms.aspx";
 	// init the resource
 	$ch = curl_init();
 	curl_setopt_array($ch, array(
@@ -45,11 +46,9 @@ print_r($data);
 	//get response
 	$output = curl_exec($ch);
 	//Print error if any
-	if(curl_errno($ch))
-	{
+	if (curl_errno($ch)) {
 		//echo 'error:' . curl_error($ch);
 	}
 	curl_close($ch);
 	//echo $output;
 }
-?>

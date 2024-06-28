@@ -6,7 +6,7 @@
       <div class="user-panel">
         <div class="pull-left image">
             <?php if(isset($_SESSION['profile_image'])) { ?>
-            <img src="../../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" class="img-circle" alt="User Image">
+            <img src="../../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" class="img-circle" alt="User Image">
             <?php } else { ?>
            <img src="../plugins/dist/img/usericon.png" class="img-circle" alt="User Image">
             <?php } ?> 
@@ -33,8 +33,8 @@
         </li>
 		<?php
 		
-			$sqluser=mysql_query("select * from tbl_accesspermission where accesslevel='".$_SESSION['Access_level']."'");
-			$rwUer = mysql_fetch_array($sqluser);
+			$sqluser=mysqli_query($conn,"select * from tbl_accesspermission where accesslevel='".$_SESSION['Access_level']."'");
+			$rwUer = mysqli_fetch_array($sqluser);
 			if($rwUer["adding"]=="on")
 			{
 			?>

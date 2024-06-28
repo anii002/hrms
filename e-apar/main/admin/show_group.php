@@ -44,16 +44,16 @@ include_once('../global/sidebaradmin.php');
 							    </tr>
     						</thead> 
 					    	<?php 
-        						$sql=mysql_query("select * from group_master") or die(mysql_error());
-        						while($result=mysql_fetch_array($sql))
+        						$sql=mysqli_query($conn,"select * from group_master") or die(mysqli_error($conn));
+        						while($result=mysqli_fetch_array($sql))
         						{
-        							$sql_cnt = mysql_query("select count(distinct empid) from group_details where group_id='".$result['group_id']."'");
-        							$sql_fetch = mysql_fetch_array($sql_cnt);
+        							$sql_cnt = mysqli_query($conn,"select count(distinct empid) from group_details where group_id='".$result['group_id']."'");
+        							$sql_fetch = mysqli_fetch_array($sql_cnt);
         							echo "<tbody><td><a href='view_group.php?id=".$result['group_id']."'>View</a> / 
         							<a href='delete_group.php?id=".$result['group_id']."'>Delete</a>
         							</td><td>".$result['group_name']."</td><td>".$result['group_desc']."</td><td>".$sql_fetch['count(distinct empid)']."</td>";
-        							$query = mysql_query("select * from tbl_assignto where groupid = '".$result['group_id']."'");
-        							if($fetch=mysql_fetch_array($query))
+        							$query = mysqli_query($conn,"select * from tbl_assignto where groupid = '".$result['group_id']."'");
+        							if($fetch=mysqli_fetch_array($query))
         							{
         								echo "<td><a href='show_assign.php?gid=".$result['group_id']."'>Assigned</a></td> </tbody>";
         							}
@@ -62,7 +62,7 @@ include_once('../global/sidebaradmin.php');
         						}
 						
         						if(!$sql)
-        							echo mysql_error();
+        							echo mysqli_error($conn);
         					  ?> 
 					    </table> 
 				    </form>

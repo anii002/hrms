@@ -99,8 +99,8 @@ function ShowRecordsUser()
 				$employeepf = $_GET["emppf"];
 				$reyear = $_GET["year"];
 				//echo $employeepf;
-			 $sql_Resonequery = mysql_query("select * from tbl_reason where empcode='".$employeepf."' AND financialyear='$reyear'");
-				while($resultreason=mysql_fetch_array($sql_Resonequery))
+			 $sql_Resonequery = mysqli_query($conn,"select * from tbl_reason where empcode='".$employeepf."' AND financialyear='$reyear'");
+				while($resultreason=mysqli_fetch_array($sql_Resonequery))
 				{
 			?>
 			<form method="post" id="frmreasone" enctype="multipart/form-data" role="form" accept="image/jpg,image/png,image/gif,image/jpeg" action="Ajaxreason.php">

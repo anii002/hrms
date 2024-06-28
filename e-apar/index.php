@@ -86,7 +86,7 @@ ini_set('error_reporting', E_ALL);
 	<link rel="stylesheet" href="main/plugins/iCheck/square/blue.css">
 
 	<!--<link rel="icon" href="main/resources/admin/Image.png" type="image/x-icon">-->
-	<link rel="shortcut icon" href="../../new_eta/assets/img/logo1.png">
+	<link rel="shortcut icon" href="../../hrms/new_eta/assets/img/logo1.png">
 
 <script>
 

@@ -106,8 +106,8 @@ function ShowRecordsUser()
 		  {
 		  $emp_id=$_GET["emppf"];
 		 //echo "$emp_id";
-		  $sqlempedit=mysql_query("select * from tbl_employee where emplcode='$emp_id'");
-		  while($rwEmpEdit=mysql_fetch_array($sqlempedit))
+		  $sqlempedit=mysqli_query($conn,"select * from tbl_employee where emplcode='$emp_id'");
+		  while($rwEmpEdit=mysqli_fetch_array($sqlempedit))
 		  {
 		  $id=$rwEmpEdit["empid"];
 		  ?>
@@ -123,8 +123,8 @@ function ShowRecordsUser()
 							<select class="form-control primary" id="cmbyear" name="cmbyear" selected required >
 							
 							<?php
-								$sqlDept=mysql_query("select * from year");
-								while($rwDept=mysql_fetch_array($sqlDept))
+								$sqlDept=mysqli_query($conn,"select * from year");
+								while($rwDept=mysqli_fetch_array($sqlDept))
 								{
 								?>
 								
@@ -171,8 +171,8 @@ function ShowRecordsUser()
 							<select class="form-control primary" id="cmbdept" name="cmbdept" selected>
 							<option value="<?php echo $rwEmpEdit["dept"]; ?>"><?php echo $rwEmpEdit["dept"]; ?></option>
 							<?php
-								$sqlDept=mysql_query("select * from tbl_department");
-								while($rwDept=mysql_fetch_array($sqlDept))
+								$sqlDept=mysqli_query($conn,"select * from tbl_department");
+								while($rwDept=mysqli_fetch_array($sqlDept))
 								{
 								?>
 								<option value="<?php echo $rwDept["deptname"]; ?>"><?php echo $rwDept["deptname"]; ?></option>
@@ -191,8 +191,8 @@ function ShowRecordsUser()
 						<select class="form-control primary" id="cmbdesignation" name="cmbdesignation">
 						<option value="<?php echo $rwEmpEdit["design"]; ?>"><?php echo $rwEmpEdit["design"]; ?></option>
 						<?php
-									$sqlDept=mysql_query("select * from tbl_designation");
-									while($rwDept=mysql_fetch_array($sqlDept))
+									$sqlDept=mysqli_query($conn,"select * from tbl_designation");
+									while($rwDept=mysqli_fetch_array($sqlDept))
 									{
 									?>
 									<option value="<?php echo $rwDept["designation"]; ?>"><?php echo $rwDept["designation"]; ?></option>
@@ -213,8 +213,8 @@ function ShowRecordsUser()
 								<select class="form-control primary" id="cmbstation" name="cmbstation">
 									<option value="<?php echo $rwEmpEdit["station"]; ?>"><?php echo $rwEmpEdit["station"]; ?></option>
 									<?php
-										$sqlDept=mysql_query("select * from tbl_station");
-										while($rwDept=mysql_fetch_array($sqlDept))
+										$sqlDept=mysqli_query($conn,"select * from tbl_station");
+										while($rwDept=mysqli_fetch_array($sqlDept))
 										{
 										?>
 										<option value="<?php echo $rwDept["station_name"]; ?>"><?php echo $rwDept["station_name"]; ?></option>
@@ -294,8 +294,8 @@ function ShowRecordsUser()
 							<select class="form-control primary" id="cmbyear" name="cmbyear" selected required >
 							
 							<?php
-								$sqlDept=mysql_query("select * from year");
-								while($rwDept=mysql_fetch_array($sqlDept))
+								$sqlDept=mysqli_query($conn,"select * from year");
+								while($rwDept=mysqli_fetch_array($sqlDept))
 								{
 								?>
 								

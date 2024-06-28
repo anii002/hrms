@@ -124,8 +124,8 @@ $(document).ready(function() {
 									</thead> 
 									<tbody>
 										<?php 
-											$sql_query=mysql_query("select * from tbl_employee where approvedstatus='0'");
-											while($rwEmp=mysql_fetch_array($sql_query))
+											$sql_query=mysqli_query($conn,"select * from tbl_employee where approvedstatus='0'");
+											while($rwEmp=mysqli_fetch_array($sql_query))
 											{
 												$empid=$rwEmp["empid"];
 												$year=$rwEmp["year"];

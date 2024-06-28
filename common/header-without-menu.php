@@ -53,7 +53,7 @@ $id = $_SESSION['user_id'];
 $sql = "SELECT * FROM register_user WHERE id = '$id'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-
+// print_r($row);
 ?>
 
 
@@ -101,43 +101,40 @@ $row = mysqli_fetch_assoc($result);
     <!-- <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
     <link href="bootstrap/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
     <!-- Goodgle fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
     <style type="text/css">
-    .btn-orange-moon {
-        background: #FF416C;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #FF416C, #FF4B2B);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        color: #fff;
-        /*border: 3px solid #eee;*/
-    }
+        .btn-orange-moon {
+            background: #FF416C;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #FF416C, #FF4B2B);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: #fff;
+            /*border: 3px solid #eee;*/
+        }
 
-    .btn-pos {
-        margin-top: 20px !important;
-        margin-left: 200px !important;
+        .btn-pos {
+            margin-top: 20px !important;
+            margin-left: 200px !important;
 
-    }
+        }
 
-    .error {
-        color: red !important;
-    }
+        .error {
+            color: red !important;
+        }
 
-    .pagination {
-        display: inline-block;
-        padding-left: 0;
-        margin: 0px 0;
-        border-radius: 4px;
-    }
+        .pagination {
+            display: inline-block;
+            padding-left: 0;
+            margin: 0px 0;
+            border-radius: 4px;
+        }
     </style>
 
 </head>
@@ -164,10 +161,9 @@ $row = mysqli_fetch_assoc($result);
                         <li class="dropdown user user-menu">
                             <a href="index.php" class="dropdown-toggle" data-toggle="dropdown">
                                 <?php if (isset($row['image'])) { ?>
-                                <img src="images/profile/<?php echo $row['image']; ?>" class="user-image"
-                                    alt="User Image">
+                                    <img src="images/profile/<?php echo $row['image']; ?>" class="user-image" alt="User Image">
                                 <?php } else { ?>
-                                <img src="images/profile/02th-egg-person.jpg" class="user-image" alt="User Image">
+                                    <img src="../hrms/images/profile/User_Circle.png" class="user-image" alt="User Image">
                                 <?php } ?>
                                 <span class="hidden-xs"><?php echo $row['name']; ?></span>
                             </a>
@@ -185,7 +181,7 @@ $row = mysqli_fetch_assoc($result);
 
                                 <li class="user-footer pull-left">
                                     <div class="">
-                                        <a href="index.php" class=""><i class="fa fa-home"></i> Home</a>
+                                        <a href="dashboard.php" class=""><i class="fa fa-home"></i> Home</a>
                                     </div>
                                     <div class="">
                                         <a href="profile.php" class=""><i class="fa fa-user"></i> Profile</a>

@@ -107,8 +107,8 @@ function ShowRecordsUser()
                                     </thead> 
 				                    <tbody>
                         				<?php
-                        				$sqlquery=mysql_query("select * from tbl_helpdesk where status=0");
-                        				while($rwReg=mysql_fetch_array($sqlquery))
+                        				$sqlquery=mysqli_query($conn,"select * from tbl_helpdesk where status=0");
+                        				while($rwReg=mysqli_fetch_array($sqlquery))
                         				{
                         				$id=$rwReg["HLP_id"];
                         				//echo "$id";
@@ -154,8 +154,8 @@ function ShowRecordsUser()
     							    </thead> 
     						        <tbody>
             							  <?php
-                							$sqlquery=mysql_query("select * from tbl_helpdesk where status=1");
-                							while($rwReg=mysql_fetch_array($sqlquery))
+                							$sqlquery=mysqli_query($conn,"select * from tbl_helpdesk where status=1");
+                							while($rwReg=mysqli_fetch_array($sqlquery))
                 							{
                 							$id=$rwReg["HLP_id"];
                 							//echo "$id";

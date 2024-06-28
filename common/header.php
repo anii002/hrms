@@ -37,21 +37,18 @@ $row = $result->fetch_assoc();
     <link rel="stylesheet" href="bootstrap/css/preloader-style.css">
     <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
     <link rel="icon" type="image/png" sizes="16x16" href="dist/img/logo1.png">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <style type="text/css">
-    .btn-orange-moon {
-        background: #FF416C;
-        background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
-    }
+        .btn-orange-moon {
+            background: #FF416C;
+            background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
+        }
 
-    .error {
-        color: red !important;
-    }
+        .error {
+            color: red !important;
+        }
     </style>
 </head>
 
@@ -70,8 +67,7 @@ $row = $result->fetch_assoc();
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
                             <a href="super_admin_dashboard.php" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="images/profile/<?php echo htmlspecialchars($row['image']); ?>"
-                                    class="user-image" alt="User Image">
+                                <img src="images/profile/<?php echo htmlspecialchars($row['image']); ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs">Super Admin</span>
                             </a>
                             <ul class="dropdown-menu profile-dropdown">
@@ -91,8 +87,7 @@ $row = $result->fetch_assoc();
             <section class="sidebar">
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="images/profile/<?php echo isset($row['image']) ? htmlspecialchars($row['image']) : '02th-egg-person.jpg'; ?>"
-                            class="img-circle" alt="User Image">
+                        <img src="images/profile/<?php echo isset($row['image']) ? htmlspecialchars($row['image']) : '02th-egg-person.jpg'; ?>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><?php echo htmlspecialchars($row['name']); ?></p>

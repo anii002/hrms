@@ -2,11 +2,12 @@
  session_start();
  if(!isset($_SESSION['SESS_MEMBER_NAME']))
  {
-	 echo "<script>window.location='http://drmpsur-hrms.in/e-apar/index.php';</script>";
+	 echo "<script>window.location='../../hrms/e-apar/index.php';</script>";
  }
 include_once('../global/header.php');
 include_once('../global/topbaruser.php');
 include_once('../global/sidebaruser.php');
+
 
 ?>
 <!-- Left side column. contains the logo and sidebar -->
@@ -27,8 +28,8 @@ include_once('../global/sidebaruser.php');
                 <h4><i class="icon fa fa-bullhorn"></i> Notification..!</h4>
                 <marquee direction="left" onmouseover="this.stop()" onmouseout="this.start();" loop="-1" scroll-delay="10000">
 				<?php
-					$sql_helpdesk=mysql_query("select * from tbl_helpdesk");
-					while($rwHelpdesk=mysql_fetch_array($sql_helpdesk))
+					$sql_helpdesk=mysqli_query($conn,"select * from tbl_helpdesk");
+					while($rwHelpdesk=mysqli_fetch_array($sql_helpdesk))
 					{
 						
 				?>
@@ -60,8 +61,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			  $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='MECHANICAL C & W' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			  $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='MECHANICAL C & W' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -80,8 +81,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			  $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='GENERAL ADMINISTRATION'  ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			  $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='GENERAL ADMINISTRATION'  ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -97,8 +98,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			<?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='AUDIT' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='AUDIT' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			?>
@@ -116,8 +117,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			<?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='COMMERCIAL' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='COMMERCIAL' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			?>
@@ -133,8 +134,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			 $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='ELECTRICAL' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			 $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='ELECTRICAL' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -151,8 +152,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			  $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='ENGINEERING' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			  $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='ENGINEERING' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -169,8 +170,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='MECHANICAL LOCO' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='MECHANICAL LOCO' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -187,8 +188,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			 $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='MEDICAL' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			 $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='MEDICAL' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -205,8 +206,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			  <?php
-			  $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='OPERATING' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			  $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='OPERATING' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -224,8 +225,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='PERSONNEL' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='PERSONNEL' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -244,8 +245,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			  $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='SECURITY' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			  $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='SECURITY' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -263,8 +264,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='SnT' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='SnT' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -282,8 +283,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where dept='STORES' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where dept='STORES' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -300,8 +301,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where status='0' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where status='0' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -319,8 +320,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee where status='1' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee where status='1' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -337,8 +338,8 @@ include_once('../global/sidebaruser.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select count(empid) from tbl_employee");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select count(empid) from tbl_employee");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			  $count=$rwCount["count(empid)"];
 			  echo "$count";
 			  ?>
@@ -353,8 +354,8 @@ include_once('../global/sidebaruser.php');
 	     </section>
       <!-- /.row -->
 	  <?php
-	  $sqlUser=mysql_query("select * from tbl_user  where username = '".$_SESSION['SESS_MEMBER_NAME']."'");
-					$rwUser=mysql_fetch_array($sqlUser);
+	  $sqlUser=mysqli_query($conn,"select * from tbl_user  where username = '".$_SESSION['SESS_MEMBER_NAME']."'");
+					$rwUser=mysqli_fetch_array($sqlUser);
 					$usertype=$rwUser["accesslevel"];
 					if($usertype=='Cadder Cheif Office Superitendent')
 					{

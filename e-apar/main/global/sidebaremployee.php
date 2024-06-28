@@ -6,7 +6,7 @@
         <div class="user-panel">
             <div class="pull-left image">
                 <?php if(isset($_SESSION['profile_image'])) { ?>
-                <img src="../../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" class="img-circle" alt="User Image">
+                <img src="../../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" class="img-circle" alt="User Image">
                 <?php } else { ?>
                 <img src="../resources/admin/User_Circle.png" class="img-circle" alt="User Image">
                 <?php } ?>

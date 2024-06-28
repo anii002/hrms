@@ -1,6 +1,6 @@
 <?php
 include('../dbconfig/dbcon.php');
-		dbcon();
+$conn= dbcon();
 		session_start();
 			
 
@@ -10,10 +10,10 @@ include('../dbconfig/dbcon.php');
 			$session=$_POST["txtsession"];
 			$reason=$_POST["txtreason"];
 			
-		if(mysql_query("insert into tbl_reason(empid,empcode,reasontype,financialyear,createdby,createddate) 
+		if(mysqli_query($conn,"insert into tbl_reason(empid,empcode,reasontype,financialyear,createdby,createddate) 
 		values('$empid','$empcode','$reason','$year','$session',NOW())"))
 		{
-			mysql_query("insert into tbl_audit(message,action,updatePerson,date) values('$empcode Reason Added Successfully','adding','$session',NOW())");
+			mysqli_query($conn,"insert into tbl_audit(message,action,updatePerson,date) values('$empcode Reason Added Successfully','adding','$session',NOW())");
 						echo "<script>
 						alert('Record Added Successfully!!!!');
 						window.location='frmsample.php';
@@ -21,6 +21,6 @@ include('../dbconfig/dbcon.php');
 		}
 		else
 		{
-			echo mysql_error();
+			echo mysqli_error($conn);
 		}
 ?>

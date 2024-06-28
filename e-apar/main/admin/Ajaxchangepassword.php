@@ -1,6 +1,6 @@
 <?php
 include('../dbconfig/dbcon.php');
-		dbcon();
+$conn=dbcon();
 			
 if(isset($_POST["btnSubmit"]))
 {
@@ -8,16 +8,16 @@ if(isset($_POST["btnSubmit"]))
 	$newpass=$_POST["txtnewpass"];
 	$renewpass=$_POST["txtrenewpass"];
 	
-		if(mysql_query("update tbl_login set password='".hashPassword($renewpass, SALT1, SALT2)."'"))
+		if(mysqli_query($conn,"update tbl_login set password='".hashPassword($renewpass, SALT1, SALT2)."'"))
 		{
-			mysql_query("insert into tbl_audit(message,action,updatePerson,date) values('Password changed by Super Admin','editing','Super Admin',NOW())");
+			mysqli_query($conn,"insert into tbl_audit(message,action,updatePerson,date) values('Password changed by Super Admin','editing','Super Admin',NOW())");
 			echo "<script>
 			alert('Your PASSWORD Has Changed Successfully.......');
 			window.location='frmadminprofile.php';
 			</script>";
 		}else
 		{
-			echo mysql_error();
+			echo mysqli_error($conn);
 		}
 }
 ?>

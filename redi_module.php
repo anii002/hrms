@@ -800,7 +800,7 @@
 				$_SESSION['SESS_MEMBER_NAME'] = 'admin';
 				$_SESSION['SESS_ADMIN_NAME'] = 'admin';
 
-			echo "<script>window.location.href='../e-apar/main/admin/index.php';</script>";
+			echo "<script>window.location.href='../hrms/e-apar/main/admin/index.php';</script>";
 				
 			}
 
@@ -826,7 +826,7 @@
 				$_SESSION['SESS_MEMBER_NAME'] = $row_usr['username'];
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
-				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-apar/main/user/index.php';</script>";
 			}
 			
 			if($_POST['apar'] == 2)
@@ -835,19 +835,19 @@
 				mysqli_connect('localhost','root','');
 				if(mysqli_select_db($conn,'drmpsurh_eapar'))
 				{
-					//echo "Connected";
+					// echo "Connected";
 				}
 				else
 				{
-					//echo "Not Connected";
+					// echo "Not Connected";
 				}
 				//exit();
 				$sql_usr = "SELECT * FROM tbl_user WHERE username = '$pf_num' AND accesslevel = 'Office general'";
-				/*echo $sql_usr;exit();*/
+				// echo $sql_usr;exit();
 				$result_usr = mysqli_query($conn, $sql_usr);
 				$row_usr = mysqli_fetch_assoc($result_usr);	
-                /*echo "<pre>";
-                print_r($row_usr);exit();*/
+                // echo "<pre>";
+                // print_r($row_usr);exit();
 				$_SESSION['staff'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_ID'] = $row_usr['userid'];
 				$_SESSION['SESS_USER_NAME'] = $row_usr['fullname'];
@@ -855,7 +855,7 @@
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
 
-				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-apar/main/user/index.php';</script>";
 			}
 			
 			if($_POST['apar'] == 3)
@@ -880,7 +880,7 @@
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
 
-				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-apar/main/user/index.php';</script>";
 			}
 			
 			if($_POST['apar'] == 4)
@@ -904,7 +904,7 @@
 				$_SESSION['SESS_MEMBER_NAME'] = $row_usr['username'];
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
-				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-apar/main/user/index.php';</script>";
 			}
 			
 			if($_POST['apar'] == 5)
@@ -929,7 +929,7 @@
 				$_SESSION['Department'] = $row_usr['dept'];
 				$_SESSION['Access_level'] = $row_usr['accesslevel'];
 
-				echo "<script>window.location.href='../e-apar/main/user/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-apar/main/user/index.php';</script>";
 			}
 
 			if($_POST['apar'] == 6)

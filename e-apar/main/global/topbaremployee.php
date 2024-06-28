@@ -5,7 +5,7 @@
         <span class="logo-mini"><b></b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg text-left">
-            <!--<img src="../resources/admin/Indian_Railway.png" height="30" width="50">-->
+            <img src="../resources/admin/Indian_Railway.png" height="30" width="30" class="img-fluid">
             e - APAR
         </span>
     </a>
@@ -41,7 +41,7 @@
                         <?php 
                         if(isset($_SESSION['profile_image'])) {
                         ?>
-                            <img src="../../../../images/profile/ <?php echo $_SESSION['profile_image']; ?>" class="user-image" alt="User Image">
+                            <img src="../../../../hrms/images/profile/ <?php echo $_SESSION['profile_image']; ?>" class="user-image" alt="User Image">
                         <?php } else { ?>
                             <img src="../plugins/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                         <?php } ?>
@@ -51,16 +51,16 @@
                     <ul class="dropdown-menu profile-dropdown">
                         <li class="user-footer pull-left">
                             <div class="">
-                                <a href="../../../../index.php" class="">
+                                <a href="../../../dashboard.php" class="">
                                     <i class="fa fa-home text-info"></i> 
                                     <span class="text-info">Home</span>
                                 </a>
                             </div>
                             <div class="">
-                                <a href="../../../../profile.php" class=""><i class="fa fa-user text-info"></i> <span class="text-info"> Change Profile </span></a>
+                                <a href="../../../profile.php" class=""><i class="fa fa-user text-info"></i> <span class="text-info"> Change Profile </span></a>
                             </div>
                             <div class="">
-                                <a href="../../../../Logout.php" class=""><i class="fa fa-sign-out text-info"></i><span class="text-info"> Sign out </span></a>
+                                <a href="../../../Logout.php" class=""><i class="fa fa-sign-out text-info"></i><span class="text-info"> Sign out </span></a>
                             </div>
                         </li>
                     </ul>

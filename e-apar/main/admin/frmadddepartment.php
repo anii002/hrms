@@ -104,8 +104,8 @@ function ShowRecordsUser()
 						<select class="form-control primary" id="cmbdept" name="cmbdept">
 						<option value="" selected hidden disabled>-- Select Department Here -- </option>
 						<?php
-							$sqlDept=mysql_query("select * from tbl_department");
-							while($rwDept=mysql_fetch_array($sqlDept))
+							$sqlDept=mysqli_query($conn,"select * from tbl_department");
+							while($rwDept=mysqli_fetch_array($sqlDept))
 							{
 						?>
 						<option value="<?php echo $rwDept["dept_id"]; ?>"><?php echo $rwDept["deptname"]; ?></option>

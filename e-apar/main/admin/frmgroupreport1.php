@@ -47,16 +47,16 @@ include_once('../global/sidebaradmin.php');
 					{
 						$groupid=$_GET["gid"];
 				
-					$sql_query = mysql_query("select * from tbl_finalgroupgrade where groupid='$groupid'");
-					if($sql_fetch = mysql_fetch_array($sql_query))
+					$sql_query = mysqli_query($conn,"select * from tbl_finalgroupgrade where groupid='$groupid'");
+					if($sql_fetch = mysqli_fetch_array($sql_query))
 					{
 						echo "<div class='' id='hidebutton' name='hidebutton' style='padding-left:20px;'><a href='AjaxDeleteFinal.php?grp=$groupid' class='btn btn-primary btn-flat' id='btngenerate' name='btngenerate'><i class='fa fa-save'></i> Regenerate</a></div>";
 						?>
 						<div class="box-body" style="padding:50px 10px 10px 10px;" id="divemp">
 						<div class="col-md-12" style="text-align:center;font-size:16px;"> 
 						<?php
-						$sql_header = mysql_query("select * from tbl_header where groupid = '$groupid' order by HDR_id desc limit 1");
-						while($rwHeader = mysql_fetch_array($sql_header))
+						$sql_header = mysqli_query($conn,"select * from tbl_header where groupid = '$groupid' order by HDR_id desc limit 1");
+						while($rwHeader = mysqli_fetch_array($sql_header))
 						{
 						//}
 						?>
@@ -105,8 +105,8 @@ include_once('../global/sidebaradmin.php');
 						<tbody>
 							<?php 
 							$cnt=1;
-							$sqlcheck=mysql_query("select * from tbl_finalgroupgrade where groupid='$groupid'");
-							while($rwSql=mysql_fetch_array($sqlcheck))
+							$sqlcheck=mysqli_query($conn,"select * from tbl_finalgroupgrade where groupid='$groupid'");
+							while($rwSql=mysqli_fetch_array($sqlcheck))
 							{
 								$emppf = $rwSql["pfno"];
 								$year = $rwSql["year1"];
@@ -119,8 +119,8 @@ include_once('../global/sidebaradmin.php');
 									<?php
 									
 										
-										$sql = mysql_query("select * from tbl_employee where emplcode = '$emppf'");
-										$sql_fetch_record = mysql_fetch_array($sql);
+										$sql = mysqli_query($conn,"select * from tbl_employee where emplcode = '$emppf'");
+										$sql_fetch_record = mysqli_fetch_array($sql);
 										
 										$emplid = $sql_fetch_record["emplcode"];
 										$emplyear = $sql_fetch_record["year"];
@@ -182,8 +182,8 @@ include_once('../global/sidebaradmin.php');
 								<select class="form-control select2" id="cmbselect" name="cmbselect" style="width: 100%;">
 								  <option></option>
 								  <?php
-								$sqlDept=mysql_query("select * from tbl_designation");
-								while($rwDept=mysql_fetch_array($sqlDept))
+								$sqlDept=mysqli_query($conn,"select * from tbl_designation");
+								while($rwDept=mysqli_fetch_array($sqlDept))
 								{
 								?>
 								<option value="<?php echo $rwDept["designation"]; ?>"><?php echo $rwDept["designation"]; ?></option>
@@ -199,8 +199,8 @@ include_once('../global/sidebaradmin.php');
 								<select class="form-control select2" id="cmbselect2" name="cmbselect2" style="width: 100%;">
 								<option></option>
 								  <?php
-								$sqlDept=mysql_query("select * from tbl_department");
-								while($rwDept=mysql_fetch_array($sqlDept))
+								$sqlDept=mysqli_query($conn,"select * from tbl_department");
+								while($rwDept=mysqli_fetch_array($sqlDept))
 								{
 								?>
 								<option value="<?php echo $rwDept["deptname"]; ?>"><?php echo $rwDept["deptname"]; ?></option>
@@ -238,8 +238,8 @@ include_once('../global/sidebaradmin.php');
 						<th>Designation</th>
 						<th>Caste</th>
 						<?php
-						$sql=mysql_query("SELECT * FROM year order by id desc LIMIT 1,3");
-						while($rev = mysql_fetch_array($sql))
+						$sql=mysqli_query($conn,"SELECT * FROM year order by id desc LIMIT 1,3");
+						while($rev = mysqli_fetch_array($sql))
 						{
 						 echo "<th>".$rev['years']."</th>";
 						}
@@ -252,14 +252,14 @@ include_once('../global/sidebaradmin.php');
 						<?php 
 						
 						
-						$sql_group=mysql_query("select distinct empid from group_details where group_id='$groupid'");
-						while($rwGroup=mysql_fetch_array($sql_group))
+						$sql_group=mysqli_query($conn,"select distinct empid from group_details where group_id='$groupid'");
+						while($rwGroup=mysqli_fetch_array($sql_group))
 						{
 							$rowgrpid=$rwGroup["empid"];
 						
 						
-							$sqlgroupmaster=mysql_query("select * from tbl_employee where emplcode='$rowgrpid'");
-							while($rwGroupMaster=mysql_fetch_array($sqlgroupmaster))
+							$sqlgroupmaster=mysqli_query($conn,"select * from tbl_employee where emplcode='$rowgrpid'");
+							while($rwGroupMaster=mysqli_fetch_array($sqlgroupmaster))
 							{
 								$year=$rwGroupMaster["year"];
 								$empcode=$rwGroupMaster["emplcode"];
@@ -273,12 +273,12 @@ include_once('../global/sidebaradmin.php');
 							<?php
 							}
 							$cnt=0;
-							$sql=mysql_query("SELECT * FROM year order by id desc limit 1,3");
+							$sql=mysqli_query($conn,"SELECT * FROM year order by id desc limit 1,3");
 							
-							while($rev = mysql_fetch_array($sql))
+							while($rev = mysqli_fetch_array($sql))
 							{
-								$sqlyear=mysql_query("select * from scanned_apr where empid='$rowgrpid' AND year='".$rev['years']."'");
-							    if($rwyear=mysql_fetch_array($sqlyear))
+								$sqlyear=mysqli_query($conn,"select * from scanned_apr where empid='$rowgrpid' AND year='".$rev['years']."'");
+							    if($rwyear=mysqli_fetch_array($sqlyear))
 								{
 									$rowyear=$rwyear["year"];
 									//$emid=$rwyear["id"];
@@ -293,8 +293,8 @@ include_once('../global/sidebaradmin.php');
 									echo "<td><input type='hidden' id='grade' name='grade' value='$rowgrpid'>
 									<select class='nselect' id='$num' name='$num' value='".$rowgrpid."' >
 									<option>-year-</option>";
-									$sqlselect=mysql_query("select * from scanned_apr where empid='$rowgrpid'");
-									while($rwselect = mysql_fetch_array($sqlselect))
+									$sqlselect=mysqli_query($conn,"select * from scanned_apr where empid='$rowgrpid'");
+									while($rwselect = mysqli_fetch_array($sqlselect))
 									{
 									echo "
 									
@@ -307,8 +307,8 @@ include_once('../global/sidebaradmin.php');
 							}
 						   
 							echo "<td><input type='text' style='border:none;' size='4' id='nvalue$rowgrpid' name='nvalue$rowgrpid' value='$cnt' readonly></td>";
-							$sql_remark=mysql_query("select * from tbl_graderemark where groupid='$groupid' AND empid='$rowgrpid'");
-							$rwRemark=mysql_fetch_array($sql_remark);
+							$sql_remark=mysqli_query($conn,"select * from tbl_graderemark where groupid='$groupid' AND empid='$rowgrpid'");
+							$rwRemark=mysqli_fetch_array($sql_remark);
 							$getvar=$rwRemark["graderemark"];
 								if($getvar=='')
 						{

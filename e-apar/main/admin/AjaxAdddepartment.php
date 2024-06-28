@@ -1,6 +1,6 @@
 <?php
 include('../dbconfig/dbcon.php');
-dbcon();
+$conn = dbcon();
 
 
 	$dept=$_POST["cmbdept"];
@@ -8,7 +8,7 @@ dbcon();
 	$date=$_POST["txtdate"];
 	$sesion=$_POST["txtsesion"];
 	
-		if(mysql_query("insert into tbl_usertype(usertype,deptid,date,createdby,createddate,modifieddate) values('$usertype','$dept','$date','$sesion',NOW(),NOW())"))
+		if(mysqli_query($conn,"insert into tbl_usertype(usertype,deptid,date,createdby,createddate,modifieddate) values('$usertype','$dept','$date','$sesion',NOW(),NOW())"))
 		{
 			echo "<script>
 			alert('User Type Added Successfully!!!!!!!!');
@@ -20,7 +20,7 @@ dbcon();
 			alert('User Type Not Added Please Check Again!!!!');
 			window.location='frmadddepartment.php';
 			</script>";
-			mysql_error();
+			mysqli_error($conn);
 		}
 	
 ?>
