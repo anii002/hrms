@@ -40,8 +40,8 @@ include_once('../global/sidebaremployee.php');
             <div class="inner">
               <h3>
 			   <?php
-			   $sqlcount=mysql_query("select * from tbl_employee where emplcode='".$_SESSION['EMP_PF_NO']."' ");
-			  $rwCount=mysql_fetch_array($sqlcount);
+			   $sqlcount=mysqli_query($conn,"select * from tbl_employee where emplcode='".$_SESSION['EMP_PF_NO']."' ");
+			  $rwCount=mysqli_fetch_array($sqlcount);
 			//  $count=$rwCount["count(empid)"];
 			  $count=$rwCount["emplcode"];
 			  echo "$count";

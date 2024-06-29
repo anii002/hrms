@@ -393,7 +393,7 @@ Follow me on Twitter @maridlcrmn
             $dept = "";
             $sqlDept = mysqli_query($conn,"select * from department");
             if (!$sqlDept) {
-              echo 'Database error: ' . mysqli_error();
+              echo 'Database error: ' . mysqli_error($conn);
             }
             while ($rwDept = mysqli_fetch_array($sqlDept)) {
               $dept .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["DEPTDESC"] . "</option>";

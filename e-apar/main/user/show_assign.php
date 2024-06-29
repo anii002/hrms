@@ -40,19 +40,19 @@ include_once('../global/sidebaruser.php');
 		</thead>
 		
 			<?php
-	$sqluser = mysql_query("select * from assignto_tbl where assignedid IN(select assignid from tbl_assignto where groupid='".$_GET['gid']."')");
-			while($rwUser = mysql_fetch_array($sqluser))
+	$sqluser = mysqli_query($conn,"select * from assignto_tbl where assignedid IN(select assignid from tbl_assignto where groupid='".$_GET['gid']."')");
+			while($rwUser = mysqli_fetch_array($sqluser))
 			{
 			$rwempid = $rwUser["emp_id"];
 			$assngnid = $rwUser["assignedid"];
 			
 			}
-		$sql=mysql_query("select * from tbl_user where userid IN(select emp_id from assignto_tbl where assignedid IN(select assignid from tbl_assignto where groupid='".$_GET['gid']."') AND status='1')");
-		while($result=mysql_fetch_array($sql))
+		$sql=mysqli_query($conn,"select * from tbl_user where userid IN(select emp_id from assignto_tbl where assignedid IN(select assignid from tbl_assignto where groupid='".$_GET['gid']."') AND status='1')");
+		while($result=mysqli_fetch_array($sql))
 		{
 			echo "<tbody><td  style='width:200px;'>".$result['fullname']."</td>";
-			$permission = mysql_query("select * from tbl_accesspermission where accesslevel='".$_SESSION['Access_level']."'");
-						$ResultSet = mysql_fetch_array($permission);
+			$permission = mysqli_query($conn,"select * from tbl_accesspermission where accesslevel='".$_SESSION['Access_level']."'");
+						$ResultSet = mysqli_fetch_array($permission);
 						if($ResultSet['deleting']=='on')
 						{
 			echo "<td><a href='Ajadeleteuser.php?rwempid=".$result['userid']."&assignid=".$assngnid."&gid=".$_GET['gid']."' id='deleteuser' name='deleteuser'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='fa fa-close'></i></a></td></tbody>";

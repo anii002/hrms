@@ -1,7 +1,7 @@
 <?php
 		
 		include('../dbconfig/dbcon.php');
-		dbcon();
+		$conn=dbcon();
 		if(isset($_GET["empid"]))
 		{
 			$getid=$_GET["empid"];
@@ -12,13 +12,13 @@
 			echo $_GET["year"];echo "<br>";
 			echo $_GET["image"];
 			
-			if(mysql_query("delete from scanned_img where empid='$getid' AND year='$getyear' AND image='$getimage'"))
+			if(mysqli_query($conn,"delete from scanned_img where empid='$getid' AND year='$getyear' AND image='$getimage'"))
 			{
-				mysql_query("insert into tbl_audit(message,action,updatePerson,date) values('Image deleted by Super Admin for empid $empid for year $year','deleting','Super Admin',NOW())");
+				mysqli_query($conn,"insert into tbl_audit(message,action,updatePerson,date) values('Image deleted by Super Admin for empid $empid for year $year','deleting','Super Admin',NOW())");
 				echo "<script>alert('Employee APAR Deleted Successfully.....!'); window.location='frmsample.php'</script>";
 			}else
 			{
-				echo mysql_error();
+				echo mysqli_error($conn);
 			}
 			
 		}

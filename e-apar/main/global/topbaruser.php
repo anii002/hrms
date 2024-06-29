@@ -3,13 +3,16 @@
   if (!isset($_SESSION['SESS_USER_ID'])) {
     echo "<script>alert('Please logged in!!!');window.location='/index.php';</script>";
   }
+
+  require_once('../dbconfig/dbcon.php');
+  $conn = dbcon();
   ?>
   <!-- Logo -->
   <a href="index.php" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b></b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><img src="../resources/admin/Indian_Railway.png" / height="30" width="50">
+    <span class="logo-lg"><img src="../resources/admin/Indian_Railway.png" height="30" width="30">
       <b>E</b> - APAR</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
@@ -26,7 +29,7 @@
         </ul>
         <li class="dropdown user user-menu">
           <?php
-          session_start();
+          // session_start();
           $sqladmin = mysqli_query($conn, "select * from tbl_user where userid='" . $_SESSION['SESS_USER_ID'] . "'");
           while ($rwUser = mysqli_fetch_array($sqladmin, MYSQLI_BOTH)) {
             $rwname = $rwUser["fullname"];
@@ -44,7 +47,7 @@
               <?php
               if (isset($_SESSION['profile_image'])) {
               ?>
-                <img src="../../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" class="user-image" alt="User Image">
+                <img src="../../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" class="user-image" alt="User Image">
               <?php } else {  ?>
                 <img src="../plugins/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <?php } ?>
@@ -78,16 +81,16 @@
 
               <li class="user-footer pull-left">
                 <div class="">
-                  <a href="../../../../index.php" class="">
+                  <a href="../../../../hrms/dashboard.php" class="">
                     <i class="fa fa-home text-info"></i>
                     <span class="text-info">Home</span>
                   </a>
                 </div>
                 <div class="">
-                  <a href="../../../../profile.php" class=""><i class="fa fa-user text-info"></i> <span class="text-info"> Change Profile </span></a>
+                  <a href="../../../../hrms/profile.php" class=""><i class="fa fa-user text-info"></i> <span class="text-info"> Change Profile </span></a>
                 </div>
                 <div class="">
-                  <a href="../../../../Logout.php" class=""><i class="fa fa-sign-out text-info"></i><span class="text-info"> Sign out </span></a>
+                  <a href="../../../../hrms/Logout.php" class=""><i class="fa fa-sign-out text-info"></i><span class="text-info"> Sign out </span></a>
                 </div>
               </li>
             </ul>
@@ -128,8 +131,6 @@
                 <button type="submit" class="btn btn-success">Go!</button>
               </div>
             </div>
-
-
           </form>
         </div>
       </div>

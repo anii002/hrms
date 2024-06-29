@@ -76,8 +76,8 @@ include_once('../global/sidebaruser.php');
 									  
 										<tbody>
 										  <?php
-										$sqlemployee=mysql_query("select * from tbl_employee order by empid asc");
-										while($rwEmployee=mysql_fetch_array($sqlemployee,MYSQL_ASSOC))
+										$sqlemployee=mysqli_query($conn,"select * from tbl_employee order by empid asc");
+										while($rwEmployee=mysqli_fetch_array($sqlemployee,MYSQLI_ASSOC))
 										{
 											$empid=$rwEmployee["empid"];
 											$year=$rwEmployee["year"];
