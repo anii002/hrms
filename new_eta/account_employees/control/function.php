@@ -1,157 +1,186 @@
 <?php
+
+// Assuming $conn is your MySQLi connection object
+
 function get_employee($id)
 {
-    $query = mysql_query("select name from employees where pfno='".$id."' ");
-    $result = mysql_fetch_array($query);
-    return $result['name'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT name FROM employees WHERE pfno='".$id."'");
+    $result = mysqli_fetch_array($query);
+    return ($result) ? $result['name'] : null;
 }
+
 function get_dept_shortform($id)
 {
-    $sql=mysql_query("SELECT shortform FROM `department` WHERE DEPTNO='".$id."' ");
-    $row=mysql_fetch_array($sql);
-    return $row['shortform'];
+    global $conn;
+    $sql = mysqli_query($conn, "SELECT shortform FROM `department` WHERE DEPTNO='".$id."'");
+    $row = mysqli_fetch_array($sql);
+    return ($row) ? $row['shortform'] : null;
 }
+
 function fetch_dept_profile($id)
 {
-  //fetch department using id
-  $data = "";
-  $dept = "select * from department where dept_id='$id'";
-  $result = mysql_query($dept);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
-  $dept = "select * from department where dept_id <> '$id'";
-  $result = mysql_query($dept);
-  while($value = mysql_fetch_array($result))
-    $data .= "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
-  return $data;
+    global $conn;
+    $data = "";
+    $dept_query = mysqli_query($conn, "SELECT * FROM department WHERE dept_id='$id'");
+    $value = mysqli_fetch_array($dept_query);
+    if ($value) {
+        $data = "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
+    }
+
+    $dept_query_all = mysqli_query($conn, "SELECT * FROM department WHERE dept_id <> '$id'");
+    while ($value = mysqli_fetch_array($dept_query_all)) {
+        $data .= "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
+    }
+    return $data;
 }
 
 function fetch_design_profile($id)
 {
-  //fetch designation using id
-  $data = "";
-  $query = "select * from designation where designation='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['designation']."'>".$value['designation']."</option>";
-  $query = "select * from designation where designation <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
-    $data .= "<option value='".$value['designation']."'>".$value['designation']."</option>";
-  return $data;
+    global $conn;
+    $data = "";
+    $query = mysqli_query($conn, "SELECT * FROM designation WHERE designation='$id'");
+    $value = mysqli_fetch_array($query);
+    if ($value) {
+        $data = "<option value='".$value['designation']."'>".$value['designation']."</option>";
+    }
+
+    $query_all = mysqli_query($conn, "SELECT * FROM designation WHERE designation <> '$id'");
+    while ($value = mysqli_fetch_array($query_all)) {
+        $data .= "<option value='".$value['designation']."'>".$value['designation']."</option>";
+    }
+    return $data;
 }
 
 function fetch_pay_level($id)
 {
-  $data = "";
-  $query = "select * from paylevel where num='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['num']."'>".$value['pay_text']."</option>";
-  $query = "select * from paylevel where num <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
-    $data .= "<option value='".$value['num']."'>".$value['pay_text']."</option>";
-  return $data;
+    global $conn;
+    $data = "";
+    $query = mysqli_query($conn, "SELECT * FROM paylevel WHERE num='$id'");
+    $value = mysqli_fetch_array($query);
+    if ($value) {
+        $data = "<option value='".$value['num']."'>".$value['pay_text']."</option>";
+    }
+
+    $query_all = mysqli_query($conn, "SELECT * FROM paylevel WHERE num <> '$id'");
+    while ($value = mysqli_fetch_array($query_all)) {
+        $data .= "<option value='".$value['num']."'>".$value['pay_text']."</option>";
+    }
+    return $data;
 }
+
 function fetch_station_profile($id)
 {
-  //fetch designation using id
-  $data = "";
-  $query = "select * from stations where station_id='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
-  $query = "select * from stations where station_id <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
-    $data .= "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
-  return $data;
+    global $conn;
+    $data = "";
+    $query = mysqli_query($conn, "SELECT * FROM stations WHERE station_id='$id'");
+    $value = mysqli_fetch_array($query);
+    if ($value) {
+        $data = "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
+    }
+
+    $query_all = mysqli_query($conn, "SELECT * FROM stations WHERE station_id <> '$id'");
+    while ($value = mysqli_fetch_array($query_all)) {
+        $data .= "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
+    }
+    return $data;
 }
+
 function fetch_station($code)
 {
-  $query = "SELECT `stationdesc` FROM `station` WHERE `stationcode`='$code'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['stationdesc'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `stationdesc` FROM `station` WHERE `stationcode`='$code'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['stationdesc'] : null;
 }
+
 function fetch_gradepay_profile($id)
 {
-  //fetch designation using id
-  $data = "";
-  $query = "select * from gradepay where id='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['id']."'>".$value['gradepay']."</option>";
-  $query = "select * from gradepay where id <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
-    $data .= "<option value='".$value['id']."'>".$value['gradepay']."</option>";
-  return $data;
+    global $conn;
+    $data = "";
+    $query = mysqli_query($conn, "SELECT * FROM gradepay WHERE id='$id'");
+    $value = mysqli_fetch_array($query);
+    if ($value) {
+        $data = "<option value='".$value['id']."'>".$value['gradepay']."</option>";
+    }
+
+    $query_all = mysqli_query($conn, "SELECT * FROM gradepay WHERE id <> '$id'");
+    while ($value = mysqli_fetch_array($query_all)) {
+        $data .= "<option value='".$value['id']."'>".$value['gradepay']."</option>";
+    }
+    return $data;
 }
+
 function designation($id)
 {
-  $query = "SELECT `DESIGLONGDESC` FROM `designations` WHERE `DESIGCODE`='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['DESIGLONGDESC'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `DESIGLONGDESC` FROM `designations` WHERE `DESIGCODE`='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['DESIGLONGDESC'] : null;
 }
+
 function getdepartment($id)
 {
-  $query = "select DEPTDESC from department where DEPTNO='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['DEPTDESC'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT DEPTDESC FROM department WHERE DEPTNO='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['DEPTDESC'] : null;
 }
+
 function getdepot($id)
 {
-  $query = "SELECT `depot` FROM `depot_master` WHERE `id`='$id'";
-  $result = mysql_query($query);
-  $value='';
-  while($row=mysql_fetch_array($result)){
-      $value=$row['depot'];
-  }
-  return $value;
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `depot` FROM `depot_master` WHERE `id`='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['depot'] : null;
 }
+
 function getjourneytype($id)
 {
-  $query = "SELECT `journey_type` FROM `journey_type_master` WHERE `id`='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['journey_type'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `journey_type` FROM `journey_type_master` WHERE `id`='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['journey_type'] : null;
 }
+
 function getjourneypurpose($id)
 {
-  $query = "SELECT `journey_purpose` FROM `journey_purpose_master` WHERE `id`='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['journey_purpose'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `journey_purpose` FROM `journey_purpose_master` WHERE `id`='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['journey_purpose'] : null;
 }
+
 function getobjective($id)
 {
-  $query = "SELECT `objective` FROM `taentry_master` WHERE `reference_no`='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['objective'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `objective` FROM `taentry_master` WHERE `reference_no`='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['objective'] : null;
 }
+
 function getcardpass($id)
 {
-  $query = "SELECT `cardpass` FROM `taentry_master` WHERE `reference_no`='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['cardpass'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT `cardpass` FROM `taentry_master` WHERE `reference_no`='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['cardpass'] : null;
 }
+
 function getrole($id)
 {
-    $query=mysql_query("SELECT role_desc FROM `roles` WHERE role_id='".$id."' ");
-    $row=mysql_fetch_array($query);
-    return $row['role_desc'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT role_desc FROM `roles` WHERE role_id='".$id."'");
+    $row = mysqli_fetch_array($query);
+    return ($row) ? $row['role_desc'] : null;
 }
+
 function getEmpName($id)
 {
-  $query = "SELECT name FROM `employees` WHERE pfno='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['name'];
+    global $conn;
+    $query = mysqli_query($conn, "SELECT name FROM `employees` WHERE pfno='$id'");
+    $value = mysqli_fetch_array($query);
+    return ($value) ? $value['name'] : null;
 }
+
 ?>

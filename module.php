@@ -8,92 +8,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo $result die;
     $name = $_POST['name'];
     //echo $name;exit();
+    
     if ($name == 'tamm') {
         $tamm = explode(',', $row['tamm']);
-        for ($i = 0; $i < count($tamm); $i++) {
+        $roles = array(
+            "0" => "Super Admin",
+            "1" => "Super Account",
+            "11" => "Department Admin",
+            "12" => "Controlling Incharge",
+            "13" => "Controlling Office",
+            "5" => "Accountant",
+            "4" => "Employee",
+            "14" => "Personnel Admin",
+            "15" => "Branch Officer",
+            "16" => "Personnel Clerk",
+            "17" => "APO",
+            "21" => "Employee",
+            "22" => "SO",
+            "23" => "SO Admin",
+            "24" => "ADFM"
+        );
+
+        foreach ($roles as $value => $label) {
+            $checked = (in_array($value, $tamm)) ? 'checked' : '';
 ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($tamm[$i] == "0") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="superadmin" value="0"> Super Admin
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "1") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="superaccount" value="1"> Super Account
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "11") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="departmentadmin" value="11"> Department Admin
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "12") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="controllingincharge" value="12"> Controlling Incharge
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "13") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="controllingoffice" value="13"> Controlling Office
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "5") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="accountant" value="5"> Accountant
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "4") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="employee" value="4" <?php if ($tamm[$i] == "4") echo 'checked'; ?>> Employee
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "14") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="personneladmin" value="14"> Personnel Admin
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "15") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="branchofficer" value="15"> Branch Officer
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "16") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="personnelclerk" value="16"> Personnel Clerk
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "17") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="apo" value="17"> APO
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "21") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="acc_emp" value="21"> Employee
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "22") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="so" value="22"> SO
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "23") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="soa" value="23"> SO Admin
-                        </label>
-                    <?php } ?>
-                    <?php if ($tamm[$i] == "24") { ?>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="tamm" id="adfm" value="24"> ADFM
-                        </label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="tamm" id="<?php echo strtolower(str_replace(' ', '', $label)); ?>" value="<?php echo $value; ?>" <?php echo $checked; ?>>
+                        <?php echo $label; ?>
+                    </label>
                 </div>
             </div>
-        <?php
+<?php
         }
     }
+
+
 
     if ($name == 'e_gr') {
         $e_gr = explode(',', $row['e_grievance']);

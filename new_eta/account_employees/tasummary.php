@@ -10,7 +10,7 @@ include('common/sidebar.php');
 	display : block;
   }
   .show {
-	   display : ;
+	   display : 0;
   }
 
 }

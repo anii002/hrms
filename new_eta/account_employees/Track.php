@@ -58,12 +58,12 @@ include('control/function.php');
                   <tbody>
                     <?php
                       $query1="SELECT `id`, `TAMonth`, `TAYear`, `empid`, `reference_no`,`objective`, `created_date` FROM `taentry_master` WHERE empid='".$_SESSION['empid']."' AND forward_status='1' ORDER by id DESC";
-                      $sql1=mysql_query($query1);
+                      $sql1=mysqli_query($conn,$query1);
 
-                      while ($row = mysql_fetch_array($sql1)) {
+                      while ($row = mysqli_fetch_array($sql1)) {
                         $query2="SELECT SUM(amount)as total_amount,distance,id FROM `taentrydetails` WHERE empid='".$_SESSION['empid']."' AND reference_no='".$row['reference_no']."' ORDER by id DESC";
-                      $sql2=mysql_query($query2);
-                      $row2 = mysql_fetch_array($sql2);
+                      $sql2=mysqli_query($conn,$query2);
+                      $row2 = mysqli_fetch_array($sql2);
                     ?>
                     <tr>
                       <!-- <td>01</td> -->
