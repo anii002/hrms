@@ -146,12 +146,25 @@ function designation($id)
 
 function getdepot($id)
 {
-  global $conn;
-  $query = "SELECT `depot` FROM `depot_master` WHERE `id`='$id'";
-  $result = mysqli_query($conn,$query);
-  $value = mysqli_fetch_array($result);
-  return $value['depot'];
+    global $conn;
+    $query = "SELECT `depot` FROM `depot_master` WHERE `id`='$id'";
+    $result = mysqli_query($conn, $query);
+    
+    if (!$result) {
+        // Handle query error
+        return "Unknown Depot";
+    }
+    
+    $value = mysqli_fetch_array($result);
+    
+    if (!$value) {
+        // Handle case where no data is found
+        return "Unknown Depot";
+    }
+    
+    return $value['depot'];
 }
+
 function getdepartment($id)
 {
   global $conn;

@@ -171,6 +171,10 @@ if (isset($_GET['sum_id'])) {
             $sql1_res = mysqli_stmt_get_result($stmt1);
             $val1 = mysqli_fetch_array($sql1_res);
 
+            if (!$val1) {
+                continue; // Skip iteration if employee data is not found
+            }
+
             // Fetch TA amount based on employee level
             $sql2 = "SELECT amount FROM ta_amount WHERE min <= ? AND max >= ?";
             $stmt2 = mysqli_prepare($conn, $sql2);
@@ -178,12 +182,12 @@ if (isset($_GET['sum_id'])) {
             mysqli_stmt_execute($stmt2);
             $res2 = mysqli_stmt_get_result($stmt2);
             $val2 = mysqli_fetch_array($res2);
-            $amount = $val2['amount'];
+            $amount = isset($val2['amount']) ? $val2['amount'] : '';
 
             // Prepare date formats
             $month_array = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
-            $mon = $month_array[substr($val['month'], 0, 2)];
-            $mmon = $month_array[substr($val['created_at'], 3, 2)];
+            $mon = isset($month_array[substr($val['month'], 0, 2)]) ? $month_array[substr($val['month'], 0, 2)] : '';
+            $mmon = isset($month_array[substr($val['created_at'], 3, 2)]) ? $month_array[substr($val['created_at'], 3, 2)] : '';
 
             // Calculate totals and output table row
             $total_amt = $val['30p_amt'] + $val['70p_amt'] + $val['100p_amt'];
@@ -196,7 +200,7 @@ if (isset($_GET['sum_id'])) {
             mysqli_stmt_execute($stmt3);
             $res3 = mysqli_stmt_get_result($stmt3);
             $ress = mysqli_fetch_array($res3);
-            $temp1 += $ress['amount'];
+            $temp1 += isset($ress['amount']) ? $ress['amount'] : 0;
 
             // Output table row
             echo "

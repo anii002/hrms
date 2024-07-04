@@ -60,14 +60,14 @@ include('control/function.php');
 										    $query1="SELECT taentry_master.* from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1' AND taentry_master.est_approve='0' AND BU='".$_GET['bu']."' AND TAMonth='".$_GET['mon']."' AND TAYear='".$_GET['year']."' ";
 											
 								// 			$query1="SELECT `id`, `TAMonth`, `TAYear`, `empid`, `reference_no`,`objective`, `created_date` FROM `taentry_master` WHERE empid='".$_SESSION['empid']."' AND forward_status='0' ";
-											$sql1=mysql_query($query1);
+											$sql1=mysqli_query($conn,$query1);
                                             $sr=0;
-											while ($row = mysql_fetch_array($sql1)) 
+											while ($row = mysqli_fetch_array($sql1)) 
 											{
 											    $sr++;
 												$query2="SELECT SUM(amount)as total_amount,distance FROM `taentrydetails` WHERE empid='".$_SESSION['empid']."' AND reference_no='".$row['reference_no']."' ";
-    											$sql2=mysql_query($query2);
-    											$row2 = mysql_fetch_array($sql2);
+    											$sql2=mysqli_query($conn,$query2);
+    											$row2 = mysqli_fetch_array($sql2);
 										?>
 										<tr>
 											 <td><?php echo $sr; ?></td> 

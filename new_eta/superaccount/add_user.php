@@ -152,8 +152,8 @@
 									<select class="form-control select2" style="width: 100%;" tabindex="-1" id="dept" name="dept" autofocus="true" required>
 			                    		<option value="" selected="" disabled=""> विभाग का चयन करें / Select Department</option>
 			                    		<?php
-			                    			$sql=mysql_query("SELECT `DEPTNO`, `DEPTDESC` FROM `department` ORDER BY `DEPTDESC` ASC");
-			                    			while($row = mysql_fetch_array($sql)) {
+			                    			$sql=mysqli_query($conn,"SELECT `DEPTNO`, `DEPTDESC` FROM `department` ORDER BY `DEPTDESC` ASC");
+			                    			while($row = mysqli_fetch_array($sql)) {
 			                    				echo "<option value='".$row['DEPTNO']."'>".$row['DEPTDESC']."</option>";
 			                    			}
 			                    		?>
@@ -197,9 +197,9 @@
 							<tbody>
 								<?php
 								$query_emp = "select employees.*, users.status as user_status, users.username  from employees INNER JOIN users on employees.pfno = users.empid and role='11'  ";
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($conn,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 								echo "
 								<tr>

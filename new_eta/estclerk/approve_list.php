@@ -55,9 +55,9 @@ include('control/function.php');
 									<tbody>
 									    <?php 
                 						   $q="SELECT billunit FROM `users` WHERE username='".$_SESSION['empid']."' ORDER BY `ID` ASC";
-                						    $result=mysql_query($q);
-                						    echo mysql_error();
-                						    $row=mysql_fetch_array($result);
+                						    $result=mysqli_query($conn,$q);
+                						    echo mysqli_error($conn);
+                						    $row=mysqli_fetch_array($result);
                 						    $b=array();
                 						    $b=explode(",",$row['billunit']);
                 						  //print_r($b);
@@ -66,14 +66,14 @@ include('control/function.php');
 										<?php
                                             $query = "SELECT * FROM `master_summary` WHERE forward_status='1' AND pa_status = '1' AND estcrk_status='1'";
         									$cnt=1;
-        									$result = mysql_query($query);
+        									$result = mysqli_query($conn,$query);
         									$emp_bu=array();
         								    $cnt_bu=0;
-        									while($val = mysql_fetch_array($result))
+        									while($val = mysqli_fetch_array($result))
         									{
         									    $ta_query="SELECT DISTINCT(BU) FROM employees e INNER JOIN tasummarydetails ts ON e.pfno=ts.empid WHERE ts.summary_id='".$val['summary_id']."' ";
-        									    $ta_result=mysql_query($ta_query);
-        									    $ta_rows=mysql_fetch_array($ta_result);
+        									    $ta_result=mysqli_query($conn,$ta_query);
+        									    $ta_rows=mysqli_fetch_array($ta_result);
         									    $bu=$ta_rows['BU'];
         									  
         								

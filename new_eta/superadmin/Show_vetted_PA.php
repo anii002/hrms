@@ -58,21 +58,21 @@ include('control/function.php');
 									<tbody>
 										<?php
 										
-										$query1=mysql_query("SELECT DISTINCT(master_summary.summary_id), tasummarydetails.empid as ts_empid FROM tasummarydetails,master_summary WHERE tasummarydetails.summary_id=master_summary.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='1' ORDER BY master_summary.summary_id ASC");
+										$query1=mysqli_query($conn,"SELECT DISTINCT(master_summary.summary_id), tasummarydetails.empid as ts_empid FROM tasummarydetails,master_summary WHERE tasummarydetails.summary_id=master_summary.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='1' ORDER BY master_summary.summary_id ASC");
     	
-                                    	while($row1 = mysql_fetch_array($query1))
+                                    	while($row1 = mysqli_fetch_array($query1))
                                     	{
-                                        	$for_pa_emp_query=mysql_query("SELECT taentry_master.* from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1'  AND employees.pfno='".$row1['ts_empid']."' AND dept='".$_GET['dept']."' AND BU='".$_GET['bu']."' AND TAMonth='".$_GET['mon']."' AND TAYear='".$_GET['year']."' ");
-                                        	if(mysql_num_rows($for_pa_emp_query) == 1)
+                                        	$for_pa_emp_query=mysqli_query($conn,"SELECT taentry_master.* from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1'  AND employees.pfno='".$row1['ts_empid']."' AND dept='".$_GET['dept']."' AND BU='".$_GET['bu']."' AND TAMonth='".$_GET['mon']."' AND TAYear='".$_GET['year']."' ");
+                                        	if(mysqli_num_rows($for_pa_emp_query) == 1)
                                         	{   
                                         	    $sr=0;
                                         	   // $for_pa_emp_cnt++;
-                                    	        while ($row = mysql_fetch_array($for_pa_emp_query)) 
+                                    	        while ($row = mysqli_fetch_array($for_pa_emp_query)) 
 											    {   
     											    $sr++;
     												$query2="SELECT SUM(amount)as total_amount,distance FROM `taentrydetails` WHERE empid='".$row['empid']."' AND reference_no='".$row['reference_no']."' ";
-        											$sql2=mysql_query($query2);
-        											$row2 = mysql_fetch_array($sql2);
+        											$sql2=mysqli_query($conn,$query2);
+        											$row2 = mysqli_fetch_array($sql2);
     										    ?>  
 										    	<tr>
     											    <td><?php echo $sr; ?></td> 
@@ -95,7 +95,7 @@ include('control/function.php');
 							                
 							                
 							             //   $query1="SELECT `id`, `TAMonth`, `TAYear`, `empid`, `reference_no`,`objective`, `created_date` FROM `taentry_master` WHERE empid='' AND forward_status='1' AND is_rejected='0' ";
-								// 			$sql1=mysql_query($query1);
+								// 			$sql1=mysqli_query($query1);
 
 											
 									

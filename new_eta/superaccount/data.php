@@ -1,31 +1,27 @@
 <?php
 
-	include('../dbconfig/dbcon.php');
+include('../dbconfig/dbcon.php');
 
-	function getdept($id)
-	{
-		$sql=mysql_query("SELECT `DEPTNO` FROM `department` WHERE DEPTDESC='".$id."' ");
-		while($row = mysql_fetch_array($sql)) 
-		{
-			return $row['DEPTNO'];
-		}
+function getdept($id)
+{
+	global $conn;
+	$sql = mysqli_query($conn, "SELECT `DEPTNO` FROM `department` WHERE DEPTDESC='" . $id . "' ");
+	while ($row = mysqli_fetch_array($sql)) {
+		return $row['DEPTNO'];
 	}
-	function getdesig($id)
-	{
-		$sql=mysql_query("SELECT `DESIGCODE` FROM `designations` WHERE `DESIGLONGDESC`='".$id."' ");
-		while($row = mysql_fetch_array($sql)) 
-		{
-			return $row['DESIGCODE'];
-		}
+}
+function getdesig($id)
+{
+	global $conn;
+	$sql = mysqli_query($conn, "SELECT `DESIGCODE` FROM `designations` WHERE `DESIGLONGDESC`='" . $id . "' ");
+	while ($row = mysqli_fetch_array($sql)) {
+		return $row['DESIGCODE'];
 	}
+}
 
-	$sql1=mysql_query("SELECT `dept`,`desig` FROM `employees`");
-	while($row = mysql_fetch_array($sql1)) 
-	{
-		$deptno=getdept($row['dept']);
-		$designo=getdesig($row['desig']);
-		$sql=mysql_query("UPDATE `employees` SET `dept`='".$deptno."',`desig`='".$designo."' ");
-	}
-
-
-?>
+$sql1 = mysqli_query($conn, "SELECT `dept`,`desig` FROM `employees`");
+while ($row = mysqli_fetch_array($sql1)) {
+	$deptno = getdept($row['dept']);
+	$designo = getdesig($row['desig']);
+	$sql = mysqli_query($conn, "UPDATE `employees` SET `dept`='" . $deptno . "',`desig`='" . $designo . "' ");
+}

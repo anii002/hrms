@@ -41,9 +41,9 @@ include('control/function.php');
 
                                     <?php
                                     $q = "SELECT billunit FROM `users` WHERE username='" . $_SESSION['empid'] . "' ORDER BY `ID` ASC";
-                                    $result = mysql_query($q);
-                                    echo mysql_error();
-                                    $row = mysql_fetch_array($result);
+                                    $result = mysqli_query($conn,$q);
+                                    echo mysqli_error($conn);
+                                    $row = mysqli_fetch_array($result);
                                     $b = array();
                                     $b = explode(",", $row['billunit']);
                                     // print_r($b);
@@ -65,12 +65,12 @@ include('control/function.php');
                                                     <?php
                                                     $cnt = 1;
                                                     $query = "SELECT * from master_summary_cont WHERE forward_status = '1' AND pa_status = '1' and estcrk_status='0' ";
-                                                    $result = mysql_query($query);
-                                                    while ($val = mysql_fetch_array($result)) {
+                                                    $result = mysqli_query($conn,$query);
+                                                    while ($val = mysqli_fetch_array($result)) {
                                                         $sql1 = "SELECT * from continjency,continjency_master,employees where continjency.reference=continjency_master.reference AND continjency_master.empid=employees.pfno AND continjency_master.is_rejected='0'  AND summary_id='" . $val['summary_id'] . "' AND generate='1'";
-                                                        $res1 = mysql_query($sql1);
+                                                        $res1 = mysqli_query($conn,$sql1);
                                                         $data = 0;
-                                                        while ($val1 = mysql_fetch_array($res1)) {
+                                                        while ($val1 = mysqli_fetch_array($res1)) {
                                                             if ($data == 0) {
                                                                 if (in_array($val1['BU'], $b))  //&& $val1['gp'] >= 4200
                                                                 {

@@ -6,10 +6,11 @@ session_start();
 
 function changeimg($name,$tmp_name)
 {
+  global $conn;
 	$upload_dir = "../profile/".$_SESSION['empid'].".jpg";
 	$dir = "profile/".$_SESSION['empid'].".jpg";
 	if (move_uploaded_file($tmp_name, $upload_dir)) {
-		$query = mysql_query("update users set img='$dir' where empid='".$_SESSION['empid']."'");
+		$query = mysqli_query($conn,"update users set img='$dir' where empid='".$_SESSION['empid']."'");
         return true;
     } else {
         return false;
@@ -17,9 +18,9 @@ function changeimg($name,$tmp_name)
 }
 function updateUser($fname,$email,$mobile,$design)
 {
-  global $con;
+  global $conn;
   $query = "update users set fname='$fname', designation='$design', mobile='$mobile', email='$email' where id='".$_SESSION['admin_id']."'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else
@@ -27,9 +28,9 @@ function updateUser($fname,$email,$mobile,$design)
 }
 function changePass($pass,$confirm)
 {
-  global $con;
+  global $conn;
   $query = "update users set password='".hashPassword($pass,SALT1,SALT2)."' where empid='".$_SESSION['empid']."'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else
@@ -38,9 +39,9 @@ function changePass($pass,$confirm)
 //Designation
 function AddDesign($design)
 {
-  global $con;
+  global $conn;
   $query = "insert into designation(designation) values('$design')";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else
@@ -48,17 +49,17 @@ function AddDesign($design)
 }
 function fetchDesign($id)
 {
-  global $con;
+  global $conn;
   $query = "select * from designation where id = '$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
+  $result = mysqli_query($conn,$query);
+  $value = mysqli_fetch_array($result);
   return json_encode($value);
 }
 function UpdateDesign($design,$id)
 {
-  global $con;
+  global $conn;
   $query = "update designation set designation='$design' where id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else
@@ -66,9 +67,9 @@ function UpdateDesign($design,$id)
 }
 function DeleteDesign($id)
 {
-  global $con;
+  global $conn;
   $query = "delete from designation where id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
     echo "<script>alert('$query');</script>";
   if($result)
     return true;
@@ -79,7 +80,7 @@ function DeleteDesign($id)
 {
   global $con;
   $query = "INSERT INTO `employees`( `empid`, `empname`, `billunit`, `mobile`, `email`, `username`, `password`, `gradepay`, `department`, `designation`, `station`, `address`) VALUES ( '$empid', '$fullname', '$billunit', '$mobile', '$email','$empid' , '$empid', '$gradepay', '$dept', '$design', '$station', '$address')";
-  $result = mysql_query($query) or die(mysqli_error($con));
+  $result = mysqli_query($query) or die(mysqlii_error($con));
   if($result)
     return true;
   else
@@ -87,9 +88,9 @@ function DeleteDesign($id)
 }*/
 function updateEmployee($empid,$pannumber,$empname,$billunit,$mobile,$email,$design,$paylevel,$update_id)
 {
-  global $con;
+  global $conn;
   $query = "UPDATE `employees` SET `pfno`='$empid', `name`='$empname', `BU`='$billunit', `mobile`='$mobile', `gp`='$email', `desig`='$design',`panno`='$pannumber',`level`='$paylevel' WHERE id='$update_id'";
-  $result = mysql_query($query) or die(mysqli_error($con));
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   if($result)
     return true;
   else
@@ -97,10 +98,10 @@ function updateEmployee($empid,$pannumber,$empname,$billunit,$mobile,$email,$des
 }
 function FetchEmployee($id)
 {
-  global $con;
+  global $conn;
   $query = "select * from employees where id = '$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
+  $result = mysqli_query($conn,$query);
+  $value = mysqli_fetch_array($result);
   $data['empid']=$value['pfno'];
   $data['empname']=$value['name'];
   $data['billunit']=$value['BU'];
@@ -113,18 +114,18 @@ function FetchEmployee($id)
 }
 function fetchEmployee1($id)
 {
-  global $con;
+  global $conn;
   $query = "select * from employees where pfno = '$id'";
-  $result = mysql_query($query);
-  $qu=mysql_query("select empid from users where empid='$id'");
-  $res=mysql_num_rows($qu);
+  $result = mysqli_query($conn,$query);
+  $qu=mysqli_query($conn,"select empid from users where empid='$id'");
+  $res=mysqli_num_rows($qu);
   if($res > 0)
   {
      return 1;
   }
   else
   {
-      $value = mysql_fetch_array($result);
+      $value = mysqli_fetch_array($result);
       $data['empid']=$value['pfno'];
       $data['empname']=$value['name'];
       $data['billunit']=$value['BU'];
@@ -138,9 +139,9 @@ function fetchEmployee1($id)
 }
 function deleteEmployee($id)
 {
-  global $con;
+  global $conn;
   $query = "delete from employees where id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else
@@ -148,12 +149,12 @@ function deleteEmployee($id)
 }
 function claimTA($data,$reference,$empid,$year,$months,$cnt,$set)
 {
-  global $con;
+  global $conn;
   for($i=0;$i<=$cnt;$i++)
   {
     $query = "INSERT INTO `taentryforms`(`TAYear`,`TAMonth`,`empid`,`reference`, `taDate`, `train`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `objective`,`set_number`) VALUES ('$year','$months','$empid','$reference','".$data['date'][$i]."','".$data['train'][$i]."','".$data['departS'][$i]."','".$data['departT'][$i]."','".$data['arrivalS'][$i]."','".$data['arrivalT'][$i]."','".$data['distance'][$i]."','".$data['percent'][$i]."','".$data['amount'][$i]."','".$data['objective'][$i]."','$set')";
     $_SESSION['table_ref']=$reference;
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   }
   if($result)
     return true;
@@ -162,12 +163,12 @@ function claimTA($data,$reference,$empid,$year,$months,$cnt,$set)
 }
 function addclaimTA($data,$reference,$empid,$year,$months,$cnt,$set)
 {
-  global $con;
+  global $conn;
   for($i=0;$i<=$cnt;$i++)
   {
     $query = "INSERT INTO `taentryforms`(`TAYear`,`TAMonth`,`empid`,`reference`, `taDate`, `train`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `objective`,`set_number`) VALUES ('$year','$months','$empid','$reference','".$data['date'][$i]."','".$data['train'][$i]."','".$data['departS'][$i]."','".$data['departT'][$i]."','".$data['arrivalS'][$i]."','".$data['arrivalT'][$i]."','".$data['distance'][$i]."','".$data['percent'][$i]."','".$data['amount'][$i]."','".$data['objective'][$i]."','$set')";
     $_SESSION['table_ref']=$reference;
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   }
   if($result)
     return true;
@@ -177,9 +178,10 @@ function addclaimTA($data,$reference,$empid,$year,$months,$cnt,$set)
 
 function getTaAmount($level)
 {
+  global $conn ;
   $query = "select amount from ta_amount where min<=$level AND max>=$level";
-  $result  = mysql_query($query);
-  $value = mysql_fetch_array($result);
+  $result  = mysqli_query($conn,$query);
+  $value = mysqli_fetch_array($result);
   return $value['amount'];
 }
 
@@ -187,174 +189,145 @@ function getTaAmount($level)
 
 function get_summary($sum_id)
 {
-    $data='';
-    $sql="SELECT * from tasummarydetails,employees where  tasummarydetails.empid=employees.pfno AND summary_id='".$sum_id."' AND is_summary_generated='1' order by employees.BU ASC ";
-	$res=mysql_query($sql);
-	//;
-	$total_amt=0;
-	$temp=0;
-	while($val=mysql_fetch_array($res))
-	{
-	
-   // echo "SELECT * from employees where pfno='".$val['empid']."' order by BU ASC";
-	$sql1=mysql_query("SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
-	$val1=mysql_fetch_array($sql1);
-	echo mysql_error();
-
-	 $level=$val1['level'];
-	$sql2="SELECT * from ta_amount where min<='".$level."' AND max>='".$level."' ";
-	$res2=mysql_query($sql2);
-	$val2=mysql_fetch_array($res2);
-
-	  $val['empid']."_".$amount=$val2['amount'];
-
-	$month_array=array("01"=>"Jan","02"=>"Feb","03"=>"March","04"=>"April","05"=>"May","06"=>"June","07"=>"July","08"=>"Aug","09"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
-	$month_array1=array("01"=>"Jan","02"=>"Feb","03"=>"March","04"=>"April","05"=>"May","06"=>"June","07"=>"July","08"=>"Aug","09"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
-	$mon='';
-	$mmon='';
-// 		 $m=$val['month'];
-	$mts=explode(",",$val['month']);
-    //print_r($mts);
-	$s=$mts[0];
-	$y=substr( $val['year'],2);
-	// print_r($month_array);
-	if($month_array[$s])
-	{
-		 $mon=$month_array[$s];
-	}	
-
-
-	 $cdate=substr($val['created_at'],3,2);
-	 $cyear=substr($val['created_at'],8,2);
-	if($month_array1[$cdate])
-	{
-		 $mmon=$month_array1[$cdate];
-	}	
+    global $conn;
+    $data = '';
+    $sql = "SELECT * FROM tasummarydetails 
+            INNER JOIN employees ON tasummarydetails.empid = employees.pfno 
+            WHERE summary_id='" . mysqli_real_escape_string($conn, $sum_id) . "' 
+            AND is_summary_generated='1' 
+            ORDER BY employees.BU ASC";
     
-    $query1="SELECT est_approve FROM `taentry_master` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ";
-    $result1=mysql_query($query1);
-    $row1=mysql_fetch_array($result1);
+    $res = mysqli_query($conn, $sql);
     
-    $status=$row1['est_approve'];
-    
-    
-    
-	$data.="
-	<tr class='fontcss1'>";
-	if($status == '1'){
-        $data.= "<td style='color:#0b10f5;'>Vetted</td>";
+    if (!$res) {
+        echo "Error: " . mysqli_error($conn);
+        return;
     }
-    else{
-        $data.= "<td style='color:red;'>Non-Vetted</td>";
+
+    $temp = 0;
+    $temp1 = 0;
+
+    while ($val = mysqli_fetch_array($res)) {
+        $sql1 = "SELECT * FROM employees WHERE pfno='" . $val['empid'] . "' ORDER BY BU ASC";
+        $res1 = mysqli_query($conn, $sql1);
+        $val1 = mysqli_fetch_array($res1);
+
+        $level = $val1['level'];
+
+        $sql2 = "SELECT * FROM ta_amount WHERE min<='".$level."' AND max>='".$level."'";
+        $res2 = mysqli_query($conn, $sql2);
+        $val2 = mysqli_fetch_array($res2);
+        
+        $amount = isset($val2['amount']) ? $val2['amount'] : 0;
+
+        $month_array = array("01"=>"Jan", "02"=>"Feb", "03"=>"March", "04"=>"April", "05"=>"May", "06"=>"June",
+                            "07"=>"July", "08"=>"Aug", "09"=>"Sept", "10"=>"Oct", "11"=>"Nov", "12"=>"Dec");
+        
+        $month_array1 = array("01"=>"Jan", "02"=>"Feb", "03"=>"March", "04"=>"April", "05"=>"May", "06"=>"June",
+                             "07"=>"July", "08"=>"Aug", "09"=>"Sept", "10"=>"Oct", "11"=>"Nov", "12"=>"Dec");
+
+        $mts = explode(",", $val['month']);
+        $s = $mts[0];
+        $y = substr($val['year'], 2);
+
+        $mon = isset($month_array[$s]) ? $month_array[$s] : '';
+        
+        $cdate = substr($val['created_at'], 3, 2);
+        $cyear = substr($val['created_at'], 8, 2);
+        $mmon = isset($month_array1[$cdate]) ? $month_array1[$cdate] : '';
+
+        $query1 = "SELECT est_approve FROM `taentry_master` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."'";
+        $result1 = mysqli_query($conn, $query1);
+        $row1 = mysqli_fetch_array($result1);
+        $status = isset($row1['est_approve']) ? $row1['est_approve'] : '';
+
+        $data .= "<tr class='fontcss1'>";
+        if ($status == '1') {
+            $data .= "<td style='color:#0b10f5;'>Vetted</td>";
+        } else {
+            $data .= "<td style='color:red;'>Non-Vetted</td>";
+        }
+        
+        $data .= "<td>" . getdepartment($val['dept']) . "</td>
+                  <td>" . $val['empid'] . "</td>
+                  <td>" . $val1['name'] . "</td>
+                  <td>" . $val1['BU'] . "</td>
+                  <td>" . getDesignation($val1['desig']) . "</td>
+                  <td>" . $val1['level'] . "</td>
+                  <td>" . $val1['bp'] . "</td>
+                  <td>$amount</td>
+                  <td>$mon - $y</td>
+                  <td>$mmon - $cyear</td>";
+
+        if ($val['30p_cnt'] == '0' && $val['30p_amt'] == '0') {
+            $data .= "<td>-</td><td>-</td>";
+            $t1 = 0;
+        } else {
+            $data .= "<td>" . $val['30p_cnt'] . "</td><td>" . $val['30p_amt'] . "</td>";
+            $t1 = $val['30p_amt'];
+        }
+
+        if ($val['70p_cnt'] == '0' && $val['70p_amt'] == '0') {
+            $data .= "<td>-</td><td>-</td>";
+            $t2 = 0;
+        } else {
+            $data .= "<td>" . $val['70p_cnt'] . "</td><td>" . $val['70p_amt'] . "</td>";
+            $t2 = $val['70p_amt'];
+        }
+
+        if ($val['100p_cnt'] == '0' && $val['100p_amt'] == '0') {
+            $data .= "<td>-</td><td>-</td>";
+            $t3 = 0;
+        } else {
+            $data .= "<td>" . $val['100p_cnt'] . "</td><td>" . $val['100p_amt'] . "</td>";
+            $t3 = $val['100p_amt'];
+        }
+
+        $total_amt = (int)$t1 + (int)$t2 + (int)$t3;
+        $temp += $total_amt;
+
+        $sqll = mysqli_query($conn, "SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='" . $val['empid'] . "' AND reference_no='" . $val['reference_no'] . "'");
+        $ress = mysqli_fetch_array($sqll);
+        
+        if ($ress['amount'] == '0' || $ress['amount'] == null) {
+            $data .= "<td>-</td>";
+        } else {
+            $data .= "<td>" . $ress['amount'] . "</td>";
+        }
+
+        $data .= "<td class='noprint btnhide'>
+                    <a target='_blank' href='show_seperate_approve_1.php?ref_no=" . $val['reference_no'] . "&empid=" . $val['empid'] . "' class='btn btn-primary btn-sm noprint'>Show</a>
+                  </td>
+                 </tr>";
     }
-	 $data.= "	
-		<td>".getdepartment($val['dept'])."</td>
-		<td>".$val['empid']."</td>
-		<td>".$val1['name']."</td>
-		<td>".$val1['BU']. "</td>
-		<td>".getDesignation($val1['desig'])."</td>
-		<td>".$val1['level']."</td>
-		<td>".$val1['bp']."</td>
-		<td>$amount</td>
-		<td>$mon - $y</td>
-		<td>$mmon - $cyear</td>";
 
-		if($val['30p_cnt'] == '0' && $val['30p_amt']== '0')
-		{
-			$data.= "
-			<td>-</td>
-		<td>-</td>
-			";	
-			$t1=0;
-		}
-		else{
-			$data.= "
-			<td>".$val['30p_cnt']."</td>
-		<td>".$val['30p_amt']."</td>
-			";
-			$t1=$val['30p_amt'];
+    $data .= "<tr>
+                <td colspan='17' style='text-align: right;'><b>Total</b></td>
+                <td><b>$temp</b></td>
+                <td><b>$temp1</b></td>
+                <td><b></b></td>
+             </tr>";
 
-		}
-		if($val['70p_cnt'] == '0' && $val['70p_amt']== '0')
-		{
-			$data.= "
-			<td>-</td>
-		<td>-</td>
-			";	
-			$t2=0;
-		}
-		else{
-			$data.= "
-			<td>".$val['70p_cnt']."</td>
-		<td>".$val['70p_amt']."</td>
-			";
-			$t2=$val['70p_amt'];
-		}
-		if($val['100p_cnt'] == '0' && $val['100p_amt']== '0')
-		{
-			$data.= "
-			<td>-</td>
-		<td>-</td>
-			";
-			$t3=0;	
-		}
-		else{
-			$data.= "
-			<td>".$val['100p_cnt']."</td>
-		<td>".$val['100p_amt']."</td>
-			";
-			$t3=$val['100p_amt'];
-
-		}
-		
-		$total_amt =(int)$t1 + (int)$t2 + (int)$t3;
-		$temp=$temp+$total_amt;
-
-		$data.= "
-		<td>$total_amt</td>";
-        $tcnt=0;
-		$sqll=mysql_query("SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
-		$ress=mysql_fetch_array($sqll);
-		$tcnt=$tcnt + $ress['amount'];
-		$temp1=$temp1 + $tcnt;
-		if($ress['amount'] == '0' || $ress['amount'] == null){
-			
-		$data.= "<td>-</td>";
-		}
-		else
-		{
-			$data.= "<td>".$ress['amount']."</td>";
-		}
-		$data.= "<td class='noprint btnhide'>
-		<a target='_blank' href='show_seperate_approve_1.php?ref_no=".$val['reference_no']."&empid=".$val['empid']."' class='btn btn-primary btn-sm noprint'>Show</a>
-		</td></tr>";
-	    
-	}
-
-	$data.= "<tr>
-		
-		<td colspan='17' style='text-align: right;'><b>Total</b></td>
-		<td><b>$temp</b></td>
-		<td><b>$temp1<b></td>
-		<td><b></b></td></tr>";
-	echo $data;
+    echo $data;
 }
+
 
 
 
 function get_all_summary($dept_id,$mon,$year)
 {
+  global $conn;
     // $year=date('Y');
     $data='';
     $BU_query="SELECT distinct(BU) from employees WHERE dept='".$dept_id."' ";
-	$BU_result=mysql_query($BU_query);
-	$total_BUs=mysql_num_rows($BU_result);
+	$BU_result=mysqli_query($conn,$BU_query);
+	$total_BUs=mysqli_num_rows($BU_result);
 	//;
 	$total_amt=0;
 	$temp=0;
 	$cnt=1;
 
-	while($BU_rows = mysql_fetch_array($BU_result))
+	while($BU_rows = mysqli_fetch_array($BU_result))
 	{   
 	    
     	$data.="<tr class='fontcss1' style='text-align: center;'>";
@@ -364,43 +337,43 @@ function get_all_summary($dept_id,$mon,$year)
 	        $cnt++;
 	    }
 	    
-	    $pfno_query=mysql_query("SELECT distinct(pfno) from employees WHERE BU='".$BU_rows['BU']."' AND dept='".$dept_id."'");
-    	$pfno_rows=mysql_num_rows($pfno_query);
+	    $pfno_query=mysqli_query($conn,"SELECT distinct(pfno) from employees WHERE BU='".$BU_rows['BU']."' AND dept='".$dept_id."'");
+    	$pfno_rows=mysqli_num_rows($pfno_query);
     	
     	
-    	$claimed_emp_query=mysql_query("SELECT count(empid) as claimed_emps from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-    	$claimed_emp_rows=mysql_fetch_array($claimed_emp_query);
+    	$claimed_emp_query=mysqli_query($conn,"SELECT count(empid) as claimed_emps from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+    	$claimed_emp_rows=mysqli_fetch_array($claimed_emp_query);
     	
     	$for_pa_emp_cnt = 0;
     	$vett_pa_emp_cnt = 0;
     	$rej_pa_emp_cnt = 0;
     	
-    	$query12=mysql_query("SELECT tasummarydetails.reference_no,tasummarydetails.empid FROM `master_summary`,tasummarydetails,taentry_master,employees WHERE employees.pfno=taentry_master.empid AND taentry_master.reference_no= tasummarydetails.reference_no AND master_summary.summary_id=tasummarydetails.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='0' AND taentry_master.forward_status='1' AND taentry_master.TAMonth='".$mon."' AND taentry_master.TAYear='".$year."' AND employees.dept='".$dept_id."' AND employees.BU='".$BU_rows['BU']."' GROUP BY tasummarydetails.reference_no ORDER BY tasummarydetails.id ASC");
+    	$query12=mysqli_query($conn,"SELECT tasummarydetails.reference_no,tasummarydetails.empid FROM `master_summary`,tasummarydetails,taentry_master,employees WHERE employees.pfno=taentry_master.empid AND taentry_master.reference_no= tasummarydetails.reference_no AND master_summary.summary_id=tasummarydetails.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='0' AND taentry_master.forward_status='1' AND taentry_master.TAMonth='".$mon."' AND taentry_master.TAYear='".$year."' AND employees.dept='".$dept_id."' AND employees.BU='".$BU_rows['BU']."' GROUP BY tasummarydetails.reference_no ORDER BY tasummarydetails.id ASC");
     	
-    	while($row1 = mysql_fetch_array($query12))
+    	while($row1 = mysqli_fetch_array($query12))
     	{
     	   $for_pa_emp_cnt++;
     	}
     
-    	$query2=mysql_query("SELECT DISTINCT(master_summary.summary_id), tasummarydetails.empid as ts_empid FROM tasummarydetails,master_summary WHERE tasummarydetails.summary_id=master_summary.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='1' ORDER BY master_summary.summary_id ASC");
+    	$query2=mysqli_query($conn,"SELECT DISTINCT(master_summary.summary_id), tasummarydetails.empid as ts_empid FROM tasummarydetails,master_summary WHERE tasummarydetails.summary_id=master_summary.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='1' ORDER BY master_summary.summary_id ASC");
     	
-    	while($row2 = mysql_fetch_array($query2))
+    	while($row2 = mysqli_fetch_array($query2))
     	{
-        	$vett_pa_emp_query=mysql_query("SELECT empid from employees,taentry_master where employees.pfno=taentry_master.empid AND employees.pfno='".$row2['ts_empid']."' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+        	$vett_pa_emp_query=mysqli_query($conn,"SELECT empid from employees,taentry_master where employees.pfno=taentry_master.empid AND employees.pfno='".$row2['ts_empid']."' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
         	$vett_pa_emp_query1=("SELECT empid from employees,taentry_master where employees.pfno=taentry_master.empid AND employees.pfno='".$row2['ts_empid']."' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-        	if(mysql_num_rows($vett_pa_emp_query) == 1)
+        	if(mysqli_num_rows($vett_pa_emp_query) == 1)
         	{
         	    $vett_pa_emp_cnt++;
         	}
     	}
     
-    	$vett_emp_query=mysql_query("SELECT count(empid) as vetted_tas from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.est_approve='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-    	$vett_emp_rows=mysql_fetch_array($vett_emp_query);
+    	$vett_emp_query=mysqli_query($conn,"SELECT count(empid) as vetted_tas from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.est_approve='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+    	$vett_emp_rows=mysqli_fetch_array($vett_emp_query);
     	
     	
     
-    	$rej_emp_query=mysql_query("SELECT count(empid) as rejected_tas from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.is_rejected='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-    	$rej_emp_rows=mysql_fetch_array($rej_emp_query);
+    	$rej_emp_query=mysqli_query($conn,"SELECT count(empid) as rejected_tas from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.is_rejected='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+    	$rej_emp_rows=mysqli_fetch_array($rej_emp_query);
     	
     	$bu=$BU_rows['BU'];
     	
@@ -420,14 +393,14 @@ function get_all_summary($dept_id,$mon,$year)
 //     // $year=date('Y');
 //     $data='';
 //     $BU_query="SELECT distinct(BU) from employees WHERE dept='".$dept_id."' ";
-// 	$BU_result=mysql_query($BU_query);
-// 	$total_BUs=mysql_num_rows($BU_result);
+// 	$BU_result=mysqli_query($BU_query);
+// 	$total_BUs=mysqli_num_rows($BU_result);
 // 	//;
 // 	$total_amt=0;
 // 	$temp=0;
 // 	$cnt=1;
 
-// 	while($BU_rows = mysql_fetch_array($BU_result))
+// 	while($BU_rows = mysqli_fetch_array($BU_result))
 // 	{   
 	    
 //     	$data.="<tr class='fontcss1' style='text-align: center;'>";
@@ -437,18 +410,18 @@ function get_all_summary($dept_id,$mon,$year)
 // 	        $cnt++;
 // 	    }
 	    
-// 	    $pfno_query=mysql_query("SELECT distinct(pfno) from employees WHERE BU='".$BU_rows['BU']."' AND dept='".$dept_id."'");
-//     	$pfno_rows=mysql_num_rows($pfno_query);
+// 	    $pfno_query=mysqli_query("SELECT distinct(pfno) from employees WHERE BU='".$BU_rows['BU']."' AND dept='".$dept_id."'");
+//     	$pfno_rows=mysqli_num_rows($pfno_query);
     	
     	
-//     	$for_emp_query=mysql_query("SELECT distinct(empid) from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1' AND taentry_master.est_approve='0' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-//     	$for_emp_rows=mysql_num_rows($for_emp_query);
+//     	$for_emp_query=mysqli_query("SELECT distinct(empid) from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.forward_status='1' AND taentry_master.est_approve='0' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+//     	$for_emp_rows=mysqli_num_rows($for_emp_query);
     	
-//     	$vett_emp_query=mysql_query("SELECT distinct(empid) from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.est_approve='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-//     	$vett_emp_rows=mysql_num_rows($vett_emp_query);
+//     	$vett_emp_query=mysqli_query("SELECT distinct(empid) from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.est_approve='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+//     	$vett_emp_rows=mysqli_num_rows($vett_emp_query);
     	
-//     	$rej_emp_query=mysql_query("SELECT distinct(empid) from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.is_rejected='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
-//     	$rej_emp_rows=mysql_num_rows($rej_emp_query);
+//     	$rej_emp_query=mysqli_query("SELECT distinct(empid) from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.is_rejected='1' AND taentry_master.forward_status='1' AND BU='".$BU_rows['BU']."' AND dept='".$dept_id."' AND TAMonth='".$mon."' AND TAYear='".$year."' ");
+//     	$rej_emp_rows=mysqli_num_rows($rej_emp_query);
     	
 //     	$bu=$BU_rows['BU'];
     	
@@ -464,11 +437,11 @@ function get_all_summary($dept_id,$mon,$year)
 
 function approveAndForward($empid,$ref,$forwardName,$original_id)
 {
-  global $con;
+  global $conn;
   $query = "update forward_data set depart_time=CURRENT_TIMESTAMP,hold_status='0' where reference_id='$ref' AND fowarded_to='$empid'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   $query = "insert into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('$original_id','$ref','$forwardName',CURRENT_TIMESTAMP,'1')";
-  $result = mysql_query($query) or die(mysql_erro());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   if($result)
     return true;
   else
@@ -477,9 +450,9 @@ function approveAndForward($empid,$ref,$forwardName,$original_id)
 
 function AddEmployee($empid,$pannumber,$empname,$billunit,$mobile,$email,$design,$paylevel)
 {
-  global $con;
+  global $conn;
   $query = "insert into employees(pfno,panno,name,BU,mobile,gp,desig,level,station,dept,psw) values('$empid','$pannumber','$empname','$billunit','$mobile','$email','$design','$paylevel','Solapur','ACCOUNTS','123')";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   if($result)
     return true;
   else
@@ -488,9 +461,9 @@ function AddEmployee($empid,$pannumber,$empname,$billunit,$mobile,$email,$design
 
 function AddUser($empid,$username,$psw,$role)
 {
-  global $con;
+  global $conn;
   $query = "insert into users(empid,username,password,role) values('$empid','$username','".hashPassword($psw,SALT1,SALT2)."','$role')";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   if($result)
     return true;
   else
@@ -498,9 +471,9 @@ function AddUser($empid,$username,$psw,$role)
 }
 function AddAdmin($empid,$username,$psw,$dept)
 {
-  global $con;
+  global $conn;
   $query = "insert into users(empid,username,password,role,dept) values('$empid','$username','".hashPassword($psw,SALT1,SALT2)."','11','$dept')";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   if($result)
     return true;
   else
@@ -508,18 +481,18 @@ function AddAdmin($empid,$username,$psw,$dept)
 }
 
 function activeUser($pfno,$active){
-  global $con;
+  global $conn;
   $query = "update users set status='$active' where empid='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn,));
   if($result)
     return true;
   else
     return false;
 }
 function deactiveUser($pfno,$active){
-  global $con;
+  global $conn;
   $query = "update users set status='$active' where empid='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   if($result)
     return true;
   else
@@ -528,8 +501,9 @@ function deactiveUser($pfno,$active){
 
 function applybillunit($empid,$billunit)
 {
+  global $conn;
   $query = "insert into sep_billunit(employee_id,billunit) values('".$empid."','".$billunit."')";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else

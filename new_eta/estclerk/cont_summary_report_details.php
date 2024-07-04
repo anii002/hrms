@@ -3,148 +3,149 @@
 include('common/header.php');
 include('common/sidebar.php');
 ?>
-			
-	<div class="page-content-wrapper">
-		<div class="page-content">
-		    
-		    <div class="page-bar">
-            	<ul class="page-breadcrumb">
-            		<li>
-            			<i class="fa fa-home"></i>
-            			<a href="index.php">Home / मुख पृष्ठ</a>
-            			<i class="fa fa-angle-right"></i>
-            		</li>
-            		<li>
-            			<a href="#">Summary Report Contigency Details</a>
-            		</li>
-            	</ul>
-            	
-            </div>
-			<!-- <h1>ecefce</h1> -->
-			<div class="portlet box blue">
-				<div class="portlet-title">
-					<div class="caption col-md-6">
-						<b>Summary Report Contigency Details</b>
-					</div>
-					<div class="caption col-md-6 text-right backbtn btnhide">
-						<button class="btn btn-danger" onclick="history.go(-1);">Back</button>
-					</div>
+
+<div class="page-content-wrapper">
+	<div class="page-content">
+
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="index.php">Home / मुख पृष्ठ</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#">Summary Report Contigency Details</a>
+				</li>
+			</ul>
+
+		</div>
+		<!-- <h1>ecefce</h1> -->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption col-md-6">
+					<b>Summary Report Contigency Details</b>
 				</div>
-				<div class="portlet-body form">
-						
-	<form action="control/adminProcess.php?action=cont_approve" method="POST">										
-		<div class="form-body add-train">
-			<div class="row add-train-title">
-				<div class="col-md-12">
-					<div class="form-group">
-						<?php
-	                        $q = "SELECT billunit FROM `users` WHERE username='" . $_SESSION['empid'] . "' ORDER BY `ID` ASC";
-	                        $result = mysql_query($q);
-	                        echo mysql_error();
-	                        $row = mysql_fetch_array($result);
-	                        $b = array();
-	                        $b = explode(",", $row['billunit']);
-	                        // print_r($b);
-                        ?>
-						<div class="portlet-body">
-								<div class="table-scrollable summary-table">
-								<table id="example" class="table table-hover table-bordered display">
-									<thead>
-										<tr class="warning">
-											<!-- <th rowspan="2" valign="top">Sr No</th> -->
-											<th>संदर्भ संख्या / Reference No.</th>
-											<th>empid</th>
-											<th>Name</th>
-											<th>साल / Year</th>
-											<th>माह / Month</th>
-											<th>राशि / Amount</th> 											
-											<th class="hidden-print">कार्य / Action</th>
-										</tr>										
-									</thead>
-									<tbody>
-										<?php
-											function get_employee($id)
-											{
-												$query = mysql_query("SELECT name from employees where pfno='$id'");
-												$result = mysql_fetch_array($query);
-												return $result['name'];
-											}		
-											
+				<div class="caption col-md-6 text-right backbtn btnhide">
+					<button class="btn btn-danger" onclick="history.go(-1);">Back</button>
+				</div>
+			</div>
+			<div class="portlet-body form">
 
-											$emp_pfno = array();
-											$qry = mysql_query("SELECT * from continjency,continjency_master,employees where continjency.reference=continjency_master.reference AND continjency_master.empid=employees.pfno AND continjency_master.is_rejected='0'  AND summary_id='" . $_GET['sum_id'] . "' AND generate='1'  GROUP BY continjency_master.reference");
-
-											while($row = mysql_fetch_array($qry))
-											{
-												$bu = $row['BU'];
-												$stripped = str_replace(' ', '', $bu);
-												array_push($emp_pfno, $row['reference']);
-												if (in_array($stripped, $b))     
-												{
-													if ($row['gp'] <= 4200) {
-														echo "<tr>";
-													} else {
-														echo "<tr class='bg_light_blue'>";
+				<form action="control/adminProcess.php?action=cont_approve" method="POST">
+					<div class="form-body add-train">
+						<div class="row add-train-title">
+							<div class="col-md-12">
+								<div class="form-group">
+									<?php
+									$q = "SELECT billunit FROM `users` WHERE username='" . $_SESSION['empid'] . "' ORDER BY `ID` ASC";
+									$result = mysqli_query($conn, $q);
+									echo mysqli_error($conn);
+									$row = mysqli_fetch_array($result);
+									$b = array();
+									$b = explode(",", $row['billunit']);
+									// print_r($b);
+									?>
+									<div class="portlet-body">
+										<div class="table-scrollable summary-table">
+											<table id="example" class="table table-hover table-bordered display">
+												<thead>
+													<tr class="warning">
+														<!-- <th rowspan="2" valign="top">Sr No</th> -->
+														<th>संदर्भ संख्या / Reference No.</th>
+														<th>empid</th>
+														<th>Name</th>
+														<th>साल / Year</th>
+														<th>माह / Month</th>
+														<th>राशि / Amount</th>
+														<th class="hidden-print">कार्य / Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+													function get_employee($id)
+													{
+														global $conn;
+														$query = mysqli_query($conn, "SELECT name from employees where pfno='$id'");
+														$result = mysqli_fetch_array($query);
+														return $result['name'];
 													}
-										?>
-											<td><?php echo $row['reference']; ?></td>
-											<td><?php echo $row['empid']; ?></td>
-											<td><?php echo get_employee($row['empid']); ?></td>
-											<td><?php echo $row['year']; ?> </td>
-											<td> <?php echo $row['month']; ?></td>
-											<td><?php echo $row['total_amount']; ?></td>
-											<td>
-											<a href="unclaimed_cont_details.php?ref_no=<?php echo $row['reference']; ?>&id=<?php echo $_GET['id'];?>&sum_id=<?php echo $_GET['sum_id'];?>" class="btn green btn_action">Show</a></td>
-										</tr>
-										<?php }  }?>
-									</tbody>
-								</table>
-							</div>
-							<div class="text-right">
-                                
-                                <?php
-                                // print_r($emp_pfno);
-                                $str = implode(" ", $emp_pfno);
-                                ?>
-                                <input type="hidden" name="emp_pfno_data[]" value="<?php echo $str; ?>">
-                                <?php 
-								$query = mysql_query("SELECT * from master_summary_cont where id='" . $_GET['id'] . "' and summary_id='" . $_GET['sum_id'] . "' ");
-								$val = mysql_fetch_array($query);
-								if ($val['estcrk_status'] == 0 && $val['forward_status'] == 1&& $val['pa_status'] == 1) {
 
-									echo '<button type="submit" class="btn green">Approve</button>';
-								}
-								?>								
+
+													$emp_pfno = array();
+													$qry = mysqli_query($conn, "SELECT * from continjency,continjency_master,employees where continjency.reference=continjency_master.reference AND continjency_master.empid=employees.pfno AND continjency_master.is_rejected='0'  AND summary_id='" . $_GET['sum_id'] . "' AND generate='1'  GROUP BY continjency_master.reference");
+
+													while ($row = mysqli_fetch_array($qry)) {
+														$bu = $row['BU'];
+														$stripped = str_replace(' ', '', $bu);
+														array_push($emp_pfno, $row['reference']);
+														if (in_array($stripped, $b)) {
+															if ($row['gp'] <= 4200) {
+																echo "<tr>";
+															} else {
+																echo "<tr class='bg_light_blue'>";
+															}
+													?>
+															<td><?php echo $row['reference']; ?></td>
+															<td><?php echo $row['empid']; ?></td>
+															<td><?php echo get_employee($row['empid']); ?></td>
+															<td><?php echo $row['year']; ?> </td>
+															<td> <?php echo $row['month']; ?></td>
+															<td><?php echo $row['total_amount']; ?></td>
+															<td>
+																<a href="unclaimed_cont_details.php?ref_no=<?php echo $row['reference']; ?>&id=<?php echo $_GET['id']; ?>&sum_id=<?php echo $_GET['sum_id']; ?>" class="btn green btn_action">Show</a>
+															</td>
+															</tr>
+													<?php }
+													} ?>
+												</tbody>
+											</table>
+										</div>
+										<div class="text-right">
+
+											<?php
+											// print_r($emp_pfno);
+											$str = implode(" ", $emp_pfno);
+											?>
+											<input type="hidden" name="emp_pfno_data[]" value="<?php echo $str; ?>">
+											<?php
+											$query = mysqli_query($conn, "SELECT * from master_summary_cont where id='" . $_GET['id'] . "' and summary_id='" . $_GET['sum_id'] . "' ");
+											$val = mysqli_fetch_array($query);
+											if ($val['estcrk_status'] == 0 && $val['forward_status'] == 1 && $val['pa_status'] == 1) {
+
+												echo '<button type="submit" class="btn green">Approve</button>';
+											}
+											?>
+										</div>
+									</div>
+								</div>
+								<input type='hidden' name='sumid' value='<?php echo $val['summary_id']; ?>'>
+
 							</div>
 						</div>
 					</div>
-					<input type='hidden' name='sumid' value='<?php echo $val['summary_id']; ?>'>
-					
-				</div>
-			</div>
-	</div>
-</form>				
+				</form>
 
-				</div>
 			</div>
 		</div>
 	</div>
+</div>
 <?php
-	include 'common/footer.php';
+include 'common/footer.php';
 ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    } );
-} );
+		$('#example').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+				'copyHtml5',
+				'excelHtml5',
+				'csvHtml5',
+				'pdfHtml5'
+			]
+		});
+	});
 </script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script> -->
@@ -154,4 +155,3 @@ include('common/sidebar.php');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js" type="text/javascript"></script>
-

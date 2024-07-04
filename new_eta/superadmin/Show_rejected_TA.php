@@ -56,8 +56,8 @@ include('control/function.php');
 							<?php 
 							$sr=0;
 							$sql="SELECT taentry_master.* from employees,taentry_master where employees.pfno=taentry_master.empid AND taentry_master.is_rejected='1' AND dept='".$_GET['dept']."' AND BU='".$_GET['bu']."' AND TAMonth='".$_GET['mon']."' AND TAYear='".$_GET['year']."' ";
-							$result=mysql_query($sql);
-							while ($row=mysql_fetch_array($result)) 
+							$result=mysqli_query($conn,$sql);
+							while ($row=mysqli_fetch_array($result)) 
 							{ $sr++;?>
 								<tr>
 									<td><?php echo $sr; ?></td>
@@ -66,8 +66,8 @@ include('control/function.php');
 									<td><?php echo $row['TAYear']; ?></td>
 									<td><?php echo $row['TAMonth']; ?></td>
 								<?php
-									$query=mysql_query("SELECT SUM(amount) as amount from taentrydetails where empid='".$row['empid']."' AND reference_no='".$row['reference_no']."'");
-									$res=mysql_fetch_array($query);
+									$query=mysqli_query($conn,"SELECT SUM(amount) as amount from taentrydetails where empid='".$row['empid']."' AND reference_no='".$row['reference_no']."'");
+									$res=mysqli_fetch_array($query);
 								?>
 									
 									<td><?php echo $res['amount']; ?></td>

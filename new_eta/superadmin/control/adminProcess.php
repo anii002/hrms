@@ -4,7 +4,6 @@ date_default_timezone_set("Asia/kolkata");
 
 include('adminFunction.php');
 
-
 switch($_REQUEST['action'])
   {
 	  case 'changeimg':
@@ -58,8 +57,8 @@ switch($_REQUEST['action'])
      case 'already':
                 
                 $id=$_POST['id'];
-                $sql=mysql_query("Select empid from users where empid='".$id."'");
-                echo mysql_num_rows($sql);
+                $sql=mysqli_query($conn,"Select empid from users where empid='".$id."'");
+                echo mysqli_num_rows($sql);
                
         break;
     
@@ -260,13 +259,13 @@ switch($_REQUEST['action'])
         
         $data='';
         $query1="SELECT summary_id FROM master_summary WHERE MONTH(EST_approved_time) ='".$_POST['mon']."' ";
-        $result1=mysql_query($query1);
-        echo mysql_error();
+        $result1=mysqli_query($conn,$query1);
+        echo mysqli_error($conn);
         $cnt_m=0;
         
         $emp_cnt=1;
-        $count=mysql_num_rows($result1);
-        while($row_m=mysql_fetch_array($result1))
+        $count=mysqli_num_rows($result1);
+        while($row_m=mysqli_fetch_array($result1))
         {  
              $cnt_m++;
             $data.= get_summary($row_m['summary_id']);
@@ -301,9 +300,9 @@ switch($_REQUEST['action'])
         $data='';
         
         // $query1="SELECT DISTINCT(DEPTNO) FROM `department` WHERE DEPTNO NOT IN(01) ORDER BY DEPTNO ASC";
-        // $result1=mysql_query($query1);
-        // echo mysql_error();
-        $count=mysql_num_rows($result1);
+        // $result1=mysqli_query($query1);
+        // echo mysqli_error();
+        $count=mysqli_num_rows($result1);
         
         $data.="<tr class='fontcss1' style='text-align: center;'>";
        
@@ -343,30 +342,30 @@ switch($_REQUEST['action'])
 					<th>Day</th><th>Amt</th><th>Day</th><th>Amt</th></tr></thead><tbody>';
 			
         echo $query1="SELECT summary_id FROM master_summary WHERE MONTH(EST_approved_time) ='".$_POST['mon']."' ";
-        $result1=mysql_query($query1);
-        echo mysql_error();
+        $result1=mysqli_query($conn,$query1);
+        echo mysqli_error($conn);
         $cnt_m=0;
-        $count=mysql_num_rows($result1);
-        while($row_m=mysql_fetch_array($result1))
+        $count=mysqli_num_rows($result1);
+        while($row_m=mysqli_fetch_array($result1))
         {   
             $cnt_m++;
             echo $row_m['summary_id'];
             $sql="SELECT * from tasummarydetails,employees where  tasummarydetails.empid=employees.pfno AND summary_id='".$row_m['summary_id']."' AND is_summary_generated='1' order by employees.BU ASC ";
-    		$res=mysql_query($sql);
+    		$res=mysqli_query($conn,$sql);
     	
     		$total_amt=0;
     		$temp=0;
     		
-    		while($val=mysql_fetch_array($res))
+    		while($val=mysqli_fetch_array($res))
     		{
-        		$sql1=mysql_query("SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
-        		$val1=mysql_fetch_array($sql1);
-        		echo mysql_error();
+        		$sql1=mysqli_query($conn,"SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
+        		$val1=mysqli_fetch_array($sql1);
+        		echo mysqli_error($conn);
         
     		    $level=$val1['level'];
         		$sql2="SELECT * from ta_amount where min<='".$level."' AND max>='".$level."' ";
-        		$res2=mysql_query($sql2);
-        		$val2=mysql_fetch_array($res2);
+        		$res2=mysqli_query($conn,$sql2);
+        		$val2=mysqli_fetch_array($res2);
 
 		        $val['empid']."_".$amount=$val2['amount'];
 
@@ -390,8 +389,8 @@ switch($_REQUEST['action'])
         		}	
         
                 $query1="SELECT est_approve FROM `taentry_master` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ";
-                $result1=mysql_query($query1);
-                $row1=mysql_fetch_array($result1);
+                $result1=mysqli_query($conn,$query1);
+                $row1=mysqli_fetch_array($result1);
         
                 $status=$row1['est_approve'];
         		$data.="<tr class='fontcss1'>";
@@ -448,8 +447,8 @@ switch($_REQUEST['action'])
 
     			$data.= "<td>$total_amt</td>";
 
-    			$sqll=mysql_query("SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
-    			$ress=mysql_fetch_array($sqll);
+    			$sqll=mysqli_query($conn,"SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
+    			$ress=mysqli_fetch_array($sqll);
     			if($ress['amount'] == '0' || $ress['amount'] == null)
     			{
 			        $data.= "<td>-</td>";
@@ -492,29 +491,29 @@ switch($_REQUEST['action'])
 					<th>Day</th><th>Amt</th><th>Day</th><th>Amt</th></tr></thead><tbody>';
 									
         $query1="SELECT summary_id FROM master_summary WHERE MONTH(EST_approved_time) ='".$_POST['mon']."' ";
-        $result1=mysql_query($query1);
-        echo mysql_error();
-        $count=mysql_num_rows($result1);
-        while($row1=mysql_fetch_array($result1))
+        $result1=mysqli_query($conn,$query1);
+        echo mysqli_error($conn);
+        $count=mysqli_num_rows($result1);
+        while($row1=mysqli_fetch_array($result1))
         {
             // echo $row1['summary_id'];
             $sql="SELECT * from tasummarydetails,employees where  tasummarydetails.empid=employees.pfno AND summary_id='".$row1['summary_id']."' AND is_summary_generated='1' order by employees.BU ASC ";
-    		$res=mysql_query($sql);
+    		$res=mysqli_query($conn,$sql);
     	
     		$total_amt=0;
     		$temp=0;
     		
-    		while($val=mysql_fetch_array($res))
+    		while($val=mysqli_fetch_array($res))
     		{
 		
-        		$sql1=mysql_query("SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
-        		$val1=mysql_fetch_array($sql1);
-        		echo mysql_error();
+        		$sql1=mysqli_query($conn,"SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
+        		$val1=mysqli_fetch_array($sql1);
+        		echo mysqli_error($conn);
         
     		    $level=$val1['level'];
         		$sql2="SELECT * from ta_amount where min<='".$level."' AND max>='".$level."' ";
-        		$res2=mysql_query($sql2);
-        		$val2=mysql_fetch_array($res2);
+        		$res2=mysqli_query($conn,$sql2);
+        		$val2=mysqli_fetch_array($res2);
 
 		        $val['empid']."_".$amount=$val2['amount'];
 
@@ -538,8 +537,8 @@ switch($_REQUEST['action'])
         		}	
         
                 $query1="SELECT est_approve FROM `taentry_master` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ";
-                $result1=mysql_query($query1);
-                $row1=mysql_fetch_array($result1);
+                $result1=mysqli_query($conn,$query1);
+                $row1=mysqli_fetch_array($result1);
         
                 $status=$row1['est_approve'];
         		$data.="<tr class='fontcss1'>";
@@ -596,8 +595,8 @@ switch($_REQUEST['action'])
 
     			$data.= "<td>$total_amt</td>";
 
-    			$sqll=mysql_query("SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
-    			$ress=mysql_fetch_array($sqll);
+    			$sqll=mysqli_query($conn,"SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
+    			$ress=mysqli_fetch_array($sqll);
     			if($ress['amount'] == '0' || $ress['amount'] == null)
     			{
 			        $data.= "<td>-</td>";
@@ -673,7 +672,7 @@ switch($_REQUEST['action'])
       $pfno = $_REQUEST['id'];
           
         $query1="DELETE * FROM users WHERE username='".$pfno."' ";
-        $result1=mysql_query($query1);
+        $result1=mysqli_query($conn,$query1);
         
         if($result1)
         {
@@ -697,7 +696,7 @@ switch($_REQUEST['action'])
         $date=date("Y-m-d H:i:s");
         $sql_role_transfer_select = "UPDATE `forward_data` SET `fowarded_to`='".$transfer_emp_id."', `arrived_time`='".$date."' WHERE `fowarded_to`='".$pfno."' AND hold_status='1' ";  
          
-        $rst_role_transfer = mysql_query($sql_role_transfer_select);
+        $rst_role_transfer = mysqli_query($conn,$sql_role_transfer_select);
         if($rst_role_transfer)
         {
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
@@ -720,14 +719,14 @@ switch($_REQUEST['action'])
 
         $query = "SELECT * FROM `master_cont` WHERE reference_no = '".$_POST['ref_no']."' AND set_no='".$_POST['set_no']."' ";
 
-        $result=mysql_query($query);
-        echo mysql_error();
+        $result=mysqli_query($conn,$query);
+        echo mysqli_error($conn);
 
-        $row_data=mysql_num_rows($result);        
+        $row_data=mysqli_num_rows($result);        
         if($row_data == 1)
         {
             $query1 = "SELECT * FROM `add_cont` WHERE reference_no = '".$_POST['ref_no']."' AND set_no='".$_POST['set_no']."' ";
-            $result1=mysql_query($query1);
+            $result1=mysqli_query($conn,$query1);
             $cnt= 1;$sum = 0;$obj='';
             $data.='<table class="table table-inverse " style="font-size: 15px" id="" border="1">
                     <thead>
@@ -741,7 +740,7 @@ switch($_REQUEST['action'])
                         <th >Amount</th>            
                       </tr> 
                     </thead><tbody>';
-            while($sql_res=mysql_fetch_array($result1)){
+            while($sql_res=mysqli_fetch_array($result1)){
               $data .= "<tr>
               <td>".$cnt."</td>
               <td>".$sql_res['cont_date']."</td>
@@ -770,11 +769,11 @@ switch($_REQUEST['action'])
     case 'view_contingency':
         $data='';
         $sql="select * from continjency_master inner join continjency on continjency_master.id=continjency.cid where reference='".$_REQUEST['ref']."' and continjency.set_number='".$_REQUEST['set']."'";
-         $raw_data=mysql_query($sql);
-         echo mysql_error();
+         $raw_data=mysqli_query($conn,$sql);
+         echo mysqli_error($conn);
          if($raw_data){
           $cnt = 0;
-            while($sql_res=mysql_fetch_assoc($raw_data)){
+            while($sql_res=mysqli_fetch_assoc($raw_data)){
               $data .= "
                 <tr>
                   <td>".$sql_res['cntdate']."</td>
@@ -813,7 +812,7 @@ switch($_REQUEST['action'])
     break;
 
     case "deletebillunitemp":
-        $query = mysql_query("delete from sep_billunit where employee_id='".$_REQUEST['deleteemp']."'");
+        $query = mysqli_query($conn,"delete from sep_billunit where employee_id='".$_REQUEST['deleteemp']."'");
         if($query)
         {
              echo "<script>alert('User removed successfully');window.location='../apply_billunit.php';</script>";
@@ -827,8 +826,8 @@ switch($_REQUEST['action'])
     case "updatebillemp":
         $billunit = implode(",", $_REQUEST['updatebill']);
         $update_sql = "update sep_billunit set billunit='".$billunit."' where employee_id='".$_REQUEST['updateemp']."'";
-        $query = mysql_query($update_sql);
-        echo mysql_error();
+        $query = mysqli_query($conn,$update_sql);
+        echo mysqli_error($conn);
         if($query)
         {
              echo "<script>alert('User bill unit applied successfully');window.location='../apply_billunit.php';</script>";

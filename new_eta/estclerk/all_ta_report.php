@@ -57,9 +57,9 @@ include('control/function.php');
                 						<select class="form-control select2" name="dept_no" id="dept_no" data-placeholder="विभाग का चयन करें / Select Department" required>
                 							<option value="0" selected>विभाग का चयन करें / Select Department</option>
                 							<?php
-                							    $dept_query=mysql_query("SELECT DEPTNO,DEPTDESC FROM department order by DEPTDESC ASC");
+                							    $dept_query=mysqli_query($conn,"SELECT DEPTNO,DEPTDESC FROM department order by DEPTDESC ASC");
                 							    
-                							    while($dept_row = mysql_fetch_array($dept_query))
+                							    while($dept_row = mysqli_fetch_array($dept_query))
                 							    {
                 							        echo "<option value='".$dept_row['DEPTNO']."'>".$dept_row['DEPTDESC']."</option>";
                 							    }

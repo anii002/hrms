@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '.../hrms/new_eta/personnel_employees/index.php';
+				window.location.href = '../hrms/new_eta/personnel_employees/index.php';
 				</script>";
 			}
 

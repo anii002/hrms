@@ -5,40 +5,40 @@ include('common/sidebar.php');
 ?>
 
 <div class="page-content-wrapper">
-    <div class="page-content">
+	<div class="page-content">
 
-        <div class="page-bar">
-            <ul class="page-breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>
-                    <a href="index.php">Home / मुख पृष्ठ</a>
-                    <i class="fa fa-angle-right"></i>
-                </li>
-                <li>
-                    <a href="#">Track Claim</a>
-                </li>
-            </ul>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="index.php">Home / मुख पृष्ठ</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#">Track Claim</a>
+				</li>
+			</ul>
 
-        </div>
-        <!-- <h1>ecefce</h1> -->
-        <div class="portlet box blue">
-            <div class="portlet-title">
-                <div class="caption col-md-6 col-xs-6">
-                    <b>Track Claim</b>
-                </div>
-                <div class="caption col-md-6 col-xs-6 text-right backbtn">
-                    <a href="#.">Back</a>
-                </div>
-            </div>
-            <div class="portlet-body form">
-                <div class="add-train-title track">
-                    <label>
-                        <h4>Claim Reference Number - <?php echo $_GET['ref_no']; ?></h4>
-                    </label>
-                </div>
-                <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 col-md-offset-2 col-lg-offset-2">
-                    <div class="boxtrack">
-                        <?php
+		</div>
+		<!-- <h1>ecefce</h1> -->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption col-md-6 col-xs-6">
+					<b>Track Claim</b>
+				</div>
+				<div class="caption col-md-6 col-xs-6 text-right backbtn">
+					<a href="#.">Back</a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<div class="add-train-title track">
+					<label>
+						<h4>Claim Reference Number - <?php echo $_GET['ref_no']; ?></h4>
+					</label>
+				</div>
+				<div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 col-md-offset-2 col-lg-offset-2">
+					<div class="boxtrack">
+						<?php
 						$qry = mysqli_query($conn, "SELECT created_date,empid FROM `taentry_master` WHERE reference_no='" . $_GET['ref_no'] . "'");
 						$row = mysqli_fetch_array($qry);
 
@@ -53,12 +53,30 @@ include('common/sidebar.php');
 						$count = count($history_row);
 
 						?>
-                        <div class="text-center">
-                            <h5><?php echo $row2['name']; ?>(TA Claimant)</h5>
-                            <p><?php echo $row['created_date']; ?></p>
-                        </div>
+						<div class="text-center">
+							<h5>
+								<?php
+								if (isset($row2['name'])) {
+									echo htmlspecialchars($row2['name']);
+								} else {
+									echo "(No name provided)";
+								}
+								?>
+								(TA Claimant)
+							</h5>
+							<p>
+								<?php
+								if (isset($row['created_date'])) {
+									echo htmlspecialchars($row['created_date']);
+								} else {
+									echo "(No date provided)";
+								}
+								?>
+							</p>
+						</div>
 
-                        <?php
+
+						<?php
 						if ($count != null) {
 							for ($i = 0; $i < $count; $i++) {
 
@@ -85,10 +103,10 @@ include('common/sidebar.php');
 								if ($history_row[$i]['hold_status'] == 0) {
 									//echo $row3['name'];	
 						?>
-                        <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                        <div class="text-center">
-                            <h5>
-                                <?php
+									<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+									<div class="text-center">
+										<h5>
+											<?php
 											// echo "ROLE ".$row3['role'];
 											// if($row3['role']==0 || $row3['role']==12){
 											//  echo $row3['name']."(Controlling Incharge)";
@@ -98,19 +116,19 @@ include('common/sidebar.php');
 												echo $row3['name'] . "(Controlling Officer)";
 											}
 											?>
-                            </h5>
+										</h5>
 
-                            <p>Received - <?php echo $arrived_time; ?></p>
-                            <p>Pending time - <?php echo $elapsed; ?></p>
-                            <?php
+										<p>Received - <?php echo $arrived_time; ?></p>
+										<p>Pending time - <?php echo $elapsed; ?></p>
+										<?php
 
 										echo "<p>Approved - $depart_time </p>";
 									} else {
 										if ($row3['role'] != '11') {
 										?>
-                            <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                            <div class="text-center">
-                                <h5><?php
+											<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+											<div class="text-center">
+												<h5><?php
 
 													if ($row3["role"] == 13) {
 														echo $row3["name"] . "(Controlling Officer)";
@@ -120,21 +138,21 @@ include('common/sidebar.php');
 													// }
 
 													?>
-                                </h5>
-                                <p>Received - <?php echo $arrived_time; ?></p>
-                                <p>Pending time - <?php echo $elapsed; ?></p>
-                                <?php
+												</h5>
+												<p>Received - <?php echo $arrived_time; ?></p>
+												<p>Pending time - <?php echo $elapsed; ?></p>
+											<?php
 											//echo "<p>Pending from $d1.$d2.$d3.$d4</p>";
 										}
 											?>
-                            </div>
+											</div>
 
 
 
-                            <?php }
+									<?php }
 								} ?>
-                            <!-- DA -->
-                            <?php
+									<!-- DA -->
+									<?php
 									$qry9 = mysqli_query($conn, "SELECT arrived_time FROM `forward_data` WHERE `reference_id`='" . $_GET['ref_no'] . "' ORDER BY id DESC LIMIT 1");
 									$row9 = mysqli_fetch_array($qry9);
 
@@ -167,39 +185,39 @@ include('common/sidebar.php');
 									//echo $history_row[$count-1]['hold_status'];
 
 									?>
-                            <?php
+									<?php
 									//echo $row6['forward_status'];
 									if ($i == 1) {
 										if ($row6['forward_status'] == 1) {
 									?>
-                            <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                            <div class="text-center">
-                                <h5><?php
+											<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+											<div class="text-center">
+												<h5><?php
 													// echo $row6['estcrk_status'];
 													if ($row3['role'] == 11) {
 														echo $row8['name'] . "(Departmental Admin)";
 													} ?></h5>
-                                <p>Received - <?php echo $row9['arrived_time']; ?></p>
-                                <p>Pending time - <?php echo $elapsed1; ?></p>
-                                <?php
+												<p>Received - <?php echo $row9['arrived_time']; ?></p>
+												<p>Pending time - <?php echo $elapsed1; ?></p>
+											<?php
 											echo "<p>Approved - " . $row6['DA_approved_time'] . "</p>";
 										} else {
 											?>
-                                <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                                <div class="text-center">
-                                    <h5><?php
+												<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+												<div class="text-center">
+													<h5><?php
 														echo $row8['name'] . "(Departmental Admin)";
 														?></h5>
-                                    <p>Received - <?php echo $row9['arrived_time']; ?></p>
-                                    <p>Pending time - <?php echo $elapsed1; ?></p>
-                                    <?php
+													<p>Received - <?php echo $row9['arrived_time']; ?></p>
+													<p>Pending time - <?php echo $elapsed1; ?></p>
+											<?php
 											echo "<p>Pending from $d5.$d6.$d7.$d8</p>";
 										}
 									}
 											?>
-                                    <!-- DA -->
-                                    <!-- Personal Admin -->
-                                    <?php
+											<!-- DA -->
+											<!-- Personal Admin -->
+											<?php
 											$qry9 = mysqli_query($conn, "SELECT arrived_time FROM `forward_data` WHERE `reference_id`='" . $_GET['ref_no'] . "' ORDER BY id DESC LIMIT 1");
 											$row9 = mysqli_fetch_array($qry9);
 
@@ -233,41 +251,41 @@ include('common/sidebar.php');
 											//echo $history_row[$count-1]['hold_status'];
 
 											?>
-                                    <?php
+											<?php
 											//echo $row6['forward_status'];
 											if ($row6['forward_status'] == 1) {
 												if ($row6['pa_status'] == 1) {
 											?>
-                                    <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                                    <div class="text-center">
-                                        <h5><?php
+													<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+													<div class="text-center">
+														<h5><?php
 															// echo $row6['estcrk_status'];
 															// if($row3['role']==14)
 															// {
 															echo $row8['name'] . "(Personnel Admin)";
 															// } 
 															?></h5>
-                                        <p>Received - <?php echo $row6['DA_approved_time']; ?></p>
-                                        <p>Pending time - <?php echo $elapsed1; ?></p>
-                                        <?php
+														<p>Received - <?php echo $row6['DA_approved_time']; ?></p>
+														<p>Pending time - <?php echo $elapsed1; ?></p>
+													<?php
 													echo "<p>Approved - " . $row6['PA_approved_time'] . "</p>";
 												} else {
 													?>
-                                        <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                                        <div class="text-center">
-                                            <h5><?php
+														<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+														<div class="text-center">
+															<h5><?php
 																echo $row8['name'] . "(Personal Admin)";
 																?></h5>
-                                            <p>Received - <?php echo $row6['DA_approved_time']; ?></p>
-                                            <p>Pending time - <?php echo $elapsed1; ?></p>
-                                            <?php
+															<p>Received - <?php echo $row6['DA_approved_time']; ?></p>
+															<p>Pending time - <?php echo $elapsed1; ?></p>
+													<?php
 													echo "<p>Pending from $d5.$d6.$d7.$d8</p>";
 												}
 											}
 													?>
-                                            <!-- Personal Admin -->
-                                            <!-- ESTCLERK -->
-                                            <?php
+													<!-- Personal Admin -->
+													<!-- ESTCLERK -->
+													<?php
 													//echo $row['empid'];
 													$query_bu = mysqli_query($conn, "SELECT `BU` FROM `employees` WHERE pfno = '" . $row['empid'] . "'");
 													$row_bu = mysqli_fetch_array($query_bu);
@@ -307,24 +325,24 @@ include('common/sidebar.php');
 
 														if ($row6['estcrk_status'] == 1) {
 													?>
-                                            <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                                            <div class="text-center">
-                                                <h5><?php
+															<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+															<div class="text-center">
+																<h5><?php
 																	// if($row3['role']==8)
 																	// {
 																	// 	echo $row8['name']."(ESTCLERK)";	
 																	// }
 																	echo $row_name_emp['name'] . "(ESTCLERK)";
 																	?></h5>
-                                                <p>Received - <?php echo $row6['PA_approved_time']; ?></p>
-                                                <p>Pending time - <?php echo $elapsed1; ?></p>
-                                                <?php
+																<p>Received - <?php echo $row6['PA_approved_time']; ?></p>
+																<p>Pending time - <?php echo $elapsed1; ?></p>
+															<?php
 															echo "<p>Approved - " . $row6['EST_approved_time'] . "</p>";
 														} else {
 															?>
-                                                <div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-                                                <div class="text-center">
-                                                    <h5><?php
+																<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+																<div class="text-center">
+																	<h5><?php
 																		// if($row3['role']==8)
 																		// {
 																		// 	echo $row8['name']."(ESTCLERK)";	
@@ -332,56 +350,50 @@ include('common/sidebar.php');
 																		echo $row_name_emp['name'] . "(ESTCLERK)";
 
 																		?></h5>
-                                                    <p>Received - <?php echo $row6['PA_approved_time']; ?></p>
-                                                    <p>Pending time - <?php echo $elapsed1; ?></p>
-                                                    <?php
+																	<p>Received - <?php echo $row6['PA_approved_time']; ?></p>
+																	<p>Pending time - <?php echo $elapsed1; ?></p>
+															<?php
 															echo "<p>Pending from $d5.$d6.$d7.$d8</p>";
 														}
 													}
 															?>
-                                                    <!-- ESTCLERK -->
-                                                </div>
+															<!-- ESTCLERK -->
+																</div>
 
 
 
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
+															<?php } ?>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+									</div>
+									<?php
 									include 'common/footer.php';
 									?>
 
 
 
-                        <!-- File export script -->
-                        <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('#example').DataTable({
-                                dom: 'Bfrtip',
-                                buttons: [
-                                    'copyHtml5',
-                                    'excelHtml5',
-                                    'csvHtml5',
-                                    'pdfHtml5'
-                                ]
-                            });
-                        });
-                        </script>
+									<!-- File export script -->
+									<script type="text/javascript">
+										$(document).ready(function() {
+											$('#example').DataTable({
+												dom: 'Bfrtip',
+												buttons: [
+													'copyHtml5',
+													'excelHtml5',
+													'csvHtml5',
+													'pdfHtml5'
+												]
+											});
+										});
+									</script>
 
-                        <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script> -->
-                        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"
-                            type="text/javascript"></script>
-                        <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"
-                            type="text/javascript"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"
-                            type="text/javascript"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"
-                            type="text/javascript"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"
-                            type="text/javascript"></script>
-                        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"
-                            type="text/javascript"></script>
+									<!-- <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script> -->
+									<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+									<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js" type="text/javascript"></script>
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
+									<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js" type="text/javascript"></script>

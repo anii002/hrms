@@ -57,14 +57,14 @@ include('control/function.php');
 									</thead>
 									<tbody>
 										<?php
-											$query12=mysql_query("SELECT tasummarydetails.reference_no as reference_no,tasummarydetails.empid as empid,taentry_master.TAYear,taentry_master.TAMonth,taentry_master.created_date FROM `master_summary`,tasummarydetails,taentry_master,employees WHERE employees.pfno=taentry_master.empid AND taentry_master.reference_no= tasummarydetails.reference_no AND master_summary.summary_id=tasummarydetails.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='0' AND taentry_master.forward_status='1' AND taentry_master.TAMonth='".$_GET['mon']."' AND taentry_master.TAYear='".$_GET['year']."' AND employees.dept='".$_GET['dept']."' AND employees.BU='".$_GET['bu']."' GROUP BY tasummarydetails.reference_no ORDER BY tasummarydetails.id ASC");
+											$query12=mysqli_query($conn,"SELECT tasummarydetails.reference_no as reference_no,tasummarydetails.empid as empid,taentry_master.TAYear,taentry_master.TAMonth,taentry_master.created_date FROM `master_summary`,tasummarydetails,taentry_master,employees WHERE employees.pfno=taentry_master.empid AND taentry_master.reference_no= tasummarydetails.reference_no AND master_summary.summary_id=tasummarydetails.summary_id AND master_summary.forward_status='1' AND master_summary.pa_status='0' AND taentry_master.forward_status='1' AND taentry_master.TAMonth='".$_GET['mon']."' AND taentry_master.TAYear='".$_GET['year']."' AND employees.dept='".$_GET['dept']."' AND employees.BU='".$_GET['bu']."' GROUP BY tasummarydetails.reference_no ORDER BY tasummarydetails.id ASC");
     	
-                                    	while($row = mysql_fetch_array($query12))
+                                    	while($row = mysqli_fetch_array($query12))
                                     	{
                                     	    $sr++;
 											$query2="SELECT SUM(amount)as total_amount,distance FROM `taentrydetails` WHERE empid='".$row['empid']."' AND reference_no='".$row['reference_no']."' ";
-											$sql2=mysql_query($query2);
-											$row2 = mysql_fetch_array($sql2);
+											$sql2=mysqli_query($conn,$query2);
+											$row2 = mysqli_fetch_array($sql2);
     									    ?>  
     								    	<tr>
     										    <td><?php echo $sr; ?></td> 

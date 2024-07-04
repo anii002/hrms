@@ -126,161 +126,148 @@ include('control/function.php');
 													</tr>
 												</thead>
 												<tbody>
-													<?php
+<?php
+$sql = "SELECT * FROM tasummarydetails, employees 
+        WHERE tasummarydetails.empid = employees.pfno 
+        AND summary_id='" . $_GET['sum_id'] . "' 
+        AND is_summary_generated='1' 
+        ORDER BY employees.BU ASC ";
+$res = mysqli_query($conn, $sql);
 
-													$sql = "SELECT * from tasummarydetails,employees where  tasummarydetails.empid=employees.pfno AND summary_id='" . $_GET['sum_id'] . "' AND is_summary_generated='1' order by employees.BU ASC ";
-													$res = mysqli_query($conn, $sql);
-													//;
-													$total_amt = 0;
-													$temp = 0;
-													while ($val = mysqli_fetch_array($res)) {
+$total_amt = 0;
+$temp = 0;
 
-														// echo "SELECT * from employees where pfno='".$val['empid']."' order by BU ASC";
-														$sql1 = mysqli_query($conn, "SELECT * from employees where pfno='" . $val['empid'] . "' order by BU ASC");
-														$val1 = mysqli_fetch_array($sql1);
-														echo mysqli_error($conn);
+while ($val = mysqli_fetch_array($res)) {
+    $sql1 = mysqli_query($conn, "SELECT * FROM employees WHERE pfno='" . $val['empid'] . "' ORDER BY BU ASC");
+    $val1 = mysqli_fetch_array($sql1);
 
-														$level = $val1['level'];
-														$sql2 = "SELECT * from ta_amount where min<='" . $level . "' AND max>='" . $level . "' ";
-														$res2 = mysqli_query($conn, $sql2);
-														$val2 = mysqli_fetch_array($res2);
+    // Check if $val1 exists before accessing its properties
+    if (!$val1) {
+        continue; // Skip iteration if employee data is not found
+    }
 
-														$val['empid'] . "_" . $amount = $val2['amount'];
+    $level = $val1['level'];
 
-														$month_array = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
-														$month_array1 = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
-														$mon = '';
-														$mmon = '';
-														// 		 $m=$val['month'];
-														$mts = explode(",", $val['month']);
-														//print_r($mts);
-														$s = $mts[0];
-														$y = substr($val['year'], 2);
-														// print_r($month_array);
-														if ($month_array[$s]) {
-															$mon = $month_array[$s];
-														}
+    // Query to get TA amount based on employee level
+    $sql2 = "SELECT * FROM ta_amount WHERE min <= '$level' AND max >= '$level' ";
+    $res2 = mysqli_query($conn, $sql2);
+    $val2 = mysqli_fetch_array($res2);
 
+    $amount = isset($val2['amount']) ? $val2['amount'] : '';
 
-														$cdate = substr($val['created_at'], 3, 2);
-														$cyear = substr($val['created_at'], 8, 2);
-														if ($month_array1[$cdate]) {
-															$mmon = $month_array1[$cdate];
-														}
+    // Arrays for month names
+    $month_array = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
+    $month_array1 = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
 
-														$query1 = "SELECT est_approve FROM `taentry_master` WHERE empid='" . $val['empid'] . "' AND reference_no='" . $val['reference_no'] . "' ";
-														$result1 = mysqli_query($conn, $query1);
-														$row1 = mysqli_fetch_array($result1);
+    $mon = '';
+    $mmon = '';
 
-														$status = $row1['est_approve'];
+    // Extracting month and year from the summary data
+    $mts = explode(",", $val['month']);
+    $s = $mts[0];
+    $y = substr($val['year'], 2);
 
+    // Setting month name if it exists in $month_array
+    if (isset($month_array[$s])) {
+        $mon = $month_array[$s];
+    }
 
+    // Extracting creation date month and year
+    $cdate = substr($val['created_at'], 3, 2);
+    $cyear = substr($val['created_at'], 8, 2);
 
-														echo "
-										<tr class='fontcss1'>";
-														if ($status == '1') {
-															echo "<td style='color:#0b10f5;'>Vetted</td>";
-														} else {
-															echo "<td style='color:red;'>Non-Vetted</td>";
-														}
-														echo "	
-											<td>" . $val['empid'] . "</td>
-											<td>" . $val1['name'] . "</td>
-											<td>" . $val1['BU'] . "</td>
-											<td>" . getDesignation($val1['desig']) . "</td>
-											<td>" . $val1['level'] . "</td>
-											<td>" . $val1['bp'] . "</td>
-											<td>$amount</td>
-											<td>$mon - $y</td>
-											<td>$mmon - $cyear</td>";
+    // Setting month name if it exists in $month_array1
+    if (isset($month_array1[$cdate])) {
+        $mmon = $month_array1[$cdate];
+    }
 
-														if ($val['30p_cnt'] == '0' && $val['30p_amt'] == '0') {
-															echo "
-												<td>-</td>
-											<td>-</td>
-												";
-															$t1 = 0;
-														} else {
-															echo "
-												<td>" . $val['30p_cnt'] . "</td>
-											<td>" . $val['30p_amt'] . "</td>
-												";
-															$t1 = $val['30p_amt'];
-														}
-														if ($val['70p_cnt'] == '0' && $val['70p_amt'] == '0') {
-															echo "
-												<td>-</td>
-											<td>-</td>
-												";
-															$t2 = 0;
-														} else {
-															echo "
-												<td>" . $val['70p_cnt'] . "</td>
-											<td>" . $val['70p_amt'] . "</td>
-												";
-															$t2 = $val['70p_amt'];
-														}
-														if ($val['100p_cnt'] == '0' && $val['100p_amt'] == '0') {
-															echo "
-												<td>-</td>
-											<td>-</td>
-												";
-															$t3 = 0;
-														} else {
-															echo "
-												<td>" . $val['100p_cnt'] . "</td>
-											<td>" . $val['100p_amt'] . "</td>
-												";
-															$t3 = $val['100p_amt'];
-														}
+    // Query to get approval status
+    $query1 = "SELECT est_approve FROM `taentry_master` WHERE empid='" . $val['empid'] . "' AND reference_no='" . $val['reference_no'] . "' ";
+    $result1 = mysqli_query($conn, $query1);
+    $row1 = mysqli_fetch_array($result1);
 
-														$total_amt = (int)$t1 + (int)$t2 + (int)$t3;
-														$temp = $temp + $total_amt;
+    // Checking if approval status exists
+    $status = isset($row1['est_approve']) ? $row1['est_approve'] : '';
 
-														echo "
-											<td>$total_amt</td>";
+    // Displaying table row
+    echo "<tr class='fontcss1'>";
+    if ($status == '1') {
+        echo "<td style='color:#0b10f5;'>Vetted</td>";
+    } else {
+        echo "<td style='color:red;'>Non-Vetted</td>";
+    }
 
-														$sqll = mysqli_query($conn, "SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='" . $val['empid'] . "' AND reference_no='" . $val['reference_no'] . "' ");
-														$ress = mysqli_fetch_array($sqll);
-														if ($ress['amount'] == '0' || $ress['amount'] == null) {
+    // Displaying other data columns
+    echo "<td>" . $val['empid'] . "</td>
+          <td>" . $val1['name'] . "</td>
+          <td>" . $val1['BU'] . "</td>
+          <td>" . getDesignation($val1['desig']) . "</td>
+          <td>" . $val1['level'] . "</td>
+          <td>" . $val1['bp'] . "</td>
+          <td>$amount</td>
+          <td>$mon - $y</td>
+          <td>$mmon - $cyear</td>";
 
-															echo "<td>-</td>";
-														} else {
-															echo "<td>" . $ress['amount'] . "</td>";
-														}
-														echo "											
-											<td class='noprint btnhide'><a  href='show_seperate_approve_1.php?ref_no=" . $val['reference_no'] . "&empid=" . $val['empid'] . "' class='btn btn-primary btn-sm noprint'>Show</a></td>
-										</tr>";
-													}
+    // Displaying 30% data
+    if ($val['30p_cnt'] == '0' && $val['30p_amt'] == '0') {
+        echo "<td>-</td><td>-</td>";
+        $t1 = 0;
+    } else {
+        echo "<td>" . $val['30p_cnt'] . "</td><td>" . $val['30p_amt'] . "</td>";
+        $t1 = $val['30p_amt'];
+    }
 
+    // Displaying 70% data
+    if ($val['70p_cnt'] == '0' && $val['70p_amt'] == '0') {
+        echo "<td>-</td><td>-</td>";
+        $t2 = 0;
+    } else {
+        echo "<td>" . $val['70p_cnt'] . "</td><td>" . $val['70p_amt'] . "</td>";
+        $t2 = $val['70p_amt'];
+    }
 
-													?>
+    // Displaying 100% data
+    if ($val['100p_cnt'] == '0' && $val['100p_amt'] == '0') {
+        echo "<td>-</td><td>-</td>";
+        $t3 = 0;
+    } else {
+        echo "<td>" . $val['100p_cnt'] . "</td><td>" . $val['100p_amt'] . "</td>";
+        $t3 = $val['100p_amt'];
+    }
 
-													<?php
-													echo "<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><b>Total</b></td>
-											<td>$temp</td>
-											<td></td>
-											<td></td>
-											<td><b></b></td>
-											
-										</tr>";
-													?>
-												</tbody>
+    // Calculating total amount
+    $total_amt = (int)$t1 + (int)$t2 + (int)$t3;
+    $temp = $temp + $total_amt;
+
+    echo "<td>$total_amt</td>";
+
+    // Query to get additional contribution amount
+    $sqll = mysqli_query($conn, "SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='" . $val['empid'] . "' AND reference_no='" . $val['reference_no'] . "' ");
+    $ress = mysqli_fetch_array($sqll);
+
+    // Displaying additional contribution amount
+    if ($ress['amount'] == '0' || $ress['amount'] == null) {
+        echo "<td>-</td>";
+    } else {
+        echo "<td>" . $ress['amount'] . "</td>";
+    }
+
+    // Displaying link to show details
+    echo "<td class='noprint btnhide'><a  href='show_seperate_approve_1.php?ref_no=" . $val['reference_no'] . "&empid=" . $val['empid'] . "' class='btn btn-primary btn-sm noprint'>Show</a></td>
+          </tr>";
+}
+
+// Displaying total row
+echo "<tr>
+        <td colspan='15'><b>Total</b></td>
+        <td>$temp</td>
+        <td></td>
+        <td></td>
+        <td><b></b></td>
+      </tr>";
+?>
+</tbody>
+
 											</table>
 										</div>
 

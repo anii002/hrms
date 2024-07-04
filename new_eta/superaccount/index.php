@@ -41,8 +41,8 @@ include('common/sidebar.php');
 						<div class="details">
 							<div class="number">
 							<?php 
-							$query = mysql_query("select count(id) as total from users where role='5'");
-							$resultset = mysql_fetch_array($query);
+							$query = mysqli_query($conn,"select count(id) as total from users where role='5'");
+							$resultset = mysqli_fetch_array($query);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
 							?>
 							</div>

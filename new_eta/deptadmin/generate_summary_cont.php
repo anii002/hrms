@@ -2,6 +2,8 @@
 $GLOBALS['flag'] = "5.12";
 include('common/header.php');
 include('common/sidebar.php');
+$cur_date = date('Y-m-d'); // or any logic to get the current date
+$date = '2024-12-31';
 ?>
 
 <div class="page-content-wrapper">
@@ -30,14 +32,13 @@ include('common/sidebar.php');
 						<div class="portlet box blue">
 							<div class="portlet-title">
 								<div class="caption">
-									<i class="fa fa-globe"></i>Generate Summary of continjency
+									<i class="fa fa-globe"></i>Generate Summary of Contingency
 								</div>
 								<div class="tools">
 									<?php if ($cur_date <= $date) { ?>
-										<input type="submit" class="btn btn-warning pull-right " id='gn' name="subtn" value="Generate Summary">
+										<input type="submit" class="btn btn-warning pull-right" id='gn' name="subtn" value="Generate Summary">
 									<?php } ?>
 								</div>
-
 							</div>
 							<div class="portlet-body">
 								<table class="table table-hover table-bordered display" id="tblreport">
@@ -59,7 +60,7 @@ include('common/sidebar.php');
 										function get_employee($id)
 										{
 											global $conn;
-											$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+											$query = mysqli_query($conn, "SELECT name from employees where pfno='$id'");
 											$result = mysqli_fetch_array($query);
 											return $result['name'];
 										}
@@ -68,7 +69,7 @@ include('common/sidebar.php');
 										$query = "SELECT MONTHNAME(str_to_date(continjency_master.created_date,'%d/%m/%Y') ) as created, continjency_master.reference, continjency_master.year,continjency_master.empid as empid, continjency_master.month, SUM(continjency.kms) AS distance, SUM(continjency.total_amount) as rate FROM continjency_master INNER JOIN continjency ON continjency_master.reference = continjency.reference WHERE continjency_master.reference IN (select reference_id from forward_data where forward_data.fowarded_to='" . $_SESSION['empid'] . "' AND forward_data.depart_time is null AND summary='0') group by continjency_master.reference";
 										//echo $query;
 
-										$result = mysqli_query($conn,$query);
+										$result = mysqli_query($conn, $query);
 										$count_row = mysqli_num_rows($result);
 										if ($count_row > 0) {
 										} else {
