@@ -44,8 +44,8 @@ include('control/function.php');
 			                    		<option value="" selected disabled>Select Station</option>
 												<?php
 												$query_emp = "select stationcode,stationdesc from station";
-												$result_emp = mysql_query($query_emp);
-												while($value_emp = mysql_fetch_assoc($result_emp))
+												$result_emp = mysqli_query($conn,$query_emp);
+												while($value_emp = mysqli_fetch_assoc($result_emp))
 												{
 												echo "<option value='".$value_emp['stationcode']."'>".$value_emp['stationdesc']."</option>";
 												}
@@ -116,10 +116,10 @@ include('control/function.php');
 						                  <tbody>
     		                                    <?php
                     							    $query_emp = "select * from depot_master where dept_id='".$_SESSION['dept']."'";
-                    								$result_emp = mysql_query($query_emp);
-                    								//echo mysql_error();
+                    								$result_emp = mysqli_query($conn,$query_emp);
+                    								//echo mysqli_error();
                     								$sr=1;
-                    								while($value_emp = mysql_fetch_assoc($result_emp))
+                    								while($value_emp = mysqli_fetch_assoc($result_emp))
                     								{
                     									echo "<tr>";
                     									echo "<td>".$sr++."</td>";                    

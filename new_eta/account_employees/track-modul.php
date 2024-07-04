@@ -44,14 +44,14 @@ $da = 0;
 					<div class="boxtrack">
 
 						<?php
-						$qry = mysqli_query($conn,"SELECT created_date,empid,is_rejected,rejected_by,reason FROM `taentry_master` WHERE reference_no='" . $_GET['ref_no'] . "'");
+						$qry = mysqli_query($conn, "SELECT created_date,empid,is_rejected,rejected_by,reason FROM `taentry_master` WHERE reference_no='" . $_GET['ref_no'] . "'");
 						$row = mysqli_fetch_array($qry);
 
-						$qry2 = mysqli_query($conn,"SELECT `name` FROM `employees` WHERE pfno = '" . $row['empid'] . "' and dept='" . $_SESSION['dept'] . "' ");
+						$qry2 = mysqli_query($conn, "SELECT `name` FROM `employees` WHERE pfno = '" . $row['empid'] . "' and dept='" . $_SESSION['dept'] . "' ");
 						$row2 = mysqli_fetch_array($qry2);
 
 						$history_row = array();
-						$qry1 = mysqli_query($conn,"SELECT * FROM `forward_data` WHERE reference_id='" . $_GET['ref_no'] . "' ORDER BY id ASC");
+						$qry1 = mysqli_query($conn, "SELECT * FROM `forward_data` WHERE reference_id='" . $_GET['ref_no'] . "' ORDER BY id ASC");
 						while ($row1 = mysqli_fetch_assoc($qry1)) {
 							array_push($history_row, $row1);
 						}
@@ -59,17 +59,21 @@ $da = 0;
 
 						?>
 						<div class="text-center">
-							<h5><?php echo $row2['name']; ?>(TA Claimant)</h5>
-							<p><?php echo $row['created_date']; ?></p>
-							<?php
-							if ($row['is_rejected'] == 1) {
-								$qry_rej = mysqli_query($conn,"SELECT `name` FROM `employees` WHERE pfno = '" . $row['rejected_by'] . "'");
-								$row_rej = mysqli_fetch_array($qry_rej);
-								echo "Rejected By -" . $row_rej['name'] . "<br>";
-								echo "Reason is -" . $row['reason'];
-							}
-							?>
-						</div>
+    <h5><?php echo isset($row2['name']) ? $row2['name'] . '(TA Claimant)' : ''; ?></h5>
+    <p><?php echo isset($row['created_date']) ? $row['created_date'] : ''; ?></p>
+    <?php
+    if (isset($row['is_rejected']) && $row['is_rejected'] == 1) {
+        $qry_rej = mysqli_query($conn, "SELECT `name` FROM `employees` WHERE pfno = '" . $row['rejected_by'] . "'");
+        if ($qry_rej) {
+            $row_rej = mysqli_fetch_array($qry_rej);
+            if ($row_rej) {
+                echo "Rejected By -" . $row_rej['name'] . "<br>";
+            }
+        }
+        echo "Reason is -" . (isset($row['reason']) ? $row['reason'] : '');
+    }
+    ?>
+</div>
 
 						<?php
 						if ($count != null) {
@@ -80,7 +84,7 @@ $da = 0;
 								$depart_time = $history_row[$i]['depart_time'];
 								//$history_row[$i]['fowarded_to'];
 								//echo $conn,"SELECT employees.name as name,role FROM employees,users WHERE users.empid=employees.pfno and pfno = '".$history_row[$i]['fowarded_to']."' and employees.dept='".$_SESSION['dept']."'";
-								$qry3 = mysqli_query($conn,"SELECT employees.name as name,role FROM employees,users WHERE users.empid=employees.pfno and pfno = '" . $history_row[$i]['fowarded_to'] . "' and employees.dept='" . $_SESSION['dept'] . "'");
+								$qry3 = mysqli_query($conn, "SELECT employees.name as name,role FROM employees,users WHERE users.empid=employees.pfno and pfno = '" . $history_row[$i]['fowarded_to'] . "' and employees.dept='" . $_SESSION['dept'] . "'");
 								$row3 = mysqli_fetch_array($qry3);
 
 								$curr = date("Y-m-d h:i:sa");
@@ -158,10 +162,10 @@ $da = 0;
 											<?php }
 										if ($i == 1 && $da == 0) {
 											$da++;
-											$qry51 = mysqli_query($conn,"SELECT summary_id FROM `tasummarydetails` WHERE `reference_no`='" . $_GET['ref_no'] . "'");
+											$qry51 = mysqli_query($conn, "SELECT summary_id FROM `tasummarydetails` WHERE `reference_no`='" . $_GET['ref_no'] . "'");
 											$row51 = mysqli_fetch_array($qry51);
 											//echo ($conn,"SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='".$row5['summary_id']."'");
-											$qry61 = mysqli_query($conn,"SELECT forward_status,estcrk_status,pa_status,generated_date,DA_approved_time,PA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row51['summary_id'] . "'");
+											$qry61 = mysqli_query($conn, "SELECT forward_status,estcrk_status,pa_status,generated_date,DA_approved_time,PA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row51['summary_id'] . "'");
 											$row61 = mysqli_fetch_array($qry61);
 											if ($history_row[$i]['hold_status'] == 1 && $row61['forward_status'] == 0) {
 											?>
@@ -179,21 +183,21 @@ $da = 0;
 									} ?>
 
 										<?php
-										$qry9 = mysqli_query($conn,"SELECT arrived_time FROM `forward_data` WHERE `reference_id`='" . $_GET['ref_no'] . "' ORDER BY id DESC LIMIT 1");
+										$qry9 = mysqli_query($conn, "SELECT arrived_time FROM `forward_data` WHERE `reference_id`='" . $_GET['ref_no'] . "' ORDER BY id DESC LIMIT 1");
 										$row9 = mysqli_fetch_array($qry9);
 
-										$qry5 = mysqli_query($conn,"SELECT summary_id FROM `tasummarydetails` WHERE `reference_no`='" . $_GET['ref_no'] . "'");
+										$qry5 = mysqli_query($conn, "SELECT summary_id FROM `tasummarydetails` WHERE `reference_no`='" . $_GET['ref_no'] . "'");
 										$row5 = mysqli_fetch_array($qry5);
 										//echo ($conn,"SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='".$row5['summary_id']."'");
 										//	echo $conn,"SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='".$row5['summary_id']."'";
-										$qry6 = mysqli_query($conn,"SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row5['summary_id'] . "'");
+										$qry6 = mysqli_query($conn, "SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row5['summary_id'] . "'");
 										$row6 = mysqli_fetch_array($qry6);
 										$dacount = mysqli_num_rows($qry6);
 										//echo $row6['estcrk_status'];
-										$qry7 = mysqli_query($conn,"SELECT `empid`,role FROM `users` WHERE role = '23' AND dept = '" . $_SESSION['dept'] . "'");
+										$qry7 = mysqli_query($conn, "SELECT `empid`,role FROM `users` WHERE role = '23' AND dept = '" . $_SESSION['dept'] . "'");
 										$row7 = mysqli_fetch_array($qry7);
 
-										$qry8 = mysqli_query($conn,"SELECT name FROM `employees` WHERE pfno = '" . $row7['empid'] . "'");
+										$qry8 = mysqli_query($conn, "SELECT name FROM `employees` WHERE pfno = '" . $row7['empid'] . "'");
 										$row8 = mysqli_fetch_array($qry8);
 
 										$curr = date("Y-m-d h:i:sa");
@@ -236,21 +240,21 @@ $da = 0;
 
 											<!-- ADFM -->
 											<?php
-											$qry9 = mysqli_query($conn,"SELECT arrived_time FROM `forward_data` WHERE `reference_id`='" . $_GET['ref_no'] . "' ORDER BY id DESC LIMIT 1");
+											$qry9 = mysqli_query($conn, "SELECT arrived_time FROM `forward_data` WHERE `reference_id`='" . $_GET['ref_no'] . "' ORDER BY id DESC LIMIT 1");
 											$row9 = mysqli_fetch_array($qry9);
 
-											$qry5 = mysqli_query($conn,"SELECT summary_id FROM `tasummarydetails` WHERE `reference_no`='" . $_GET['ref_no'] . "'");
+											$qry5 = mysqli_query($conn, "SELECT summary_id FROM `tasummarydetails` WHERE `reference_no`='" . $_GET['ref_no'] . "'");
 											$row5 = mysqli_fetch_array($qry5);
 											//echo ($conn,"SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='".$row5['summary_id']."'");
-											$qry6 = mysqli_query($conn,"SELECT forward_status,estcrk_status,pa_status,generated_date,DA_approved_time,PA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row5['summary_id'] . "'");
+											$qry6 = mysqli_query($conn, "SELECT forward_status,estcrk_status,pa_status,generated_date,DA_approved_time,PA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row5['summary_id'] . "'");
 											$row6 = mysqli_fetch_array($qry6);
 											$dacount = mysqli_num_rows($qry6);
 											//echo $row6['estcrk_status'];
 											// echo $_SESSION['dept'];
-											$qry7 = mysqli_query($conn,"SELECT `empid` FROM `users` WHERE role = '24' AND dept = '" . $_SESSION['dept'] . "'");
+											$qry7 = mysqli_query($conn, "SELECT `empid` FROM `users` WHERE role = '24' AND dept = '" . $_SESSION['dept'] . "'");
 											$row7 = mysqli_fetch_array($qry7);
 
-											$qry8 = mysqli_query($conn,"SELECT name FROM `employees` WHERE pfno = '" . $row7['empid'] . "'");
+											$qry8 = mysqli_query($conn, "SELECT name FROM `employees` WHERE pfno = '" . $row7['empid'] . "'");
 											// echo $conn,"SELECT `empid` FROM `users` WHERE role = '24' AND dept = '".$_SESSION['dept']."'";
 											$row8 = mysqli_fetch_array($qry8);
 
@@ -306,12 +310,12 @@ $da = 0;
 													<!-- ESTCLERK -->
 													<?php
 													//echo $row['empid'];
-													$qry_emp = mysqli_query($conn,"SELECT empid FROM `taentry_master` WHERE reference_no='" . $_GET['ref_no'] . "'");
+													$qry_emp = mysqli_query($conn, "SELECT empid FROM `taentry_master` WHERE reference_no='" . $_GET['ref_no'] . "'");
 													$row_emp = mysqli_fetch_array($qry_emp);
-													$query_bu = mysqli_query($conn,"SELECT `BU` FROM `employees` WHERE pfno = '" . $row_emp['empid'] . "'");
+													$query_bu = mysqli_query($conn, "SELECT `BU` FROM `employees` WHERE pfno = '" . $row_emp['empid'] . "'");
 													$row_bu = mysqli_fetch_array($query_bu);
 
-													$query_bu_users = mysqli_query($conn,"SELECT `empid`,`billunit` FROM `users` WHERE role = '5'");
+													$query_bu_users = mysqli_query($conn, "SELECT `empid`,`billunit` FROM `users` WHERE role = '5'");
 													while ($row_bu_users = mysqli_fetch_array($query_bu_users)) {
 														$b = array();
 														// echo $b=$row_bu_users['billunit']."<br>";
@@ -319,7 +323,7 @@ $da = 0;
 														// print_r($b);
 														if (in_array($row_bu['BU'], $b)) {
 															//echo $row_bu_users['empid'];
-															$q_name = mysqli_query($conn,"SELECT `name` FROM `employees` WHERE pfno = '" . $row_bu_users['empid'] . "'");
+															$q_name = mysqli_query($conn, "SELECT `name` FROM `employees` WHERE pfno = '" . $row_bu_users['empid'] . "'");
 															$row_name_emp = mysqli_fetch_array($q_name);
 															// echo $row_name_emp['name'];
 														}

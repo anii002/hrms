@@ -14,8 +14,7 @@
 
     <h5>&copy; Copyright 2022, All rights
 
-        reserved. <a href="http://infoigy.com" target="_blank"><img width="80px" src="images/infoigylogo.png"
-                alt="infoigy-logo"></a> </h5>
+        reserved. <a href="http://infoigy.com" target="_blank"><img width="80px" src="images/infoigylogo.png" alt="infoigy-logo"></a> </h5>
 
 </footer>
 
@@ -126,135 +125,135 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
+    $(document).ready(function() {
 
 
 
-    'use strict';
+        'use strict';
 
-    $(window).on('load', function() {
+        $(window).on('load', function() {
 
-        if ($(".pre-loader").length > 0)
+            if ($(".pre-loader").length > 0)
 
-        {
+            {
 
-            $(".pre-loader").fadeOut(1500);
+                $(".pre-loader").fadeOut(1500);
 
-            // $(".pre-loader").fadeOut("slow");
+                // $(".pre-loader").fadeOut("slow");
 
-        }
+            }
+
+        });
 
     });
-
-});
 </script>
 
 
 
 <script type="text/javascript">
-$(function() {
+    $(function() {
 
 
 
-    $("form[name='pro_form']").validate({
+        $("form[name='pro_form']").validate({
 
-        rules: {
+            rules: {
 
-            password: {
+                password: {
 
-                required: true
+                    required: true
 
-            },
+                },
 
-            conf_password: {
+                conf_password: {
 
-                required: true,
+                    required: true,
 
-                equalTo: password
+                    equalTo: password
 
-            }
-
-        },
-
-
-
-
-
-        messages: {
-
-            password: {
-
-                required: "Please Enter New Password"
+                }
 
             },
 
-            conf_password: {
 
-                required: "Please Enter Confirm Password",
 
-                equalTo: "Password does not Match"
+
+
+            messages: {
+
+                password: {
+
+                    required: "Please Enter New Password"
+
+                },
+
+                conf_password: {
+
+                    required: "Please Enter Confirm Password",
+
+                    equalTo: "Password does not Match"
+
+                }
+
+            },
+
+
+
+            submitHandler: function(form) {
+
+                form.submit();
 
             }
 
-        },
+        });
 
 
-
-        submitHandler: function(form) {
-
-            form.submit();
-
-        }
 
     });
-
-
-
-});
 </script>
 
 
 
 <script type="text/javascript">
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    $('#image').change(function() {
+        $('#image').change(function() {
 
-        var file = $('#image').val();
+            var file = $('#image').val();
 
-        var exts = ['jpg', 'gpeg', 'png'];
+            var exts = ['jpg', 'gpeg', 'png'];
 
-        if (file)
-
-        {
-
-            var get_ext = file.split('.');
-
-            get_ext = get_ext.reverse();
-
-
-
-            if ($.inArray(get_ext[0].toLowerCase(), exts) > -1)
+            if (file)
 
             {
 
-                //alert('Allowed extension!');
+                var get_ext = file.split('.');
 
-            } else
+                get_ext = get_ext.reverse();
 
-            {
 
-                alert('Invalid file!');
 
-                $('#image').val("");
+                if ($.inArray(get_ext[0].toLowerCase(), exts) > -1)
+
+                {
+
+                    //alert('Allowed extension!');
+
+                } else
+
+                {
+
+                    alert('Invalid file!');
+
+                    $('#image').val("");
+
+                }
 
             }
 
-        }
+        });
 
     });
-
-});
 </script>
 
 

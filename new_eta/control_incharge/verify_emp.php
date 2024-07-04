@@ -53,11 +53,11 @@ include('control/function.php');
 									<tbody>
 										<?php
 											$dep=$_SESSION['dept'];            				
-        				                    $result_emp = mysql_query("SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees` WHERE dept='".$dep."' AND status='0' ORDER BY id desc");
+        				                    $result_emp = mysqli_query($conn,"SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees` WHERE dept='".$dep."' AND status='0' ORDER BY id desc");
         				                    // $result_emp = mysql_query("SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees` WHERE dept='".$dep."' AND BU='' AND unit=''  ORDER BY id desc");
             				            
             				                $sr=1;
-            				                while($value_emp = mysql_fetch_array($result_emp))
+            				                while($value_emp = mysqli_fetch_array($result_emp))
             				                {
                 				                echo "
                 				                  <tr>

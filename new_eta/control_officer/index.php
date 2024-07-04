@@ -1,5 +1,5 @@
 <?php
-$GLOBALS['flag']="3.1";
+$GLOBALS['flag'] = "3.1";
 include('common/header.php');
 include('common/sidebar.php');
 ?>
@@ -42,11 +42,11 @@ include('common/sidebar.php');
                     </div>
                     <div class="details">
                         <div class="number">
-                            <?php 
-							$query = mysqli_query("SELECT COUNT(id) as total FROM `forward_data` WHERE fowarded_to='".$_SESSION['empid']."'");
-							$resultset = mysqli_fetch_array($query);
-							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
-							?>
+                            <?php
+                            $query = mysqli_query($conn, "SELECT COUNT(id) as total FROM `forward_data` WHERE fowarded_to='" . $_SESSION['empid'] . "'");
+                            $resultset = mysqli_fetch_array($query);
+                            echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['total'] . "</h3>";
+                            ?>
                         </div>
                         <div class="desc">
                             <p>कुल दावे /<br> Total Claims</p>
@@ -64,13 +64,13 @@ include('common/sidebar.php');
                     </div>
                     <div class="details">
                         <div class="number">
-                            <?php 
-							$query = mysqli_query("SELECT COUNT(id) as total FROM `forward_data` WHERE fowarded_to='".$_SESSION['empid']."' AND hold_status='0' ");
-							
-							$resultset = mysqli_fetch_array($query);
+                            <?php
+                            $query = mysqli_query($conn, "SELECT COUNT(id) as total FROM `forward_data` WHERE fowarded_to='" . $_SESSION['empid'] . "' AND hold_status='0' ");
 
-						    echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
-							?>
+                            $resultset = mysqli_fetch_array($query);
+
+                            echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['total'] . "</h3>";
+                            ?>
                         </div>
                         <div class="desc">
                             <p>अनुमोदित /<br> Approved</p>
@@ -88,13 +88,13 @@ include('common/sidebar.php');
                     </div>
                     <div class="details">
                         <div class="number">
-                            <?php 
-								$query = mysqli_query("SELECT COUNT(id) as total FROM `forward_data` WHERE fowarded_to='".$_SESSION['empid']."' AND hold_status='1' ");
-								
-							    $resultset = mysqli_fetch_array($query);
-									
-								echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
-							?>
+                            <?php
+                            $query = mysqli_query($conn, "SELECT COUNT(id) as total FROM `forward_data` WHERE fowarded_to='" . $_SESSION['empid'] . "' AND hold_status='1' ");
+
+                            $resultset = mysqli_fetch_array($query);
+
+                            echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['total'] . "</h3>";
+                            ?>
 
                         </div>
                         <div class="desc">
@@ -122,5 +122,5 @@ include('common/sidebar.php');
 <!-- END CONTAINER -->
 
 <?php
-	include('common/footer.php');
+include('common/footer.php');
 ?>

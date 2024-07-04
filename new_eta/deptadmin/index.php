@@ -42,9 +42,9 @@ include('common/sidebar.php');
 						<div class="details">
 							<div class="number">
 								<?php 
-							$query = mysql_query("select count(id) as total from users where role='13' AND dept='".$_SESSION['dept']."' ");
+							$query = mysqli_query($conn,"select count(id) as total from users where role='13' AND dept='".$_SESSION['dept']."' ");
 							// echo "select count(id) as total from users where role='13' AND dept='".$_SESSION['dept']."' ";
-							$resultset = mysql_fetch_array($query);
+							$resultset = mysqli_fetch_array($query);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
 							?>
 							</div>
@@ -65,9 +65,9 @@ include('common/sidebar.php');
 						<div class="details">
 							<div class="number">
 								<?php 
-							$query = mysql_query("select count(id) as total from users where role='12' AND dept='".$_SESSION['dept']."' ");
+							$query = mysqli_query($conn,"select count(id) as total from users where role='12' AND dept='".$_SESSION['dept']."' ");
 							// echo "select count(id) as total from users where role='13' AND dept='".$_SESSION['dept']."' ";
-							$resultset = mysql_fetch_array($query);
+							$resultset = mysqli_fetch_array($query);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
 							?>
 							</div>

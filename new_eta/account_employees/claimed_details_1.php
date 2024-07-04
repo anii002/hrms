@@ -315,10 +315,25 @@ if (isset($_POST['getback'])) {
 												<h4 style="font-weight: bold;">Summary</h4>
 												<div class="table-scrollable">
 													<?php
-													$query3 = "SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,is_summary_generated FROM `tasummarydetails` WHERE `empid`='" . $_SESSION['empid'] . "' AND `reference_no`='" . $_GET['ref_no'] . "' ";
+
+
+													// Prepare and execute SQL query
+													$query3 = "SELECT `30p_cnt`, `30p_amt`, `70p_cnt`, `70p_amt`, `100p_cnt`, `100p_amt`, is_summary_generated FROM `tasummarydetails` WHERE `empid`='" . $_SESSION['empid'] . "' AND `reference_no`='" . $_GET['ref_no'] . "'";
 													$sql3 = mysqli_query($conn, $query3);
+
+													// Check if query executed successfully
+													if (!$sql3) {
+														die("Error in SQL query: " . mysqli_error($conn));
+													}
+
+													// Fetch data
 													$row3 = mysqli_fetch_array($sql3);
-													$total_amount = $row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
+
+													// Calculate total amount only if $row3 is not null
+													$total_amount = 0;
+													if ($row3) {
+														$total_amount = $row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
+													}
 													?>
 													<table class="table table-bordered table-hover">
 														<thead class="page-bar">
@@ -331,18 +346,18 @@ if (isset($_POST['getback'])) {
 														<tbody>
 															<tr>
 																<td>100%</td>
-																<td><?php echo $row3['100p_cnt']; ?></td>
-																<td><?php echo $row3['100p_amt']; ?></td>
+																<td><?php echo isset($row3['100p_cnt']) ? $row3['100p_cnt'] : '0'; ?></td>
+																<td><?php echo isset($row3['100p_amt']) ? $row3['100p_amt'] : '0'; ?></td>
 															</tr>
 															<tr>
 																<td>70%</td>
-																<td><?php echo $row3['70p_cnt']; ?></td>
-																<td><?php echo $row3['70p_amt']; ?></td>
+																<td><?php echo isset($row3['70p_cnt']) ? $row3['70p_cnt'] : '0'; ?></td>
+																<td><?php echo isset($row3['70p_amt']) ? $row3['70p_amt'] : '0'; ?></td>
 															</tr>
 															<tr>
 																<td>30%</td>
-																<td><?php echo $row3['30p_cnt']; ?></td>
-																<td><?php echo $row3['30p_amt']; ?></td>
+																<td><?php echo isset($row3['30p_cnt']) ? $row3['30p_cnt'] : '0'; ?></td>
+																<td><?php echo isset($row3['30p_amt']) ? $row3['30p_amt'] : '0'; ?></td>
 															</tr>
 															<tr>
 																<td></td>
@@ -352,6 +367,7 @@ if (isset($_POST['getback'])) {
 														</tbody>
 													</table>
 												</div>
+
 											</div>
 											<div class="col-md-4"></div>
 										</div>
@@ -399,7 +415,8 @@ if (isset($_POST['getback'])) {
 										<div class="col-md-12 trackprint-btn">
 											<ul>
 												<?php
-												if ($row3['is_summary_generated'] != 1) {
+												// Check if $row3 exists and 'is_summary_generated' is set
+												if ($row3 && isset($row3['is_summary_generated']) && $row3['is_summary_generated'] != 1) {
 												?>
 													<li><button type="submit" name="getback" class="btn blue btnhide">Get Back</button></li>
 												<?php
@@ -407,9 +424,10 @@ if (isset($_POST['getback'])) {
 												?>
 
 												<!--<li><button class="btn blue btnhide">Track</button></li>-->
-												<li><a href="track-modul.php?ref_no=<?php echo $_GET['ref_no']; ?>" class="btn green btn_action btnhide">Track</a></li>
+												<li><a href="track-modul.php?ref_no=<?php echo isset($_GET['ref_no']) ? $_GET['ref_no'] : ''; ?>" class="btn green btn_action btnhide">Track</a></li>
 												<li><button onclick="print_button()" class="btn green btnhide">Print</button></li>
 											</ul>
+
 										</div>
 									</div>
 								</div>

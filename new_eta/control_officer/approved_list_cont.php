@@ -4,99 +4,100 @@
 	include('common/sidebar.php');
 	include('control/function.php');
 ?>
-			<div class="page-content-wrapper">
-		<div class="page-content">
-		    
-		    <div class="page-bar">
-            	<ul class="page-breadcrumb">
-            		<li>
-            			<i class="fa fa-home"></i>
-            			<a href="index.php">Home / मुख पृष्ठ</a>
-            			<i class="fa fa-angle-right"></i>
-            		</li>
-            		<li>
-            			<a href="#">Received Contigency</a>
-            		</li>
-            	</ul>
-            	
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="index.php">Home / मुख पृष्ठ</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#">Received Contigency</a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- <h1>ecefce</h1> -->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption col-md-6">
+                    <b>Received Contigency</b>
+                </div>
+                <div class="caption col-md-6 text-right backbtn">
+                    <a href="#."></a>
+                </div>
             </div>
-			<!-- <h1>ecefce</h1> -->
-			<div class="portlet box blue">
-				<div class="portlet-title">
-					<div class="caption col-md-6">
-						<b>Received Contigency</b>
-					</div>
-					<div class="caption col-md-6 text-right backbtn">
-						<a href="#."></a>
-					</div>
-				</div>
-				<div class="portlet-body form">
-						
-	<form method="POST">										
-		<div class="form-body add-train">
-			<div class="row add-train-title">
-				<div class="col-md-12">
-					<div class="form-group">
-						<!-- <label class="control-label"><h4 class="">Statement Showing the summery of TA & Contingency Bills For the Month of September-2018 </h4></label> -->
-						<div class="portlet-body">
-								<div class="table-scrollable summary-table">
-								<table id="example" class="table table-hover table-bordered display">
-									<thead>
-										<tr class="warning">
-											<!-- <th rowspan="2" valign="top">Sr No</th> -->
-											<th>संदर्भ संख्या / Reference No.</th>
-								              <th>नाम / Name</th>
-											<th>साल / Year</th>
-											<th>माह / Month</th>
-											<th>राशि / Amount</th> 											
-											<th class="hidden-print">कार्य / Action</th>
-										</tr>										
-									</thead>
-									<tbody>
-										<?php									
+            <div class="portlet-body form">
+
+                <form method="POST">
+                    <div class="form-body add-train">
+                        <div class="row add-train-title">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <!-- <label class="control-label"><h4 class="">Statement Showing the summery of TA & Contingency Bills For the Month of September-2018 </h4></label> -->
+                                    <div class="portlet-body">
+                                        <div class="table-scrollable summary-table">
+                                            <table id="example" class="table table-hover table-bordered display">
+                                                <thead>
+                                                    <tr class="warning">
+                                                        <!-- <th rowspan="2" valign="top">Sr No</th> -->
+                                                        <th>संदर्भ संख्या / Reference No.</th>
+                                                        <th>नाम / Name</th>
+                                                        <th>साल / Year</th>
+                                                        <th>माह / Month</th>
+                                                        <th>राशि / Amount</th>
+                                                        <th class="hidden-print">कार्य / Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php									
 										
-											$sql = mysql_query("SELECT continjency_master.reference,continjency_master.year,continjency_master.month,continjency_master.total_amount,continjency_master.empid,forward_data.empid,forward_data.reference_id,forward_data.hold_status,forward_data.fowarded_to FROM continjency_master INNER JOIN forward_data ON forward_data.reference_id = continjency_master.reference WHERE forward_data.hold_status = '1' AND fowarded_to = '".$_SESSION['empid']."'");
+											$sql = mysqli_query($conn, "SELECT continjency_master.reference,continjency_master.year,continjency_master.month,continjency_master.total_amount,continjency_master.empid,forward_data.empid,forward_data.reference_id,forward_data.hold_status,forward_data.fowarded_to FROM continjency_master INNER JOIN forward_data ON forward_data.reference_id = continjency_master.reference WHERE forward_data.hold_status = '1' AND fowarded_to = '".$_SESSION['empid']."'");
 
 										
-											while($row = mysql_fetch_array($sql))
+											while($row = mysqli_fetch_array($sql))
 											{
 										?>
-										<tr>
-											<!-- <td>01</td> -->
-											<td><?php echo $row['reference']; ?></td>
-											<td><?php echo get_employee($row['empid']); ?></td>
-											<td><?php echo $row['year']; ?> </td>
-											<td> <?php echo $row['month']; ?></td>
-											<td><?php echo $row['total_amount']; ?></td>
-																						
-											<td><a href='cont_details1.php?ref_no=<?php echo $row["reference"]; ?>&empid=<?php echo $row["empid"]; ?>' class="btn green btn_action">Show</a></td>
-										</tr>
-											<?php } ?>
-									</tbody>
-								</table>
-							</div>
-							<div class="text-right">
-								<!-- <button class="btn yellow">Print</button> -->
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-	</div>
-</form>				
+                                                    <tr>
+                                                        <!-- <td>01</td> -->
+                                                        <td><?php echo $row['reference']; ?></td>
+                                                        <td><?php echo get_employee($row['empid']); ?></td>
+                                                        <td><?php echo $row['year']; ?> </td>
+                                                        <td> <?php echo $row['month']; ?></td>
+                                                        <td><?php echo $row['total_amount']; ?></td>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                                                        <td><a href='cont_details1.php?ref_no=<?php echo $row["reference"]; ?>&empid=<?php echo $row["empid"]; ?>'
+                                                                class="btn green btn_action">Show</a></td>
+                                                    </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-right">
+                                            <!-- <button class="btn yellow">Print</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
 <?php
 	include 'common/footer.php';
 ?>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-    $('#example').DataTable( {
+$(document).ready(function() {
+    $('#example').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
@@ -104,8 +105,8 @@
             'csvHtml5',
             'pdfHtml5'
         ]
-    } );
-} );
+    });
+});
 </script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script> -->
@@ -115,4 +116,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js" type="text/javascript"></script>
-

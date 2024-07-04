@@ -67,19 +67,20 @@ date_default_timezone_set("Asia/kolkata");
 
                   function get_employee($id)
                   {
-                    $query = mysql_query("select name from employees where pfno='$id'");
-                    $result = mysql_fetch_array($query);
+                    global $conn;
+                    $query = mysqli_query($conn,"select name from employees where pfno='$id'");
+                    $result = mysqli_fetch_array($query);
                     return $result['name'];
                   }
                     $query_first = "select DISTINCT(set_number) from taentrydetails where reference_no='".$_REQUEST['ref_no']."'";
-                    $result_first = mysql_query($query_first);
-                    while($val_first = mysql_fetch_array($result_first))
+                    $result_first = mysqli_query($conn,$query_first);
+                    while($val_first = mysqli_fetch_array($result_first))
                     {
                         $query = "SELECT * FROM taentry_master INNER JOIN taentrydetails ON taentry_master.reference_no = taentrydetails.reference_no WHERE taentry_master.reference_no='".$_REQUEST['ref_no']."' AND taentrydetails.set_number='".$val_first['set_number']."'";
-                        $result = mysql_query($query);
-                        $rows = mysql_num_rows($result);
+                        $result = mysqli_query($conn,$query);
+                        $rows = mysqli_num_rows($result);
                         $cnt = 1;
-                        while($val = mysql_fetch_array($result))
+                        while($val = mysqli_fetch_array($result))
                         {
                           $jtype=$val['journey_type'];
                           if($jtype=='Bus'){
@@ -111,9 +112,9 @@ date_default_timezone_set("Asia/kolkata");
                             {
                                 echo "<td rowspan='$rows'>".$val['objective']."</td>";
                                 $cnt++;
-                                $anotherquery = mysql_query("select count(id) as total from continjency_master where reference='".$val['reference_no']."' and set_number='".$val_first['set_number']."'");
+                                $anotherquery = mysqli_query($conn,"select count(id) as total from continjency_master where reference='".$val['reference_no']."' and set_number='".$val_first['set_number']."'");
                             echo "<td rowspan='$rows' class='hide_print'>";
-                                $resultquery = mysql_fetch_array($anotherquery);
+                                $resultquery = mysqli_fetch_array($anotherquery);
                                 if($resultquery['total']>=1)
                                 {
                                   echo '<button value="'.$val['reference'].'" cnt="'.$val_first['set_number'].'" class="classBtn btn btn-success" data-toggle="modal" data-target="#myModal"  style="margin-top:20px; margin-left:15px" id="view_cont">View Contijency</button>';
@@ -143,8 +144,8 @@ date_default_timezone_set("Asia/kolkata");
                       <td><b>TOTAL</b></td>
                       <?php 
                         $query_first = "select SUM(amount) AS sum from taentrydetails where reference_no='".$_REQUEST['ref_no']."'";
-                      $result_first = mysql_query($query_first);
-                      $values = mysql_fetch_array($result_first);
+                      $result_first = mysqli_query($conn,$query_first);
+                      $values = mysqli_fetch_array($result_first);
                       echo "<td><b>".$values['sum']."</b></td>";
                       ?>
                       <td></td>
@@ -162,8 +163,8 @@ date_default_timezone_set("Asia/kolkata");
             <div class="table-scrollable">
               <?php 
                $query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_GET['empid']."' AND tasummarydetails.`reference_no`='".$_GET['ref_no']."'";
-                $sql3=mysql_query($query3);
-                $row3=mysql_fetch_array($sql3);
+                $sql3=mysqli_query($conn,$query3);
+                $row3=mysqli_fetch_array($sql3);
                 $total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
               ?>
                 <table class="table table-bordered table-hover">
@@ -205,8 +206,8 @@ date_default_timezone_set("Asia/kolkata");
                 <input type="hidden" value="<?php echo $row3['cardpass']; ?>" name="cardpass" id="cardpass">
                 <input type="hidden" value="<?php echo $row3['year']; ?>" name="year" id="year">
                 <?php 
-                // $sql=mysql_query("SELECT admin_approve  from forward_data where forward_data.fowarded_to='".$_SESSION['empid']."'");
-                // $res=mysql_fetch_array($sql);
+                // $sql=mysqli_query("SELECT admin_approve  from forward_data where forward_data.fowarded_to='".$_SESSION['empid']."'");
+                // $res=mysqli_fetch_array($sql);
                 // if($res['admin_approve'] != 1)
                 // {
                 //   echo '<button class="btn green"  class="hide_print btn btn-primary pull-right" data-toggle="modal" data-target="#forward" >Forword</button>';
@@ -252,18 +253,18 @@ date_default_timezone_set("Asia/kolkata");
             <select name="forwardName" id="forwardName" class="form-control select2 required" style="width: 100%" required>
               <option readonly value=''>Select User</option>
                <?php 
-              $query_emp =mysql_query("SELECT department.deptno as id  FROM `employees` ,department WHERE department.deptno=employees.dept AND pfno='".$_SESSION['empid']."' ");
-              $resu1=mysql_fetch_array($query_emp);
+              $query_emp =mysqli_query($conn,"SELECT department.deptno as id  FROM `employees` ,department WHERE department.deptno=employees.dept AND pfno='".$_SESSION['empid']."' ");
+              $resu1=mysqli_fetch_array($query_emp);
                $dptid=$resu1['id'];
 
-              $sql_user=mysql_query("SELECT * from users where dept='".$dptid."' AND role='11' ");
+              $sql_user=mysqli_query($conn,"SELECT * from users where dept='".$dptid."' AND role='11' ");
                //echo $did="SELECT * from users where dept='".$dptid."' AND role='13'";
-              while($resu=mysql_fetch_assoc($sql_user)){             
+              while($resu=mysqli_fetch_assoc($sql_user)){             
               $query = "SELECT * FROM employees where pfno='".$resu['empid']."'";
               $did.="SELECT * FROM employees where pfno='".$resu['empid']."'";
                 
-                $result = mysql_query($query);
-                while($value = mysql_fetch_assoc($result))
+                $result = mysqli_query($conn,$query);
+                while($value = mysqli_fetch_assoc($result))
                 {
                   // $did.=$value['pfno'];
                   echo "<option value='".$value['pfno']."'>".$value['name']."  (".$value['desig'].")</option>";

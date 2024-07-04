@@ -32,8 +32,8 @@ include('common/sidebar.php');
 				<form  name="TAForm" action="add_cont_ajax_without_ta.php" method="post" enctype="multipart/form-data">		<?php 
 				// echo $_SESSION['empid'];
                   	$query_emp = "select * from employees where id = '".$_SESSION['id']."'";
-                  	$result_emp = mysql_query($query_emp) or die(mysql_error());
-                  	$value_emp = mysql_fetch_array($result_emp);
+                  	$result_emp = mysqli_query($conn,$query_emp) or die(mysqli_error($conn));
+                  	$value_emp = mysqli_fetch_array($result_emp);
                   ?>
                   	<input type="hidden" name="hide_count" id="hide_count" value="0"/>
                   	<input type="hidden" name="user_ref_no" id="user_ref_no" value="<?php echo $_GET['ref_no']; ?>">	

@@ -57,8 +57,9 @@ if(isset($_SESSION['empid']))
 								$cnt=0;
 								function get_employee($id)
 								{
-									$query = mysql_query("select name from employees where pfno='$id'");
-									$result = mysql_fetch_array($query);
+									global $conn;
+									$query = mysqli_query($conn,"select name from employees where pfno='$id'");
+									$result = mysqli_fetch_array($query);
 									return $result['name'];
 								}
 								if($_SESSION['role']=='13')
@@ -67,8 +68,8 @@ if(isset($_SESSION['empid']))
 								}
 								
 								//echo $query;
-									$result = mysql_query($query);
-									while($val = mysql_fetch_array($result))
+									$result = mysqli_query($conn,$query);
+									while($val = mysqli_fetch_array($result))
 									{
 										if($val['reference_no']!=null)
 										{

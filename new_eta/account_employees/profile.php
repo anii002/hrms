@@ -35,11 +35,11 @@ include('control/function.php');
 
 						<div class="profile-userpic">
 							<?php
-							$query = mysqli_query($conn,"select img from employees where pfno='" . $_SESSION['empid'] . "'");
+							$query = mysqli_query($conn, "select img from employees where pfno='" . $_SESSION['empid'] . "'");
 							$result = mysqli_fetch_array($query);
 							if ($result['img'] == "") {
 							?>
-								<img src="../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								<img src="../hrms/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
 							<?php
 							} else {
 								echo "<img class='img-responsive' src='" . $result['img'] . "' alt='User profile picture'>";
@@ -67,7 +67,7 @@ include('control/function.php');
 						<!-- END SIDEBAR BUTTONS -->
 						<!-- SIDEBAR MENU -->
 						<?php
-						$query = mysqli_query($conn,"select mobile,email from employees where pfno='" . $_SESSION['empid'] . "'");
+						$query = mysqli_query($conn, "select mobile,email from employees where pfno='" . $_SESSION['empid'] . "'");
 						$result = mysqli_fetch_array($query);
 						?>
 						<div class="profile-usermenu">
@@ -189,16 +189,6 @@ include('control/function.php');
 	<!-- END PAGE CONTENT-->
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 </div>
 </div>
 

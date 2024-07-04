@@ -137,9 +137,9 @@ include('../dbconfig/dbcon.php');
         <div class="pre-loader preloader-single shadow-inner mg-t-30">
             <div class="ts_preloading_box">
                 <div id="ts-preloader-absolute30">
-                    <div id="absolute30">
+                    <!-- <div id="absolute30">
                         <span></span><span></span><span></span><span></span><span></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -176,8 +176,8 @@ include('../dbconfig/dbcon.php');
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                             data-close-others="true">
                             <?php
-							$query = mysql_query("select img from employees where pfno='" . $_SESSION['empid'] . "'");
-							$result = mysql_fetch_array($query);
+							$query = mysqli_query($conn,"select img from employees where pfno='" . $_SESSION['empid'] . "'");
+							$result = mysqli_fetch_array($query);
 							if (!isset($_SESSION['profile_image'])) {
 								?>
                             <img alt="" class="img-circle" src="../assets/admin/layout/img/avatar3_small.jpg" />
@@ -185,7 +185,7 @@ include('../dbconfig/dbcon.php');
 						} else {
 							?>
                             <img alt="" class="img-circle"
-                                src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" />
+                                src="../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
                             <?php	} ?>
                             <span class="username username-hide-on-mobile">
                                 <span class="empname" style="color: floralwhite;">
@@ -212,15 +212,15 @@ include('../dbconfig/dbcon.php');
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
                             <li>
-                                <a href="../../../index.php">
+                                <a href="../../../hrms/dashboard.php">
                                     <i class="fas fa-home"></i>Home</a>
                             </li>
                             <li>
-                                <a href="../../../profile.php">
+                                <a href="../../../hrms/new_eta/control_officer/profile.php">
                                     <i class="fas fa-user"></i>Profile</a>
                             </li>
                             <li>
-                                <a href="../../../Logout.php">
+                                <a href="../../../hrms/Logout.php">
                                     <i class="fas fa-sign-out-alt"></i> Log Out </a>
                             </li>
                         </ul>

@@ -204,7 +204,7 @@ include('../dbconfig/dbcon.php');
 										<i class="fas fa-home"></i>Home</a>
 								</li>
 								<li>
-									<a href="../../../hrms/profile.php">
+									<a href="../../new_eta/account_employees/profile.php">
 										<i class="fas fa-user"></i>Profile</a>
 								</li>
 								<li>

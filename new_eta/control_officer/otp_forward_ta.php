@@ -76,41 +76,41 @@ include('common/sidebar.php');
                                     <div class="form-group">
                                         <?php
                                         // echo ("SELECT department.DEPTNO as id  FROM `employees` ,department WHERE department.DEPTNO=employees.dept AND pfno='" . $_SESSION['empid'] . "' ");
-                                        $query_emp = mysql_query("SELECT department.DEPTNO as id  FROM `employees` ,department WHERE department.DEPTNO=employees.dept AND pfno='" . $_SESSION['empid'] . "' ");
-                                        $resu1 = mysql_fetch_array($query_emp);
+                                        $query_emp = mysqli_query($conn, "SELECT department.DEPTNO as id  FROM `employees` ,department WHERE department.DEPTNO=employees.dept AND pfno='" . $_SESSION['empid'] . "' ");
+                                        $resu1 = mysqli_fetch_array($query_emp);
                                         $dptid = $resu1['id'];
                                         
                                         //if($SESSION['role'])
                                          // echo "SELECT * from users where role='15' AND dept='".$dptid."' AND status='1'";
-                                        $sql_user = mysql_query("SELECT * from users where role='15' AND dept='".$dptid."' AND status='1' ");
+                                        $sql_user = mysqli_query($conn, "SELECT * from users where role='15' AND dept='".$dptid."' AND status='1' ");
                                         
-                                        $cnt = mysql_num_rows($sql_user);
+                                        $cnt = mysqli_num_rows($sql_user);
                                             
-                                        $resu = mysql_fetch_array($sql_user);
+                                        $resu = mysqli_fetch_array($sql_user);
                                         
                                        
                                         ?>
-                                         
+
                                         <select name="forwardName" id="forwardName"
                                             class="form-control select2 required" style="width: 100%" required>
                                             <option readonly value='0' selected>Select BO</option>
 
                                             <?php
-                                            while ($resu = mysql_fetch_array($sql_user)) {
+                                            while ($resu = mysqli_fetch_array($sql_user)) {
                                                
                                                 $query = "SELECT pfno,name,desig FROM employees where pfno='" . $resu['empid'] . "'";
                                                 
                                                 //   $did.="SELECT * FROM employees where pfno='".$resu['empid']."'";
 
-                                                $result = mysql_query($query);
-                                                while ($value = mysql_fetch_assoc($result)) {
+                                                $result = mysqli_query($conn, $query);
+                                                while ($value = mysqli_fetch_assoc($result)) {
                                                     // $did.=$value['pfno'];
                                                     echo "<option value='" . $value['pfno'] . "'>" . $value['name'] . "  (" . $value['desig'] . ")</option>";
                                                 }
                                             }
                                             ?>
                                         </select>
-                                         
+
                                     </div>
                                 </div>
                                 <div class="col-md-4"></div>
@@ -240,7 +240,7 @@ $(document).on('click', '.btn_confirm_otp', function() {
             data: "action=own_forward_TA&fdname=" + fdname + "&empid=" + empid + "&ref_no=" + ref_no +
                 "&c_otp=" + c_otp,
             success: function(data) {
-                 alert(data);
+                alert(data);
                 $("#otp_loader").hide();
                 if (data == 1) {
                     // alert("Your Claim has been forwarded.");

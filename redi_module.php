@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['billunit'] = $row['bill_unit'];
 
 				echo "<script>
-				window.location.href = '../new_eta/superadmin/index.php';
+				window.location.href = '../hrms/new_eta/superadmin/index.php';
 				</script>";
 			}
 
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/superaccount/index.php';
+				window.location.href = '../hrms/new_eta/superaccount/index.php';
 				</script>";
 			}
 
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/deptadmin/index.php';
+				window.location.href = '../hrms/new_eta/deptadmin/index.php';
 				</script>";
 			}
 
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/control_incharge/index.php';
+				window.location.href = '../hrms/new_eta/control_incharge/index.php';
 				</script>";
 			}
 
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/control_officer/index.php';
+				window.location.href = '../hrms/new_eta/control_officer/index.php';
 				</script>";
 			}
 
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/estclerk/index.php';
+				window.location.href = '../hrms/new_eta/estclerk/index.php';
 				</script>";
 			}
 
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/personnel_employees/index.php';
+				window.location.href = '.../hrms/new_eta/personnel_employees/index.php';
 				</script>";
 			}
 
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/personnel_admin/index.php';
+				window.location.href = '../hrms/new_eta/personnel_admin/index.php';
 				</script>";
 			}
 
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['billunit'] = $row['bill_unit'];
 
 				echo "<script>
-				window.location.href = '../new_eta/branch_officer/index.php';
+				window.location.href = '../hrms/new_eta/branch_officer/index.php';
 				</script>";
 			}
 
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['billunit'] = $row['bill_unit'];
 
 				echo "<script>
-				window.location.href = '../new_eta/personnel_clerk/index.php';
+				window.location.href = '../hrms/new_eta/personnel_clerk/index.php';
 				</script>";
 			}
 
@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['billunit'] = $row['bill_unit'];
 
 				echo "<script>
-				window.location.href = '../new_eta/apo/index.php';
+				window.location.href = '../hrms/new_eta/apo/index.php';
 					</script>";
 			}
 
