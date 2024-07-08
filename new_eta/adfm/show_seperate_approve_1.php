@@ -38,8 +38,7 @@ date_default_timezone_set("Asia/kolkata");
                         <div class="row add-train-title">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="hidden" value="<?php echo $_GET['ref_no']; ?>" name="reference_no"
-                                        id="reference_no">
+                                    <input type="hidden" value="<?php echo $_GET['ref_no']; ?>" name="reference_no" id="reference_no">
                                     <!-- <label class="control-label"><h4 class="">Statement Showing the summery of TA & Contingency Bills For the Month of September-2018 </h4></label> -->
                                     <div class="portlet-body">
                                         <div class="table-scrollable summary-table">
@@ -76,85 +75,82 @@ date_default_timezone_set("Asia/kolkata");
                                                 </thead>
                                                 <tbody align="center">
                                                     <?php
-                          // $_GET['ref_no'];
-                          $query = "SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='" . $_GET['ref_no'] . "' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
-                          $sql = mysql_query($query);
-                          $total_row1 = mysql_num_rows($sql);
-                          while ($row_1 = mysql_fetch_array($sql)) {
+                                                    // $_GET['ref_no'];
+                                                    $query = "SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='" . $_GET['ref_no'] . "' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
+                                                    $sql = mysqli_query($conn, $query);
+                                                    $total_row1 = mysqli_num_rows($sql);
+                                                    while ($row_1 = mysqli_fetch_array($sql)) {
 
-                            $query1 = "SELECT * FROM `taentrydetails` WHERE set_number='" . $row_1['set_number'] . "' AND reference_no='" . $_GET['ref_no'] . "' ORDER by STR_TO_DATE(taDate, '%d/%m/%Y') ASC";
-                            $sql1 = mysql_query($query1);
-                            $total_rows = mysql_num_rows($sql1);
-                            $cnt = 1;
-                            while ($row = mysql_fetch_array($sql1)) {
-                              ?>
-                                                    <tr>
+                                                        $query1 = "SELECT * FROM `taentrydetails` WHERE set_number='" . $row_1['set_number'] . "' AND reference_no='" . $_GET['ref_no'] . "' ORDER by STR_TO_DATE(taDate, '%d/%m/%Y') ASC";
+                                                        $sql1 = mysqli_query($conn, $query1);
+                                                        $total_rows = mysqli_num_rows($sql1);
+                                                        $cnt = 1;
+                                                        while ($row = mysqli_fetch_array($sql1)) {
+                                                    ?>
+                                                            <tr>
+                                                                <?php
+                                                                if ($cnt == 1) {
+                                                                ?>
+                                                                    <td width="10%" rowspan='<?php echo $total_rows; ?>'>
+                                                                        <?php echo get_employee($row['empid']) . "<br>" . $row['reference_no'] . "<br>" . getcardpass($row['reference_no']); ?>
+                                                                    </td>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                                <td><?php echo $row['taDate']; ?></td>
+                                                                <td><?php echo getjourneytype($row['journey_type']); ?></td>
+                                                                <td><?php echo $row['train_no']; ?> </td>
+                                                                <td> <?php echo getjourneypurpose($row['journey_purpose']); ?>
+                                                                </td>
+                                                                <td><?php echo $row['departS']; ?></td>
+                                                                <td><?php echo $row['departT']; ?></td>
+                                                                <td><?php echo $row['arrivalS']; ?></td>
+                                                                <td><?php echo $row['arrivalT']; ?></td>
+                                                                <td><?php echo $row['amount']; ?></td>
+                                                                <td><?php echo $row['percent']; ?></td>
+                                                                <?php
+                                                                if ($cnt == 1) {
+                                                                ?>
+                                                                    <td width="10%" rowspan='<?php echo $total_rows; ?>'>
+                                                                        <?php echo $row['objective']; ?> </td>
+                                                                    <td class='btnhide' width="10%" rowspan='<?php echo $total_rows; ?>'>
+
+                                                                        <?php
+                                                                        $q = "SELECT id FROM `master_cont` WHERE reference_no='" . $_GET['ref_no'] . "' AND set_no='" . $row_1['set_number'] . "' ";
+                                                                        $s = mysqli_query($conn,$q);
+                                                                        $t = mysqli_num_rows($s);
+                                                                        if ($t == 1) {
+                                                                            //  echo $row_1['set_number'];
+                                                                        ?>
+                                                                            <a id="<?php echo $row_1['set_number']; ?>" style="margin-top: 2px;" class="btn green view_cont">View Conti.</a>
+                                                                        <?php
+                                                                        } else {
+                                                                        ?>
+                                                                            No Contingency Attached.
+
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </td>
+                                                                <?php }
+                                                                // else {
+                                                                ?>
+
+                                                                <!-- <td>vvv SSS</td> -->
+                                                                <?php
+                                                                $cnt++;
+                                                                ?>
+
+                                                            </tr>
                                                         <?php
-                                if ($cnt == 1) {
-                                  ?>
-                                                        <td width="10%" rowspan='<?php echo $total_rows; ?>'>
-                                                            <?php echo get_employee($row['empid']) . "<br>" . $row['reference_no'] . "<br>" . getcardpass($row['reference_no']); ?>
-                                                        </td>
-                                                        <?php
-                              }
-                              ?>
-                                                        <td><?php echo $row['taDate']; ?></td>
-                                                        <td><?php echo getjourneytype($row['journey_type']); ?></td>
-                                                        <td><?php echo $row['train_no']; ?> </td>
-                                                        <td> <?php echo getjourneypurpose($row['journey_purpose']); ?>
-                                                        </td>
-                                                        <td><?php echo $row['departS']; ?></td>
-                                                        <td><?php echo $row['departT']; ?></td>
-                                                        <td><?php echo $row['arrivalS']; ?></td>
-                                                        <td><?php echo $row['arrivalT']; ?></td>
-                                                        <td><?php echo $row['amount']; ?></td>
-                                                        <td><?php echo $row['percent']; ?></td>
-                                                        <?php
-                                if ($cnt == 1) {
-                                  ?>
-                                                        <td width="10%" rowspan='<?php echo $total_rows; ?>'>
-                                                            <?php echo $row['objective']; ?> </td>
-                                                        <td class='btnhide' width="10%"
-                                                            rowspan='<?php echo $total_rows; ?>'>
-
-                                                            <?php
-                                    $q = "SELECT id FROM `master_cont` WHERE reference_no='" . $_GET['ref_no'] . "' AND set_no='" . $row_1['set_number'] . "' ";
-                                    $s = mysql_query($q);
-                                    $t = mysql_num_rows($s);
-                                    if ($t == 1) {
-                                      //  echo $row_1['set_number'];
-                                      ?>
-                                                            <a id="<?php echo $row_1['set_number']; ?>"
-                                                                style="margin-top: 2px;"
-                                                                class="btn green view_cont">View Conti.</a>
-                                                            <?php
-                                  } else {
-                                    ?>
-                                                            No Contingency Attached.
-
-                                                            <?php
-                                  }
-                                  ?>
-                                                        </td>
-                                                        <?php }
-                              // else {
-                              ?>
-
-                                                        <!-- <td>vvv SSS</td> -->
-                                                        <?php
-                                $cnt++;
-                                ?>
-
-                                                    </tr>
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td colspan="13" style="background-color: #fcf8e3a3;"></td>
+                                                        </tr>
                                                     <?php
-                          }
-                          ?>
-                                                    <tr>
-                                                        <td colspan="13" style="background-color: #fcf8e3a3;"></td>
-                                                    </tr>
-                                                    <?php
-                        }
-                        ?>
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -165,11 +161,11 @@ date_default_timezone_set("Asia/kolkata");
                                             <h4>Summary</h4>
                                             <div class="table-scrollable">
                                                 <?php
-                        $query3 = "SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='" . $_REQUEST['empid'] . "' AND tasummarydetails.`reference_no`='" . $_GET['ref_no'] . "'";
-                        $sql3 = mysql_query($query3);
-                        $row3 = mysql_fetch_array($sql3);
-                        $total_amount = $row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
-                        ?>
+                                                $query3 = "SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='" . $_REQUEST['empid'] . "' AND tasummarydetails.`reference_no`='" . $_GET['ref_no'] . "'";
+                                                $sql3 = mysqli_query($conn,$query3);
+                                                $row3 = mysqli_fetch_array($sql3);
+                                                $total_amount = $row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
+                                                ?>
                                                 <table class="table table-bordered table-hover">
                                                     <thead class="page-bar">
                                                         <tr>
@@ -256,8 +252,7 @@ date_default_timezone_set("Asia/kolkata");
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Forwarding TA : <span id="name1" name="name1"></span> </h4>
     </div>
-    <form action='control/adminProcess.php?action=approveAndForward' method="post" enctype="multipart/form-data"
-        autocomplete="off" class="horizontal-form">
+    <form action='control/adminProcess.php?action=approveAndForward' method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
         <input type="text" name="empid" value="<?php echo $_SESSION['empid']; ?>">
         <input type="text" name="original_id" value="<?php echo $_GET['empid']; ?>">
         <input type="text" name="ref" value="<?php echo $_GET['ref_no']; ?>">
@@ -265,27 +260,26 @@ date_default_timezone_set("Asia/kolkata");
             <div class="portlet-body table-responsive">
                 <div class="col-xs-offset-1 col-xs-2"><label for="">User</label></div>
                 <div class="col-xs-7">
-                    <select name="forwardName" id="forwardName" class="form-control select2 required"
-                        style="width: 100%" required>
+                    <select name="forwardName" id="forwardName" class="form-control select2 required" style="width: 100%" required>
                         <option readonly value=''>Select User</option>
                         <?php
-            $query_emp = mysql_query("SELECT department.deptno as id  FROM `employees` ,department WHERE department.deptno=employees.dept AND pfno='" . $_SESSION['empid'] . "' ");
-            $resu1 = mysql_fetch_array($query_emp);
-            $dptid = $resu1['id'];
+                        $query_emp = mysqli_query($conn,"SELECT department.deptno as id  FROM `employees` ,department WHERE department.deptno=employees.dept AND pfno='" . $_SESSION['empid'] . "' ");
+                        $resu1 = mysqli_fetch_array($query_emp);
+                        $dptid = $resu1['id'];
 
-            $sql_user = mysql_query("SELECT * from users where dept='" . $dptid . "' AND role='13' and status='1' ");
-            //echo $did="SELECT * from users where dept='".$dptid."' AND role='13'";
-            while ($resu = mysql_fetch_assoc($sql_user)) {
-              $query = "SELECT * FROM employees where pfno='" . $resu['empid'] . "'";
-              $did .= "SELECT * FROM employees where pfno='" . $resu['empid'] . "'";
+                        $sql_user = mysqli_query($conn,"SELECT * from users where dept='" . $dptid . "' AND role='13' and status='1' ");
+                        //echo $did="SELECT * from users where dept='".$dptid."' AND role='13'";
+                        while ($resu = mysqli_fetch_assoc($sql_user)) {
+                            $query = "SELECT * FROM employees where pfno='" . $resu['empid'] . "'";
+                            $did .= "SELECT * FROM employees where pfno='" . $resu['empid'] . "'";
 
-              $result = mysql_query($query);
-              while ($value = mysql_fetch_assoc($result)) {
-                // $did.=$value['pfno'];
-                echo "<option value='" . $value['pfno'] . "'>" . $value['name'] . "  (" . $value['desig'] . ")</option>";
-              }
-            }
-            ?>
+                            $result = mysqli_query($conn,$query);
+                            while ($value = mysqli_fetch_assoc($result)) {
+                                // $did.=$value['pfno'];
+                                echo "<option value='" . $value['pfno'] . "'>" . $value['name'] . "  (" . $value['desig'] . ")</option>";
+                            }
+                        }
+                        ?>
                     </select>
                     <input type="hidden" value="<?php echo $did; ?>" name="">
                 </div>
@@ -303,8 +297,7 @@ date_default_timezone_set("Asia/kolkata");
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Rejecting TA : </h4>
     </div>
-    <form action='control/adminProcess.php?action=rejectTA_CO_PM' method="post" enctype="multipart/form-data"
-        autocomplete="off" class="horizontal-form">
+    <form action='control/adminProcess.php?action=rejectTA_CO_PM' method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
         <input type="hidden" name="coempid" value="<?php echo $_SESSION['empid']; ?>">
         <input type="hidden" name="pmempid" value="<?php echo $_REQUEST['empid']; ?>">
         <input type="hidden" name="ref_no" value="<?php echo $_REQUEST['ref_no']; ?>">
@@ -332,61 +325,61 @@ include 'common/footer.php';
 
 <!-- File export script -->
 <script type="text/javascript">
-$(document).on("click", ".view_cont", function() {
-    //   debugger;
-    var sno = $(this).attr('id');
-    var ref_no = $("#reference_no").val();
-    // 		alert(sno);
-    // alert(ref_no);
-    $("#set_no1").val(sno);
+    $(document).on("click", ".view_cont", function() {
+        //   debugger;
+        var sno = $(this).attr('id');
+        var ref_no = $("#reference_no").val();
+        // 		alert(sno);
+        // alert(ref_no);
+        $("#set_no1").val(sno);
 
-    $.ajax({
-        url: 'control/adminProcess.php',
-        type: 'post',
-        data: "action=view_conti&ref_no=" + ref_no + "&set_no=" + sno,
+        $.ajax({
+            url: 'control/adminProcess.php',
+            type: 'post',
+            data: "action=view_conti&ref_no=" + ref_no + "&set_no=" + sno,
 
-        success: function(data) {
-            // alert(data);
-            if (data != 0) {
-                $("#cont_details").html(data);
-                $("#responsive").modal('toggle');
-                $("#responsive").modal('show');
+            success: function(data) {
+                // alert(data);
+                if (data != 0) {
+                    $("#cont_details").html(data);
+                    $("#responsive").modal('toggle');
+                    $("#responsive").modal('show');
+                }
             }
+        });
+
+    });
+
+    $(document).ready(function() {
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+
+        function print_button() {
+            $(".main-footer").hide();
+            $(".box-header").hide();
+            $(".hide_print").hide();
+            $("#info").hide();
+            $(".btnhide").hide();
+            window.print();
+            $(".main-footer").show();
+            $(".box-header").show();
+            $(".hide_print").show();
+            $("#info").show();
+            $("#info2").show();
+            $("#info3").show();
+            $("#info4").show();
+            window.location.reload();
         }
+
+
     });
-
-});
-
-$(document).ready(function() {
-    $('#example').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    });
-
-    function print_button() {
-        $(".main-footer").hide();
-        $(".box-header").hide();
-        $(".hide_print").hide();
-        $("#info").hide();
-        $(".btnhide").hide();
-        window.print();
-        $(".main-footer").show();
-        $(".box-header").show();
-        $(".hide_print").show();
-        $("#info").show();
-        $("#info2").show();
-        $("#info3").show();
-        $("#info4").show();
-        window.location.reload();
-    }
-
-
-});
 </script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script> -->

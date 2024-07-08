@@ -52,8 +52,8 @@ include('control/function.php');
 							<?php 
 							$sr=0;
 							$sql="SELECT * from taentry_master where is_rejected=1 and forward_status=1 and empid='".$_SESSION['empid']."'";
-							$result=mysql_query($sql);
-							while ($row=mysql_fetch_array($result)) 
+							$result=mysqli_query($conn,$sql);
+							while ($row=mysqli_fetch_array($result)) 
 							{ $sr++;?>
 								<tr>
 									<td><?php echo $sr; ?></td>
@@ -61,11 +61,11 @@ include('control/function.php');
 									<td><?php echo $row['TAYear']; ?></td>
 									<td><?php echo $row['TAMonth']; ?></td>
 								<?php
-								// 	$query=mysql_query("SELECT SUM(amount) as amount from taentrydetails where empid='".$_SESSION['empid']."' AND reference_no='".$row['reference_no']."'");
-								// 	$res=mysql_fetch_array($query);
+								// 	$query=mysqli_query("SELECT SUM(amount) as amount from taentrydetails where empid='".$_SESSION['empid']."' AND reference_no='".$row['reference_no']."'");
+								// 	$res=mysqli_fetch_array($query);
 								    $query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_SESSION['empid']."' AND tasummarydetails.`reference_no`='".$row['reference_no']."'";
-    								$sql3=mysql_query($query3);
-    								$row3=mysql_fetch_array($sql3);
+    								$sql3=mysqli_query($conn,$query3);
+    								$row3=mysqli_fetch_array($sql3);
     								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
 								?>
 									

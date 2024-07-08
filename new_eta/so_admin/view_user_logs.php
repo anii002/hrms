@@ -57,9 +57,9 @@ include('common/sidebar.php');
 						                  <tbody>
     		<?php
               $query_emp = "SELECT empid,name,ip_address,file_name,action,message,created_at FROM `audit_table`, employees WHERE employees.pfno = audit_table.empid AND employees.dept='".$_SESSION['dept']."' ORDER BY audit_table.id DESC LIMIT 500";
-              $result_emp = mysql_query($query_emp);
+              $result_emp = mysqli_query($conn,$query_emp);
               $sr=1;
-              while($value_emp = mysql_fetch_array($result_emp))
+              while($value_emp = mysqli_fetch_array($result_emp))
               {
                   $r='';
                   $role='';
@@ -195,8 +195,8 @@ include('common/sidebar.php');
 											  <option value="0">Please Select Desig</option>
 												<?php
 												$query_emp = "SELECT `DESIGCODE`,`DESIGLONGDESC` FROM `designations`";
-												$result_emp = mysql_query($query_emp);
-												while($value_emp = mysql_fetch_array($result_emp))
+												$result_emp = mysqli_query($conn,$query_emp);
+												while($value_emp = mysqli_fetch_array($result_emp))
 												{
 												  echo "<option value='".$value_emp['DESIGCODE']."'>".$value_emp['DESIGLONGDESC']."</option>";
 												}
@@ -214,8 +214,8 @@ include('common/sidebar.php');
 												
 												<?php
 												$query_emp = "SELECT `num` FROM `paylevel`";
-												$result_emp = mysql_query($query_emp);
-												while($value_emp = mysql_fetch_array($result_emp))
+												$result_emp = mysqli_query($conn,$query_emp);
+												while($value_emp = mysqli_fetch_array($result_emp))
 												{
 												  echo "<option value='".$value_emp['num']."'>".$value_emp['num']."</option>";
 												}
@@ -235,8 +235,8 @@ include('common/sidebar.php');
 											   <option value="">All</option>
 												<?php
 												$query_emp = "select stationcode,stationdesc from station";
-												$result_emp = mysql_query($query_emp);
-												while($value_emp = mysql_fetch_array($result_emp))
+												$result_emp = mysqli_query($conn,$query_emp);
+												while($value_emp = mysqli_fetch_array($result_emp))
 												{
 												  echo "<option value='".$value_emp['stationcode']."'>".$value_emp['stationdesc']."</option>";
 												}

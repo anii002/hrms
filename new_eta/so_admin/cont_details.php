@@ -128,14 +128,14 @@ include('control/function.php');
 									<tbody align="center">
 									<?php
 											//echo $_GET['empid'];
-											$qry = mysql_query("SELECT id,`reference`, `month`, `year`,empid FROM `continjency_master` WHERE reference='".$_GET['ref_no']."' AND empid = '".$_GET['empid']."'");
-											while($row = mysql_fetch_array($qry))
+											$qry = mysqli_query($conn,"SELECT id,`reference`, `month`, `year`,empid FROM `continjency_master` WHERE reference='".$_GET['ref_no']."' AND empid = '".$_GET['empid']."'");
+											while($row = mysqli_fetch_array($qry))
 											{
 											$id = $row['id'];
-											$qry1 = mysql_query("SELECT * FROM `continjency` WHERE cid = '$id'");
+											$qry1 = mysqli_query($conn,"SELECT * FROM `continjency` WHERE cid = '$id'");
 											$cnt=1;
-											$trows=mysql_num_rows($qry1);
-											while($row1 = mysql_fetch_array($qry1))
+											$trows=mysqli_num_rows($qry1);
+											while($row1 = mysqli_fetch_array($qry1))
 											{
 										?>
 										<tr>

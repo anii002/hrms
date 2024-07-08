@@ -51,8 +51,8 @@
 								$cnt=1;
 									 $query = "SELECT * from master_summary_cont WHERE forward_status = '1' and estcrk_status='1' ";
 									//echo $query;
-									$result = mysql_query($query);
-									while($val = mysql_fetch_array($result))
+									$result = mysqli_query($conn,$query);
+									while($val = mysqli_fetch_array($result))
 									{
 										if($val['title']!=null)
 										{

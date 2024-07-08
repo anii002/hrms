@@ -10,12 +10,12 @@ if(isset($_POST['getback']))
 	$ref_no = $_GET['ref_no'];
 // 	echo $ref_no;
 	
-	$query = mysql_query("SELECT `empid` FROM `taentry_master` WHERE `reference_no`='".$ref_no."' ");
-	$row = mysql_fetch_array($query);
+	$query = mysqli_query($conn,"SELECT `empid` FROM `taentry_master` WHERE `reference_no`='".$ref_no."' ");
+	$row = mysqli_fetch_array($query);
 	$empid = $row['empid'];
 	
-	$query2 = mysql_query("UPDATE `taentry_master` SET `forward_status`=0 WHERE reference_no = '".$ref_no."' and empid = '".$empid."' ");
-	$query3 = mysql_query("DELETE FROM `forward_data` WHERE reference_id = '".$ref_no."' AND empid = '".$empid."' ");
+	$query2 = mysqli_query($conn,"UPDATE `taentry_master` SET `forward_status`=0 WHERE reference_no = '".$ref_no."' and empid = '".$empid."' ");
+	$query3 = mysqli_query($conn,"DELETE FROM `forward_data` WHERE reference_id = '".$ref_no."' AND empid = '".$empid."' ");
 
 	if($query3 && $query3 == TRUE)
 	{
@@ -156,15 +156,15 @@ if(isset($_POST['getback']))
 										<?php
 											 // $_GET['ref_no'];
 											$query="SELECT DISTINCT(objective) FROM `taentrydetails` WHERE reference_no='".$_GET['ref_no']."' ORDER BY `objective` DESC";
-											$sql=mysql_query($query);
-											$total_row1=mysql_num_rows($sql);
-											while($row_1 = mysql_fetch_array($sql)){
+											$sql=mysqli_query($conn,$query);
+											$total_row1=mysqli_num_rows($sql);
+											while($row_1 = mysqli_fetch_array($sql)){
 
 											$query1="SELECT * FROM `taentrydetails` WHERE objective='".$row_1['objective']."' ORDER by taDate ASC";
-											$sql1=mysql_query($query1);
-											$total_rows=mysql_num_rows($sql1);
+											$sql1=mysqli_query($conn,$query1);
+											$total_rows=mysqli_num_rows($sql1);
 											$cnt=1;
-											while ($row = mysql_fetch_array($sql1)) {
+											while ($row = mysqli_fetch_array($sql1)) {
 										?>
 										<tr>
 											<?php 
@@ -192,8 +192,8 @@ if(isset($_POST['getback']))
 
 												<?php 
 													$q="SELECT id FROM `master_cont` WHERE reference_no='".$_GET['ref_no']."'";
-													$s=mysql_query($q);
-													$t=mysql_num_rows($s);
+													$s=mysqli_query($conn,$q);
+													$t=mysqli_num_rows($s);
 													if($t == 1)
 													{
 														?>
@@ -240,8 +240,8 @@ if(isset($_POST['getback']))
 						<div class="table-scrollable">
 							<?php 
 								$query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_SESSION['empid']."' AND tasummarydetails.`reference_no`='".$_GET['ref_no']."'";
-								$sql3=mysql_query($query3);
-								$row3=mysql_fetch_array($sql3);
+								$sql3=mysqli_query($conn,$query3);
+								$row3=mysqli_fetch_array($sql3);
 								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
 							?>
 								<table class="table table-bordered table-hover">
@@ -329,9 +329,9 @@ if(isset($_POST['getback']))
 								$id = $_GET['ref_no'];
 
 								$query = "SELECT * FROM `add_cont` WHERE reference_no = '".$id."'";
-	  							$result = mysql_query($query);
+	  							$result = mysqli_query($conn,$query);
 	  							$cnt= 1;$sum = 0;
-	  							while($value = mysql_fetch_array($result))
+	  							while($value = mysqli_fetch_array($result))
 	  							{
 	  								echo "
 										<tr>

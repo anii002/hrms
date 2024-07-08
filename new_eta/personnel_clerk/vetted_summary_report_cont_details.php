@@ -57,14 +57,15 @@
 										<?php
 											function get_employee($id)
 											{
-												$query = mysql_query("SELECT name from employees where pfno='$id'");
-												$result = mysql_fetch_array($query);
+												global $conn;
+												$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+												$result = mysqli_fetch_array($query);
 												return $result['name'];
 											}		
 											// echo $_SESSION['empid'];
 
-											$qry = mysql_query("SELECT id,`reference`, `month`, `year`,empid,total_amount,summary_id FROM `continjency_master` WHERE summary_id = '".$_GET['sum_id']."'");
-											while($row = mysql_fetch_array($qry))
+											$qry = mysqli_query($conn,"SELECT id,`reference`, `month`, `year`,empid,total_amount,summary_id FROM `continjency_master` WHERE summary_id = '".$_GET['sum_id']."'");
+											while($row = mysqli_fetch_array($qry))
 											{
 
 										?>

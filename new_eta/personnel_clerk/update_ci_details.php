@@ -58,10 +58,10 @@
                                 				$dep=$_SESSION['dept'];     
                                 				// echo "SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE dept='".$dep."' AND isupdated='1' ORDER BY id desc";       				
                                 	              //echo "SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE dept='".$dep."' AND isupdated='1' AND CI_PF='".$_SESSION['empid']."' ORDER BY id desc";
-                                	              $result_emp = mysql_query("SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE dept='".$dep."' AND isupdated='1' AND CI_PF='".$_SESSION['empid']."' ORDER BY id desc limit 1");
+                                	              $result_emp = mysqli_query($conn,"SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE dept='".$dep."' AND isupdated='1' AND CI_PF='".$_SESSION['empid']."' ORDER BY id desc limit 1");
                                 	            
                                 	              $sr=1;
-                                	              while($value_emp = mysql_fetch_array($result_emp))
+                                	              while($value_emp = mysqli_fetch_array($result_emp))
                                 	              {
                                 	                echo "
                                 	                  <tr>

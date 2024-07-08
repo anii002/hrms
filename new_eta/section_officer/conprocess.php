@@ -20,14 +20,14 @@ $time = date("Y/m/d")." ".date("h:i:sa");
 
 $insert_master_sql = "INSERT INTO `continjency_master`(`reference`, `month`, `year`, `empid`, `total_amount`, `set_number`, `generate`,`forward_status`,created_date) VALUES ('".$reference_no."','".$month."','".$year1."','".$_SESSION['empid']."','".$sum."','0','0','0','".date("d/m/Y h:i:s")."')";
 
-$result = mysql_query($insert_master_sql);
+$result = mysqli_query($conn,$insert_master_sql);
 
 if($result)
 {
 	for($i=0;$i<$total_rows;$i++)
 	{
       $insert_sql = "INSERT INTO `continjency`(`reference`, `cntdate`, `cntfrom`, `cntTo`, `kms`, `rate_per_km`, `total_amount`, `set_number`, `objective`) VALUES ('".$reference_no."','".$_POST['date'.$i]."','".$_POST['dstn'.$i]."','".$_POST['astn'.$i]."','".$_POST['distance'.$i]."', '".$_POST['per'.$i]."', '".$_POST['amt'.$i]."','0','".$_POST['object']."')";
-		$result = mysql_query($insert_sql);
+		$result = mysqli_query($conn,$insert_sql);
 		if($result){
 			$res = $res+1;
 		}

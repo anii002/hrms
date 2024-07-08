@@ -52,9 +52,9 @@ include('adminFunction.php');
      case 'already':
                 //$data=0;
                 $id=$_POST['id'];
-                $sql=mysql_query("Select empid from users where empid='".$id."'");
+                $sql=mysqli_query($conn,"Select empid from users where empid='".$id."'");
                 //echo "Select empid from users where empid='".$id."'";
-                echo mysql_num_rows($sql);
+                echo mysqli_num_rows($sql);
                
         break;
     
@@ -192,11 +192,11 @@ include('adminFunction.php');
         for($i = 0; $i < $cnt; $i++)
         {
             $query1 = "UPDATE taentry_master set est_approve='1' where reference_no='".$ref_nos[$i]."'";
-            $result1=mysql_query($query1);
+            $result1=mysqli_query($conn,$query1);
         }
         
         $query = "UPDATE master_summary set estcrk_status='1',EST_approved_time='".$date."' where summary_id='".$_POST['sumid']."'";
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
          
         if($result)
         {
@@ -218,11 +218,11 @@ include('adminFunction.php');
         $reason=$_POST['reason'];
     
         $update_tamaster="UPDATE taentry_master set is_rejected=1,rejected_by='".$ciempid.",".$_SESSION['role']."',reason='".$reason."' where empid='".$pmempid."' AND reference_no='".$ref_no."'";
-        $result=mysql_query($update_tamaster);
-        if(mysql_affected_rows() >= 0)
+        $result=mysqli_query($conn,$update_tamaster);
+        if(mysqli_affected_rows($conn) >= 0)
         {
           $drop="DELETE from forward_data where empid='".$pmempid."' AND reference_id='".$ref_no."' ";
-            $result1=mysql_query($drop);
+            $result1=mysqli_query($conn,$drop);
           echo "<script>alert('Claim rejected successfully...'); window.location='../summary_report_details.php';</script>";
         }
         else
@@ -296,14 +296,14 @@ include('adminFunction.php');
 
         $query = "SELECT * FROM `master_cont` WHERE reference_no = '".$_POST['ref_no']."' AND set_no='".$_POST['set_no']."' ";
 
-        $result=mysql_query($query);
-        echo mysql_error();
+        $result=mysqli_query($conn,$query);
+        echo mysqli_error($conn);
 
-        $row_data=mysql_num_rows($result);        
+        $row_data=mysqli_num_rows($result);        
         if($row_data == 1)
         {
             $query1 = "SELECT * FROM `add_cont` WHERE reference_no = '".$_POST['ref_no']."' AND set_no='".$_POST['set_no']."' ";
-            $result1=mysql_query($query1);
+            $result1=mysqli_query($conn,$query1);
             $cnt= 1;$sum = 0;$obj='';
             $data.='<table class="table table-inverse " style="font-size: 15px" id="" border="1">
                     <thead>
@@ -317,7 +317,7 @@ include('adminFunction.php');
                         <th >Amount</th>            
                       </tr> 
                     </thead><tbody>';
-            while($sql_res=mysql_fetch_array($result1)){
+            while($sql_res=mysqli_fetch_array($result1)){
               $data .= "<tr>
               <td>".$cnt."</td>
               <td>".$sql_res['cont_date']."</td>
@@ -346,11 +346,11 @@ include('adminFunction.php');
     case 'view_contingency':
         $data='';
         $sql="select * from continjency_master inner join continjency on continjency_master.id=continjency.cid where reference='".$_REQUEST['ref']."' and continjency.set_number='".$_REQUEST['set']."'";
-         $raw_data=mysql_query($sql);
-         echo mysql_error();
+         $raw_data=mysqli_query($conn,$sql);
+         echo mysqli_error($conn);
          if($raw_data){
           $cnt = 0;
-            while($sql_res=mysql_fetch_assoc($raw_data)){
+            while($sql_res=mysqli_fetch_assoc($raw_data)){
               $data .= "
                 <tr>
                   <td>".$sql_res['cntdate']."</td>
@@ -389,7 +389,7 @@ include('adminFunction.php');
     break;
 
     case "deletebillunitemp":
-        $query = mysql_query("delete from sep_billunit where employee_id='".$_REQUEST['deleteemp']."'");
+        $query = mysqli_query($conn,"delete from sep_billunit where employee_id='".$_REQUEST['deleteemp']."'");
         if($query)
         {
              echo "<script>alert('User removed successfully');window.location='../apply_billunit.php';</script>";
@@ -403,8 +403,8 @@ include('adminFunction.php');
     case "updatebillemp":
         $billunit = implode(",", $_REQUEST['updatebill']);
         $update_sql = "update sep_billunit set billunit='".$billunit."' where employee_id='".$_REQUEST['updateemp']."'";
-        $query = mysql_query($update_sql);
-        echo mysql_error();
+        $query = mysqli_query($conn,$update_sql);
+        echo mysqli_error($conn);
         if($query)
         {
              echo "<script>alert('User bill unit applied successfully');window.location='../apply_billunit.php';</script>";
@@ -419,13 +419,13 @@ include('adminFunction.php');
         
         $data='';
         $query1="SELECT summary_id FROM master_summary WHERE MONTH(EST_approved_time) ='".$_POST['mon']."' ";
-        $result1=mysql_query($query1);
-        echo mysql_error();
+        $result1=mysqli_query($conn,$query1);
+        echo mysqli_error($conn);
         $cnt_m=0;
         
         $emp_cnt=1;
-        $count=mysql_num_rows($result1);
-        while($row_m=mysql_fetch_array($result1))
+        $count=mysqli_num_rows($result1);
+        while($row_m=mysqli_fetch_array($result1))
         {  
              $cnt_m++;
             $data.= get_summary($row_m['summary_id']);
@@ -451,9 +451,9 @@ include('adminFunction.php');
         $data='';
         
         // $query1="SELECT DISTINCT(DEPTNO) FROM `department` WHERE DEPTNO NOT IN(01) ORDER BY DEPTNO ASC";
-        // $result1=mysql_query($query1);
-        // echo mysql_error();
-        $count=mysql_num_rows($result1);
+        // $result1=mysqli_query($query1);
+        // echo mysqli_error();
+        $count=mysqli_num_rows($result1);
         
         $data.="<tr class='fontcss1' style='text-align: center;'>";
        
@@ -476,12 +476,12 @@ include('adminFunction.php');
     $reason = $_POST['reason'];
 
     $update_tamaster = "UPDATE continjency_master set is_rejected=1,rejected_by='" . $ciempid . "," . $_POST['role'] . "',reason='" . $reason . "' where reference='" . $ref_no . "'";
-    $result = mysql_query($update_tamaster);
+    $result = mysqli_query($conn,$update_tamaster);
 
-    if (mysql_affected_rows() >= 0) 
+    if (mysqli_affected_rows($conn) >= 0) 
     {
       $drop = "DELETE from forward_data where reference_id='" . $ref_no . "' ";
-      $result1 = mysql_query($drop);
+      $result1 = mysqli_query($conn,$drop);
       echo "<script>alert('Contingency rejected successfully..'); window.location='../cont_summary_report_details.php';</script>";
     } else {
       echo "<script>alert('Something Wrong'); window.location='../cont_summary_report_details.php';</script>";
@@ -491,8 +491,8 @@ include('adminFunction.php');
     case 'fwESTCLERK_cont':
      $date=date("Y-m-d h:i:s");
       $sumid=$_POST['sumid'];     
-       $u_query=mysql_query("UPDATE master_summary_cont SET pa_status='1',PA_approved_time='".$date."' where summary_id='".$sumid."' ");
-       echo mysql_error();       
+       $u_query=mysqli_query($conn,"UPDATE master_summary_cont SET pa_status='1',PA_approved_time='".$date."' where summary_id='".$sumid."' ");
+       echo mysqli_error($conn);       
        
        if($u_query)
        {

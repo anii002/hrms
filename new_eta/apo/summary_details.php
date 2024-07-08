@@ -11,7 +11,7 @@ foreach($_POST['selected_summary'] as $sumid)
 {
 	$u_query="UPDATE master_summary SET pa_status='1',PA_approved_time='".$date."' where summary_id='".$sumid."' ";
 
-	$result = mysql_query($u_query);
+	$result = mysqli_query($conn,$u_query);
 
 	if($result)
 	{

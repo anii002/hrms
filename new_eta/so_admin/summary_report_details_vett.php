@@ -11,7 +11,7 @@ include('control/function.php');
 	display : block;
   }
   .show {
-	   display : ;
+	   display :0 ;
   }
 }
 
@@ -108,23 +108,23 @@ include('control/function.php');
 										<?php 
 
 										$sql="SELECT * from tasummarydetails,employees where  tasummarydetails.empid=employees.pfno AND summary_id='".$_GET['sum_id']."' AND is_summary_generated='1' order by employees.BU ASC ";
-										$res=mysql_query($sql);
+										$res=mysqli_query($conn,$sql);
 										//;
 										$total_amt=0;
 										$temp=0;
 										$temp1=0;
-										while($val=mysql_fetch_array($res))
+										while($val=mysqli_fetch_array($res))
 										{
 										
                                        // echo "SELECT * from employees where pfno='".$val['empid']."' order by BU ASC";
-										$sql1=mysql_query("SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
-										$val1=mysql_fetch_array($sql1);
-										echo mysql_error();
+										$sql1=mysqli_query($conn,"SELECT * from employees where pfno='".$val['empid']."' order by BU ASC");
+										$val1=mysqli_fetch_array($sql1);
+										echo mysqli_error($conn);
 
 										 $level=$val1['level'];
 										$sql2="SELECT * from ta_amount where min<='".$level."' AND max>='".$level."' ";
-										$res2=mysql_query($sql2);
-										$val2=mysql_fetch_array($res2);
+										$res2=mysqli_query($conn,$sql2);
+										$val2=mysqli_fetch_array($res2);
 
 										  $val['empid']."_".$amount=$val2['amount'];
 
@@ -152,8 +152,8 @@ include('control/function.php');
 										}	
                                         
                                         $query1="SELECT est_approve FROM `taentry_master` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ";
-                                        $result1=mysql_query($query1);
-                                        $row1=mysql_fetch_array($result1);
+                                        $result1=mysqli_query($conn,$query1);
+                                        $row1=mysqli_fetch_array($result1);
                                         
                                         $status=$row1['est_approve'];
                                         
@@ -232,8 +232,8 @@ include('control/function.php');
 											echo "
 											<td>$total_amt</td>";
 
-											$sqll=mysql_query("SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
-											$ress=mysql_fetch_array($sqll);
+											$sqll=mysqli_query($conn,"SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
+											$ress=mysqli_fetch_array($sqll);
 											if($ress['amount'] == '0' || $ress['amount'] == null){
 												
 											echo "<td>-</td>";

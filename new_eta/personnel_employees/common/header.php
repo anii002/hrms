@@ -174,7 +174,7 @@ include('../dbconfig/dbcon.php');
     				else
     				{ 
     				?>
-					<img alt="" class="img-circle" src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>"/>
+					<img alt="" class="img-circle" src="../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>"/>
 			 <?php	} ?>
 					<span class="username username-hide-on-mobile">
 						 <span class="empname" style="color: floralwhite;">
@@ -201,15 +201,15 @@ include('../dbconfig/dbcon.php');
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
 						<li>
-							<a href="../../../index.php">
+							<a href="../../../hrms/dashboard.php">
 							<i class="fas fa-home"></i>Home</a>
 						</li>
 						<li>
-							<a href="../../../profile.php">
+							<a href="../../../hrms/new_eta/personnel_employees/profile.php">
 							<i class="fas fa-user"></i>Profile</a>
 						</li>
 						<li>
-							<a href="../../../Logout.php">
+							<a href="../../../hrms/Logout.php">
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>
 					</ul>

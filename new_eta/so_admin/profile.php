@@ -33,8 +33,8 @@ include('control/function.php');
 							<!-- SIDEBAR USERPIC -->
 							<div class="profile-userpic">
 								<?php 
-				$query = mysql_query("select img from users where empid='".$_SESSION['empid']."'");
-				$result = mysql_fetch_array($query);
+				$query = mysqli_query($conn,"select img from users where empid='".$_SESSION['empid']."'");
+				$result = mysqli_fetch_array($query);
 				if($result['img']=="")
 				{
 					?>
@@ -48,8 +48,8 @@ include('control/function.php');
 					?>
 	              <?php
 	                $query = "select dept from employees where pfno in (select empid from users where empid='".$_SESSION['empid']."')";
-	                $result = mysql_query($query) or die(mysql_error());
-	                $value = mysql_fetch_array($result);
+	                $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
+	                $value = mysqli_fetch_array($result);
 	               ?>
 							</div>
 							<!-- END SIDEBAR USERPIC -->
@@ -73,8 +73,8 @@ include('control/function.php');
 							<!-- END SIDEBAR BUTTONS -->
 							<!-- SIDEBAR MENU -->
 					<?php
-						$query = mysql_query("select mobile,email from employees where pfno='".$_SESSION['empid']."'");
-						$result = mysql_fetch_array($query);
+						$query = mysqli_query($conn,"select mobile,email from employees where pfno='".$_SESSION['empid']."'");
+						$result = mysqli_fetch_array($query);
 					?>
 							<div class="profile-usermenu">
 								<ul class="nav">

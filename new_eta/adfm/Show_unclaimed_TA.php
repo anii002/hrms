@@ -54,34 +54,40 @@ include('common/sidebar.php');
 										</tr>										
 									</thead>
 									<tbody>
-										<?php
-											$query1="SELECT `id`, `TAMonth`, `TAYear`, `empid`, `reference_no`,`objective`, `created_date` FROM `taentry_master` WHERE empid='".$_SESSION['empid']."' AND forward_status='0' ";
-											$sql1=mysql_query($query1);
+<?php
+$query1 = "SELECT `id`, `TAMonth`, `TAYear`, `empid`, `reference_no`, `objective`, `created_date` FROM `taentry_master` WHERE empid='" . $_SESSION['empid'] . "' AND forward_status='0'";
+$sql1 = mysqli_query($conn, $query1);
 
-											while ($row = mysql_fetch_array($sql1)) {
-												$query2="SELECT SUM(amount)as total_amount,distance FROM `taentrydetails` WHERE empid='".$_SESSION['empid']."' AND reference_no='".$row['reference_no']."' ";
-											$sql2=mysql_query($query2);
-											$row2 = mysql_fetch_array($sql2);
-											$query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_SESSION['empid']."' AND tasummarydetails.`reference_no`='".$row['reference_no']."'";
-            								$sql3=mysql_query($query3);
-            								$row3=mysql_fetch_array($sql3);
-            								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
-										?>
-										<tr>
-											<!-- <td>01</td> -->
-											<td><?php echo $row['reference_no']; ?></td>
-											<td><?php echo $row['TAYear']; ?> </td>
-											<td> <?php echo $row['TAMonth']; ?></td>
-											<td><?php echo $row2['distance']; ?></td>
-											<td><?php echo $total_amount; ?></td>
-											<td><?php echo $row['created_date']; ?></td>
-											
-											<td><a href="unclaimed_details.php?ref_no=<?php echo $row['reference_no']; ?>" class="btn green btn_action">Show</a></td>
-										</tr>
-										<?php 
-											}
-										?>
-									</tbody>
+while ($row = mysqli_fetch_array($sql1)) {
+    $query2 = "SELECT SUM(amount) as total_amount, distance FROM `taentrydetails` WHERE empid='" . $_SESSION['empid'] . "' AND reference_no='" . $row['reference_no'] . "'";
+    $sql2 = mysqli_query($conn, $query2);
+    $row2 = mysqli_fetch_array($sql2);
+
+    $query3 = "SELECT cardpass, month, year, `30p_cnt`, `30p_amt`, `70p_cnt`, `70p_amt`, `100p_cnt`, `100p_amt` FROM `tasummarydetails`, taentry_master WHERE tasummarydetails.reference_no = taentry_master.reference_no AND tasummarydetails.empid='" . $_SESSION['empid'] . "' AND tasummarydetails.`reference_no`='" . $row['reference_no'] . "'";
+    $sql3 = mysqli_query($conn, $query3);
+    $row3 = mysqli_fetch_array($sql3);
+
+    // Initialize total_amount to handle null values
+    $total_amount = 0;
+    if ($row3 && isset($row3['100p_amt']) && isset($row3['70p_amt']) && isset($row3['30p_amt'])) {
+        $total_amount = $row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
+    }
+
+    ?>
+    <tr>
+        <td><?php echo $row['reference_no']; ?></td>
+        <td><?php echo $row['TAYear']; ?></td>
+        <td><?php echo $row['TAMonth']; ?></td>
+        <td><?php echo isset($row2['distance']) ? $row2['distance'] : ''; ?></td>
+        <td><?php echo $total_amount; ?></td>
+        <td><?php echo $row['created_date']; ?></td>
+        <td><a href="unclaimed_details.php?ref_no=<?php echo $row['reference_no']; ?>" class="btn green btn_action">Show</a></td>
+    </tr>
+    <?php
+}
+?>
+</tbody>
+
 								</table>
 							</div>
 							<div class="text-right">

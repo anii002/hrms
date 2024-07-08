@@ -38,13 +38,13 @@ include('common/sidebar.php');
 
                     <?php
                     // 	 $_SESSION['empid'];
-                    $level_q = mysql_query("SELECT LEVEL FROM `employees` where pfno='" . $_SESSION['empid'] . "' ");
-                    $level_row = mysql_fetch_array($level_q);
+                    $level_q = mysqli_query($conn,"SELECT LEVEL FROM `employees` where pfno='" . $_SESSION['empid'] . "' ");
+                    $level_row = mysqli_fetch_array($level_q);
 
                     $lev = $level_row['LEVEL'];
-                    $level_q1 = mysql_query("SELECT amount from ta_amount WHERE min<='$lev' AND max>='$lev'");
-                    $level_row1 = mysql_fetch_array($level_q1);
-                    echo mysql_error();
+                    $level_q1 = mysqli_query($conn,"SELECT amount from ta_amount WHERE min<='$lev' AND max>='$lev'");
+                    $level_row1 = mysqli_fetch_array($level_q1);
+                    echo mysqli_error($conn,);
                     $user_amount = $level_row1['amount'];
 
                     ?>
@@ -289,42 +289,130 @@ include 'common/footer.php';
     });
 
     $(".addrowbtn").on("click", function() {
-        var data = '';
-        var sr = $("#sr1").val();
-        //alert(sr);
-        var prevdate = $("#date" + sr).val();
+    var data = '';
+    var sr = $("#sr1").val();
+    var prevdate = $("#date" + sr).val();
+    sr++;
 
-        sr++;
-        data+='<tr class="odd gradeX"><td style="width: 10%"><div class="form-group"> <div class="">                                <input class="form-control datepicker" readonly type="text" name="date'+sr+'" id="date'+sr+'" val='+sr+' value='+prevdate+' placeholder ="dd/mm/yyyy"></div></div></td><td style="width: 10%"><div class="form-group">           <div class="">                 <select class="form-control j_type" name="type'+sr+'" id="type'+sr+'" val='+sr+'>  <?php $query1="SELECT * FROM `journey_type_master`"; $sql1=mysql_query($query1);while ($row1 = mysql_fetch_array($sql1)) {echo '<option value='.$row1['id'].' >'.$row1['journey_type'].'  </option>';}?>
-            </select></div></div></td><td style="width: 10%"><div class="form-group"><input type="text" class="form-control val train_no" placeholder="Train No." name="trainno'+sr+'" id="trainno'+sr+'" val='+sr+'></div></td> <td style="width: 10%"><div class="form-group"><div class=""><select class="form-control purpose" val='+sr+' name="other'+sr+'" id="other'+sr+'"> <?php $query2="SELECT * FROM `journey_purpose_master`"; $sql2=mysql_query($query2);while ($row2 = mysql_fetch_array($sql2)) {echo '<option value='.$row2['id'].' >'.$row2['journey_purpose'].'  </option>';}?>   </select></div></div></td>          <td style="width: 8%"><div class="form-group">    <input type="text" name="dtime'+sr+'" val='+sr+' id="dtime'+sr+'" class="form-control changedtime timevalue" placeholder="hh:mm"></div></td>  <td style="width: 8%"><div class="form-group"><input type="text" class="form-control ta_calculation time_val timevalue" name="atime'+sr+'" val='+sr+' id="atime'+sr+'"  placeholder="hh:mm"></div></td>     <td style="width: 12%"><div class="form-group"> <input type="text" list="dstation'+sr+'" style="text-transform:uppercase" name="dstn'+sr+'" id="dstn'+sr+'" placeholder="select Station" val='+sr+' class="departClass form-control"><datalist id="dstation'+sr+'">';
-        data+="<?php
-                    $sql = "SELECT stationdesc FROM station";
-                    $query = mysql_query($sql);
-                     while($row = mysql_fetch_array($query)){
-                        echo "<option value='".$row['stationdesc']."'>";
-                    }
-                    ?>";
-        data+='</datalist> </div></td><td style="width: 12%"><div class="form-group"><input type="text" list="astation'+sr+'" style="text-transform:uppercase" name="astn'+sr+'" id="astn'+sr+'" placeholder="select Station" val='+sr+' class="form-control arrivalstn"><datalist id="astation'+sr+'">';
-        data+="<?php
-                    $sql = "SELECT stationdesc FROM station";
-                    $query = mysql_query($sql);
-                     while($row = mysql_fetch_array($query)){
-                        echo "<option value='".$row['stationdesc']."'>";
-                    }
-                    ?>";
-        data+='</datalist></div></td><td><div class="form-group">               <input type="text" class="form-control"  name="distance'+sr+'" id="distance'+sr+'" placeholder="Distance" val='+sr+'></div></td><td>         <div class="form-group">   <input type="text" class="form-control changeper"  name="per'+sr+'" id="per'+sr+'" placeholder="Percentage" readonly val='+sr+'></div></td><td><div class="form-group"> <input type="text" class="form-control" name="amt'+sr+'" id="amt'+sr+'" placeholder="Amount"  readonly val='+sr+'></div></td></tr>';
+    data += '<tr class="odd gradeX">';
+    data += '<td style="width: 10%">';
+    data += '<div class="form-group">';
+    data += '<div class="">';
+    data += '<input class="form-control datepicker" readonly type="text" name="date' + sr + '" id="date' + sr + '" val=' + sr + ' value=' + prevdate + ' placeholder="dd/mm/yyyy">';
+    data += '</div>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 10%">';
+    data += '<div class="form-group">';
+    data += '<div class="">';
+    data += '<select class="form-control j_type" name="type' + sr + '" id="type' + sr + '" val=' + sr + '>';
+    data += '<?php
+                $query1 = "SELECT * FROM `journey_type_master`";
+                $sql1 = mysqli_query($conn, $query1);
+                while ($row1 = mysqli_fetch_array($sql1)) {
+                    echo "<option value=\'" . $row1["id"] . "\'>" . $row1["journey_type"] . "</option>";
+                }
+            ?>';
+    data += '</select>';
+    data += '</div>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 10%">';
+    data += '<div class="form-group">';
+    data += '<input type="text" class="form-control val train_no" placeholder="Train No." name="trainno' + sr + '" id="trainno' + sr + '" val=' + sr + '>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 10%">';
+    data += '<div class="form-group">';
+    data += '<div class="">';
+    data += '<select class="form-control purpose" val=' + sr + ' name="other' + sr + '" id="other' + sr + '">';
+    data += '<?php
+                $query2 = "SELECT * FROM `journey_purpose_master`";
+                $sql2 = mysqli_query($conn, $query2);
+                while ($row2 = mysqli_fetch_array($sql2)) {
+                    echo "<option value=\'" . $row2["id"] . "\'>" . $row2["journey_purpose"] . "</option>";
+                }
+            ?>';
+    data += '</select>';
+    data += '</div>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 8%">';
+    data += '<div class="form-group">';
+    data += '<input type="text" name="dtime' + sr + '" val=' + sr + ' id="dtime' + sr + '" class="form-control changedtime timevalue" placeholder="hh:mm">';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 8%">';
+    data += '<div class="form-group">';
+    data += '<input type="text" class="form-control ta_calculation time_val timevalue" name="atime' + sr + '" val=' + sr + ' id="atime' + sr + '" placeholder="hh:mm">';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 12%">';
+    data += '<div class="form-group">';
+    data += '<input type="text" list="dstation' + sr + '" style="text-transform:uppercase" name="dstn' + sr + '" id="dstn' + sr + '" placeholder="select Station" val=' + sr + ' class="departClass form-control">';
+    data += '<datalist id="dstation' + sr + '">';
+    data += '<?php
+                $sql = "SELECT stationdesc FROM station";
+                $query = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($query)) {
+                    echo "<option value=\'" . $row["stationdesc"] . "\'>";
+                }
+            ?>';
+    data += '</datalist>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td style="width: 12%">';
+    data += '<div class="form-group">';
+    data += '<input type="text" list="astation' + sr + '" style="text-transform:uppercase" name="astn' + sr + '" id="astn' + sr + '" placeholder="select Station" val=' + sr + ' class="form-control arrivalstn">';
+    data += '<datalist id="astation' + sr + '">';
+    data += '<?php
+                $sql = "SELECT stationdesc FROM station";
+                $query = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($query)) {
+                    echo "<option value=\'" . $row["stationdesc"] . "\'>";
+                }
+            ?>';
+    data += '</datalist>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td>';
+    data += '<div class="form-group">';
+    data += '<input type="text" class="form-control" name="distance' + sr + '" id="distance' + sr + '" placeholder="Distance" val=' + sr + '>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td>';
+    data += '<div class="form-group">';
+    data += '<input type="text" class="form-control changeper" name="per' + sr + '" id="per' + sr + '" placeholder="Percentage" readonly val=' + sr + '>';
+    data += '</div>';
+    data += '</td>';
+    
+    data += '<td>';
+    data += '<div class="form-group">';
+    data += '<input type="text" class="form-control" name="amt' + sr + '" id="amt' + sr + '" placeholder="Amount" readonly val=' + sr + '>';
+    data += '</div>';
+    data += '</td>';
+    data += '</tr>';
 
+    $("#new_row").append(data);
+    $("#sr1").val(sr);
 
-        $("#new_row").append(data);
-        $("#sr1").val(sr);
-        $(".datepicker").datepicker({
-            dateFormat: "dd/mm/yy",
-            maxDate: maxdate,
-            minDate:mindate,
-            changeYear: true,
-            changeMonth: true,
-        });
+    $(".datepicker").datepicker({
+        dateFormat: "dd/mm/yy",
+        maxDate: maxdate,
+        minDate: mindate,
+        changeYear: true,
+        changeMonth: true,
     });
+});
 
 
 

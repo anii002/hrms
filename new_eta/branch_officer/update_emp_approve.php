@@ -5,8 +5,8 @@ include('common/sidebar.php');
 include('control/function.php');
 
 $query = "select * from employees where pfno = '".$_GET['empid']."'";
-$result = mysql_query($query);
-$value = mysql_fetch_array($result);
+$result = mysqli_query($conn,$query);
+$value = mysqli_fetch_array($result);
 $billunit=$value['BU'];
 $empid=$value['pfno'];
 $panno=$value['panno'];
@@ -35,8 +35,8 @@ $RLYJOINDATE1=date('d/m/Y',strtotime($d1));
 $level=$value['level'];
 
 $query1 = "select * from employees_update where pfno = '".$_GET['empid']."' order by id desc limit 1";
-$result1 = mysql_query($query1);
-$value1 = mysql_fetch_array($result1);
+$result1 = mysqli_query($conn,$query1);
+$value1 = mysqli_fetch_array($result1);
 $billunit1=$value1['BU'];
 $empid1=$value1['pfno'];
 $panno1=$value1['panno'];

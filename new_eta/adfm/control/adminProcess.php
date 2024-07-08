@@ -4,8 +4,7 @@ include("../../dbconfig/dbcon.php");
 include('adminFunction.php');
 include('function.php');
 
-switch ($_REQUEST['action']) 
-{
+switch ($_REQUEST['action']) {
   case 'changeimg':
     if (changeimg($_FILES["profile"]["name"], $_FILES["profile"]["tmp_name"])) {
       echo "<script>alert('Profile photo uploaded successfully');window.location='../profile.php';</script>";
@@ -13,194 +12,183 @@ switch ($_REQUEST['action'])
       echo "<script>alert('Failed to upload');window.location='../profile.php';</script>";
     }
     break;
-    
-    case 'get_stations':
-        $result=array();
-        $data=array();
-        $query2 = "SELECT stationdesc FROM `station`";
-        $sql2 = mysql_query($query2);
-        // echo mysql_error();
-        while ($row2 = mysql_fetch_array($sql2)) 
-        {
-            $stationdesc=htmlspecialchars($row2['stationdesc']);
-            array_push($data,$stationdesc);
-        } 
-        $result['stations']=$data;
-        echo json_encode($result);
+
+  case 'get_stations':
+    $result = array();
+    $data = array();
+    $query2 = "SELECT stationdesc FROM `station`";
+    $sql2 = mysqli_query($conn, $query2);
+    // echo mysqli_error();
+    while ($row2 = mysqli_fetch_array($sql2)) {
+      $stationdesc = htmlspecialchars($row2['stationdesc']);
+      array_push($data, $stationdesc);
+    }
+    $result['stations'] = $data;
+    echo json_encode($result);
     break;
 
 
-    case 'getTAData':
+  case 'getTAData':
 
-        $reference = $_POST['ref_no'];
-        $set_no = $_POST['set_no'];
-        $data=array();
+    $reference = $_POST['ref_no'];
+    $set_no = $_POST['set_no'];
+    $data = array();
 
-        $j_type_data=array();
-        $j_pur_data=array();
+    $j_type_data = array();
+    $j_pur_data = array();
 
-        $query2="SELECT TAMonth,TAYear,cardpass FROM `taentry_master` WHERE reference_no='".$reference."' ";
-        $sql2=mysql_query($query2);
-        $row2 = mysql_fetch_array($sql2);
-        $data['ta_month']=$row2['TAMonth'];
-        $data['ta_year']=$row2['TAYear'];
-        // $data['cardpass']=$row2['cardpass'];
+    $query2 = "SELECT TAMonth,TAYear,cardpass FROM `taentry_master` WHERE reference_no='" . $reference . "' ";
+    $sql2 = mysqli_query($conn, $query2);
+    $row2 = mysqli_fetch_array($sql2);
+    $data['ta_month'] = $row2['TAMonth'];
+    $data['ta_year'] = $row2['TAYear'];
+    // $data['cardpass']=$row2['cardpass'];
 
-        $query1="SELECT * FROM `taentrydetails` WHERE reference_no='".$reference."' AND set_number='".$set_no."' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
-        $sql1=mysql_query($query1);
-        $cnt=1;
-        $ta_details='';
-        $T_amount=0;
-        $validation='this.value=this.value.replace(/[^\d]/,"")';
-        $sr1=0;
-        while ($row = mysql_fetch_array($sql1)) 
-        {   
-            $ta_details.='<tr class="odd gradeX"><td style="width: 10%"><div class="form-group "><label class="control-label">Date <br> दिनांक </label><div class="billunitzindex"><input type="text" class=" form-control datepicker datecheck" readonly val='.$sr1.' id="date'.$sr1.'" name="date'.$sr1.'" placeholder="dd/mm/yyyy" value='.$row['taDate'].'></div></div></td><td style="width: 10%"><div class="form-group"><label class="control-label">Journey Type <br> यात्रा का प्रकार</label><div class=""><select class="form-control select2 j_type" name="type'.$sr1.'" id="type'.$sr1.'" value='.$row['journey_type'].' val='.$sr1.'>';
-            
-            array_push($j_type_data, $row['journey_type']);
+    $query1 = "SELECT * FROM `taentrydetails` WHERE reference_no='" . $reference . "' AND set_number='" . $set_no . "' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
+    $sql1 = mysqli_query($conn, $query1);
+    $cnt = 1;
+    $ta_details = '';
+    $T_amount = 0;
+    $validation = 'this.value=this.value.replace(/[^\d]/,"")';
+    $sr1 = 0;
+    while ($row = mysqli_fetch_array($sql1)) {
+      $ta_details .= '<tr class="odd gradeX"><td style="width: 10%"><div class="form-group "><label class="control-label">Date <br> दिनांक </label><div class="billunitzindex"><input type="text" class=" form-control datepicker datecheck" readonly val=' . $sr1 . ' id="date' . $sr1 . '" name="date' . $sr1 . '" placeholder="dd/mm/yyyy" value=' . $row['taDate'] . '></div></div></td><td style="width: 10%"><div class="form-group"><label class="control-label">Journey Type <br> यात्रा का प्रकार</label><div class=""><select class="form-control select2 j_type" name="type' . $sr1 . '" id="type' . $sr1 . '" value=' . $row['journey_type'] . ' val=' . $sr1 . '>';
 
-            $query2 = "SELECT * FROM `journey_type_master`";
-            $sql2 = mysql_query($query2);
-            while ($row2 = mysql_fetch_array($sql2)) 
-              {
-                $ta_details.='<option value='.$row2['id'].' >'.$row2['journey_type'].'</option>';
-              }
-              $ta_details.='</select></div></div></td><td style="width: 10%"><div class="form-group"><label class="control-label">Train No. <br> गाडी नं.</label><input type="text" class="form-control val train_no" name="trainno'.$sr1.'" id="trainno'.$sr1.'" placeholder="Train No." value="'.$row['train_no'].'" val='.$sr1.'></div></td><td style="width: 10%"><div class="form-group"><label class="control-label">Other <br> अन्य</label><div class=""><select class="form-control purpose" value='.$row['journey_purpose'].'  val='.$sr1.' name="other'.$sr1.'" id="other'.$sr1.'">';
+      array_push($j_type_data, $row['journey_type']);
 
-              array_push($j_pur_data, $row['journey_purpose']);
+      $query2 = "SELECT * FROM `journey_type_master`";
+      $sql2 = mysqli_query($conn, $query2);
+      while ($row2 = mysqli_fetch_array($sql2)) {
+        $ta_details .= '<option value=' . $row2['id'] . ' >' . $row2['journey_type'] . '</option>';
+      }
+      $ta_details .= '</select></div></div></td><td style="width: 10%"><div class="form-group"><label class="control-label">Train No. <br> गाडी नं.</label><input type="text" class="form-control val train_no" name="trainno' . $sr1 . '" id="trainno' . $sr1 . '" placeholder="Train No." value="' . $row['train_no'] . '" val=' . $sr1 . '></div></td><td style="width: 10%"><div class="form-group"><label class="control-label">Other <br> अन्य</label><div class=""><select class="form-control purpose" value=' . $row['journey_purpose'] . '  val=' . $sr1 . ' name="other' . $sr1 . '" id="other' . $sr1 . '">';
 
-            $query2 = "SELECT * FROM `journey_purpose_master`";
-            $sql2 = mysql_query($query2);
-            while ($row2 = mysql_fetch_array($sql2)) 
-            {
-              $ta_details.='<option value='. $row2['id'] . ' >'. $row2['journey_purpose'] . '  </option>';
-            }
-            $ta_details.='</select></div></div></td><td style="width: 8%"><div class="form-group"><label class="control-label">Depart Time <br> प्रस्थान समय</label><input type="text" name="dtime'.$sr1.'" val='.$sr1.' id="dtime'.$sr1.'" class="form-control changedtime timevalue dtime_validation"  value='.$row['departT'].' placeholder="hh:mm"></div></td><td style="width: 8%"><div class="form-group"><label class="control-label">Arri. Time <br> आगमन समय </label><input type="text" class="form-control ta_calculation changedtime time_val timevalue time_validation" name="atime'.$sr1.'" val='.$sr1.' id="atime'.$sr1.'" value='.$row['arrivalT'].' placeholder="hh:mm"></div></td><td style="width: 12%"><div class="form-group"><label class="control-label">Depart Station <br> प्रस्थान स्टेशन</label><input type="text" list="dstation'.$sr1.'" style="text-transform:uppercase" name="dstn'.$sr1.'" id="dstn'.$sr1.'" placeholder="select Station" val='.$sr1.' class="departClass form-control" value='.$row['departS'].'></div></td><td style="width: 12%"><div class="form-group"><label class="control-label">Arri. Station <br> आगमन स्टेशन</label><input type="text" list="astation'.$sr1.'" style="text-transform:uppercase" name="astn'.$sr1.'" id="astn'.$sr1.'" placeholder="select Station" val='.$sr1.' class="form-control arrivalstn" value='.$row['arrivalS'].'></div></td><td><div class="form-group"><label class="control-label">Distance <br> दुरी</label><input type="text" class="form-control" name="distance'.$sr1.'" id="distance'.$sr1.'"  onkeyup='.$validation.' val='.$sr1.' value='.$row['distance'].' ></div></td><td><div class="form-group"><label class="control-label">Percentage <br> प्रतिशत</label><input type="text" class="form-control changeper" name="per'.$sr1.'" id="per'.$sr1.'" placeholder="Percentage" readonly onkeyup='.$validation.' val='.$sr1.' value='.$row['percent'].'></div></td><td><div class="form-group"><label class="control-label">Amount <br> राशि</label><input type="text" class="form-control" name="amt'.$sr1.'" id="amt'.$sr1.'" placeholder="Amount" readonly onkeyup='.$validation.' val='.$sr1.' value='.$row['amount'].'></div></td></tr>';
-            
-            $sr1=$sr1+1;
-            $data['objective']=$row['objective'];
-            $data['cardpass']=$row['cardpass'];
-        }
-        $data['sr1']=$sr1;
-        $data['ta_data']=$ta_details;
-        $data['j_type']=$j_type_data;
-        $data['j_pur']=$j_pur_data;
-        // echo json_encode(urlencode($data));
-        // echo json_encode($data,JSON_UNESCAPED_UNICODE);
-        echo json_encode($data);
+      array_push($j_pur_data, $row['journey_purpose']);
+
+      $query2 = "SELECT * FROM `journey_purpose_master`";
+      $sql2 = mysqli_query($conn, $query2);
+      while ($row2 = mysqli_fetch_array($sql2)) {
+        $ta_details .= '<option value=' . $row2['id'] . ' >' . $row2['journey_purpose'] . '  </option>';
+      }
+      $ta_details .= '</select></div></div></td><td style="width: 8%"><div class="form-group"><label class="control-label">Depart Time <br> प्रस्थान समय</label><input type="text" name="dtime' . $sr1 . '" val=' . $sr1 . ' id="dtime' . $sr1 . '" class="form-control changedtime timevalue dtime_validation"  value=' . $row['departT'] . ' placeholder="hh:mm"></div></td><td style="width: 8%"><div class="form-group"><label class="control-label">Arri. Time <br> आगमन समय </label><input type="text" class="form-control ta_calculation changedtime time_val timevalue time_validation" name="atime' . $sr1 . '" val=' . $sr1 . ' id="atime' . $sr1 . '" value=' . $row['arrivalT'] . ' placeholder="hh:mm"></div></td><td style="width: 12%"><div class="form-group"><label class="control-label">Depart Station <br> प्रस्थान स्टेशन</label><input type="text" list="dstation' . $sr1 . '" style="text-transform:uppercase" name="dstn' . $sr1 . '" id="dstn' . $sr1 . '" placeholder="select Station" val=' . $sr1 . ' class="departClass form-control" value=' . $row['departS'] . '></div></td><td style="width: 12%"><div class="form-group"><label class="control-label">Arri. Station <br> आगमन स्टेशन</label><input type="text" list="astation' . $sr1 . '" style="text-transform:uppercase" name="astn' . $sr1 . '" id="astn' . $sr1 . '" placeholder="select Station" val=' . $sr1 . ' class="form-control arrivalstn" value=' . $row['arrivalS'] . '></div></td><td><div class="form-group"><label class="control-label">Distance <br> दुरी</label><input type="text" class="form-control" name="distance' . $sr1 . '" id="distance' . $sr1 . '"  onkeyup=' . $validation . ' val=' . $sr1 . ' value=' . $row['distance'] . ' ></div></td><td><div class="form-group"><label class="control-label">Percentage <br> प्रतिशत</label><input type="text" class="form-control changeper" name="per' . $sr1 . '" id="per' . $sr1 . '" placeholder="Percentage" readonly onkeyup=' . $validation . ' val=' . $sr1 . ' value=' . $row['percent'] . '></div></td><td><div class="form-group"><label class="control-label">Amount <br> राशि</label><input type="text" class="form-control" name="amt' . $sr1 . '" id="amt' . $sr1 . '" placeholder="Amount" readonly onkeyup=' . $validation . ' val=' . $sr1 . ' value=' . $row['amount'] . '></div></td></tr>';
+
+      $sr1 = $sr1 + 1;
+      $data['objective'] = $row['objective'];
+      $data['cardpass'] = $row['cardpass'];
+    }
+    $data['sr1'] = $sr1;
+    $data['ta_data'] = $ta_details;
+    $data['j_type'] = $j_type_data;
+    $data['j_pur'] = $j_pur_data;
+    // echo json_encode(urlencode($data));
+    // echo json_encode($data,JSON_UNESCAPED_UNICODE);
+    echo json_encode($data);
     break;
 
 
-    case 'getContData':
-        $reference = $_POST['ref_no'];
-        $data=array();
-        $query1="SELECT * FROM `continjency` WHERE reference='".$reference."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-        $sql1=mysql_query($query1);
-        echo mysql_error();
-        // $total_rows=mysql_num_rows($sql1);
-        $cnt=1;
-        $cont_details='';
-        $T_amount=0;
-        $validation='this.value=this.value.replace(/[^\d]/,"")';
-        $sr1=0;
-        while ($row = mysql_fetch_array($sql1)) 
-        {   
-            $cont_details.='<tr class="odd gradeX">
+  case 'getContData':
+    $reference = $_POST['ref_no'];
+    $data = array();
+    $query1 = "SELECT * FROM `continjency` WHERE reference='" . $reference . "' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
+    $sql1 = mysqli_query($conn, $query1);
+    echo mysqli_error($conn);
+    // $total_rows=mysql_num_rows($sql1);
+    $cnt = 1;
+    $cont_details = '';
+    $T_amount = 0;
+    $validation = 'this.value=this.value.replace(/[^\d]/,"")';
+    $sr1 = 0;
+    while ($row = mysqli_fetch_array($sql1)) {
+      $cont_details .= '<tr class="odd gradeX">
                     <td style="width: 16.66%">
                         <div class="form-group">   
                             <label class="control-label">Date <br> दिनांक </label>
                             <div class="billunitzindex">
-                                <input type="text" class=" form-control datepicker datecheck" val='.$sr1.' id="date'.$sr1.'" name="date'.$sr1.'" placeholder="From Place" value='.$row['cntdate'].'>
+                                <input type="text" class=" form-control datepicker datecheck" val=' . $sr1 . ' id="date' . $sr1 . '" name="date' . $sr1 . '" placeholder="From Place" value=' . $row['cntdate'] . '>
                             </div>
                         </div>
                     </td>      
                     <td style="width: 16.66%"><div class="form-group">
                             <label class="control-label">From <br> से</label>
-                            <input type="text" list="dstation'.$sr1.'" style="text-transform:uppercase" name="dstn'.$sr1.'" id="dstn'.$sr1.'" placeholder="From Place" val='.$sr1.' class="departClass form-control" value='.$row['cntfrom'].'>
+                            <input type="text" list="dstation' . $sr1 . '" style="text-transform:uppercase" name="dstn' . $sr1 . '" id="dstn' . $sr1 . '" placeholder="From Place" val=' . $sr1 . ' class="departClass form-control" value=' . $row['cntfrom'] . '>
                         </div>
                     </td>
                     <td style="width: 16.66%"><div class="form-group">
                             <label class="control-label">To <br> तक</label>
-                            <input type="text" list="astation'.$sr1.'" style="text-transform:uppercase" name="astn'.$sr1.'" id="astn'.$sr1.'" placeholder="To Place" val='.$sr1.' class="form-control arrivalstn" value='.$row['cntTo'].'>
+                            <input type="text" list="astation' . $sr1 . '" style="text-transform:uppercase" name="astn' . $sr1 . '" id="astn' . $sr1 . '" placeholder="To Place" val=' . $sr1 . ' class="form-control arrivalstn" value=' . $row['cntTo'] . '>
                         </div>
                     </td>
                     <td style="width: 16.66%"><div class="form-group">
                             <label class="control-label">K.M. <br> कि.मी.</label>
-                            <input type="text" class="form-control kms"  name="distance'.$sr1.'" id="distance'.$sr1.'" placeholder="Enter K.M." maxlength="3" onkeyup='.$validation.'  value='.$row['kms'].' val='.$sr1.'>
+                            <input type="text" class="form-control kms"  name="distance' . $sr1 . '" id="distance' . $sr1 . '" placeholder="Enter K.M." maxlength="3" onkeyup=' . $validation . '  value=' . $row['kms'] . ' val=' . $sr1 . '>
                         </div>
                     </td>
                     <td style="width: 16.66%"><div class="form-group">
                             <label class="control-label">Rate/K.M <br> प्रति कि.मी.</label>
-                            <input type="text" class="form-control rate"  name="per'.$sr1.'" id="per'.$sr1.'" placeholder="Percentage" maxlength="2"  value ='.$row['rate_per_km'].' onkeyup='.$validation.' val='.$sr1.'>
+                            <input type="text" class="form-control rate"  name="per' . $sr1 . '" id="per' . $sr1 . '" placeholder="Percentage" maxlength="2"  value =' . $row['rate_per_km'] . ' onkeyup=' . $validation . ' val=' . $sr1 . '>
                         </div>
                     </td>
                     <td style="width: 16.66%">  
                         <div class="form-group">
                             <label class="control-label">Amount <br> राशि</label>
-                            <input type="text" class="form-control" name="amt'.$sr1.'" id="amt'.$sr1.'" placeholder="Amount"  readonly val='.$sr1.' value='.$row['total_amount'].'>
+                            <input type="text" class="form-control" name="amt' . $sr1 . '" id="amt' . $sr1 . '" placeholder="Amount"  readonly val=' . $sr1 . ' value=' . $row['total_amount'] . '>
                         </div>
                     </td>
                     </tr>';
-            
-            $sr1=$sr1+1;
-            $data['objective']=$row['objective'];
-        }
-        $data['sr1']=$sr1;
-        $data['cont_data']=$cont_details;
-        echo json_encode($data);
-  break;
+
+      $sr1 = $sr1 + 1;
+      $data['objective'] = $row['objective'];
+    }
+    $data['sr1'] = $sr1;
+    $data['cont_data'] = $cont_details;
+    echo json_encode($data);
+    break;
 
 
   case 'fwESTCLERK':
-     $date=date("Y-m-d h:i:s");
-      $sumid=$_POST['sumid'];     
-       $u_query=mysql_query("UPDATE master_summary SET pa_status='1',PA_approved_time='".$date."' where summary_id='".$sumid."' ");
-       echo mysql_error();       
-       
-       if($u_query)
-       {
-            $empid=$empid_session;
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='ADFM approve the TA '. $sumid.' summary';
-            user_activity($empid,$file_name,'Approve Summary',$msg);
-          echo "<script>alert('successfully forwarded to accountant..');window.location='../approve_list.php';</script>";
-       } 
-       else
-       {
-           $empid=$empid_session;
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='ADFM unable to approve the TA '. $sumid.' summary';
-            user_activity($empid,$file_name,'Approve Summary',$msg);
-          echo "<script>alert('Failed to Forward...');window.location='../summary_report.php';</script>";
-       }
+    $date = date("Y-m-d h:i:s");
+    $sumid = $_POST['sumid'];
+    $u_query = mysqli_query($conn, "UPDATE master_summary SET pa_status='1',PA_approved_time='" . $date . "' where summary_id='" . $sumid . "' ");
+    echo mysqli_error($conn);
 
-      break;
+    if ($u_query) {
+      $empid = $empid_session;
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM approve the TA ' . $sumid . ' summary';
+      user_activity($empid, $file_name, 'Approve Summary', $msg);
+      echo "<script>alert('successfully forwarded to accountant..');window.location='../approve_list.php';</script>";
+    } else {
+      $empid = $empid_session;
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM unable to approve the TA ' . $sumid . ' summary';
+      user_activity($empid, $file_name, 'Approve Summary', $msg);
+      echo "<script>alert('Failed to Forward...');window.location='../summary_report.php';</script>";
+    }
+
+    break;
 
 
   case 'fwESTCLERK_cont':
-     $date=date("Y-m-d h:i:s");
-      $sumid=$_POST['sumid'];     
-       $u_query=mysql_query("UPDATE master_summary_cont SET pa_status='1',PA_approved_time='".$date."' where summary_id='".$sumid."' ");
-       echo mysql_error();       
-       
-       if($u_query)
-       {
-            $empid=$empid_session;
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='ADFM approve the Contingency '. $sumid.' summary';
-            user_activity($empid,$file_name,'Approve Cont Summary',$msg);
-          echo "<script>alert('successfully forwarded to accountant..');window.location='../approve_list_cont.php';</script>";
-       } 
-       else
-       {
-           $empid=$empid_session;
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='ADFM unable to approve the Contingency '. $sumid.' summary';
-            user_activity($empid,$file_name,'Approve Cont Summary',$msg);
-          echo "<script>alert('Failed to Forward...');window.location='../approved_summary_cont.php';</script>";
-       }
+    $date = date("Y-m-d h:i:s");
+    $sumid = $_POST['sumid'];
+    $u_query = mysqli_query($conn, "UPDATE master_summary_cont SET pa_status='1',PA_approved_time='" . $date . "' where summary_id='" . $sumid . "' ");
+    echo mysqli_error($conn);
 
-      break;
+    if ($u_query) {
+      $empid = $empid_session;
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM approve the Contingency ' . $sumid . ' summary';
+      user_activity($empid, $file_name, 'Approve Cont Summary', $msg);
+      echo "<script>alert('successfully forwarded to accountant..');window.location='../approve_list_cont.php';</script>";
+    } else {
+      $empid = $empid_session;
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM unable to approve the Contingency ' . $sumid . ' summary';
+      user_activity($empid, $file_name, 'Approve Cont Summary', $msg);
+      echo "<script>alert('Failed to Forward...');window.location='../approved_summary_cont.php';</script>";
+    }
+
+    break;
 
   case 'forward_con':
     $flag = 1;
@@ -211,10 +199,10 @@ switch ($_REQUEST['action'])
 
     $date = date('Y-m-d H:i:s');
 
-    $query = mysql_query("update forward_data set depart_time='" . $date . "',hold_status='0' where reference_id='" . $ref . "' AND fowarded_to='" . $empid_session . "'");
+    $query = mysqli_query($conn, "update forward_data set depart_time='" . $date . "',hold_status='0' where reference_id='" . $ref . "' AND fowarded_to='" . $empid_session . "'");
 
     $query1 = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('" . $empid . "','" . $ref . "','" . $forwardName . "','" . $date . "','1')";
-    $result = mysql_query($query1);
+    $result = mysqli_query($conn, $query1);
 
     if ($query && $result) {
       $flag = 1;
@@ -232,95 +220,91 @@ switch ($_REQUEST['action'])
     $pmempid = $_POST['pmempid'];
     $ref_no = $_POST['ref_no'];
     $reason = $_POST['reason'];
-    $role=$_SESSION['role'];
-    $off_name=get_employee($ciempid);
-    $off_role=getrole($role);
-    
-    $query_select1 = mysql_query("SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='".$pmempid."' AND taentry_master.reference_no='".$ref_no."' ");
-    $result1 = mysql_fetch_array($query_select1);
+    $role = $_SESSION['role'];
+    $off_name = get_employee($ciempid);
+    $off_role = getrole($role);
 
-    $month_array=array("01"=>"Jan","02"=>"Feb","03"=>"March","04"=>"April","05"=>"May","06"=>"June","07"=>"July","08"=>"Aug","09"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
+    $query_select1 = mysqli_query($conn, "SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='" . $pmempid . "' AND taentry_master.reference_no='" . $ref_no . "' ");
+    $result1 = mysqli_fetch_array($query_select1);
 
-    $s=$result1['TAMonth'];
-    $y=$result1['TAYear'];
-    $amt=$result1['amount'];
-    
-    if($month_array[$s])
-    {
-       $mon=$month_array[$s];
+    $month_array = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
+
+    $s = $result1['TAMonth'];
+    $y = $result1['TAYear'];
+    $amt = $result1['amount'];
+
+    if ($month_array[$s]) {
+      $mon = $month_array[$s];
     }
-        
-    $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='".$pmempid."'");
-    $result_set = mysql_fetch_array($query2);
+
+    $query2 = mysqli_query($conn, "SELECT mobile FROM employees WHERE pfno='" . $pmempid . "'");
+    $result_set = mysqli_fetch_array($query2);
     //Your authentication key
     $authKey = "70302AbSftnyOwtvs53d8e401";
-    
+
     //Multiple mobiles numbers separated by comma
     $mobileNumber = $result_set['mobile'];
-    
+
     //Sender ID,While using route4 sender id should be 6 characters long.
     $senderId = "FINSUR";
-    
+
     //Your message to send, Add URL encoding here.
     $msg = "Your TA for the month of $mon - $y with $ref_no reference number has been rejected by $off_name($off_role).";
     // $msg = "Your TA claim with $ref reference number has been submitted successfully.";
     $message = urlencode("$msg");
-    
+
     //Define route 
     $route = 4;
     //Prepare you post parameters
     $postData = array(
-    'authkey' => $authKey,
-    'mobiles' => $mobileNumber,
-    'message' => $message,
-    'sender' => $senderId,
-    'route' => $route
+      'authkey' => $authKey,
+      'mobiles' => $mobileNumber,
+      'message' => $message,
+      'sender' => $senderId,
+      'route' => $route
     );
-    
+
     //API URL
-    $url="http://smsindia.techmartonline.com/sendhttp.php";
-    
+    $url = "http://smsindia.techmartonline.com/sendhttp.php";
+
     //init the resource
     $ch = curl_init();
     curl_setopt_array($ch, array(
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_POSTFIELDS => $postData
-    //,CURLOPT_FOLLOWLOCATION => true
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_POST => true,
+      CURLOPT_POSTFIELDS => $postData
+      //,CURLOPT_FOLLOWLOCATION => true
     ));
-    
-    
+
+
     //Ignore SSL certificate verification
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    
-    
+
+
     //get response
     $output = curl_exec($ch);
-    
+
     //Print error if any
-    if(curl_errno($ch))
-    {
+    if (curl_errno($ch)) {
       echo 'error:' . curl_error($ch);
-    }
-    else
-    {
-        $update_tamaster = "UPDATE taentry_master set is_rejected=1,rejected_by='" . $ciempid . "," . $role . "',reason='" . $reason . "' where empid='" . $pmempid . "' AND reference_no='" . $ref_no . "'";
-        $result = mysql_query($update_tamaster);
-        if (mysql_affected_rows() >= 0) {
-          $drop = "DELETE from forward_data where empid='" . $pmempid . "' AND reference_id='" . $ref_no . "' ";
-          $result1 = mysql_query($drop);
-          $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='ADFM reject '.$pmempid.' Acct employee TA';
-            user_activity($ciempid,$file_name,'Reject TA',$msg);
-          echo "<script>alert('Claim rejected successfully..'); window.location='../co_Show_claimed_TA.php';</script>";
-        } else {
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='ADFM unable to reject '.$pmempid.' Acct employee TA';
-            user_activity($ciempid,$file_name,'Reject TA',$msg);
-          echo "<script>alert('Something Wrong'); window.location='../co_Show_claimed_TA.php';</script>";
-        }
+    } else {
+      $update_tamaster = "UPDATE taentry_master set is_rejected=1,rejected_by='" . $ciempid . "," . $role . "',reason='" . $reason . "' where empid='" . $pmempid . "' AND reference_no='" . $ref_no . "'";
+      $result = mysqli_query($conn, $update_tamaster);
+      if (mysqli_affected_rows($conn) >= 0) {
+        $drop = "DELETE from forward_data where empid='" . $pmempid . "' AND reference_id='" . $ref_no . "' ";
+        $result1 = mysqli_query($conn, $drop);
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        $msg = 'ADFM reject ' . $pmempid . ' Acct employee TA';
+        user_activity($ciempid, $file_name, 'Reject TA', $msg);
+        echo "<script>alert('Claim rejected successfully..'); window.location='../co_Show_claimed_TA.php';</script>";
+      } else {
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        $msg = 'ADFM unable to reject ' . $pmempid . ' Acct employee TA';
+        user_activity($ciempid, $file_name, 'Reject TA', $msg);
+        echo "<script>alert('Something Wrong'); window.location='../co_Show_claimed_TA.php';</script>";
+      }
     }
     break;
 
@@ -330,20 +314,19 @@ switch ($_REQUEST['action'])
     $reason = $_POST['reason'];
 
     $update_tamaster = "UPDATE continjency_master set is_rejected=1,rejected_by='" . $ciempid . "," . $_POST['role'] . "',reason='" . $reason . "' where reference='" . $ref_no . "'";
-    $result = mysql_query($update_tamaster);
+    $result = mysqli_query($conn, $update_tamaster);
 
-    if (mysql_affected_rows() >= 0) 
-    {
+    if (mysqli_affected_rows($conn) >= 0) {
       $drop = "DELETE from forward_data where reference_id='" . $ref_no . "' ";
-      $result1 = mysql_query($drop);
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='ADFM reject Acct employee contingency ref_no '.$ref_no;
-        user_activity($ciempid,$file_name,'Reject contingency',$msg);
+      $result1 = mysqli_query($conn, $drop);
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM reject Acct employee contingency ref_no ' . $ref_no;
+      user_activity($ciempid, $file_name, 'Reject contingency', $msg);
       echo "<script>alert('Contingency rejected successfully..'); window.location='../cont_summary_report_details.php';</script>";
     } else {
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='ADFM unable to reject Acct employee contingency ref_no '.$ref_no;
-        user_activity($ciempid,$file_name,'Reject contingency',$msg);
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM unable to reject Acct employee contingency ref_no ' . $ref_no;
+      user_activity($ciempid, $file_name, 'Reject contingency', $msg);
       echo "<script>alert('Something Wrong'); window.location='../cont_summary_report_details.php';</script>";
     }
     break;
@@ -353,7 +336,7 @@ switch ($_REQUEST['action'])
     $id = $_REQUEST['id'];
     $date = date('d/m/Y h:i:s');
     $data = "0";
-    $sql = mysql_query("UPDATE `grievance` SET `status`='1',`updated_date`='" . $date . "' WHERE id='" . $id . "' ");
+    $sql = mysqli_query($conn, "UPDATE `grievance` SET `status`='1',`updated_date`='" . $date . "' WHERE id='" . $id . "' ");
     if ($sql) {
       $data = "1";
     } else {
@@ -399,8 +382,8 @@ switch ($_REQUEST['action'])
 
   case 'fetchStationDesc':
     $stcode = $_REQUEST['stationcode'];
-    $sql = mysql_query("SELECT `stationdesc` FROM `station` WHERE stationcode='" . $stcode . "' ");
-    $row = mysql_fetch_array($sql);
+    $sql = mysqli_query($conn, "SELECT `stationdesc` FROM `station` WHERE stationcode='" . $stcode . "' ");
+    $row = mysqli_fetch_array($sql);
     echo $row['stationdesc'];
     break;
 
@@ -454,7 +437,7 @@ switch ($_REQUEST['action'])
     $stationcode = $_REQUEST['stationcode'];
     $depotname = $_REQUEST['depotname'];
     $status = 1;
-    $sql = mysql_query("INSERT INTO `depot_master`(`stationcode`, `depot`, `dept_id`, `status`) VALUES ('" . $stationcode .
+    $sql = mysqli_query($conn, "INSERT INTO `depot_master`(`stationcode`, `depot`, `dept_id`, `status`) VALUES ('" . $stationcode .
       "','" . $depotname . "','" . $deptid . "'," . $status . ") ");
     if ($sql)
       echo "<script>alert('Depot Added successfully');window.location='../add_depot.php';</script>";
@@ -484,11 +467,11 @@ switch ($_REQUEST['action'])
     $c_otp = $_REQUEST['c_otp'];
 
 
-    $query_select = mysql_query("select otp from tbl_otp where empid='" . $empid . "' order by id DESC limit 1");
-    $result = mysql_fetch_array($query_select);
+    $query_select = mysqli_query($conn, "select otp from tbl_otp where empid='" . $empid . "' order by id DESC limit 1");
+    $result = mysqli_fetch_array($query_select);
 
-    $query_select1 = mysql_query("SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='" . $empid . "' AND taentry_master.reference_no='" . $ref . "' ");
-    $result1 = mysql_fetch_array($query_select1);
+    $query_select1 = mysqli_query($conn, "SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='" . $empid . "' AND taentry_master.reference_no='" . $ref . "' ");
+    $result1 = mysqli_fetch_array($query_select1);
 
     $month_array = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
 
@@ -504,14 +487,14 @@ switch ($_REQUEST['action'])
     $result['otp'];
     if ($result['otp'] == $c_otp) {
       $query1 = "UPDATE `taentry_master` SET `forward_status`='1' WHERE `empid`='" . $empid . "' AND `reference_no`='" . $ref . "' ";
-      $result1 = mysql_query($query1);
+      $result1 = mysqli_query($conn, $query1);
 
       if ($c_otp) {
         $date = date('Y-m-d H:i:s');
         $query = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('" . $empid . "','" . $ref . "','" . $forwardName . "','" . $date . "','1')";
-        $result = mysql_query($query);
-        $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='" . $empid . "'");
-        $result_set = mysql_fetch_array($query2);
+        $result = mysqli_query($conn, $query);
+        $query2 = mysqli_query($conn, "SELECT mobile FROM employees WHERE pfno='" . $empid . "'");
+        $result_set = mysqli_fetch_array($query2);
         //Your authentication key
         $authKey = "70302AbSftnyOwtvs53d8e401";
 
@@ -566,48 +549,45 @@ switch ($_REQUEST['action'])
 
         curl_close($ch);
         $flag = '1';
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='ADFM forwarded TA to '. $forwardName.' SOA success';
-        user_activity($empid,$file_name,'Forward TA',$msg);
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        $msg = 'ADFM forwarded TA to ' . $forwardName . ' SOA success';
+        user_activity($empid, $file_name, 'Forward TA', $msg);
       } else {
         $flag = '0';
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='ADFM unable to forward TA to '. $forwardName.' SOA success';
-        user_activity($empid,$file_name,'Forward TA',$msg);
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        $msg = 'ADFM unable to forward TA to ' . $forwardName . ' SOA success';
+        user_activity($empid, $file_name, 'Forward TA', $msg);
       }
     } else {
       $flag = '-1';
-      $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='ADFM unable to forward TA Bcz OTP not matched';
-        user_activity($empid,$file_name,'Forward TA',$msg);
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM unable to forward TA Bcz OTP not matched';
+      user_activity($empid, $file_name, 'Forward TA', $msg);
     }
     echo $flag;
 
     break;
-    
-    case 'deletecont':
 
-    $cont_mas_query="DELETE * from continjency_master where reference ='".$_POST['ref_no']."' AND set_number= '".$_POST['set_no']."' ";
-    $result1=mysql_query($cont_mas_query);
+  case 'deletecont':
 
-    $cont_query="DELETE * from continjency where reference ='".$_POST['ref_no']."' AND set_number= '".$_POST['set_no']."' ";
-    $result2=mysql_query($cont_query);
+    $cont_mas_query = "DELETE * from continjency_master where reference ='" . $_POST['ref_no'] . "' AND set_number= '" . $_POST['set_no'] . "' ";
+    $result1 = mysqli_query($conn, $cont_mas_query);
 
-    if($result1 && $result2)
-    {
-        $empid=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        user_activity($empid,$file_name,'Delete Contingency','ADFM delete the Contingency');
+    $cont_query = "DELETE * from continjency where reference ='" . $_POST['ref_no'] . "' AND set_number= '" . $_POST['set_no'] . "' ";
+    $result2 = mysqli_query($conn, $cont_query);
+
+    if ($result1 && $result2) {
+      $empid = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Delete Contingency', 'ADFM delete the Contingency');
       echo "<script>alert('Contingency deleted successfully'); window.location='../show_saved_cont.php';</script>";
-    }
-    else
-    {
-        $empid=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        user_activity($empid,$file_name,'Delete Contingency','ADFM unable to delete the Contingency');
+    } else {
+      $empid = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Delete Contingency', 'ADFM unable to delete the Contingency');
       echo "<script>alert('Something went wrong');window.location='../show_saved_cont.php';</script>";
     }
-  break;
+    break;
 
   case 'forward_TA':
     $empid = $_REQUEST['empid'];
@@ -635,136 +615,122 @@ switch ($_REQUEST['action'])
     break;
 
   case 'deleteclaim':
-        $reference = $_POST['ref_no'];
-        $set_no = $_POST['set_no'];
-    
-        $sql=mysql_query("SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$reference."' ");
-        $total_rows=mysql_num_rows($sql);
-        // echo $total_rows;
-    
-        if($total_rows > 1)
-        {
-            // echo "<br>"."SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ";
-            $sql1=mysql_query("SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ");
-            $amt=0;$Tp_cnt=0;$Sp_cnt=0;$Hp_cnt=0;$Otp_cnt=0;$Tp_amt=0;$Sp_amt=0;$Hp_amt=0;$Otp_amt=0;
-            while($result1=mysql_fetch_array($sql1))
-            {
-              if($result1['percent'] == "30%" )
-              {
-                $Tp_cnt=$Tp_cnt+1;
-                $Tp_amt=$Tp_amt+$result1['amount'];
-              }
-              else if($result1['percent'] == "70%")
-              {
-                $Sp_cnt=$Sp_cnt+1;
-                $Sp_amt=$Sp_amt+$result1['amount'];
-              }
-              else if($result1['percent'] == "100%")
-              {
-                $Hp_cnt=$Hp_cnt+1;
-                $Hp_amt=$Hp_amt+$result1['amount'];
-              }
-              else
-              {
-                $Otp_cnt=$Otp_cnt+1;
-                $Otp_amt=$Otp_amt+$result1['amount'];
-              }
-            }
-           
-    
-            $sql2=mysql_query("SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' ");
-            $result2=mysql_fetch_array($sql2);
-           
-            $total_30p_cnt=$result2['30p_cnt']-$Tp_cnt;
-            $total_30p_amt=$result2['30p_amt']-$Tp_amt;
-            $total_70p_cnt=$result2['70p_cnt']-$Sp_cnt;
-            $total_70p_amt=$result2['70p_amt']-$Sp_amt;
-            $total_100p_cnt=$result2['100p_cnt']-$Hp_cnt;
-            $total_100p_amt=$result2['100p_amt']-$Hp_amt;
-            $total_otherp_cnt=$result2['otherp_cnt']-$Otp_cnt;
-            $total_otherp_amt=$result2['otherp_amt']-$Otp_amt;
-    
-            $sql3=mysql_query("DELETE FROM taentrydetails WHERE reference_no = '".$reference."' AND set_number = '".$set_no."' ");
-    
-            if(mysql_affected_rows() >= 0)
-            {
-                $query4="UPDATE `tasummarydetails` SET `30p_cnt`='".$total_30p_cnt."',`30p_amt`='".$total_30p_amt."',`70p_cnt`='".$total_70p_cnt."',`70p_amt`='".$total_70p_amt."',`100p_cnt`='".$total_100p_cnt."',`100p_amt`='".$total_100p_amt."',`otherp_cnt`='".$total_otherp_cnt."',`otherp_amt`='".$total_otherp_amt."' WHERE `reference_no`='".$reference."'  ";
-                $result4=mysql_query($query4);
-                $empid=$_SESSION['empid'];
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                user_activity($empid,$file_name,'Delete TA','ADFM delete the single TA');
-               echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
-            }
-            else
-            {
-                $empid=$_SESSION['empid'];
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                user_activity($empid,$file_name,'Delete TA','ADFM unable to delete the single TA');
-               echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
-            }
-    
+    $reference = $_POST['ref_no'];
+    $set_no = $_POST['set_no'];
+
+    $sql = mysqli_query($conn, "SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='" . $reference . "' ");
+    $total_rows = mysqli_num_rows($sql);
+    // echo $total_rows;
+
+    if ($total_rows > 1) {
+      // echo "<br>"."SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ";
+      $sql1 = mysqli_query($conn, "SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='" . $reference . "' AND `set_number`='" . $set_no . "' ");
+      $amt = 0;
+      $Tp_cnt = 0;
+      $Sp_cnt = 0;
+      $Hp_cnt = 0;
+      $Otp_cnt = 0;
+      $Tp_amt = 0;
+      $Sp_amt = 0;
+      $Hp_amt = 0;
+      $Otp_amt = 0;
+      while ($result1 = mysqli_fetch_array($sql1)) {
+        if ($result1['percent'] == "30%") {
+          $Tp_cnt = $Tp_cnt + 1;
+          $Tp_amt = $Tp_amt + $result1['amount'];
+        } else if ($result1['percent'] == "70%") {
+          $Sp_cnt = $Sp_cnt + 1;
+          $Sp_amt = $Sp_amt + $result1['amount'];
+        } else if ($result1['percent'] == "100%") {
+          $Hp_cnt = $Hp_cnt + 1;
+          $Hp_amt = $Hp_amt + $result1['amount'];
+        } else {
+          $Otp_cnt = $Otp_cnt + 1;
+          $Otp_amt = $Otp_amt + $result1['amount'];
         }
-        else
-        {
-          // echo "HI";
-            $query_delete = "DELETE from taentry_master where reference_no='".$reference."' ";
-    
-            $result = mysql_query($query_delete);
-            if(mysql_affected_rows() >= 0)
-            {
-              $taentry_sql = "DELETE FROM taentrydetails WHERE reference_no = '".$reference."' ";
-              $res = mysql_query($taentry_sql);
-              $tasummary_sql = "DELETE FROM tasummarydetails WHERE reference_no = '".$reference."' ";
-              $res1 = mysql_query($tasummary_sql);
-              $empid=$_SESSION['empid'];
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                user_activity($empid,$file_name,'Delete TA','ADFM delete the overall TA');
-               echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
-            }
-            else
-            {
-                $empid=$_SESSION['empid'];
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                user_activity($empid,$file_name,'Delete TA','ADFM unable to delete the overall TA');
-              echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
-            }
-    
-        }
-  break;
-  
-    case 'delcont':
-        $reference = $_POST['ref_no'];
-        $set_no1 = $_POST['set_no1'];
-        
-        $query_delcont = "DELETE from add_cont where reference_no='$reference' AND set_no='".$set_no1."' ";
-    
-        $result = mysql_query($query_delcont);
-        if(mysql_affected_rows() >= 0)
-        {
-          $query_mastcont = "DELETE FROM master_cont WHERE reference_no = '".$reference."' AND set_no='".$set_no1."' ";
-          $res = mysql_query($query_mastcont);
-          $empid=$_SESSION['empid'];
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            user_activity($empid,$file_name,'Delete Contingency','ADFM delete the Contingency with TA');
-          echo "<script>alert('Contigency deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
-        }
-        else
-        {
-            $empid=$_SESSION['empid'];
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            user_activity($empid,$file_name,'Delete Contingency','ADFM unable to delete the Contingency with TA');
-          echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
-        }
+      }
+
+
+      $sql2 = mysqli_query($conn, "SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='" . $reference . "' ");
+      $result2 = mysqli_fetch_array($sql2);
+
+      $total_30p_cnt = $result2['30p_cnt'] - $Tp_cnt;
+      $total_30p_amt = $result2['30p_amt'] - $Tp_amt;
+      $total_70p_cnt = $result2['70p_cnt'] - $Sp_cnt;
+      $total_70p_amt = $result2['70p_amt'] - $Sp_amt;
+      $total_100p_cnt = $result2['100p_cnt'] - $Hp_cnt;
+      $total_100p_amt = $result2['100p_amt'] - $Hp_amt;
+      $total_otherp_cnt = $result2['otherp_cnt'] - $Otp_cnt;
+      $total_otherp_amt = $result2['otherp_amt'] - $Otp_amt;
+
+      $sql3 = mysqli_query($conn, "DELETE FROM taentrydetails WHERE reference_no = '" . $reference . "' AND set_number = '" . $set_no . "' ");
+
+      if (mysqli_affected_rows($conn) >= 0) {
+        $query4 = "UPDATE `tasummarydetails` SET `30p_cnt`='" . $total_30p_cnt . "',`30p_amt`='" . $total_30p_amt . "',`70p_cnt`='" . $total_70p_cnt . "',`70p_amt`='" . $total_70p_amt . "',`100p_cnt`='" . $total_100p_cnt . "',`100p_amt`='" . $total_100p_amt . "',`otherp_cnt`='" . $total_otherp_cnt . "',`otherp_amt`='" . $total_otherp_amt . "' WHERE `reference_no`='" . $reference . "'  ";
+        $result4 = mysqli_query($conn, $query4);
+        $empid = $_SESSION['empid'];
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        user_activity($empid, $file_name, 'Delete TA', 'ADFM delete the single TA');
+        echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
+      } else {
+        $empid = $_SESSION['empid'];
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        user_activity($empid, $file_name, 'Delete TA', 'ADFM unable to delete the single TA');
+        echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
+      }
+    } else {
+      // echo "HI";
+      $query_delete = "DELETE from taentry_master where reference_no='" . $reference . "' ";
+
+      $result = mysqli_query($conn, $query_delete);
+      if (mysqli_affected_rows($conn) >= 0) {
+        $taentry_sql = "DELETE FROM taentrydetails WHERE reference_no = '" . $reference . "' ";
+        $res = mysqli_query($conn, $taentry_sql);
+        $tasummary_sql = "DELETE FROM tasummarydetails WHERE reference_no = '" . $reference . "' ";
+        $res1 = mysqli_query($conn, $tasummary_sql);
+        $empid = $_SESSION['empid'];
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        user_activity($empid, $file_name, 'Delete TA', 'ADFM delete the overall TA');
+        echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
+      } else {
+        $empid = $_SESSION['empid'];
+        $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+        user_activity($empid, $file_name, 'Delete TA', 'ADFM unable to delete the overall TA');
+        echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
+      }
+    }
+    break;
+
+  case 'delcont':
+    $reference = $_POST['ref_no'];
+    $set_no1 = $_POST['set_no1'];
+
+    $query_delcont = "DELETE from add_cont where reference_no='$reference' AND set_no='" . $set_no1 . "' ";
+
+    $result = mysqli_query($conn, $query_delcont);
+    if (mysqli_affected_rows($conn) >= 0) {
+      $query_mastcont = "DELETE FROM master_cont WHERE reference_no = '" . $reference . "' AND set_no='" . $set_no1 . "' ";
+      $res = mysqli_query($conn, $query_mastcont);
+      $empid = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Delete Contingency', 'ADFM delete the Contingency with TA');
+      echo "<script>alert('Contigency deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
+    } else {
+      $empid = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Delete Contingency', 'ADFM unable to delete the Contingency with TA');
+      echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
+    }
     break;
 
   case 'view_contingency':
     $data = '';
     $sql = "select * from continjency_master inner join continjency on continjency_master.id=continjency.cid where reference='" . $_REQUEST['ref'] . "' and continjency.set_number='" . $_REQUEST['set'] . "'";
-    $raw_data = mysql_query($sql);
-    echo mysql_error();
+    $raw_data = mysqli_query($conn, $sql);
+    echo mysqli_error($conn);
     if ($raw_data) {
       $cnt = 0;
-      while ($sql_res = mysql_fetch_assoc($raw_data)) {
+      while ($sql_res = mysqli_fetch_assoc($raw_data)) {
         $data .= "
                 <tr>
                   <td>" . $sql_res['cntdate'] . "</td>
@@ -840,11 +806,11 @@ switch ($_REQUEST['action'])
     $month = $_POST['month'];
 
     $query1 = "SELECT distinct(reference_no),forward_status FROM `taentry_master` WHERE TAMonth='" . $month . "' AND TAYear='" . $year . "' AND empid='" . $_POST['u_pfno'] . "' ";
-    $result = mysql_query($query1);
-    $rows = mysql_num_rows($result);
+    $result = mysqli_query($conn, $query1);
+    $rows = mysqli_num_rows($result);
     // echo $rows;
     // exit;
-    $val = mysql_fetch_array($result);
+    $val = mysqli_fetch_array($result);
     if ($rows == 0) {
       $data = 0;
     } else {
@@ -858,35 +824,28 @@ switch ($_REQUEST['action'])
     break;
 
 
-    case 'check_date1':
-        
-        $year=date('Y');
-        $data= '';
-        $month=$_POST['month'];
-        
-        $query1="SELECT distinct(reference),forward_status FROM `continjency_master` WHERE month='".$month."' AND year='".$year."' AND empid='".$_POST['u_pfno']."' ";
-        $result=mysql_query($query1);
-        $rows=mysql_num_rows($result);
-        // echo $rows;
-        // exit;
-        $val=mysql_fetch_array($result);
-        if($rows == 0)
-        {
-            $data=0;
-            
-        }
-        else
-        {
-            if($val['forward_status'] == 1)
-            {
-                $data= "claimed";
-            }
-            else
-            {
-                $data=$val['reference'];
-            }
-        }
-        echo $data;
+  case 'check_date1':
+
+    $year = date('Y');
+    $data = '';
+    $month = $_POST['month'];
+
+    $query1 = "SELECT distinct(reference),forward_status FROM `continjency_master` WHERE month='" . $month . "' AND year='" . $year . "' AND empid='" . $_POST['u_pfno'] . "' ";
+    $result = mysqli_query($conn, $query1);
+    $rows = mysqli_num_rows($result);
+    // echo $rows;
+    // exit;
+    $val = mysqli_fetch_array($result);
+    if ($rows == 0) {
+      $data = 0;
+    } else {
+      if ($val['forward_status'] == 1) {
+        $data = "claimed";
+      } else {
+        $data = $val['reference'];
+      }
+    }
+    echo $data;
 
     break;
 
@@ -902,9 +861,9 @@ switch ($_REQUEST['action'])
       $_SESSION['ref_no'] = $ref_no;
       $flag = 0;
       // echo  "select mobile from employees where pfno='".$empid."'";
-      $query = mysql_query("select mobile from employees where  pfno='" . $empid . "'");
-      $count = mysql_num_rows($query);
-      $result_set = mysql_fetch_array($query);
+      $query = mysqli_query($conn, "select mobile from employees where  pfno='" . $empid . "'");
+      $count = mysqli_num_rows($query);
+      $result_set = mysqli_fetch_array($query);
       if ($count > 0) {
         $otp = rand(999, 10000);
 
@@ -961,150 +920,139 @@ switch ($_REQUEST['action'])
           echo 'error:' . curl_error($ch);
         } else {
 
-          $query_insert = mysql_query("insert into tbl_otp(empid,otp,sent) values('" . $empid . "','$otp',CURRENT_TIMESTAMP)");
+          $query_insert = mysqli_query($conn, "insert into tbl_otp(empid,otp,sent) values('" . $empid . "','$otp',CURRENT_TIMESTAMP)");
           //echo "<script>alert('OTP has been sent on your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
           $flag = $result_set['mobile'];
-            $empid=$_SESSION['empid'];
-    		$file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            user_activity($empid,$file_name,'Forward TA','ADFM, Send the OTP to ADFM for Forwarding the TA');             
-
+          $empid = $_SESSION['empid'];
+          $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+          user_activity($empid, $file_name, 'Forward TA', 'ADFM, Send the OTP to ADFM for Forwarding the TA');
         }
         curl_close($ch);
       }
     } else {
       $flag = "0";
-       $empid=$_SESSION['empid'];
-		$file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        user_activity($empid,$file_name,'Forward TA','ADFM, unable to Send the OTP to ADFM Bcz Mobile number not found');  
+      $empid = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Forward TA', 'ADFM, unable to Send the OTP to ADFM Bcz Mobile number not found');
     }
     echo $flag;
 
     break;
 
 
-    case 'otp_forward_cont':
+  case 'otp_forward_cont':
 
-        $forwardName = $_POST['forwardName'];
-        $empid = $_POST['empid'];
-        $ref_no = $_POST['ref_no'];
+    $forwardName = $_POST['forwardName'];
+    $empid = $_POST['empid'];
+    $ref_no = $_POST['ref_no'];
 
-        if($forwardName != '')
-        {
-            $_SESSION['forwardName']=$forwardName;
-            $_SESSION['main_empid']=$empid;
-            $_SESSION['ref_no']=$ref_no;
-            $flag=0;
-            // echo  "select mobile from employees where empid='".$empid."' ";
-            $query = mysql_query("SELECT mobile from employees where pfno='".$empid."' ");
-            $count = mysql_num_rows($query);
-            echo mysql_error();
-            $result_set = mysql_fetch_array($query);
-            
-            if($count > 0)
-            {
-                $otp = rand(999,10000);
-              
-              // Code to Send sms starts here
-                          
-                //Your authentication key
-                $authKey = "70302AbSftnyOwtvs53d8e401";
-                
-                //Multiple mobiles numbers separated by comma
-                $mobileNumber = $result_set['mobile'];
-                
-                //Sender ID,While using route4 sender id should be 6 characters long.
-                $senderId = "FINSUR";
-                
-                //Your message to send, Add URL encoding here.
-                $msg = "$otp is the OTP for your Contigency CLAIM FORWARDING. NEVER SHARE YOUR OTP WITH ANYONE.";
-                $message = urlencode("$msg");
-                
-                //Define route 
-                $route = 4;
-                //Prepare you post parameters
-                $postData = array(
-                'authkey' => $authKey,
-                'mobiles' => $mobileNumber,
-                'message' => $message,
-                'sender' => $senderId,
-                'route' => $route
-                );
-                
-                //API URL
-                $url="http://smsindia.techmartonline.com/sendhttp.php";
-                
-                //init the resource
-                $ch = curl_init();
-                curl_setopt_array($ch, array(
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $postData
-                //,CURLOPT_FOLLOWLOCATION => true
-                ));
-                
-                
-                //Ignore SSL certificate verification
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-                
-                
-                //get response
-                $output = curl_exec($ch);
-                
-                //Print error if any
-                if(curl_errno($ch))
-                {
-                echo 'error:' . curl_error($ch);
-                }
-                else{
-                  
-                $query_insert = mysql_query("insert into tbl_otp(empid,otp,sent) values('".$_SESSION['empid']."','$otp',CURRENT_TIMESTAMP)");
-                  //echo "<script>alert('OTP has been sent on your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
-                  $flag=$result_set['mobile'];
-                }
-                curl_close($ch);
-              
-            }
+    if ($forwardName != '') {
+      $_SESSION['forwardName'] = $forwardName;
+      $_SESSION['main_empid'] = $empid;
+      $_SESSION['ref_no'] = $ref_no;
+      $flag = 0;
+      // echo  "select mobile from employees where empid='".$empid."' ";
+      $query = mysqli_query($conn, "SELECT mobile from employees where pfno='" . $empid . "' ");
+      $count = mysqli_num_rows($query);
+      echo mysqli_error($conn);
+      $result_set = mysqli_fetch_array($query);
+
+      if ($count > 0) {
+        $otp = rand(999, 10000);
+
+        // Code to Send sms starts here
+
+        //Your authentication key
+        $authKey = "70302AbSftnyOwtvs53d8e401";
+
+        //Multiple mobiles numbers separated by comma
+        $mobileNumber = $result_set['mobile'];
+
+        //Sender ID,While using route4 sender id should be 6 characters long.
+        $senderId = "FINSUR";
+
+        //Your message to send, Add URL encoding here.
+        $msg = "$otp is the OTP for your Contigency CLAIM FORWARDING. NEVER SHARE YOUR OTP WITH ANYONE.";
+        $message = urlencode("$msg");
+
+        //Define route 
+        $route = 4;
+        //Prepare you post parameters
+        $postData = array(
+          'authkey' => $authKey,
+          'mobiles' => $mobileNumber,
+          'message' => $message,
+          'sender' => $senderId,
+          'route' => $route
+        );
+
+        //API URL
+        $url = "http://smsindia.techmartonline.com/sendhttp.php";
+
+        //init the resource
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_POST => true,
+          CURLOPT_POSTFIELDS => $postData
+          //,CURLOPT_FOLLOWLOCATION => true
+        ));
+
+
+        //Ignore SSL certificate verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+
+        //get response
+        $output = curl_exec($ch);
+
+        //Print error if any
+        if (curl_errno($ch)) {
+          echo 'error:' . curl_error($ch);
+        } else {
+
+          $query_insert = mysqli_query($conn, "insert into tbl_otp(empid,otp,sent) values('" . $_SESSION['empid'] . "','$otp',CURRENT_TIMESTAMP)");
+          //echo "<script>alert('OTP has been sent on your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
+          $flag = $result_set['mobile'];
         }
-        else
-        {
-          $flag="0";
-        }
-        echo $flag;
+        curl_close($ch);
+      }
+    } else {
+      $flag = "0";
+    }
+    echo $flag;
 
     break;
 
 
-    case 'forward_Cont':
-            $empid = $_REQUEST['empid'];
-            $ref = $_REQUEST['ref_no'];
-            $forwardName = $_REQUEST['fdname'];
-            // $c_otp = $_REQUEST['c_otp'];
+  case 'forward_Cont':
+    $empid = $_REQUEST['empid'];
+    $ref = $_REQUEST['ref_no'];
+    $forwardName = $_REQUEST['fdname'];
+    // $c_otp = $_REQUEST['c_otp'];
 
-            $flag='0';
-            $query1 = "UPDATE `continjency_master` SET `forward_status`='1' WHERE `empid`='".$empid."' AND `reference`='".$ref."' ";
-            $result1 = mysql_query($query1);
+    $flag = '0';
+    $query1 = "UPDATE `continjency_master` SET `forward_status`='1' WHERE `empid`='" . $empid . "' AND `reference`='" . $ref . "' ";
+    $result1 = mysqli_query($conn, $query1);
 
-            $date=date('Y-m-d H:i:s');
-            $query = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('".$empid."','".$ref."','".$forwardName."','".$date."','1')";
-            $result = mysql_query($query);
-                    
-            if($result)
-            {   
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                $msg='ADFM forward contingency to '.$forwardName.' SOA';
-                user_activity($empid,$file_name,'Forward Contingency',$msg);
-                $flag='1';
-            }
-            else
-            {
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                $msg='ADFM unable to forward contingency to '.$forwardName.' SOA';
-                user_activity($empid,$file_name,'Forward Contingency',$msg);
-                $flag='0';
-            }
-            echo $flag;
+    $date = date('Y-m-d H:i:s');
+    $query = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('" . $empid . "','" . $ref . "','" . $forwardName . "','" . $date . "','1')";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM forward contingency to ' . $forwardName . ' SOA';
+      user_activity($empid, $file_name, 'Forward Contingency', $msg);
+      $flag = '1';
+    } else {
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'ADFM unable to forward contingency to ' . $forwardName . ' SOA';
+      user_activity($empid, $file_name, 'Forward Contingency', $msg);
+      $flag = '0';
+    }
+    echo $flag;
 
     break;
 
@@ -1219,50 +1167,47 @@ switch ($_REQUEST['action'])
         echo "<script>alert('Something went wrong');window.location='../employee_registration.php';</script>";
     }
     break;
-    
-    
-    case 'updateEmployee':
-        $empid = $_REQUEST['txtpfno'];
-         $billunit = $_REQUEST['billunit'];
-         $panno = $_REQUEST['panno'];
-         $fullname = $_REQUEST['txtuser'];
-         $design = $_REQUEST['designcode'];
-         $station = $_REQUEST['stationcode'];
-         $mobile = $_REQUEST['txtmobile'];
-         $email = $_REQUEST['email'];
-         $category = $_REQUEST['category'];
-         $dept = $_REQUEST['deptcode'];
-         $txtworkdepot = $_REQUEST['txtworkdepot'];
-         $txtbasicpay = $_REQUEST['txtbasicpay'];
-         $gradepay = $_REQUEST['txtgradepay'];
-         $txtdob = $_REQUEST['txtdob'];
-         $txtappointment = $_REQUEST['txtappointment'];
-         $level = $_REQUEST['level'];
-         // $forwardName = $_REQUEST['forwardName'];
-         $isupdated = '1';
 
-           $date1 = str_replace('/', '-', $txtdob );
-            $dob_date = date("Y-m-d", strtotime($date1));
-        
-          $date2 = str_replace('/', '-', $txtappointment );
-           $app_date = date("Y-m-d", strtotime($date2));
-          
-          if(updateEmployee($empid,$billunit,$panno,$fullname,$design,$station,$mobile,$email,$category,$dept,$txtworkdepot,$txtbasicpay,$gradepay,$dob_date,$app_date,$level))
-            {
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                user_activity($empid,$file_name,'Update Details','ADFM update the bio details');
-                echo "<script>alert('Employee Updated successfully');window.location='../update_emp.php';</script>";
-            }
-          else
-            {
-                $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-                user_activity($empid,$file_name,'Update Details','ADFM unable to update the bio details');
-                echo "<script>alert('Something went wrong');window.location='../update_emp.php';</script>";
-            }
+
+  case 'updateEmployee':
+    $empid = $_REQUEST['txtpfno'];
+    $billunit = $_REQUEST['billunit'];
+    $panno = $_REQUEST['panno'];
+    $fullname = $_REQUEST['txtuser'];
+    $design = $_REQUEST['designcode'];
+    $station = $_REQUEST['stationcode'];
+    $mobile = $_REQUEST['txtmobile'];
+    $email = $_REQUEST['email'];
+    $category = $_REQUEST['category'];
+    $dept = $_REQUEST['deptcode'];
+    $txtworkdepot = $_REQUEST['txtworkdepot'];
+    $txtbasicpay = $_REQUEST['txtbasicpay'];
+    $gradepay = $_REQUEST['txtgradepay'];
+    $txtdob = $_REQUEST['txtdob'];
+    $txtappointment = $_REQUEST['txtappointment'];
+    $level = $_REQUEST['level'];
+    // $forwardName = $_REQUEST['forwardName'];
+    $isupdated = '1';
+
+    $date1 = str_replace('/', '-', $txtdob);
+    $dob_date = date("Y-m-d", strtotime($date1));
+
+    $date2 = str_replace('/', '-', $txtappointment);
+    $app_date = date("Y-m-d", strtotime($date2));
+
+    if (updateEmployee($empid, $billunit, $panno, $fullname, $design, $station, $mobile, $email, $category, $dept, $txtworkdepot, $txtbasicpay, $gradepay, $dob_date, $app_date, $level)) {
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Update Details', 'ADFM update the bio details');
+      echo "<script>alert('Employee Updated successfully');window.location='../update_emp.php';</script>";
+    } else {
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Update Details', 'ADFM unable to update the bio details');
+      echo "<script>alert('Something went wrong');window.location='../update_emp.php';</script>";
+    }
     break;
-    
-    
-    
+
+
+
   case 'fetchEmployee':
     $id = $_REQUEST['id'];
     $result = fetchEmployee($id);
@@ -1317,11 +1262,11 @@ switch ($_REQUEST['action'])
   case 'view_contingency':
     $data = '';
     $sql = "select * from continjency_master inner join continjency on continjency_master.id=continjency.cid where reference='" . $_REQUEST['ref'] . "' and continjency.set_number='" . $_REQUEST['set'] . "'";
-    $raw_data = mysql_query($sql);
-    echo mysql_error();
+    $raw_data = mysqli_query($conn, $sql);
+    echo mysqli_error($conn);
     if ($raw_data) {
       $cnt = 0;
-      while ($sql_res = mysql_fetch_assoc($raw_data)) {
+      while ($sql_res = mysqli_fetch_assoc($raw_data)) {
         $data .= "
                 <tr>
                   <td>" . $sql_res['cntdate'] . "</td>
@@ -1352,13 +1297,13 @@ switch ($_REQUEST['action'])
 
     $query = "SELECT * FROM `master_cont` WHERE reference_no = '" . $_POST['ref_no'] . "' AND set_no='" . $_POST['set_no'] . "' ";
 
-    $result = mysql_query($query);
-    echo mysql_error();
+    $result = mysqli_query($conn, $query);
+    echo mysqli_error($conn);
 
-    $row_data = mysql_num_rows($result);
+    $row_data = mysqli_num_rows($result);
     if ($row_data == 1) {
       $query1 = "SELECT * FROM `add_cont` WHERE reference_no = '" . $_POST['ref_no'] . "' AND set_no='" . $_POST['set_no'] . "' ";
-      $result1 = mysql_query($query1);
+      $result1 = mysqli_query($conn, $query1);
       $cnt = 1;
       $sum = 0;
       $obj = '';
@@ -1374,7 +1319,7 @@ switch ($_REQUEST['action'])
                         <th >Amount</th>            
                       </tr> 
                     </thead><tbody>';
-      while ($sql_res = mysql_fetch_array($result1)) {
+      while ($sql_res = mysqli_fetch_array($result1)) {
         $data .= "<tr>
               <td>" . $cnt . "</td>
               <td>" . $sql_res['cont_date'] . "</td>
@@ -1407,7 +1352,7 @@ switch ($_REQUEST['action'])
     break;
 
   case "deletebillunitemp":
-    $query = mysql_query("delete from sep_billunit where employee_id='" . $_REQUEST['deleteemp'] . "'");
+    $query = mysqli_query($conn, "delete from sep_billunit where employee_id='" . $_REQUEST['deleteemp'] . "'");
     if ($query) {
       echo "<script>alert('User removed successfully');window.location='../apply_billunit.php';</script>";
     } else {
@@ -1418,8 +1363,8 @@ switch ($_REQUEST['action'])
   case "updatebillemp":
     $billunit = implode(",", $_REQUEST['updatebill']);
     $update_sql = "update sep_billunit set billunit='" . $billunit . "' where employee_id='" . $_REQUEST['updateemp'] . "'";
-    $query = mysql_query($update_sql);
-    echo mysql_error();
+    $query = mysqli_query($conn, $update_sql);
+    echo mysqli_error($conn);
     if ($query) {
       echo "<script>alert('User bill unit applied successfully');window.location='../apply_billunit.php';</script>";
     } else {

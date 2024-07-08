@@ -55,15 +55,15 @@ include('control/function.php');
 											// echo $dep=getdepartment($_SESSION['deptmt']);
 											$dep=$_SESSION['dept'];     
 											$query_main="SELECT DISTINCT(pfno) FROM employees_update WHERE dept='".$dep."' AND isupdated='1' AND CI_PF='".$_SESSION['empid']."' ORDER BY id desc";
-											$result_main=mysql_query($query_main);
+											$result_main=mysqli_query($conn,$query_main);
 											
-											while($rows = mysql_fetch_array($result_main))
+											while($rows = mysqli_fetch_array($result_main))
 											{
 										  //  echo "SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE pfno='".$rows['pfno']."' AND isupdated='1' ORDER BY id desc limit 1";
-								              $result_emp = mysql_query("SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE pfno='".$rows['pfno']."' AND isupdated='1' ORDER BY id desc limit 1");
-								            echo mysql_error();
+								              $result_emp = mysqli_query($conn,"SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE pfno='".$rows['pfno']."' AND isupdated='1' ORDER BY id desc limit 1");
+								            echo mysqli_error($conn);
 								              $sr=1;
-								              while($value_emp = mysql_fetch_array($result_emp))
+								              while($value_emp = mysqli_fetch_array($result_emp))
 								              {
 								                echo "
 								                  <tr>

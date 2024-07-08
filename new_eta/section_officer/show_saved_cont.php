@@ -56,12 +56,12 @@ include('common/sidebar.php');
 									<tbody>
 										<?php
 											$query1="SELECT `id`, `month`, `year`, `empid`, `reference`, `created_date` FROM `continjency_master` WHERE empid='".$_SESSION['empid']."' AND forward_status='0' ";
-											$sql1=mysql_query($query1);
-											// echo mysql_error();
-											while ($row = mysql_fetch_array($sql1)) {
+											$sql1=mysqli_query($conn,$query1);
+											// echo mysqli_error();
+											while ($row = mysqli_fetch_array($sql1)) {
 												$query2="SELECT SUM(total_amount)as total_amount,SUM(kms)as kms_amount FROM `continjency` WHERE reference='".$row['reference']."' ";
-											$sql2=mysql_query($query2);
-											$row2 = mysql_fetch_array($sql2);
+											$sql2=mysqli_query($conn,$query2);
+											$row2 = mysqli_fetch_array($sql2);
 										?>
 										<tr>
 											<!-- <td>01</td> -->

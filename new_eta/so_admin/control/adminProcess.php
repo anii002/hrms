@@ -32,7 +32,7 @@ include('function.php');
         $date=date("Y-m-d H:i:s");
         $sql_role_transfer_select = "UPDATE `forward_data` SET `fowarded_to`='".$transfer_emp_id."', `arrived_time`='".$date."' WHERE `fowarded_to`='".$pfno."' AND hold_status='1' ";  
           
-        $rst_role_transfer = mysql_query($sql_role_transfer_select);
+        $rst_role_transfer = mysqli_query($conn,$sql_role_transfer_select);
         if($rst_role_transfer)
         {
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
@@ -61,8 +61,8 @@ include('function.php');
         $off_name=get_employee($ciempid);
         $off_role=getrole($role);
         
-        $query_select1 = mysql_query("SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='".$pmempid."' AND taentry_master.reference_no='".$ref_no."' ");
-        $result1 = mysql_fetch_array($query_select1);
+        $query_select1 = mysqli_query($conn,"SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='".$pmempid."' AND taentry_master.reference_no='".$ref_no."' ");
+        $result1 = mysqli_fetch_array($query_select1);
     
         $month_array=array("01"=>"Jan","02"=>"Feb","03"=>"March","04"=>"April","05"=>"May","06"=>"June","07"=>"July","08"=>"Aug","09"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
     
@@ -75,8 +75,8 @@ include('function.php');
            $mon=$month_array[$s];
         }
             
-        $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='".$pmempid."'");
-        $result_set = mysql_fetch_array($query2);
+        $query2 = mysqli_query($conn,"SELECT mobile FROM employees WHERE pfno='".$pmempid."'");
+        $result_set = mysqli_fetch_array($query2);
         //Your authentication key
         $authKey = "70302AbSftnyOwtvs53d8e401";
         
@@ -132,11 +132,11 @@ include('function.php');
         else
         {
             $update_tamaster="UPDATE taentry_master set is_rejected=1,rejected_by='".$ciempid.",".$role."',reason='".$reason."' where empid='".$pmempid."' AND reference_no='".$ref_no."'";
-            $result=mysql_query($update_tamaster);
-            if(mysql_affected_rows() >= 0)
+            $result=mysqli_query($conn,$update_tamaster);
+            if(mysqli_affected_rows($conn) >= 0)
             {
                 $drop="DELETE from forward_data where empid='".$pmempid."' AND reference_id='".$ref_no."' ";
-                $result1=mysql_query($drop);
+                $result1=mysqli_query($conn,$drop);
                 $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
                 $msg='SOA reject '.$pmempid.' Acct employee TA';
                 user_activity($ciempid,$file_name,'Reject TA',$msg);
@@ -160,11 +160,11 @@ include('function.php');
     $role=$_POST['role'];
 
     $update_tamaster="UPDATE continjency_master set is_rejected=1,rejected_by='".$ciempid.",".$role."',reason='".$reason."' where empid='".$pmempid."' AND reference='".$ref_no."'";
-        $result=mysql_query($update_tamaster);
-        if(mysql_affected_rows() >= 0)
+        $result=mysqli_query($conn,$update_tamaster);
+        if(mysqli_affected_rows($conn) >= 0)
         {
             $drop="DELETE from forward_data where empid='".$pmempid."' AND reference_id='".$ref_no."' ";
-            $result1=mysql_query($drop);
+            $result1=mysqli_query($conn,$drop);
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
             $msg='SOA reject '.$pmempid.' Acct employee Contingency';
             user_activity($ciempid,$file_name,'Reject Contingency',$msg);
@@ -300,8 +300,8 @@ include('function.php');
      $date=date("Y-m-d h:i:s");
       $sumid=$_POST['sumid'];
 
-      $u_query=mysql_query("UPDATE master_summary SET forward_status='1',DA_approved_time='".$date."' where summary_id='".$sumid."' ");
-       echo mysql_error();
+      $u_query=mysqli_query($conn,"UPDATE master_summary SET forward_status='1',DA_approved_time='".$date."' where summary_id='".$sumid."' ");
+       echo mysqli_error($conn);
        
        if($u_query)
        {
@@ -338,8 +338,8 @@ include('function.php');
       {
           $otp = rand(999,10000);
           $query1="UPDATE `users` SET `password`='".hashPassword($otp,SALT1,SALT2)."' WHERE `username`='".$id."'";
-          $res1=mysql_query($query1);
-          echo mysql_error();
+          $res1=mysqli_query($conn,$query1);
+          echo mysqli_error($conn);
           if($res1)
           {
             echo $otp;
@@ -404,11 +404,11 @@ include('function.php');
         $month=$_POST['month'];
         
         $query1="SELECT distinct(reference_no),forward_status FROM `taentry_master` WHERE TAMonth='".$month."' AND TAYear='".$year."' AND empid='".$_POST['u_pfno']."' ";
-        $result=mysql_query($query1);
-        $rows=mysql_num_rows($result);
+        $result=mysqli_query($conn,$query1);
+        $rows=mysqli_num_rows($result);
         // echo $rows;
         // exit;
-        $val=mysql_fetch_array($result);
+        $val=mysqli_fetch_array($result);
         if($rows == 0)
         {
             $data=0;
@@ -445,9 +445,9 @@ include('function.php');
             $_SESSION['ref_no']=$ref_no;
             $flag=0;
             // echo  "select mobile from employees where id='".$empid."'";
-          $query = mysql_query("select mobile from employees where pfno='".$empid."'");
-            $count = mysql_num_rows($query);
-            $result_set = mysql_fetch_array($query);
+          $query = mysqli_query($conn,"select mobile from employees where pfno='".$empid."'");
+            $count = mysqli_num_rows($query);
+            $result_set = mysqli_fetch_array($query);
             if($count>0)
             {
               $otp = rand(999,10000);
@@ -507,7 +507,7 @@ include('function.php');
                 }
                 else{
                   
-                $query_insert = mysql_query("insert into tbl_otp(empid,otp,sent) values('".$empid."','$otp',CURRENT_TIMESTAMP)");
+                $query_insert = mysqli_query($conn,"insert into tbl_otp(empid,otp,sent) values('".$empid."','$otp',CURRENT_TIMESTAMP)");
                   //echo "<script>alert('OTP has been sent on your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
                   $flag=$result_set['mobile'];
                 }
@@ -537,10 +537,10 @@ include('function.php');
             $_SESSION['ref_no']=$ref_no;
             $flag=0;
             // echo  "select mobile from employees where empid='".$empid."' ";
-            $query = mysql_query("SELECT mobile from employees where pfno='".$empid."' ");
-            $count = mysql_num_rows($query);
-            echo mysql_error();
-            $result_set = mysql_fetch_array($query);
+            $query = mysqli_query($conn,"SELECT mobile from employees where pfno='".$empid."' ");
+            $count = mysqli_num_rows($query);
+            echo mysqli_error($conn);
+            $result_set = mysqli_fetch_array($query);
             
             if($count > 0)
             {
@@ -601,7 +601,7 @@ include('function.php');
                 }
                 else{
                   
-                $query_insert = mysql_query("insert into tbl_otp(empid,otp,sent) values('".$_SESSION['empid']."','$otp',CURRENT_TIMESTAMP)");
+                $query_insert = mysqli_query($conn,"insert into tbl_otp(empid,otp,sent) values('".$_SESSION['empid']."','$otp',CURRENT_TIMESTAMP)");
                   //echo "<script>alert('OTP has been sent on your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
                   $flag=$result_set['mobile'];
                 }
@@ -624,11 +624,11 @@ include('function.php');
             $c_otp = $_REQUEST['c_otp'];
 
 
-            $query_select = mysql_query("select otp from tbl_otp where empid='".$empid."' order by id DESC limit 1");
-            $result = mysql_fetch_array($query_select);
+            $query_select = mysqli_query($conn,"select otp from tbl_otp where empid='".$empid."' order by id DESC limit 1");
+            $result = mysqli_fetch_array($query_select);
             
-            $query_select1 = mysql_query("SELECT month,year,SUM(continjency.total_amount)as amount from continjency_master,continjency WHERE continjency_master.reference=continjency.reference  AND continjency_master.empid='".$empid."' AND continjency_master.reference='".$ref."' ");
-            $result1 = mysql_fetch_array($query_select1);
+            $query_select1 = mysqli_query($conn,"SELECT month,year,SUM(continjency.total_amount)as amount from continjency_master,continjency WHERE continjency_master.reference=continjency.reference  AND continjency_master.empid='".$empid."' AND continjency_master.reference='".$ref."' ");
+            $result1 = mysqli_fetch_array($query_select1);
         
             $month_array=array("01"=>"Jan","02"=>"Feb","03"=>"March","04"=>"April","05"=>"May","06"=>"June","07"=>"July","08"=>"Aug","09"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
         
@@ -646,15 +646,15 @@ include('function.php');
               if($result['otp'] == $c_otp)
               {
                   $query1 = "UPDATE `continjency_master` SET `forward_status`='1' WHERE `empid`='".$empid."' AND `reference`='".$ref."' ";
-                  $result1 = mysql_query($query1);
+                  $result1 = mysqli_query($conn,$query1);
             
                 if($c_otp)
                 {
                     $date=date('Y-m-d H:i:s');
                     $query = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('".$empid."','".$ref."','".$forwardName."','".$date."','1')";
-                    $result = mysql_query($query);
-                    $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='".$empid."'");
-                    $result_set = mysql_fetch_array($query2);
+                    $result = mysqli_query($conn,$query);
+                    $query2 = mysqli_query($conn,"SELECT mobile FROM employees WHERE pfno='".$empid."'");
+                    $result_set = mysqli_fetch_array($query2);
                     //Your authentication key
                     $authKey = "70302AbSftnyOwtvs53d8e401";
                     
@@ -911,11 +911,11 @@ include('function.php');
             $c_otp = $_REQUEST['c_otp'];
 
 
-            $query_select = mysql_query("select otp from tbl_otp where empid='".$empid."' order by id DESC limit 1");
-            $result = mysql_fetch_array($query_select);
+            $query_select = mysqli_query($conn,"select otp from tbl_otp where empid='".$empid."' order by id DESC limit 1");
+            $result = mysqli_fetch_array($query_select);
             
-            $query_select1 = mysql_query("SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='".$empid."' AND taentry_master.reference_no='".$ref."' ");
-            $result1 = mysql_fetch_array($query_select1);
+            $query_select1 = mysqli_query($conn,"SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='".$empid."' AND taentry_master.reference_no='".$ref."' ");
+            $result1 = mysqli_fetch_array($query_select1);
         
             $month_array=array("01"=>"Jan","02"=>"Feb","03"=>"March","04"=>"April","05"=>"May","06"=>"June","07"=>"July","08"=>"Aug","09"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
         
@@ -933,15 +933,15 @@ include('function.php');
               if($result['otp'] == $c_otp)
               {
                   $query1 = "UPDATE `taentry_master` SET `forward_status`='1' WHERE `empid`='".$empid."' AND `reference_no`='".$ref."' ";
-                  $result1 = mysql_query($query1);
+                  $result1 = mysqli_query($conn,$query1);
             
                 if($c_otp)
                 {
                     $date=date('Y-m-d H:i:s');
                     $query = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('".$empid."','".$ref."','".$forwardName."','".$date."','1')";
-                    $result = mysql_query($query);
-                    $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='".$empid."'");
-                    $result_set = mysql_fetch_array($query2);
+                    $result = mysqli_query($conn,$query);
+                    $query2 = mysqli_query($conn,"SELECT mobile FROM employees WHERE pfno='".$empid."'");
+                    $result_set = mysqli_fetch_array($query2);
                     //Your authentication key
                     $authKey = "70302AbSftnyOwtvs53d8e401";
                     
@@ -1069,16 +1069,16 @@ include('function.php');
      $set_no = $_POST['set_no'];
      $emp_no = $_POST['empid'];
 
-    $sql=mysql_query("SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$reference."' ");
-    $total_rows=mysql_num_rows($sql);
+    $sql=mysqli_query($conn,"SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$reference."' ");
+    $total_rows=mysqli_num_rows($sql);
     // echo $total_rows;
 
     if($total_rows > 1)
     {
         // echo "<br>"."SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ";
-        $sql1=mysql_query("SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ");
+        $sql1=mysqli_query($conn,"SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ");
         $amt=0;$Tp_cnt=0;$Sp_cnt=0;$Hp_cnt=0;$Otp_cnt=0;$Tp_amt=0;$Sp_amt=0;$Hp_amt=0;$Otp_amt=0;
-        while($result1=mysql_fetch_array($sql1))
+        while($result1=mysqli_fetch_array($sql1))
         {
           if($result1['percent'] == "30%" )
           {
@@ -1103,8 +1103,8 @@ include('function.php');
         }
         // echo "<br><br>"."SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' AND `empid`='".$_SESSION['empid']."' ";
 
-        $sql2=mysql_query("SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' AND empid = '".$emp_no."' ");
-        $result2=mysql_fetch_array($sql2);
+        $sql2=mysqli_query($conn,"SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' AND empid = '".$emp_no."' ");
+        $result2=mysqli_fetch_array($sql2);
 
         $total_30p_cnt=$result2['30p_cnt']-$Tp_cnt;
         $total_30p_amt=$result2['30p_amt']-$Tp_amt;
@@ -1115,13 +1115,13 @@ include('function.php');
         $total_otherp_cnt=$result2['otherp_cnt']-$Otp_cnt;
         $total_otherp_amt=$result2['otherp_amt']-$Otp_amt;
 
-        $sql3=mysql_query("DELETE FROM taentrydetails WHERE reference_no = '".$reference."' AND set_number = '".$set_no."' ");
+        $sql3=mysqli_query($conn,"DELETE FROM taentrydetails WHERE reference_no = '".$reference."' AND set_number = '".$set_no."' ");
 
-        if(mysql_affected_rows() >= 0)
+        if(mysqli_affected_rows($conn) >= 0)
         {
              $query4="UPDATE `tasummarydetails` SET `30p_cnt`='".$total_30p_cnt."',`30p_amt`='".$total_30p_amt."',`70p_cnt`='".$total_70p_cnt."',`70p_amt`='".$total_70p_amt."',`100p_cnt`='".$total_100p_cnt."',`100p_amt`='".$total_100p_amt."',`otherp_cnt`='".$total_otherp_cnt."',`otherp_amt`='".$total_otherp_amt."' WHERE `reference_no`='".$reference."'  ";
 
-            $result4=mysql_query($query4);
+            $result4=mysqli_query($conn,$query4);
 
           echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
         }
@@ -1136,13 +1136,13 @@ include('function.php');
        // echo "HI".$emp_no."<br>";
         $query_delete = "DELETE from taentry_master where reference_no='".$reference."' AND empid='".$emp_no."' ";
 
-        $result = mysql_query($query_delete);
-        if(mysql_affected_rows() >= 0)
+        $result = mysqli_query($conn,$query_delete);
+        if(mysqli_affected_rows($conn) >= 0)
         {
           $taentry_sql = "DELETE FROM taentrydetails WHERE reference_no = '".$reference."' AND empid = '".$emp_no."' ";
-          $res = mysql_query($taentry_sql);
+          $res = mysqli_query($conn,$taentry_sql);
           $tasummary_sql = "DELETE FROM tasummarydetails WHERE reference_no = '".$reference."' AND empid = '".$emp_no."'  ";
-          $res1 = mysql_query($tasummary_sql);
+          $res1 = mysqli_query($conn,$tasummary_sql);
           echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
         }
         else
@@ -1209,10 +1209,10 @@ include('function.php');
           
                     $date=date('Y-m-d H:i:s');
 
-            $query = mysql_query("update forward_data set depart_time='".$date."',hold_status='0' where reference_id='".$ref."' AND fowarded_to='".$empid_session."'");
+            $query = mysqli_query($conn,"update forward_data set depart_time='".$date."',hold_status='0' where reference_id='".$ref."' AND fowarded_to='".$empid_session."'");
             
             $query1 = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('".$empid."','".$ref."','".$forwardName."','".$date."','1')";
-            $result = mysql_query($query1);
+            $result = mysqli_query($conn,$query1);
 
              if($query && $result)
             {
@@ -1240,16 +1240,16 @@ include('function.php');
       $month=implode(",", $mm);
       $d=date("d-m-Y h:i:s");
 
-      $query_summary = mysql_query("INSERT INTO `master_summary_cont`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`,dept_id) VALUES ('".$title."','".$description."','".$d."','0','0','".$month."','".$year."','".$summary_id."','".$_REQUEST['dept_id']."')");
+      $query_summary = mysqli_query($conn,"INSERT INTO `master_summary_cont`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`,dept_id) VALUES ('".$title."','".$description."','".$d."','0','0','".$month."','".$year."','".$summary_id."','".$_REQUEST['dept_id']."')");
 
-       echo mysql_error();       
+       echo mysqli_error($conn);       
 
-      $id = mysql_insert_id();
+      $id = mysqli_insert_id($conn);
       $cnt = 0;
       $flag = 0;
       foreach($selected_list as $list)
       {        
-          $query_upd = mysql_query("UPDATE `continjency_master` SET `summary_id`= '".$summary_id."',`generate` = '1' WHERE reference = '$list'");
+          $query_upd = mysqli_query($conn,"UPDATE `continjency_master` SET `summary_id`= '".$summary_id."',`generate` = '1' WHERE reference = '$list'");
           if($query_upd)
           {
             $flag=1;
@@ -1281,7 +1281,7 @@ include('function.php');
       $loginid = $_REQUEST['loginid'];
       //echo $original_id;
        $query = "update forward_data set depart_time=CURRENT_TIMESTAMP,hold_status='0' where reference_id='".$result_set['reference']."' and fowarded_to='$loginid' ";
-      $result = mysql_query($query) or die(mysql_error());
+      $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
       if($query == TRUE)
       {
         echo "<script> alert('Summary has been forwarded!'); window.location = '../index.php'; </script>";
@@ -1299,8 +1299,8 @@ include('function.php');
   case 'fwESTCLERK_cont':
         $date=date("Y-m-d h:i:s");
         $sumid=$_POST['sumid'];
-        $u_query=mysql_query("UPDATE master_summary_cont SET forward_status='1',DA_approved_time='".$date."' where summary_id='".$sumid."' ");
-       echo mysql_error();
+        $u_query=mysqli_query($conn,"UPDATE master_summary_cont SET forward_status='1',DA_approved_time='".$date."' where summary_id='".$sumid."' ");
+       echo mysqli_error($conn);
 
        if($u_query)
        {
@@ -1327,14 +1327,14 @@ include('function.php');
 
         $query = "SELECT * FROM `master_cont` WHERE reference_no = '".$_POST['ref_no']."' AND set_no='".$_POST['set_no']."' ";
 
-        $result=mysql_query($query);
-        echo mysql_error();
+        $result=mysqli_query($conn,$query);
+        echo mysqli_error($conn);
 
-        $row_data=mysql_num_rows($result);        
+        $row_data=mysqli_num_rows($result);        
         if($row_data == 1)
         {
             $query1 = "SELECT * FROM `add_cont` WHERE reference_no = '".$_POST['ref_no']."' AND set_no='".$_POST['set_no']."' ";
-            $result1=mysql_query($query1);
+            $result1=mysqli_query($conn,$query1);
             $cnt= 1;$sum = 0;$obj='';
             $data.='<table class="table table-inverse " style="font-size: 15px" id="" border="1">
                     <thead>
@@ -1348,7 +1348,7 @@ include('function.php');
                         <th >Amount</th>            
                       </tr> 
                     </thead><tbody>';
-            while($sql_res=mysql_fetch_array($result1)){
+            while($sql_res=mysqli_fetch_array($result1)){
               $data .= "<tr>
               <td>".$cnt."</td>
               <td>".$sql_res['cont_date']."</td>
@@ -1376,11 +1376,11 @@ include('function.php');
     case 'view_contingency':
         $data='';
         $sql="select * from continjency_master inner join continjency on continjency_master.id=continjency.cid where reference='".$_REQUEST['ref']."' and continjency.set_number='".$_REQUEST['set']."'";
-         $raw_data=mysql_query($sql);
-         echo mysql_error();
+         $raw_data=mysqli_query($conn,$sql);
+         echo mysqli_error($conn);
          if($raw_data){
           $cnt = 0;
-            while($sql_res=mysql_fetch_assoc($raw_data)){
+            while($sql_res=mysqli_fetch_assoc($raw_data)){
               $data .= "
                 <tr>
                   <td>".$sql_res['cntdate']."</td>
@@ -1498,7 +1498,7 @@ include('function.php');
         $stationcode = $_REQUEST['stationcode'];
         $depotname = $_REQUEST['depotname'];
         $status = 1;
-        $sql=mysql_query("INSERT INTO `depot_master`(`stationcode`, `depot`, `dept_id`, `status`) VALUES ('".$stationcode."','".$depotname."','".$deptid."',".$status.") ");
+        $sql=mysqli_query($conn,"INSERT INTO `depot_master`(`stationcode`, `depot`, `dept_id`, `status`) VALUES ('".$stationcode."','".$depotname."','".$deptid."',".$status.") ");
           if($sql)
             echo "<script>alert('Depot Added successfully');window.location='../add_depot.php';</script>";
           else

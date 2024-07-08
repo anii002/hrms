@@ -80,12 +80,12 @@ include('control/function.php');
 {
     
     // $e=("select * from taentry_master where reference_no='".$_GET['ref_no']."'");
-    $empl_query = mysql_query("select * from taentry_master where reference_no='".$_GET['ref_no']."'");
-    $empl_id_result = mysql_fetch_array($empl_query);
+    $empl_query = mysqli_query($conn,"select * from taentry_master where reference_no='".$_GET['ref_no']."'");
+    $empl_id_result = mysqli_fetch_array($empl_query);
     $empl_id = $empl_id_result['empid'];
     
-    $emp_query = mysql_query("select * from employees where pfno='".$empl_id."'");
-    $emp_result = mysql_fetch_array($emp_query);
+    $emp_query = mysqli_query($conn,"select * from employees where pfno='".$empl_id."'");
+    $emp_result = mysqli_fetch_array($emp_query);
     $years=["January","February","March","April","May","June","July","August","September","October","November","December"];
     $expl = explode(",",$empl_id_result['TAMonth']);
 }        
@@ -185,15 +185,15 @@ include('control/function.php');
 										<?php
 											 // $_GET['ref_no'];
 											$query="SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$_GET['ref_no']."' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
-											$sql=mysql_query($query);
-											$total_row1=mysql_num_rows($sql);
-											while($row_1 = mysql_fetch_array($sql)){
+											$sql=mysqli_query($conn,$query);
+											$total_row1=mysqli_num_rows($sql);
+											while($row_1 = mysqli_fetch_array($sql)){
 
 										    $query1="SELECT * FROM `taentrydetails` WHERE set_number='".$row_1['set_number']."' AND reference_no='".$_GET['ref_no']."' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
-											$sql1=mysql_query($query1);
-											$total_rows=mysql_num_rows($sql1);
+											$sql1=mysqli_query($conn,$query1);
+											$total_rows=mysqli_num_rows($sql1);
 											$cnt=1;
-											while ($row = mysql_fetch_array($sql1)) {
+											while ($row = mysqli_fetch_array($sql1)) {
 										?>
 										<tr>
 											<?php 
@@ -224,8 +224,8 @@ include('control/function.php');
 												<br>
 												<?php 
 													$q="SELECT id FROM `master_cont` WHERE reference_no='".$_GET['ref_no']."' AND set_no='". $row['set_number']."'";
-													$s=mysql_query($q);
-													$t=mysql_num_rows($s);
+													$s=mysqli_query($conn,$q);
+													$t=mysqli_num_rows($s);
 													if($t == 1)
 													{
 														?>
@@ -233,9 +233,9 @@ include('control/function.php');
 														<?php
 													}
 													else {
-													    $query_con=mysql_query("SELECT TAMonth,TAYear from taentry_master where empid='".$_SESSION['empid']."' and reference_no='".$_GET['ref_no']."'");
+													    $query_con=mysqli_query($conn,"SELECT TAMonth,TAYear from taentry_master where empid='".$_SESSION['empid']."' and reference_no='".$_GET['ref_no']."'");
 													    //echo "SELECT TAMonth,TAYear from taentry_master where empid='".$_SESSION['empid']."' and reference_no='".$_GET['ref_no']."'";
-													    $row_con=mysql_fetch_array($query_con);
+													    $row_con=mysqli_fetch_array($query_con);
 													    $month=$row_con['TAMonth'];
 													    $year=$row_con['TAYear'];
 												?>
@@ -269,8 +269,8 @@ include('control/function.php');
 						<div class="table-scrollable">
 							<?php 
 								$query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_SESSION['empid']."' AND tasummarydetails.`reference_no`='".$_GET['ref_no']."'";
-								$sql3=mysql_query($query3);
-								$row3=mysql_fetch_array($sql3);
+								$sql3=mysqli_query($conn,$query3);
+								$row3=mysqli_fetch_array($sql3);
 								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
 							?>
 								<table class="table table-bordered table-hover">

@@ -55,15 +55,15 @@ include('control/function.php');
 									   <?php
                                             $query = "SELECT * FROM `master_summary_cont` WHERE forward_status='1' AND pa_status = '1' AND estcrk_status='0' AND dept_id='01' ";
         									$cnt=1;
-        									$result = mysql_query($query);
+        									$result = mysqli_query($conn,$query);
         									$emp_bu=array();
         								    $cnt_bu=0;
-        									while($val = mysql_fetch_array($result))
+        									while($val = mysqli_fetch_array($result))
         									{
         									    $sql1 = "SELECT * from continjency_master,employees where continjency_master.empid=employees.pfno AND continjency_master.is_rejected='0' AND continjency_master.summary_id='" . $val['summary_id'] . "' AND continjency_master.generate='1'";
-                                                        $res1 = mysql_query($sql1);
+                                                        $res1 = mysqli_query($conn,$sql1);
                                                         $data = 0;
-                                                while ($val1 = mysql_fetch_array($res1)) {
+                                                while ($val1 = mysqli_fetch_array($res1)) {
                                                     
                                                     if ($data == 0) {
                                                         if ($val['title'] != null) {

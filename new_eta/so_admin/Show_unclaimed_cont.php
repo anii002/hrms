@@ -53,11 +53,11 @@ include('common/sidebar.php');
 									</thead>
 									<tbody>
 										<?php
-											$sql = mysql_query("SELECT `reference`, `month`, `year`, `total_amount` FROM `continjency_master` WHERE forward_status = '1' AND  empid = '".$_SESSION['empid']."'");
+											$sql = mysqli_query($conn,"SELECT `reference`, `month`, `year`, `total_amount` FROM `continjency_master` WHERE forward_status = '1' AND  empid = '".$_SESSION['empid']."'");
 											
 
-											// $qry = mysql_query("SELECT `reference`, `month`, `year`, `total_amount` FROM `continjency_master` WHERE forward_status = '0' AND  empid = '".$_SESSION['empid']."'");
-											while($row = mysql_fetch_array($sql))
+											// $qry = mysqli_query("SELECT `reference`, `month`, `year`, `total_amount` FROM `continjency_master` WHERE forward_status = '0' AND  empid = '".$_SESSION['empid']."'");
+											while($row = mysqli_fetch_array($sql))
 											{
 
 										?>

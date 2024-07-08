@@ -52,9 +52,9 @@ include('control/function.php');
 							<?php 
 							$sr=0;
 							$sql="SELECT * from taentry_master where is_rejected=1 and forward_status=1 and empid='".$_SESSION['empid']."'";
-							$result=mysql_query($sql);
-						//	echo  mysql_error();
-							while ($row=mysql_fetch_array($result)) 
+							$result=mysqli_query($conn,$sql);
+						    //	echo  mysqli_error();
+							while ($row=mysqli_fetch_array($result)) 
 							{ $sr++;?>
 								<tr>
 									<td><?php echo $sr; ?></td>
@@ -62,8 +62,8 @@ include('control/function.php');
 									<td><?php echo $row['TAYear']; ?></td>
 									<td><?php echo $row['TAMonth']; ?></td>
 								<?php
-									$query=mysql_query("SELECT SUM(amount) as amount from taentrydetails where empid='".$row['empid']."' AND reference_no='".$row['reference_no']."'");
-									$res=mysql_fetch_array($query);
+									$query=mysqli_query($conn,"SELECT SUM(amount) as amount from taentrydetails where empid='".$row['empid']."' AND reference_no='".$row['reference_no']."'");
+									$res=mysqli_fetch_array($query);
 								?>
 									
 									<td><?php echo $res['amount']; ?></td>

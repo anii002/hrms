@@ -123,8 +123,8 @@ include('control/function.php');
 
                                             <?php
                                             $query_emp = "SELECT `num` FROM `paylevel`";
-                                            $result_emp = mysql_query($query_emp);
-                                            while ($value_emp = mysql_fetch_array($result_emp)) {
+                                            $result_emp = mysqli_query($conn,$query_emp);
+                                            while ($value_emp = mysqli_fetch_array($result_emp)) {
                                                 echo "<option value='" . $value_emp['num'] . "'>" . $value_emp['num'] . "</option>";
                                             }
                                             ?>
@@ -157,8 +157,8 @@ include('control/function.php');
                                         <option value="0" selected>Select Department</option>
                                         <?php
                                         $query_emp = "select DEPTNO,DEPTDESC from department";
-                                        $result_emp = mysql_query($query_emp);
-                                        while ($value_emp = mysql_fetch_array($result_emp)) {
+                                        $result_emp = mysqli_query($conn,$query_emp);
+                                        while ($value_emp = mysqli_fetch_array($result_emp)) {
                                             echo "<option value='" . $value_emp['DEPTNO'] . "'>" . $value_emp['DEPTDESC'] . "</option>";
                                         }
                                         ?>
@@ -178,8 +178,8 @@ include('control/function.php');
                                         <option value="" selected>Select Station</option>
                                         <?php
                                         $query_emp = "select stationcode,stationdesc from station";
-                                        $result_emp = mysql_query($query_emp);
-                                        while ($value_emp = mysql_fetch_array($result_emp)) {
+                                        $result_emp = mysqli_query($conn,$query_emp);
+                                        while ($value_emp = mysqli_fetch_array($result_emp)) {
                                             echo "<option value='" . $value_emp['stationcode'] . "'>" . $value_emp['stationdesc'] . "</option>";
                                         }
                                         ?>
@@ -253,9 +253,9 @@ include('control/function.php');
                                                         <tbody>
                                                             <?php
                                                             $query_emp = "SELECT employees.*, users.status as user_status, users.username ,users.role,users.dept,users.station from employees INNER JOIN users on employees.pfno = users.empid AND users.role IN(15,17) AND users.role NOT IN(0)";
-                                                            $result_emp = mysql_query($query_emp);
+                                                            $result_emp = mysqli_query($conn,$query_emp);
                                                             $sr = 1;
-                                                            while ($value_emp = mysql_fetch_array($result_emp)) {
+                                                            while ($value_emp = mysqli_fetch_array($result_emp)) {
                                                                 echo "
                                                                   <tr>
                                                                   <td>" . $sr++ . "</td>
@@ -406,8 +406,8 @@ include('control/function.php');
                                     <option value="0">Please Select Desig</option>
                                     <?php
                                     $query_emp = "SELECT `DESIGCODE`,`DESIGLONGDESC` FROM `designations`";
-                                    $result_emp = mysql_query($query_emp);
-                                    while ($value_emp = mysql_fetch_array($result_emp)) {
+                                    $result_emp = mysqli_query($conn,$query_emp);
+                                    while ($value_emp = mysqli_fetch_array($result_emp)) {
                                         echo "<option value='" . $value_emp['DESIGCODE'] . "'>" . $value_emp['DESIGLONGDESC'] . "</option>";
                                     }
                                     ?>
@@ -425,8 +425,8 @@ include('control/function.php');
 
                                     <?php
                                     $query_emp = "SELECT `num` FROM `paylevel`";
-                                    $result_emp = mysql_query($query_emp);
-                                    while ($value_emp = mysql_fetch_array($result_emp)) {
+                                    $result_emp = mysqli_query($conn,$query_emp);
+                                    while ($value_emp = mysqli_fetch_array($result_emp)) {
                                         echo "<option value='" . $value_emp['num'] . "'>" . $value_emp['num'] . "</option>";
                                     }
                                     ?>
@@ -445,8 +445,8 @@ include('control/function.php');
                                     <option value="0">Please Select Station</option>
                                     <?php
                                     $query_emp = "select stationcode,stationdesc from station";
-                                    $result_emp = mysql_query($query_emp);
-                                    while ($value_emp = mysql_fetch_array($result_emp)) {
+                                    $result_emp = mysqli_query($conn,$query_emp);
+                                    while ($value_emp = mysqli_fetch_array($result_emp)) {
                                         echo "<option value='" . $value_emp['stationcode'] . "'>" . $value_emp['stationdesc'] . "</option>";
                                     }
                                     ?>

@@ -57,21 +57,22 @@ include('common/sidebar.php');
 								<?php
 								function get_employee($id)
 								{
-									$query = mysql_query("SELECT name from employees where pfno='$id'");
-									$result = mysql_fetch_array($query);
+									global $conn;
+									$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+									$result = mysqli_fetch_array($query);
 									return $result['name'];
 								}
 								$cnt=0;
 									 $query = "SELECT MONTHNAME(str_to_date(taentry_master.created_date,'%d/%m/%Y') ) as created, taentry_master.reference_no, taentry_master.TAYear,taentry_master.empid as empid, taentry_master.TAMonth, SUM(taentrydetails.distance) AS distance, SUM(taentrydetails.amount) as rate FROM taentry_master INNER JOIN taentrydetails ON taentry_master.reference_no = taentrydetails.reference_no WHERE taentry_master.reference_no IN (select reference_id  from forward_data where forward_data.fowarded_to='".$_SESSION['empid']."' AND forward_data.depart_time is null AND summary='0') group by taentry_master.reference_no";
 									//echo $query;
 									
-									$result = mysql_query($query);
-									$count_row = mysql_num_rows($result);
+									$result = mysqli_query($conn,$query);
+									$count_row = mysqli_num_rows($result);
 									if($count_row>0){}else{
 										echo "<script>document.getElementById('gn').style.display='none';</script>";
 									}
 									$cnt=0;
-									while($val = mysql_fetch_array($result))
+									while($val = mysqli_fetch_array($result))
 									{
 										if($val['reference_no']!=null)
 										{

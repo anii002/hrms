@@ -75,12 +75,12 @@ include('control/function.php');
 
 // if(isset($_REQUEST['id']))
 // {
-//   $empl_query = mysql_query("select * from taentryform_master where reference='".$_REQUEST['id']."'");
-//   $empl_id_result = mysql_fetch_array($empl_query);
+//   $empl_query = mysqli_query("select * from taentryform_master where reference='".$_REQUEST['id']."'");
+//   $empl_id_result = mysqli_fetch_array($empl_query);
 //   $empl_id = $empl_id_result['empid'];
 
-//   $emp_query = mysql_query("select * from employees where pfno='".$empl_id."'");
-//   $emp_result = mysql_fetch_array($emp_query);
+//   $emp_query = mysqli_query("select * from employees where pfno='".$empl_id."'");
+//   $emp_result = mysqli_fetch_array($emp_query);
 //   $years=["January","February","March","April","May","June","July","August","September","October","November","December"];
 //   $expl = explode(",",$empl_id_result['TAMonth']);
 // }        
@@ -141,17 +141,17 @@ include('control/function.php');
 									<tbody align="center">
 										<?php
 										$query="SELECT DISTINCT(set_number),reference FROM `continjency` WHERE reference='".$_GET['ref_no']."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-											$sql=mysql_query($query);
-											$total_row1=mysql_num_rows($sql);
-											while($row_1 = mysql_fetch_array($sql)){
+											$sql=mysqli_query($conn,$query);
+											$total_row1=mysqli_num_rows($sql);
+											while($row_1 = mysqli_fetch_array($sql)){
 
 										    $query1="SELECT * FROM `continjency` WHERE set_number='".$row_1['set_number']."' AND reference='".$_GET['ref_no']."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-											$sql1=mysql_query($query1);
-											echo mysql_error();
-											$total_rows=mysql_num_rows($sql1);
+											$sql1=mysqli_query($conn,$query1);
+											echo mysqli_error($conn);
+											$total_rows=mysqli_num_rows($sql1);
 											$cnt=1;
 											$T_amount=0;
-											while ($row = mysql_fetch_array($sql1)) {
+											while ($row = mysqli_fetch_array($sql1)) {
 										?>
 										<tr>
 											<?php 
@@ -252,16 +252,16 @@ include('control/function.php');
             <select name="forwardName" id="forwardName" class="form-control select2 required" style="width: 100%" required>
               <option readonly value=''>Select User</option>
                <?php 
-              $query_emp =mysql_query("SELECT department.deptno as id  FROM `employees` ,department WHERE department.deptno=employees.dept AND pfno='".$_SESSION['empid']."' ");
-              $resu1=mysql_fetch_array($query_emp);
+              $query_emp =mysqli_query($conn,"SELECT department.deptno as id  FROM `employees` ,department WHERE department.deptno=employees.dept AND pfno='".$_SESSION['empid']."' ");
+              $resu1=mysqli_fetch_array($query_emp);
                $dptid=$resu1['id'];
 
-              $sql_user=mysql_query("SELECT * from users where dept='".$dptid."' AND role='23' and status='1' ");
-              while($resu=mysql_fetch_assoc($sql_user)){             
+              $sql_user=mysqli_query($conn,"SELECT * from users where dept='".$dptid."' AND role='23' and status='1' ");
+              while($resu=mysqli_fetch_assoc($sql_user)){             
               $query = "SELECT * FROM employees where pfno='".$resu['empid']."'";
             //   $did.="SELECT * FROM employees where pfno='".$resu['empid']."'";
-                $result = mysql_query($query);
-                while($value = mysql_fetch_assoc($result))
+                $result = mysqli_query($conn,$query);
+                while($value = mysqli_fetch_assoc($result))
                 {
                   echo "<option value='".$value['pfno']."'>".$value['name']."  (".$value['desig'].")</option>";
                 }

@@ -4,9 +4,10 @@ include('common/header.php');
 include('common/sidebar.php');
 function get_sum_department($id)
 {
+    global $conn;
     $query = "SELECT `DEPTDESC` FROM `department` WHERE `DEPTNO`='" . $id . "' ";
-    $result = mysql_query($query);
-    $value = mysql_fetch_array($result);
+    $result = mysqli_query($conn,$query);
+    $value = mysqli_fetch_array($result);
     return $value['DEPTDESC'];
 }
 ?>
@@ -59,12 +60,12 @@ function get_sum_department($id)
                                                     <?php
                                                     $cnt = 1;
                                                     $query = "SELECT * from master_summary_cont WHERE forward_status = '1' AND pa_status = '0' and estcrk_status='0' AND dept_id != '01'";
-                                                    $result = mysql_query($query);
-                                                    while ($val = mysql_fetch_array($result)) {
+                                                    $result = mysqli_query($conn,$query);
+                                                    while ($val = mysqli_fetch_array($result)) {
                                                         $sql1 = "SELECT * from continjency_master,employees where continjency_master.empid=employees.pfno AND continjency_master.is_rejected='0' AND continjency_master.summary_id='" . $val['summary_id'] . "' AND continjency_master.generate='1'";
-                                                        $res1 = mysql_query($sql1);
+                                                        $res1 = mysqli_query($conn,$sql1);
                                                         $data = 0;
-                                                        while ($val1 = mysql_fetch_array($res1)) {
+                                                        while ($val1 = mysqli_fetch_array($res1)) {
                                                             
                                                             if ($data == 0) {
                                                                 if ($val['title'] != null) {

@@ -55,8 +55,8 @@ include('control/function.php');
 									<tbody>
 										<?php									
 										
-											$sql = mysql_query("SELECT continjency_master.reference,continjency_master.year,continjency_master.month,continjency_master.total_amount,continjency_master.empid,forward_data.empid,forward_data.reference_id,forward_data.hold_status,forward_data.fowarded_to FROM continjency_master INNER JOIN forward_data ON forward_data.reference_id = continjency_master.reference WHERE forward_data.hold_status = '1' AND fowarded_to = '".$_SESSION['empid']."'");
-                                            while($row = mysql_fetch_array($sql))
+											$sql = mysqli_query($conn,"SELECT continjency_master.reference,continjency_master.year,continjency_master.month,continjency_master.total_amount,continjency_master.empid,forward_data.empid,forward_data.reference_id,forward_data.hold_status,forward_data.fowarded_to FROM continjency_master INNER JOIN forward_data ON forward_data.reference_id = continjency_master.reference WHERE forward_data.hold_status = '1' AND fowarded_to = '".$_SESSION['empid']."'");
+                                            while($row = mysqli_fetch_array($sql))
 											{
 										?>
 										<tr>

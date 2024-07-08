@@ -50,16 +50,16 @@ include('control/function.php');
 							<?php 
 							$reject='';
 							$query1="SELECT `id`, `month`, `year`, `empid`, `reference`, reason,rejected_by FROM `continjency_master` WHERE empid='".$_SESSION['empid']."' AND forward_status='1' AND is_rejected='1' ";
-								$sql1=mysql_query($query1);
-								while ($row = mysql_fetch_array($sql1)) 
+								$sql1=mysqli_query($conn,$query1);
+								while ($row = mysqli_fetch_array($sql1)) 
 								{
 									$reject=explode(",",$row['rejected_by']);
 									// print_r($reject);
 
 									$query2="SELECT SUM(total_amount)as total_amount,SUM(kms)as distance FROM `continjency` WHERE reference='".$row['reference']."' ";
-									$sql2=mysql_query($query2);
-									echo mysql_error();
-									$row2 = mysql_fetch_array($sql2);
+									$sql2=mysqli_query($conn,$query2);
+									echo mysqli_error($conn);
+									$row2 = mysqli_fetch_array($sql2);
 								?>
 							<tr>
 								<td><?php echo $row['reference']; ?></td>

@@ -44,8 +44,8 @@ include('common/sidebar.php');
                         <div class="number">
                             <?php
 							$query = "SELECT MONTHNAME( str_to_date(taentry_master.created_date,'%d/%m/%Y') ) as created, taentry_master.reference_no, taentry_master.TAYear, taentry_master.empid as empid, taentry_master.TAMonth, SUM(taentrydetails.distance) AS distance, SUM(taentrydetails.amount) as rate FROM taentry_master INNER JOIN taentrydetails ON taentry_master.reference_no = taentrydetails.reference_no WHERE taentry_master.reference_no IN (select reference_id  from forward_data where forward_data.fowarded_to='" . $_SESSION['empid'] . "'and admin_approve='1') group by taentry_master.reference_no";
-							$resultset = mysql_query($query);
-							$rows = mysql_num_rows($resultset);
+							$resultset = mysqli_query($conn,$query);
+							$rows = mysqli_num_rows($resultset);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $rows . "</h3>";
 							?>
                         </div>
@@ -67,8 +67,8 @@ include('common/sidebar.php');
                         <div class="number">
                             <?php
 							$query = "SELECT MONTHNAME( str_to_date(taentry_master.created_date,'%d/%m/%Y') ) as created, taentry_master.reference_no, taentry_master.TAYear,taentry_master.empid as empid, taentry_master.TAMonth, SUM(taentrydetails.distance) AS distance, SUM(taentrydetails.amount) as rate FROM taentry_master INNER JOIN taentrydetails ON taentry_master.reference_no = taentrydetails.reference_no WHERE taentry_master.reference_no IN (select reference_id from forward_data where forward_data.fowarded_to='" . $_SESSION['empid'] . "' AND forward_data.depart_time is null AND admin_approve='0') group by taentry_master.reference_no";
-							$resultset = mysql_query($query);
-							$rows = mysql_num_rows($resultset);
+							$resultset = mysqli_query($conn,$query);
+							$rows = mysqli_num_rows($resultset);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $rows . "</h3>";
 							?>
                         </div>

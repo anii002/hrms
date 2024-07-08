@@ -62,15 +62,15 @@ include('common/sidebar.php');
                                                         $query = "SELECT MONTHNAME( str_to_date(taentry_master.created_date,'%d/%m/%Y') ) as created, taentry_master.reference_no, taentry_master.TAYear,taentry_master.empid as empid, taentry_master.TAMonth, SUM(taentrydetails.distance) AS distance, SUM(taentrydetails.amount) as rate FROM taentry_master INNER JOIN taentrydetails ON taentry_master.reference_no = taentrydetails.reference_no WHERE taentry_master.reference_no IN (select reference_id from forward_data where forward_data.fowarded_to='" . $_SESSION['empid'] . "' AND forward_data.depart_time is null AND admin_approve='0') group by taentry_master.reference_no";
                                                     }
                                                     // echo $query;
-                                                    $result = mysql_query($query);
+                                                    $result = mysqli_query($conn,$query);
                                                     
-                                                    while ($val = mysql_fetch_array($result)) 
+                                                    while ($val = mysqli_fetch_array($result)) 
                                                     {
                                                    
-                                                        $usr_query = mysql_query("SELECT username FROM `users` WHERE role='13' AND username='".$val['empid']."'");
-                                                        $usr_rows = mysql_num_rows($usr_query);
-                                                        $date_query=mysql_query("SELECT arrived_time FROM `forward_data` WHERE fowarded_to='".$_SESSION['empid']."' AND reference_id='".$val['reference_no']."' ");
-                                                        $row_date=mysql_fetch_array($date_query);
+                                                        $usr_query = mysqli_query($conn,"SELECT username FROM `users` WHERE role='13' AND username='".$val['empid']."'");
+                                                        $usr_rows = mysqli_num_rows($usr_query);
+                                                        $date_query=mysqli_query($conn,"SELECT arrived_time FROM `forward_data` WHERE fowarded_to='".$_SESSION['empid']."' AND reference_id='".$val['reference_no']."' ");
+                                                        $row_date=mysqli_fetch_array($date_query);
                                                         if ($val['reference_no'] != null && $usr_rows == 1) 
                                                         {
                                                             echo "<tr>
@@ -93,8 +93,9 @@ include('common/sidebar.php');
                                         <?php
                                         function get_employee($id)
                                         {
-                                            $query = mysql_query("select name from employees where pfno='$id'");
-                                            $result = mysql_fetch_array($query);
+                                            global $conn;
+                                            $query = mysqli_query($conn,"select name from employees where pfno='$id'");
+                                            $result = mysqli_fetch_array($query);
                                             return $result['name'];
                                         }
                                         ?>

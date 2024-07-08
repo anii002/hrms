@@ -9,12 +9,12 @@ if(isset($_POST['getback']))
 		$ref_no = $_GET['ref_no'];
 		echo $ref_no;
 		
-		$query = mysql_query("SELECT `empid` FROM `taentry_master` WHERE `reference_no`='$ref_no'");
-		$row = mysql_fetch_array($query);
+		$query = mysqli_query("SELECT `empid` FROM `taentry_master` WHERE `reference_no`='$ref_no'");
+		$row = mysqli_fetch_array($query);
 		$empid = $row['empid'];
 		
-		$query2 = mysql_query("UPDATE `taentry_master` SET `forward_status`= 0 WHERE reference_no = '$ref_no' and empid = '$empid'");
-		$query3 = mysql_query("DELETE FROM `forward_data` WHERE reference_id = '$ref_no' AND empid = '$empid'");
+		$query2 = mysqli_query("UPDATE `taentry_master` SET `forward_status`= 0 WHERE reference_no = '$ref_no' and empid = '$empid'");
+		$query3 = mysqli_query("DELETE FROM `forward_data` WHERE reference_id = '$ref_no' AND empid = '$empid'");
 		
 		if($query3 && $query3 == TRUE)
 		{
@@ -100,12 +100,12 @@ if(isset($_POST['getback']))
 
 if(isset($_REQUEST['id']))
 {
-  $empl_query = mysql_query("select * from taentryform_master where reference='".$_REQUEST['id']."'");
-  $empl_id_result = mysql_fetch_array($empl_query);
+  $empl_query = mysqli_query("select * from taentryform_master where reference='".$_REQUEST['id']."'");
+  $empl_id_result = mysqli_fetch_array($empl_query);
   $empl_id = $empl_id_result['empid'];
 
-  $emp_query = mysql_query("select * from employees where pfno='".$empl_id."'");
-  $emp_result = mysql_fetch_array($emp_query);
+  $emp_query = mysqli_query("select * from employees where pfno='".$empl_id."'");
+  $emp_result = mysqli_fetch_array($emp_query);
   $years=["January","February","March","April","May","June","July","August","September","October","November","December"];
   $expl = explode(",",$empl_id_result['TAMonth']);
 }        
@@ -191,13 +191,13 @@ if(isset($_REQUEST['id']))
 									<tbody align="center">
 										<?php
 											 $ref_no = $_GET['ref_no'];
-											 $query4 = mysql_query("SELECT cardpass FROM taentry_master WHERE reference_no = '$ref_no'");
-											 $row1 = mysql_fetch_array($query4);
+											 $query4 = mysqli_query("SELECT cardpass FROM taentry_master WHERE reference_no = '$ref_no'");
+											 $row1 = mysqli_fetch_array($query4);
 											$query1="SELECT * FROM `taentrydetails` WHERE reference_no='".$_GET['ref_no']."' ";
-											$sql1=mysql_query($query1);
-											 $total_rows=mysql_num_rows($sql1);
+											$sql1=mysqli_query($query1);
+											 $total_rows=mysqli_num_rows($sql1);
 											 $cnt=1;
-											while ($row = mysql_fetch_array($sql1)) {
+											while ($row = mysqli_fetch_array($sql1)) {
 										?>
 										<tr>
 											<td><?php echo $row1['cardpass']; ?></td>
@@ -245,8 +245,8 @@ if(isset($_REQUEST['id']))
 						<div class="table-scrollable">
 							<?php 
 								$query3="SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails` WHERE `empid`='".$_SESSION['empid']."' AND `reference_no`='".$_GET['ref_no']."' ";
-								$sql3=mysql_query($query3);
-								$row3=mysql_fetch_array($sql3);
+								$sql3=mysqli_query($query3);
+								$row3=mysqli_fetch_array($sql3);
 								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
 							?>
 								<table class="table table-bordered table-hover">

@@ -57,8 +57,9 @@ include('common/sidebar.php');
 					}
 					function get_employee($id)
 								{
-									$query = mysql_query("SELECT name from employees where pfno='$id'");
-									$result = mysql_fetch_array($query);
+									global $conn;
+									$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+									$result = mysqli_fetch_array($query);
 									return $result['name'];
 								}
 						$selected_list = $_REQUEST['selected_list'];
@@ -66,8 +67,8 @@ include('common/sidebar.php');
 						//echo "<table class=''><thead><tr><th>Empid</th><th>Name</th><th>Reference</th></tr></thead><tbody>";
 						foreach($selected_list as $list)
 						{
-							$query = mysql_query("SELECT empid,TAYear,TAMonth from taentry_master where reference_no='".$list."'");
-							$resultset = mysql_fetch_array($query);
+							$query = mysqli_query($conn,"SELECT empid,TAYear,TAMonth from taentry_master where reference_no='".$list."'");
+							$resultset = mysqli_fetch_array($query);
 
 							// echo $y=$resultset['TAYear'];
 							// echo $m=$resultset['TAMonth'];

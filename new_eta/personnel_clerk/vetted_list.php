@@ -51,8 +51,8 @@ include('common/sidebar.php');
 								$cnt = 1;
 								$query = "SELECT * from master_summary WHERE forward_status = '1' and estcrk_status='1' and dept_id='-' and is_gazetted='1' ";
 								//echo $query;
-								$result = mysql_query($query);
-								while ($val = mysql_fetch_array($result)) {
+								$result = mysqli_query($conn,$query);
+								while ($val = mysqli_fetch_array($result)) {
 									if ($val['title'] != null) {
 										echo "
 											<tr>

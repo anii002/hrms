@@ -21,10 +21,10 @@ $time = date("Y/m/d")." ".date("h:i:sa");
 
 $insert_master_sql = "INSERT INTO `continjency_master`(`reference`, `month`, `year`, `empid`, `total_amount`, `set_number`, `generate`,`forward_status`) VALUES ('".$reference_no."','".$month."','".$year."','".$_SESSION['empid']."','".$sum."','0','0','0')";
 
-$result = mysql_query($insert_master_sql);
+$result = mysqli_query($conn,$insert_master_sql);
 
-$query = mysql_query("SELECT `id` FROM `continjency_master` ORDER BY id DESC");
-$row = mysql_fetch_array($query);
+$query = mysqli_query($conn,"SELECT `id` FROM `continjency_master` ORDER BY id DESC");
+$row = mysqli_fetch_array($query);
 $id1 = $row['id'];
 
 if($result)
@@ -32,7 +32,7 @@ if($result)
 	for($i=0;$i<$total_rows;$i++)
 	{
 		$insert_sql = "INSERT INTO `continjency`(`reference`, `cntdate`, `cntfrom`, `cntTo`, `kms`, `rate_per_km`, `total_amount`, `set_number`, `objective`, `cid`) VALUES ('".$reference_no."','".$_POST['date'.$i]."','".$_POST['from'.$i]."','".$_POST['to'.$i]."','".$_POST['kms'.$i]."', '".$_POST['rate'.$i]."', '".$_POST['total'.$i]."','0','".$_POST['objective']."','".$id1."')";
-		$result = mysql_query($insert_sql);
+		$result = mysqli_query($conn,$insert_sql);
 		if($result){
 			$res = $res+1;
 		}

@@ -57,8 +57,9 @@ $GLOBALS['flag']="5.12";
 								<?php
 								function get_employee($id)
 								{
-									$query = mysql_query("SELECT name from employees where pfno='$id'");
-									$result = mysql_fetch_array($query);
+									global $conn;
+									$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+									$result = mysqli_fetch_array($query);
 									return $result['name'];
 								}
 								$cnt=0;
@@ -68,13 +69,13 @@ $GLOBALS['flag']="5.12";
 
 
 									
-									$result = mysql_query($query);
-									$count_row = mysql_num_rows($result);
+									$result = mysqli_query($conn,$query);
+									$count_row = mysqli_num_rows($result);
 									if($count_row>0){}else{
 										echo "<script>document.getElementById('gn').style.display='none';</script>";
 									}
 									$cnt=0;
-									while($val = mysql_fetch_array($result))
+									while($val = mysqli_fetch_array($result))
 									{
 										if($val['reference']!=null)
 										{

@@ -24,7 +24,7 @@ if(isset($_POST['submit']))
 
 	// $mts=implode(",", $_POST['month']);
 	//$mts=$_POST['month'];
-	$object=mysql_real_escape_string($_POST['object']);
+	$object=mysqli_real_escape_string($conn,$_POST['object']);
 	$cardpass=$_POST['cardpass'];
 	$u_amount=$_POST['u_amount'];
 	
@@ -109,7 +109,7 @@ if(isset($_POST['submit']))
 				// 		}
 						 $query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`,cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$reference."', '".$date."','".$type."','".$_POST['trainno'.$k]."','".$other."','".$_POST['dstn'.$k]."','".$dtime."','".$_POST['astn'.$k]."', '".$atime."','".$distance."','".$per."','".$amt."','0','".$date1."','".$cardpass."','".$object."','".$set_no."'  )";
 						// echo "<br>";
-							$sql2=mysql_query($query2);
+							$sql2=mysqli_query($conn,$query2);
 							// echo "<br>";
 						$lm++;
 					}
@@ -123,15 +123,15 @@ if(isset($_POST['submit']))
 				$Hp_cnt=$Hp_cnt+1;
 				$Hp_amt=$Hp_amt+$u_amount;
 				$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`, cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$reference."', '".$dates[$j]."','','','','','','', '','0','100%','".$u_amount."','0','".$date1."','".$cardpass."','".$object."','".$set_no."'  )";
-				$sql2=mysql_query($query2);
+				$sql2=mysqli_query($conn,$query2);
 			}
 
 		}
 			// echo "<br>Total Amount ".$tamount;
 
 		$query="SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE reference_no='".$_POST['u_ref_no']."' ";
-		$sql=mysql_query($query);
-		$row=mysql_fetch_array($sql);
+		$sql=mysqli_query($conn,$query);
+		$row=mysqli_fetch_array($sql);
 
 		$total_30p_cnt=$row['30p_cnt']+$Tp_cnt;
 		$total_30p_amt=$row['30p_amt']+$Tp_amt;
@@ -143,7 +143,7 @@ if(isset($_POST['submit']))
 		$total_otherp_amt=$row['otherp_amt']+$otherp_amt;
 
 		$query3="UPDATE `tasummarydetails` SET `30p_cnt`='".$total_30p_cnt."',`30p_amt`='".$total_30p_amt."',`70p_cnt`='".$total_70p_cnt."',`70p_amt`='".$total_70p_amt."',`100p_cnt`='".$total_100p_cnt."',`100p_amt`='".$total_100p_amt."',`otherp_cnt`='".$total_otherp_cnt."',`otherp_amt`='".$total_otherp_amt."',`created_at`='".$date1."' WHERE `reference_no`='".$_POST['u_ref_no']."'  ";
-        $sql3=mysql_query($query3);
+        $sql3=mysqli_query($conn,$query3);
         $empid=$_SESSION['empid'];
         $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
         user_activity($empid,$file_name,'Update TA','SO updating the TA');
@@ -160,18 +160,19 @@ if(isset($_POST['submit']))
 
 function delete_ta_details($reference,$set_no)
 {
+	global $conn;
 	//echo ("SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$reference."' ");
-	$sql=mysql_query("SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$reference."' ");
-    $total_rows=mysql_num_rows($sql);
+	$sql=mysqli_query($conn,"SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='".$reference."' ");
+    $total_rows=mysqli_num_rows($sql);
    //	echo $total_rows;
    	//exit;
     $delete_flag=0;
 
     if($total_rows >= 1)
     {
-        $sql1=mysql_query("SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ");
+        $sql1=mysqli_query($conn,"SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ");
         $amt=0;$Tp_cnt=0;$Sp_cnt=0;$Hp_cnt=0;$Otp_cnt=0;$Tp_amt=0;$Sp_amt=0;$Hp_amt=0;$Otp_amt=0;
-        while($result1=mysql_fetch_array($sql1))
+        while($result1=mysqli_fetch_array($sql1))
         {
            if($result1['percent'] == "30%" || $result1['percent'] == "30" )
           {
@@ -195,8 +196,8 @@ function delete_ta_details($reference,$set_no)
         //   }
         }
 
-        $sql2=mysql_query("SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' AND `empid`='".$_SESSION['empid']."' ");
-        $result2=mysql_fetch_array($sql2);
+        $sql2=mysqli_query($conn,"SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' AND `empid`='".$_SESSION['empid']."' ");
+        $result2=mysqli_fetch_array($sql2);
        
         $total_30p_cnt=$result2['30p_cnt']-$Tp_cnt;
         $total_30p_amt=$result2['30p_amt']-$Tp_amt;
@@ -208,13 +209,13 @@ function delete_ta_details($reference,$set_no)
         $total_otherp_cnt=$result2['otherp_cnt']-$Otp_cnt;
         $total_otherp_amt=$result2['otherp_amt']-$Otp_amt;
 
-        $sql3=mysql_query("DELETE FROM taentrydetails WHERE reference_no = '".$reference."' AND set_number = '".$set_no."' ");
+        $sql3=mysqli_query($conn,"DELETE FROM taentrydetails WHERE reference_no = '".$reference."' AND set_number = '".$set_no."' ");
 
-        if(mysql_affected_rows() > 0)
+        if(mysqli_affected_rows($conn) > 0)
         {
             $query4="UPDATE `tasummarydetails` SET `30p_cnt`='".$total_30p_cnt."',`30p_amt`='".$total_30p_amt."',`70p_cnt`='".$total_70p_cnt."',`70p_amt`='".$total_70p_amt."',`100p_cnt`='".$total_100p_cnt."',`100p_amt`='".$total_100p_amt."',`otherp_cnt`='".$total_otherp_cnt."',`otherp_amt`='".$total_otherp_amt."' WHERE `reference_no`='".$reference."'  ";
 
-            $result4=mysql_query($query4);    
+            $result4=mysqli_query($conn,$query4);    
         	return 1;
         }
         else

@@ -37,12 +37,12 @@ include('common/sidebar.php');
 
 				<?php 
 				// 	 $_SESSION['empid'];
-					$level_q=mysql_query("SELECT LEVEL FROM `employees` where pfno='".$_SESSION['empid']."' ");
-					$level_row=mysql_fetch_array($level_q);
+					$level_q=mysqli_query($conn,"SELECT LEVEL FROM `employees` where pfno='".$_SESSION['empid']."' ");
+					$level_row=mysqli_fetch_array($level_q);
 					
 					$lev= $level_row['LEVEL'];
-					$level_q1=mysql_query("SELECT amount from ta_amount WHERE min<=$lev AND max>=$lev");
-					$level_row1=mysql_fetch_array($level_q1);
+					$level_q1=mysqli_query($conn,"SELECT amount from ta_amount WHERE min<=$lev AND max>=$lev");
+					$level_row1=mysqli_fetch_array($level_q1);
 					$user_amount= $level_row1['amount'];
 
 				?>										

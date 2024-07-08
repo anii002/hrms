@@ -57,14 +57,15 @@ include('common/sidebar.php');
 										<?php
 											function get_employee($id)
 											{
-												$query = mysql_query("SELECT name from employees where pfno='$id'");
-												$result = mysql_fetch_array($query);
+												global $conn;
+												$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+												$result = mysqli_fetch_array($query);
 												return $result['name'];
 											}		
 											
 
-											$qry = mysql_query("SELECT id,`reference`, `month`, `year`,empid,total_amount,generate FROM `continjency_master` WHERE summary_id = '".$_GET['sum_id']."'");
-											while($row = mysql_fetch_array($qry))
+											$qry = mysqli_query($conn,"SELECT id,`reference`, `month`, `year`,empid,total_amount,generate FROM `continjency_master` WHERE summary_id = '".$_GET['sum_id']."'");
+											while($row = mysqli_fetch_array($qry))
 											{
 
 										?>
@@ -85,8 +86,8 @@ include('common/sidebar.php');
 							</div>
 							<div class="text-right">
 								<?php
-								$query = mysql_query("SELECT * from master_summary_cont where id='".$_GET['id']."' AND summary_id='".$_GET['sum_id']."' ");
-									$val=mysql_fetch_array($query);
+								$query = mysqli_query($conn,"SELECT * from master_summary_cont where id='".$_GET['id']."' AND summary_id='".$_GET['sum_id']."' ");
+									$val=mysqli_fetch_array($query);
 									if($val['estcrk_status']==0 && $val['forward_status'] == 0 )
 									{
 										echo '<button type="submit" class="btn green">Approve</button>'

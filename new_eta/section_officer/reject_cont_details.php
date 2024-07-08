@@ -80,12 +80,12 @@ include('control/function.php');
 {
     
     // $e=("select * from taentry_master where reference_no='".$_GET['ref_no']."'");
-    $empl_query = mysql_query("select * from taentry_master where reference_no='".$_GET['ref_no']."'");
-    $empl_id_result = mysql_fetch_array($empl_query);
+    $empl_query = mysqli_query($conn,"select * from taentry_master where reference_no='".$_GET['ref_no']."'");
+    $empl_id_result = mysqli_fetch_array($empl_query);
     $empl_id = $empl_id_result['empid'];
     
-    $emp_query = mysql_query("select * from employees where pfno='".$empl_id."'");
-    $emp_result = mysql_fetch_array($emp_query);
+    $emp_query = mysqli_query($conn,"select * from employees where pfno='".$empl_id."'");
+    $emp_result = mysqli_fetch_array($emp_query);
     $years=["January","February","March","April","May","June","July","August","September","October","November","December"];
     $expl = explode(",",$empl_id_result['TAMonth']);
 }        
@@ -180,17 +180,17 @@ include('control/function.php');
 										<?php
 											 // $_GET['ref_no'];
 											$query="SELECT DISTINCT(set_number),reference FROM `continjency` WHERE reference='".$_GET['ref_no']."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-											$sql=mysql_query($query);
-											$total_row1=mysql_num_rows($sql);
-											while($row_1 = mysql_fetch_array($sql)){
+											$sql=mysqli_query($conn,$query);
+											$total_row1=mysqli_num_rows($sql);
+											while($row_1 = mysqli_fetch_array($sql)){
 
 										    $query1="SELECT * FROM `continjency` WHERE set_number='".$row_1['set_number']."' AND reference='".$_GET['ref_no']."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-											$sql1=mysql_query($query1);
-											echo mysql_error();
-											$total_rows=mysql_num_rows($sql1);
+											$sql1=mysqli_query($conn,$query1);
+											echo mysqli_error($conn);
+											$total_rows=mysqli_num_rows($sql1);
 											$cnt=1;
 											$T_amount=0;
-											while ($row = mysql_fetch_array($sql1)) {
+											while ($row = mysqli_fetch_array($sql1)) {
 										?>
 										<tr>
 											<?php 
@@ -293,8 +293,8 @@ include('control/function.php');
                     	<div class="col-md-12 trackprint-btn">
                     	    <?php 
 								$query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_SESSION['empid']."' AND tasummarydetails.`reference_no`='".$_GET['ref_no']."'";
-								$sql3=mysql_query($query3);
-								$row3=mysql_fetch_array($sql3);
+								$sql3=mysqli_query($conn,$query3);
+								$row3=mysqli_fetch_array($sql3);
 								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
 							?>
 							<ul>

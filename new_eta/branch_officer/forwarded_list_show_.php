@@ -75,12 +75,12 @@ include('control/function.php');
 
 // if(isset($_REQUEST['id']))
 // {
-//   $empl_query = mysql_query("select * from taentryform_master where reference='".$_REQUEST['id']."'");
-//   $empl_id_result = mysql_fetch_array($empl_query);
+//   $empl_query = mysqli_query("select * from taentryform_master where reference='".$_REQUEST['id']."'");
+//   $empl_id_result = mysqli_fetch_array($empl_query);
 //   $empl_id = $empl_id_result['empid'];
 
-//   $emp_query = mysql_query("select * from employees where pfno='".$empl_id."'");
-//   $emp_result = mysql_fetch_array($emp_query);
+//   $emp_query = mysqli_query("select * from employees where pfno='".$empl_id."'");
+//   $emp_result = mysqli_fetch_array($emp_query);
 //   $years=["January","February","March","April","May","June","July","August","September","October","November","December"];
 //   $expl = explode(",",$empl_id_result['TAMonth']);
 // }        
@@ -141,10 +141,10 @@ include('control/function.php');
 										<?php
 										//echo $_GET['reference'];
 											
-											$qry1 = mysql_query("SELECT * FROM `continjency` WHERE reference ='".$_GET['ref_no']."' ");
+											$qry1 = mysqli_query($conn,"SELECT * FROM `continjency` WHERE reference ='".$_GET['ref_no']."' ");
 											$cnt=1;
-											$trows=mysql_num_rows($qry1);
-											while($row1 = mysql_fetch_array($qry1))
+											$trows=mysqli_num_rows($qry1);
+											while($row1 = mysqli_fetch_array($qry1))
 											{
 
 										?>
@@ -189,8 +189,8 @@ include('control/function.php');
 										?>
 										<tr>
 											<?php
-													$result = mysql_query("SELECT sum(total_amount),sum(kms) FROM `continjency` WHERE reference = '".$_GET['ref_no']."'") or die(mysql_error());
-													while ($rows = mysql_fetch_array($result)) {
+													$result = mysqli_query($conn,"SELECT sum(total_amount),sum(kms) FROM `continjency` WHERE reference = '".$_GET['ref_no']."'") or die(mysqli_error($conn));
+													while ($rows = mysqli_fetch_array($result)) {
 												?>
 											<!-- <td colspan="13" style="background-color: #fcf8e3a3;"></td> -->
 											<td></td>

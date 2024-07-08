@@ -57,8 +57,9 @@ include('common/sidebar.php');
 								<?php
 								function get_employee($id)
 								{
-									$query = mysql_query("SELECT name from employees where pfno='$id'");
-									$result = mysql_fetch_array($query);
+									global $conn;
+									$query = mysqli_query($conn,"SELECT name from employees where pfno='$id'");
+									$result = mysqli_fetch_array($query);
 									return $result['name'];
 								}
 								$cnt=0;
@@ -66,13 +67,13 @@ include('common/sidebar.php');
 								$query = "SELECT MONTHNAME(str_to_date(continjency_master.created_date,'%d/%m/%Y') ) as created, continjency_master.reference, continjency_master.year,continjency_master.empid as empid, continjency_master.month, SUM(continjency.kms) AS distance, SUM(continjency.total_amount) as rate FROM continjency_master INNER JOIN continjency ON continjency_master.reference = continjency.reference WHERE continjency_master.reference IN (select reference_id from forward_data where forward_data.fowarded_to='".$_SESSION['empid']."' AND forward_data.depart_time is null AND summary='0') group by continjency_master.reference";
 									//echo $query;
 									
-									$result = mysql_query($query);
-									$count_row = mysql_num_rows($result);
+									$result = mysqli_query($conn,$query);
+									$count_row = mysqli_num_rows($result);
 									if($count_row>0){}else{
 										echo "<script>document.getElementById('gn').style.display='none';</script>";
 									}
 									$cnt=0;
-									while($val = mysql_fetch_array($result))
+									while($val = mysqli_fetch_array($result))
 									{
 										if($val['reference']!=null)
 										{

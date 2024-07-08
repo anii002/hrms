@@ -56,13 +56,13 @@ if(isset($_POST['submit']))
 	$obj_month = implode(',', $mths);	
 	$month_count=count($mths);
 	$yr=$_POST['user_year'];
-	$object=mysql_real_escape_string($_POST['object']);
+	$object=mysqli_real_escape_string($conn,$_POST['object']);
 	$cardpass=$_POST['cardpass'];
 	$u_amount=$_POST['u_amount'];
 	
-	$sql=mysql_query("SELECT `set_number` FROM `taentrydetails` WHERE `reference_no`='".$old_reference."' AND empid='".$_SESSION['empid']."' ORDER BY set_number DESC limit 1");
-	echo mysql_error();
-	$result=mysql_fetch_array($sql);
+	$sql=mysqli_query($conn,"SELECT `set_number` FROM `taentrydetails` WHERE `reference_no`='".$old_reference."' AND empid='".$_SESSION['empid']."' ORDER BY set_number DESC limit 1");
+	echo mysqli_error($conn);
+	$result=mysqli_fetch_array($sql);
 	$set_no=$result['set_number'];
 	$set_no=$set_no+1;
 	
@@ -81,8 +81,8 @@ if(isset($_POST['submit']))
 	if($month_count>1)
 	{
 		$object=$_POST['object']."(Split journey of Month ".$obj_month.")";
-		$object=mysql_real_escape_string($object);
-		$object1=mysql_real_escape_string($_POST['object']);
+		$object=mysqli_real_escape_string($conn,$object);
+		$object1=mysqli_real_escape_string($conn,$_POST['object']);
 		function returnDates($fromdate, $todate) {
 		    $fromdate = \DateTime::createFromFormat('d/m/Y', $fromdate);
     		$todate = \DateTime::createFromFormat('d/m/Y', $todate);
@@ -146,8 +146,8 @@ if(isset($_POST['submit']))
                                     if($c == 0)
                                     {						
                                     	$duplicate_query="SELECT empid, reference_no, taDate, departT, arrivalT, percent,amount FROM taentrydetails WHERE empid='".$_SESSION['empid']."' AND reference_no='".$old_reference."' AND taDate='".$date."' order by id desc limit 1";
-                                    	$result=mysql_query($duplicate_query);
-                                    	$fet=mysql_fetch_array($result);
+                                    	$result=mysqli_query($conn,$duplicate_query);
+                                    	$fet=mysqli_fetch_array($result);
                                     	$get_per=$fet['percent'];
                                     
                                     	if($get_per=="30%" || $get_per=="30"){
@@ -161,18 +161,18 @@ if(isset($_POST['submit']))
                                     		$Hp_amt1=$u_amount*1;
                                     	}
                                     
-                                    	$chk_record=mysql_num_rows($result);
+                                    	$chk_record=mysqli_num_rows($result);
                                     	if($chk_record >= 1)
                                     	{
                                     		$time_array1=array();
                                     		$dates_arr=array();
                                     		// Update Previous Date Calculation
                                     		$p_update="UPDATE `taentrydetails` SET `percent`='0',`amount`='0' WHERE `reference_no`='".$old_reference."' and empid='".$_SESSION['empid']."' and taDate='".$date."'";
-                                    		$p_res=mysql_query($p_update);
+                                    		$p_res=mysqli_query($conn,$p_update);
                                     		
                                     		$time_array=array();
-                                    		$result=mysql_query($duplicate_query);
-                                    		while ($fet_data=mysql_fetch_array($result)){
+                                    		$result=mysqli_query($conn,$duplicate_query);
+                                    		while ($fet_data=mysqli_fetch_array($result)){
                                     		  	$p_dtime="00:00";
                                     		  	$p_atime=$fet_data['arrivalT'];
                                     			$p_timediff=$p_atime;
@@ -263,7 +263,7 @@ if(isset($_POST['submit']))
 								// 	}
 									$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`,cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$old_reference."', '".$date."','".$type."','".$_POST['trainno'.$k]."','".$other."','".$_POST['dstn'.$k]."','".$dtime."','".$_POST['astn'.$k]."', '".$atime."','".$distance."','".$per."','".$amt."','0','".$date1."','".$cardpass."','".$object1."','".$set_no."'  )";
 									// echo "<br><br>";
-									$sql2=mysql_query($query2);
+									$sql2=mysqli_query($conn,$query2);
 										// echo "<br>";
 									$lm++;
 								}
@@ -287,13 +287,13 @@ if(isset($_POST['submit']))
     						$Hp_amt=$Hp_amt+$u_amount;
     						$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`, cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$old_reference."', '".$dates[$j]."','','','','','','', '','0','100%','".$u_amount."','0','".$date1."','".$cardpass."','".$object1."','".$set_no."'  )";
     						// echo "<br>";
-    						$sql2=mysql_query($query2);
+    						$sql2=mysqli_query($conn,$query2);
 						}
 					}
 				}
 				$query="SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE reference_no='".$_POST['user_ref_no']."' ";
-				$sql=mysql_query($query);
-				$row=mysql_fetch_array($sql);
+				$sql=mysqli_query($conn,$query);
+				$row=mysqli_fetch_array($sql);
 
 				$total_30p_cnt=($row['30p_cnt']+$Tp_cnt)-$Tp_cnt1;
 		$total_30p_amt=($row['30p_amt']+$Tp_amt)-$Tp_amt1;
@@ -306,7 +306,7 @@ if(isset($_POST['submit']))
 
 				$query3="UPDATE `tasummarydetails` SET `30p_cnt`='".$total_30p_cnt."',`30p_amt`='".$total_30p_amt."',`70p_cnt`='".$total_70p_cnt."',`70p_amt`='".$total_70p_amt."',`100p_cnt`='".$total_100p_cnt."',`100p_amt`='".$total_100p_amt."',`otherp_cnt`='".$total_otherp_cnt."',`otherp_amt`='".$total_otherp_amt."',`created_at`='".$date1."' WHERE `reference_no`='".$_POST['user_ref_no']."'  ";
 				// echo "<br><br><br>NEW TA ENTRY MASTER STARTED............";
-				$sql3=mysql_query($query3);
+				$sql3=mysqli_query($conn,$query3);
 			}
 			else
 			{
@@ -314,9 +314,9 @@ if(isset($_POST['submit']))
 				$reference = $_SESSION['empid']."/".$year."/".$ref;
 				$array_count=count($dates);
 				$query1="INSERT INTO `taentry_master`(`TAMonth`, `TAYear`, `empid`, `reference_no`, `cardpass`, `objective`, `status`, `forward_status`, `created_date`, `is_rejected`, `reason`) VALUES ('".$mths[$mcnt]."','".$year."','".$_SESSION['empid']."','".$reference."','".$cardpass."','".$object."','0','0','".$date1."','0','null' )";
-				$sql1=mysql_query($query1);
+				$sql1=mysqli_query($conn,$query1);
 				// echo "<br>";
-				echo mysql_error();
+				echo mysqli_error($conn);
 			   	$lm=0;
 			   	$Tp_cnt=0;
 				$Tp_amt=0;
@@ -382,7 +382,7 @@ if(isset($_POST['submit']))
 								// 			$otherp_amt=$otherp_amt+$amt;
 								// 		}
 										$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`, cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$reference."', '".$date."','".$type."','".$_POST['trainno'.$k]."','".$other."','".$_POST['dstn'.$k]."','".$dtime."','".$_POST['astn'.$k]."', '".$atime."','".$distance."','".$per."','".$amt."','0','".$date1."','".$cardpass."','".$object."','0'  )";
-										$sql2=mysql_query($query2);
+										$sql2=mysqli_query($conn,$query2);
 										// echo "<br>";
 										$lm++;
 									}
@@ -395,7 +395,7 @@ if(isset($_POST['submit']))
 							$Hp_cnt=$Hp_cnt+1;
 							$Hp_amt=$Hp_amt+$u_amount;
 							$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`, cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$reference."', '".$dates[$kj]."','','','','','','', '','0','100%','".$u_amount."','0','".$date1."','".$cardpass."','".$object."','0'  )";
-						 	$sql2=mysql_query($query2);	
+						 	$sql2=mysqli_query($conn,$query2);	
 							// echo "<br>";					  
 						}	
 					}
@@ -406,7 +406,7 @@ if(isset($_POST['submit']))
 				} // End of array dates for loop
 				$query3="INSERT INTO `tasummarydetails`(`empid`, `reference_no`, `month`, `year`, `30p_cnt`, `30p_amt`, `70p_cnt`, `70p_amt`, `100p_cnt`, `100p_amt`, `otherp_cnt`, `otherp_amt`, `is_summary_generated`, `created_at`) VALUES ('".$_SESSION['empid']."','".$reference."','".$mths[$mcnt]."','".$year."','".$Tp_cnt."','".$Tp_amt."','".$Sp_cnt."','".$Sp_amt."','".$Hp_cnt."','".$Hp_amt."','".$otherp_cnt."','".$otherp_amt."','0','".$date1."' )";	
 				// echo "=============================================================================================================================================<br>";
-				$sql3=mysql_query($query3);
+				$sql3=mysqli_query($conn,$query3);
 				$empid=$_SESSION['empid'];
                 $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
                 user_activity($empid,$file_name,'Add more TA','SO add more TA with another month');
@@ -417,7 +417,7 @@ if(isset($_POST['submit']))
 	else
 	{
 		// $query1="INSERT INTO `taentry_master`( `TAMonth`, `TAYear`, `empid`, `reference_no`, `cardpass`, `objective`, `status`, `forward_status`, `created_date`, `is_rejected`, `reason`) VALUES ('".$mths."','".$year."','".$_SESSION['empid']."','".$old_reference."','".$cardpass."','".$object."','0','0','".$date1."','0','null' )";
-		//  $sql1=mysql_query($query1);
+		//  $sql1=mysqli_query($query1);
 		 $tr1=count($date_array);
 		  function returnDates($fromdate, $todate) {
 		    $fromdate = \DateTime::createFromFormat('d/m/Y', $fromdate);
@@ -465,8 +465,8 @@ if(isset($_POST['submit']))
                         if($c == 0)
                         {						
                         	$duplicate_query="SELECT empid, reference_no, taDate, departT, arrivalT, percent,amount FROM taentrydetails WHERE empid='".$_SESSION['empid']."' AND reference_no='".$old_reference."' AND taDate='".$date."' order by id desc limit 1";
-                        	$result=mysql_query($duplicate_query);
-                        	$fet=mysql_fetch_array($result);
+                        	$result=mysqli_query($conn,$duplicate_query);
+                        	$fet=mysqli_fetch_array($result);
                         	$get_per=$fet['percent'];
                         
                         	if($get_per=="30%" || $get_per=="30"){
@@ -480,18 +480,18 @@ if(isset($_POST['submit']))
                         		$Hp_amt1=$u_amount*1;
                         	}
                         
-                        	$chk_record=mysql_num_rows($result);
+                        	$chk_record=mysqli_num_rows($result);
                         	if($chk_record >= 1)
                         	{
                         		$time_array1=array();
                         		$dates_arr=array();
                         		// Update Previous Date Calculation
                         		$p_update="UPDATE `taentrydetails` SET `percent`='0',`amount`='0' WHERE `reference_no`='".$old_reference."' and empid='".$_SESSION['empid']."' and taDate='".$date."'";
-                        		$p_res=mysql_query($p_update);
+                        		$p_res=mysqli_query($conn,$p_update);
                         		
                         		$time_array=array();
-                        		$result=mysql_query($duplicate_query);
-                        		while ($fet_data=mysql_fetch_array($result)){
+                        		$result=mysqli_query($conn,$duplicate_query);
+                        		while ($fet_data=mysqli_fetch_array($result)){
                         		  	$p_dtime="00:00";
                         		  	$p_atime=$fet_data['arrivalT'];
                         			$p_timediff=$p_atime;
@@ -583,7 +583,7 @@ if(isset($_POST['submit']))
 				// 		}
 						$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`, cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$old_reference."', '".$date."','".$type."','".$_POST['trainno'.$k]."','".$other."','".$_POST['dstn'.$k]."','".$dtime."','".$_POST['astn'.$k]."', '".$atime."','".$distance."','".$per."','".$amt."','0','".$date1."','".$cardpass."','".$object."','".$set_no."'  )";
 						// echo "<br><br>";
-						$sql2=mysql_query($query2);
+						$sql2=mysqli_query($conn,$query2);
 							// echo "<br>";
 						$lm++;
 					}
@@ -598,7 +598,7 @@ if(isset($_POST['submit']))
 				$Hp_cnt=$Hp_cnt+1;
 				$Hp_amt=$Hp_amt+$u_amount;
 				$query2="INSERT INTO `taentrydetails`(`empid`, `reference_no`, `taDate`, `journey_type`, `train_no`, `journey_purpose`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `status`, `created_at`, cardpass,objective ,`set_number`) VALUES ( '".$_SESSION['empid']."','".$old_reference."', '".$dates[$j]."','','','','','','', '','0','100%','".$u_amount."','0','".$date1."','".$cardpass."','".$object."','".$set_no."'  )";
-			 	$sql2=mysql_query($query2);
+			 	$sql2=mysqli_query($conn,$query2);
 			 	// echo "<br><br>";
 			}
 
@@ -607,8 +607,8 @@ if(isset($_POST['submit']))
 
 
 		$query="SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE reference_no='".$_POST['user_ref_no']."' ";
-		$sql=mysql_query($query);
-		$row=mysql_fetch_array($sql);
+		$sql=mysqli_query($conn,$query);
+		$row=mysqli_fetch_array($sql);
 
 		$total_30p_cnt=($row['30p_cnt']+$Tp_cnt)-$Tp_cnt1;
 		$total_30p_amt=($row['30p_amt']+$Tp_amt)-$Tp_amt1;
@@ -620,7 +620,7 @@ if(isset($_POST['submit']))
 		$total_otherp_amt=($row['otherp_amt']+$otherp_amt)-$otherp_amt1;
 
 		$query3="UPDATE `tasummarydetails` SET `30p_cnt`='".$total_30p_cnt."',`30p_amt`='".$total_30p_amt."',`70p_cnt`='".$total_70p_cnt."',`70p_amt`='".$total_70p_amt."',`100p_cnt`='".$total_100p_cnt."',`100p_amt`='".$total_100p_amt."',`otherp_cnt`='".$total_otherp_cnt."',`otherp_amt`='".$total_otherp_amt."',`created_at`='".$date1."' WHERE `reference_no`='".$_POST['user_ref_no']."'  ";
-		$sql3=mysql_query($query3);
+		$sql3=mysqli_query($conn,$query3);
 		// echo "<br><br>";
 		$empid=$_SESSION['empid'];
         $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');

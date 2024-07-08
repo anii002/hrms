@@ -56,10 +56,10 @@ include('control/function.php');
                                     		<?php
                                                 // echo $dep=getdepartment($_SESSION['dept']);
                                 				$dep=$_SESSION['dept'];     
-                                				$result_emp = mysql_query("SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE dept='".$dep."' AND isupdated='1' AND CI_PF='".$_SESSION['empid']."' ORDER BY id desc limit 1");
+                                				$result_emp = mysqli_query($conn,"SELECT `id`,`pfno`, `name`, `desig`,`station`, `mobile`, `email`,`dept`, `depot_id`,`status` FROM `employees_update` WHERE dept='".$dep."' AND isupdated='1' AND CI_PF='".$_SESSION['empid']."' ORDER BY id desc limit 1");
                                 	            
                                 	              $sr=1;
-                                	              while($value_emp = mysql_fetch_array($result_emp))
+                                	              while($value_emp = mysqli_fetch_array($result_emp))
                                 	              {
                                 	                echo "
                                 	                  <tr>
@@ -67,7 +67,7 @@ include('control/function.php');
                                 	                    <td>".$value_emp['pfno']."</td>
                                 	                    <td>".$value_emp['name']."</td>
                                 	                    <td>".$value_emp['mobile']."</td>				                    
-                                	                    <td><a  href='update_emp_approve?empid=".$value_emp['pfno']."&id=".$value_emp['id']." ' id='".$value_emp['id']."' value='".$value_emp['pfno']."' class='btn blue btn_action' case='view'>Show</a>";
+                                	                    <td><a  href='update_emp_approve.php?empid=".$value_emp['pfno']."&id=".$value_emp['id']." ' id='".$value_emp['id']."' value='".$value_emp['pfno']."' class='btn blue btn_action' case='view'>Show</a>";
                                 
                                 	                  echo "</td></tr>
                                 	                ";

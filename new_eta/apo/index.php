@@ -43,8 +43,8 @@ include('common/sidebar.php');
                         <div class="number">
                             <?php
 							$query1 = "SELECT title,summary_id FROM `master_summary` WHERE forward_status='1' AND estcrk_status='0' AND pa_status='1'  AND is_gazetted='1' ";
-							$result1 = mysql_query($query1);
-							$cnt = mysql_num_rows($result1);
+							$result1 = mysqli_query($conn,$query1);
+							$cnt = mysqli_num_rows($result1);
 
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $cnt . "</h3>";
 							?>
@@ -67,8 +67,8 @@ include('common/sidebar.php');
                         <div class="number">
                             <?php
 							$query1 = "SELECT title,summary_id FROM `master_summary` WHERE forward_status='1' AND estcrk_status='0' AND pa_status='0'  AND is_gazetted='1' ";
-							$result1 = mysql_query($query1);
-							$cnt = mysql_num_rows($result1);
+							$result1 = mysqli_query($conn,$query1);
+							$cnt = mysqli_num_rows($result1);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $cnt . "</h3>";
 							?>
                         </div>

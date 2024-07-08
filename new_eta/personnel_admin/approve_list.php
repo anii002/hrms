@@ -57,13 +57,13 @@ include('control/function.php');
                 						   $cnt=1;
         								// 	$query ="SELECT * from master_summary WHERE forward_status = '1' AND pa_status='1' AND estcrk_status='0' AND is_gazetted='0' ";
         									$query ="SELECT * from master_summary WHERE forward_status = '1' AND pa_status='1' AND is_gazetted='0' ";
-        			                        $result = mysql_query($query);
-        									while($val = mysql_fetch_array($result))
+        			                        $result = mysqli_query($conn,$query);
+        									while($val = mysqli_fetch_array($result))
         									{
         									    $sql1="SELECT * from tasummarydetails,taentry_master,employees where tasummarydetails.reference_no=taentry_master.reference_no AND taentry_master.empid=employees.pfno AND taentry_master.is_rejected='0'  AND summary_id='".$val['summary_id']."' AND is_summary_generated='1'";
-                    							$res1=mysql_query($sql1);
+                    							$res1=mysqli_query($conn,$sql1);
                     							$data=0;
-                    							while($val1=mysql_fetch_array($res1))
+                    							while($val1=mysqli_fetch_array($res1))
                     							{
                 							        if($data == 0)
                 							        {

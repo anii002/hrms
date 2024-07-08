@@ -15,32 +15,29 @@ switch ($_REQUEST['action']) {
       echo "<script>alert('Failed to upload');window.location='../profile.php';</script>";
     }
     break;
-    
-    
-    case 'role_transfer':
-        $pfno=$_POST['emp_pfno1'];
-        $transfer_emp_id=$_POST['transfer_emp_id'];
-        $date=date("Y-m-d H:i:s");
-        $sql_role_transfer_select = "UPDATE `forward_data` SET `fowarded_to`='".$transfer_emp_id."', `arrived_time`='".$date."' WHERE `fowarded_to`='".$pfno."' AND hold_status='1' ";  
-          
-        $rst_role_transfer = mysql_query($sql_role_transfer_select);
-        if($rst_role_transfer)
-        {
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='PC role transfer of '.$pfno.' user to '.$transfer_emp_id.' user';
-            user_activity($pfno,$file_name,'Role Transfer Of user',$msg);
-            echo "<script>alert(Role Transfer successfully');window.location='../add_user.php';</script>";
-        }
-        else
-        {
-            $empid1=$_SESSION['empid'];
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='PC unable to role transfer of '.$pfno.' user to '.$transfer_emp_id.' user';          
-            user_activity($pfno,$file_name,'Role Transfer Of user',$msg);
-            echo "<script>alert('Something went wrong');window.location='../update_emp.php';</script>";
-        }
+
+
+  case 'role_transfer':
+    $pfno = $_POST['emp_pfno1'];
+    $transfer_emp_id = $_POST['transfer_emp_id'];
+    $date = date("Y-m-d H:i:s");
+    $sql_role_transfer_select = "UPDATE `forward_data` SET `fowarded_to`='" . $transfer_emp_id . "', `arrived_time`='" . $date . "' WHERE `fowarded_to`='" . $pfno . "' AND hold_status='1' ";
+
+    $rst_role_transfer = mysqli_query($conn, $sql_role_transfer_select);
+    if ($rst_role_transfer) {
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC role transfer of ' . $pfno . ' user to ' . $transfer_emp_id . ' user';
+      user_activity($pfno, $file_name, 'Role Transfer Of user', $msg);
+      echo "<script>alert(Role Transfer successfully');window.location='../add_user.php';</script>";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to role transfer of ' . $pfno . ' user to ' . $transfer_emp_id . ' user';
+      user_activity($pfno, $file_name, 'Role Transfer Of user', $msg);
+      echo "<script>alert('Something went wrong');window.location='../update_emp.php';</script>";
+    }
     break;
-    
+
   case 'fetchEmployeeUpdated':
     $id = $_REQUEST['id'];
     echo fetchEmployeeUpdated($id);
@@ -92,21 +89,18 @@ switch ($_REQUEST['action']) {
     $apdate = date("Y-m-d", strtotime($date2));
 
     // echo $id.'_'.$pfno.'_'.$billunit.'_'.$panno.'_'.$empname.'_'.$designation.'_'.$station.'_'.$mobile.'_'.$email.'_'.$catg.'_'.$dept.'_'.$depot_id.'_'.$bp.'_'.$gp.'_'.$bdate.'_'.$apdate.'_'.$level;
-    if (updateEmpData1($id, $pfno, $billunit, $panno, $empname, $designation, $station, $mobile, $email, $catg, $dept, $depot_id, $bp, $gp, $bdate, $apdate, $level))
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC approve the update details request of '.$pfno.' BO';
-        user_activity($empid1,$file_name,'Approve BO details',$msg);
-        echo "<script>alert('User Data Updated successfully');window.location='../update_ci_details.php';</script>";
-    }
-    else
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC unable to approve the update details request of '.$pfno.' BO';
-        user_activity($empid1,$file_name,'Approve BO details',$msg);
-        echo "<script>alert('Something went wrong');window.location='../update_ci_details.php';</script>";
+    if (updateEmpData1($id, $pfno, $billunit, $panno, $empname, $designation, $station, $mobile, $email, $catg, $dept, $depot_id, $bp, $gp, $bdate, $apdate, $level)) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC approve the update details request of ' . $pfno . ' BO';
+      user_activity($empid1, $file_name, 'Approve BO details', $msg);
+      echo "<script>alert('User Data Updated successfully');window.location='../update_ci_details.php';</script>";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to approve the update details request of ' . $pfno . ' BO';
+      user_activity($empid1, $file_name, 'Approve BO details', $msg);
+      echo "<script>alert('Something went wrong');window.location='../update_ci_details.php';</script>";
     }
     break;
 
@@ -114,23 +108,20 @@ switch ($_REQUEST['action']) {
     $active = '1';
     $pfno = $_REQUEST['id'];
     $role = $_REQUEST['role'];
-    if (activeUser($pfno, $active,$role))
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC active the '.$pfno.' user';
-        db_connect("esoluhp6_travel_allowance1");
-        user_activity($empid1,$file_name,'Active User',$msg);
-        echo "User Activated successfully";
-    }
-    else
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC unable to active the '.$pfno.' user';
-        db_connect("esoluhp6_travel_allowance1");
-        user_activity($empid1,$file_name,'Active User',$msg);
-        echo "Something went wrong";
+    if (activeUser($pfno, $active, $role)) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC active the ' . $pfno . ' user';
+      db_connect("esoluhp6_travel_allowance1");
+      user_activity($empid1, $file_name, 'Active User', $msg);
+      echo "User Activated successfully";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to active the ' . $pfno . ' user';
+      db_connect("esoluhp6_travel_allowance1");
+      user_activity($empid1, $file_name, 'Active User', $msg);
+      echo "Something went wrong";
     }
     break;
 
@@ -138,23 +129,20 @@ switch ($_REQUEST['action']) {
     $active = '0';
     $pfno = $_REQUEST['id'];
     $role = $_REQUEST['role'];
-    if (deactiveUser($pfno, $active,$role))
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC deactive the '.$pfno.' user';
-        db_connect("esoluhp6_travel_allowance1");
-        user_activity($empid1,$file_name,'Deactive User',$msg);
-        echo "User Deactivated successfully";
-    }
-    else
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC unable to deactive the '.$pfno.' user';
-        db_connect("esoluhp6_travel_allowance1");
-        user_activity($empid1,$file_name,'Deactive User',$msg);
-        echo "Something went wrong";
+    if (deactiveUser($pfno, $active, $role)) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC deactive the ' . $pfno . ' user';
+      db_connect("esoluhp6_travel_allowance1");
+      user_activity($empid1, $file_name, 'Deactive User', $msg);
+      echo "User Deactivated successfully";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to deactive the ' . $pfno . ' user';
+      db_connect("esoluhp6_travel_allowance1");
+      user_activity($empid1, $file_name, 'Deactive User', $msg);
+      echo "Something went wrong";
     }
     break;
 
@@ -170,21 +158,21 @@ switch ($_REQUEST['action']) {
   case 'fwESTCLERK':
     $date = date("Y-m-d h:i:s");
     $sumid = $_POST['sumid'];
-    $u_query = mysql_query("UPDATE master_summary SET forward_status='1',DA_approved_time='" . $date . "',is_gazetted='1' where summary_id='" . $sumid . "' ");
-    echo mysql_error();
+    $u_query = mysqli_query($conn, "UPDATE master_summary SET forward_status='1',DA_approved_time='" . $date . "',is_gazetted='1' where summary_id='" . $sumid . "' ");
+    echo mysqli_error($conn);
 
     if ($u_query) {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC Forward the '.$sumid.' summary to APO sir';
-        user_activity($empid1,$file_name,'Forward Summary',$msg);
-          echo "<script>alert('successfully forwarded to APO sir..');window.location='../gen_summary_report.php';</script>";
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC Forward the ' . $sumid . ' summary to APO sir';
+      user_activity($empid1, $file_name, 'Forward Summary', $msg);
+      echo "<script>alert('successfully forwarded to APO sir..');window.location='../gen_summary_report.php';</script>";
     } else {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC unable to Forward the '.$sumid.' summary to APO sir';
-        user_activity($empid1,$file_name,'Forward Summary',$msg);
-        echo "<script>alert('Failed to Forward...');window.location='../summary_report.php';</script>";
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to Forward the ' . $sumid . ' summary to APO sir';
+      user_activity($empid1, $file_name, 'Forward Summary', $msg);
+      echo "<script>alert('Failed to Forward...');window.location='../summary_report.php';</script>";
     }
 
     break;
@@ -204,8 +192,8 @@ switch ($_REQUEST['action']) {
     if ($id) {
       $otp = rand(999, 10000);
       $query1 = "UPDATE `users` SET `password`='" . hashPassword($otp, SALT1, SALT2) . "' WHERE `username`='" . $id . "'";
-      $res1 = mysql_query($query1);
-      echo mysql_error();
+      $res1 = mysqli_query($conn, $query1);
+      echo mysqli_error($conn);
       if ($res1) {
         echo $otp;
       } else {
@@ -261,9 +249,9 @@ switch ($_REQUEST['action']) {
     $month = $_POST['month'];
 
     $query1 = "SELECT reference_no,forward_status FROM `taentry_master` WHERE TAMonth='" . $month . "' AND TAYear='" . $year . "' AND empid='" . $_POST['u_pfno'] . "' ";
-    $result = mysql_query($query1);
-    $rows = mysql_num_rows($query1);
-    $val = mysql_fetch_array($result);
+    $result = mysqli_query($conn, $query1);
+    $rows = mysqli_num_rows($conn, $query1);
+    $val = mysqli_fetch_array($result);
     if ($rows == 1) {
       $data = $val['reference_no'];
     } else {
@@ -286,9 +274,9 @@ switch ($_REQUEST['action']) {
       $_SESSION['ref_no'] = $ref_no;
       $flag = 0;
       // echo  "select mobile from employees where id='".$empid."'";
-      $query = mysql_query("select mobile from employees where pfno='" . $empid . "'");
-      $count = mysql_num_rows($query);
-      $result_set = mysql_fetch_array($query);
+      $query = mysqli_query($conn, "select mobile from employees where pfno='" . $empid . "'");
+      $count = mysqli_num_rows($query);
+      $result_set = mysqli_fetch_array($query);
       if ($count > 0) {
         $otp = rand(999, 10000);
 
@@ -345,8 +333,8 @@ switch ($_REQUEST['action']) {
           echo 'error:' . curl_error($ch);
         } else {
 
-          $query_insert = mysql_query("insert into tbl_otp(empid,otp,sent) values('" . $empid . "','$otp',CURRENT_TIMESTAMP)");
-          //echo "<script>alert('OTP has been sent on your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
+          $query_insert = mysqli_query($conn, "insert into tbl_otp(empid,otp,sent) values('" . $empid . "','$otp',CURRENT_TIMESTAMP)");
+          //echo "<script>alert('OTP has been sent o$conn,n your registered mobile ".$result_set['mobile'].".');window.location='../profile.php';</script>";
           $flag = $result_set['mobile'];
         }
         curl_close($ch);
@@ -448,18 +436,15 @@ switch ($_REQUEST['action']) {
     $date2 = str_replace('/', '-', $txtappointment);
     $app_date = date("Y-m-d", strtotime($date2));
 
-    if (updateEmployee($empid, $billunit, $panno, $fullname, $design, $station, $mobile, $email, $category, $dept, $txtworkdepot, $txtbasicpay, $gradepay, $dob_date, $app_date, $level))
-    {
-        // $empid=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        user_activity($empid,$file_name,'Update Details','PC updating the bio details');
-        echo "<script>alert('Employee Updated successfully');window.location='../update_emp.php';</script>";
-    }
-    else
-    {
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        user_activity($empid,$file_name,'Update Details','PC unable to update the bio details');
-        echo "<script>alert('Something went wrong');window.location='../update_emp.php';</script>";
+    if (updateEmployee($empid, $billunit, $panno, $fullname, $design, $station, $mobile, $email, $category, $dept, $txtworkdepot, $txtbasicpay, $gradepay, $dob_date, $app_date, $level)) {
+      // $empid=$_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Update Details', 'PC updating the bio details');
+      echo "<script>alert('Employee Updated successfully');window.location='../update_emp.php';</script>";
+    } else {
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      user_activity($empid, $file_name, 'Update Details', 'PC unable to update the bio details');
+      echo "<script>alert('Something went wrong');window.location='../update_emp.php';</script>";
     }
     break;
   case 'FetchEmployee':
@@ -547,11 +532,11 @@ switch ($_REQUEST['action']) {
     $c_otp = $_REQUEST['c_otp'];
 
 
-    $query_select = mysql_query("select otp from tbl_otp where empid='" . $empid . "' order by id DESC limit 1");
-    $result = mysql_fetch_array($query_select);
+    $query_select = mysqli_query($conn, "select otp from tbl_otp where empid='" . $empid . "' order by id DESC limit 1");
+    $result = mysqli_fetch_array($query_select);
 
-    $query_select1 = mysql_query("SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='" . $empid . "' AND taentry_master.reference_no='" . $ref . "' ");
-    $result1 = mysql_fetch_array($query_select1);
+    $query_select1 = mysqli_query($conn, "SELECT TAMonth,TAYear,SUM(taentrydetails.amount)as amount from taentry_master,taentrydetails WHERE taentry_master.reference_no=taentrydetails.reference_no AND taentry_master.empid=taentrydetails.empid AND taentry_master.empid='" . $empid . "' AND taentry_master.reference_no='" . $ref . "' ");
+    $result1 = mysqli_fetch_array($query_select1);
 
     $month_array = array("01" => "Jan", "02" => "Feb", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "Aug", "09" => "Sept", "10" => "Oct", "11" => "Nov", "12" => "Dec");
 
@@ -567,14 +552,14 @@ switch ($_REQUEST['action']) {
     // echo $result['otp'];
     if ($result['otp'] == $c_otp) {
       $query1 = "UPDATE `taentry_master` SET `forward_status`='1' WHERE `empid`='" . $empid . "' AND `reference_no`='" . $ref . "' ";
-      $result1 = mysql_query($query1);
+      $result1 = mysqli_query($conn, $query1);
 
       if ($c_otp) {
         $date = date('Y-m-d H:i:s');
         $query = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('" . $empid . "','" . $ref . "','" . $forwardName . "','" . $date . "','1')";
-        $result = mysql_query($query);
-        $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='" . $empid . "'");
-        $result_set = mysql_fetch_array($query2);
+        $result = mysqli_query($conn, $query);
+        $query2 = mysqli_query($conn, "SELECT mobile FROM employees WHERE pfno='" . $empid . "'");
+        $result_set = mysqli_fetch_array($query2);
         //Your authentication key
         $authKey = "70302AbSftnyOwtvs53d8e401";
 
@@ -689,13 +674,13 @@ switch ($_REQUEST['action']) {
     $set_no = $_POST['set_no'];
     $emp_no = $_POST['empid'];
 
-    $sql = mysql_query("SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='" . $reference . "' ");
-    $total_rows = mysql_num_rows($sql);
+    $sql = mysqli_query($conn, "SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='" . $reference . "' ");
+    $total_rows = mysqli_num_rows($sql);
     // echo $total_rows;
 
     if ($total_rows > 1) {
       // echo "<br>"."SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='".$reference."' AND `set_number`='".$set_no."' ";
-      $sql1 = mysql_query("SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='" . $reference . "' AND `set_number`='" . $set_no . "' ");
+      $sql1 = mysqli_query($conn, "SELECT `percent`,`amount` FROM `taentrydetails` WHERE `reference_no`='" . $reference . "' AND `set_number`='" . $set_no . "' ");
       $amt = 0;
       $Tp_cnt = 0;
       $Sp_cnt = 0;
@@ -705,7 +690,7 @@ switch ($_REQUEST['action']) {
       $Sp_amt = 0;
       $Hp_amt = 0;
       $Otp_amt = 0;
-      while ($result1 = mysql_fetch_array($sql1)) {
+      while ($result1 = mysqli_fetch_array($sql1)) {
         if ($result1['percent'] == "30%") {
           $Tp_cnt = $Tp_cnt + 1;
           $Tp_amt = $Tp_amt + $result1['amount'];
@@ -722,8 +707,8 @@ switch ($_REQUEST['action']) {
       }
       // echo "<br><br>"."SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='".$reference."' AND `empid`='".$_SESSION['empid']."' ";
 
-      $sql2 = mysql_query("SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='" . $reference . "' AND empid = '" . $emp_no . "' ");
-      $result2 = mysql_fetch_array($sql2);
+      $sql2 = mysqli_query($conn, "SELECT `30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt`,`otherp_cnt`,`otherp_amt` FROM `tasummarydetails` WHERE `reference_no`='" . $reference . "' AND empid = '" . $emp_no . "' ");
+      $result2 = mysqli_fetch_array($sql2);
 
       $total_30p_cnt = $result2['30p_cnt'] - $Tp_cnt;
       $total_30p_amt = $result2['30p_amt'] - $Tp_amt;
@@ -734,12 +719,12 @@ switch ($_REQUEST['action']) {
       $total_otherp_cnt = $result2['otherp_cnt'] - $Otp_cnt;
       $total_otherp_amt = $result2['otherp_amt'] - $Otp_amt;
 
-      $sql3 = mysql_query("DELETE FROM taentrydetails WHERE reference_no = '" . $reference . "' AND set_number = '" . $set_no . "' ");
+      $sql3 = mysqli_query($conn, "DELETE FROM taentrydetails WHERE reference_no = '" . $reference . "' AND set_number = '" . $set_no . "' ");
 
-      if (mysql_affected_rows() >= 0) {
+      if (mysqli_affected_rows($conn) >= 0) {
         $query4 = "UPDATE `tasummarydetails` SET `30p_cnt`='" . $total_30p_cnt . "',`30p_amt`='" . $total_30p_amt . "',`70p_cnt`='" . $total_70p_cnt . "',`70p_amt`='" . $total_70p_amt . "',`100p_cnt`='" . $total_100p_cnt . "',`100p_amt`='" . $total_100p_amt . "',`otherp_cnt`='" . $total_otherp_cnt . "',`otherp_amt`='" . $total_otherp_amt . "' WHERE `reference_no`='" . $reference . "'  ";
 
-        $result4 = mysql_query($query4);
+        $result4 = mysqli_query($conn, $query4);
 
         echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
       } else {
@@ -749,12 +734,12 @@ switch ($_REQUEST['action']) {
       // echo "HI".$emp_no."<br>";
       $query_delete = "DELETE from taentry_master where reference_no='" . $reference . "' AND empid='" . $emp_no . "' ";
 
-      $result = mysql_query($query_delete);
-      if (mysql_affected_rows() >= 0) {
+      $result = mysqli_query($conn, $query_delete);
+      if (mysqli_affected_rows($conn) >= 0) {
         $taentry_sql = "DELETE FROM taentrydetails WHERE reference_no = '" . $reference . "' AND empid = '" . $emp_no . "' ";
-        $res = mysql_query($taentry_sql);
+        $res = mysqli_query($conn, $taentry_sql);
         $tasummary_sql = "DELETE FROM tasummarydetails WHERE reference_no = '" . $reference . "' AND empid = '" . $emp_no . "'  ";
-        $res1 = mysql_query($tasummary_sql);
+        $res1 = mysqli_query($conn, $tasummary_sql);
         echo "<script>alert('Claim deleted successfully'); window.location='../Show_unclaimed_TA.php';</script>";
       } else {
         echo "<script>alert('Something went wrong');window.location='../Show_unclaimed_TA.php';</script>";
@@ -809,10 +794,10 @@ switch ($_REQUEST['action']) {
 
     $date = date('Y-m-d H:i:s');
 
-    $query = mysql_query("update forward_data set depart_time='" . $date . "',hold_status='0' where reference_id='" . $ref . "' AND fowarded_to='" . $empid_session . "'");
+    $query = mysqli_query($conn, "update forward_data set depart_time='" . $date . "',hold_status='0' where reference_id='" . $ref . "' AND fowarded_to='" . $empid_session . "'");
 
     $query1 = "INSERT into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('" . $empid . "','" . $ref . "','" . $forwardName . "','" . $date . "','1')";
-    $result = mysql_query($query1);
+    $result = mysqli_query($conn, $query1);
 
     if ($query && $result) {
       $flag = 1;
@@ -839,21 +824,21 @@ switch ($_REQUEST['action']) {
     $month = implode(",", $mm);
     $d = date("d-m-Y h:i:s");
     // echo "INSERT INTO `cont_summary`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`, `DA_approved_time`, `EST_approved_time`) VALUES ('".$title."','".$description."','".$d."','0','0','".$month."','".$year."','".$summary_id."')";
-    $query_summary = mysql_query("INSERT INTO `cont_summary`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`) VALUES ('" . $title . "','" . $description . "','" . $d . "','0','0','" . $month . "','" . $year . "','" . $summary_id . "')");
+    $query_summary = mysqli_query($conn, "INSERT INTO `cont_summary`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`) VALUES ('" . $title . "','" . $description . "','" . $d . "','0','0','" . $month . "','" . $year . "','" . $summary_id . "')");
 
-    echo mysql_error();
+    echo mysqli_error($conn);
     if ($query_summary) {
       echo "<script>alert('Summary has been generated successfully');window.location='../summary_report_cont.php';</script>";
     } else {
       echo "<script>alert('Something went wrong');window.location='../generate_summary_cont.php';</script>";
     }
 
-    $id = mysql_insert_id();
+    $id = mysqli_insert_id($conn);
     $cnt = 0;
     foreach ($selected_list as $list) {
       // $query = "UPDATE forward_data set summary='1'where reference_id='$list'";
-      //  $result = mysql_query($query) or die(mysql_error());
-      $query_upd = mysql_query("UPDATE `continjency_master` SET `summary_id`= '" . $summary_id . "',`generate` = '1' WHERE reference = '$list'");
+      //  $result = mysqli_query($query) or die(mysqli_error());
+      $query_upd = mysqli_query($conn, "UPDATE `continjency_master` SET `summary_id`= '" . $summary_id . "',`generate` = '1' WHERE reference = '$list'");
     }
     if ($result)
       return true;
@@ -868,7 +853,7 @@ switch ($_REQUEST['action']) {
     $loginid = $_REQUEST['loginid'];
     //echo $original_id;
     $query = "update forward_data set depart_time=CURRENT_TIMESTAMP,hold_status='0' where reference_id='" . $result_set['reference'] . "' and fowarded_to='$loginid' ";
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     if ($query == TRUE) {
       echo "<script> alert('Summary has been forwarded!'); window.location = '../index.php'; </script>";
     } else {
@@ -880,47 +865,44 @@ switch ($_REQUEST['action']) {
       return false;
     break;
 
-//   case 'fwESTCLERK_cont':
-//     $date = date("Y-m-d h:i:s");
+    //   case 'fwESTCLERK_cont':
+    //     $date = date("Y-m-d h:i:s");
 
-//     $sumid = $_POST['sumid'];
+    //     $sumid = $_POST['sumid'];
 
 
-//     $u_query = mysql_query("UPDATE cont_summary SET forward_status='1',DA_approved_time='" . $date . "' where summary_id='" . $sumid . "' ");
-//     echo mysql_error();
+    //     $u_query = mysqli_query("UPDATE cont_summary SET forward_status='1',DA_approved_time='" . $date . "' where summary_id='" . $sumid . "' ");
+    //     echo mysqli_error();
 
-//     if ($u_query) {
-//       echo "<script>alert('successfully forwarded to accountant..');window.location='../summary_report_cont.php';</script>";
-//     } else {
-//       echo "<script>alert('Failed to Forward...');window.location='../summary_report_cont.php';</script>";
-//     }
+    //     if ($u_query) {
+    //       echo "<script>alert('successfully forwarded to accountant..');window.location='../summary_report_cont.php';</script>";
+    //     } else {
+    //       echo "<script>alert('Failed to Forward...');window.location='../summary_report_cont.php';</script>";
+    //     }
 
-//     break;
+    //     break;
 
-    case 'fwESTCLERK_cont':
-        $date=date("Y-m-d h:i:s");
-        $sumid=$_POST['sumid'];
-        $u_query=mysql_query("UPDATE master_summary_cont SET forward_status='1',DA_approved_time='".$date."' where summary_id='".$sumid."' ");
-       echo mysql_error();
+  case 'fwESTCLERK_cont':
+    $date = date("Y-m-d h:i:s");
+    $sumid = $_POST['sumid'];
+    $u_query = mysqli_query($conn, "UPDATE master_summary_cont SET forward_status='1',DA_approved_time='" . $date . "' where summary_id='" . $sumid . "' ");
+    echo mysqli_error($conn);
 
-       if($u_query)
-       {
-            $empid1=$_SESSION['empid'];
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='PC forward the '.$sumid.' contingency summary';
-            user_activity($empid1,$file_name,'Forward Cont Summary',$msg);
-          echo "<script>alert('successfully forwarded to APO..');window.location='../summary_report_cont.php';</script>";
-       } 
-       else
-       {
-            $empid1=$_SESSION['empid'];
-            $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-            $msg='PC unable to forward the '.$sumid.' contingency summary';
-            user_activity($empid1,$file_name,'Forward Cont Summary',$msg);
-          echo "<script>alert('Failed to Forward...');window.location='../summary_report_cont.php';</script>";
-       }
+    if ($u_query) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC forward the ' . $sumid . ' contingency summary';
+      user_activity($empid1, $file_name, 'Forward Cont Summary', $msg);
+      echo "<script>alert('successfully forwarded to APO..');window.location='../summary_report_cont.php';</script>";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to forward the ' . $sumid . ' contingency summary';
+      user_activity($empid1, $file_name, 'Forward Cont Summary', $msg);
+      echo "<script>alert('Failed to Forward...');window.location='../summary_report_cont.php';</script>";
+    }
 
-      break;
+    break;
 
 
   case 'view_conti':
@@ -928,13 +910,13 @@ switch ($_REQUEST['action']) {
 
     $query = "SELECT * FROM `master_cont` WHERE reference_no = '" . $_POST['ref_no'] . "' AND set_no='" . $_POST['set_no'] . "' ";
 
-    $result = mysql_query($query);
-    echo mysql_error();
+    $result = mysqli_query($conn, $query);
+    echo mysqli_error($conn);
 
-    $row_data = mysql_num_rows($result);
+    $row_data = mysqli_num_rows($result);
     if ($row_data == 1) {
       $query1 = "SELECT * FROM `add_cont` WHERE reference_no = '" . $_POST['ref_no'] . "' AND set_no='" . $_POST['set_no'] . "' ";
-      $result1 = mysql_query($query1);
+      $result1 = mysqli_query($conn, $query1);
       $cnt = 1;
       $sum = 0;
       $obj = '';
@@ -950,7 +932,7 @@ switch ($_REQUEST['action']) {
                         <th >Amount</th>            
                       </tr> 
                     </thead><tbody>';
-      while ($sql_res = mysql_fetch_array($result1)) {
+      while ($sql_res = mysqli_fetch_array($result1)) {
         $data .= "<tr>
               <td>" . $cnt . "</td>
               <td>" . $sql_res['cont_date'] . "</td>
@@ -976,11 +958,11 @@ switch ($_REQUEST['action']) {
   case 'view_contingency':
     $data = '';
     $sql = "select * from continjency_master inner join continjency on continjency_master.id=continjency.cid where reference='" . $_REQUEST['ref'] . "' and continjency.set_number='" . $_REQUEST['set'] . "'";
-    $raw_data = mysql_query($sql);
-    echo mysql_error();
+    $raw_data = mysqli_query($conn, $sql);
+    echo mysqli_error($conn);
     if ($raw_data) {
       $cnt = 0;
-      while ($sql_res = mysql_fetch_assoc($raw_data)) {
+      while ($sql_res = mysqli_fetch_assoc($raw_data)) {
         $data .= "
                 <tr>
                   <td>" . $sql_res['cntdate'] . "</td>
@@ -1064,18 +1046,17 @@ switch ($_REQUEST['action']) {
     $dept_id = $_POST['dept_id'];
     //echo $original_id;
     // generatesummary($selected_list_emp, $selected_list, $title, $description, $yy, $mm, $summary_id, $dept_id);
-    if (generatesummary($selected_list_emp, $selected_list, $title, $description, $yy, $mm, $summary_id, $dept_id)) 
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC generate the '.$summary_id.' summary of month '.$mm;
-        user_activity($empid1,$file_name,'Generate Summary',$msg);
+    if (generatesummary($selected_list_emp, $selected_list, $title, $description, $yy, $mm, $summary_id, $dept_id)) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC generate the ' . $summary_id . ' summary of month ' . $mm;
+      user_activity($empid1, $file_name, 'Generate Summary', $msg);
       echo "<script>alert('Summary has been generated successfully');window.location='../summary_report.php';</script>";
     } else {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC unable to generate the '.$summary_id.' summary of month '.$mm;
-        user_activity($empid1,$file_name,'Generate Summary',$msg);
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to generate the ' . $summary_id . ' summary of month ' . $mm;
+      user_activity($empid1, $file_name, 'Generate Summary', $msg);
       echo "<script>alert('Something went wrong');window.location='../generate_summary.php';</script>";
     }
     break;
@@ -1085,7 +1066,7 @@ switch ($_REQUEST['action']) {
     $stationcode = $_REQUEST['stationcode'];
     $depotname = $_REQUEST['depotname'];
     $status = 1;
-    $sql = mysql_query("INSERT INTO `depot_master`(`stationcode`, `depot`, `dept_id`, `status`) VALUES ('" . $stationcode . "','" . $depotname . "','" . $deptid . "'," . $status . ") ");
+    $sql = mysqli_query($conn, "INSERT INTO `depot_master`(`stationcode`, `depot`, `dept_id`, `status`) VALUES ('" . $stationcode . "','" . $depotname . "','" . $deptid . "'," . $status . ") ");
     if ($sql)
       echo "<script>alert('Depot Added successfully');window.location='../add_depot.php';</script>";
     else
@@ -1105,91 +1086,81 @@ switch ($_REQUEST['action']) {
     $paylevel = $_REQUEST['paylevel'];
     $station = implode(",", $_REQUEST['stationcode']);
     // $station=$_REQUEST['stationcode'];
-    if (AddAdmin($empid, $username, $role, $dept, $station, $empname, $mobile, $email, $design, $paylevel))
-    {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='BO add the '.$empid.' user as '.$role;
-        user_activity($empid1,$file_name,'Add User',$msg);
-        echo "<script>alert('User Added successfully');window.location='../add_user.php';</script>";
-    }
-    else{
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='BO unable to add the '.$empid.' user as '.$role;
-        user_activity($empid1,$file_name,'Add User',$msg);
-        echo "<script>alert('Something went wrong');window.location='../add_user.php';</script>";
+    if (AddAdmin($empid, $username, $role, $dept, $station, $empname, $mobile, $email, $design, $paylevel)) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'BO add the ' . $empid . ' user as ' . $role;
+      user_activity($empid1, $file_name, 'Add User', $msg);
+      echo "<script>alert('User Added successfully');window.location='../add_user.php';</script>";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'BO unable to add the ' . $empid . ' user as ' . $role;
+      user_activity($empid1, $file_name, 'Add User', $msg);
+      echo "<script>alert('Something went wrong');window.location='../add_user.php';</script>";
     }
     break;
-    
-    case 'rejectCont_SOA':
-    $ciempid=$_POST['coempid'];
-    $pmempid=$_POST['pmempid'];
-    $ref_no=$_POST['ref_no'];
-    $reason=$_POST['reason'];
-    $role=$_POST['role'];
 
-    $update_tamaster="UPDATE continjency_master set is_rejected=1,rejected_by='".$ciempid.",".$role."',reason='".$reason."' where empid='".$pmempid."' AND reference='".$ref_no."'";
-        $result=mysql_query($update_tamaster);
-        if(mysql_affected_rows() >= 0)
-        {
-          $drop="DELETE from forward_data where empid='".$pmempid."' AND reference_id='".$ref_no."' ";
-            $result1=mysql_query($drop);
-           echo "<script>alert('Contigency rejected successfully...'); window.location='../generate_summary_cont.php';</script>";
-        }
-        else
-        {
-           echo "<script>alert('Something Wrong'); window.location='../unclaimed_cont_details.php';</script>";
-        }
+  case 'rejectCont_SOA':
+    $ciempid = $_POST['coempid'];
+    $pmempid = $_POST['pmempid'];
+    $ref_no = $_POST['ref_no'];
+    $reason = $_POST['reason'];
+    $role = $_POST['role'];
+
+    $update_tamaster = "UPDATE continjency_master set is_rejected=1,rejected_by='" . $ciempid . "," . $role . "',reason='" . $reason . "' where empid='" . $pmempid . "' AND reference='" . $ref_no . "'";
+    $result = mysqli_query($conn, $update_tamaster);
+    if (mysqli_affected_rows() >= 0) {
+      $drop = "DELETE from forward_data where empid='" . $pmempid . "' AND reference_id='" . $ref_no . "' ";
+      $result1 = mysqli_query($conn, $drop);
+      echo "<script>alert('Contigency rejected successfully...'); window.location='../generate_summary_cont.php';</script>";
+    } else {
+      echo "<script>alert('Something Wrong'); window.location='../unclaimed_cont_details.php';</script>";
+    }
     break;
-    
-    case 'generatesummarycont1':
 
-      $selected_list = $_REQUEST['selected_list'];
-      $title = $_REQUEST['title'];
-      $description = $_REQUEST['description'];
-      $yy = $_REQUEST['year'];
-      $mm = $_REQUEST['month'];
-      $summary_id=$_POST['summary_id'];
-      $year=($yy);
-      $month=implode(",", $mm);
-      $d=date("d-m-Y h:i:s");
+  case 'generatesummarycont1':
 
-      $query_summary = mysql_query("INSERT INTO `master_summary_cont`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`,dept_id) VALUES ('".$title."','".$description."','".$d."','0','0','".$month."','".$year."','".$summary_id."','".$_REQUEST['dept_id']."')");
+    $selected_list = $_REQUEST['selected_list'];
+    $title = $_REQUEST['title'];
+    $description = $_REQUEST['description'];
+    $yy = $_REQUEST['year'];
+    $mm = $_REQUEST['month'];
+    $summary_id = $_POST['summary_id'];
+    $year = ($yy);
+    $month = implode(",", $mm);
+    $d = date("d-m-Y h:i:s");
 
-       echo mysql_error();       
+    $query_summary = mysqli_query($conn, "INSERT INTO `master_summary_cont`(`title`, `description`, `generated_date`, `forward_status`, `estcrk_status`, `month`, `year`, `summary_id`,dept_id) VALUES ('" . $title . "','" . $description . "','" . $d . "','0','0','" . $month . "','" . $year . "','" . $summary_id . "','" . $_REQUEST['dept_id'] . "')");
 
-      $id = mysql_insert_id();
-      $cnt = 0;
-      $flag = 0;
-      foreach($selected_list as $list)
-      {        
-          $query_upd = mysql_query("UPDATE `continjency_master` SET `summary_id`= '".$summary_id."',`generate` = '1' WHERE reference = '$list'");
-          if($query_upd)
-          {
-            $flag=1;
-          }
+    echo mysqli_error($conn);
+
+    $id = mysqli_insert_id($conn);
+    $cnt = 0;
+    $flag = 0;
+    foreach ($selected_list as $list) {
+      $query_upd = mysqli_query($conn, "UPDATE `continjency_master` SET `summary_id`= '" . $summary_id . "',`generate` = '1' WHERE reference = '$list'");
+      if ($query_upd) {
+        $flag = 1;
       }
+    }
 
-      if($query_summary && $flag == 1)
-      {
-        $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC generate the '.$summary_id.' contingency summary of month '.$mm;
-        user_activity($empid1,$file_name,'Generate Cont Summary',$msg);
-         echo "<script>alert('Summary has been generated successfully');window.location='../summary_report_cont.php';</script>";
-      }
-      else
-      {
-          $empid1=$_SESSION['empid'];
-        $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
-        $msg='PC unable to generate the '.$summary_id.' contingency summary of month '.$mm;
-        user_activity($empid1,$file_name,'Generate Cont Summary',$msg);
-         echo "<script>alert('Something went wrong');window.location='../generate_summary_cont.php';</script>";
-      }
-      
+    if ($query_summary && $flag == 1) {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC generate the ' . $summary_id . ' contingency summary of month ' . $mm;
+      user_activity($empid1, $file_name, 'Generate Cont Summary', $msg);
+      echo "<script>alert('Summary has been generated successfully');window.location='../summary_report_cont.php';</script>";
+    } else {
+      $empid1 = $_SESSION['empid'];
+      $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
+      $msg = 'PC unable to generate the ' . $summary_id . ' contingency summary of month ' . $mm;
+      user_activity($empid1, $file_name, 'Generate Cont Summary', $msg);
+      echo "<script>alert('Something went wrong');window.location='../generate_summary_cont.php';</script>";
+    }
+
     break;
-    
+
   case 'default':
     echo "Invalid option";
     break;

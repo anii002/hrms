@@ -8,12 +8,12 @@ if(isset($_POST['getback']))
 	$ref_no = $_GET['ref_no'];
 	// echo $ref_no;
 	
-	$query = mysql_query("SELECT `empid` FROM `continjency_master` WHERE `reference`='".$ref_no."' ");
-	$row = mysql_fetch_array($query);
+	$query = mysqli_query($conn,"SELECT `empid` FROM `continjency_master` WHERE `reference`='".$ref_no."' ");
+	$row = mysqli_fetch_array($query);
 	$empid = $row['empid'];
 	
-	$query2 = mysql_query("UPDATE `continjency_master` SET `forward_status`=0 WHERE reference = '".$ref_no."' and empid = '".$empid."' ");
-	$query3 = mysql_query("DELETE FROM `forward_data` WHERE reference_id = '".$ref_no."' AND empid = '".$empid."' ");
+	$query2 = mysqli_query($conn,"UPDATE `continjency_master` SET `forward_status`=0 WHERE reference = '".$ref_no."' and empid = '".$empid."' ");
+	$query3 = mysqli_query($conn,"DELETE FROM `forward_data` WHERE reference_id = '".$ref_no."' AND empid = '".$empid."' ");
 	
 	if($query3 && $query3 == TRUE)
 	{
@@ -107,12 +107,12 @@ if(isset($_POST['getback']))
 {
     
     // $e=("select * from taentry_master where reference_no='".$_GET['ref_no']."'");
-    $empl_query = mysql_query("select * from taentry_master where reference_no='".$_GET['ref_no']."'");
-    $empl_id_result = mysql_fetch_array($empl_query);
+    $empl_query = mysqli_query($conn,"select * from taentry_master where reference_no='".$_GET['ref_no']."'");
+    $empl_id_result = mysqli_fetch_array($empl_query);
     $empl_id = $empl_id_result['empid'];
     
-    $emp_query = mysql_query("select * from employees where pfno='".$empl_id."'");
-    $emp_result = mysql_fetch_array($emp_query);
+    $emp_query = mysqli_query($conn,"select * from employees where pfno='".$empl_id."'");
+    $emp_result = mysqli_fetch_array($emp_query);
     $years=["January","February","March","April","May","June","July","August","September","October","November","December"];
     $expl = explode(",",$empl_id_result['TAMonth']);
 }        
@@ -208,17 +208,17 @@ if(isset($_POST['getback']))
 										<?php
 											 // $_GET['ref_no'];
 											$query="SELECT DISTINCT(set_number),reference FROM `continjency` WHERE reference='".$_GET['ref_no']."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-											$sql=mysql_query($query);
-											$total_row1=mysql_num_rows($sql);
-											while($row_1 = mysql_fetch_array($sql)){
+											$sql=mysqli_query($conn,$query);
+											$total_row1=mysqli_num_rows($sql);
+											while($row_1 = mysqli_fetch_array($sql)){
 
 										    $query1="SELECT * FROM `continjency` WHERE set_number='".$row_1['set_number']."' AND reference='".$_GET['ref_no']."' ORDER by STR_TO_DATE(cntdate,'%d/%m/%Y') ASC";
-											$sql1=mysql_query($query1);
-											echo mysql_error();
-											$total_rows=mysql_num_rows($sql1);
+											$sql1=mysqli_query($conn,$query1);
+											echo mysqli_error($conn);
+											$total_rows=mysqli_num_rows($sql1);
 											$cnt=1;
 											$T_amount=0;
-											while ($row = mysql_fetch_array($sql1)) {
+											while ($row = mysqli_fetch_array($sql1)) {
 										?>
 										<tr>
 											<?php 
@@ -245,8 +245,8 @@ if(isset($_POST['getback']))
 											<td width="10%" rowspan='<?php echo $total_rows; ?>'> <?php echo $row['objective']; ?> </td>
 
 											<?php
-											$query_f_s=mysql_query("SELECT forward_status FROM `continjency_master` WHERE reference='".$_GET['ref_no']."' ");
-											$total_row_f_s=mysql_fetch_array($query_f_s);
+											$query_f_s=mysqli_query($conn,"SELECT forward_status FROM `continjency_master` WHERE reference='".$_GET['ref_no']."' ");
+											$total_row_f_s=mysqli_fetch_array($query_f_s);
 												if( $total_row_f_s['forward_status'] == '0'){ 
 											?>
 											<td class='btnhide' width="10%" rowspan='<?php echo $total_rows; ?>'>
@@ -339,8 +339,8 @@ if(isset($_POST['getback']))
                     	<div class="col-md-12 trackprint-btn">
                     	    <?php 
 								$query3="SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='".$_SESSION['empid']."' AND tasummarydetails.`reference_no`='".$_GET['ref_no']."'";
-								$sql3=mysql_query($query3);
-								$row3=mysql_fetch_array($sql3);
+								$sql3=mysqli_query($conn,$query3);
+								$row3=mysqli_fetch_array($sql3);
 								$total_amount=$row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
 							?>
 							<ul>
@@ -352,8 +352,8 @@ if(isset($_POST['getback']))
     							 //   print_r($month);
     							    $month=end($month);
 
-    							    $query1=mysql_query("SELECT forward_status FROM `continjency_master` WHERE empid='".$_SESSION['empid']."' AND reference='".$_GET['ref_no']."' ");
-									$row = mysql_fetch_array($query1);
+    							    $query1=mysqli_query($conn,"SELECT forward_status FROM `continjency_master` WHERE empid='".$_SESSION['empid']."' AND reference='".$_GET['ref_no']."' ");
+									$row = mysqli_fetch_array($query1);
 
 									if($row['forward_status'] != '1'){
 							    ?>

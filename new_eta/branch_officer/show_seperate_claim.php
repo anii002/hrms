@@ -79,15 +79,15 @@ date_default_timezone_set("Asia/kolkata");
                                                     <?php
                           // $_GET['ref_no'];
                           $query = "SELECT DISTINCT(set_number) FROM `taentrydetails` WHERE reference_no='" . $_GET['ref_no'] . "' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
-                          $sql = mysql_query($query);
-                          $total_row1 = mysql_num_rows($sql);
-                          while ($row_1 = mysql_fetch_array($sql)) {
+                          $sql = mysqli_query($conn,$query);
+                          $total_row1 = mysqli_num_rows($sql);
+                          while ($row_1 = mysqli_fetch_array($sql)) {
 
                             $query1 = "SELECT * FROM `taentrydetails` WHERE set_number='" . $row_1['set_number'] . "' AND reference_no='" . $_GET['ref_no'] . "' ORDER by STR_TO_DATE(taDate,'%d/%m/%Y') ASC";
-                            $sql1 = mysql_query($query1);
-                            $total_rows = mysql_num_rows($sql1);
+                            $sql1 = mysqli_query($conn,$query1);
+                            $total_rows = mysqli_num_rows($sql1);
                             $cnt = 1;
-                            while ($row = mysql_fetch_array($sql1)) {
+                            while ($row = mysqli_fetch_array($sql1)) {
                               ?>
                                                     <tr>
                                                         <?php
@@ -120,8 +120,8 @@ date_default_timezone_set("Asia/kolkata");
 
                                                             <?php
                                     $q = "SELECT id FROM `master_cont` WHERE reference_no='" . $_GET['ref_no'] . "' AND set_no='" . $row_1['set_number'] . "' ";
-                                    $s = mysql_query($q);
-                                    $t = mysql_num_rows($s);
+                                    $s = mysqli_query($conn,$q);
+                                    $t = mysqli_num_rows($s);
                                     if ($t == 1) {
                                       //  echo $row_1['set_number'];
                                       ?>
@@ -167,8 +167,8 @@ date_default_timezone_set("Asia/kolkata");
                                             <div class="table-scrollable">
                                                 <?php
                         $query3 = "SELECT cardpass,month,year,`30p_cnt`,`30p_amt`,`70p_cnt`,`70p_amt`,`100p_cnt`,`100p_amt` FROM `tasummarydetails`,taentry_master WHERE  tasummarydetails.reference_no=taentry_master.reference_no AND tasummarydetails.empid='" . $_REQUEST['empid'] . "' AND tasummarydetails.`reference_no`='" . $_GET['ref_no'] . "'";
-                        $sql3 = mysql_query($query3);
-                        $row3 = mysql_fetch_array($sql3);
+                        $sql3 = mysqli_query($conn,$query3);
+                        $row3 = mysqli_fetch_array($sql3);
                         $total_amount = $row3['100p_amt'] + $row3['70p_amt'] + $row3['30p_amt'];
                         ?>
                                                 <table class="table table-bordered table-hover">
@@ -272,15 +272,15 @@ date_default_timezone_set("Asia/kolkata");
                 <div class="col-xs-offset-1 col-xs-2"><label for="">User</label></div>
                 <div class="col-xs-7">
                     <?php
-            $query_emp = mysql_query("select pfno,name,desig,dept FROM employees WHERE pfno =(SELECT username FROM `users` WHERE role='16' AND status='1' limit 1)");
+            $query_emp = mysqli_query($conn,"select pfno,name,desig,dept FROM employees WHERE pfno =(SELECT username FROM `users` WHERE role='16' AND status='1' limit 1)");
            
-            echo mysql_error();
+            echo mysqli_error($conn);
                     ?>
                     <select name="forwardName" id="forwardName" class="form-control select2 required"
                         style="width: 100%" required>
                         <option readonly value='0'>Select User</option>
                         <?php
-            while ($value = mysql_fetch_array($query_emp)) {
+            while ($value = mysqli_fetch_array($query_emp)) {
                 echo "<option value='" . $value['pfno'] . "'>" . $value['name'] . "  (" . $value['desig'] . ")</option>";
             }
             ?>

@@ -42,7 +42,7 @@ include('common/sidebar.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							$query = mysqli_query("SELECT  count(id) as total from taentry_master where empid='" . $_SESSION['empid'] . "' and forward_status=1 ");
+							$query = mysqli_query($conn,"SELECT  count(id) as total from taentry_master where empid='" . $_SESSION['empid'] . "' and forward_status=1 ");
 							$resultset = mysqli_fetch_array($query);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['total'] . "</h3>";
 							?>
@@ -65,10 +65,10 @@ include('common/sidebar.php');
 						<div class="number">
 							<?php
 							// 			echo $query = ("SELECT count(id) as total from taentry_master where empid='".$_SESSION['empid']."' and forward_status=1 and est_approve='1' ");
-							$query = mysql_query("SELECT count(id) as total from taentry_master where empid='" . $_SESSION['empid'] . "' and forward_status=1 and est_approve='1' ");
+							$query = mysqli_query($conn,"SELECT count(id) as total from taentry_master where empid='" . $_SESSION['empid'] . "' and forward_status=1 and est_approve='1' ");
 
 							$total = 0;
-							$resultset = mysql_fetch_array($query);
+							$resultset = mysqli_fetch_array($query);
 
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['total'] . "</h3>";
 							?>
@@ -89,31 +89,34 @@ include('common/sidebar.php');
 					</div>
 					<div class="details">
 						<div class="number">
-							<?php
-							$query = mysql_query("SELECT reference_no from taentry_master where empid='" . $_SESSION['empid'] . "' and forward_status=1");
+						<?php
+$query = mysqli_query($conn, "SELECT reference_no FROM taentry_master WHERE empid='" . $_SESSION['empid'] . "' AND forward_status=1");
 
-							$total = 0;
-							while ($resultset = mysql_fetch_array($query)) {
-								// if($resultset['reference_no']!=null)
-								// {
-								$sql = mysql_query("SELECT summary_id from tasummarydetails where is_summary_generated=1 AND reference_no='" . $resultset['reference_no'] . "' AND empid='" . $_SESSION['empid'] . "' ");
-								$resultset1 = mysql_fetch_array($sql);
+$total = 0;
+while ($resultset = mysqli_fetch_array($query)) {
+    if (!empty($resultset['reference_no'])) {
+        $sql = mysqli_query($conn, "SELECT summary_id FROM tasummarydetails WHERE is_summary_generated=1 AND reference_no='" . $resultset['reference_no'] . "' AND empid='" . $_SESSION['empid'] . "'");
+        $resultset1 = mysqli_fetch_array($sql);
 
+        if ($resultset1 && $resultset1['summary_id'] != 0) {
+            $sql1 = mysqli_query($conn, "SELECT COUNT(id) AS total FROM master_summary WHERE forward_status=1 AND estcrk_status=0 AND summary_id='" . $resultset1['summary_id'] . "'");
+            $resultset2 = mysqli_fetch_array($sql1);
+            if ($resultset2 && isset($resultset2['total'])) {
+                $total += $resultset2['total'];
+            }
+        } else {
+            $sql = mysqli_query($conn, "SELECT COUNT(reference_no) AS total FROM tasummarydetails WHERE is_summary_generated=0 AND reference_no='" . $resultset['reference_no'] . "' AND empid='" . $_SESSION['empid'] . "'");
+            $resultset1 = mysqli_fetch_array($sql);
+            if ($resultset1 && isset($resultset1['total'])) {
+                $total += $resultset1['total'];
+            }
+        }
+    }
+}
 
-								if ($resultset1['summary_id'] != 0) {
-									$sql1 = mysql_query("SELECT count(id) as total from master_summary where forward_status=1 and estcrk_status=0 AND summary_id='" . $resultset1['summary_id'] . "'");
+echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $total . "</h3>";
+?>
 
-									$resultset2 = mysql_fetch_array($sql1);
-									$total = $total + $resultset2['total'];
-								} else {
-									$sql = mysql_query("SELECT count(reference_no)as total from tasummarydetails where is_summary_generated=0 AND reference_no='" . $resultset['reference_no'] . "' AND empid='" . $_SESSION['empid'] . "' ");
-									$resultset1 = mysql_fetch_array($sql);
-									$total = $total + $resultset1['total'];
-								}
-							}
-
-							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $total . "</h3>";
-							?>
 						</div>
 						<div class="desc">
 							<p>प्रलंबित /<br> Pending</p>

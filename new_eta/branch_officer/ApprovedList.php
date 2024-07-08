@@ -62,8 +62,8 @@ include('control/function.php');
                                                     // if ($_SESSION['role'] == '15') {
     $query = "SELECT MONTHNAME( str_to_date(taentry_master.created_date,'%d/%m/%Y') ) as created, taentry_master.reference_no, taentry_master.TAYear, taentry_master.empid as empid, taentry_master.TAMonth, SUM(taentrydetails.distance) AS distance, SUM(taentrydetails.amount) as rate FROM taentry_master INNER JOIN taentrydetails ON taentry_master.reference_no = taentrydetails.reference_no WHERE taentry_master.reference_no IN (select reference_id  from forward_data where forward_data.fowarded_to='" . $_SESSION['empid'] . "'and admin_approve='1') group by taentry_master.reference_no";
                                                     // }
-                                                    $result = mysql_query($query);
-                                                    while ($val = mysql_fetch_array($result)) {
+                                                    $result = mysqli_query($conn,$query);
+                                                    while ($val = mysqli_fetch_array($result)) {
                                                         if ($val['reference_no'] != null) {
                                                             echo "
         										<tr>

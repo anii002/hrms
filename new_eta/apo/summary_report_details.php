@@ -46,9 +46,9 @@ include('control/function.php');
 					<div class="form-group">
 						<?php 
 						  //   $q="SELECT billunit FROM `users` WHERE username='".$_SESSION['empid']."' ORDER BY `ID` ASC";
-						  //   $result=mysql_query($q);
-						  //   echo mysql_error();
-						  //   $row=mysql_fetch_array($result);
+						  //   $result=mysqli_query($q);
+						  //   echo mysqli_error();
+						  //   $row=mysqli_fetch_array($result);
 						  //   $b=array();
 						  //   $b=explode(",",$row['billunit']);
 						  // print_r($b);
@@ -90,23 +90,23 @@ include('control/function.php');
 										<?php 
 
 								        $sql="SELECT * from tasummarydetails,taentry_master where tasummarydetails.reference_no=taentry_master.reference_no AND taentry_master.is_rejected='0'  AND summary_id='".$_GET['sum_id']."' AND is_summary_generated='1'";
-										$res=mysql_query($sql);
-										echo mysql_error();
+										$res=mysqli_query($conn,$sql);
+										echo mysqli_error($conn);
 										//;
 										$total_amt=0;
 										$temp=0;
 										$temp1=0;
 										$emp_pfno=array();
-										while($val=mysql_fetch_array($res))
+										while($val=mysqli_fetch_array($res))
 										{
-    										$sql1=mysql_query("SELECT * from employees where pfno='".$val['empid']."' ");
-    										$val1=mysql_fetch_array($sql1);
+    										$sql1=mysqli_query($conn,"SELECT * from employees where pfno='".$val['empid']."' ");
+    										$val1=mysqli_fetch_array($sql1);
     									
     
     										$level=$val1['level'];
     										$sql2="SELECT * from ta_amount where min<='".$level."' AND max>='".$level."' ";
-    										$res2=mysql_query($sql2);
-    										$val2=mysql_fetch_array($res2);
+    										$res2=mysqli_query($conn,$sql2);
+    										$val2=mysqli_fetch_array($res2);
     
     										// echo "<br>".$val['empid']."_".
     										$amount=$val2['amount'];
@@ -222,8 +222,8 @@ include('control/function.php');
     											echo "
     											<td>$total_amt</td>";
                                                 $tcnt=0;
-    											$sqll=mysql_query("SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
-    											$ress=mysql_fetch_array($sqll);
+    											$sqll=mysqli_query($conn,"SELECT SUM(amount) as amount FROM `add_cont` WHERE empid='".$val['empid']."' AND reference_no='".$val['reference_no']."' ");
+    											$ress=mysqli_fetch_array($sqll);
     								// 			$tcnt=$tcnt + $ress['amount'];
     											if($ress['amount'] == '0' || $ress['amount'] == null){
     												
@@ -276,8 +276,8 @@ include('control/function.php');
 								<input type="hidden" name="emp_pfno_data[]" value="<?php echo $str; ?>" >
 								<?php 
 								// print_r($emp_pfno);
-							// $query = mysql_query("SELECT * from master_summary where id='".$_GET['id']."' and summary_id='".$_GET['sum_id']."' ");
-							// 		$val=mysql_fetch_array($query);
+							// $query = mysqli_query("SELECT * from master_summary where id='".$_GET['id']."' and summary_id='".$_GET['sum_id']."' ");
+							// 		$val=mysqli_fetch_array($query);
 							// 		if($val['estcrk_status']==0 && $val['forward_status'] == 1)
 							// 			{
 											

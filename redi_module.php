@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/section_officer/index.php';
+				window.location.href = '../hrms/new_eta/section_officer/index.php';
 				</script>";
 			}
 
@@ -248,7 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/so_admin/index.php';
+				window.location.href = '../hrms/new_eta/so_admin/index.php';
 				</script>";
 			}
 			if ($_POST['tamm'] == 24) {
@@ -263,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['desig'] = $row['designation'];
 				$_SESSION['billunit'] = $row['bill_unit'];
 				echo "<script>
-				window.location.href = '../new_eta/adfm/index.php';
+				window.location.href = '../hrms/new_eta/adfm/index.php';
 				</script>";
 			}
 		}

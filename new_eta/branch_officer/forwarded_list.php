@@ -51,29 +51,32 @@
 										</tr>										
 									</thead>
 									<tbody>
-										<?php
-										// echo $_SESSION['empid'];
-											// echo $s = "SELECT continjency_master.reference,continjency_master.year,continjency_master.month,continjency_master.total_amount,continjency_master.empid,forward_data.empid,forward_data.reference_id,forward_data.hold_status,forward_data.fowarded_to FROM continjency_master INNER JOIN forward_data ON forward_data.empid = continjency_master.empid WHERE forward_data.hold_status = '0' AND fowarded_to = '".$_SESSION['empid']."' ";
-											$sql = mysql_query("SELECT continjency_master.reference,continjency_master.year,continjency_master.month,continjency_master.total_amount,continjency_master.empid,forward_data.empid,forward_data.reference_id,forward_data.hold_status,forward_data.fowarded_to FROM continjency_master INNER JOIN forward_data ON forward_data.reference_id = continjency_master.reference WHERE forward_data.hold_status = '0' AND fowarded_to = '".$_SESSION['empid']."'");
+<?php
+// Assuming $conn is your valid mysqli connection
+$sql = "SELECT continjency_master.reference, continjency_master.year, continjency_master.month, continjency_master.total_amount
+        FROM continjency_master 
+        INNER JOIN forward_data ON forward_data.reference_id = continjency_master.reference 
+        WHERE forward_data.hold_status = '0' AND forward_data.fowarded_to = '" . $_SESSION['empid'] . "'";
+$result = mysqli_query($conn, $sql);
 
-											// $qry = mysql_query("SELECT `reference`, `month`, `year`, `total_amount` FROM `continjency_master` WHERE forward_status = '1'");
-											while($row = mysql_fetch_array($sql))
-											{
-											
+if ($result) {
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+?>
+    <tr>
+        <td><?php echo $row['reference']; ?></td>
+        <td><?php echo $row['year']; ?></td>
+        <td><?php echo $row['month']; ?></td>
+        <td><?php echo $row['total_amount']; ?></td>
+        <td><a href="forwarded_list_show.php?ref_no=<?php echo $row['reference']; ?>" class="btn green btn_action">Show</a></td>
+    </tr>
+<?php
+    }
+} else {
+    echo "Error: " . mysqli_error($conn); // Display error message if query fails
+}
+?>
+</tbody>
 
-
-										?>
-										<tr>
-											<!-- <td>01</td> -->
-											<td><?php echo $row['reference']; ?></td>
-											<td><?php echo $row['year']; ?> </td>
-											<td> <?php echo $row['month']; ?></td>
-											<td><?php echo $row['total_amount']; ?></td>
-											
-											<td><a href="forwarded_list_show.php?ref_no=<?php echo $row['reference']; ?>" class="btn green btn_action">Show</a></td>
-										</tr>
-										<?php }  ?>
-									</tbody>
 								</table>
 							</div>
 							<div class="text-right">

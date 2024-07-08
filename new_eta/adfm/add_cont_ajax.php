@@ -24,11 +24,11 @@ include("../dbconfig/dbcon.php");
 
 
 	$insert_master_sql = "insert into master_cont (empid, reference_no, ContYear, month, total_amount, objective, status, forward_status, rejected, created_at,set_no) VALUES('".$_SESSION['empid']."', '".$reference_no."', '".$year."', '".$month."', '".$sum."', '".$_POST['objective']."', '1', '0', '0', '".$time."','".$set_no."')";
-	$result = mysql_query($insert_master_sql);
+	$result =  mysqli_query($conn,$insert_master_sql);
 
-	echo mysql_error();
+	echo  mysqli_error($conn);
 
-	// $id = mysql_insert_id() or die(mysql_error());
+	// $id =  mysqli_insert_id() or die( mysqli_error());
 
 	if($result)
 	{
@@ -37,8 +37,8 @@ include("../dbconfig/dbcon.php");
 
 				$insert_sql = "insert into add_cont(empid, reference_no, cont_date, from_place, to_place, kms, rate, amount, objective, status, created_at, set_no) values('".$_SESSION['empid']."', '".$reference_no."', '".$_POST['date'.$i]."', '".$_POST['from'.$i]."', '".$_POST['to'.$i]."', '".$_POST['kms'.$i]."', '".$_POST['rate'.$i]."', '".$_POST['total'.$i]."', '".$_POST['objective']."', '1', NOW(), '".$set_no."')";
 			
-				$result = mysql_query($insert_sql);
-				echo mysql_error();
+				$result =  mysqli_query($conn,$insert_sql);
+				echo  mysqli_error($conn);
 				if($result){
 					$res = $res+1;
 				}

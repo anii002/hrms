@@ -5,8 +5,8 @@ include('common/sidebar.php');
 include('control/function.php');
 
 $query = "select * from employees where pfno = '".$_SESSION['empid']."'";
-$result = mysql_query($query);
-$value = mysql_fetch_array($result);
+$result = mysqli_query($conn,$query);
+$value = mysqli_fetch_array($result);
 $billunit=$value['BU'];
 $empid=$value['pfno'];
 $panno=$value['panno'];
@@ -77,8 +77,8 @@ $level=$value['level'];
 												  <option value='<?php echo $billunit; ?>' selected><?php echo $billunit; ?> </option>
 													<?php
 													$query_emp = "SELECT `billunit` FROM `billunit`";
-													$result_emp = mysql_query($query_emp);
-													while($value_emp = mysql_fetch_array($result_emp))
+													$result_emp = mysqli_query($conn,$query_emp);
+													while($value_emp = mysqli_fetch_array($result_emp))
 													{
 													  echo "<option value='".$value_emp['billunit']."'>".$value_emp['billunit']."</option>";
 													}
@@ -121,8 +121,8 @@ $level=$value['level'];
 												  <option value="<?php echo $value['desig']; ?>" selected><?php echo $designation; ?></option>
 													<?php
 													$query_emp = "SELECT `DESIGCODE`,`DESIGLONGDESC` FROM `designations`";
-													$result_emp = mysql_query($query_emp);
-													while($value_emp = mysql_fetch_array($result_emp))
+													$result_emp = mysqli_query($conn,$query_emp);
+													while($value_emp = mysqli_fetch_array($result_emp))
 													{
 													  echo "<option value='".$value_emp['DESIGCODE']."'>".$value_emp['DESIGLONGDESC']."</option>";
 													}
@@ -138,8 +138,8 @@ $level=$value['level'];
 												  <option value="<?php echo $value['station']; ?>" ><?php echo $station; ?></option>
 													<?php
 													$query_emp = "select stationcode,stationdesc from station";
-													$result_emp = mysql_query($query_emp);
-													while($value_emp = mysql_fetch_array($result_emp))
+													$result_emp = mysqli_query($conn,$query_emp);
+													while($value_emp = mysqli_fetch_array($result_emp))
 													{
 													  echo "<option value='".$value_emp['stationcode']."'>".$value_emp['stationdesc']."</option>";
 													}
@@ -193,8 +193,8 @@ $level=$value['level'];
 												  <option value="<?php echo $value['dept']; ?>" selected><?php echo $dept; ?></option>
 													<?php
 													$query_emp = "SELECT `DEPTNO`, `DEPTDESC` FROM `department`";
-													$result_emp = mysql_query($query_emp);
-													while($value_emp = mysql_fetch_array($result_emp))
+													$result_emp = mysqli_query($conn,$query_emp);
+													while($value_emp = mysqli_fetch_array($result_emp))
 													{
 													  echo "<option value='".$value_emp['DEPTNO']."'>".$value_emp['DEPTDESC']."</option>";
 													}
@@ -262,8 +262,8 @@ $level=$value['level'];
 													
 													<?php
 													$query_emp = "SELECT `num` FROM `paylevel`";
-													$result_emp = mysql_query($query_emp);
-													while($value_emp = mysql_fetch_array($result_emp))
+													$result_emp = mysqli_query($conn,$query_emp);
+													while($value_emp = mysqli_fetch_array($result_emp))
 													{
 													  echo "<option value='".$value_emp['num']."'>".$value_emp['num']."</option>";
 													}
@@ -277,22 +277,22 @@ $level=$value['level'];
 										
 											<?php 
             
-              $query_emp =mysql_query("SELECT department.DEPTNO as id  FROM `employees` ,department WHERE department.DEPTNO=employees.dept AND pfno='".$_SESSION['empid']."' ");
-              $resu1=mysql_fetch_array($query_emp);
+              $query_emp =mysqli_query($conn,"SELECT department.DEPTNO as id  FROM `employees` ,department WHERE department.DEPTNO=employees.dept AND pfno='".$_SESSION['empid']."' ");
+              $resu1=mysqli_fetch_array($query_emp);
                $dptid=$resu1['id'];
-              $sql_user=mysql_query("SELECT * from users where dept='".$dptid."' AND role='23' ");
-                  $cnt=mysql_num_rows($sql_user);
+              $sql_user=mysqli_query($conn,"SELECT * from users where dept='".$dptid."' AND role='23' ");
+                  $cnt=mysqli_num_rows($sql_user);
             ?>
             <select name="forwardName" id="forwardName" class="form-control select2 required" style="width: 100%" required>
               <option readonly value='0' selected >Select Section Officer Admin</option>
             
              <?php
-              while($resu=mysql_fetch_assoc($sql_user)){             
+              while($resu=mysqli_fetch_assoc($sql_user)){             
               $query = "SELECT pfno,name,desig FROM employees where pfno='".$resu['empid']."'";
             //   $did.="SELECT * FROM employees where pfno='".$resu['empid']."'";
                 
-                $result = mysql_query($query);
-                while($value = mysql_fetch_assoc($result))
+                $result = mysqli_query($conn,$query);
+                while($value = mysqli_fetch_assoc($result))
                 {
                   // $did.=$value['pfno'];
                   echo "<option value='".$value['pfno']."'>".$value['name']."  (".$value['desig'].")</option>";

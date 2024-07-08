@@ -33,12 +33,12 @@ include('common/sidebar.php');
 
 				<?php 
 					 $_SESSION['empid'];
-					$level_q=mysql_query("SELECT LEVEL FROM `employees` where pfno='".$_SESSION['empid']."' ");
-					$level_row=mysql_fetch_array($level_q);
+					$level_q=mysqli_query($conn,"SELECT LEVEL FROM `employees` where pfno='".$_SESSION['empid']."' ");
+					$level_row=mysqli_fetch_array($level_q);
 					
 					$lev= $level_row['LEVEL'];
-					$level_q1=mysql_query("SELECT amount from ta_amount WHERE min<=$lev AND max>=$lev");
-					$level_row1=mysql_fetch_array($level_q1);
+					$level_q1=mysqli_query($conn,"SELECT amount from ta_amount WHERE min<=$lev AND max>=$lev");
+					$level_row1=mysqli_fetch_array($level_q1);
 					$user_amount= $level_row1['amount'];
 
 				?>										
@@ -101,9 +101,9 @@ include('common/sidebar.php');
 											<option value="0" selected disabled>Select...</option>
 											<?php 
 											$query2="SELECT * FROM `journey_type_master`";
-											$sql2=mysql_query($query2);
+											$sql2=mysqli_query($conn,$query2);
 
-											while ($row2 = mysql_fetch_array($sql2)) {
+											while ($row2 = mysqli_fetch_array($sql2)) {
 												echo "<option value='".$row2['id']."' >".$row2['journey_type']."  </option>";
 											}
 										?>
@@ -127,9 +127,9 @@ include('common/sidebar.php');
 										<!--<option value="0" selected disabled>Select...</option>-->
 										<?php 
 											$query2="SELECT * FROM `journey_purpose_master`";
-											$sql2=mysql_query($query2);
+											$sql2=mysqli_query($conn,$query2);
 
-											while ($row2 = mysql_fetch_array($sql2)) {
+											while ($row2 = mysqli_fetch_array($sql2)) {
 												echo "<option value='".$row2['id']."' >".$row2['journey_purpose']."  </option>";
 											}
 										?>
@@ -160,8 +160,8 @@ include('common/sidebar.php');
 									 <datalist id='dstation0'>
 									 <?php
 			                  			$sql = "SELECT stationdesc FROM station";
-			                  			$query = mysql_query($sql);
-			                  			 while($row = mysql_fetch_array($query)){
+			                  			$query = mysqli_query($conn,$sql);
+			                  			 while($row = mysqli_fetch_array($query)){
 			                  				echo "<option value='".$row['stationdesc']."'>";
 			                  			}
 			                  			?>
@@ -176,8 +176,8 @@ include('common/sidebar.php');
 									 <datalist id='astation0'>
 									 <?php
 			                  			$sql = "SELECT stationdesc FROM station";
-			                  			$query = mysql_query($sql);
-			                  			 while($row = mysql_fetch_array($query)){
+			                  			$query = mysqli_query($conn,$sql);
+			                  			 while($row = mysqli_fetch_array($query)){
 			                  				echo "<option value='".$row['stationdesc']."'>";
 			                  			}
 			                  			?>
@@ -359,69 +359,152 @@ include('common/sidebar.php');
 		}
 	});
 
-	$(".addrowbtn").on("click",function(){
-		var data='';
-		var sr=$("#sr1").val();
-		//alert(sr);
-		var prevdate=$("#date"+sr).val();
-		 
-		sr++;
-		
-		data+='<tr class="odd gradeX"><td style="width: 10%"><div class="form-group"> <div class="">								<input class="form-control datepicker" readonly type="text" name="date'+sr+'" id="date'+sr+'" val='+sr+' value='+prevdate+' placeholder ="dd/mm/yyyy"></div></div></td><td style="width: 10%"><div class="form-group">			<div class="">				   <select class="form-control j_type" name="type'+sr+'" id="type'+sr+'" val='+sr+'>  <?php $query1="SELECT * FROM `journey_type_master`"; $sql1=mysql_query($query1);while ($row1 = mysql_fetch_array($sql1)) {echo '<option value='.$row1['id'].' >'.$row1['journey_type'].'  </option>';}?>
-			</select></div></div></td><td style="width: 10%"><div class="form-group"><input type="text" class="form-control val train_no" placeholder="Train No." name="trainno'+sr+'" id="trainno'+sr+'" val='+sr+'></div></td> <td style="width: 10%"><div class="form-group"><div class=""><select class="form-control purpose" val='+sr+' name="other'+sr+'" id="other'+sr+'"> <?php $query2="SELECT * FROM `journey_purpose_master`"; $sql2=mysql_query($query2);while ($row2 = mysql_fetch_array($sql2)) {echo '<option value='.$row2['id'].' >'.$row2['journey_purpose'].'  </option>';}?>	</select></div></div></td>          <td style="width: 8%"><div class="form-group">    <input type="text" name="dtime'+sr+'" val='+sr+' id="dtime'+sr+'" class="form-control changedtime timevalue" placeholder="hh:mm"></div></td>  <td style="width: 8%"><div class="form-group"><input type="text" class="form-control ta_calculation time_val timevalue" name="atime'+sr+'" val='+sr+' id="atime'+sr+'"  placeholder="hh:mm"></div></td>     <td style="width: 12%"><div class="form-group">	<input type="text" list="dstation'+sr+'" style="text-transform:uppercase" name="dstn'+sr+'" id="dstn'+sr+'" placeholder="select Station" val='+sr+' class="departClass form-control"><datalist id="dstation'+sr+'">';
-		data+="<?php
-          			$sql = "SELECT stationdesc FROM station";
-          			$query = mysql_query($sql);
-          			 while($row = mysql_fetch_array($query)){
-          				echo "<option value='".$row['stationdesc']."'>";
-          			}
-          			?>";
-		data+='</datalist> </div></td><td style="width: 12%"><div class="form-group"><input type="text" list="astation'+sr+'" style="text-transform:uppercase" name="astn'+sr+'" id="astn'+sr+'" placeholder="select Station" val='+sr+' class="form-control arrivalstn"><datalist id="astation'+sr+'">';
-		data+="<?php
-          			$sql = "SELECT stationdesc FROM station";
-          			$query = mysql_query($sql);
-          			 while($row = mysql_fetch_array($query)){
-          				echo "<option value='".$row['stationdesc']."'>";
-          			}
-          			?>";
-		data+='</datalist></div></td><td><div class="form-group">				<input type="text" class="form-control"  name="distance'+sr+'" id="distance'+sr+'" placeholder="Distance" val='+sr+'></div></td><td>		 <div class="form-group">	<input type="text" class="form-control changeper"  name="per'+sr+'" id="per'+sr+'" placeholder="Percentage" readonly val='+sr+'></div></td><td><div class="form-group">	<input type="text" class="form-control" name="amt'+sr+'" id="amt'+sr+'" placeholder="Amount"  readonly val='+sr+'></div></td></tr>';
+	$(document).ready(function () {
+    $(".addrowbtn").on("click", function () {
+        var sr = parseInt($("#sr1").val());
+        var prevDate = $("#date" + sr).val();
+        sr++;
+        
+        var newRow = createNewRow(sr, prevDate);
+        $("#new_row").append(newRow);
+        $("#sr1").val(sr);
 
-			$("#new_row").append(data);
-			$("#sr1").val(sr);
-			
-			// console.log(sr);
-        var sr_1=(sr-1);
-        // console.log(sr_1);
-        var prev_dstn=$("#astn"+sr_1).val();
-        $("#dstn"+sr).val(prev_dstn);
-				
-				var x = 60; //or whatever offset
-               var CurrentDate = new Date();
-               CurrentDate.setDate(CurrentDate.getDate() - x);
-               var mon = CurrentDate.getMonth() + 1;
-               var date = CurrentDate.getDate();
-               var year = CurrentDate.getFullYear();
-               var mindate='01'+"/"+mon+"/"+year;
-               
-               // max date
-    var CurrentDate = new Date();
-    CurrentDate.setDate(CurrentDate.getDate());
-    var mon1 = CurrentDate.getMonth() + 1;
-    var date1 = CurrentDate.getDate();
-    var year1 = CurrentDate.getFullYear();
-    var maxdate=date1+"/"+mon1+"/"+year1;
-    
-    
-               
-			    $( ".datepicker" ).datepicker({
-     				dateFormat: "dd/mm/yy",  
-     				minDate:mindate,
-			     maxDate: maxdate, 
-			     changeYear: true,
-			     changeMonth:true,
-			   });
-	});
+        var prevDstn = $("#astn" + (sr - 1)).val();
+        $("#dstn" + sr).val(prevDstn);
 
+        setupDatePicker();
+    });
+
+    function createNewRow(sr, prevDate) {
+        return `<tr class="odd gradeX">
+            <td style="width: 10%">
+                <div class="form-group">
+                    <div>
+                        <input class="form-control datepicker" readonly type="text" name="date${sr}" id="date${sr}" value="${prevDate}" placeholder="dd/mm/yyyy">
+                    </div>
+                </div>
+            </td>
+            <td style="width: 10%">
+                <div class="form-group">
+                    <div>
+                        <select class="form-control j_type" name="type${sr}" id="type${sr}">
+                            ${getJourneyTypesOptions()}
+                        </select>
+                    </div>
+                </div>
+            </td>
+            <td style="width: 10%">
+                <div class="form-group">
+                    <input type="text" class="form-control val train_no" placeholder="Train No." name="trainno${sr}" id="trainno${sr}">
+                </div>
+            </td>
+            <td style="width: 10%">
+                <div class="form-group">
+                    <div>
+                        <select class="form-control purpose" name="other${sr}" id="other${sr}">
+                            ${getJourneyPurposesOptions()}
+                        </select>
+                    </div>
+                </div>
+            </td>
+            <td style="width: 8%">
+                <div class="form-group">
+                    <input type="text" name="dtime${sr}" id="dtime${sr}" class="form-control changedtime timevalue" placeholder="hh:mm">
+                </div>
+            </td>
+            <td style="width: 8%">
+                <div class="form-group">
+                    <input type="text" class="form-control ta_calculation time_val timevalue" name="atime${sr}" id="atime${sr}" placeholder="hh:mm">
+                </div>
+            </td>
+            <td style="width: 12%">
+                <div class="form-group">
+                    <input type="text" list="dstation${sr}" style="text-transform:uppercase" name="dstn${sr}" id="dstn${sr}" placeholder="select Station" class="departClass form-control">
+                    <datalist id="dstation${sr}">
+                        ${getStationsOptions()}
+                    </datalist>
+                </div>
+            </td>
+            <td style="width: 12%">
+                <div class="form-group">
+                    <input type="text" list="astation${sr}" style="text-transform:uppercase" name="astn${sr}" id="astn${sr}" placeholder="select Station" class="form-control arrivalstn">
+                    <datalist id="astation${sr}">
+                        ${getStationsOptions()}
+                    </datalist>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="distance${sr}" id="distance${sr}" placeholder="Distance">
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control changeper" name="per${sr}" id="per${sr}" placeholder="Percentage" readonly>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="amt${sr}" id="amt${sr}" placeholder="Amount" readonly>
+                </div>
+            </td>
+        </tr>`;
+    }
+
+    function getJourneyTypesOptions() {
+        let options = '';
+        <?php
+            $query1 = "SELECT * FROM journey_type_master";
+            $sql1 = mysqli_query($conn, $query1);
+            while ($row1 = mysqli_fetch_array($sql1)) {
+                echo 'options += "<option value=\'' . $row1['id'] . '\'>' . $row1['journey_type'] . '</option>";';
+            }
+        ?>
+        return options;
+    }
+
+    function getJourneyPurposesOptions() {
+        let options = '';
+        <?php
+            $query2 = "SELECT * FROM journey_purpose_master";
+            $sql2 = mysqli_query($conn, $query2);
+            while ($row2 = mysqli_fetch_array($sql2)) {
+                echo 'options += "<option value=\'' . $row2['id'] . '\'>' . $row2['journey_purpose'] . '</option>";';
+            }
+        ?>
+        return options;
+    }
+
+    function getStationsOptions() {
+        let options = '';
+        <?php
+            $sql = "SELECT stationdesc FROM station";
+            $query = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_array($query)) {
+                echo 'options += "<option value=\'' . $row['stationdesc'] . '\'>' . $row['stationdesc'] . '</option>";';
+            }
+        ?>
+        return options;
+    }
+
+    function setupDatePicker() {
+        var currentDate = new Date();
+        var minDate = new Date();
+        minDate.setDate(currentDate.getDate() - 60);
+        
+        var dateFormat = "dd/mm/yy";
+        var minDateStr = `01/${minDate.getMonth() + 1}/${minDate.getFullYear()}`;
+        var maxDateStr = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+
+        $(".datepicker").datepicker({
+            dateFormat: dateFormat,
+            minDate: minDateStr,
+            maxDate: maxDateStr,
+            changeYear: true,
+            changeMonth: true
+        });
+    }
+});
 
 
 	$(document).on("change",".purpose",function(){

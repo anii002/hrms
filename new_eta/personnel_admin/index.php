@@ -43,22 +43,22 @@ include('common/sidebar.php');
 							<div class="number">
 							<?php 
 							$q="SELECT billunit FROM `users` WHERE username='".$_SESSION['empid']."' ORDER BY `ID` ASC";
-						    $result=mysql_query($q);
-						    echo mysql_error();
-						    $row=mysql_fetch_array($result);
+						    $result=mysqli_query($conn,$q);
+						    echo mysqli_error($conn);
+						    $row=mysqli_fetch_array($result);
 						    $b=array();
 						    $b=explode(",",$row['billunit']);
 						    
 						    $query1 = "SELECT title,summary_id FROM `master_summary` WHERE forward_status='1' AND estcrk_status='1'";
 							$cnt=1;
-							$result1 = mysql_query($query1);
+							$result1 = mysqli_query($conn,$query1);
 							$emp_bu=array();
 						    $cnt_bu=0;
-							while($val = mysql_fetch_array($result1))
+							while($val = mysqli_fetch_array($result1))
 							{
 							    $ta_query="SELECT DISTINCT(BU) FROM employees e INNER JOIN tasummarydetails ts ON e.pfno=ts.empid WHERE ts.summary_id='".$val['summary_id']."' ";
-							    $ta_result=mysql_query($ta_query);
-							    $ta_rows=mysql_fetch_array($ta_result);
+							    $ta_result=mysqli_query($conn,$ta_query);
+							    $ta_rows=mysqli_fetch_array($ta_result);
 							    $bu=$ta_rows['BU'];
 						
 							   if(in_array($bu, $b))
@@ -91,22 +91,22 @@ include('common/sidebar.php');
 							<div class="number">
 							<?php 
 						    $q="SELECT billunit FROM `users` WHERE username='".$_SESSION['empid']."' ORDER BY `ID` ASC";
-						    $result=mysql_query($q);
-						    echo mysql_error();
-						    $row=mysql_fetch_array($result);
+						    $result=mysqli_query($conn,$q);
+						    echo mysqli_error($conn);
+						    $row=mysqli_fetch_array($result);
 						    $b=array();
 						    $b=explode(",",$row['billunit']);
 				            
 				            
 				            $cnt=1;
 							$query1 ="SELECT title,summary_id from master_summary WHERE forward_status = '1' and estcrk_status='0' ";
-	                        $result1 = mysql_query($query1);
-							while($val = mysql_fetch_array($result1))
+	                        $result1 = mysqli_query($conn,$query1);
+							while($val = mysqli_fetch_array($result1))
 							{
 							    $sql1="SELECT BU from tasummarydetails,taentry_master,employees where tasummarydetails.reference_no=taentry_master.reference_no AND taentry_master.empid=employees.pfno AND taentry_master.is_rejected='0'  AND summary_id='".$val['summary_id']."' AND is_summary_generated='1'";
-    							$res1=mysql_query($sql1);
+    							$res1=mysqli_query($conn,$sql1);
     							$data=0;
-    							while($val1=mysql_fetch_array($res1))
+    							while($val1=mysqli_fetch_array($res1))
     							{
     							 //   echo "<br>".$val1['BU']."_".$val1['empid']."_".$val1['reference_no'];
 							        if($data == 0)
