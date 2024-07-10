@@ -21,7 +21,7 @@ dbcon1();
   {
 
     $data=[];
-    $sql=mysql_query("select * from resgister_user where emp_no='$id'");
+    $sql=mysql_query("select * from register_user where emp_no='$id'");
     $res=mysql_fetch_array($sql);
     $data['pf_number']=$res['emp_no'];
     $data['empname']=$res['name'];

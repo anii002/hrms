@@ -11,7 +11,7 @@ function get_employee_details($id)
 {
   global $db_common;
   $data = [];
-  $sql = mysql_query("SELECT * from resgister_user where emp_no='$id'", $db_common);
+  $sql = mysql_query("SELECT * from register_user where emp_no='$id'", $db_common);
   $res = mysql_fetch_array($sql);
   $data['pf_number'] = $res['emp_no'];
   $data['emp_name'] = $res['name'];

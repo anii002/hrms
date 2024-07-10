@@ -183,7 +183,7 @@ include('control/function.php');
 						 	{
 						 	   // echo $_SESSION['admin_username'];
 						 	
-						 	    $query = mysql_query("SELECT `name` FROM `resgister_user` WHERE `emp_no` = '".$_SESSION['emp_id']."'");
+						 	    $query = mysql_query("SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['emp_id']."'");
 						 	    $row = mysql_fetch_array($query);
 						 	    echo $row['name'];   
 						 	}

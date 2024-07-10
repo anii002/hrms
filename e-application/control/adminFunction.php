@@ -9,7 +9,7 @@ function fetchEmployee1($id)
 {
   global $con;
   dbcon2();
-  $query = "select * from resgister_user where emp_no = '$id'";
+  $query = "select * from register_user where emp_no = '$id'";
   $result = mysql_query($query);
   dbcon3();
   $query_check = mysql_query("SELECT user_pfno FROM add_user WHERE user_pfno = '$id'");
@@ -42,7 +42,7 @@ function fetch_employee_details($id)
 {
   global $con;
   dbcon2();
-  $query = "select * from resgister_user where emp_no = '$id'";
+  $query = "select * from register_user where emp_no = '$id'";
   $result = mysql_query($query);
   // dbcon3();
   // $query_check = mysql_query("SELECT user_pfno FROM add_user WHERE user_pfno = '$id'");
@@ -71,7 +71,7 @@ function fetchEmployee2($id)
 {
   global $con;
   dbcon2();
-  $query = "select * from resgister_user where emp_no = '$id'";
+  $query = "select * from register_user where emp_no = '$id'";
   $result = mysql_query($query);
   
   if($result)
@@ -112,7 +112,7 @@ function fetchuseremp($id)
   global $con;
 
   dbcon2();
-  $query_bu = mysql_query("SELECT `bill_unit` FROM `resgister_user` WHERE emp_no = '".$id."'");
+  $query_bu = mysql_query("SELECT `bill_unit` FROM `register_user` WHERE emp_no = '".$id."'");
   $row_bu = mysql_fetch_array($query_bu);
    // echo $row_bu['bill_unit']."<br>";
   dbcon3();
@@ -128,7 +128,7 @@ function fetchuseremp($id)
     {
        //echo $row_bu_users['user_pfno'];
       dbcon2();
-      $q_name = mysql_query("SELECT `emp_no`,`name` FROM `resgister_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
+      $q_name = mysql_query("SELECT `emp_no`,`name` FROM `register_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
       $value = mysql_fetch_array($q_name);
       $data['emp_no']=$value['emp_no'];
       $data['name']=$value['name'];

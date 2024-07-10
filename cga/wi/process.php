@@ -10,17 +10,17 @@ include_once('../dbconfig/dbcon.php');
 	$data="";
 	$daate=date('d/m/Y');
 	$data="<h4><input type='hidden' id='curDate1' value='$daate'>&emsp;Family Member $cnt</h4><div class='row'><div class='col-md-6'><div class='form-group'><label class='control-label'>Member Name</label><div class='input-group'><span class='input-group-addon'><i class='fas fa-envelope'></i></span><input type='text' class='form-control' id='fam_mem_name_$cnt' name='fam_mem_name_$cnt' maxlength='30' placeholder=' '></div></div></div><div class='col-md-6'><div class='form-group'><label class='control-label'>Member Mobile No</label><div class='input-group'><span class='input-group-addon'><i class='fas fa-envelope'></i></span><input type='text' class='form-control' id='fam_mem_mobno_$cnt' onchange='m_phonenumber(this)' maxlength='10' name='fam_mem_mobno_$cnt' placeholder=' '></div></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><label class='control-label'>Member Pan No</label><div class='input-group'><span class='input-group-addon'><i class='fas fa-envelope'></i></span><input type='text' class='form-control' id='fam_mem_panno_$cnt' style='text-transform: uppercase; ' maxlength='10' name='fam_mem_panno_$cnt' onchange='m_pannumber(this)' placeholder=' '></div></div></div><div class='col-md-6'><div class='form-group'><label class='control-label'>Member Aadhar No </label><div class='input-group'><span class='input-group-addon'><i class='fas fa-envelope'></i></span><input type='text' class='form-control' id='fam_mem_aadharno_$cnt' maxlength='12' onchange='m_adharnumber(this)' name='fam_mem_aadharno_$cnt' placeholder=' '></div></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><label class='control-label'>Member Relation </label><select name='fam_mem_rel_$cnt' id='fam_mem_rel_$cnt' class='select2me form-control' style='width: 100%;' tabindex='-1' aria-hidden='true'><option value='' selected disabled>Select Status</option>";
-		dbcon1();
-		$query_emp =mysql_query('SELECT * from relation');
-	 while($value_emp = mysql_fetch_array($query_emp))
+  $con=dbcon1();
+		$query_emp =mysqli_query($con,'SELECT * from relation');
+	 while($value_emp = mysqli_fetch_array($query_emp))
 		 {
 			$data.="<option value='".$value_emp['code']."'>".$value_emp['longdesc']."</option>";
 		 }									
 		$data.="</select></div></div><div class='col-md-6'><div class='form-group'><label class='control-label'>Maritial Status </label><select name='fam_mem_maritial_st_$cnt' id='fam_mem_maritial_st_$cnt' class='select2me form-control' style='width: 100%;' tabindex='-1' aria-hidden='true'><option value='' selected disabled>Select Status</option>";
-		dbcon2();
-		$query_emp =mysql_query('SELECT * from marital_status');
+		$con=dbcon2();
+		$query_emp =mysqli_query($con,'SELECT * from marital_status');
 																		
-		 while($value_emp = mysql_fetch_array($query_emp))
+		 while($value_emp = mysqli_fetch_array($query_emp))
 		 {
 		  	$data.="<option value='".$value_emp['code']."'>".$value_emp['shortdesc']."</option>";
 		}							

@@ -36,12 +36,12 @@ function get_status($status)
 function add_grievance($name_array, $tmp_name_array, $emp_id, $emp_name, $emp_type, $emp_office, $emp_dept, $emp_desig, $emp_mob_no, $gri_type, $wel_remark, $griv_ref_no, $hidden_id)
 {
 	global $db_egr, $db_common;
-	$querypf = mysql_query("select * from resgister_user where emp_no='$emp_id'", $db_common);
+	$querypf = mysql_query("select * from register_user where emp_no='$emp_id'", $db_common);
 	//echo "select * from employee where emp_id='$emp_id'";
 	$countpf = mysql_num_rows($querypf);
 	//echo $countpf;
 	if ($countpf > 0) { } else {
-		// $insert_sql = "insert into resgister_user (`password`,`emp_type`,`emp_id`,`emp_name`,`emp_dept`,`emp_desig`,`emp_mob`,`office`)values('$emp_mob_no','$emp_type','$emp_id','$emp_name','$emp_dept','$emp_desig','$emp_mob_no','$emp_office')";
+		// $insert_sql = "insert into register_user (`password`,`emp_type`,`emp_id`,`emp_name`,`emp_dept`,`emp_desig`,`emp_mob`,`office`)values('$emp_mob_no','$emp_type','$emp_id','$emp_name','$emp_dept','$emp_desig','$emp_mob_no','$emp_office')";
 		//echo $insert_sql;
 		// $sql_wel = mysql_query($insert_sql);
 		//echo mysql_affected_rows();
@@ -93,7 +93,7 @@ function add_grievance($name_array, $tmp_name_array, $emp_id, $emp_name, $emp_ty
 	// var_dump($sql_insert);
 	if ($sql_insert) {
 		// echo "working";
-		$sql = "SELECT * from resgister_user where emp_no ='" . $emp_id . "'";
+		$sql = "SELECT * from register_user where emp_no ='" . $emp_id . "'";
 		$result = mysql_query($sql, $db_common);
 		while ($dat = mysql_fetch_assoc($result)) {
 			$mob = $dat['mobile'];
@@ -286,7 +286,7 @@ function getTypeName($id)
 function getEmployeeName($id)
 {
 	global $db_common;
-	$sql = "select * from resgister_user where emp_no='$id'";
+	$sql = "select * from register_user where emp_no='$id'";
 	// $sql = "select * from employee where emp_id='$id'";
 	$rst_employee = mysql_query($sql, $db_common);
 	$emp_name = "";
@@ -299,7 +299,7 @@ function getEmployeeName($id)
 function getEmployeeDesignation($id)
 {
 	global $db_common;
-	$sql = "select * from resgister_user where emp_no='$id'";
+	$sql = "select * from register_user where emp_no='$id'";
 	$rst_employee = mysql_query($sql, $db_common);
 	$emp_designation = "";
 	if (mysql_num_rows($rst_employee) > 0) {
@@ -465,7 +465,7 @@ function get_station_text($id)
 function get_emp_station($pf_no)
 {
 	global $db_common;
-	$sql = "select * from resgister_user where emp_no='$pf_no'";
+	$sql = "select * from register_user where emp_no='$pf_no'";
 	$rst_employee = mysql_query($sql, $db_common);
 	$emp_station = "";
 	if (mysql_num_rows($rst_employee) > 0) {

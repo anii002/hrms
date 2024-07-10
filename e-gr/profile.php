@@ -20,7 +20,7 @@ error_reporting(0);
                     enctype="multipart/form-data">
                     <div class="col-md-12 col-sm-12">
                         <?php
-                        $query = "select * from resgister_user where emp_no='" . $_SESSION["user"] . "'";
+                        $query = "select * from register_user where emp_no='" . $_SESSION["user"] . "'";
                         // echo "select * from employee where emp_id='".$_SESSION["user"]."'";
                         $resultset = mysql_query($query, $db_common);
                         $result = mysql_fetch_array($resultset);

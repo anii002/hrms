@@ -160,7 +160,7 @@ function check_user($emp_id, $user_mob)
 function check_handicap($emp_id)
 {
 	global $db_common;
-	$fetch_before = mysql_query("select handicap_status from resgister_user where emp_no ='$emp_id'", $db_common);
+	$fetch_before = mysql_query("select handicap_status from register_user where emp_no ='$emp_id'", $db_common);
 	$result = mysql_fetch_array($fetch_before);
 
 	if ($result['handicap_status'] == 'Y') {
@@ -172,7 +172,7 @@ function check_handicap($emp_id)
 function check_sex($emp_id)
 {
 	global $db_common;
-	$fetch_before = mysql_query("select gender from resgister_user where emp_no ='$emp_id'", $db_common);
+	$fetch_before = mysql_query("select gender from register_user where emp_no ='$emp_id'", $db_common);
 	$result = mysql_fetch_array($fetch_before);
 	if ($result['gender'] == 'F') {
 		return true;
@@ -183,7 +183,7 @@ function check_sex($emp_id)
 function check_community($emp_id)
 {
 	global $db_common;
-	$fetch_before = mysql_query("select community from resgister_user where emp_no ='$emp_id'", $db_common);
+	$fetch_before = mysql_query("select community from register_user where emp_no ='$emp_id'", $db_common);
 	$result = mysql_fetch_array($fetch_before);
 
 	if ($result['community'] == 'SC' || $result['community'] == 'ST') {
@@ -264,7 +264,7 @@ function forward_grievance($name_array, $tmp_name_array, $griv_ref_no, $emp_id, 
 	if ($fire_query) {
 		$status_update = mysql_query("update tbl_grievance set status='$status',section_id='$section' where gri_ref_no=$griv_ref_no", $db_egr);
 		if ($action == 3) {
-			$sql = "SELECT * from resgister_user where emp_no ='" . $emp_id . "'";
+			$sql = "SELECT * from register_user where emp_no ='" . $emp_id . "'";
 			$result = mysql_query($sql, $db_common);
 			while ($dat = mysql_fetch_assoc($result)) {
 				$mob = $dat['mobile'];
@@ -334,7 +334,7 @@ function forward_grievance_wel($name_array, $tmp_name_array, $griv_ref_no, $emp_
 	$status_update = mysql_query($update_sql, $db_egr);
 	//echo"update tbl_grievance set status='$status' where gri_ref_no='$griv_ref_no'".mysql_error();
 	if ($action == 3) {
-		$sql = "SELECT * from resgister_user where emp_no ='" . $hidden_id . "'";
+		$sql = "SELECT * from register_user where emp_no ='" . $hidden_id . "'";
 		$result = mysql_query($sql, $db_common);
 		while ($dat = mysql_fetch_assoc($result)) {
 			$mob = $dat['mobile'];
@@ -782,7 +782,7 @@ function getTypeName($id)
 function getEmployeeName($id)
 {
 	global $db_common;
-	$sql = "select * from resgister_user where emp_no='$id'";
+	$sql = "select * from register_user where emp_no='$id'";
 	// $sql = "select * from employee where emp_id='$id'";
 	$rst_employee = mysql_query($sql, $db_common);
 	$emp_name = "";
@@ -795,7 +795,7 @@ function getEmployeeName($id)
 function getEmployeeDesignation($id)
 {
 	global $db_common;
-	$sql = "select * from resgister_user where emp_no='$id'";
+	$sql = "select * from register_user where emp_no='$id'";
 	$rst_employee = mysql_query($sql, $db_common);
 	$emp_designation = "";
 	if (mysql_num_rows($rst_employee) > 0) {

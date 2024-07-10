@@ -25,7 +25,7 @@ if(isset($_REQUEST['user_id']))
 		$response["error"] =FALSE;
 			//session_start();
 // 			$db->hrms_connect();
-			$selectQuery=mysql_query("SELECT mobile from resgister_user WHERE emp_no=$user_id");
+			$selectQuery=mysql_query("SELECT mobile from register_user WHERE emp_no=$user_id");
 			
 			$result=mysql_fetch_array($selectQuery);
 			

@@ -13,7 +13,7 @@ require_once('Global_Data/header.php');
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-users"></i></div>
                         <?php
-                            $total_emp = mysql_query("select * from resgister_user", $db_common);
+                            $total_emp = mysql_query("select * from register_user", $db_common);
                             $emp_total = mysql_num_rows($total_emp);
                             ?>
                         <div class="count para"><?php echo $emp_total; ?>
@@ -48,7 +48,7 @@ require_once('Global_Data/header.php');
                         <?php
                         $current_id = getCurrentUser();
                         // $sql_admin = "select * from tbl_grievance where status='1'";
-                        $sql_admin = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1'";
+                        $sql_admin = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1'";
 
                         $sql_ba = "Select g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from tbl_grievance g INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where (g.status='3' or g.status='2') and (f.status='2' or f.status='3') and  f.user_id_forwarded='$current_id'  group by g.id order by g.gri_upload_date DESC";
                         $sql = (isBA() || isBo()) ? $sql_ba : $sql_admin;
@@ -143,7 +143,7 @@ require_once('Global_Data/header.php');
                                     <tbody>
                                         <?php
                                                 $cnt = 1;
-                                                $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
+                                                $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
                                                 $query = mysql_query($sql);
                                                 // echo mysql_num_rows($query);
                                                 if (mysql_num_rows($query) > 0) {
@@ -222,7 +222,7 @@ require_once('Global_Data/header.php');
                                                 $cnt = 1;
                                                 // $sql = "Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id, g.uploaded_by, e.emp_mob from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' ORDER BY g.gri_upload_date DESC";
                                                 // $sql = "Select e.empno,e.empname,e.emptype,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.prmaemp  e INNER JOIN $db_egr_name.tbl_grievance g ON e.empno=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' ORDER BY g.gri_upload_date DESC";
-                                                $sql = "Select e.emp_no,e.name,e.empType,e.mobile,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,g.uploaded_by from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
+                                                $sql = "Select e.emp_no,e.name,e.empType,e.mobile,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,g.uploaded_by from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
 
                                                 $query = mysql_query($sql);
                                                 while ($rw_data = mysql_fetch_array($query)) {

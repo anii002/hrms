@@ -274,7 +274,7 @@ if (!isset($_GET["emp_id"])) {
                                         <option value="0" selected="selected" disabled="disabled">Select General Manager
                                         </option>
                                         <?php
-                                $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+                                $query = "SELECT `emp_no`,`name` FROM `register_user`";
                                 $rst_emp = mysql_query($query, $db_common);
                                 while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);
@@ -389,7 +389,7 @@ if (!isset($_GET["emp_id"])) {
                                                 <option value="0" selected="selected" disabled="disabled">Select General
                                                     Manager</option>
                                                 <?php
-                                $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+                                $query = "SELECT `emp_no`,`name` FROM `register_user`";
                                 $rst_emp = mysql_query($query, $db_common);
                                 while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);
@@ -417,7 +417,7 @@ if (!isset($_GET["emp_id"])) {
                                         <option value="" selected="" disabled="">Select Inquiry Officer</option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -459,7 +459,7 @@ if (!isset($_GET["emp_id"])) {
                                         <option value="" selected="" disabled="">Select Presenting Officer</option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -496,7 +496,7 @@ if (!isset($_GET["emp_id"])) {
                                         <option value="" selected="" disabled="">Select Inquiry Officer</option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -551,7 +551,7 @@ if (!isset($_GET["emp_id"])) {
                                                 <option value="0" selected="selected" disabled="disabled">Select
                                                     Employee</option>
                                                 <?php
-                                $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+                                $query = "SELECT `emp_no`,`name` FROM `register_user`";
                                 $rst_emp = mysql_query($query, $db_common);
                                 while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);
@@ -604,7 +604,7 @@ if (!isset($_GET["emp_id"])) {
                                             Authority</option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -642,7 +642,7 @@ if (!isset($_GET["emp_id"])) {
                                         </option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -704,7 +704,7 @@ if (!isset($_GET["emp_id"])) {
                                             Authority</option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -742,7 +742,7 @@ if (!isset($_GET["emp_id"])) {
                                             Officer</option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -817,7 +817,7 @@ if (!isset($_GET["emp_id"])) {
                                         </option>
 
                                         <?php
-                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1)";
+                                            $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
                                             $result_src = mysql_query($query_src, $db_edar);
                                             while ($value_src = mysql_fetch_array($result_src)) {
 
@@ -863,7 +863,7 @@ if (!isset($_GET["emp_id"])) {
                                         <option value="0" selected="selected" disabled="disabled">Select General Manager
                                         </option>
                                         <?php
-                                    $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+                                    $query = "SELECT `emp_no`,`name` FROM `register_user`";
                                     $rst_emp = mysql_query($query, $db_common);
                                     while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                                         // print_r($rw_emp);
@@ -918,7 +918,7 @@ if (!isset($_GET["emp_id"])) {
                                         <option value="0" selected="selected" disabled="disabled">Select General Manager
                                         </option>
                                         <?php
-                                    $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+                                    $query = "SELECT `emp_no`,`name` FROM `register_user`";
                                     $rst_emp = mysql_query($query, $db_common);
                                     while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                                         // print_r($rw_emp);
@@ -1151,7 +1151,7 @@ function add_sf7_row() {
         sf7_row_count +
         '" class="select2 billunitindex cls_sf7_mem_name" style="width:100%"><option value="0" selected="selected" disabled="disabled">Select General Manager</option>';
     $content += '<?php
-            $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+            $query = "SELECT `emp_no`,`name` FROM `register_user`";
             $rst_emp = mysql_query($query, $db_common);
             while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                 // print_r($rw_emp);
@@ -1186,7 +1186,7 @@ function add_sf10_row() {
         sf10_row_count +
         '" class="select2 billunitindex cls_sf10_mem_name" style="width:100%"><option value="0" selected="selected" disabled="disabled">Select Employee </option>';
     $content += '<?php
-            $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+            $query = "SELECT `emp_no`,`name` FROM `register_user`";
             $rst_emp = mysql_query($query, $db_common);
             while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                 // print_r($rw_emp);

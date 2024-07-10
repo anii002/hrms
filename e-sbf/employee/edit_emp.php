@@ -10,7 +10,7 @@
         $field_name = !empty($_POST['field_name'])?$_POST['field_name']:"";
         $value = !empty($_POST['value'])?$_POST['value']:"";
         
-        $sql = "UPDATE resgister_user SET ".$field_name." = '".$value."' WHERE id = ".$emp_id;
+        $sql = "UPDATE register_user SET ".$field_name." = '".$value."' WHERE id = ".$emp_id;
         
         $result = mysql_query($sql);
         

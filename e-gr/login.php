@@ -94,7 +94,7 @@ if (isset($_REQUEST['login'])) {
 		// $pass = hashPassword($pass);
 		$emp_pass = hashPassword($pass);
 
-		$sql_fetch = "select * from resgister_user where emp_no='$user' and password='$emp_pass'";
+		$sql_fetch = "select * from register_user where emp_no='$user' and password='$emp_pass'";
 		$sql_result = mysql_query($sql_fetch, $db_common) or die(mysql_error());
 		$result = mysql_num_rows($sql_result);
 		$fetch_result = mysql_fetch_array($sql_result);

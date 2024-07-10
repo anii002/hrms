@@ -225,7 +225,7 @@ if($id == 1) {
             <tr>
                 <td><?php echo $i++; ?></td>
                <?php 
-               $res = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
+               $res = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
                $res1 = mysql_fetch_array($res);
                ?>
                 <td><?php echo $res1['name']; ?></td>
@@ -300,7 +300,7 @@ if($id == 1) {
             <tr>
                 <td><?php echo $i++; ?></td>
                <?php 
-               $res = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
+               $res = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
                $res1 = mysql_fetch_array($res);
                ?>
                 <td><?php echo $res1['name']; ?></td>
@@ -375,7 +375,7 @@ if($id == 1) {
             <tr>
                 <td><?php echo $i++; ?></td>
                <?php 
-               $res = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
+               $res = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
                $res1 = mysql_fetch_array($res);
                ?>
                 <td><?php echo $res1['name']; ?></td>
@@ -450,7 +450,7 @@ if($id == 1) {
             <tr>
                 <td><?php echo $i++; ?></td>
                <?php 
-               $res = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
+               $res = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
                $res1 = mysql_fetch_array($res);
                ?>
                 <td><?php echo $res1['name']; ?></td>
@@ -525,7 +525,7 @@ if($id == 1) {
             <tr>
                 <td><?php echo $i++; ?></td>
                <?php 
-               $res = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
+               $res = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
                $res1 = mysql_fetch_array($res);
                ?>
                 <td><?php echo $res1['name']; ?></td>
@@ -598,7 +598,7 @@ if($id == 1) {
             <tr>
                 <td><?php echo $i++; ?></td>
                <?php 
-               $res = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
+               $res = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['emp_no']."'",$dbh2);
                $res1 = mysql_fetch_array($res);
                ?>
                 <td><?php echo $res1['name']; ?></td>

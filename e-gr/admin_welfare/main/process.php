@@ -165,7 +165,7 @@ if (isset($_REQUEST['action'])) {
 					if ($section_array[$i] == $data['section_id']) {
 						if ($i == 0) {
 							$emp_id = $data["emp_id"];
-							$sql_check_emp = "SELECT * FROM `resgister_user` WHERE emp_no='$emp_id'";
+							$sql_check_emp = "SELECT * FROM `register_user` WHERE emp_no='$emp_id'";
 							$rst_emp_check = mysql_query($sql_check_emp, $db_common);
 							if (mysql_num_rows($rst_emp_check) > 0) {
 								if ($data["status"] == 1) {
@@ -630,7 +630,7 @@ if (isset($_REQUEST['action'])) {
 		case 'get_temp_emp':
 			$data = "";
 			$emp_id = $_POST['emp_id'];
-			$sql = mysql_query("select * from resgister_user where emp_no='$emp_id'", $db_common);
+			$sql = mysql_query("select * from register_user where emp_no='$emp_id'", $db_common);
 			while ($result = mysql_fetch_array($sql)) {
 				// $data['emp_type'] = get_emp_type_html($result['emp_type']);
 				$data['emp_type'] = $result['empType'];

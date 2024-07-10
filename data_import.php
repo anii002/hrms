@@ -2,7 +2,7 @@
 
     include('common/db.php');
     
-    $user_r_query="SELECT emp_no FROM `resgister_user` WHERE emp_no NOT IN (SELECT pf_num FROM user_permission)";
+    $user_r_query="SELECT emp_no FROM `register_user` WHERE emp_no NOT IN (SELECT pf_num FROM user_permission)";
     $user_r_result=mysql_query($user_r_query);
     
     $cnt = 0;

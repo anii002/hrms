@@ -11,7 +11,7 @@ include_once('global/model.php');
 ?>
 <?php
 $user_last = $_SESSION['user'];
-$fetch = "select * from resgister_user where emp_no='$user_last'";
+$fetch = "select * from register_user where emp_no='$user_last'";
 $fetch_result = mysql_query($fetch, $db_common) or die(mysql_error());
 //echo "select * from employee where emp_id='$user_last'";
 $result_fetched = mysql_fetch_array($fetch_result);

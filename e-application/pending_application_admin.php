@@ -91,7 +91,7 @@ include('common/sidebar.php');
 											<td>$counter</td>
 abc;
                                         dbcon2();
-                                        $name = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '" . $row['pfno'] . "'");
+                                        $name = mysql_query("SELECT name FROM register_user WHERE emp_no = '" . $row['pfno'] . "'");
                                         $row_emp_name = mysql_fetch_array($name);
                                         $name = $row_emp_name['name'];
                                         $pfno = $row['pfno'];
@@ -147,7 +147,7 @@ xyz;
                         $query_select = mysql_query("SELECT * FROM add_user WHERE user_role = '1'");
                         while ($row = mysql_fetch_array($query_select)) {
                             dbcon2();
-                            $query_name = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '" . $row['user_pfno'] . "'");
+                            $query_name = mysql_query("SELECT name FROM register_user WHERE emp_no = '" . $row['user_pfno'] . "'");
                             $row_name = mysql_fetch_array($query_name);
 
                             echo "

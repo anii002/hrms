@@ -39,7 +39,7 @@
 					$query = mysql_query("SELECT * FROM add_application WHERE application_id = '".$_GET['application_id']."'");
 					$row = mysql_fetch_array($query);
 					dbcon2();
-  					$query1 = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+  					$query1 = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['pfno']."'");
   					$result = mysql_fetch_array($query1);
 					?>
 					<form action="control/adminProcess.php?action=forward_cos" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">

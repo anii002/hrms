@@ -93,7 +93,7 @@
 										<option value="" selected disabled>Select Welfare-Inspector</option>
 										  <?php
 											 
-											 $query_emp =mysqli_query($con,"SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='5' AND login.dept='".$_SESSION['dept']."' ");
+											 $query_emp =mysqli_query($con,"SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='5' AND login.dept='".$_SESSION['dept']."' ");
 											 					
 											 while($value_emp = mysqli_fetch_array($query_emp))
 											 {

@@ -46,7 +46,7 @@ include_once('../common_files/header.php');
                                 <option value="0" selected="selected " disabled="disabled">Select Employee
                                 </option>
                                 <?php
-                                $query = "SELECT `emp_no`,`name` FROM `resgister_user`";
+                                $query = "SELECT `emp_no`,`name` FROM `register_user`";
                                 $rst_emp = mysql_query($query, $db_common);
                                 while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);

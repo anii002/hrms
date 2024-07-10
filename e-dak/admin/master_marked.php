@@ -178,7 +178,7 @@ include('common/sidebar.php');
     							</thead>
     							<tbody>
     								<?php
-    								$query_src = "SELECT $db_edak_name.tbl_user.id,emp_id,section,role,name,designation,department FROM $db_edak_name.tbl_user,$db_common_name.resgister_user WHERE $db_edak_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(0)";
+    								$query_src = "SELECT $db_edak_name.tbl_user.id,emp_id,section,role,name,designation,department FROM $db_edak_name.tbl_user,$db_common_name.register_user WHERE $db_edak_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(0)";
     								$result_src = mysql_query($query_src, $db_edak);
     								$sr = 1;
     								while ($value_src = mysql_fetch_array($result_src)) {

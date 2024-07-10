@@ -35,55 +35,76 @@
 							</tr>
 							</thead>
 							<tbody>
-								<?php
-								dbcon1();
-								$sql=mysql_query("SELECT * from forward_application where hold_status=1 and rcc_note_status=1");
-								$f_sql=mysql_fetch_array($sql);
+<?php
+$con = dbcon1();
 
-								$sql1=mysql_query("SELECT pf_number from login where pf_number='".$f_sql['forward_from_pfno']."' and role='7' ");
-								$l_sql=mysql_fetch_array($sql1);
+// Check connection
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-								$sql2=mysql_query("SELECT pf_number from login where pf_number='".$f_sql['forward_to_pfno']."' and role='4' ");
-								$l_sql1=mysql_fetch_array($sql2);
+// Fetch forward application details
+$sql = mysqli_query($con, "SELECT * FROM forward_application WHERE hold_status = 1 AND rcc_note_status = 1");
+if (!$sql) {
+    die("Query failed: " . mysqli_error($con));
+}
+$f_sql = mysqli_fetch_array($sql);
 
-								if($f_sql['forward_from_pfno']==$l_sql['pf_number'] && $f_sql['forward_to_pfno']==$l_sql1['pf_number'] && $f_sql['hold_status']==1 && $f_sql['rcc_note_status']==1 )
-								{
+// Check if f_sql is not null
+if ($f_sql) {
+    // Fetch login details for forward_from_pfno
+    $sql1 = mysqli_query($con, "SELECT pf_number FROM login WHERE pf_number = '".$f_sql['forward_from_pfno']."' AND role = '7'");
+    if (!$sql1) {
+        die("Query failed: " . mysqli_error($con));
+    }
+    $l_sql = mysqli_fetch_array($sql1);
 
-								}
-								else
-								{
-									$query_emp = "SELECT forward_application.id,applicant_registration.*,hold_status,rcc_note_status,dak_status,forward_from_pfno FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and (hold_status=0 or hold_status=1) and forward_from_pfno='".$_SESSION['pf_number']."' group by forward_application.ex_emp_pfno desc order by forward_application.id desc   ";
-										
+    // Fetch login details for forward_to_pfno
+    $sql2 = mysqli_query($con, "SELECT pf_number FROM login WHERE pf_number = '".$f_sql['forward_to_pfno']."' AND role = '4'");
+    if (!$sql2) {
+        die("Query failed: " . mysqli_error($con));
+    }
+    $l_sql1 = mysqli_fetch_array($sql2);
 
-								//$query_emp;
-									$result_emp = mysql_query($query_emp);
-									echo mysql_error();
-									$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
-								{
-									
-									//if($value_emp['forward_from_pfno']==$_SESSION['pf_number'] && $value_emp['rcc_note_status']==0 && $value_emp['dak_status']==0 && ($value_emp['hold_status']==1 || $value_emp['hold_status']==0 )) 
-									//if($value_emp['forward_from_pfno']==$_SESSION['pf_number'] &&  ($value_emp['hold_status']==1 || $value_emp['hold_status']==0 )) 
-									{
-										echo "
-										<tr>
-										<td>".$sr++."</td>
-										<td>".$value_emp['ex_emp_pfno']."</td>
-										<td>".$value_emp['ex_empname']."</td>
-										<td>".$value_emp['applicant_name']."</td>
-										
-										<td>".getcase($value_emp['category'])."</td>
-										<td><a class='btn btn-primary btnn' href='track-modul.php?id=".$value_emp['id']."&ex_emp_pfno=".$value_emp['ex_emp_pfno']."&username=".$value_emp['username']."&case=".$value_emp['category']."'>Status</a>&nbsp;&nbsp;<a class='btn btn-default' href='show_application.php?id=".$value_emp['id']."&ex_emp_pfno=".$value_emp['ex_emp_pfno']."&username=".$value_emp['username']."&case=".$value_emp['category']."'>Show Application</a></td>";
-										
-										echo "</tr>";
-									}
-								} 
-							}
+    // Validate fetched data
+    if ($l_sql && $l_sql1 && $f_sql['forward_from_pfno'] == $l_sql['pf_number'] && $f_sql['forward_to_pfno'] == $l_sql1['pf_number'] && $f_sql['hold_status'] == 1 && $f_sql['rcc_note_status'] == 1) {
+        // Conditions are met, proceed accordingly
+    } else {
+        $query_emp = "SELECT forward_application.id, applicant_registration.*, hold_status, rcc_note_status, dak_status, forward_from_pfno 
+                      FROM forward_application 
+                      JOIN applicant_registration ON forward_application.ex_emp_pfno = applicant_registration.ex_emp_pfno 
+                      WHERE (hold_status = 0 OR hold_status = 1) 
+                      AND forward_from_pfno = '".$_SESSION['pf_number']."' 
+                      GROUP BY forward_application.ex_emp_pfno 
+                      ORDER BY forward_application.id DESC";
 
-								
-								
-								?>
-							</tbody>
+        $result_emp = mysqli_query($con, $query_emp);
+        if (!$result_emp) {
+            die("Query failed: " . mysqli_error($con));
+        }
+
+        $sr = 1;
+        while ($value_emp = mysqli_fetch_array($result_emp)) {
+            echo "
+            <tr>
+                <td>".$sr++."</td>
+                <td>".$value_emp['ex_emp_pfno']."</td>
+                <td>".$value_emp['ex_empname']."</td>
+                <td>".$value_emp['applicant_name']."</td>
+                <td>".getcase($value_emp['category'])."</td>
+                <td>
+                    <a class='btn btn-primary btnn' href='track-modul.php?id=".$value_emp['id']."&ex_emp_pfno=".$value_emp['ex_emp_pfno']."&username=".$value_emp['username']."&case=".$value_emp['category']."'>Status</a>&nbsp;&nbsp;
+                    <a class='btn btn-default' href='show_application.php?id=".$value_emp['id']."&ex_emp_pfno=".$value_emp['ex_emp_pfno']."&username=".$value_emp['username']."&case=".$value_emp['category']."'>Show Application</a>
+                </td>
+            </tr>";
+        }
+    }
+} else {
+    echo "No records found.";
+}
+?>
+</tbody>
+
 							</table>
 						</div>
 					</div>
@@ -120,12 +141,12 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								$query_emp = "SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category,forward_application.remark FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and forward_application.applicant_username=applicant_registration.username and hold_status='0' AND return_status='1' AND forward_to_pfno='".$_SESSION['pf_number']."' ";
 								
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									 echo "
 								<tr>
@@ -178,9 +199,9 @@
 										<option value="" selected disabled>Select Recruitment cell clerk</option>
 										  <?php
 											 
-											 $query_emp =mysql_query("SELECT emp_data.emp_name as name,login.pf_number as pf_number,login.* from login,emp_data where emp_data.pf_number=login.pf_number AND role='7' AND login.dept='".$_SESSION['dept']."' ");
+											 $query_emp =mysqli_query($con,"SELECT emp_data.emp_name as name,login.pf_number as pf_number,login.* from login,emp_data where emp_data.pf_number=login.pf_number AND role='7' AND login.dept='".$_SESSION['dept']."' ");
 											 					
-											 while($value_emp = mysql_fetch_array($query_emp))
+											 while($value_emp = mysqli_fetch_array($query_emp))
 											 {
 											  	echo "<option value='".$value_emp['pf_number']."'>".$value_emp['name']."</option>";
 											 }

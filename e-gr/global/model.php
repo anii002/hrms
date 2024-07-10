@@ -64,7 +64,7 @@ require('config.php');
                     if (isset($_SESSION['user'])) {
                         $current = $_SESSION['user'];
                         //echo "<script>alert('$current');</script>";
-                        $sql_fetch = mysql_query("select * from resgister_user where emp_no='$current'", $db_common);
+                        $sql_fetch = mysql_query("select * from register_user where emp_no='$current'", $db_common);
 
                         $fetch = mysql_fetch_array($sql_fetch);
                         $emp_name = $fetch['name'];

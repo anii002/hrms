@@ -59,7 +59,7 @@
 					<tbody>
 						<?php $i=1; while($row = mysql_fetch_assoc($result)) { 
 							dbcon1(); 
-							$sql_name = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['emp_no']."'");
+							$sql_name = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['emp_no']."'");
 							$row_name = mysql_fetch_array($sql_name);?>
 						<tr class="odd gradeX">
 							<td><?php echo $i++; ?></td>

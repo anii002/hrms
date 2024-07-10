@@ -33,11 +33,11 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								$query_emp = "SELECT * FROM `applicant_registration`";
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									$id=$value_emp['id'];
 								echo "

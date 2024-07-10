@@ -236,19 +236,19 @@ include('adminFunction.php');
           dbcon2();
               if($_POST['case']==1)
               {
-                $query=mysql_query("UPDATE drmpsurh_sur_railway.resgister_user SET date_of_expiry='".$_POST['expiry_date']."'  where emp_no='".$_POST['p_emp_pfno']."'");
+                $query=mysql_query("UPDATE drmpsurh_sur_railway.register_user SET date_of_expiry='".$_POST['expiry_date']."'  where emp_no='".$_POST['p_emp_pfno']."'");
               }
               else if($_POST['case']==2)
               {
-                $query=mysql_query("UPDATE drmpsurh_sur_railway.resgister_user SET date_of_missing='".$_POST['missing_date']."' where emp_no='".$_POST['p_emp_pfno']."'");
+                $query=mysql_query("UPDATE drmpsurh_sur_railway.register_user SET date_of_missing='".$_POST['missing_date']."' where emp_no='".$_POST['p_emp_pfno']."'");
               }
               else if($_POST['case']==3)
               {
-                $query=mysql_query("UPDATE drmpsurh_sur_railway.resgister_user SET date_of_md='".$_POST['date_of_md']."',date_of_vr='".$_POST['date_of_vr']."'  where emp_no='".$_POST['p_emp_pfno']."'");
+                $query=mysql_query("UPDATE drmpsurh_sur_railway.register_user SET date_of_md='".$_POST['date_of_md']."',date_of_vr='".$_POST['date_of_vr']."'  where emp_no='".$_POST['p_emp_pfno']."'");
               }
               else if($_POST['case']==4)
               {
-                $query=mysql_query("UPDATE drmpsurh_sur_railway.resgister_user SET date_of_med_decat='".$_POST['txtdomd']."',date_of_retd='".$_POST['txtdor']."'  where emp_no='".$_POST['p_emp_pfno']."'");
+                $query=mysql_query("UPDATE drmpsurh_sur_railway.register_user SET date_of_med_decat='".$_POST['txtdomd']."',date_of_retd='".$_POST['txtdor']."'  where emp_no='".$_POST['p_emp_pfno']."'");
               }
               echo mysql_error();
               //echo "<br>";

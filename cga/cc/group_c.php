@@ -93,7 +93,7 @@
                         <?php
                         dbcon1();
                         dbcon2();
-                         $sql1=mysql_query("SELECT applicant_name,applicant_dob,caste,applicant_qualifiaction,name,designation,station from drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.resgister_user where applicant_registration.ex_emp_pfno=resgister_user.emp_no and applicant_registration.ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
+                         $sql1=mysql_query("SELECT applicant_name,applicant_dob,caste,applicant_qualifiaction,name,designation,station from drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.register_user where applicant_registration.ex_emp_pfno=register_user.emp_no and applicant_registration.ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
                           $res1=mysql_fetch_array($sql1);
 
                         ?>

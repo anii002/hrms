@@ -56,7 +56,7 @@ error_reporting(0);
 									while ($closed_fetch = mysql_fetch_array($fetch_closed)) {
 										$closed_griv_no = $closed_fetch['griv_ref_no'];
 										// $sql = "Select e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='4' and f.status='4' and f.admin_action='3' and f.griv_ref_no='$closed_griv_no'";
-										$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='4' and f.status='4' and f.admin_action='3' and f.griv_ref_no='$closed_griv_no' group by g.id order by g.gri_upload_date DESC";
+										$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='4' and f.status='4' and f.admin_action='3' and f.griv_ref_no='$closed_griv_no' group by g.id order by g.gri_upload_date DESC";
 										// echo $sql;
 										$query = mysql_query($sql);
 

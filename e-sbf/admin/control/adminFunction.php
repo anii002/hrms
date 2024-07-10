@@ -10,7 +10,7 @@ function fetchEmployee1($id)
 {
   global $con;
   dbcon1();
-  $query = "select * from resgister_user where emp_no = '$id'";
+  $query = "select * from register_user where emp_no = '$id'";
   $result = mysql_query($query);
   dbcon();
   $query_check = mysql_query("SELECT user_pfno FROM add_user WHERE user_pfno = '$id'");
@@ -71,7 +71,7 @@ function fetchuser($id)
 function get_emp($pf)
 	{		dbcon1();
 
-		$sql = "SELECT name, designation, station FROM resgister_user WHERE emp_no = '$pf'";
+		$sql = "SELECT name, designation, station FROM register_user WHERE emp_no = '$pf'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		return $row;

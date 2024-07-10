@@ -206,7 +206,7 @@ include_once('../common_files/header.php');
                             </thead>
                             <tbody>
                                 <?php
-                                $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,designation,department,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.resgister_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.resgister_user.emp_no and role not in(1,7)";
+                                $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,designation,department,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1,7)";
                                 $result_src = mysql_query($query_src, $db_edar);
                                 $sr = 1;
                                 while ($value_src = mysql_fetch_array($result_src)) {

@@ -33,7 +33,7 @@ if (isset($_REQUEST['action'])) {
 				$result_user = mysql_fetch_array($resultset);
 				$cur_user = $result_user['emp_id'];
 				//echo "<script>alert('$cur_user');</script>";
-				$sql = "select e.empType,e.emp_no,e.name,e.department,e.designation,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE g.emp_id='$cur_user'";
+				$sql = "select e.empType,e.emp_no,e.name,e.department,e.designation,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE g.emp_id='$cur_user'";
 				// echo "select e.emp_type,e.emp_id,e.emp_name,e.emp_dept,e.emp_desig,e.emp_mob,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id WHERE g.emp_id='$cur_user'";
 
 				$exe_query = mysql_query($sql) or die(mysql_error());
@@ -158,7 +158,7 @@ if (isset($_REQUEST['action'])) {
 						$user_first = mysql_fetch_array($first_user);
 						$f_user = $user_first['user_name'];
 					} else {
-						$first_user = mysql_query("select name from resgister_user where emp_no='$first_id'", $db_common);
+						$first_user = mysql_query("select name from register_user where emp_no='$first_id'", $db_common);
 						$count_record = mysql_num_rows($first_user);
 						$user_first = mysql_fetch_array($first_user);
 						$f_user = $user_first['name'];

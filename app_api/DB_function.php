@@ -46,7 +46,7 @@ class DB_Function
 
     $db = new DB_connect();
     $db-> hrms_sur_connect();
-    $q_userdata =  "select * from resgister_user where emp_no='$emp_id'";
+    $q_userdata =  "select * from register_user where emp_no='$emp_id'";
     $q_userdata_execute = mysql_query($q_userdata);
  
      if($row = mysql_fetch_assoc($q_userdata_execute))
@@ -114,7 +114,7 @@ class DB_Function
 	$community=$resInfo['community'];
 	
 						
-		$stmt=mysql_query("INSERT INTO `resgister_user` (`emp_no`, `name`, `designation`, `department`, `bill_unit`, `station`, `dob`, `doa`, `basic_pay`,`7th_pay_level`, `mobile`, `password`,`empType`,`emp_address1`,`emp_address2`,`emp_email`,`emp_state`,`emp_city`,`emp_pincode`,`office`,`handicap_status`,`gender`,`community`)
+		$stmt=mysql_query("INSERT INTO `register_user` (`emp_no`, `name`, `designation`, `department`, `bill_unit`, `station`, `dob`, `doa`, `basic_pay`,`7th_pay_level`, `mobile`, `password`,`empType`,`emp_address1`,`emp_address2`,`emp_email`,`emp_state`,`emp_city`,`emp_pincode`,`office`,`handicap_status`,`gender`,`community`)
 		VALUES ('$pfno', '$name', '$desig', '$dept', '$billunit', 'SUR', '$dob', '$doa', '$basicpay', '$seventhpay', '$mobile_no', '$hash','$empType','$permAddress','$resAddress','$email','$permState','$permCity','$permPincode','$officer','$handicapflag','$sex','$community')");
 		
 
@@ -200,7 +200,7 @@ if($count_ta == 1)
 	{
 		
 		
-		$stmt=mysql_query("SELECT * FROM resgister_user WHERE emp_no='$userid'");
+		$stmt=mysql_query("SELECT * FROM register_user WHERE emp_no='$userid'");
 		
 // 		echo "error".mysql_error();
 		
@@ -252,7 +252,7 @@ if($count_ta == 1)
 	{
 		//$stmt=$this->conn->prepare("SELECT email_id FROM customer WHERE email_id=?");
 		
-		$stmt=mysql_query("SELECT emp_no FROM resgister_user WHERE emp_no='$userid'");
+		$stmt=mysql_query("SELECT emp_no FROM register_user WHERE emp_no='$userid'");
 		
 		//$stmt->bind_param("s",$email);
 		
@@ -305,7 +305,7 @@ if($count_ta == 1)
 {
   //global $con;
   
-  $query = "update resgister_user set password='".$this->hashPassword($pass,SALT1,SALT2)."' where emp_no='".$empid."'";
+  $query = "update register_user set password='".$this->hashPassword($pass,SALT1,SALT2)."' where emp_no='".$empid."'";
   
   $result = mysql_query($query);
   

@@ -110,20 +110,20 @@
 							while($row = mysql_fetch_array($qry))
 							{
 								dbcon2();	
-								 $emp_query_admin1 = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['forwarded_to']."'");
+								 $emp_query_admin1 = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['forwarded_to']."'");
 								 $emp_row_admin1 = mysql_fetch_array($emp_query_admin1);
 								  dbcon2();	
-								 $emp_query_clerk1 = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['forwarded_to_clerk']."'");
+								 $emp_query_clerk1 = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['forwarded_to_clerk']."'");
 								 $emp_row_clerk1 = mysql_fetch_array($emp_query_clerk1);
 								 dbcon2();	
-								 $emp_query_cos1 = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['forwarded_to_cos']."'");
+								 $emp_query_cos1 = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['forwarded_to_cos']."'");
 								 $emp_row_cos1 = mysql_fetch_array($emp_query_cos1);
 							?>
 							<tr class="odd gradeX">
 								<td><?php echo ++$counter; ?></td>
 								<?php
 								dbcon2();
-								$name = mysql_query("SELECT name,department FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+								$name = mysql_query("SELECT name,department FROM register_user WHERE emp_no = '".$row['pfno']."'");
 								$row_emp_name = mysql_fetch_array($name);
 								?>
 								<td><?php echo $row_emp_name['name'];?></td>
@@ -213,14 +213,14 @@
 							while($row = mysql_fetch_array($qry))
 							{	
 								 dbcon2();	
-								 $emp_query_admin = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['forwarded_to']."'");
+								 $emp_query_admin = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['forwarded_to']."'");
 								 $emp_row_admin = mysql_fetch_array($emp_query_admin);
 							?>
 							<tr class="odd gradeX">
 								<td><?php echo ++$counter; ?></td>
 								<?php
 								dbcon2();
-								$name = mysql_query("SELECT name,department FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+								$name = mysql_query("SELECT name,department FROM register_user WHERE emp_no = '".$row['pfno']."'");
 								$row_emp_name = mysql_fetch_array($name);
 								?>
 								<td><?php echo $row_emp_name['name'];?></td>
@@ -292,14 +292,14 @@
 							while($row = mysql_fetch_array($qry))
 							{
 								 dbcon2();	
-								 $emp_query_clerk = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['forwarded_to_clerk']."'");
+								 $emp_query_clerk = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['forwarded_to_clerk']."'");
 								 $emp_row_clerk = mysql_fetch_array($emp_query_clerk);
 							?>
 							<tr class="odd gradeX">
 								<td><?php echo ++$counter; ?></td>
 								<?php
 								dbcon2();
-								$name = mysql_query("SELECT name,department FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+								$name = mysql_query("SELECT name,department FROM register_user WHERE emp_no = '".$row['pfno']."'");
 								$row_emp_name = mysql_fetch_array($name);
 								?>
 								<td><?php echo $row_emp_name['name'];?></td>
@@ -370,14 +370,14 @@
 							while($row = mysql_fetch_array($qry))
 							{
 								dbcon2();	
-								 $emp_query_cos = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['forwarded_to_cos']."'");
+								 $emp_query_cos = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['forwarded_to_cos']."'");
 								 $emp_row_cos = mysql_fetch_array($emp_query_cos);
 							?>
 							<tr class="odd gradeX">
 								<td><?php echo ++$counter; ?></td>
 								<?php
 								dbcon2();
-								$name = mysql_query("SELECT name,department FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+								$name = mysql_query("SELECT name,department FROM register_user WHERE emp_no = '".$row['pfno']."'");
 								$row_emp_name = mysql_fetch_array($name);
 								?>
 								<td><?php echo $row_emp_name['name'];?></td>

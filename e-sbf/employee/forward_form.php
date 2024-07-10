@@ -8,7 +8,7 @@ $GLOBALS['flag']="1.4";
 	
 	//echo "<pre>"; print_r($_SESSION);
 	dbcon1();
-	$sql = "SELECT bill_unit FROM resgister_user WHERE id = ".$_SESSION['user_id'];
+	$sql = "SELECT bill_unit FROM register_user WHERE id = ".$_SESSION['user_id'];
 	//echo $sql;
 
 	$result = mysql_query($sql);

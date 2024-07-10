@@ -49,7 +49,7 @@ function getdepartment($id)
 function verify_emp($emp_pf)
 {
     global $db_common;
-    $query = "SELECT * FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $query = "SELECT * FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $rst_emp = mysql_query($query, $db_common);
     if (mysql_num_rows($rst_emp) > 0) {
         return true;
@@ -64,7 +64,7 @@ function verify_emp($emp_pf)
 function get_emp_name($emp_pf)
 {
     global $db_common;
-    $query = "SELECT `name` FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $query = "SELECT `name` FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $emp_name = "";
     $rst_emp = mysql_query($query, $db_common);
     if (mysql_num_rows($rst_emp) > 0) {
@@ -78,7 +78,7 @@ function get_emp_name($emp_pf)
 function get_emp_address($emp_pf)
 {
     global $db_common;
-    $query = "SELECT `emp_address1` FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $query = "SELECT `emp_address1` FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $emp_name = "";
     $rst_emp = mysql_query($query, $db_common);
     if (mysql_num_rows($rst_emp) > 0) {
@@ -94,7 +94,7 @@ function get_emp_address($emp_pf)
 function get_emp_designation($emp_pf)
 {
     global $db_common;
-    $query = "SELECT `designation` FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $query = "SELECT `designation` FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $emp_desgi = "";
     $rst_emp = mysql_query($query, $db_common);
     if (mysql_num_rows($rst_emp) > 0) {
@@ -111,7 +111,7 @@ function get_emp_designation($emp_pf)
 function get_emp_station($emp_pf)
 {
     global $db_common;
-    $sql = "SELECT `station` FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $sql = "SELECT `station` FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $result = mysql_query($sql, $db_common);
     $code = mysql_fetch_array($result);
     $station = fetch_station($code["station"]);
@@ -120,7 +120,7 @@ function get_emp_station($emp_pf)
 function get_emp_dob($emp_pf)
 {
     global $db_common;
-    $sql = "SELECT `dob` FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $sql = "SELECT `dob` FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $rst_emp = mysql_query($sql, $db_common);
     $rw_emp = mysql_fetch_array($rst_emp);
     $emp_dob = $rw_emp["dob"];
@@ -129,7 +129,7 @@ function get_emp_dob($emp_pf)
 function get_emp_doa($emp_pf)
 {
     global $db_common;
-    $sql = "SELECT `doa` FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $sql = "SELECT `doa` FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $rst_emp = mysql_query($sql, $db_common);
     $rw_emp = mysql_fetch_array($rst_emp);
     $emp_doa = $rw_emp["doa"];
@@ -307,7 +307,7 @@ function get_io_id($emp_pf, $ref_no)
 function get_emp_name_from_id($id)
 {
     global $db_edar_name, $db_common_name;
-    $query = "SELECT `name` FROM $db_common_name.resgister_user,$db_edar_name.tbl_user WHERE resgister_user.emp_no=tbl_user.emp_id and tbl_user.id='$id'";
+    $query = "SELECT `name` FROM $db_common_name.register_user,$db_edar_name.tbl_user WHERE register_user.emp_no=tbl_user.emp_id and tbl_user.id='$id'";
     $emp_name = "";
     $rst_emp = mysql_query($query);
     if (mysql_num_rows($rst_emp) > 0) {
@@ -320,7 +320,7 @@ function get_emp_name_from_id($id)
 function get_emp_desig_from_id($id)
 {
     global $db_edar_name, $db_common_name;
-    $query = "SELECT `designation` FROM $db_common_name.resgister_user,$db_edar_name.tbl_user WHERE resgister_user.emp_no=tbl_user.emp_id and tbl_user.id='$id'";
+    $query = "SELECT `designation` FROM $db_common_name.register_user,$db_edar_name.tbl_user WHERE register_user.emp_no=tbl_user.emp_id and tbl_user.id='$id'";
     $emp_desgi = "";
     $rst_emp = mysql_query($query);
     if (mysql_num_rows($rst_emp) > 0) {
@@ -336,7 +336,7 @@ function get_emp_desig_from_id($id)
 function fetch_emp_place($emp_pf)
 {
     global $db_common;
-    $sql = mysql_query("SELECT station from resgister_user where emp_no='$emp_pf'", $db_common);
+    $sql = mysql_query("SELECT station from register_user where emp_no='$emp_pf'", $db_common);
     $fetch = mysql_fetch_array($sql);
     $query = "SELECT `stationdesc` FROM `station` WHERE `stationcode`='" . $fetch['station'] . "'";
     $result = mysql_query($query, $db_common);

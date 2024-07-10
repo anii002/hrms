@@ -219,7 +219,7 @@ include 'common/footer.php';
 									<?php
 									$con=dbcon2();
 									$con=dbcon1();
-									$query_emp = mysqli_query($con,"SELECT register_user.name as name,login.pf_number as pf_number,drmpsurh_cga.login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='7'  ");
+									$query_emp = mysqli_query($con,"SELECT register_user.name as name,login.pf_number as pf_number,drmpsurh_cga.login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='7'  ");
 
 									while ($value_emp = mysqli_fetch_array($query_emp)) {
 										echo "<option value='" . $value_emp['pf_number'] . "'>" . $value_emp['name'] . "</option>";

@@ -57,7 +57,7 @@ session_start();
 						else
 							{
 								dbcon1();
-								$query3 = mysql_query("SELECT * FROM resgister_user WHERE emp_no='$username'");
+								$query3 = mysql_query("SELECT * FROM register_user WHERE emp_no='$username'");
 								$row=mysql_fetch_array($query3);
 								if(mysql_num_rows($query3) == 1)
 								{

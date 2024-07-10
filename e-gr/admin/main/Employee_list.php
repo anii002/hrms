@@ -32,7 +32,7 @@ error_reporting(0);
                                 <tbody>
                                     <?php
                                     $cnt = 1;
-                                    $query = mysql_query("Select * from resgister_user ", $db_common);
+                                    $query = mysql_query("Select * from register_user ", $db_common);
                                     while ($rw_data = mysql_fetch_assoc($query)) {
                                         $emp_type = get_emptype($rw_data["empType"]);
                                         $emp_id = $rw_data["emp_no"];

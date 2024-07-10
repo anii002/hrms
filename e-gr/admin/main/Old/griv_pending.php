@@ -31,10 +31,10 @@ error_reporting(0);
 									$cnt = 1;
 									$current_id = $_SESSION["SESSION_ID"];
 									if (isBo() || isBA()) {
-										$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and user_id_forwarded='$current_id' AND g.gri_ref_no not like 'WEL%' group by g.id order by g.gri_upload_date DESC";
+										$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and user_id_forwarded='$current_id' AND g.gri_ref_no not like 'WEL%' group by g.id order by g.gri_upload_date DESC";
 									} else {
 										// $sql = "Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='2' AND g.gri_ref_no NOT like 'WEL%' ORDER BY g.gri_upload_date DESC";
-										$sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='2' AND g.gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC";
+										$sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='2' AND g.gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC";
 									}
 									$query = mysql_query($sql);
 									while ($rw_data = mysql_fetch_array($query)) {
@@ -98,10 +98,10 @@ error_reporting(0);
 									$current_id = getCurrentUser();
 									if (isBo() || isBA()) {
 										// $sql = "Select f.user_id_forwarded, e.emp_id,e.emp_name,e.emp_mob,e.emp_type,g.gri_ref_no,g.uploaded_by, g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and user_id='$current_id' AND g.gri_ref_no like 'WEL%' ORDER BY g.gri_upload_date DESC";
-										$sql = "Select f.user_id_forwarded, e.emp_no,e.name,e.mobile,e.empType,g.gri_ref_no,g.uploaded_by, g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and user_id='$current_id' AND g.gri_ref_no like 'WEL%' GROUP BY g.id ORDER BY g.gri_upload_date DESC";
+										$sql = "Select f.user_id_forwarded, e.emp_no,e.name,e.mobile,e.empType,g.gri_ref_no,g.uploaded_by, g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and user_id='$current_id' AND g.gri_ref_no like 'WEL%' GROUP BY g.id ORDER BY g.gri_upload_date DESC";
 									} else {
 										// $sql = "Select gf.user_id_forwarded, e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id, g.uploaded_by, e.emp_mob from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward gf ON g.gri_ref_no = gf.griv_ref_no where g.status='2' AND g.gri_ref_no like 'WEL%' AND g.gri_ref_no = gf.griv_ref_no ORDER BY g.gri_upload_date DESC";
-										$sql = "Select gf.user_id_forwarded, e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id, g.uploaded_by, e.mobile from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward gf ON g.gri_ref_no = gf.griv_ref_no where g.status='2' AND g.gri_ref_no like 'WEL%' GROUP By g.id ORDER BY g.gri_upload_date DESC";
+										$sql = "Select gf.user_id_forwarded, e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id, g.uploaded_by, e.mobile from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward gf ON g.gri_ref_no = gf.griv_ref_no where g.status='2' AND g.gri_ref_no like 'WEL%' GROUP By g.id ORDER BY g.gri_upload_date DESC";
 									}
 									$query = mysql_query($sql);
 									while ($rw_data = mysql_fetch_array($query)) {

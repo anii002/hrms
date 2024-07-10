@@ -525,7 +525,7 @@
 														<tbody>
 															<?php 
 															dbcon2();
-																$sql=mysql_query("SELECT * from drmpsurh_sur_railway.resgister_user where emp_no='".$_GET['ex_emp_pfno']."' ");
+																$sql=mysql_query("SELECT * from drmpsurh_sur_railway.register_user where emp_no='".$_GET['ex_emp_pfno']."' ");
          														$res=mysql_fetch_array($sql);
 															?>
 															<tr>

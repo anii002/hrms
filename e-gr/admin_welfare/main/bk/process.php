@@ -59,7 +59,7 @@ if (isset($_REQUEST['action'])) {
 		case 'get_temp_emp':
 			$data = "";
 			$emp_id = $_POST['emp_id'];
-			$sql = mysql_query("select * from resgister_user where emp_no='$emp_id'", $db_common);
+			$sql = mysql_query("select * from register_user where emp_no='$emp_id'", $db_common);
 			while ($result = mysql_fetch_array($sql)) {
 				// $data['emp_type'] = get_emp_type_html($result['emp_type']);
 				$data['emp_type'] = $result['empType'];

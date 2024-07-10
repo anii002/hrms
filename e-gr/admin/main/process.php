@@ -166,7 +166,7 @@ if (isset($_REQUEST['action'])) {
 					if ($section_array[$i] == $data['section_id']) {
 						if ($i == 0) {
 							$emp_id = $data["emp_id"];
-							$sql_check_emp = "SELECT * FROM `resgister_user` WHERE emp_no='$emp_id'";
+							$sql_check_emp = "SELECT * FROM `register_user` WHERE emp_no='$emp_id'";
 							$rst_emp_check = mysql_query($sql_check_emp, $db_common);
 							if (mysql_num_rows($rst_emp_check) > 0) {
 								if ($data["status"] == 1) {
@@ -213,7 +213,7 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			 // $grie_sql = "SELECT g.uploaded_by,g.section_id, g.gri_upload_date,g.status,f.user_id FROM tbl_grievance g JOIN  tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status IN ('1','2','3') group by g.id";
-			  $grie_sql = "SELECT g.uploaded_by,g.section_id, g.gri_upload_date,g.status,f.user_id FROM $db_egr_name.tbl_grievance g JOIN  $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no JOIN $db_common_name.resgister_user e ON e.emp_no=g.emp_id WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status IN ('1','2','3') group by g.id";
+			  $grie_sql = "SELECT g.uploaded_by,g.section_id, g.gri_upload_date,g.status,f.user_id FROM $db_egr_name.tbl_grievance g JOIN  $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no JOIN $db_common_name.register_user e ON e.emp_no=g.emp_id WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status IN ('1','2','3') group by g.id";
 			$result = mysql_query($grie_sql, $db_egr);
 
 
@@ -253,7 +253,7 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			 //$grie_sql = "SELECT `uploaded_by`,`section_id`, `status`,`gri_upload_date` FROM  tbl_grievance WHERE DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
-			 $grie_sql = "Select `uploaded_by`,`section_id`, `status`,`gri_upload_date` from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where  DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
+			 $grie_sql = "Select `uploaded_by`,`section_id`, `status`,`gri_upload_date` from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where  DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
 
 			$result = mysql_query($grie_sql, $db_egr);
 			while ($data = mysql_fetch_assoc($result)) {
@@ -347,8 +347,8 @@ if (isset($_REQUEST['action'])) {
 				if ($value == 0) {
 
 					$section_name = "New Grievances";
-                    $sql = "SELECT * FROM tbl_grievance g JOIN $db_common_name.resgister_user e ON e.emp_no=g.emp_id WHERE DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' and section_id='$value' and `status`='1'";
-					// $sql = "Select * from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1'";
+                    $sql = "SELECT * FROM tbl_grievance g JOIN $db_common_name.register_user e ON e.emp_no=g.emp_id WHERE DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' and section_id='$value' and `status`='1'";
+					// $sql = "Select * from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1'";
 					$status_name='';
 				} else {
 					if($in_status==2){
@@ -359,7 +359,7 @@ if (isset($_REQUEST['action'])) {
 						$status_name='';
 					}
 					else if($in_status==3){
-						$sql = "SELECT * FROM $db_egr_name.tbl_grievance g JOIN  $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no JOIN $db_common_name.resgister_user e ON e.emp_no=g.emp_id WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status IN ('1','2','3') and g.section_id=$value group by g.id";
+						$sql = "SELECT * FROM $db_egr_name.tbl_grievance g JOIN  $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no JOIN $db_common_name.register_user e ON e.emp_no=g.emp_id WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status IN ('1','2','3') and g.section_id=$value group by g.id";
 						$status_name='Pending';
 					}else{
 						$sql = "Select * from $db_egr_name.tbl_grievance g where  DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4' and g.section_id=$value";
@@ -1161,7 +1161,7 @@ if (isset($_REQUEST['action'])) {
 				$Result["res"] = "Registered";
 				$Result["message"] = "Already Registered!";
 			} else {
-				$sql = "select name,mobile,emp_email,emp_aadhar,department,designation,station,office,dob from resgister_user where emp_no='$emp_id'";
+				$sql = "select name,mobile,emp_email,emp_aadhar,department,designation,station,office,dob from register_user where emp_no='$emp_id'";
 				$rst_emp = mysql_query($sql, $db_common);
 				if (mysql_num_rows($rst_emp) > 0) {
 					$Result["res"] = "success";

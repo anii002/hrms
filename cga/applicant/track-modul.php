@@ -33,17 +33,17 @@
 						$sql = mysql_query("SELECT role,pf_number FROM drmpsurh_cga.applicant_registration,drmpsurh_cga.login WHERE applicant_registration.added_by=login.unit_id AND ex_emp_pfno='".$_SESSION['ex_emp_pfno']."'");
 						$rw = mysql_fetch_array($sql);
 
-						$qry = mysql_query("SELECT name,applicant_registration.* FROM drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.resgister_user WHERE applicant_registration.ex_emp_pfno=resgister_user.emp_no and ex_emp_pfno='".$_SESSION['ex_emp_pfno']."'");
+						$qry = mysql_query("SELECT name,applicant_registration.* FROM drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.register_user WHERE applicant_registration.ex_emp_pfno=register_user.emp_no and ex_emp_pfno='".$_SESSION['ex_emp_pfno']."'");
 						$row = mysql_fetch_array($qry);
 
-						$qry1 = mysql_query("SELECT name FROM drmpsurh_sur_railway.resgister_user WHERE emp_no = '".$rw['pf_number']."'");
+						$qry1 = mysql_query("SELECT name FROM drmpsurh_sur_railway.register_user WHERE emp_no = '".$rw['pf_number']."'");
 						$row1 = mysql_fetch_array($qry1);
 						
-						$sql = mysql_query("SELECT name,forward_application.* FROM drmpsurh_cga.forward_application,drmpsurh_sur_railway.resgister_user WHERE forward_application.forward_from_pfno=resgister_user.emp_no and ex_emp_pfno='".$row['ex_emp_pfno']."' and applicant_username='".$row['username']."' ORDER BY id ASC");
+						$sql = mysql_query("SELECT name,forward_application.* FROM drmpsurh_cga.forward_application,drmpsurh_sur_railway.register_user WHERE forward_application.forward_from_pfno=register_user.emp_no and ex_emp_pfno='".$row['ex_emp_pfno']."' and applicant_username='".$row['username']."' ORDER BY id ASC");
 						$sql_row = mysql_fetch_array($sql);
 
 
-						$qry2 = mysql_query("SELECT name,forward_application.* FROM drmpsurh_cga.forward_application,drmpsurh_sur_railway.resgister_user WHERE forward_application.forward_from_pfno=resgister_user.emp_no and ex_emp_pfno='".$row['ex_emp_pfno']."' and applicant_username='".$row['username']."' ORDER BY id ASC");
+						$qry2 = mysql_query("SELECT name,forward_application.* FROM drmpsurh_cga.forward_application,drmpsurh_sur_railway.register_user WHERE forward_application.forward_from_pfno=register_user.emp_no and ex_emp_pfno='".$row['ex_emp_pfno']."' and applicant_username='".$row['username']."' ORDER BY id ASC");
 						$history_row = array();
 						while($row2 = mysql_fetch_assoc($qry2))
 						{
@@ -119,7 +119,7 @@
 												$row3 = mysql_fetch_array($qry3);
 
 												// echo $row2['role'];
-												$qry4 = mysql_query("SELECT resgister_user.name,forward_application.* FROM drmpsurh_cga.forward_application,drmpsurh_sur_railway.resgister_user WHERE forward_application.forward_to_pfno=resgister_user.emp_no and emp_no='".$history_row[$i]['forward_to_pfno']."'");
+												$qry4 = mysql_query("SELECT register_user.name,forward_application.* FROM drmpsurh_cga.forward_application,drmpsurh_sur_railway.register_user WHERE forward_application.forward_to_pfno=register_user.emp_no and emp_no='".$history_row[$i]['forward_to_pfno']."'");
 												$row4 = mysql_fetch_array($qry4);
 
 

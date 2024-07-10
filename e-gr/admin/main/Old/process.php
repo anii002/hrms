@@ -691,7 +691,7 @@ if (isset($_REQUEST['action'])) {
 // 			// print_r($_REQUEST);
 // 			$Result = array("res" => "fail");
 // 			$emp_id = $_REQUEST["emp_id"];
-// 			$sql = "select name,mobile,emp_email,emp_aadhar,department,designation,station,office from resgister_user where emp_no='$emp_id'";
+// 			$sql = "select name,mobile,emp_email,emp_aadhar,department,designation,station,office from register_user where emp_no='$emp_id'";
 // 			$rst_emp = mysql_query($sql, $db_common);
 // 			if (mysql_num_rows($rst_emp) > 0) {
 // 				$Result["res"] = "success";
@@ -715,7 +715,7 @@ if (isset($_REQUEST['action'])) {
                 $Result["res"] = "Registered";
                 $Result["message"] = "Already Registered!";
             } else {
-                $sql = "select name,mobile,emp_email,emp_aadhar,department,designation,station,office,dob from resgister_user where emp_no='$emp_id'";
+                $sql = "select name,mobile,emp_email,emp_aadhar,department,designation,station,office,dob from register_user where emp_no='$emp_id'";
                 $rst_emp = mysql_query($sql, $db_common);
                 if (mysql_num_rows($rst_emp) > 0) {
                     $Result["res"] = "success";

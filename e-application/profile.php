@@ -74,7 +74,7 @@ include('control/function.php');
 							<!-- SIDEBAR MENU -->
 							<?php
 							dbcon2();
-								$query = mysql_query("select mobile,emp_email from resgister_user where empno='".$_SESSION['user']."'");
+								$query = mysql_query("select mobile,emp_email from register_user where empno='".$_SESSION['user']."'");
 								$result = mysql_fetch_array($query);
 							?>
 							<div class="profile-usermenu">

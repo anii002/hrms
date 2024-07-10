@@ -42,19 +42,19 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								 // $query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where  hold_status='1' AND rcc_note_status=1 AND forward_to_pfno='".$_SESSION['pf_number']."'");
+								 // $query = mysqli_query("SELECT count(forward_application.id) as total FROM `forward_application` where  hold_status='1' AND rcc_note_status=1 AND forward_to_pfno='".$_SESSION['pf_number']."'");
 
-								 // $resultset = mysql_fetch_array($query);
+								 // $resultset = mysqli_fetch_array($query);
 								 // echo "<h3>".$resultset['total']."</h3>";
 								// dbcon1();
-								// $query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where  hold_status='1' AND rcc_note_status=0 AND forward_to_pfno='".$_SESSION['pf_number']."'");
+								// $query = mysqli_query("SELECT count(forward_application.id) as total FROM `forward_application` where  hold_status='1' AND rcc_note_status=0 AND forward_to_pfno='".$_SESSION['pf_number']."'");
 
-								//  $resultset = mysql_fetch_array($query);
+								//  $resultset = mysqli_fetch_array($query);
 								//  echo "<h3>".$resultset['total']."</h3>";
-																dbcon1();
-								$query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where dak_status=0 and hold_status='1' AND drm_approve=0 and rcc_note_status=0 AND forward_to_pfno='".$_SESSION['pf_number']."'");
+								$con=dbcon1();
+								$query = mysqli_query($con,"SELECT count(forward_application.id) as total FROM `forward_application` where dak_status=0 and hold_status='1' AND drm_approve=0 and rcc_note_status=0 AND forward_to_pfno='".$_SESSION['pf_number']."'");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -76,13 +76,13 @@
 							<div class="number">
 								<?php 
 
-								 // $query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where hold_status='0' and rcc_note_status='0' and forward_from_pfno='".$_SESSION['pf_number']."' ");
+								 // $query = mysqli_query("SELECT count(forward_application.id) as total FROM `forward_application` where hold_status='0' and rcc_note_status='0' and forward_from_pfno='".$_SESSION['pf_number']."' ");
 
-								 // $resultset = mysql_fetch_array($query);
+								 // $resultset = mysqli_fetch_array($query);
 								 // echo "<h3>".$resultset['total']."</h3>";
-								$query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where (hold_status='0' or hold_status='1') and rcc_note_status='0' and forward_from_pfno='".$_SESSION['pf_number']."' ");
+								$query = mysqli_query($con,"SELECT count(forward_application.id) as total FROM `forward_application` where (hold_status='0' or hold_status='1') and rcc_note_status='0' and forward_from_pfno='".$_SESSION['pf_number']."' ");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -103,16 +103,16 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								// $query = mysql_query("select count(id) as total from users where role='12'");
+								// $query = mysqli_query("select count(id) as total from users where role='12'");
 
-								// $resultset = mysql_fetch_array($query);
+								// $resultset = mysqli_fetch_array($query);
 								// echo "<h3>".$resultset['total']."</h3>";
-								dbcon1();
+								$con=dbcon1();
 								//echo "SELECT count(id) as total from forward_application where return_status='1' AND forward_to_pfno = '".$_SESSION['pf_number']."'";
-								//$query = mysql_query("SELECT count(id) as total from forward_application where return_status='1' AND forward_to_pfno = '".$_SESSION['pf_number']."'");
-								$query = mysql_query("SELECT count(id) as total from forward_application where return_status='1' AND forward_to_pfno = '".$_SESSION['pf_number']."' and  forward_from_pfno IN(SELECT pf_number from login WHERE role IN(4,3,2))");
+								//$query = mysqli_query("SELECT count(id) as total from forward_application where return_status='1' AND forward_to_pfno = '".$_SESSION['pf_number']."'");
+								$query = mysqli_query($con,"SELECT count(id) as total from forward_application where return_status='1' AND forward_to_pfno = '".$_SESSION['pf_number']."' and  forward_from_pfno IN(SELECT pf_number from login WHERE role IN(4,3,2))");
 
-									$resultset = mysql_fetch_array($query);
+									$resultset = mysqli_fetch_array($query);
 									echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>

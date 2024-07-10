@@ -52,7 +52,7 @@ function add_grievance($name_array, $tmp_name_array, $select_type, $gri_ref_no, 
 	$inserted = mysql_query($sql_insert, $db_egr);
 	//echo "insert into tbl_grievance(emp_id,gri_ref_no,gri_type,gri_desc,up_doc,doc_id,gri_upload_date,status) values('$hidden_id','$gri_ref_no','$select_type','$gri_desc','$optradio','$last_doc',CURRENT_TIMESTAMP,'1')".mysql_error();
 	if ($inserted) {
-		$sql = "SELECT mobile from resgister_user where emp_no ='" . $hidden_id . "'";
+		$sql = "SELECT mobile from register_user where emp_no ='" . $hidden_id . "'";
 		$result = mysql_query($sql, $db_common);
 		//echo mysql_affected_rows()."/<br/>".$hidden_id;
 		while ($dat = mysql_fetch_assoc($result)) {
@@ -100,7 +100,7 @@ function add_feedback($name, $email, $mob_no, $msg, $griv = 0, $emp_react = NULL
 function UpdateEmployee($emp_type, $emp_name, $emp_dept, $emp_desig, $emp_mob, $emp_email, $emp_office, $emp_station, $emp_id)
 {
 	global $db_common;
-	$query = "UPDATE resgister_user set empType='$emp_type', name='$emp_name', department='$emp_dept', designation='$emp_desig', mobile='$emp_mob', emp_email='$emp_email', office='$emp_office', station='$emp_station' where emp_no='$emp_id'";
+	$query = "UPDATE register_user set empType='$emp_type', name='$emp_name', department='$emp_dept', designation='$emp_desig', mobile='$emp_mob', emp_email='$emp_email', office='$emp_office', station='$emp_station' where emp_no='$emp_id'";
 	$result = mysql_query($query, $db_common);
 	if ($result)
 		return true;
@@ -113,7 +113,7 @@ function changepassword($pro_emp_npass, $emp_id)
 {
 	global  $db_common;
 	$pro_emp_npass = hashPassword($pro_emp_npass);
-	$query = "UPDATE resgister_user set password='$pro_emp_npass' where emp_no='$emp_id'";
+	$query = "UPDATE register_user set password='$pro_emp_npass' where emp_no='$emp_id'";
 	$result = mysql_query($query, $db_common);
 	if ($result)
 		return true;
@@ -205,7 +205,7 @@ function startsWith($string, $startString)
 function update_emp_station_dept_degn($pf_no, $station, $dept, $degn)
 {
 	global $db_common;
-	$sql_update = "UPDATE `resgister_user` SET `designation`='$degn',`department`='$dept',`station`='$station' WHERE `emp_no`='$pf_no'";
+	$sql_update = "UPDATE `register_user` SET `designation`='$degn',`department`='$dept',`station`='$station' WHERE `emp_no`='$pf_no'";
 	if (mysql_query($sql_update, $db_common)) {
 		return true;
 	}

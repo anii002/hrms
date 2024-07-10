@@ -17,7 +17,7 @@ if ($con1->connect_error) {
 	die("Connection failed: " . $con1->connect_error);
 }
 
-// Assuming 'resgister_user' is a typo and it should be 'register_user'
+// Assuming 'register_user' is a typo and it should be 'register_user'
 $sql = "SELECT applicant_name, designation, station 
         FROM drmpsurh_cga.applicant_registration AS ar
         INNER JOIN drmpsurh_sur_railway.register_user AS ru 
@@ -733,7 +733,7 @@ if ($result === false) {
 															<?php
 												
 															$con = dbcon2();
-															//$sql=mysqli_query("SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,resgister_user.*  from resgister_user where emp_no='".$_GET['ex_emp_pfno']."' ");
+															//$sql=mysqli_query("SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,register_user.*  from register_user where emp_no='".$_GET['ex_emp_pfno']."' ");
 															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,register_user.*  from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 															$res = mysqli_fetch_array($sql);
 															?>

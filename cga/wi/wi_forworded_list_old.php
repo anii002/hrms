@@ -36,21 +36,21 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								
 								
 									//$query_emp = "SELECT * FROM forward_application,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and forward_from_pfno='".$_SESSION['pf_number']."' ";
-									//$result_emp = mysql_query($query_emp);
+									//$result_emp = mysqli_query($query_emp);
 
 								
-								//$query = mysql_query("SELECT ex_emp_pfno FROM `forward_application` where  forward_from_pfno='".$_SESSION['pf_number']."' order by forward_application.id desc limit 1 ");
-									//$res=mysql_fetch_array($query);
+								//$query = mysqli_query("SELECT ex_emp_pfno FROM `forward_application` where  forward_from_pfno='".$_SESSION['pf_number']."' order by forward_application.id desc limit 1 ");
+									//$res=mysqli_fetch_array($query);
 								
 								
-									$query_emp = mysql_query("SELECT forward_application.id,forward_application.*,applicant_registration.* FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and hold_status=1 or hold_status=0 and forward_to_pfno='".$res['ex_emp_pfno']."' and forward_from_pfno='".$_SESSION['pf_number']."' order by forward_application.id desc");
+									$query_emp = mysqli_query($con,"SELECT forward_application.id,forward_application.*,applicant_registration.* FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and hold_status=1 or hold_status=0 and forward_to_pfno='".$res['ex_emp_pfno']."' and forward_from_pfno='".$_SESSION['pf_number']."' order by forward_application.id desc");
 
 									$sr=1;
-								while($value_emp = mysql_fetch_array($query_emp))
+								while($value_emp = mysqli_fetch_array($query_emp))
 								{
 									
 									
@@ -107,12 +107,12 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								$query_emp = "SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category,forward_application.remark FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and forward_application.applicant_username=applicant_registration.username and hold_status='0' AND return_status='1' AND forward_to_pfno='".$_SESSION['pf_number']."' ";
 								
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									 echo "
 								<tr>
@@ -165,9 +165,9 @@
 										<option value="" selected disabled>Select Recruitment cell clerk</option>
 										  <?php
 											 
-											 $query_emp =mysql_query("SELECT emp_data.emp_name as name,login.pf_number as pf_number,login.* from login,emp_data where emp_data.pf_number=login.pf_number AND role='7' AND login.dept='".$_SESSION['dept']."' ");
+											 $query_emp =mysqli_query($con,"SELECT emp_data.emp_name as name,login.pf_number as pf_number,login.* from login,emp_data where emp_data.pf_number=login.pf_number AND role='7' AND login.dept='".$_SESSION['dept']."' ");
 											 					
-											 while($value_emp = mysql_fetch_array($query_emp))
+											 while($value_emp = mysqli_fetch_array($query_emp))
 											 {
 											  	echo "<option value='".$value_emp['pf_number']."'>".$value_emp['name']."</option>";
 											 }

@@ -56,7 +56,7 @@ function get_station_text($id)
 function get_billunit_text($id)
 {
     global $db_common;
-    $sql = "SELECT bill_unit FROM `resgister_user` WHERE emp_no='$id'";
+    $sql = "SELECT bill_unit FROM `register_user` WHERE emp_no='$id'";
     $f_desg = mysql_query($sql, $db_common);
     $desg_f = mysql_fetch_array($f_desg);
     return $desg_f['bill_unit'];
@@ -68,7 +68,7 @@ function check()
 ?>
 <?php
 $user_last = $_SESSION['user'];
-$fetch = "select * from resgister_user where emp_no='$user_last'";
+$fetch = "select * from register_user where emp_no='$user_last'";
 $fetch_result = mysql_query($fetch, $db_common) or die(mysql_error());
 //echo "select * from employee where emp_id='$user_last'";
 $result_fetched = mysql_fetch_array($fetch_result);

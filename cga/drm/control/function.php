@@ -139,7 +139,7 @@ function getGender($id)
 function getName($id)
 {
   dbcon2();
-  $query_emp =mysql_query("SELECT name from resgister_user where emp_no='".$id."'");
+  $query_emp =mysql_query("SELECT name from register_user where emp_no='".$id."'");
   $value_emp = mysql_fetch_array($query_emp);
   return $value_emp['name'];
  

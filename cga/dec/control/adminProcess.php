@@ -48,7 +48,7 @@ switch ($_REQUEST['action']) {
     $appl_gender = $_POST['appl_gender'];
 
     $con = dbcon2();
-    $sqql = mysqli_query($con, "SELECT dob from resgister_user where emp_no='" . $ex_emp_pf . "'");
+    $sqql = mysqli_query($con, "SELECT dob from register_user where emp_no='" . $ex_emp_pf . "'");
     $r_sqql = mysqli_fetch_array($sqql);
     $daata = explode("/", $r_sqql['dob']);
     $password = $daata[0] . $daata[1] . $daata[2];

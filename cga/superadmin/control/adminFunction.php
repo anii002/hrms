@@ -20,7 +20,7 @@ function get_employee_details($id)
   {
     $data=[];
     dbcon2();
-    $sql=mysql_query("SELECT * from resgister_user where emp_no='$id'");
+    $sql=mysql_query("SELECT * from register_user where emp_no='$id'");
     $res=mysql_fetch_array($sql);
     $data['pf_number']=$res['emp_no'];
     $data['emp_name']=$res['name'];

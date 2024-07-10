@@ -7,7 +7,7 @@ error_reporting(0);
 <?php
 $empid = $_GET['emp_id'];
 $griv_no = $_REQUEST['griv_no'];
-$emp = mysql_query("select * from resgister_user where emp_no='$empid'", $db_common);
+$emp = mysql_query("select * from register_user where emp_no='$empid'", $db_common);
 //echo"select * from employee where emp_id='$empid'";
 $nominee = mysql_query("select * from  tbl_grievance where gri_ref_no='$griv_no'", $db_egr);
 while ($fetch_nominee = mysql_fetch_array($nominee)) {

@@ -74,7 +74,7 @@
 
 					dbcon1();
 
-  					$query1 = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['user_pfno']."'");
+  					$query1 = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['user_pfno']."'");
 
   					$result = mysql_fetch_array($query1);
 

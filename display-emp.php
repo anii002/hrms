@@ -7,7 +7,7 @@ $GLOBALS['flag']="5";
         $sql = "SELECT * FROM user_permission WHERE id = '$id'";
         $result = mysql_query($sql);
         $row = mysql_fetch_assoc($result);     
-        $sql_fetch = "SELECT * FROM resgister_user";
+        $sql_fetch = "SELECT * FROM register_user";
         $result_fetch = mysql_query($sql_fetch);
 
  

@@ -9,11 +9,11 @@ session_start();
 
 function changeimg($name,$tmp_name)
 {
-  dbcon1();
+  $con=dbcon1();
 	$upload_dir = "../profile/".$_SESSION['pf_number'].".jpg";
 	$dir = "profile/".$_SESSION['pf_number'].".jpg";
 	if (move_uploaded_file($tmp_name, $upload_dir)) {
-		$query = mysql_query("UPDATE login set img='$dir' where pf_number='".$_SESSION['pf_number']."'");
+		$query = mysqli_query($con,"UPDATE login set img='$dir' where pf_number='".$_SESSION['pf_number']."'");
         return true;
     } else {
         return false;
@@ -23,7 +23,7 @@ function updateUser($fname,$email,$mobile,$design)
 {
   global $con;
   $query = "update users set fname='$fname', designation='$design', mobile='$mobile', email='$email' where id='".$_SESSION['admin_id']."'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -33,7 +33,7 @@ function changePass($pass,$confirm)
 {
   global $con;
   $query = "UPDATE login set password='".hashPassword($pass,SALT1,SALT2)."' where pf_number='".$_SESSION['pf_number']."'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -41,18 +41,18 @@ function changePass($pass,$confirm)
 }
 
 function activeUser($pfno,$active){
-dbcon1();
+  $con=dbcon1();
   $query = "UPDATE drmpsurh_cga.applicant_registration set status='$active' where ex_emp_pfno='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
     return false;
 }
 function deactiveUser($pfno,$active){
-  dbcon1();
+  $con=dbcon1();
   $query = "UPDATE drmpsurh_cga.applicant_registration set status='$active' where ex_emp_pfno='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else

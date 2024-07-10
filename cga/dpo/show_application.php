@@ -5,7 +5,7 @@ include('common/sidebar.php');
 
 $con = dbcon1();
 $con = dbcon2();
-$sqll = mysqli_query($con, "SELECT applicant_name,designation,station from drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=applicant_registration.ex_emp_pfno and ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
+$sqll = mysqli_query($con, "SELECT applicant_name,designation,station from drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.register_user where register_user.emp_no=applicant_registration.ex_emp_pfno and ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
 $ser = mysqli_fetch_array($sqll);
 
 $name = $ser['applicant_name'];
@@ -142,7 +142,7 @@ $staion = $ser['station'];
 												<tbody>
 													<?php
 													$con = dbcon2();
-													$sql = mysqli_query($con, "SELECT * from drmpsurh_sur_railway.resgister_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
+													$sql = mysqli_query($con, "SELECT * from drmpsurh_sur_railway.register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 													$res = mysqli_fetch_array($sql);
 													$con = dbcon1();
 													$sql1 = mysqli_query($con, "SELECT * from service_particulars where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
@@ -698,8 +698,8 @@ $staion = $ser['station'];
 														<tbody>
 															<?php
 															$con = dbcon2();
-															//$sql=mysqli_query("SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,resgister_user.*  from resgister_user where emp_no='".$_GET['ex_emp_pfno']."' ");
-															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,resgister_user.*  from resgister_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
+															//$sql=mysqli_query("SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,register_user.*  from register_user where emp_no='".$_GET['ex_emp_pfno']."' ");
+															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_missing,'%d/%m/%Y')as date_of_missing1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,register_user.*  from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 															$res = mysqli_fetch_array($sql);
 															?>
 															<tr>
@@ -1223,8 +1223,8 @@ $staion = $ser['station'];
 														<tbody>
 															<?php
 															$con = dbcon2();
-															//$sql=mysqli_query("SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,str_to_date(date_of_expiry,'%d/%m/%Y')as date_of_expiry1,resgister_user.* from resgister_user where emp_no='".$_GET['ex_emp_pfno']."' ");
-															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_expiry,'%d/%m/%Y')as date_of_expiry1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,resgister_user.* from resgister_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
+															//$sql=mysqli_query("SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,str_to_date(date_of_expiry,'%d/%m/%Y')as date_of_expiry1,register_user.* from register_user where emp_no='".$_GET['ex_emp_pfno']."' ");
+															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_expiry,'%d/%m/%Y')as date_of_expiry1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,register_user.* from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 															$res = mysqli_fetch_array($sql);
 
 															?>
@@ -1760,7 +1760,7 @@ $staion = $ser['station'];
 														<tbody>
 															<?php
 															$con = dbcon2();
-															$sql = mysqli_query($con, "select * from resgister_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
+															$sql = mysqli_query($con, "select * from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 															$res = mysqli_fetch_array($sql);
 															?>
 															<tr>
@@ -2203,7 +2203,7 @@ $staion = $ser['station'];
 															<?php
 															$con = dbcon2();
 															//$sql=mysqli_query("SELECT str_to_date(rlyjoindate,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_med_decat,'%d/%m/%Y')as date_of_med_decat1,str_to_date(date_of_retd,'%d/%m/%Y')as date_of_retd1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,prmaemp.* from prmaemp where empno='".$_GET['ex_emp_pfno']."' ");
-															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_med_decat,'%d/%m/%Y')as date_of_med_decat1,str_to_date(date_of_retd,'%d/%m/%Y')as date_of_retd1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,resgister_user.* from resgister_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
+															$sql = mysqli_query($con, "SELECT str_to_date(doa,'%d/%m/%Y')as rlyjoindate1,str_to_date(date_of_med_decat,'%d/%m/%Y')as date_of_med_decat1,str_to_date(date_of_retd,'%d/%m/%Y')as date_of_retd1,str_to_date(retirementdate,'%d/%m/%Y')as retirementdate1,register_user.* from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 															$res = mysqli_fetch_array($sql);
 
 															$date1 = strtotime($res['rlyjoindate1']);
@@ -2750,7 +2750,7 @@ include 'common/footer.php';
 									<?php
 									$con=dbcon1();
 									$con=dbcon2();
-									$query_emp = mysqli_query($con,"SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='3' ");
+									$query_emp = mysqli_query($con,"SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='3' ");
 
 									while ($value_emp = mysqli_fetch_array($query_emp)) {
 										echo "<option value='" . $value_emp['pf_number'] . "'>" . $value_emp['name'] . "</option>";

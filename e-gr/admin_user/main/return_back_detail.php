@@ -29,7 +29,7 @@ error_reporting(0);
                             $got_id = $_GET['g_id'];
                             //echo "<script>alert($got_id);</script>";
 
-                            $fetch_query = "select e.empType,e.emp_no,e.name,e.department,e.designation	,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE g.id=$got_id";
+                            $fetch_query = "select e.empType,e.emp_no,e.name,e.department,e.designation	,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE g.id=$got_id";
 
                             $exe_query = mysql_query($fetch_query) or die(mysql_error());
                             while ($result = mysql_fetch_array($exe_query)) {

@@ -182,7 +182,7 @@
 								 
 								dbcon1();
 								dbcon2(); 
-								$query_emp = "SELECT resgister_user.*, login.status as user_status, login.username,login.role,dept,login.id as idd  from drmpsurh_sur_railway.resgister_user,drmpsurh_cga.login where resgister_user.emp_no = login.pf_number and role not in(1) ";
+								$query_emp = "SELECT register_user.*, login.status as user_status, login.username,login.role,dept,login.id as idd  from drmpsurh_sur_railway.register_user,drmpsurh_cga.login where register_user.emp_no = login.pf_number and role not in(1) ";
 								$result_emp = mysql_query($query_emp);
 								$sr=1;
 								echo mysql_error();

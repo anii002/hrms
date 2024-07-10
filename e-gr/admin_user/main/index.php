@@ -58,7 +58,7 @@ error_reporting(0);
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-repeat"></i></div>
                             <?php
-                            $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us' group by g.id order by g.gri_upload_date DESC";
+                            $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us' group by g.id order by g.gri_upload_date DESC";
                             $total_pend = mysql_query($sql);
                             $pend_total = mysql_num_rows($total_pend);
                             ?>
@@ -130,7 +130,7 @@ error_reporting(0);
                                         }
                                         $cnt = 1;
                                         // $sql="Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' AND g.gri_ref_no NOT LIKE 'WEL%' limit 1";
-                                        $sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' AND g.gri_ref_no NOT LIKE 'WEL%' group by g.id order by g.gri_upload_date DESC limit 1";
+                                        $sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' AND g.gri_ref_no NOT LIKE 'WEL%' group by g.id order by g.gri_upload_date DESC limit 1";
                                         $query = mysql_query($sql);
 
                                         while ($rw_data = mysql_fetch_array($query)) {
@@ -204,7 +204,7 @@ error_reporting(0);
                                         }
                                         $cnt = 1;
                                         // $sql = "Select f.user_id_forwarded, e.emp_id,e.emp_name,e.emp_mob,e.emp_type,g.gri_ref_no,g.gri_type, g.uploaded_by, g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' AND g.gri_ref_no LIKE 'WEL%'";
-                                        $sql = "Select f.user_id_forwarded, e.emp_no,e.name,e.mobile,e.empType,g.gri_ref_no,g.gri_type, g.uploaded_by, g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' AND g.gri_ref_no LIKE 'WEL%' group by g.id order by g.gri_upload_date DESC limit 1";
+                                        $sql = "Select f.user_id_forwarded, e.emp_no,e.name,e.mobile,e.empType,g.gri_ref_no,g.gri_type, g.uploaded_by, g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' AND g.gri_ref_no LIKE 'WEL%' group by g.id order by g.gri_upload_date DESC limit 1";
                                         $query = mysql_query($sql);
                                         while ($rw_data = mysql_fetch_array($query)) {
                                             $emp_id = $rw_data["emp_no"];

@@ -148,7 +148,7 @@ $GLOBALS['flag']="1.4";
 
 											dbcon1();
 
-											$q_name = mysql_query("SELECT `name` FROM `resgister_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
+											$q_name = mysql_query("SELECT `name` FROM `register_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
 
 											$row_name_emp = mysql_fetch_array($q_name);
 

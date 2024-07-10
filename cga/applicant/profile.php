@@ -79,7 +79,7 @@ include('common/sidebar.php');
 			              <?php
 			              dbcon1();
 			              dbcon2();
-			                $query = "SELECT department,emp_no,name from drmpsurh_sur_railway.resgister_user where emp_no in(SELECT pf_number from drmpsurh_cga.login where pf_number='".$_SESSION['pf_number']."') ";
+			                $query = "SELECT department,emp_no,name from drmpsurh_sur_railway.register_user where emp_no in(SELECT pf_number from drmpsurh_cga.login where pf_number='".$_SESSION['pf_number']."') ";
 			                $result = mysql_query($query) or die(mysql_error());
 			                $value = mysql_fetch_array($result);
 			               ?>
@@ -106,7 +106,7 @@ include('common/sidebar.php');
 							<!-- SIDEBAR MENU -->
 							<?php
 							dbcon2();
-								$query = mysql_query("SELECT mobile,dob from drmpsurh_sur_railway.resgister_user where emp_no='".$_SESSION['pf_number']."' ");
+								$query = mysql_query("SELECT mobile,dob from drmpsurh_sur_railway.register_user where emp_no='".$_SESSION['pf_number']."' ");
 								$result = mysql_fetch_array($query);
 							?>
 							<div class="profile-usermenu">

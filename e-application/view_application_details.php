@@ -42,7 +42,7 @@
 					$query = mysql_query("SELECT * FROM add_application WHERE application_id = '".$_GET['application_id']."'");
 					$row = mysql_fetch_array($query);
 					dbcon2();
-  					$query1 = mysql_query("SELECT * FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+  					$query1 = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['pfno']."'");
   					$result = mysql_fetch_array($query1);
 					?>
 					<form action="control/adminProcess.php?action=forward_cos" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
@@ -170,7 +170,7 @@
 										{
 	
 											dbcon2();
-					    			 		$q_name = mysql_query("SELECT `name` FROM `resgister_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
+					    			 		$q_name = mysql_query("SELECT `name` FROM `register_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
 					    			 		$row_name_emp = mysql_fetch_array($q_name);
 					    			 		 // echo $row_name_emp['name'];
 					    			 		 echo "<option value='".$row_bu_users['user_pfno']."'>".$row_bu_users['office_description']."-".$row_name_emp['name']."</option>";

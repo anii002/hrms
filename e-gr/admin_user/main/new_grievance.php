@@ -53,7 +53,7 @@ error_reporting(0);
 									$cnt = 1;
 									// echo $sql = "Select e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and f.user_id_forwarded='$current_id' and f.griv_ref_no not like 'WEL%'";
 									// $sql="Select e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and f.user_id_forwarded='$current_id' and f.griv_ref_no not like 'WEL%'";
-									$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and f.user_id_forwarded='$current_id' and f.griv_ref_no not like 'WEL%' group by g.id order by g.gri_upload_date DESC";
+									$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and f.user_id_forwarded='$current_id' and f.griv_ref_no not like 'WEL%' group by g.id order by g.gri_upload_date DESC";
 									$query = mysql_query($sql);
 									// echo mysql_error();
 									while ($rw_data = mysql_fetch_array($query)) {
@@ -65,7 +65,7 @@ error_reporting(0);
 										$gri_upload_date = $rw_data["gri_upload_date"];
 										$g_id = $rw_data["id"];
 										
-										$fetch_query = "select e.station,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=$emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=$gri_ref_no WHERE g.id=$g_id";
+										$fetch_query = "select e.station,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=$emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=$gri_ref_no WHERE g.id=$g_id";
 									//	print_r($fetch_query);
 										$fetch_query1 = mysql_query($fetch_query);
 										$fetch_query2 = mysql_fetch_array($fetch_query1);

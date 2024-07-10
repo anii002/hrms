@@ -56,7 +56,7 @@ error_reporting(0);
                             <div class="icon"><i class="fa fa-repeat"></i></div>
                             <?php
                             // $sql = "Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us'";
-                            // echo $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where (g.status='3' or g.status='2') and (f.status='3' or f.status='2') and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us' group by g.id order by g.gri_upload_date DESC";
+                            // echo $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where (g.status='3' or g.status='2') and (f.status='3' or f.status='2') and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us' group by g.id order by g.gri_upload_date DESC";
                             $sql = "select * from tbl_grievance where status in (1,2,3) and uploaded_by='$cur_us'";
                             $total_pend = mysql_query($sql, $db_egr);
                             $pend_total = mysql_num_rows($total_pend);
@@ -113,7 +113,7 @@ error_reporting(0);
                                         <?php
 
                                         $cnt = 1;
-                                        $sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' group by g.id order by g.gri_upload_date DESC";
+                                        $sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' group by g.id order by g.gri_upload_date DESC";
                                         $query = mysql_query($sql, $db_egr);
 
                                         while ($rw_data = mysql_fetch_array($query)) {

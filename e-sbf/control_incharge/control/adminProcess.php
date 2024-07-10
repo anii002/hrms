@@ -42,7 +42,7 @@ include('adminFunction.php');
             
             
             dbcon1();
-            $sql = "SELECT mobile FROM resgister_user WHERE emp_no = ".$emp_no;
+            $sql = "SELECT mobile FROM register_user WHERE emp_no = ".$emp_no;
             //echo $sql; 
             $result = mysql_query($sql);
             $row = mysql_fetch_assoc($result);

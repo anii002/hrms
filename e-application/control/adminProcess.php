@@ -578,7 +578,7 @@ include('adminFunction.php');
       // $rstRecord = mysql_query($sql, $db_edak);
       dbcon2();
       dbcon3();
-       $sql = "SELECT *,add_application.created_date FROM `forward_appl`,add_user,add_application,drmpsurh_sur_railway.resgister_user WHERE forward_appl.forwarded_to_clerk = add_user.user_pfno AND add_application.application_id = forward_appl.appli_id AND add_user.office_description = '$section_name' AND add_application.pfno = resgister_user.emp_no AND add_application.created_date LIKE '%$frm_date%' AND add_application.created_date LIKE '%$to_date%'";
+       $sql = "SELECT *,add_application.created_date FROM `forward_appl`,add_user,add_application,drmpsurh_sur_railway.register_user WHERE forward_appl.forwarded_to_clerk = add_user.user_pfno AND add_application.application_id = forward_appl.appli_id AND add_user.office_description = '$section_name' AND add_application.pfno = register_user.emp_no AND add_application.created_date LIKE '%$frm_date%' AND add_application.created_date LIKE '%$to_date%'";
       $rstRecord = mysql_query($sql);
       if (mysql_num_rows($rstRecord) > 0) {
         //if (isBA()) {

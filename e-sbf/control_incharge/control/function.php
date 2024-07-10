@@ -3,7 +3,7 @@ function verify_emp($emp_pf)
 {
     // global $db;
     dbcon1();
-    $query = "SELECT * FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $query = "SELECT * FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $rst_emp = mysql_query($query);
     if (mysql_num_rows($rst_emp) > 0) {
         return true;
@@ -33,7 +33,7 @@ function get_emp_info($emp_pf)
 {
     // global $db;
     dbcon1();
-    $query = "SELECT * FROM `resgister_user` WHERE `emp_no`='$emp_pf'";
+    $query = "SELECT * FROM `register_user` WHERE `emp_no`='$emp_pf'";
     $emp_name = "";
     $rst_emp = mysql_query($query);
     if (mysql_num_rows($rst_emp) > 0) {

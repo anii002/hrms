@@ -29,7 +29,7 @@ error_reporting(0);
                             //echo "<script>alert($got_id);</script>";
 
                             // $fetch_query = "Select u.user_name, u.user_mob, e.emp_id, e.emp_name, e.emp_type, e.emp_dept, e.emp_desig, e.emp_email, e.emp_aadhar, e.office, e.station, g.gri_ref_no, g.gri_type,g.gri_upload_date,g.id ,e.emp_mob from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_user u ON g.uploaded_by = u.user_id where g.id='$got_id'";
-                            $fetch_query = "Select u.user_name, u.user_mob, e.emp_no, e.name, e.empType, e.department, e.designation, e.emp_email, e.emp_aadhar, e.office, e.station, g.gri_ref_no, g.gri_type,g.gri_upload_date,g.id ,e.mobile from $db_common_name.resgister_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_user u ON g.uploaded_by = u.user_id where g.id='$got_id'";
+                            $fetch_query = "Select u.user_name, u.user_mob, e.emp_no, e.name, e.empType, e.department, e.designation, e.emp_email, e.emp_aadhar, e.office, e.station, g.gri_ref_no, g.gri_type,g.gri_upload_date,g.id ,e.mobile from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_user u ON g.uploaded_by = u.user_id where g.id='$got_id'";
 
                             $exe_query = mysql_query($fetch_query) or die(mysql_error());
                             while ($result = mysql_fetch_array($exe_query)) {
@@ -372,7 +372,7 @@ error_reporting(0);
                                 if ($user_id_forwarded != "") {
                                     echo "<td>$user_id_forwarded</td>";
                                 } else {
-                                    $fetch_emp = mysql_query("select name from resgister_user where emp_no='$emp_need'", $db_common);
+                                    $fetch_emp = mysql_query("select name from register_user where emp_no='$emp_need'", $db_common);
                                     while ($emp_fetch = mysql_fetch_array($fetch_emp)) {
                                         $e_n = $emp_fetch['name'];
                                     }

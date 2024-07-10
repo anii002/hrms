@@ -108,7 +108,7 @@
 								<td><?php echo ++$counter; ?></td>
 								<?php
 								dbcon2();
-								$name = mysql_query("SELECT name FROM resgister_user WHERE emp_no = '".$row['pfno']."'");
+								$name = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['pfno']."'");
 								$row_emp_name = mysql_fetch_array($name);
 								?>
 								<td><?php echo $row_emp_name['name'];?></td>

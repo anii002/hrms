@@ -43,7 +43,7 @@ include('common/sidebar.php');
 									<!-- <h3 class="form-section">Add User</h3> -->
 									<?php
 									$con = dbcon2();
-									$sql = mysqli_query($con, "SELECT * From drmpsurh_sur_railway.resgister_user where emp_no='" . $_GET['ex_emp_pfno'] . "'");
+									$sql = mysqli_query($con, "SELECT * From drmpsurh_sur_railway.register_user where emp_no='" . $_GET['ex_emp_pfno'] . "'");
 									$res = mysqli_fetch_array($sql);
 									echo mysqli_error($con);
 
@@ -374,7 +374,7 @@ include('common/sidebar.php');
 													<?php
 													$con = dbcon1();
 													$con = dbcon2();
-													$query_emp = mysqli_query($con, "SELECT resgister_user.name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='5' ");
+													$query_emp = mysqli_query($con, "SELECT register_user.name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='5' ");
 
 													while ($value_emp = mysqli_fetch_array($query_emp)) {
 														echo "<option value='" . $value_emp['pf_number'] . "'>" . $value_emp['name'] . "</option>";
@@ -450,7 +450,7 @@ include 'common/footer.php';
 									<?php
 									$con = dbcon1();
 									$con = dbcon2();
-									$query_emp = mysqli_query($con, "SELECT resgister_user.name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='7' ");
+									$query_emp = mysqli_query($con, "SELECT register_user.name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='7' ");
 
 									while ($value_emp = mysqli_fetch_array($query_emp)) {
 										echo "<option value='" . $value_emp['pf_number'] . "'>" . $value_emp['name'] . "</option>";

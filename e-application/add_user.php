@@ -184,7 +184,7 @@
 								while($row = mysql_fetch_array($query))
 								{
 									dbcon2();
-									$query_emp = "SELECT name FROM resgister_user WHERE emp_no = '".$row['user_pfno']."'";
+									$query_emp = "SELECT name FROM register_user WHERE emp_no = '".$row['user_pfno']."'";
 									
 									$result_emp = mysql_query($query_emp);
 									
