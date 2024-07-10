@@ -35,12 +35,12 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								$query_emp = "SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and hold_status='0' AND rcc_note_status='0' AND forward_from_pfno='".$_SESSION['pf_number']."' ";
 								
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									 echo "
 								<tr>

@@ -2,6 +2,7 @@
 	$GLOBALS['flag']="1.1";	
 	include('common/header.php');
 	include('common/sidebar.php');
+	$con = dbcon1();
 ?>
 
 	<!-- BEGIN CONTENT -->
@@ -41,10 +42,10 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								dbcon1(); 
-								 $query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where  hold_status='1' and dak_status=1  AND forward_to_pfno='".$_SESSION['pf_number']."' ");
+								// dbcon1(); 
+								 $query = mysqli_query($con,"SELECT count(forward_application.id) as total FROM `forward_application` where  hold_status='1' and dak_status=1  AND forward_to_pfno='".$_SESSION['pf_number']."' ");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -65,10 +66,10 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								dbcon1(); 
-								 $query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where dak_status=0 and drm_approve=0 and  hold_status='1'  AND forward_to_pfno='".$_SESSION['pf_number']."' ");
+								// dbcon1(); 
+								 $query = mysqli_query($con,"SELECT count(forward_application.id) as total FROM `forward_application` where dak_status=0 and drm_approve=0 and  hold_status='1'  AND forward_to_pfno='".$_SESSION['pf_number']."' ");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -89,10 +90,10 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-									// $query = mysql_query("select count(forward_from_u) as total from forward_application where hold_status='1' AND return_status='1' AND forward_to_u = '".$_SESSION['pf_number']."'");
-								$query_emp = mysql_query("SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category,forward_application.remark FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and forward_application.applicant_username=applicant_registration.username and hold_status='1' AND return_status='1' AND forward_to_pfno='".$_SESSION['pf_number']."' ");
+									// $query = mysqli_query("select count(forward_from_u) as total from forward_application where hold_status='1' AND return_status='1' AND forward_to_u = '".$_SESSION['pf_number']."'");
+								$query_emp = mysqli_query($con,"SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category,forward_application.remark FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and forward_application.applicant_username=applicant_registration.username and hold_status='1' AND return_status='1' AND forward_to_pfno='".$_SESSION['pf_number']."' ");
 
-									$resultset = mysql_num_rows($query_emp);
+									$resultset = mysqli_num_rows($query_emp);
 									echo "<h3>".$resultset."</h3>";
 								?>
 							</div>
@@ -113,10 +114,10 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								dbcon1(); 
-								 $query = mysql_query("SELECT count(forward_application.id) as total FROM `forward_application` where hold_status='0' and rcc_note_status='0' and forward_from_pfno='".$_SESSION['pf_number']."' ");
+								// dbcon1(); 
+								 $query = mysqli_query($con,"SELECT count(forward_application.id) as total FROM `forward_application` where hold_status='0' and rcc_note_status='0' and forward_from_pfno='".$_SESSION['pf_number']."' ");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -137,9 +138,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								// $query = mysql_query("select count(id) as total from users where role='12'");
+								// $query = mysqli_query("select count(id) as total from users where role='12'");
 
-								// $resultset = mysql_fetch_array($query);
+								// $resultset = mysqli_fetch_array($query);
 								// echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>

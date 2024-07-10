@@ -29,17 +29,17 @@
 					
 					<?php
 
-						$sql = mysql_query("SELECT role FROM applicant_registration,login WHERE applicant_registration.added_by=login.unit_id AND ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
-						$rw = mysql_fetch_array($sql);
+						$sql = mysqli_query($con,"SELECT role FROM applicant_registration,login WHERE applicant_registration.added_by=login.unit_id AND ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
+						$rw = mysqli_fetch_array($sql);
 
 						 
-						$qry = mysql_query("SELECT empname,applicant_registration.* FROM `applicant_registration`,prmaemp WHERE applicant_registration.ex_emp_pfno=prmaemp.empno and ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
-						$row = mysql_fetch_array($qry);
+						$qry = mysqli_query($con,"SELECT empname,applicant_registration.* FROM `applicant_registration`,prmaemp WHERE applicant_registration.ex_emp_pfno=prmaemp.empno and ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
+						$row = mysqli_fetch_array($qry);
 						
 						
-						$qry1 = mysql_query("SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_from_pfno=prmaemp.empno and ex_emp_pfno='".$row['ex_emp_pfno']."' and applicant_username='".$row['username']."' ORDER BY id ASC");
+						$qry1 = mysqli_query($con,"SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_from_pfno=prmaemp.empno and ex_emp_pfno='".$row['ex_emp_pfno']."' and applicant_username='".$row['username']."' ORDER BY id ASC");
 						$history_row = array();
-						while($row1 = mysql_fetch_assoc($qry1))
+						while($row1 = mysqli_fetch_assoc($qry1))
 						{
 							array_push($history_row, $row1);
 						}
@@ -105,11 +105,11 @@
 								<h5>
 									<?php
 
-								     	$qry2 = mysql_query("SELECT role FROM forward_application,login WHERE forward_application.forward_to_u=login.unit_id AND ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
-										$row2 = mysql_fetch_array($qry2);
+								     	$qry2 = mysqli_query($con,"SELECT role FROM forward_application,login WHERE forward_application.forward_to_u=login.unit_id AND ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
+										$row2 = mysqli_fetch_array($qry2);
 
-										$qry3 = mysql_query("SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_to_pfno=prmaemp.empno and ex_emp_pfno='".$_GET['ex_emp_pfno']."' and applicant_username='".$_GET['username']."' ORDER BY id ASC");
-										$row3 = mysql_fetch_array($qry3);
+										$qry3 = mysqli_query($con,"SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_to_pfno=prmaemp.empno and ex_emp_pfno='".$_GET['ex_emp_pfno']."' and applicant_username='".$_GET['username']."' ORDER BY id ASC");
+										$row3 = mysqli_fetch_array($qry3);
 
 										if($row2['role']==5)
 										{
@@ -156,11 +156,11 @@
 						}
 					?>
 					<?php 
-						$qry4 = mysql_query("SELECT role FROM forward_application,login WHERE forward_application.forward_from_u=login.unit_id AND pf_number='".$history_row[1]['forward_to_pfno']."'");
-										$row4 = mysql_fetch_array($qry4);
+						$qry4 = mysqli_query($con,"SELECT role FROM forward_application,login WHERE forward_application.forward_from_u=login.unit_id AND pf_number='".$history_row[1]['forward_to_pfno']."'");
+										$row4 = mysqli_fetch_array($qry4);
 
-										$qry5 = mysql_query("SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_to_pfno=prmaemp.empno and empno='".$history_row[1]['forward_to_pfno']."'");
-										$row5 = mysql_fetch_array($qry5);
+										$qry5 = mysqli_query($con,"SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_to_pfno=prmaemp.empno and empno='".$history_row[1]['forward_to_pfno']."'");
+										$row5 = mysqli_fetch_array($qry5);
 						if($history_row[1]['hold_status']  == 1  && $history_row[1]['dpo_approve']  == 1)
 							{
 					?>
@@ -216,11 +216,11 @@
 									?>
 							</div>
 							<?php 
-							$qry6 = mysql_query("SELECT role FROM forward_application,login WHERE forward_application.forward_to_u=login.unit_id AND pf_number='".$history_row[2]['forward_to_pfno']."'");
-										$row6 = mysql_fetch_array($qry6);
+							$qry6 = mysqli_query($con,"SELECT role FROM forward_application,login WHERE forward_application.forward_to_u=login.unit_id AND pf_number='".$history_row[2]['forward_to_pfno']."'");
+										$row6 = mysqli_fetch_array($qry6);
 
-										$qry7 = mysql_query("SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_to_pfno=prmaemp.empno and empno='".$history_row[2]['forward_to_pfno']."'");
-										$row7 = mysql_fetch_array($qry7);
+										$qry7 = mysqli_query($con,"SELECT prmaemp.empname,forward_application.* FROM `forward_application`,prmaemp WHERE forward_application.forward_to_pfno=prmaemp.empno and empno='".$history_row[2]['forward_to_pfno']."'");
+										$row7 = mysqli_fetch_array($qry7);
 						if($history_row[2]['hold_status']  == 1)
 							{
 					?>

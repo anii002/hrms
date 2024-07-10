@@ -45,24 +45,24 @@
 								// if($_SESSION['pf_number'])
 								// {
 								// 	$query_emp = "SELECT count(id) as total FROM `applicant_registration` where fw_status='0' ";
-								// 	$resultset = mysql_query($query_emp);	
+								// 	$resultset = mysqli_query($query_emp);	
 								// }
 								// elseif($_SESSION['pf_number'])
 								// {
 								// 	$query_emp = "SELECT count(forward_application.id) as total FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and hold_status='1' AND forward_to_pfno='".$_SESSION['pf_number']."' ";
-								// 	$resultset = mysql_query($query_emp);	
+								// 	$resultset = mysqli_query($query_emp);	
 								// }
-								// $rs=mysql_fetch_array($resultset);
+								// $rs=mysqli_fetch_array($resultset);
 								// echo "<h3>".$rs['total']."</h3>";
 								
 								?>
 								<?php 
-								dbcon1();
-								$query = mysql_query("SELECT *  from applicant_registration where fw_status='0' AND added_by = '".$_SESSION['unitid']."'");
-								$count = mysql_num_rows($query);
+								$con=dbcon1();
+								$query = mysqli_query($con,"SELECT *  from applicant_registration where fw_status='0' AND added_by = '".$_SESSION['unitid']."'");
+								$count = mysqli_num_rows($query);
 
-								 $query1 = mysql_query("SELECT *  from forward_application where hold_status='1' AND forward_to_u = '".$_SESSION['unitid']."'");
-								 $count1 = mysql_num_rows($query1);
+								 $query1 = mysqli_query($con,"SELECT *  from forward_application where hold_status='1' AND forward_to_u = '".$_SESSION['unitid']."'");
+								 $count1 = mysqli_num_rows($query1);
 
 								 $sum = $count + $count1;
 								
@@ -86,14 +86,14 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								// $query = mysql_query("select count(id) as total from users where role='13'");
+								// $query = mysqli_query("select count(id) as total from users where role='13'");
 
-								// $resultset = mysql_fetch_array($query);
+								// $resultset = mysqli_fetch_array($query);
 								// echo "<h3>".$resultset['total']."</h3>";
-								dbcon1();
-								$query = mysql_query("SELECT count(forward_from_u) as total from forward_application where return_status='1' AND forward_from_u = '".$_SESSION['unitid']."'");
+								$con=dbcon1();
+								$query = mysqli_query($con,"SELECT count(forward_from_u) as total from forward_application where return_status='1' AND forward_from_u = '".$_SESSION['unitid']."'");
 
-									$resultset = mysql_fetch_array($query);
+									$resultset = mysqli_fetch_array($query);
 									echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -114,9 +114,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								dbcon1();
-									$query_emp = mysql_query("SELECT count(forward_application.id)as total FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and (hold_status=0 or hold_status=1) and dak_status=0 and rcc_note_status=0 and forward_from_pfno='".$_SESSION['pf_number']."' ");
-									$result=mysql_fetch_array($query_emp);
+								$con=dbcon1();
+									$query_emp = mysqli_query($con,"SELECT count(forward_application.id)as total FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and (hold_status=0 or hold_status=1) and dak_status=0 and rcc_note_status=0 and forward_from_pfno='".$_SESSION['pf_number']."' ");
+									$result=mysqli_fetch_array($query_emp);
 									echo "<h3>".$result['total']."</h3>";
 								?>
 							</div>

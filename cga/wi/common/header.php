@@ -116,9 +116,9 @@ include('control/function.php');
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<?php
-							dbcon1(); 
-							$query = mysql_query("SELECT img from login where username='".$_SESSION['username']."'");
-							$result = mysql_fetch_array($query);
+							$con=dbcon1(); 
+							$query = mysqli_query($con,"SELECT img from login where username='".$_SESSION['username']."'");
+							$result = mysqli_fetch_array($query);
 							if(!isset($_SESSION['profile_image']))
 							{
 						?>
@@ -127,7 +127,7 @@ include('control/function.php');
 							}
 							else
 							{ ?>
-							<img alt="" class="img-circle" src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" />
+							<img alt="" class="img-circle" src="../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
 						<?php } ?>
 					<!-- <img alt="" class="img-circle" src="../assets/admin/layout/img/avatar3_small.jpg"/> -->
 					<span class="username username-hide-on-mobile"><?php echo getName($_SESSION['username']);?>

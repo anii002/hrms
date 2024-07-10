@@ -1,147 +1,231 @@
 <?php
 function fetch_dept_profile($id)
 {
-  //fetch department using id
-  $data = "";
-  $dept = "select * from department where dept_id='$id'";
-  $result = mysql_query($dept);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
-  $dept = "select * from department where dept_id <> '$id'";
-  $result = mysql_query($dept);
-  while($value = mysql_fetch_array($result))
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    $data = "";
+    
+    $deptQuery = "SELECT * FROM department WHERE dept_id='$id'";
+    $result = mysqli_query($con, $deptQuery);
+    $value = mysqli_fetch_array($result);
     $data .= "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
-  return $data;
+    
+    $deptQueryAll = "SELECT * FROM department WHERE dept_id <> '$id'";
+    $resultAll = mysqli_query($con, $deptQueryAll);
+    while ($value = mysqli_fetch_array($resultAll)) {
+        $data .= "<option value='".$value['dept_id']."'>".$value['deptname']."</option>";
+    }
+    
+    mysqli_close($con);
+    
+    return $data;
 }
+
 function fetch_design_profile($id)
 {
-  //fetch designation using id
-  $data = "";
-  $query = "select * from designation where designation='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['designation']."'>".$value['designation']."</option>";
-  $query = "select * from designation where designation <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    $data = "";
+    
+    $query = "SELECT * FROM designation WHERE designation='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
     $data .= "<option value='".$value['designation']."'>".$value['designation']."</option>";
-  return $data;
+    
+    $queryAll = "SELECT * FROM designation WHERE designation <> '$id'";
+    $resultAll = mysqli_query($con, $queryAll);
+    while ($value = mysqli_fetch_array($resultAll)) {
+        $data .= "<option value='".$value['designation']."'>".$value['designation']."</option>";
+    }
+    
+    mysqli_close($con);
+    
+    return $data;
 }
+
 
 function fetch_pay_level($id)
 {
-  $data = "";
-  $query = "select * from paylevel where num='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['num']."'>".$value['pay_text']."</option>";
-  $query = "select * from paylevel where num <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
+    $con = dbcon1(); // Assuming dbcon1() is your mysqli connection function
+    $data = "";
+    
+    $query = "SELECT * FROM paylevel WHERE num='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
     $data .= "<option value='".$value['num']."'>".$value['pay_text']."</option>";
-  return $data;
+    
+    $queryAll = "SELECT * FROM paylevel WHERE num <> '$id'";
+    $resultAll = mysqli_query($con, $queryAll);
+    while ($value = mysqli_fetch_array($resultAll)) {
+        $data .= "<option value='".$value['num']."'>".$value['pay_text']."</option>";
+    }
+    
+    mysqli_close($con);
+    
+    return $data;
 }
+
 function fetch_station_profile($id)
 {
-  //fetch designation using id
-  $data = "";
-  $query = "select * from stations where station_id='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
-  $query = "select * from stations where station_id <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    $data = "";
+    
+    $query = "SELECT * FROM stations WHERE station_id='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
     $data .= "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
-  return $data;
+    
+    $queryAll = "SELECT * FROM stations WHERE station_id <> '$id'";
+    $resultAll = mysqli_query($con, $queryAll);
+    while ($value = mysqli_fetch_array($resultAll)) {
+        $data .= "<option value='".$value['station_id']."'>".$value['station_name']."</option>";
+    }
+    
+    mysqli_close($con);
+    
+    return $data;
 }
+
 function fetch_gradepay_profile($id)
 {
-  //fetch designation using id
-  $data = "";
-  $query = "select * from gradepay where id='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  $data = "<option value='".$value['id']."'>".$value['gradepay']."</option>";
-  $query = "select * from gradepay where id <> '$id'";
-  $result = mysql_query($query);
-  while($value = mysql_fetch_array($result))
+    $con = dbcon1(); // Assuming dbcon1() is your mysqli connection function
+    $data = "";
+    
+    $query = "SELECT * FROM gradepay WHERE id='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
     $data .= "<option value='".$value['id']."'>".$value['gradepay']."</option>";
-  return $data;
+    
+    $queryAll = "SELECT * FROM gradepay WHERE id <> '$id'";
+    $resultAll = mysqli_query($con, $queryAll);
+    while ($value = mysqli_fetch_array($resultAll)) {
+        $data .= "<option value='".$value['id']."'>".$value['gradepay']."</option>";
+    }
+    
+    mysqli_close($con);
+    
+    return $data;
 }
+
 function designation($id)
 {
-  dbcon2();
-  $query = "SELECT * from designations where DESIGCODE='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['DESIGLONGDESC'];
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    
+    $query = "SELECT * FROM designations WHERE DESIGCODE='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
+    
+    mysqli_close($con);
+    
+    return $value['DESIGLONGDESC'];
 }
+
 function getdepartment($id)
 {
-  dbcon2();
-  $query = "SELECT * from departments where DEPTNO='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['DEPTDESC'];
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    
+    $query = "SELECT * FROM departments WHERE DEPTNO='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
+    
+    mysqli_close($con);
+    
+    return $value['DEPTDESC'];
 }
+
 function getrole($id)
 {
-  dbcon1();
-  $query = "SELECT * from master_role where id='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['role_name'];
+    $con = dbcon1(); // Assuming dbcon1() is your mysqli connection function
+    
+    $query = "SELECT * FROM master_role WHERE id='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
+    
+    mysqli_close($con);
+    
+    return $value['role_name'];
 }
+
 function getcase($id)
 {
-  dbcon1();
-  $query = "SELECT * from category where id='$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
-  return $value['case_name'];
+    $con = dbcon1(); // Assuming dbcon1() is your mysqli connection function
+    $query = "SELECT * FROM category WHERE id='$id'";
+    $result = mysqli_query($con, $query);
+    $value = mysqli_fetch_array($result);
+    mysqli_close($con);
+    
+    if ($value) {
+        return $value['case_name'];
+    } else {
+        return ""; // Handle case where no result is found
+    }
 }
+
 
 function getScaleCode($id)
 {
-  dbcon1();
-  $query =mysql_query("SELECT * from gradepay where gradepay='$id'");
-  $res=mysql_fetch_array($query);
-  $sql="select * from paylevel where num='".$res['id']."'";
-  $result =mysql_query($sql);
-  $value = mysql_fetch_array($result);
-  return $value['pay_text'];
+    $con = dbcon1(); // Assuming dbcon1() is your mysqli connection function
+    $query = "SELECT * FROM gradepay WHERE gradepay='$id'";
+    $result = mysqli_query($con, $query);
+    $res = mysqli_fetch_array($result);
+    
+    if ($res) {
+        $sql = "SELECT * FROM paylevel WHERE num='" . $res['id'] . "'";
+        $result = mysqli_query($con, $sql);
+        $value = mysqli_fetch_array($result);
+        mysqli_close($con);
+        return $value['pay_text'];
+    } else {
+        mysqli_close($con);
+        return ""; // Handle case where no result is found
+    }
 }
+
 function getMaritailStatus($id)
 {
-  dbcon2();
-  $query_emp =mysql_query("SELECT * from marital_status where code='".$id."'");
-  $value_emp = mysql_fetch_array($query_emp);
-  return $value_emp['shortdesc'];
- 
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    $query = "SELECT * FROM marital_status WHERE code='$id'";
+    $result = mysqli_query($con, $query);
+    $value_emp = mysqli_fetch_array($result);
+    mysqli_close($con);
+    
+    if ($value_emp) {
+        return $value_emp['shortdesc'];
+    } else {
+        return ""; // Handle case where no result is found
+    }
 }
+
 function getRelation($id)
 {
-  dbcon1();
-  $query_emp =mysql_query("SELECT * from relation where code='".$id."'");
-  $value_emp = mysql_fetch_array($query_emp);
-  return $value_emp['shortdesc'];
- 
+    $con = dbcon1(); // Assuming dbcon1() is your mysqli connection function
+    $query = "SELECT * FROM relation WHERE code='$id'";
+    $result = mysqli_query($con, $query);
+    $value_emp = mysqli_fetch_array($result);
+    mysqli_close($con);
+    return $value_emp['shortdesc'];
 }
+
 function getGender($id)
 {
-  dbcon2();
-  $query_emp =mysql_query("SELECT * from gender where id='".$id."'");
-  $value_emp = mysql_fetch_array($query_emp);
-  return $value_emp['gender'];
- 
+    $con = dbcon2(); // Assuming dbcon2() is your mysqli connection function
+    $query = "SELECT * FROM gender WHERE id='$id'";
+    $result = mysqli_query($con, $query);
+    $value_emp = mysqli_fetch_array($result);
+    mysqli_close($con);
+    return $value_emp['gender'];
 }
-function getName($id)
-{
-  dbcon2();
-  $query_emp =mysql_query("SELECT name from resgister_user where emp_no='".$id."'");
-  $value_emp = mysql_fetch_array($query_emp);
-  return $value_emp['name'];
- 
+
+function getName($id) {
+    $con = dbcon2(); // Assuming dbcon2() returns the mysqli connection object
+
+    $query_emp = "SELECT name FROM register_user WHERE emp_no='$id'";
+    $result_emp = mysqli_query($con, $query_emp);
+
+    if (!$result_emp) {
+        die('Error: ' . mysqli_error($con)); // Handle query error gracefully
+    }
+
+    $value_emp = mysqli_fetch_array($result_emp);
+    return ($value_emp) ? $value_emp['name'] : "User not found";
 }
+
 ?>

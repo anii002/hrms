@@ -36,12 +36,12 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								//dbcon2();
 								$query_emp = "SELECT * FROM drmpsurh_cga.applicant_registration where fw_status='0' and added_by='".$_SESSION['unitid']."' ";
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									$id=$value_emp['id'];
 									echo "<input type='hidden' id='tbl_id' name='tbl_id' value='".$id."' >";
@@ -93,9 +93,9 @@
 										<option value="" selected disabled>Select Welfare-Inspector</option>
 										  <?php
 											 
-											 $query_emp =mysql_query("SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='5' AND login.dept='".$_SESSION['dept']."' ");
+											 $query_emp =mysqli_query($con,"SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.resgister_user where resgister_user.emp_no=login.pf_number AND role='5' AND login.dept='".$_SESSION['dept']."' ");
 											 					
-											 while($value_emp = mysql_fetch_array($query_emp))
+											 while($value_emp = mysqli_fetch_array($query_emp))
 											 {
 											  	echo "<option value='".$value_emp['pf_number']."'>".$value_emp['name']."</option>";
 											 }

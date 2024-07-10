@@ -41,9 +41,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								$query = mysql_query("SELECT count(id) as total from drmpsurh_cga.applicant_registration where fw_status='0' AND added_by='".$_SESSION['unitid']."'");
+								$query = mysqli_query($con,"SELECT count(id) as total from drmpsurh_cga.applicant_registration where fw_status='0' AND added_by='".$_SESSION['unitid']."'");
 
-								$resultset = mysql_fetch_array($query);
+								$resultset = mysqli_fetch_array($query);
 								echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -64,9 +64,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								// $query = mysql_query("select count(id) as total from users where role='13'");
+								// $query = mysqli_query("select count(id) as total from users where role='13'");
 
-								// $resultset = mysql_fetch_array($query);
+								// $resultset = mysqli_fetch_array($query);
 								// echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -87,9 +87,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								$query = mysql_query("SELECT count(id) as total from drmpsurh_cga.applicant_registration where fw_status='1' and added_by='".$_SESSION['unitid']."'");
+								$query = mysqli_query($con,"SELECT count(id) as total from drmpsurh_cga.applicant_registration where fw_status='1' and added_by='".$_SESSION['unitid']."'");
 
-								$resultset = mysql_fetch_array($query);
+								$resultset = mysqli_fetch_array($query);
 								echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>

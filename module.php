@@ -108,43 +108,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 
 
-
+    
     if ($name == 'cga') {
         $cga = explode(',', $row['cga']);
-        for ($i = 0; $i < count($cga); $i++) { ?>
+        $roles = [
+            1 => 'Superadmin',
+            2 => 'DRM',
+            3 => 'Sr. DPO',
+            4 => 'DPO',
+            5 => 'Welfare Inspector',
+            6 => 'Confidential Clerk',
+            7 => 'Recruitment Cell',
+            8 => 'DAK Clerk',
+            0 => 'Applicant'
+        ];
+    
+        foreach ($roles as $roleId => $roleLabel) {
+            ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($cga[$i] == 1) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="cga" id="superadmin" value="1"> Superadmin </label>
-                    <?php }
-                    if ($cga[$i] == 2) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="drm" value="2"> DRM </label>
-                    <?php }
-                    if ($cga[$i] == 3) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="srdpo" value="3"> Sr. DPO </label>
-                    <?php }
-                    if ($cga[$i] == 4) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="dpo" value="4"> DPO </label>
-                    <?php }
-                    if ($cga[$i] == 5) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="welfareinspector" value="5"> Welfare Inspector </label>
-                    <?php }
-                    if ($cga[$i] == 6) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="confidentialclerk" value="6"> Confidential Clerk </label>
-                    <?php }
-                    if ($cga[$i] == 7) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="recruitmentcell" value="7"> Recruitment Cell </label>
-                    <?php }
-                    if ($cga[$i] == 8) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="dakclerk" value="8"> DAK Clerk </label>
-                    <?php }
-                    if ($cga[$i] == "0") { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="cga" id="applicant" value="0"> Applicant </label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="cga" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>"
+                            <?php if (in_array($roleId, $cga)) echo 'checked'; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
                 </div>
             </div>
-        <?php }
+            <?php
+        }
     }
+   
+    
 
 
     if ($name == 'itp') {

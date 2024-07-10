@@ -432,7 +432,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/drm/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/drm/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -450,7 +450,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/sr_dpo/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/sr_dpo/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -468,7 +468,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/dpo/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/dpo/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -486,7 +486,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/wi/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/wi/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -504,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/cc/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/cc/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -522,7 +522,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/rcc/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/rcc/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -540,7 +540,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/dec/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/dec/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');
@@ -563,7 +563,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['applicant_name'] = $row_cga1['applicant_name'];
 					$_SESSION['ex_empname'] = $row_cga1['ex_empname'];
 
-					echo "<script>window.location.href='../cga/applicant/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/applicant/index.php';</script>";
 				} else {
 					//exit();
 					echo "<script>
