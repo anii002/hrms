@@ -2,7 +2,7 @@
 	$GLOBALS['flag']="1.8";
 	include('common/header.php');
 	include('common/sidebar.php');
-	dbcon1();
+	$con=dbcon1();
 ?>
 			
 	<div class="page-content-wrapper">

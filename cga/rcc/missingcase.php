@@ -729,8 +729,8 @@ $staion = $ser['station'];
 										<hr>
 										<h4>&emsp;2)Composition of his Family:</h4>
 										<?php
-										$con=dbcon1();
-										$sql = mysqli_query($con,"SELECT * from emp_family_tbl where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
+										$con = dbcon1();
+										$sql = mysqli_query($con, "SELECT * from emp_family_tbl where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
 										$sr = 0;
 										while ($row = mysqli_fetch_array($sql)) {
 											$sr++;
@@ -762,7 +762,7 @@ $staion = $ser['station'];
 																<option value="<?php echo $row['member_relation']; ?>" selected><?php echo getRelation($row['member_relation']); ?> </option>
 																<?php
 
-																$query_emp = mysqli_query($con,"SELECT * from relation");
+																$query_emp = mysqli_query($con, "SELECT * from relation");
 
 																while ($value_emp = mysqli_fetch_array($query_emp)) {
 																	echo "<option value='" . $value_emp['code'] . "'>" . $value_emp['longdesc'] . "</option>";
@@ -808,7 +808,7 @@ $staion = $ser['station'];
 															<select name="m_mstatus_<?php echo $sr; ?>" id="m_mstatus_1" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
 																<option value="<?php echo ($row['marital_status']); ?>" selected><?php echo getMaritailStatus($row['marital_status']); ?></option>
 																<?php
-																$query_emp = mysqli_query($con,"SELECT * from marital_status");
+																$query_emp = mysqli_query($con, "SELECT * from marital_status");
 
 																while ($value_emp = mysqli_fetch_array($query_emp)) {
 																	echo "<option value='" . $value_emp['code'] . "'>" . $value_emp['shortdesc'] . "</option>";
@@ -871,8 +871,8 @@ $staion = $ser['station'];
 										<hr>
 										<h4>&emsp;3)Particulars of Applicant:</h4>
 										<?php
-										$con=dbcon1();
-										$sql = mysqli_query($con,"SELECT str_to_date(applicant_dob,'%d/%m/%Y')as dob,str_to_date(created_at,'%d-%m-%Y')as cre,applicant_registration.* from applicant_registration where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
+										$con = dbcon1();
+										$sql = mysqli_query($con, "SELECT str_to_date(applicant_dob,'%d/%m/%Y')as dob,str_to_date(created_at,'%d-%m-%Y')as cre,applicant_registration.* from applicant_registration where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
 										$result = mysqli_fetch_array($sql);
 										$a_date = substr($result['created_at'], 0, 10);
 
@@ -969,7 +969,7 @@ $staion = $ser['station'];
 														<select name="maritial_status" id="appl_maritial_st" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
 															<option value="<?php echo ($result['mariatial_status']); ?>" selected><?php echo getMaritailStatus($result['mariatial_status']); ?></option>
 															<?php
-															$query_emp = mysqli_query($con,"SELECT * from marital_status");
+															$query_emp = mysqli_query($con, "SELECT * from marital_status");
 
 															while ($value_emp = mysqli_fetch_array($query_emp)) {
 																echo "<option value='" . $value_emp['code'] . "'>" . $value_emp['shortdesc'] . "</option>";
@@ -1027,8 +1027,8 @@ $staion = $ser['station'];
 															<i class="fas fa-id-card"></i>
 														</span>
 														<?php
-														$con=dbcon1();
-														$sql = mysqli_query($con,"SELECT eligible_group from service_particulars where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
+														$con = dbcon1();
+														$sql = mysqli_query($con, "SELECT eligible_group from service_particulars where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
 														$r = mysqli_fetch_array($sql);
 
 														?>
@@ -1054,7 +1054,7 @@ $staion = $ser['station'];
 														<select name="app_rel" id="app_rel" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
 															<option value="<?php echo $result['relation_with']; ?>" selected><?php echo getRelation($result['relation_with']); ?> </option>
 															<?php
-															$query_emp = mysqli_query($con,"SELECT * from relation");
+															$query_emp = mysqli_query($con, "SELECT * from relation");
 
 															while ($value_emp = mysqli_fetch_array($query_emp)) {
 																echo "<option value='" . $value_emp['code'] . "'>" . $value_emp['longdesc'] . "</option>";
@@ -1108,8 +1108,8 @@ $staion = $ser['station'];
 														<option value="<?php echo $result['applicant_gender']; ?>" selected><?php echo getGender($result['applicant_gender']); ?></option>
 
 														<?php
-														$con=dbcon1();
-														$query_emp = mysqli_query($con,"SELECT * from gender");
+														$con = dbcon1();
+														$query_emp = mysqli_query($con, "SELECT * from gender");
 
 														while ($value_emp = mysqli_fetch_array($query_emp)) {
 															echo "<option value='" . $value_emp['id'] . "'>" . $value_emp['gender'] . "</option>";

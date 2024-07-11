@@ -116,9 +116,9 @@ include('control/function.php');
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<?php
-							dbcon1(); 
-							$query = mysql_query("SELECT img from login where username='".$_SESSION['username']."'");
-							$result = mysql_fetch_array($query);
+							$con=dbcon1(); 
+							$query = mysqli_query($con,"SELECT img from login where username='".$_SESSION['username']."'");
+							$result = mysqli_fetch_array($query);
 							if(!isset($_SESSION['profile_image']))
 							{
 						?>
@@ -127,7 +127,7 @@ include('control/function.php');
 							}
 							else
 							{ ?>
-							<img alt="" class="img-circle" src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" />
+							<img alt="" class="img-circle" src="../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
 						<?php } ?>
 					<!-- <img alt="" class="img-circle" src="../assets/admin/layout/img/avatar3_small.jpg"/> -->
 					<span class="username username-hide-on-mobile"><?php echo getName($_SESSION['username']);?>
@@ -139,15 +139,15 @@ include('control/function.php');
 						<!-- <li class="divider">
 						</li> -->
 						<li>
-							<a href="../../../index.php">
+							<a href="../../../hrms/dashboard.php">
 							<i class="fas fa-home"></i>Home</a>
 						</li>
 						<li>
-							<a href="../../../profile.php">
+							<a href="../../../hrms/cga/cc/profile.php">
 							<i class="fas fa-user"></i>Profile</a>
 						</li>
 						<li>
-							<a href="../../../Logout.php">
+							<a href="../../../hrms/Logout.php">
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>
 					</ul>

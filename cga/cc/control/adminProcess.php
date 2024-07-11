@@ -16,11 +16,11 @@ include('adminFunction.php');
 		}
 	break;
   case 'submit_ss':
-    dbcon1();
+    $con=dbcon1();
     $data='';
-       $sql=mysql_query("INSERT INTO `screening_sheet`( `ex_emp_pfno`,`eligible_group`, `curDate`, `date_of_screening`, `ab_code_no`, `marks_obtained`, `remark`) VALUES('".$_POST['p_emp_pfno']."','".$_POST['group']."','".$_POST['curDate']."','".$_POST['appl_dob']."','".$_POST['ab_code']."','".$_POST['total_marks']."','".$_POST['remark']."')");
-       $q=mysql_query("UPDATE applicant_registration set ss_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."'");
-       $qq=mysql_query("UPDATE forward_application set cc_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."' and id='".$_POST['pid']."'");
+       $sql=mysqli_query($con,"INSERT INTO `screening_sheet`( `ex_emp_pfno`,`eligible_group`, `curDate`, `date_of_screening`, `ab_code_no`, `marks_obtained`, `remark`) VALUES('".$_POST['p_emp_pfno']."','".$_POST['group']."','".$_POST['curDate']."','".$_POST['appl_dob']."','".$_POST['ab_code']."','".$_POST['total_marks']."','".$_POST['remark']."')");
+       $q=mysqli_query($con,"UPDATE applicant_registration set ss_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."'");
+       $qq=mysqli_query($con,"UPDATE forward_application set cc_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."' and id='".$_POST['pid']."'");
        if($sql && $q && $qq)
        {
         $data=1;
@@ -32,11 +32,11 @@ include('adminFunction.php');
        echo $data;
     break;
     case 'submit_ss_grp_d':
-    dbcon1();
+      $con=dbcon1();
     $data='';
-       $sql=mysql_query("INSERT INTO `screening_sheet`( `ex_emp_pfno`,`eligible_group`, `curDate`, `date_of_screening`, `ab_code_no`, `marks_obtained`, `remark`) VALUES('".$_POST['p_emp_pfno']."','".$_POST['group']."','".$_POST['curDate']."','','','','".$_POST['remark']."')");
-       $q=mysql_query("UPDATE applicant_registration set ss_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."'");
-       $qq=mysql_query("UPDATE forward_application set cc_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."' and id='".$_POST['pid']."'");
+       $sql=mysqli_query($con,"INSERT INTO `screening_sheet`( `ex_emp_pfno`,`eligible_group`, `curDate`, `date_of_screening`, `ab_code_no`, `marks_obtained`, `remark`) VALUES('".$_POST['p_emp_pfno']."','".$_POST['group']."','".$_POST['curDate']."','','','','".$_POST['remark']."')");
+       $q=mysqli_query($con,"UPDATE applicant_registration set ss_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."'");
+       $qq=mysqli_query($con,"UPDATE forward_application set cc_status=1 where ex_emp_pfno='".$_POST['p_emp_pfno']."' and id='".$_POST['pid']."'");
        if($sql && $q && $qq)
        {
           $data=1;

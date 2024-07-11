@@ -103,8 +103,9 @@ include('common/sidebar.php');
 						<!-- SIDEBAR MENU -->
 						<?php
 						$con = dbcon2();
-						$query = mysqli_query($con, "SELECT mobile,email from drmpsurh_sur_railway.register_user where emp_no='" . $_SESSION['pf_number'] . "' ");
+						$query = mysqli_query($con, "SELECT mobile, emp_email FROM drmpsurh_sur_railway.register_user WHERE emp_no='" . $_SESSION['pf_number'] . "' ");
 						$result = mysqli_fetch_array($query);
+						
 						?>
 						<div class="profile-usermenu">
 							<ul class="nav">

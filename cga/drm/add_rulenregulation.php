@@ -2,7 +2,7 @@
 	$GLOBALS['flag']="11";
 	include('common/header.php');
 	include('common/sidebar.php');
-	dbcon1();
+	$con=dbcon1();
 ?>
 			
 	<div class="page-content-wrapper">
@@ -77,11 +77,11 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								$query_emp = "SELECT * from rules_n_regulations";
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									
 								echo "

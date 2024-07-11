@@ -41,10 +41,10 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								dbcon1();
-								 $query = mysql_query("SELECT count(forward_application.id) as total from forward_application,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and ss_status=0 and hold_status=1 and rcc_note_status=1 and drm_approve=1  ");
+								$con=dbcon1();
+								 $query = mysqli_query($con,"SELECT count(forward_application.id) as total from forward_application,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and ss_status=0 and hold_status=1 and rcc_note_status=1 and drm_approve=1  ");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -65,10 +65,10 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								dbcon1();
-								 $query = mysql_query("SELECT count(forward_application.id) as total from forward_application,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and ss_status=1 and hold_status=1 and rcc_note_status=1 and drm_approve=1 and cc_status=1  ");
+								$con=dbcon1();
+								 $query = mysqli_query($con,"SELECT count(forward_application.id) as total from forward_application,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and ss_status=1 and hold_status=1 and rcc_note_status=1 and drm_approve=1 and cc_status=1  ");
 
-								 $resultset = mysql_fetch_array($query);
+								 $resultset = mysqli_fetch_array($query);
 								 echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -89,9 +89,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-								// $query = mysql_query("select count(id) as total from users where role='12'");
+								// $query = mysqli_query("select count(id) as total from users where role='12'");
 
-								// $resultset = mysql_fetch_array($query);
+								// $resultset = mysqli_fetch_array($query);
 								// echo "<h3>".$resultset['total']."</h3>";
 								?>
 							</div>

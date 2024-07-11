@@ -35,12 +35,12 @@
 							</thead>
 							<tbody>
 								<?php
-								dbcon1();
+								$con=dbcon1();
 								$query_emp = "SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category FROM `forward_application`,applicant_registration,login where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and login.pf_number=forward_application.forward_to_pfno and hold_status='1' AND rcc_note_status='1' AND drm_approve='1'   and ss_status=0 ";
 								
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									 echo "
 								<tr>
@@ -51,8 +51,8 @@
 								<td>".getcase($value_emp['category'])."</td>";
 								
 								 $s=("SELECT eligible_group from service_particulars where ex_emp_pfno='".$value_emp['ex_emp_pfno']."'");
-								$js=mysql_query($s);
-								$rr=mysql_fetch_array($js);
+								$js=mysqli_query($con,$s);
+								$rr=mysqli_fetch_array($js);
 								if($rr['eligible_group']=="Group C")
 								{
 									echo "<td><a class='btn btn-primary btnn' href='group_c.php?id=".$value_emp['id']."&ex_emp_pfno=".$value_emp['ex_emp_pfno']."&username=".$value_emp['username']."&group=".$rr['eligible_group']."'>Show</td>";
@@ -67,11 +67,6 @@
 									echo"<td> </td>";
 								}
 
-								
-								
-								
-								
-								
 								echo "</tr>";
 								} 
 								?>

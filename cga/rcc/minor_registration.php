@@ -535,14 +535,6 @@ $staion = $ser['station'];
 											<label align="left" style="font-size:16px;margin-left:60%;margin-top:25px;">Date:</label>
 										</div>
 									</div>
-
-
-
-
-
-
-
-
 								</div>
 
 								<div class="tab-pane" id="tab_15_3">
@@ -727,16 +719,7 @@ $staion = $ser['station'];
 												</div>
 											</div>
 
-
-
-
-
-
-
 											<!--/span-->
-
-
-
 											<!--/span-->
 										</div>
 										<hr>

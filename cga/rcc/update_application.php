@@ -1774,8 +1774,8 @@ include('common/sidebar.php');
 														<select name="appl_gender" id="appl_gender" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
 															<option value="<?php echo $result['applicant_gender']; ?>" selected><?php echo getGender($result['applicant_gender']); ?></option>
 															<?php
-															$con=dbcon2();
-															$query_emp = mysqli_query($con,"SELECT * from gender");
+															$con = dbcon2();
+															$query_emp = mysqli_query($con, "SELECT * from gender");
 
 															while ($value_emp = mysqli_fetch_array($query_emp)) {
 																echo "<option value='" . $value_emp['id'] . "'>" . $value_emp['gender'] . "</option>";
@@ -1807,8 +1807,8 @@ include('common/sidebar.php');
 											<hr>
 											<h4>&emsp;4)Financial Position of Ex. Employee:</h4>
 											<?php
-											$con=dbcon1();
-											$sql = mysqli_query($con,"SELECT * from financial_position_of_ex_emp where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "'");
+											$con = dbcon1();
+											$sql = mysqli_query($con, "SELECT * from financial_position_of_ex_emp where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "'");
 											$res = mysqli_fetch_array($sql);
 											?>
 											<input type="hidden" name="fp_id" value="<?php echo $res['id']; ?>">
@@ -1882,8 +1882,8 @@ include('common/sidebar.php');
 											<hr>
 											<h4>&emsp;5)Details of Settlement dues paid are as Follows:</h4>
 											<?php
-											$con=dbcon1();
-											$sql = mysqli_query($con,"SELECT * from settlement where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "'");
+											$con = dbcon1();
+											$sql = mysqli_query($con, "SELECT * from settlement where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "'");
 											$res = mysqli_fetch_array($sql);
 											?>
 											<input type="hidden" name="s_id" value="<?php echo $res['id']; ?>">
@@ -1974,8 +1974,8 @@ include('common/sidebar.php');
 
 											<h4>&nbsp;&nbsp;06)</h4>
 											<?php
-											$con=dbcon1();
-											$sq = mysqli_query($con,"SELECT * from fetch_category_data where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
+											$con = dbcon1();
+											$sq = mysqli_query($con, "SELECT * from fetch_category_data where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
 											$sqr = mysqli_fetch_array($sq);
 											?>
 											<input type="hidden" name="fetch_id" value="<?php echo $sqr['id']; ?>">
@@ -2039,8 +2039,8 @@ include('common/sidebar.php');
 											<input type="hidden" name="pid" value="<?php echo $_GET['id']; ?>">
 											<!-- <h3 class="form-section">Add User</h3> -->
 											<?php
-											$con=dbcon1();
-											$sqll = mysqli_query($con,"SELECT * from common_heading_details where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
+											$con = dbcon1();
+											$sqll = mysqli_query($con, "SELECT * from common_heading_details where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
 											$resl1 = mysqli_fetch_array($sqll);
 
 											?>
@@ -2097,8 +2097,8 @@ include('common/sidebar.php');
 											<h4>&emsp;1)Details of Ex. Employee:</h4>
 											<hr>
 											<?php
-											$con=dbcon2();
-											$sql = mysqli_query($con,"SELECT * from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
+											$con = dbcon2();
+											$sql = mysqli_query($con, "SELECT * from register_user where emp_no='" . $_GET['ex_emp_pfno'] . "' ");
 											$res = mysqli_fetch_array($sql);
 
 											?>
@@ -2223,8 +2223,8 @@ include('common/sidebar.php');
 											<hr>
 											<h4>&emsp;2)Details of the Candidate:</h4>
 											<?php
-											$con=dbcon1();
-											$sql = mysqli_query($con,"SELECT str_to_date(applicant_dob,'%d/%m/%Y')as dob,str_to_date(created_at,'%d-%m-%Y')as cre,applicant_registration.* from applicant_registration where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
+											$con = dbcon1();
+											$sql = mysqli_query($con, "SELECT str_to_date(applicant_dob,'%d/%m/%Y')as dob,str_to_date(created_at,'%d-%m-%Y')as cre,applicant_registration.* from applicant_registration where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
 											$result = mysqli_fetch_array($sql);
 											$a_date = substr($result['created_at'], 0, 10);
 
@@ -2320,8 +2320,8 @@ include('common/sidebar.php');
 															<select name="maritial_status" id="appl_maritial_st" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
 																<option value="<?php echo ($result['mariatial_status']); ?>" selected><?php echo getMaritailStatus($result['mariatial_status']); ?></option>
 																<?php
-																$con=dbcon2();
-																$query_emp = mysqli_query($con,"select * from marital_status");
+																$con = dbcon2();
+																$query_emp = mysqli_query($con, "select * from marital_status");
 
 																while ($value_emp = mysqli_fetch_array($query_emp)) {
 																	echo "<option value='" . $value_emp['code'] . "'>" . $value_emp['shortdesc'] . "</option>";
@@ -2379,8 +2379,8 @@ include('common/sidebar.php');
 																<i class="fas fa-id-card"></i>
 															</span>
 															<?php
-															$con=dbcon1();
-															$sql = mysqli_query($con,"SELECT eligible_group from service_particulars where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
+															$con = dbcon1();
+															$sql = mysqli_query($con, "SELECT eligible_group from service_particulars where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
 															$r = mysqli_fetch_array($sql);
 
 															?>
@@ -2406,8 +2406,8 @@ include('common/sidebar.php');
 															<select name="app_rel" id="app_rel" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
 																<option value="<?php echo $result['relation_with']; ?>" selected><?php echo getRelation($result['relation_with']); ?> </option>
 																<?php
-																$con=dbcon1();
-																$query_emp = mysqli_query($con,"select * from relation");
+																$con = dbcon1();
+																$query_emp = mysqli_query($con, "select * from relation");
 
 																while ($value_emp = mysqli_fetch_array($query_emp)) {
 																	echo "<option value='" . $value_emp['code'] . "'>" . $value_emp['longdesc'] . "</option>";

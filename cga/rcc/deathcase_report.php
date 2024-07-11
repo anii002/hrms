@@ -18,7 +18,6 @@ $staion = $ser['station'];
 			display: none !important;
 			display: block;
 		}
-
 	}
 
 	@media print {
@@ -1271,9 +1270,9 @@ include 'common/footer.php';
 								<select name="fw_to_pfno" id="fw_to_pfno" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 									<option value="" selected disabled>Select DPO Officer</option>
 									<?php
-									dbcon2();
-									dbcon1();
-									$query_emp = mysqli_query("SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='4' ");
+									$con = dbcon2();
+									$con = dbcon1();
+									$query_emp = mysqli_query($con, "SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='4' ");
 
 									while ($value_emp = mysqli_fetch_array($query_emp)) {
 										echo "<option value='" . $value_emp['pf_number'] . "'>" . $value_emp['name'] . "</option>";
@@ -1378,7 +1377,6 @@ include 'common/footer.php';
 <script type="text/javascript">
 	function print_button() {
 		$(".main-footer").hide();
-
 		$(".btnboom").hide();
 		$(".right").hide();
 		$(".print3").show();

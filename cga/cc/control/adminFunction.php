@@ -9,11 +9,11 @@ session_start();
 
 function changeimg($name,$tmp_name)
 {
-  dbcon1();
+    $con=dbcon1();
 	$upload_dir = "../profile/".$_SESSION['empid'].".jpg";
 	$dir = "profile/".$_SESSION['empid'].".jpg";
 	if (move_uploaded_file($tmp_name, $upload_dir)) {
-		$query = mysql_query("update users set img='$dir' where empid='".$_SESSION['empid']."'");
+		$query = mysqlii_query($con,"update users set img='$dir' where empid='".$_SESSION['empid']."'");
         return true;
     } else {
         return false;

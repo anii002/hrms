@@ -35,9 +35,6 @@ $staion = $ser['station'];
 		border-top: 1px solid #CCC;
 	}
 
-
-
-
 	.tab-content {
 		border-top: none;
 	}
@@ -769,8 +766,8 @@ $staion = $ser['station'];
 													</thead>
 													<tbody>
 														<?php
-														$con=dbcon1();
-														$sql = mysqli_query($con,"SELECT * from emp_family_tbl where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
+														$con = dbcon1();
+														$sql = mysqli_query($con, "SELECT * from emp_family_tbl where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
 														$sr = 0;
 														while ($res = mysqli_fetch_array($sql)) {
 															$sr++;
@@ -802,8 +799,8 @@ $staion = $ser['station'];
 												<table border="1" style="width: 85%;">
 													<tbody>
 														<?php
-														$con=dbcon1();
-														$sql = mysqli_query($con,"SELECT str_to_date(applicant_dob,'%d/%m/%Y')as dob,str_to_date(created_at,'%d-%m-%Y')as cre,applicant_registration.* from applicant_registration where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
+														$con = dbcon1();
+														$sql = mysqli_query($con, "SELECT str_to_date(applicant_dob,'%d/%m/%Y')as dob,str_to_date(created_at,'%d-%m-%Y')as cre,applicant_registration.* from applicant_registration where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' ");
 														$result = mysqli_fetch_array($sql);
 														$a_date = substr($result['created_at'], 0, 10);
 
@@ -905,8 +902,8 @@ $staion = $ser['station'];
 												<table border="1" style="width: 85%;">
 													<tbody>
 														<?php
-														$con=dbcon1();
-														$sql = mysqli_query($con,"SELECT * from financial_position_of_ex_emp where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "' ");
+														$con = dbcon1();
+														$sql = mysqli_query($con, "SELECT * from financial_position_of_ex_emp where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "' ");
 														$result = mysqli_fetch_array($sql);
 
 														?>
@@ -952,7 +949,7 @@ $staion = $ser['station'];
 												<table border="1" style="width: 85%;">
 													<tbody>
 														<?php
-														$sql = mysqli_query($con,"SELECT * from settlement where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "' ");
+														$sql = mysqli_query($con, "SELECT * from settlement where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category='" . $_GET['case'] . "' ");
 														$result = mysqli_fetch_array($sql);
 
 														?>
@@ -1001,7 +998,7 @@ $staion = $ser['station'];
 
 
 										<?php
-										$sql = mysqli_query($con,"SELECT * from fetch_category_data where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category_id='" . $_GET['case'] . "'");
+										$sql = mysqli_query($con, "SELECT * from fetch_category_data where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "' and category_id='" . $_GET['case'] . "'");
 										$res = mysqli_fetch_array($sql);
 
 										?>
@@ -1062,7 +1059,7 @@ $staion = $ser['station'];
 
 										<!--    3nd page code------------------------------------------ -->
 										<?php
-										$sql = mysqli_query($con,"SELECT * from common_heading_details where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
+										$sql = mysqli_query($con, "SELECT * from common_heading_details where ex_emp_pfno='" . $_GET['ex_emp_pfno'] . "'");
 										$res = mysqli_fetch_array($sql);
 
 										?>
@@ -1165,9 +1162,9 @@ include 'common/footer.php';
 								<select name="fw_to_pfno" id="fw_to_pfno" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 									<option value="" selected disabled>Select DPO Officer</option>
 									<?php
-									$con=dbcon2();
-									$con=dbcon1();
-									$query_emp = mysqli_query($con,"SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='4' ");
+									$con = dbcon2();
+									$con = dbcon1();
+									$query_emp = mysqli_query($con, "SELECT name as name,login.pf_number as pf_number,login.* from drmpsurh_cga.login,drmpsurh_sur_railway.register_user where register_user.emp_no=login.pf_number AND role='4' ");
 
 									while ($value_emp = mysqli_fetch_array($query_emp)) {
 										echo "<option value='" . $value_emp['pf_number'] . "'>" . $value_emp['name'] . "</option>";

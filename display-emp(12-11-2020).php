@@ -1,18 +1,18 @@
 <?php
-$GLOBALS['flag']="5";
- require_once 'common/db.php';
- require_once 'common/header.php';
-    
-        $id = $_SESSION['user_id'];
-        
-        $sql = "SELECT * FROM user_permission WHERE id = '$id'";
-        $result = mysql_query($sql);
-        $row = mysql_fetch_assoc($result);     
+$GLOBALS['flag'] = "5";
+require_once 'common/db.php';
+require_once 'common/header.php';
 
-        $sql_fetch = "SELECT * FROM register_user";
-        $result_fetch = mysql_query($sql_fetch);
+$id = $_SESSION['user_id'];
 
- 
+$sql = "SELECT * FROM user_permission WHERE id = '$id'";
+$result = mysql_query($sql);
+$row = mysql_fetch_assoc($result);
+
+$sql_fetch = "SELECT * FROM register_user";
+$result_fetch = mysql_query($sql_fetch);
+
+
 ?>
 
 
@@ -48,41 +48,40 @@ $GLOBALS['flag']="5";
             <tbody>
 
                 <?php $i = 1;
-     while ( $row_fetch = mysql_fetch_assoc($result_fetch)) { 
-         if($row_fetch['delete_status'] != 1)
-        {
-        ?>
-                <tr>
-                    <th><?php echo $i; ?></th>
-                    <td><?php echo $row_fetch['emp_no']; ?></td>
-                    <td><?php echo $row_fetch['name']; ?></td>
-                    <td>
-                        <?php 
-                   $dept = $row_fetch['department']; 
-                   $sql_dept = "SELECT DEPTDESC FROM department WHERE DEPTNO = '$dept'";
-                   $result_dept = mysql_query($sql_dept);
-                   $row_dept = mysql_fetch_assoc($result_dept);
-                   echo $row_dept['DEPTDESC'];
-      ?>
-                    </td>
-                    <td>
-                        <?php
-         $desig = $row_fetch['designation']; 
-         $sql_desig = "SELECT DESIGLONGDESC FROM designations WHERE DESIGCODE = '$desig'";
-         $result_desig = mysql_query($sql_desig);
-         $row_desig = mysql_fetch_assoc($result_desig);
-         echo $row_desig['DESIGLONGDESC']; 
-        ?>
-                    </td>
-                    <td><?php echo $row_fetch['dob']; ?></td>
-                    <td>
-                        <a href="edit-emp.php?id=<?php echo $row_fetch['id']; ?>"
-                            class="btn btn-success btn-sm">Update</a>
-                        <a data-toggle="modal" data-target="#delete1" onClick="del1(<?php echo $row_fetch['id']; ?>)"
-                            style="margin-top: 2px;" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                <?php $i++; } } ?>
+                while ($row_fetch = mysql_fetch_assoc($result_fetch)) {
+                    if ($row_fetch['delete_status'] != 1) {
+                ?>
+                        <tr>
+                            <th><?php echo $i; ?></th>
+                            <td><?php echo $row_fetch['emp_no']; ?></td>
+                            <td><?php echo $row_fetch['name']; ?></td>
+                            <td>
+                                <?php
+                                $dept = $row_fetch['department'];
+                                $sql_dept = "SELECT DEPTDESC FROM department WHERE DEPTNO = '$dept'";
+                                $result_dept = mysql_query($sql_dept);
+                                $row_dept = mysql_fetch_assoc($result_dept);
+                                echo $row_dept['DEPTDESC'];
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                $desig = $row_fetch['designation'];
+                                $sql_desig = "SELECT DESIGLONGDESC FROM designations WHERE DESIGCODE = '$desig'";
+                                $result_desig = mysql_query($sql_desig);
+                                $row_desig = mysql_fetch_assoc($result_desig);
+                                echo $row_desig['DESIGLONGDESC'];
+                                ?>
+                            </td>
+                            <td><?php echo $row_fetch['dob']; ?></td>
+                            <td>
+                                <a href="edit-emp.php?id=<?php echo $row_fetch['id']; ?>" class="btn btn-success btn-sm">Update</a>
+                                <a data-toggle="modal" data-target="#delete1" onClick="del1(<?php echo $row_fetch['id']; ?>)" style="margin-top: 2px;" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                <?php $i++;
+                    }
+                } ?>
             </tbody>
         </table>
     </div>
@@ -253,8 +252,7 @@ $GLOBALS['flag']="5";
 <div class="control-sidebar-bg"></div>
 </div>
 
-<div id="delete1" class="modal modal-width fade modal-scroll" data-replace="true" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="delete1" class="modal modal-width fade modal-scroll" data-replace="true" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-header btn-orange-moon">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Delete</h4>
@@ -285,16 +283,16 @@ $GLOBALS['flag']="5";
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-});
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
 </script>
 
 
 <script type="text/javascript">
-function del1(id) {
-    $('#id').val(id);
-}
+    function del1(id) {
+        $('#id').val(id);
+    }
 </script>
 
 

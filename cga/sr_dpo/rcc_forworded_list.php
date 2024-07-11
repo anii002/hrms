@@ -2,7 +2,7 @@
 	$GLOBALS['flag']="1.8";
 	include('common/header.php');
 	include('common/sidebar.php');
-	dbcon1();
+	$con=dbcon1();
 ?>
 			
 	<div class="page-content-wrapper">
@@ -38,10 +38,10 @@
 							<tbody>
 								<?php
 								$query_emp = "SELECT * FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and  forward_from_pfno='".$_SESSION['pf_number']."' and return_status=0  group by forward_application.ex_emp_pfno order by forward_application.id desc  ";
-								$result_emp = mysql_query($query_emp);
-								echo mysql_error();
+								$result_emp = mysqli_query($con,$query_emp);
+								echo mysqli_error($con);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									
 									if($value_emp['hold_status']==1 || $value_emp['hold_status']==0)

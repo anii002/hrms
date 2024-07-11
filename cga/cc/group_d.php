@@ -32,9 +32,9 @@
               $date=date('d/m/Y') 
               ?>
 							<label  style="font-size:14px;margin-top:15px;margin-left: 80%;"><b>Date:<?php 
-              dbcon1();
-              $sql=mysql_query("SELECT screening_sheet.remark as remark,curDate,applicant_registration.ss_status from applicant_registration,screening_sheet where screening_sheet.ex_emp_pfno=applicant_registration.ex_emp_pfno and screening_sheet.ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
-              $res=mysql_fetch_array($sql);
+              $con=dbcon1();
+              $sql=mysqli_query($con,"SELECT screening_sheet.remark as remark,curDate,applicant_registration.ss_status from applicant_registration,screening_sheet where screening_sheet.ex_emp_pfno=applicant_registration.ex_emp_pfno and screening_sheet.ex_emp_pfno='".$_GET['ex_emp_pfno']."'");
+              $res=mysqli_fetch_array($sql);
               if($res['ss_status']==1)
               {
                 echo $res['curDate'];
@@ -81,10 +81,10 @@
             					</thead>
             					<tbody>
             						 <?php
-                         dbcon1();
-                         dbcon2();
-                          $sql1=mysql_query("SELECT applicant_name,applicant_dob,caste,applicant_qualifiaction,name,designation,station from drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.register_user where applicant_registration.ex_emp_pfno=register_user.emp_no and  emp_no='".$_GET['ex_emp_pfno']."'");
-                          $res1=mysql_fetch_array($sql1);
+                         $con=dbcon1();
+                         $con= dbcon2();
+                          $sql1=mysqli_query($con,"SELECT applicant_name,applicant_dob,caste,applicant_qualifiaction,name,designation,station from drmpsurh_cga.applicant_registration,drmpsurh_sur_railway.register_user where applicant_registration.ex_emp_pfno=register_user.emp_no and  emp_no='".$_GET['ex_emp_pfno']."'");
+                          $res1=mysqli_fetch_array($sql1);
                         ?>
                         <tr>
                           <td>1</td>

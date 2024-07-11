@@ -394,7 +394,6 @@ include 'common/footer.php';
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-
 								<select name="fw_to_pfno" id="fw_to_pfno" class="select2me form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 									<option value="" selected disabled>Select DPO Officer</option>
 									<?php

@@ -2,7 +2,7 @@
 	$GLOBALS['flag']="1.6";
 	include('common/header.php');
 	include('common/sidebar.php');
-	dbcon1();
+	$con=dbcon1();
 ?>
 			
 	<div class="page-content-wrapper">
@@ -41,9 +41,9 @@
 							<?php
 								 $query_emp = "SELECT forward_application.id,forward_application.ex_emp_pfno as ex_emp_pfno,forward_application.applicant_username as username,applicant_registration.ex_empname as ex_empname,applicant_name,category,forward_application.remark,arrived_time,hold_status FROM `forward_application`,applicant_registration where forward_application.ex_emp_pfno=applicant_registration.ex_emp_pfno and forward_application.applicant_username=applicant_registration.username  AND  return_status='1' and drm_approve=0 and rcc_note_status=0 AND forward_from_pfno='".$_SESSION['pf_number']."' ";
 								
-								$result_emp = mysql_query($query_emp);
+								$result_emp = mysqli_query($con,$query_emp);
 								$sr=1;
-								while($value_emp = mysql_fetch_array($result_emp))
+								while($value_emp = mysqli_fetch_array($result_emp))
 								{
 									if($value_emp['hold_status']==1 || $value_emp['hold_status']==0 )
 									{

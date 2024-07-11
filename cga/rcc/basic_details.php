@@ -30,7 +30,6 @@ include('common/sidebar.php');
 								<a href="#tab_15_2" data-toggle="tab">
 									nomination note </a>
 							</li>
-
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active h" id="tab_15_1">
@@ -511,8 +510,6 @@ include 'common/footer.php';
 
 	function pannumber(inputtxt) {
 		var phoneno = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
-
-
 		if ((inputtxt.value.match(phoneno))) {
 			return true;
 
