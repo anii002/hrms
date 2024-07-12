@@ -3,82 +3,77 @@ require_once('../dbconfig/dbcon.php');
 
 error_reporting(0);
 
-function bill_depot1($id) 
+function bill_depot1($id)
 {
 	$conn = dbcon();
-	if (!empty($id)) 
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `billunit` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		if($res = $result->fetch_assoc()) {
+		if ($res = $result->fetch_assoc()) {
 			return $res['billunit'] . "&nbsp;" . $res['deopt'];
 		}
 	}
 	return $id;
 }
 
-function bill_depot($id) 
+function bill_depot($id)
 {
 	$conn = dbcon();
-	if (!empty($id)) 
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `billunit` WHERE `billunit` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		if($res = $result->fetch_assoc()) {
+		if ($res = $result->fetch_assoc()) {
 			return $res['billunit'] . "&nbsp;" . $res['deopt'];
 		}
 	}
 	return $id;
 }
 
-function bill_id($id) 
+function bill_id($id)
 {
 	$conn = dbcon();
-	if (!empty($id)) 
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `billunit` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		if($res = $result->fetch_assoc()) {
+		if ($res = $result->fetch_assoc()) {
 			return $res['id'];
 		}
 	}
 	return $id;
 }
 
-function bill_to_id($id) 
+function bill_to_id($id)
 {
- $conn = dbcon1();
+	$conn = dbcon1();
 
-	if (!empty($id)) 
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `billunit` WHERE `billunit` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		if($res = $result->fetch_assoc()) {
+		if ($res = $result->fetch_assoc()) {
 			return $res['id'];
 		}
 	}
 	return $id;
 }
-	
 
 
-function get_religion($id) 
+
+function get_religion($id)
 {
 	$conn = dbcon();
-	if (!empty($id)) 
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `religion` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -94,8 +89,7 @@ function get_religion($id)
 function get_community($id)
 {
 	$conn = dbcon();
-	if (!empty($id))
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `community` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -108,11 +102,10 @@ function get_community($id)
 	return $id;
 }
 
-function get_depot($id) 
+function get_depot($id)
 {
 	$conn = dbcon();
-	if (!empty($id))
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `billunit` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -125,9 +118,9 @@ function get_depot($id)
 	return $id;
 }
 
-function get_ps($id) 
+function get_ps($id)
 {
-	if($id == 1)
+	if ($id == 1)
 		return 'Scale';
 	else
 		return 'Level';
@@ -136,8 +129,7 @@ function get_ps($id)
 function get_gender($id)
 {
 	$conn = dbcon();
-	if (!empty($id))
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM gender WHERE id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -153,8 +145,7 @@ function get_gender($id)
 function get_group($id)
 {
 	$conn = dbcon();
-	if (!empty($id))
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM group_col WHERE id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -167,11 +158,10 @@ function get_group($id)
 	return $id;
 }
 
-function get_department($id) 
+function get_department($id)
 {
 	$conn = dbcon();
-	if (!empty($id)) 
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `department` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -187,8 +177,7 @@ function get_department($id)
 function get_designation($id)
 {
 	$conn = dbcon();
-	if (!empty($id))
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `designation` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -204,8 +193,7 @@ function get_designation($id)
 function get_appointment_type($id)
 {
 	$conn = dbcon();
-	if (!empty($id))
-	{
+	if (!empty($id)) {
 		$sql = "SELECT * FROM `appointment_type` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
@@ -234,7 +222,7 @@ function get_medi_category($id)
 	return $id;
 }
 
-function get_station($id) 
+function get_station($id)
 {
 	$conn = dbcon();
 	if (!empty($id)) {
@@ -250,7 +238,7 @@ function get_station($id)
 	return $id;
 }
 
-function get_billunit($id) 
+function get_billunit($id)
 {
 	$conn = dbcon();
 	if (!empty($id)) {
@@ -282,7 +270,7 @@ function get_prtf_type($id)
 	return $id;
 }
 
-function get_advance($id) 
+function get_advance($id)
 {
 	$conn = dbcon();
 	if (!empty($id)) {
@@ -298,7 +286,7 @@ function get_advance($id)
 	return $id;
 }
 
-function get_relation($id) 
+function get_relation($id)
 {
 	$conn = dbcon();
 	if (!empty($id)) {
@@ -314,7 +302,7 @@ function get_relation($id)
 	return $id;
 }
 
-function get_nom_type($id) 
+function get_nom_type($id)
 {
 	$conn = dbcon();
 	if (!empty($id)) {
@@ -329,8 +317,8 @@ function get_nom_type($id)
 	}
 	return $id;
 }
-	
-	
+
+
 function got_mr($mr)
 {
 	$conn = dbcon();
@@ -579,253 +567,251 @@ function get_penalty_type($mr)
 	}
 	return $mr;
 }
-	
+
 function get_increment_type($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT increment_type FROM increment_type WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['increment_type'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT increment_type FROM increment_type WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['increment_type'];
+		}
+	}
+	return $mr;
 }
 
 function get_awarded_by($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT awarded_by FROM awarded_by WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['awarded_by'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT awarded_by FROM awarded_by WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['awarded_by'];
+		}
+	}
+	return $mr;
 }
 
 function get_awards($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT awards FROM awards WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['awards'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT awards FROM awards WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['awards'];
+		}
+	}
+	return $mr;
 }
 
 function get_property_type($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT type FROM property_type WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['type'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT type FROM property_type WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['type'];
+		}
+	}
+	return $mr;
 }
 
 function get_property_item($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT item FROM property_item WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['item'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT item FROM property_item WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['item'];
+		}
+	}
+	return $mr;
 }
 
 function get_property_source($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT property_source FROM property_source WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['property_source'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT property_source FROM property_source WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['property_source'];
+		}
+	}
+	return $mr;
 }
 
 function get_training_type($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT type FROM training_type WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['type'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT type FROM training_type WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['type'];
+		}
+	}
+	return $mr;
 }
 
 function get_charge_sheet_status($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT charge_sheet_status FROM charge_sheet_status WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['charge_sheet_status'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT charge_sheet_status FROM charge_sheet_status WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['charge_sheet_status'];
+		}
+	}
+	return $mr;
 }
 
 function get_emp_name($mr)
 {
-    $conn = dbcon1();
-    if (!empty($mr)) {
-        $sql = "SELECT emp_name FROM biodata_temp WHERE pf_number = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($fetch_mr = $result->fetch_assoc()) {
-            return $fetch_mr['emp_name'];
-        }
-    }
-    return $mr;
+	$conn = dbcon1();
+	if (!empty($mr)) {
+		$sql = "SELECT emp_name FROM biodata_temp WHERE pf_number = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($fetch_mr = $result->fetch_assoc()) {
+			return $fetch_mr['emp_name'];
+		}
+	}
+	return $mr;
 }
 
 function get_billunit_report($mr)
 {
-    $conn = dbcon();
-    if (!empty($mr)) {
-        $sql = "SELECT id FROM billunit WHERE billunit = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $mr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($f = $result->fetch_assoc()) {
-            return $f['id'];
-        }
-    }
-    return $mr;
+	$conn = dbcon();
+	if (!empty($mr)) {
+		$sql = "SELECT id FROM billunit WHERE billunit = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $mr);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($f = $result->fetch_assoc()) {
+			return $f['id'];
+		}
+	}
+	return $mr;
 }
-	
+
 function get_fam_name($id)
 {
-    $conn1 = dbcon1();
-    if (!empty($id)) {
-        $sql = "SELECT fmy_member FROM family_temp WHERE id = ?";
-        $stmt = $conn1->prepare($sql);
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($res = $result->fetch_assoc()) {
-            return $res['fmy_member'];
-        }
-    }
-    return $id;
+	$conn1 = dbcon1();
+	if (!empty($id)) {
+		$sql = "SELECT fmy_member FROM family_temp WHERE id = ?";
+		$stmt = $conn1->prepare($sql);
+		$stmt->bind_param("s", $id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($res = $result->fetch_assoc()) {
+			return $res['fmy_member'];
+		}
+	}
+	return $id;
 }
 
 function get_retirement_type($id)
 {
-    $conn = dbcon();
-    if (!empty($id)) {
-        $sql = "SELECT retirement_type FROM retirement_type WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($res = $result->fetch_assoc()) {
-            return $res['retirement_type'];
-        }
-    }
-    return $id;
+	$conn = dbcon();
+	if (!empty($id)) {
+		$sql = "SELECT retirement_type FROM retirement_type WHERE id = ?";
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("s", $id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if ($res = $result->fetch_assoc()) {
+			return $res['retirement_type'];
+		}
+	}
+	return $id;
 }
 
 function get_pf_designation($pf)
 {
-    $conn1 = dbcon1();
-    $sql = "SELECT preapp_designation FROM present_work_temp WHERE preapp_pf_number = ?";
-    $stmt = $conn1->prepare($sql);
-    $stmt->bind_param("s", $pf);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($res = $result->fetch_assoc()) {
-        return get_designation($res['preapp_designation']);
-    }
-    return null;
+	$conn1 = dbcon1();
+	$sql = "SELECT preapp_designation FROM present_work_temp WHERE preapp_pf_number = ?";
+	$stmt = $conn1->prepare($sql);
+	$stmt->bind_param("s", $pf);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($res = $result->fetch_assoc()) {
+		return get_designation($res['preapp_designation']);
+	}
+	return null;
 }
 
 function get_pf_aadhar($pf)
 {
-    $conn1 = dbcon1();
-    $sql = "SELECT aadhar_number FROM biodata_temp WHERE pf_number = ?";
-    $stmt = $conn1->prepare($sql);
-    $stmt->bind_param("s", $pf);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($res = $result->fetch_assoc()) {
-        return $res['aadhar_number'];
-    }
-    return null;
+	$conn1 = dbcon1();
+	$sql = "SELECT aadhar_number FROM biodata_temp WHERE pf_number = ?";
+	$stmt = $conn1->prepare($sql);
+	$stmt->bind_param("s", $pf);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($res = $result->fetch_assoc()) {
+		return $res['aadhar_number'];
+	}
+	return null;
 }
 
 function get_pf_department($pf)
 {
-    $conn1 = dbcon1();
-    $sql = "SELECT preapp_department FROM present_work_temp WHERE preapp_pf_number = ?";
-    $stmt = $conn1->prepare($sql);
-    $stmt->bind_param("s", $pf);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($res = $result->fetch_assoc()) {
-        return $res['preapp_department'];
-    }
-    return null;
+	$conn1 = dbcon1();
+	$sql = "SELECT preapp_department FROM present_work_temp WHERE preapp_pf_number = ?";
+	$stmt = $conn1->prepare($sql);
+	$stmt->bind_param("s", $pf);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($res = $result->fetch_assoc()) {
+		return $res['preapp_department'];
+	}
+	return null;
 }
 
 function get_pf_billunit($billunit)
 {
-    $conn1 = dbcon1();
-    $sql = "SELECT preapp_billunit FROM present_work_temp WHERE preapp_pf_number = ?";
-    $stmt = $conn1->prepare($sql);
-    $stmt->bind_param("s", $billunit);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($res = $result->fetch_assoc()) {
-        return $res['preapp_billunit'];
-    }
-    return null;
+	$conn1 = dbcon1();
+	$sql = "SELECT preapp_billunit FROM present_work_temp WHERE preapp_pf_number = ?";
+	$stmt = $conn1->prepare($sql);
+	$stmt->bind_param("s", $billunit);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($res = $result->fetch_assoc()) {
+		return $res['preapp_billunit'];
+	}
+	return null;
 }
-
-?>

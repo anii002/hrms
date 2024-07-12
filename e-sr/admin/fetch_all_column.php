@@ -1,27 +1,27 @@
 <?php
-require_once('../dbconfig/dbcon.php');
+// require_once('../dbconfig/dbcon.php');
 
 function get_medical_classi($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `medical_classi` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['longdesc'] . "</option>";
 		}
 		$sql = "SELECT * FROM `medical_classi` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['longdesc'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `medical_classi`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select PME--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['longdesc'] . "</option>";
 		}
 	}
@@ -30,25 +30,25 @@ function get_medical_classi($id)
 
 function fetch_all_dept($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `department` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['DEPTDESC'] . "</option>";
 		}
 		$sql = "SELECT * FROM `department` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['DEPTDESC'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `department`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select department--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['DEPTDESC'] . "</option>";
 		}
 	}
@@ -57,25 +57,25 @@ function fetch_all_dept($id)
 
 function fetch_all_desig($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `designation` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['desiglongdesc'] . "</option>";
 		}
 		$sql = "SELECT * FROM `designation` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['desiglongdesc'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `designation`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select designation--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['desiglongdesc'] . "</option>";
 		}
 	}
@@ -84,25 +84,25 @@ function fetch_all_desig($id)
 
 function fetch_all_group($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `group_col` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['group_col'] . "</option>";
 		}
 		$sql = "SELECT * FROM `group_col` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['group_col'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `group_col`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select group--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['group_col'] . "</option>";
 		}
 	}
@@ -111,23 +111,23 @@ function fetch_all_group($id)
 
 function fetch_all_scale($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
-		$sql = mysql_query("select * from `scale` where `6_cpc_scale`='$id'");
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` where `6_cpc_scale`='$id'");
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option selected value='" . $result['6_cpc_scale'] . "'-'" . $result['gradepay'] . "'>" . $result['6_cpc_scale'] . "-" . $result['gradepay'] . "</option>";
 		}
 
-		$sql1 = mysql_query("select * from `scale` where `6_cpc_scale`<>'$id'");
-		while ($result1 = mysql_fetch_array($sql1)) {
+		$sql1 = mysqli_query($conn, "select * from `scale` where `6_cpc_scale`<>'$id'");
+		while ($result1 = mysqli_fetch_array($sql1)) {
 			$data .= "<option value='" . $result1['6_cpc_scale'] . "'-'" . $result1['gradepay'] . "'>" . $result1['6_cpc_scale'] . "-" . $result1['gradepay'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT distinct(6_cpc_scale) FROM `scale`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select scale--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['6_cpc_scale'] . "'>" . $res['6_cpc_scale'] . "</option>";
 		}
 	}
@@ -135,54 +135,57 @@ function fetch_all_scale($id)
 }
 function fetch_all_level($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
-	if (!empty($id)) {
 
-		$sql = "SELECT 7_pc_level FROM `scale` WHERE `7_pc_level` = '" . $id . "'";
-		//echo "<script>alert('SELECT 7_pc_level FROM `scale` WHERE `7_pc_level` = "'.$id.'"');</script>";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+	if (!empty($id)) {
+		$sql = "SELECT 7_pc_level FROM `scale` WHERE `7_pc_level` = '" . mysqli_real_escape_string($conn, $id) . "'";
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['7_pc_level'] . "'>" . $res['7_pc_level'] . "</option>";
 		}
-		$sql1 = "SELECT 7_pc_level FROM `scale` WHERE `7_pc_level` <> '" . $id . "'";
-		//echo "SELECT 7_pc_level FROM `scale` WHERE `7_pc_level` <> '".$id."'".mysql_error();
-		$query1 = mysql_query($sql1) or trigger_error("Query Failed: " . mysql_error());
-		while ($res1 = mysql_fetch_array($query1)) {
+
+		$sql1 = "SELECT 7_pc_level FROM `scale` WHERE `7_pc_level` <> '" . mysqli_real_escape_string($conn, $id) . "'";
+		$query1 = mysqli_query($conn, $sql1) or trigger_error("Query Failed: " . mysqli_error($conn));
+
+		while ($res1 = mysqli_fetch_array($query1)) {
 			$data .= "<option value='" . $res1['7_pc_level'] . "'>" . $res1['7_pc_level'] . "</option>";
 		}
 	} else {
 		$sql2 = "SELECT 7_pc_level FROM `scale`";
-		//echo "SELECT 7_pc_level FROM `scale`".mysql_error();
-		$query2 = mysql_query($sql2) or trigger_error("Query Failed: " . mysql_error());
+		$query2 = mysqli_query($conn, $sql2) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected disabled value=''>--select level--</option>";
-		while ($res = mysql_fetch_array($query)) {
+
+		while ($res2 = mysqli_fetch_array($query2)) {
 			$data .= "<option value='" . $res2['7_pc_level'] . "'>" . $res2['7_pc_level'] . "</option>";
 		}
 	}
+
 	return $data;
 }
+
 function fetch_all_appo_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `appointment_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `appointment_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `appointment_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select appointment_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -191,25 +194,25 @@ function fetch_all_appo_type($id)
 
 function get_all_pme($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `medical_pme_class` WHERE `pme_class` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['pme_class'] . "'>" . $res['pme_class'] . "</option>";
 		}
 		$sql = "SELECT * FROM `medical_pme_class` WHERE `pme_class` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['pme_class'] . "'>" . $res['pme_class'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `medical_pme_class`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select PME--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['pme_class'] . "'>" . $res['pme_class'] . "</option>";
 		}
 	}
@@ -218,25 +221,25 @@ function get_all_pme($id)
 
 function get_all_appo_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `appointment_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `appointment_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `appointment_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select appointment_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -245,25 +248,25 @@ function get_all_appo_type($id)
 
 function get_all_pay_scale_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `pay_scale_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `pay_scale_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `pay_scale_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='' disabled	>--select pay_scale_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -271,25 +274,25 @@ function get_all_pay_scale_type($id)
 }
 function get_all_order_type_pro_rev($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `order_type_pro_rev` WHERE `shortdesc` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['shortdesc'] . "'>" . $res['longdesc'] . "</option>";
 		}
 		$sql = "SELECT * FROM `order_type_pro_rev` WHERE `shortdesc` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['shortdesc'] . "'>" . $res['longdesc'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `order_type_pro_rev`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select order type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['shortdesc'] . "'>" . $res['longdesc'] . "</option>";
 		}
 	}
@@ -298,25 +301,25 @@ function get_all_order_type_pro_rev($id)
 
 function get_all_order_type_transfer($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `order_type_transfer` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `order_type_transfer` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `order_type_transfer`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select order type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -325,25 +328,25 @@ function get_all_order_type_transfer($id)
 
 function get_all_order_type_fixation($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `order_type_fixation` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `order_type_fixation` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `order_type_fixation`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select order type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -352,25 +355,25 @@ function get_all_order_type_fixation($id)
 
 function get_all_penalty_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `penalty_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `penalty_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `penalty_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select penalty--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -378,19 +381,19 @@ function get_all_penalty_type($id)
 }
 /* function get_all_penalty_type($id) 
 	{
-		dbcon();
+		$conn=dbcon();
 		$data = "";
 		if (!empty($id)) 
 		{
 			
 			$sql = "SELECT * FROM `penalty_type` WHERE `id` = '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-			while($res=mysql_fetch_array($query)){
+			$query = mysqli_query($sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+			while($res=mysqli_fetch_array($query)){
 				$data = "<option selected value='".$res['id']."'>".$res['type']."</option>";
 			}	
 			$sql = "SELECT * FROM `penalty_type` WHERE `id` <> '".$id."'";
-			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-			while($res=mysql_fetch_array($query)){
+			$query = mysqli_query($sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+			while($res=mysqli_fetch_array($query)){
 				$data .= "<option value='".$res['id']."'>".$res['type']."</option>";
 			}	
 		}
@@ -398,25 +401,25 @@ function get_all_penalty_type($id)
 	} */
 function get_all_increment_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `increment_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['increment_type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `increment_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['increment_type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `increment_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select increment_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['increment_type'] . "</option>";
 		}
 	}
@@ -424,25 +427,25 @@ function get_all_increment_type($id)
 }
 function get_all_awarded_by($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `awarded_by` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['awarded_by'] . "</option>";
 		}
 		$sql = "SELECT * FROM `awarded_by` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['awarded_by'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `awarded_by`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select awarded_by--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['awarded_by'] . "</option>";
 		}
 	}
@@ -450,25 +453,25 @@ function get_all_awarded_by($id)
 }
 function get_all_awards($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `awards` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['awards'] . "</option>";
 		}
 		$sql = "SELECT * FROM `awards` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['awards'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `awards`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select awards--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['awards'] . "</option>";
 		}
 	}
@@ -476,25 +479,25 @@ function get_all_awards($id)
 }
 function get_all_advance($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `advance` WHERE `short_desc` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['long_desc'] . "</option>";
 		}
 		$sql = "SELECT * FROM `advance` WHERE `short_desc` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['long_desc'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `advance`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select advance--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['long_desc'] . "</option>";
 		}
 	}
@@ -502,25 +505,25 @@ function get_all_advance($id)
 }
 function get_all_property_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `property_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `property_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `property_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select property_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -529,25 +532,25 @@ function get_all_property_type($id)
 
 function get_all_property_item($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `property_item` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['item'] . "</option>";
 		}
 		$sql = "SELECT * FROM `property_item` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['item'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `property_item`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select property_item--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['item'] . "</option>";
 		}
 	}
@@ -556,25 +559,25 @@ function get_all_property_item($id)
 
 function get_all_property_source($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `property_source` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['property_source'] . "</option>";
 		}
 		$sql = "SELECT * FROM `property_source` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['property_source'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `property_source`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select property_source--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['property_source'] . "</option>";
 		}
 	}
@@ -582,25 +585,25 @@ function get_all_property_source($id)
 }
 function fetchtraining_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 
 		$sql = "SELECT * FROM `training_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `training_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `training_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['type'] . "</option>";
 		}
 	}
@@ -609,17 +612,17 @@ function fetchtraining_type($id)
 
 function get_chargesheet($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "<option value=''></option>";
 	if (!empty($id)) {
 
-		$sql_status = mysql_query("select * from charge_sheet_status where id='$id'");
-		while ($status_sql = mysql_fetch_array($sql_status)) {
+		$sql_status = mysqli_query($conn, "select * from charge_sheet_status where id='$id'");
+		while ($status_sql = mysqli_fetch_array($sql_status)) {
 			$data .= "<option value='" . $status_sql['id'] . "' selected>" . $status_sql['charge_sheet_status'] . "</option>";
 		}
 
-		$sql_status = mysql_query("select * from charge_sheet_status where id<>'$id'");
-		while ($status_sql = mysql_fetch_array($sql_status)) {
+		$sql_status = mysqli_query($conn, "select * from charge_sheet_status where id<>'$id'");
+		while ($status_sql = mysqli_fetch_array($sql_status)) {
 			$data .= "<option value='" . $status_sql['id'] . "'>" . $status_sql['charge_sheet_status'] . "</option>";
 		}
 	}
@@ -628,15 +631,15 @@ function get_chargesheet($id)
 
 function get_all_scale($id, $value)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if ($value == '2' || $value == '3') {
-		$sql = mysql_query("select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale='$id'");
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale='$id'");
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['6_cpc_scale'] . "'>" . $result['6_cpc_scale'] . "</option>";
 		}
-		$sql = mysql_query("select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale<>'$id'");
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale<>'$id'");
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['6_cpc_scale'] . "'>" . $result['6_cpc_scale'] . "</option>";
 		}
 	} else if ($value == '4') {
@@ -650,23 +653,23 @@ function get_all_scale($id, $value)
 			else
 				$str .= "-" . $array[$i];
 		}
-		$sql = mysql_query("select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale='" . $str . "' AND gradepay='" . $array[$leng] . "'");
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale='" . $str . "' AND gradepay='" . $array[$leng] . "'");
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option selected value='" . $result['6_cpc_scale'] . "-" . $result['gradepay'] . "'>" . $result['6_cpc_scale'] . "-" . $result['gradepay'] . " </option>";
 		}
-		$sql = mysql_query("select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale<>'" . $array[0] . "' AND gradepay<>'" . $array[$leng] . "'");
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` where `pay_scale_type`='$value' AND 6_cpc_scale<>'" . $array[0] . "' AND gradepay<>'" . $array[$leng] . "'");
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['6_cpc_scale'] . "-" . $result['gradepay'] . "'>" . $result['6_cpc_scale'] . "-" . $result['gradepay'] . " </option>";
 		}
 	} else if ($value == '5') {
-		$sql = mysql_query("select * from `scale` 7_pc_level='$id'");
-		//echo "select * from `scale` 7_pc_level='$id'".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` 7_pc_level='$id'");
+		//echo "select * from `scale` 7_pc_level='$id'".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option selected value='" . $result['7_pc_level'] . "'>" . $result['7_pc_level'] . "</option>";
 		}
-		$sql = mysql_query("select * from `scale` where 7_pc_level<>'$id'");
-		//echo "select * from `scale` where 7_pc_level<>'$id'".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from `scale` where 7_pc_level<>'$id'");
+		//echo "select * from `scale` where 7_pc_level<>'$id'".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['7_pc_level'] . "'>" . $result['7_pc_level'] . "</option>";
 		}
 	} else if ($value == '1') {
@@ -681,7 +684,7 @@ function get_all_scale($id, $value)
 
 function get_pro_source($src, $amt, $cnt)
 {
-	dbcon();
+	$conn = dbcon();
 	$v = '';
 	$sql = "SELECT * FROM `property_source`";
 	$data = '';
@@ -697,9 +700,9 @@ function get_pro_source($src, $amt, $cnt)
 				$v = $i + 1;
 				$data .= "<br><div class='col-md-6 col-sm-12 col-xs-12'><div class='form-group'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Source Type</label><div class='col-md-8 col-sm-8 col-xs-12' ><select name='pd_sourcr_type" . $cnt . "[" . $v . "]' id='pd_sourcr_type" . $cnt . "' class='form-control select2' style='margin-top:0px; width:100%;' required><option disabled selected >Select Source Type</option>";
 
-				$result = mysql_query($sql);
+				$result = mysqli_query($conn, $sql);
 				if ($result) {
-					while ($education_data = mysql_fetch_array($result)) {
+					while ($education_data = mysqli_fetch_array($result)) {
 						if ($src_data[$i] == $education_data['id']) {
 							$data .= "<option value='" . $education_data['id'] . "' selected>" . $education_data['property_source'] . "</option>";
 						} else {
@@ -721,24 +724,24 @@ function get_pro_source($src, $amt, $cnt)
 
 function get_all_relation($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = '';
 
 	if (!empty($id)) {
-		$sql = mysql_query("select * from relation where code='$id'");
-		//echo "select * from relation where id='$id'".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from relation where code='$id'");
+		//echo "select * from relation where id='$id'".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['code'] . "'>" . $result['longdesc'] . "</option>";
 		}
-		$sql1 = mysql_query("select * from relation where code<>'$id'");
-		//echo "select * from relation where id<>'$id'".mysql_error();
-		while ($result1 = mysql_fetch_array($sql1)) {
+		$sql1 = mysqli_query($conn, "select * from relation where code<>'$id'");
+		//echo "select * from relation where id<>'$id'".mysqli_error($conn);
+		while ($result1 = mysqli_fetch_array($sql1)) {
 			$data .= "<option value='" . $result1['code'] . "'>" . $result1['longdesc'] . "</option>";
 		}
 	} else {
-		$sql = mysql_query("select * from relation");
-		//echo "select * from relation".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn, "select * from relation");
+		//echo "select * from relation".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['code'] . "'>" . $result['longdesc'] . "</option>";
 		}
 	}
@@ -747,23 +750,23 @@ function get_all_relation($id)
 
 function get_family_member($id, $pf)
 {
-	dbcon1();
+	$conn1 = dbcon1();
 	$data = '';
 	if (!empty($id) and !empty($pf)) {
-		$sql = mysql_query("select * from family_temp where emp_pf='$pf' and id='$id'");
-		//echo "select * from family_temp where emp_pf='$pf' and id='$id'".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn1, "select * from family_temp where emp_pf='$pf' and id='$id'");
+		//echo "select * from family_temp where emp_pf='$pf' and id='$id'".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data = "<option value='" . $result['id'] . "' selected>" . $result['fmy_member'] . "</option>";
 		}
-		$sql = mysql_query("select * from family_temp where emp_pf='$pf'");
-		//echo "select * from family_temp where emp_pf='$pf'".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn1, "select * from family_temp where emp_pf='$pf'");
+		//echo "select * from family_temp where emp_pf='$pf'".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['id'] . "'>" . $result['fmy_member'] . "</option>";
 		}
 	} else {
-		$sql = mysql_query("select * from family_temp where emp_pf='$pf'");
-		//echo "select * from family_temp where emp_pf='$pf'".mysql_error();
-		while ($result = mysql_fetch_array($sql)) {
+		$sql = mysqli_query($conn1, "select * from family_temp where emp_pf='$pf'");
+		//echo "select * from family_temp where emp_pf='$pf'".mysqli_error($conn);
+		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['id'] . "'>" . $result['fmy_member'] . "</option>";
 		}
 	}
@@ -772,24 +775,24 @@ function get_family_member($id, $pf)
 
 function get_all_nom_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 		$sql = "SELECT * FROM `nominee_order_type` WHERE `order_type` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['order_type'] . "'>" . $res['order_type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `nominee_order_type` WHERE `order_type` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['order_type'] . "'>" . $res['order_type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `nominee_order_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select property_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['order_type'] . "'>" . $res['order_type'] . "</option>";
 		}
 	}
@@ -798,24 +801,24 @@ function get_all_nom_type($id)
 
 function fetch_retirement_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 		$sql = "SELECT * FROM `retirement_type` WHERE `id` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['retirement_type'] . "</option>";
 		}
 		$sql = "SELECT * FROM `retirement_type` WHERE `id` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['retirement_type'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `retirement_type`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select property_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['retirement_type'] . "</option>";
 		}
 	}
@@ -849,24 +852,24 @@ function get_last_dues($type, $amt)
 
 function fetch_all_sub_penalty_type($id)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($id)) {
 		$sql = "SELECT * FROM `major_minor_penalty` WHERE `penalty_type` = '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['penalty_name'] . "</option>";
 		}
 		$sql = "SELECT * FROM `major_minor_penalty` WHERE `penalty_type` <> '" . $id . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['penalty_name'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `major_minor_penalty`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank'>--select property_type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['penalty_name'] . "</option>";
 		}
 	}
@@ -875,25 +878,25 @@ function fetch_all_sub_penalty_type($id)
 
 function fetch_all_saved_sub_penalty_type($p_sub, $p_type)
 {
-	dbcon();
+	$conn = dbcon();
 	$data = "";
 	if (!empty($p_sub)) {
 		$sql = "SELECT * FROM `major_minor_penalty` WHERE `id` = '" . $p_sub . "'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option selected value='" . $res['id'] . "'>" . $res['penalty_name'] . "</option>";
 		}
 
 		$sql = "SELECT * FROM `major_minor_penalty` WHERE `penalty_type` = '" . $p_type . "' and id <> '$p_sub'";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
-		while ($res = mysql_fetch_array($query)) {
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['penalty_name'] . "</option>";
 		}
 	} else {
 		$sql = "SELECT * FROM `major_minor_penalty`";
-		$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		$data = "<option selected value='blank' selected disabled hidden>--select Penalty Sub Type--</option>";
-		while ($res = mysql_fetch_array($query)) {
+		while ($res = mysqli_fetch_array($query)) {
 			$data .= "<option value='" . $res['id'] . "'>" . $res['penalty_name'] . "</option>";
 		}
 	}

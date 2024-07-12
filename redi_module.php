@@ -414,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['dept'] = $row_cga['dept'];
 					$_SESSION['admin_id'] = $row_cga['id'];
 
-					echo "<script>window.location.href='../cga/superadmin/index.php';</script>";
+					echo "<script>window.location.href='../hrms/cga/superadmin/index.php';</script>";
 				} else {
 					echo "<script>
     				alert('Your Login is restricted! Please Contact to Administrator');

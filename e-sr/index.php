@@ -10,7 +10,7 @@ unset($_SESSION['SESS_MEMBER_NAME']);
 
 // Include the database connection file
 include('dbconfig/dbcon.php');
-dbcon();
+$conn = dbcon();
 
 // Check if 'name' index is set in the session
 if (isset($_SESSION['name']) && $_SESSION['name'] == 'guest') {
@@ -45,8 +45,7 @@ ini_set('error_reporting', E_ALL);
 
 ?>
 
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
 <head>
@@ -116,19 +115,17 @@ ini_set('error_reporting', E_ALL);
       increaseArea: '50%' // optional
     });
   });
-</script-->
+</script -->
         <div class="login-box-body" style="background: #0000002b;border-radius:15px;">
             <h3 class="login-box-msg" style="padding:10px;border-radius:15px;">Sign-In</h3><br>
 
             <form id="login_form" method="post" role="form" action="login.php">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Enter Username" name="username" maxlength="20"
-                        style="border-radius:10px;" id="username" required>
+                    <input type="text" class="form-control" placeholder="Enter Username" name="username" maxlength="20" style="border-radius:10px;" id="username" required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" style="border-radius:10px;" placeholder="Password"
-                        name="password" maxlength="20" id="password" required>
+                    <input type="password" class="form-control" style="border-radius:10px;" placeholder="Password" name="password" maxlength="20" id="password" required>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row form-group has-feedback">
@@ -141,8 +138,7 @@ ini_set('error_reporting', E_ALL);
         </div-->
                     <!-- /.col -->
                     <div class="col-xs-12">
-                        <button type="submit" data-placement="top" title="Click Here to Sign In" id="signin"
-                            name="login" class="btn btn-primary btn-block  btn-flat" style="border-radius:15px;">Log
+                        <button type="submit" data-placement="top" title="Click Here to Sign In" id="signin" name="login" class="btn btn-primary btn-block  btn-flat" style="border-radius:15px;">Log
                             In</button>
                     </div>
 
@@ -156,10 +152,10 @@ ini_set('error_reporting', E_ALL);
             </form>
 
             <script type="text/javascript">
-            $(document).ready(function() {
-                $('#signin').tooltip('show');
-                $('#signin').tooltip('hide');
-            });
+                $(document).ready(function() {
+                    $('#signin').tooltip('show');
+                    $('#signin').tooltip('hide');
+                });
             </script>
             <!--a href="register.php" class="text-center">Register a new membership</a-->
 
@@ -198,7 +194,7 @@ ini_set('error_reporting', E_ALL);
 					return false;
 				});
 			});
-			</script -->
+			</!--script -->
 
     </div>
 

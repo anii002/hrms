@@ -60,14 +60,18 @@ include('common/sidebar.php');
         <input type="hidden" name="curDate" id="curDate" value="<?php echo $date; ?>">
         <input type="hidden" id="pid" name="pid" value="<?php echo $_GET['id']; ?>">
         <input type="hidden" id="p_emp_pfno" name="p_emp_pfno" value="<?php echo $_GET['ex_emp_pfno']; ?>">
-        <input type="hidden" id="group" name="group" value="<?php echo $_GET['group']; ?>">
+        <?php
+        $group = isset($_GET['group']) ? $_GET['group'] : '';
+        ?>
+        <input type="hidden" id="group" name="group" value="<?php echo htmlspecialchars($group); ?>">
+
+         /* <input type="hidden" id="group" name="group" value="<php echo $_GET['group']; ?>">  */
 
         <div class="form-body">
           <!-- <h3 class="form-section">Add User</h3> -->
           <div class="row">
             <div style="margin-left: 25px" class="table-responsive">
               <table border="1" style="width: 85%;">
-
               </table>
             </div>
           </div>

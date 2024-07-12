@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
  echo $_SESSION['SESSION_ROLE'];
-require_once('../dbconfig/dbcon.php');
+// require_once('../dbconfig/dbcon.php');
  $conn1 = dbcon1();
  ?>
 
@@ -53,7 +53,7 @@ require_once('../dbconfig/dbcon.php');
     <!-- Logo -->
     <a href="index.php" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b></b></span>
+        <!-- <span class="logo-mini"><b></b></span> -->
         <!-- logo for regular state and mobile devices -->
 
         <!--link rel="shortcut icon" href="../resources/admin/images.jpg"-->

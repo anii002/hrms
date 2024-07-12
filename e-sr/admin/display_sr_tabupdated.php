@@ -8,7 +8,7 @@ include_once('../global/sidebaradmin.php');
 //error_reporting(0);
 include('mini_function.php');
 include_once('../dbconfig/dbcon.php');
-dbcon1();
+$conn1=dbcon1();
 
 
 ?>
@@ -83,7 +83,7 @@ dbcon1();
 				        }
 					 }
 			//Appointment
-					dbcon1();
+					$conn1=dbcon1();
 					$query=mysql_query("Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysql_error());
 						//$resultset = mysql_fetch_array($query);
 						while($result=mysql_fetch_array($query))
@@ -111,7 +111,7 @@ dbcon1();
 						}
 					  
 			 // Present Appointment
-					dbcon1();
+					$conn1=dbcon1();
 					$pf_no=$_GET['pf'];
 					$query=mysql_query("Select * from present_work_temp where preapp_pf_number='$pf_no'");
 					while($result=mysql_fetch_assoc($query))
@@ -152,7 +152,7 @@ dbcon1();
 						}
 						
 		 /*	//prtf code	 
-			dbcon1();
+			$conn1=dbcon1();
 					$pf_no=$_GET['pf'];
 					$query=mysql_query("Select * from prft_temp where prft_pf_number='$pf_no' ");
 					while($result=mysql_fetch_assoc($query))
@@ -186,7 +186,7 @@ dbcon1();
 					
 						}
 				//Nominee Query
-				dbcon1();
+				$conn1=dbcon1();
 					$nominee=mysql_query("select * from nominee_temp where nom_pf_number='$pf_no'");
 					while($fetch_nominee=mysql_fetch_array($nominee))
 						{
@@ -209,7 +209,7 @@ dbcon1();
 						}
 					*/
 				//awards query
-				dbcon1();
+				$conn1=dbcon1();
 					$sql=mysql_query("select * from  award_temp where awd_pf_number='$pf_no'");
 					if($sql){
 						while($fetch_sql=mysql_fetch_array($sql))
@@ -224,7 +224,7 @@ dbcon1();
 					}
 
 				//advance query
-				dbcon1();
+				$conn1=dbcon1();
 				$sql=mysql_query("select * from  advance_temp where adv_pf_number='$pf_no'");
 				if($sql){
 						while($fetch_sql=mysql_fetch_array($sql))
@@ -279,7 +279,7 @@ dbcon1();
 				  }*/
 				//Penalty fetch query
 				 //Umesh Code Here
-				 dbcon1();
+				 $conn1=dbcon1();
 				  $query=mysql_query("Select * from penalty_temp where pen_pf_number='$pf_no'");
 					 while($result=mysql_fetch_assoc($query))
 					 {
@@ -922,7 +922,7 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 			} 
 			
 			//Last Entry query
-				dbcon1();
+				$conn1=dbcon1();
 				$pf_no=$_GET['pf'];
 				
 					$query=mysql_query("Select * from lastentry_temp where pf_number='$pf_no' ");
@@ -1215,7 +1215,7 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
                 </thead>
                 <tbody>
                <?php 
-					dbcon1();
+					$conn1=dbcon1();
 					$sql=mysql_query("select * from medical_temp where medi_pf_number='$pf_no'");
 					$cnt=1;
 					while($result=mysql_fetch_array($sql))
@@ -1796,7 +1796,7 @@ higher grade than substansive grade?<span class=""></span></label></td>
 
 
 
-dbcon1();
+$conn1=dbcon1();
 				$sql=mysql_query("select * from  penalty_track where pen_pf_number='$pf_no' ORDER BY ID DESC");
 		
 			$data=[];
@@ -2075,7 +2075,7 @@ dbcon1();
 				}
 				else{
 					
-					 dbcon1();
+					 $conn1=dbcon1();
 				  $query=mysql_query("Select * from penalty_track where pen_pf_number='$pf_no'");
 					 $result=mysql_fetch_assoc($query);
 					 
@@ -2233,7 +2233,7 @@ dbcon1();
 
 <!---- advance details---->
 <?php
-dbcon1();
+$conn1=dbcon1();
 				$sql=mysql_query("select * from  advance_track where adv_pf_number='$pf_no'");
 				if($sql){
 					echo'   <div class="tab-pane" id="advance">';
@@ -2446,7 +2446,7 @@ dbcon1();
 
 
 
-dbcon1();
+$conn1=dbcon1();
 				$sql=mysql_query("select * from  award_track where awd_pf_number='$pf_no' ORDER BY ID DESC");
 		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysql_error();
 			$data=[];
@@ -2617,7 +2617,7 @@ dbcon1();
 				}
 				}
 				else{
-					dbcon1();
+					$conn1=dbcon1();
 					$sql=mysql_query("select * from  award_track where awd_pf_number='$pf_no'");
 					if($sql){
 						while($fetch_sql=mysql_fetch_array($sql))
@@ -2987,7 +2987,7 @@ dbcon1();
 <div class="tab-pane" id="training">
 <?php
 
-			dbcon1();
+			$conn1=dbcon1();
 				$sql=mysql_query("select *from  training_track where pf_number='$pf_no' ORDER BY ID DESC");
 		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysql_error();
 			$data=[];
@@ -3475,56 +3475,46 @@ dbcon1();
 
 
 <script>
-$(".back_btn").click(function(){
-	window.location='sr_search.php';
+$(document).ready(function(){
+    // Handle back button click
+    $(".back_btn").click(function(){
+        window.location='sr_search.php';
+    });
+
+    // Toggle visibility based on pre_wk value
+    var pre_wk = <?php echo $sgd_dropdwn; ?>;
+    if (pre_wk == 0) {
+        $("#sgd_ogd_no").show();
+        $("#sgd_ogd_yes").hide();
+    } else {
+        $("#sgd_ogd_no").hide();
+        $("#sgd_ogd_yes").show();
+    }
+
+    // Combine similar click handlers
+    $(document).on("click", ".click_pro, .click_open", function(){
+        var pf = $("#hidden_pfno").val();
+        var val = $(this).data('val');
+        var tblName = $(this).data('tbl-name');
+        var colNm = $(this).data('col-nm');
+        
+        $.ajax({
+            type: "post",
+            url: "process.php",
+            data: {
+                action: 'fetch_history',
+                pf: pf,
+                val: val,
+                tbl_name: tblName,
+                col_nm: colNm
+            },
+            success: function(data){
+                $(".display_history").html(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.error("AJAX Request failed: " + textStatus + ", " + errorThrown);
+            }
+        });
+    });
 });
-
-var pre_wk=<?php echo $sgd_dropdwn;?>;
-if(pre_wk==0)
-{
-	$("#sgd_ogd_no").show();
-	$("#sgd_ogd_yes").hide();
-}else{
-	$("#sgd_ogd_no").hide();
-	$("#sgd_ogd_yes").show();
-}
-
-
-$(document).on("click",".click_pro",function(){
-	var pf = $("#hidden_pfno").val();
-	var val = $(this).attr('val');
-	var val1 = $(this).attr('tbl_name');
-	var val2 = $(this).attr('col_nm');
-	 $.ajax({
-		type:"post",
-		url:"process.php",
-		data:"action=fetch_history&pf="+pf+"&val="+val+"&val1="+val1+"&val2="+val2,
-		success:function(data){
-		//  alert(data);
-		  $(".display_history").html(data);
-		  }
-	});
-});
-
-
-$(document).on("click",".click_open",function(){
-	var pf = $("#hidden_pfno").val();
-	var val = $(this).attr('val');
-	var val1 = $(this).attr('tbl_name');
-	var val2 = $(this).attr('col_nm');
-	 $.ajax({
-		type:"post",
-		url:"process.php",
-		data:"action=fetch_history&pf="+pf+"&val="+val+"&val1="+val1+"&val2="+val2,
-		success:function(data){
-		//  alert(data);
-		  $(".display_history").html(data);
-		  }
-	});
-});
-
-
-
-
-
 </script>

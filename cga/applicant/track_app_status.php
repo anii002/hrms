@@ -22,8 +22,8 @@
 					
 					<?php
 												
-						$qry2 = mysql_query("SELECT `empname` FROM `prmaemp` WHERE empno = '".$_SESSION['ex_emp_pfno']."'  ");
-						$row2 = mysql_fetch_array($qry2);
+						$qry2 = mysqli_query($con,"SELECT `empname` FROM `prmaemp` WHERE empno = '".$_SESSION['ex_emp_pfno']."'  ");
+						$row2 = mysqli_fetch_array($qry2);
 						
 						
 					?>

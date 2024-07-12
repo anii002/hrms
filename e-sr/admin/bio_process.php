@@ -9,11 +9,11 @@ if (isset($_REQUEST['action'])) {
 		case 'get_bio_data':
 			$data = '';
 			session_start();
-			dbcon1();
+			$conn1=dbcon1();
 			$bio_sql = "SELECT * FROM `biodata_temp` WHERE `pf_number` = '".$_SESSION['set_update_pf']."'";
-			$bio_query = mysql_query($bio_sql);
+			$bio_query = mysqli_query($conn1,$bio_sql);
 			if($bio_query){
-				while($bio_data = mysql_fetch_assoc($bio_query)){
+				while($bio_data = mysqli_fetch_assoc($bio_query)){
 					$data .= $bio_data['oldpf_number']."$".$bio_data['identity_number']."$".$bio_data['sr_no']."$".date('d-m-Y',strtotime($bio_data['dob']))."$".$bio_data['aadhar_number']."$".$bio_data['emp_name']."$".$bio_data['emp_old_name']."$".get_gender_data($bio_data['gender'])."$".get_marital_status($bio_data['marrital_status'])."$".$bio_data['f_h_name']."$".$bio_data['cug']."$".$bio_data['mobile_number']."$".$bio_data['nps_no']."$".$bio_data['ruid_no']."$".$bio_data['pan_number']."$".$bio_data['email']."$".$bio_data['present_address']."$".get_state_data($bio_data['pre_statecode'])."$".get_pincode_data($bio_data['pre_pincode'],$bio_data['pre_statecode'])."$".$bio_data['permanent_address']."$".get_state_data($bio_data['per_statecode'])."$".get_pincode_data($bio_data['per_pincode'],$bio_data['pre_statecode'])."$".get_mark_data($bio_data['identification_mark'])."$".get_reli_data($bio_data['religion'])."$".get_community_data($bio_data['community'])."$".$bio_data['caste']."$".get_recruitment_data($bio_data['recruit_code'])."$".get_group_data($bio_data['group_col'])."$".get_iniEduction($bio_data['education_ini'], $bio_data['edu_desc_ini'])."$".get_subEduction($bio_data['education_sub'], $bio_data['edu_desc_sub'])."$".$bio_data['bank_name']."$".$bio_data['account_number']."$".$bio_data['micr_number']."$".$bio_data['ifsc_code']."$".$bio_data['bank_address']."$".$bio_data['pf_number']."$".$bio_data['imagefile']."$".$bio_data['f_h_selction'];
 				}
 				echo $data;
@@ -34,10 +34,10 @@ if (isset($_REQUEST['action'])) {
 			$img="";
 			$bio_dob=date('Y-m-d', strtotime($_POST['bio_dob']));
 			
-			dbcon1();
+			$conn1=dbcon1();
 			
-			$bio_sql1 = mysql_query("SELECT `imagefile` FROM `biodata_temp` WHERE `pf_number` = '".$_SESSION['set_update_pf']."'") or die(mysql_error());
-				while($result1=mysql_fetch_array($bio_sql1)){
+			$bio_sql1 = mysqli_query($conn1,"SELECT `imagefile` FROM `biodata_temp` WHERE `pf_number` = '".$_SESSION['set_update_pf']."'") or die(mysqli_error($conn1));
+				while($result1=mysqli_fetch_array($bio_sql1)){
 					$img=$result1['imagefile'];
 				}
 			
@@ -99,7 +99,7 @@ if (isset($_REQUEST['action'])) {
 			
 			if(!empty($_FILES['imgs']['name']))
 			{
-				$s_q=mysql_query("update `biodata_temp` set `imagefile`='' where `pf_number`='$bio_pf_number'")or die(mysql_error());
+				$s_q=mysqli_query($conn1,"update `biodata_temp` set `imagefile`='' where `pf_number`='$bio_pf_number'")or die(mysqli_error($conn1));
 				
 				$img_name=$_FILES['imgs']['name'];
 				$img_tmp_name=$_FILES['imgs']['tmp_name'];
@@ -191,8 +191,8 @@ if (isset($_REQUEST['action'])) {
 						$temp = explode(".", $name_array[$i]);
 						$newfilename = rand(1000,99999) . '.' . end($temp);
 						
-						$q=mysql_query("select count from sr_doc where pf_number='$bio_pf_no' order by id desc limit 1");
-						$f=mysql_fetch_array($q);
+						$q=mysqli_query($conn1,"select count from sr_doc where pf_number='$bio_pf_no' order by id desc limit 1");
+						$f=mysqli_fetch_array($q);
 						if($f['count']!="")
 						{
 							$count=$f['count']+1;
@@ -200,7 +200,7 @@ if (isset($_REQUEST['action'])) {
 							$count=$count+1;
 						}
 						
-						$sql_img=mysql_query("insert into sr_doc(pf_number,biodata,count,update_date,uploaded_by) values('$bio_pf_no','$newfilename','$count',CURRENT_TIMESTAMP,'1')")or die(mysql_error());
+						$sql_img=mysqli_query($conn1,"insert into sr_doc(pf_number,biodata,count,update_date,uploaded_by) values('$bio_pf_no','$newfilename','$count',CURRENT_TIMESTAMP,'1')")or die(mysqli_error($conn1));
 						
 						$action="Inserted Biodata Scanned Document in SR Doc Table";
 						$action_on=$bio_pf_no;
@@ -217,23 +217,23 @@ if (isset($_REQUEST['action'])) {
 			 
 			
 		    
-			$check=mysql_query("select * from biodata_temp where pf_number='".$_SESSION['set_update_pf']."'"); 
-			$result_check=mysql_num_rows($check);
+			$check=mysqli_query($conn1,"select * from biodata_temp where pf_number='".$_SESSION['set_update_pf']."'"); 
+			$result_check=mysqli_num_rows($check);
 			
 			if($result_check==0){
 				
-				$result1=mysql_query("insert into `biodata_temp`(`zone`,`temp_transaction_id`,`division`,`pf_number`, `oldpf_number`, `identity_number`, `sr_no`, `dob`, `mobile_number`, `emp_name`, `emp_old_name`, `f_h_selction`, `f_h_name`, `cug`, `aadhar_number`, `email`, `pan_number`, `present_address`, `permanent_address`,`identification_mark`, `religion`, `community`, `caste`, `gender`, `recruit_code`, `group_col`,`education_ini`,`edu_desc_ini`,`education_sub`,`edu_desc_sub`,`bank_name`, `account_number`, `micr_number`, `ifsc_code`, `reis_no`, `ruid_no`, `nps_no`, `bank_address`,`imagefile`,`marrital_status`,`pre_statecode`,`pre_pincode`,`per_statecode`,`per_pincode`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`)values('01','$trans_id','SUR','$bio_pf_no','$bio_oldpf_no','$bio_id_no','$bio_sr_no','$bio_dob','$bio_mob','$bio_emp_name','$bio_emp_old_name','$bio_rdobtn_selection','$bio_rdobtn_name','$bio_cug','$bio_aadhar','$bio_email','$bio_pan','$bio_p_addr','$bio_pre_addr','$all_bio_mark','$bio_religion','$bio_commu','$bio_cast','$bio_gender','$bio_req_code','$bio_grp','$all_bio_edu','$all_bio_edu_desc','$all_bio_edu_sub','$all_bio_edu_desc_sub','$bio_bank_name','$bio_acc_no','$bio_micr','$bio_ifsc','$bio_reis','$bio_ruid','$bio_pran','$bio_bank_address','$newfilename','$bio_marriage_status','$state_code','$pincode','$state_code_2','$pincode_2','$update_by',Now(),'','','','','','','','')");
+				$result1=mysqli_query($conn1,"insert into `biodata_temp`(`zone`,`temp_transaction_id`,`division`,`pf_number`, `oldpf_number`, `identity_number`, `sr_no`, `dob`, `mobile_number`, `emp_name`, `emp_old_name`, `f_h_selction`, `f_h_name`, `cug`, `aadhar_number`, `email`, `pan_number`, `present_address`, `permanent_address`,`identification_mark`, `religion`, `community`, `caste`, `gender`, `recruit_code`, `group_col`,`education_ini`,`edu_desc_ini`,`education_sub`,`edu_desc_sub`,`bank_name`, `account_number`, `micr_number`, `ifsc_code`, `reis_no`, `ruid_no`, `nps_no`, `bank_address`,`imagefile`,`marrital_status`,`pre_statecode`,`pre_pincode`,`per_statecode`,`per_pincode`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`)values('01','$trans_id','SUR','$bio_pf_no','$bio_oldpf_no','$bio_id_no','$bio_sr_no','$bio_dob','$bio_mob','$bio_emp_name','$bio_emp_old_name','$bio_rdobtn_selection','$bio_rdobtn_name','$bio_cug','$bio_aadhar','$bio_email','$bio_pan','$bio_p_addr','$bio_pre_addr','$all_bio_mark','$bio_religion','$bio_commu','$bio_cast','$bio_gender','$bio_req_code','$bio_grp','$all_bio_edu','$all_bio_edu_desc','$all_bio_edu_sub','$all_bio_edu_desc_sub','$bio_bank_name','$bio_acc_no','$bio_micr','$bio_ifsc','$bio_reis','$bio_ruid','$bio_pran','$bio_bank_address','$newfilename','$bio_marriage_status','$state_code','$pincode','$state_code_2','$pincode_2','$update_by',Now(),'','','','','','','','')");
 				
-				$result2 = mysql_query("insert into `biodata_track`(`zone`, `temp_transaction_id`, `final_transaction_id`, `division`, `pf_number`, `oldpf_number`, `identity_number`, `sr_no`, `dob`, `mobile_number`, `emp_name`, `emp_old_name`, `f_h_selction`, `f_h_name`, `cug`, `aadhar_number`, `email`, `pan_number`, `present_address`, `permanent_address`, `identification_mark`, `religion`, `community`, `caste`, `gender`, `recruit_code`, `group_col`, `education_ini`, `edu_desc_ini`, `education_sub`, `edu_desc_sub`, `bank_name`, `account_number`, `micr_number`, `ifsc_code`, `ruid_no`, `nps_no`, `bank_address`, `imagefile`, `marrital_status`, `pre_statecode`, `pre_pincode`, `per_statecode`, `per_pincode`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) values('01', '$trans_id', '$trans_id', 'SUR', '$bio_pf_no', '$bio_oldpf_no', '$bio_id_no', '$bio_sr_no', '$bio_dob', '$bio_mob', '$bio_emp_name', '$bio_emp_old_name', '$bio_rdobtn_selection', '$bio_rdobtn_name', '$bio_cug', '$bio_aadhar', '$bio_email', '$bio_pan', '$bio_p_addr', '$bio_pre_addr', '$all_bio_mark', '$bio_religion', '$bio_commu', '$bio_cast', '$bio_gender', '$bio_req_code', '$bio_grp', '$all_bio_edu', '$all_bio_edu_desc', '$all_bio_edu_sub', '$all_bio_edu_desc_sub', '$bio_bank_name', '$bio_acc_no', '$bio_micr', '$bio_ifsc', '$bio_ruid', '$bio_pran', '$bio_bank_address', '$newfilename', '$bio_marriage_status', '$state_code', '$pincode', '$state_code_2', '$pincode_2', '$update_by',Now(),'', '','','','','','','')");
+				$result2 = mysqli_query($conn1,"insert into `biodata_track`(`zone`, `temp_transaction_id`, `final_transaction_id`, `division`, `pf_number`, `oldpf_number`, `identity_number`, `sr_no`, `dob`, `mobile_number`, `emp_name`, `emp_old_name`, `f_h_selction`, `f_h_name`, `cug`, `aadhar_number`, `email`, `pan_number`, `present_address`, `permanent_address`, `identification_mark`, `religion`, `community`, `caste`, `gender`, `recruit_code`, `group_col`, `education_ini`, `edu_desc_ini`, `education_sub`, `edu_desc_sub`, `bank_name`, `account_number`, `micr_number`, `ifsc_code`, `ruid_no`, `nps_no`, `bank_address`, `imagefile`, `marrital_status`, `pre_statecode`, `pre_pincode`, `per_statecode`, `per_pincode`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) values('01', '$trans_id', '$trans_id', 'SUR', '$bio_pf_no', '$bio_oldpf_no', '$bio_id_no', '$bio_sr_no', '$bio_dob', '$bio_mob', '$bio_emp_name', '$bio_emp_old_name', '$bio_rdobtn_selection', '$bio_rdobtn_name', '$bio_cug', '$bio_aadhar', '$bio_email', '$bio_pan', '$bio_p_addr', '$bio_pre_addr', '$all_bio_mark', '$bio_religion', '$bio_commu', '$bio_cast', '$bio_gender', '$bio_req_code', '$bio_grp', '$all_bio_edu', '$all_bio_edu_desc', '$all_bio_edu_sub', '$all_bio_edu_desc_sub', '$bio_bank_name', '$bio_acc_no', '$bio_micr', '$bio_ifsc', '$bio_ruid', '$bio_pran', '$bio_bank_address', '$newfilename', '$bio_marriage_status', '$state_code', '$pincode', '$state_code_2', '$pincode_2', '$update_by',Now(),'', '','','','','','','')");
 				
 				$action="Record Inserted In Biodata Temp and Biodata Track";
 				
 			}else{
-			dbcon1();
-			$sq=mysql_query("SELECT * from biodata_temp where pf_number='".$bio_pf_no."'");
+				$conn1=dbcon1();
+			$sq=mysqli_query($conn1,"SELECT * from biodata_temp where pf_number='".$bio_pf_no."'");
 			if($sq)
 			{
-				while($fetch_sql=mysql_fetch_array($sq))
+				while($fetch_sql=mysqli_fetch_array($sq))
 				{
 		
 					if($bio_oldpf_no==$fetch_sql['oldpf_number'] && $bio_id_no==$fetch_sql['identity_number'] && $bio_dob==$fetch_sql['dob'] && $bio_aadhar==$fetch_sql['aadhar_number'] && $bio_emp_name==$fetch_sql['emp_name'] && $bio_emp_old_name==$fetch_sql['emp_old_name'] && $bio_gender==$fetch_sql['gender'] && $bio_marriage_status==$fetch_sql['marrital_status'] && $bio_rdobtn_selection==$fetch_sql['f_h_selction'] && $bio_rdobtn_name==$fetch_sql['f_h_name'] && $bio_cug==$fetch_sql['cug'] && $bio_mob==$fetch_sql['mobile_number'] && $bio_pran==$fetch_sql['nps_no'] && $bio_ruid==$fetch_sql['ruid_no'] && $bio_pan==$fetch_sql['pan_number'] && $bio_email==$fetch_sql['email'] && $bio_p_addr==$fetch_sql['present_address'] && $state_code==$fetch_sql['pre_statecode'] && $pincode==$fetch_sql['pre_pincode'] && $bio_pre_addr==$fetch_sql['permanent_address'] && $state_code_2==$fetch_sql['per_statecode'] && $pincode_2==$fetch_sql['per_pincode'] && $all_bio_mark==$fetch_sql['identification_mark'] && $bio_religion==$fetch_sql['religion'] && $bio_commu==$fetch_sql['community'] && $bio_cast==$fetch_sql['caste'] && $bio_req_code==$fetch_sql['recruit_code'] && $bio_grp==$fetch_sql['group_col'] && $all_bio_edu==$fetch_sql['education_ini'] && $all_bio_edu_desc==$fetch_sql['edu_desc_ini'] && $all_bio_edu_sub==$fetch_sql['education_sub'] && $all_bio_edu_desc_sub==$fetch_sql['edu_desc_sub'] && $bio_bank_name==$fetch_sql['bank_name'] && $bio_acc_no==$fetch_sql['account_number'] && $bio_micr==$fetch_sql['micr_number'] && $bio_ifsc==$fetch_sql['ifsc_code'] && $bio_bank_address==$fetch_sql['bank_address'] && $newfilename==$fetch_sql['imagefile'])
@@ -284,16 +284,16 @@ if (isset($_REQUEST['action'])) {
 						echo $newfilename."<>".$fetch_sql['imagefile']."<br>";   */
 					
 					
-						$result2 = mysql_query("insert into `biodata_track`(`zone`, `temp_transaction_id`, `final_transaction_id`, `division`, `pf_number`, `oldpf_number`, `identity_number`, `sr_no`, `dob`, `mobile_number`, `emp_name`, `emp_old_name`, `f_h_selction`, `f_h_name`, `cug`, `aadhar_number`, `email`, `pan_number`, `present_address`, `permanent_address`, `identification_mark`, `religion`, `community`, `caste`, `gender`, `recruit_code`, `group_col`, `education_ini`, `edu_desc_ini`, `education_sub`, `edu_desc_sub`, `bank_name`, `account_number`, `micr_number`, `ifsc_code`, `ruid_no`, `nps_no`, `bank_address`, `imagefile`, `marrital_status`, `pre_statecode`, `pre_pincode`, `per_statecode`, `per_pincode`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) values('01', '$trans_id', '$trans_id', 'SUR', '$bio_pf_no', '$bio_oldpf_no', '$bio_id_no', '$bio_sr_no', '$bio_dob', '$bio_mob', '$bio_emp_name', '$bio_emp_old_name', '$bio_rdobtn_selection', '$bio_rdobtn_name', '$bio_cug', '$bio_aadhar', '$bio_email', '$bio_pan', '$bio_p_addr', '$bio_pre_addr', '$all_bio_mark', '$bio_religion', '$bio_commu', '$bio_cast', '$bio_gender', '$bio_req_code', '$bio_grp', '$all_bio_edu', '$all_bio_edu_desc', '$all_bio_edu_sub', '$all_bio_edu_desc_sub', '$bio_bank_name', '$bio_acc_no', '$bio_micr', '$bio_ifsc', '$bio_ruid', '$bio_pran', '$bio_bank_address', '$newfilename', '$bio_marriage_status', '$state_code', '$pincode', '$state_code_2', '$pincode_2', '$update_by',Now(),'', '','','','','','','')");
+						$result2 = mysqli_query($conn1,"insert into `biodata_track`(`zone`, `temp_transaction_id`, `final_transaction_id`, `division`, `pf_number`, `oldpf_number`, `identity_number`, `sr_no`, `dob`, `mobile_number`, `emp_name`, `emp_old_name`, `f_h_selction`, `f_h_name`, `cug`, `aadhar_number`, `email`, `pan_number`, `present_address`, `permanent_address`, `identification_mark`, `religion`, `community`, `caste`, `gender`, `recruit_code`, `group_col`, `education_ini`, `edu_desc_ini`, `education_sub`, `edu_desc_sub`, `bank_name`, `account_number`, `micr_number`, `ifsc_code`, `ruid_no`, `nps_no`, `bank_address`, `imagefile`, `marrital_status`, `pre_statecode`, `pre_pincode`, `per_statecode`, `per_pincode`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) values('01', '$trans_id', '$trans_id', 'SUR', '$bio_pf_no', '$bio_oldpf_no', '$bio_id_no', '$bio_sr_no', '$bio_dob', '$bio_mob', '$bio_emp_name', '$bio_emp_old_name', '$bio_rdobtn_selection', '$bio_rdobtn_name', '$bio_cug', '$bio_aadhar', '$bio_email', '$bio_pan', '$bio_p_addr', '$bio_pre_addr', '$all_bio_mark', '$bio_religion', '$bio_commu', '$bio_cast', '$bio_gender', '$bio_req_code', '$bio_grp', '$all_bio_edu', '$all_bio_edu_desc', '$all_bio_edu_sub', '$all_bio_edu_desc_sub', '$bio_bank_name', '$bio_acc_no', '$bio_micr', '$bio_ifsc', '$bio_ruid', '$bio_pran', '$bio_bank_address', '$newfilename', '$bio_marriage_status', '$state_code', '$pincode', '$state_code_2', '$pincode_2', '$update_by',Now(),'', '','','','','','','')");
 						
 						$action="Updated Record in Biodata Temp and Inserted Record in Biodata Track";
 					}
 				}
 			}
-			$result1 = mysql_query("UPDATE `biodata_temp` SET `oldpf_number`='".$bio_oldpf_no."', `dob`='".$bio_dob."', `mobile_number`='".$bio_mob."', `emp_name`='".$bio_emp_name."', `emp_old_name`='".$bio_emp_old_name."', `f_h_selction`='".$bio_rdobtn_selection."', `f_h_name`='".$bio_rdobtn_name."', `cug`='".$bio_cug."', `aadhar_number`='".$bio_aadhar."', `email`='".$bio_email."', `pan_number`='".$bio_pan."', `present_address`='".$bio_p_addr."', `pre_statecode`='".$state_code."', `pre_pincode`='".$pincode."', `permanent_address`='".$bio_pre_addr."', `per_statecode`='".$state_code_2."', `per_pincode`='".$pincode_2."', `identification_mark`='".$all_bio_mark."', `religion`='".$bio_religion."', `community`='".$bio_commu."', `caste`='".$bio_cast."', `gender`='".$bio_gender."', `marrital_status`='".$bio_marriage_status."', `recruit_code`='".$bio_req_code."', `group_col`='".$bio_grp."', `education_ini`='".$all_bio_edu."', `edu_desc_ini`='".$all_bio_edu_desc."', `education_sub`='".$all_bio_edu_sub."', `edu_desc_sub`='".$all_bio_edu_desc_sub."', `bank_name`= '".$bio_bank_name."', `account_number`='".$bio_acc_no."', `micr_number`= '".$bio_micr."', `ifsc_code`= '".$bio_ifsc."', `ruid_no`= '".$bio_ruid."', `nps_no`= '".$bio_pran."', `bank_address`= '".$bio_bank_address."', `imagefile`='".$newfilename."', `updated_by`='".$_SESSION['id']."', `date_time`=NOW(), `identity_number`='$bio_id_no' WHERE `pf_number` = '".$bio_pf_no."'");
+			$result1 = mysqli_query($conn1,"UPDATE `biodata_temp` SET `oldpf_number`='".$bio_oldpf_no."', `dob`='".$bio_dob."', `mobile_number`='".$bio_mob."', `emp_name`='".$bio_emp_name."', `emp_old_name`='".$bio_emp_old_name."', `f_h_selction`='".$bio_rdobtn_selection."', `f_h_name`='".$bio_rdobtn_name."', `cug`='".$bio_cug."', `aadhar_number`='".$bio_aadhar."', `email`='".$bio_email."', `pan_number`='".$bio_pan."', `present_address`='".$bio_p_addr."', `pre_statecode`='".$state_code."', `pre_pincode`='".$pincode."', `permanent_address`='".$bio_pre_addr."', `per_statecode`='".$state_code_2."', `per_pincode`='".$pincode_2."', `identification_mark`='".$all_bio_mark."', `religion`='".$bio_religion."', `community`='".$bio_commu."', `caste`='".$bio_cast."', `gender`='".$bio_gender."', `marrital_status`='".$bio_marriage_status."', `recruit_code`='".$bio_req_code."', `group_col`='".$bio_grp."', `education_ini`='".$all_bio_edu."', `edu_desc_ini`='".$all_bio_edu_desc."', `education_sub`='".$all_bio_edu_sub."', `edu_desc_sub`='".$all_bio_edu_desc_sub."', `bank_name`= '".$bio_bank_name."', `account_number`='".$bio_acc_no."', `micr_number`= '".$bio_micr."', `ifsc_code`= '".$bio_ifsc."', `ruid_no`= '".$bio_ruid."', `nps_no`= '".$bio_pran."', `bank_address`= '".$bio_bank_address."', `imagefile`='".$newfilename."', `updated_by`='".$_SESSION['id']."', `date_time`=NOW(), `identity_number`='$bio_id_no' WHERE `pf_number` = '".$bio_pf_no."'");
 			
 		}
-			dbcon1();
+		$conn1=dbcon1();
 			
 			if($result1 && $result2)
 			{

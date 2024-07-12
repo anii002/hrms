@@ -1,12 +1,12 @@
 <?php
-    error_reporting(0);
-	include("../dbconfig/dbcon.php");
-	dbcon();
-	if(!isset($_SESSION['id'])){
-		echo "<script>alert('UNAUTHORIZED ACCESS, PLEASE LOGIN FIRST');window.location='../index.php'</script>";
-	}
-	 
-  ?>
+error_reporting(0);
+include("../dbconfig/dbcon.php");
+$conn = dbcon();
+if (!isset($_SESSION['id'])) {
+    echo "<script>alert('UNAUTHORIZED ACCESS, PLEASE LOGIN FIRST');window.location='../index.php'</script>";
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -61,36 +61,35 @@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="../plugins/timepicker/bootstrap-timepicker.min.css">
     <link href="../plugins/bootstrap/toaster/toastr.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <script src="../plugins/bootstrap/toaster/toastr.min.js" type="text/javascript"></script>
     <!-- Select2 -->
 
 
     <!--link rel="shortcut icon" href="../../main/resources/admin/Image.png"-->
     <style>
-    .example-modal .modal {
-        position: relative;
-        top: auto;
-        bottom: auto;
-        right: auto;
-        left: auto;
-        display: block;
-        z-index: 1;
-    }
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
 
-    .example-modal .modal {
-        background: transparent !important;
-    }
+        .example-modal .modal {
+            background: transparent !important;
+        }
 
-    .form-control {
-        font-size: 16px;
-        color: black;
-    }
+        .form-control {
+            font-size: 16px;
+            color: black;
+        }
 
-    .nav a {
-        font-size: 17px;
-    }
+        .nav a {
+            font-size: 17px;
+        }
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
