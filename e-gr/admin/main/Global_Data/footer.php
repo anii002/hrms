@@ -7,10 +7,10 @@
 <!-- /footer content -->
 
 <script type="text/javascript">
-// When the document is ready
-$(document).ready(function() {
-    $('table.display').DataTable();
-});
+    // When the document is ready
+    $(document).ready(function() {
+        $('table.display').DataTable();
+    });
 </script>
 <!-- Select2 -->
 <script src="select2/select2.full.min.js"></script>
@@ -123,24 +123,24 @@ $(document).ready(function() {
 
 <footer>
     <div class="pull-right">
-         © Copyright <?php echo date('Y'); ?> <a href="http://infoigy.com" target="_blank"> Salgem Infoigy Tech Pvt. Ltd. </a>All rights reserved. 
+        © Copyright <?php echo date('Y'); ?> <a href="http://infoigy.com" target="_blank"> Salgem Infoigy Tech Pvt. Ltd. </a>All rights reserved.
     </div>
     <div class="clearfix"></div>
 </footer>
 
-        <script type="text/javascript">
-        function modu(modu_name)
-        {
-            $.ajax({
-                url : '../../../../module.php',
-                type : 'POST',
-                data : {name:modu_name},
-                success: function(data)
-                {
-                    //console.log(data);
-                    $('#rad').html(data);
-                    $('#mod').html(modu_name.toUpperCase());
-                }
-            });
-        }
-    </script>
+<script type="text/javascript">
+    function modu(modu_name) {
+        $.ajax({
+            url: '../../../../module.php',
+            type: 'POST',
+            data: {
+                name: modu_name
+            },
+            success: function(data) {
+                //console.log(data);
+                $('#rad').html(data);
+                $('#mod').html(modu_name.toUpperCase());
+            }
+        });
+    }
+</script>

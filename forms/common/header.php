@@ -27,38 +27,38 @@ include('dbcon.php');
 <!-- <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/> -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link href="../../new_eta/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
-<link href="../../new_eta/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta//global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css">
+<link href="../../hrms/new_eta/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
-<link href="../../new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-<link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="../../hrms/new_eta/assets/global/plugins/select2/select2.css"/>
 <!-- Datatable css-->
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />
 
-<link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../../hrms/new_eta/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 <!-- BEGIN PAGE STYLES -->
-<link href="../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE STYLES -->
 <!-- BEGIN THEME STYLES -->
 <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
-<link href="../../new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link href="../../new_eta/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-<link href="../../new_eta/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="../../hrms/new_eta/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="../../hrms/new_eta/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<link rel="stylesheet" href="../../new_eta/assets/other/plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="../../new_eta/assets/other/plugins/datepicker/datepicker3.css">
+<link rel="stylesheet" href="../../hrms/new_eta/assets/other/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="../../hrms/new_eta/assets/other/plugins/datepicker/datepicker3.css">
 
-<link rel="stylesheet" href="../../new_eta/assets/css/preloader/preloader-style.css">
-<link rel="shortcut icon" href="../../new_eta/assets/img/logo1.png"/>
+<link rel="stylesheet" href="../../hrms/new_eta/assets/css/preloader/preloader-style.css">
+<link rel="shortcut icon" href="../../hrms/new_eta/assets/img/logo1.png"/>
 </head>
 <style type="text/css">
 
@@ -109,9 +109,9 @@ include('dbcon.php');
 	<div class="pre-loader preloader-single shadow-inner mg-t-30">
         <div class="ts_preloading_box">
             <div id="ts-preloader-absolute30">
-                <div id="absolute30">
+                <!-- <div id="absolute30">
                     <span></span><span></span><span></span><span></span><span></span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -146,7 +146,7 @@ include('dbcon.php');
 				        if(!isset($_SESSION['profile_image']))
 							{
 			         ?>
-              <img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg"/>
+              <img alt="" class="img-circle" src="../../hrms/new_eta/assets/admin/layout/img/avatar3_small.jpg"/>
 			  	  <?php 
 							}
 							else
@@ -157,9 +157,9 @@ include('dbcon.php');
 						 <span class="empname" style="color: floralwhite;">
 						 	<?php 
 						 	
-						 	    dbcon2();
-						 	    $query = mysql_query("SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['pf_num']."'");
-						 	    $row = mysql_fetch_array($query);
+						 	    $con = dbcon2();
+						 	    $query = mysqli_query( $con,"SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['pf_num']."'");
+						 	    $row = mysqli_fetch_array($query);
 						 	    echo $row['name'];   
 						 	
 						 	?>
@@ -176,15 +176,15 @@ include('dbcon.php');
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
 						<li>
-							<a href="../../../index.php">
+							<a href="../../hrms/dashboard.php">
 							<i class="fas fa-home"></i> Home </a>
 						</li>
 						<li>
-							<a href="../../../profile.php">
+							<a href="../../hrms/profile.php">
 							<i class="fas fa-user"></i>Profile</a>
 						</li>
 						<li>
-							<a href="../../../Logout.php">
+							<a href="../../hrms/Logout.php">
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>
 					</ul>

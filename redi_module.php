@@ -299,7 +299,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['SESSION_ROLE'] = 'admin';
 				$_SESSION['SESSION_USERNAME'] = $row['name'];
 				$_SESSION['userid'] = 'Administrator';
-				echo "<script>window.location.href='../e-gr/admin/main/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-gr/admin/main/index.php';</script>";
 			}
 
 			if ($_POST['e_gr'] == 1) {
@@ -310,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['SESSION_USERNAME'] = $row['name'];
 				$_SESSION['SESSION_SECTION'] = $row_egr_user['section'];
 				$_SESSION['userid'] = "Administrator";
-				echo "<script>window.location.href='../e-gr/admin_user/main/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-gr/admin_user/main/index.php';</script>";
 			}
 
 			if ($_POST['e_gr'] == 2) {
@@ -321,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['SESSION_USERNAME'] = $row['name'];
 				$_SESSION['SESSION_SECTION'] = $row_egr_user['section'];
 				$_SESSION['userid'] = "Administrator";
-				echo "<script>window.location.href='../e-gr/admin_welfare/main/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-gr/admin_welfare/main/index.php';</script>";
 			}
 
 			if ($_POST['e_gr'] == 3) {
@@ -332,13 +332,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['SESSION_USERNAME'] = $row['name'];
 				$_SESSION['SESSION_SECTION'] = $row_egr_user['section'];
 				$_SESSION['userid'] = "Administrator";
-				echo "<script>window.location.href='../e-gr/admin/main/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-gr/admin/main/index.php';</script>";
 			}
 
 			if ($_POST['e_gr'] == 4) {
 				$_SESSION['user'] = $row['emp_no'];
 				$_SESSION['empname'] = $row['name'];
-				echo "<script>window.location.href='../e-gr/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-gr/index.php';</script>";
 			}
 
 
@@ -350,7 +350,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['SESSION_USERNAME'] = $row['name'];
 				$_SESSION['SESSION_SECTION'] = $row_egr_user['section'];
 				$_SESSION['userid'] = "Administrator";
-				echo "<script>window.location.href='../e-gr/admin/main/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-gr/admin/main/index.php';</script>";
 			}
 		}
 
@@ -579,12 +579,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			if ($_POST['itp'] == 0) {
 				$_SESSION['user'] = 'admin';
-				echo "<script>window.location.href='../it particular/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/itparticular/dashboard.php';</script>";
 			}
 
 			if ($_POST['itp'] == 1) {
 				$_SESSION['user'] = $pf_num;
-				echo "<script>window.location.href='../it particular/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/itparticular/dashboard.php';</script>";
 			}
 		}
 
@@ -677,12 +677,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			if ($_POST['forms'] == 0) {
 				$_SESSION['user'] = 'admin';
-				echo "<script>window.location.href='../forms/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/forms/dashboard.php';</script>";
 			}
 
 			if ($_POST['forms'] == 1) {
 				$_SESSION['user'] = 'employee';
-				echo "<script>window.location.href='../forms/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/forms/dashboard.php';</script>";
 			}
 		}
 
@@ -857,28 +857,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['user_role'] = 'admin';
 				/*echo "<pre>";
 				print_r($_SESSION);exit();*/
-				echo "<script>window.location.href='../e-application/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/e-application/dashboard.php';</script>";
 			}
 			if ($_POST['e_app'] == 1) {
 				$_SESSION['user'] = $pf_num;
 				$_SESSION['user_role'] = 1;
 				/*echo "<pre>";
 				print_r($_SESSION);exit();*/
-				echo "<script>window.location.href='../e-application/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/e-application/dashboard.php';</script>";
 			}
 			if ($_POST['e_app'] == 2) {
 				$_SESSION['user'] = $pf_num;
 				$_SESSION['user_role'] = 2;
 				/*echo "<pre>";
 				print_r($_SESSION);exit();*/
-				echo "<script>window.location.href='../e-application/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/e-application/dashboard.php';</script>";
 			}
 			if ($_POST['e_app'] == 3) {
 				$_SESSION['user'] = $pf_num;
 				$_SESSION['user_role'] = 3;
 				/*echo "<pre>";
 				print_r($_SESSION);exit();*/
-				echo "<script>window.location.href='../e-application/dashboard.php';</script>";
+				echo "<script>window.location.href='../hrms/e-application/dashboard.php';</script>";
 			}
 		}
 

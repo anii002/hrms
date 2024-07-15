@@ -46,8 +46,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT * FROM `add_user`");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT * FROM `add_user`");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -68,8 +68,8 @@
 							<div class="number">
 								 <?php
 								 	/*dbcon3();
-									$qry1 = mysql_query("SELECT * FROM `add_application`");
-									echo $count = mysql_num_rows($qry1); */
+									$qry1 = mysqli_query("SELECT * FROM `add_application`");
+									echo $count = mysqli_num_rows($qry1); */
 								?> 
 							</div>
 							<div class="desc">
@@ -90,8 +90,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT * FROM `purpose`");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT * FROM `purpose`");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -112,8 +112,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.forward_status = 1 AND forward_appl.admin_status = 0 AND forward_appl.forwarded_to = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.forward_status = 1 AND forward_appl.admin_status = 0 AND forward_appl.forwarded_to = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -134,8 +134,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.forward_status = 1 AND forward_appl.admin_status = 1 AND forward_appl.forwarded_to = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.forward_status = 1 AND forward_appl.admin_status = 1 AND forward_appl.forwarded_to = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -219,8 +219,8 @@
 							<div class="number">
 								  <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT * FROM `add_application` WHERE pfno = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT * FROM `add_application` WHERE pfno = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -251,8 +251,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.admin_status = 1 AND forward_appl.clerk_status = 0 AND forward_appl.forwarded_to_clerk = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.admin_status = 1 AND forward_appl.clerk_status = 0 AND forward_appl.forwarded_to_clerk = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -273,8 +273,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.clerk_status = 1 AND forward_appl.forwarded_to_clerk = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.clerk_status = 1 AND forward_appl.forwarded_to_clerk = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -295,8 +295,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT * FROM `purpose`");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT * FROM `purpose`");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -327,8 +327,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.clerk_status = 1 AND forward_appl.cos_status = 0 AND forward_appl.forwarded_to_cos = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.clerk_status = 1 AND forward_appl.cos_status = 0 AND forward_appl.forwarded_to_cos = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -349,8 +349,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.clerk_status = 1 AND forward_appl.cos_status = 1 AND forward_appl.forwarded_to_cos = '".$_SESSION['user']."'");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.clerk_status = 1 AND forward_appl.cos_status = 1 AND forward_appl.forwarded_to_cos = '".$_SESSION['user']."'");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">
@@ -371,8 +371,8 @@
 							<div class="number">
 								 <?php
 								 	dbcon3();
-									$qry1 = mysql_query("SELECT * FROM `purpose`");
-									echo $count = mysql_num_rows($qry1); 
+									$qry1 = mysqli_query("SELECT * FROM `purpose`");
+									echo $count = mysqli_num_rows($qry1); 
 								?> 
 							</div>
 							<div class="desc">

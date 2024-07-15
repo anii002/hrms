@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 if (!isset($_SESSION['empname'])) {
-   echo "<script>alert('Unauthorized Access');window.location='../../../index.php'</script>";
+    echo "<script>alert('Unauthorized Access');window.location='../../../index.php'</script>";
 }
 ?>
 <html lang="en">
@@ -77,14 +77,13 @@ if (!isset($_SESSION['empname'])) {
     <link rel="stylesheet" href="dist/css/responsive.css">
     <link rel="icon" type="image/png" href="../../../dist/img/logo1.png">
     <!-- Goodgle fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
-    
-     <style type="text/css">
-        .btn-orange-moon{
-          background: linear-gradient(to right, #4085e6, #57ddfb)!important;
-          color: #fff;
+
+    <style type="text/css">
+        .btn-orange-moon {
+            background: linear-gradient(to right, #4085e6, #57ddfb) !important;
+            color: #fff;
         }
     </style>
 
@@ -115,93 +114,92 @@ if (!isset($_SESSION['empname'])) {
                         error_reporting(0);
                         //echo $_SESSION['emp_id1'];
                         if (isset($_SESSION['user'])) {
-                            ?>
-                        <li id='add_grievance'>
-                            <!--  onclick="window.location='add_grievance.php';" -->
-                            <a href="add_grievance.php">Add Grievance</a>
-                        </li>
-                        <li>
-                            <a class="" href="#" data-toggle="modal" data-target="#feedback">Feedback</a>
-                        </li>
+                        ?>
+                            <li id='add_grievance'>
+                                <!--  onclick="window.location='add_grievance.php';" -->
+                                <a href="add_grievance.php">Add Grievance</a>
+                            </li>
+                            <li>
+                                <a class="" href="#" data-toggle="modal" data-target="#feedback">Feedback</a>
+                            </li>
 
 
-                        <!-- <li class="menu-active"><a href="#.">Home</a></li>
+                            <!-- <li class="menu-active"><a href="#.">Home</a></li>
                         <li><a href="#.">Grievance Status</a></li>
                         <li><a href="#.">Feedback</a></li> -->
 
-                        
-                
-                        <li id='profile'>
-                            <!-- onclick="window.location='profile.php'" -->
-                            <a href="profile.php"><?php echo "'" . $_SESSION['empname'] . "'" ?></a>
-                        </li>
 
-                        <li id='griv_history'>
-                            <!--  onclick="window.location='griv_history.php'" -->
-                            <a href="griv_history.php">History</a>
-                        </li>
-                        <li> <a class="" href="#" data-toggle="modal" onClick="modu('e_gr')" data-target="#myModal
+
+                            <li id='profile'>
+                                <!-- onclick="window.location='profile.php'" -->
+                                <a href="profile.php"><?php echo "'" . $_SESSION['empname'] . "'" ?></a>
+                            </li>
+
+                            <li id='griv_history'>
+                                <!--  onclick="window.location='griv_history.php'" -->
+                                <a href="griv_history.php">History</a>
+                            </li>
+                            <li> <a class="" href="#" data-toggle="modal" onClick="modu('e_gr')" data-target="#myModal
                             ">Login as</a></li>
-                        <li>
-                            <!--  onclick="window.location='logout.php';" -->
-                            <a href="../../Logout.php">Logout</a>
-                        </li>
-                        <li>
-                            <a href="../../index.php" data-toggle="tooltip" title="Main Dashboard" class="btn-dashboard">Dashboard</a>
-                        </li>
-                        
+                            <li>
+                                <!--  onclick="window.location='logout.php';" -->
+                                <a href="../../Logout.php">Logout</a>
+                            </li>
+                            <li>
+                                <a href="../../index.php" data-toggle="tooltip" title="Main Dashboard" class="btn-dashboard">Dashboard</a>
+                            </li>
+
 
                         <?php
-                    } else {
+                        } else {
                         ?>
-                        <li>
-                            <a class='' style='border:1px solid gray' data-toggle='modal' data-target='#sign-in'
-                                href='#'>Login</a>
-                        </li>
+                            <li>
+                                <a class='' style='border:1px solid gray' data-toggle='modal' data-target='#sign-in' href='#'>Login</a>
+                            </li>
 
                         <?php } ?>
                     </ul>
-                    
-                
+
+
                 </nav><!-- #nav-menu-container -->
             </div>
         </header><!-- #header -->
-        
+
         <div class="row">
-       
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header btn-orange-moon">
-                        <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
-                        <h4 class="modal-title" style="text-align:center">Login As</h4>
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header btn-orange-moon">
+                            <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                            <h4 class="modal-title" style="text-align:center">Login As</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <form action="../../redi_module.php" method="POST" class="horizontal-form">
+
+                                <div class="">
+                                    <div class="row">
+                                        <div id="rad">
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <button type="submit" class="btn btn-success">Go!</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
                     </div>
-                    <div class="modal-body">
-            
-        
-        <form action="../../redi_module.php" method="POST" class="horizontal-form">
-           
-            <div class="">
-                <div class="row">
-                    <div id="rad">                         
-          </div>
-                </div>
-                <div class="">
-                    <button type="submit" class="btn btn-success">Go!</button>
-                </div>
-            </div>
-            
-               
-        </form>
-        </div>
                 </div>
             </div>
         </div>
-    </div>
-    
- 
+
+
         <script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
+            $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>

@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo $result die;
     $name = $_POST['name'];
     //echo $name;exit();
-    
+
     if ($name == 'tamm') {
         $tamm = explode(',', $row['tamm']);
         $roles = array(
@@ -40,49 +40,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </label>
                 </div>
             </div>
-<?php
+        <?php
         }
     }
 
 
 
-    if ($name == 'e_gr') {
-        $e_gr = explode(',', $row['e_grievance']);
-        for ($i = 0; $i < count($e_gr); $i++) { ?>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <div class="form-check">
-                    <?php if ($e_gr[$i] == "0") {
-                    ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="e_gr" id="admin" value="0"> Admin</label>
-                    <?php }
-                    if ($e_gr[$i] == 3) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="e_gr" id="branchofficer" value="3"> Branch Officer</label>
-                    <?php }
-                    if ($e_gr[$i] == 5) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="e_gr" id="branchadmin" value="5"> Branch Admin</label>
-                    <?php }
-                    if ($e_gr[$i] == 2) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="e_gr" id="welfareinspector" value="2"> Welfare Inspector</label>
-                    <?php }
-                    if ($e_gr[$i] == 1) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="e_gr" id="sectionofficer" value="1"> Section Officer</label>
-                    <?php }
-                    if ($e_gr[$i] == 4) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="e_gr" id="accountant" value="4" checked> Employee</label>
-                    <?php } ?>
-                </div>
+if ($name == 'e_gr') {
+    $e_gr = explode(',', $row['e_grievance']);
+    $roles = [
+        0 => 'Admin',
+        1 => 'Section Officer',
+        2 => 'Welfare Inspector',
+        3 => 'Branch Officer',
+        4 => 'Accountant',
+        5 => 'Branch Admin'
+    ];
+
+    foreach ($roles as $roleId => $roleLabel) {
+        $checked = in_array((string)$roleId, $e_gr) ? 'checked' : '';
+        ?>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="e_gr" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                    <?php echo $roleLabel; ?>
+                </label>
             </div>
-        <?php }
+        </div>
+        <?php
     }
+}
+
 
     if ($name == 'eims') {
         $eims = explode(',', $row['e_notification']);
         // Possible values for radio buttons
         $radioValues = ["0", "1", "2"];
-        
+
         foreach ($radioValues as $value) {
             $checked = in_array($value, $eims) ? 'checked' : '';
-            ?>
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <?php if ($value == "0") { ?>
@@ -102,13 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php } ?>
                 </div>
             </div>
-            <?php
+        <?php
         }
     }
-    
 
 
-    
+
+
     if ($name == 'cga') {
         $cga = explode(',', $row['cga']);
         $roles = [
@@ -122,40 +120,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             8 => 'DAK Clerk',
             0 => 'Applicant'
         ];
-    
+
         foreach ($roles as $roleId => $roleLabel) {
-            ?>
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="cga" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>"
-                            <?php if (in_array($roleId, $cga)) echo 'checked'; ?>>
+                        <input class="form-check-input" type="radio" name="cga" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php if (in_array($roleId, $cga)) echo 'checked'; ?>>
                         <?php echo $roleLabel; ?>
                     </label>
                 </div>
             </div>
-            <?php
+        <?php
         }
     }
-   
-    
+
+
+
 
 
     if ($name == 'itp') {
         $itp = explode(',', $row['it_form']);
-        for ($i = 0; $i < count($itp); $i++) { ?>
+        $roles = [
+            0 => 'Admin',
+            1 => 'Employee'
+        ];
+
+        foreach ($roles as $roleId => $roleLabel) {
+            $checked = in_array((string)$roleId, $itp) ? 'checked' : '';
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($itp[$i] == "0") { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="itp" id="admin" value="0"> Admin </label>
-                    <?php }
-                    if ($itp[$i] == 1) { ?>
-                        <label class="form-check-label"> <input class="form-check-input" type="radio" name="itp" id="employee" value="1" checked> Employee </label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="itp" id="<?php echo strtolower($roleLabel); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
                 </div>
             </div>
-        <?php }
+        <?php
+        }
     }
+
+
 
     if ($name == 'sar') {
         $sar = explode(',', $row['e_sar']);
@@ -184,24 +190,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
-
-
-
     if ($name == 'frm') {
         $forms = explode(',', $row['forms']);
-        for ($i = 0; $i < count($forms); $i++) { ?>
+        $roles = [
+            0 => 'Admin',
+            1 => 'Employee'
+        ];
+
+        foreach ($roles as $roleId => $roleLabel) {
+            $checked = in_array((string)$roleId, $forms) ? 'checked' : '';
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($forms[$i] == "0") { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="forms" id="forms" value="0"> Admin </label>
-                    <?php }
-                    if ($forms[$i] == 1) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="forms" id="forms" value="1"> Employee </label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="forms" id="<?php echo strtolower($roleLabel); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
                 </div>
             </div>
-        <?php }
+        <?php
+        }
     }
+
+
 
 
     if ($name == 'apar') {
@@ -215,10 +226,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             5 => 'Technical',
             6 => 'Employee'
         ];
-    
+
         // Loop through each option and generate radio buttons
         foreach ($options as $key => $label) {
-            ?>
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <label class="form-check-label">
@@ -227,33 +238,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </label>
                 </div>
             </div>
+        <?php
+        }
+    }
+
+
+    // e-application
+    
+    if ($name == 'eapp') {
+        $e_app = explode(',', $row['e_app']);
+        $roles = [
+            0 => 'Admin',
+            1 => 'Billunit Clerk',
+            2 => 'Chief OS',
+            3 => 'Employee'
+        ];
+    
+        foreach ($roles as $roleId => $roleLabel) {
+            $checked = in_array((string)$roleId, $e_app) ? 'checked' : '';
+            ?>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="e_app" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
+                </div>
+            </div>
             <?php
         }
     }
     
-
-    // e-application
-    if ($name == 'eapp') {
-        $e_app = explode(',', $row['e_app']);
-        for ($i = 0; $i < count($e_app); $i++) { ?>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <div class="form-check">
-                    <?php if ($e_app[$i] == "0") { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="e_app" id="e_app" value="0"> Admin </label>
-                    <?php } ?>
-                    <?php if ($e_app[$i] == 1) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="e_app" id="e_app" value="1"> Billunit Clerk </label>
-                    <?php } ?>
-                    <?php if ($e_app[$i] == 2) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="e_app" id="e_app" value="2"> Chief OS </label>
-                    <?php } ?>
-                    <?php if ($e_app[$i] == 3) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="e_app" id="e_app" value="3"> Employee </label>
-                    <?php } ?>
-                </div>
-            </div>
-        <?php }
-    }
+    
 
 
     if ($name == 'dak') {
