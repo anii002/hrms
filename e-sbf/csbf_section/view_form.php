@@ -11,9 +11,9 @@ $emp_pf = $_GET["emp_no"];
 $emp = get_emp_info($emp_pf);
 $emp_desig = designation($emp['designation']);
 $emp_dept = department($emp['department']);
-dbcon();
-$form_qry = mysql_query("SELECT pay_band,macp_grade_pay FROM tbl_form_details WHERE reference_id = '".$ref_id."'");
-$form_row = mysql_fetch_array($form_qry);
+$conn=dbcon();
+$form_qry = mysqli_query($conn,"SELECT pay_band,macp_grade_pay FROM tbl_form_details WHERE reference_id = '".$ref_id."'");
+$form_row = mysqli_fetch_array($form_qry);
 ?>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
@@ -131,17 +131,17 @@ $form_row = mysql_fetch_array($form_qry);
                             </div>
                             <hr>
                             <?php
-                            dbcon();
+                            $conn=dbcon();
                             $sql = "SELECT * FROM tbl_form_details,tbl_form_forward WHERE tbl_form_details.reference_id = '$ref_id' AND tbl_form_forward.ref_id = '$ref_id'";
-                            $result = mysql_query($sql);
-                            $row = mysql_fetch_assoc($result);
+                            $result = mysqli_query($conn,$sql);
+                            $row = mysqli_fetch_assoc($result);
                             $sc_id = $row['scheme_id'];
                             $sql_scheme = "SELECT id,scheme_name FROM tbl_master_form WHERE id = '$sc_id'";
-                            $result_scheme = mysql_query($sql_scheme);
-                            $row_scheme = mysql_fetch_assoc($result_scheme);
+                            $result_scheme = mysqli_query($conn,$sql_scheme);
+                            $row_scheme = mysqli_fetch_assoc($result_scheme);
                             $sql_doc = "SELECT files FROM tbl_doc WHERE reference_id = '$ref_id'";
-                            $result_doc = mysql_query($sql_doc);
-                            // $row_doc = mysql_fetch_assoc($result_doc);
+                            $result_doc = mysqli_query($conn,$sql_doc);
+                            // $row_doc = mysqli_fetch_assoc($result_doc);
                             
                             ?>
                             <div class="row">
@@ -613,7 +613,7 @@ $form_row = mysql_fetch_array($form_qry);
                                 <?php } ?>
                             </div>
                             <div class="row">   
-                                <?php while($row_doc = mysql_fetch_assoc($result_doc)) { ?>  
+                                <?php while($row_doc = mysqli_fetch_assoc($result_doc)) { ?>  
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="input-group" style="margin-top: 25px;">
@@ -628,8 +628,8 @@ $form_row = mysql_fetch_array($form_qry);
                             <div class="form-actions">
                                 <?php
                                 $pf_no = $_SESSION['username'];
-                                $sql1 = mysql_query("SELECT * FROM tbl_form_details INNER JOIN tbl_form_forward ON tbl_form_details.reference_id = tbl_form_forward.ref_id WHERE tbl_form_forward.forwarded_to = '$pf_no' AND tbl_form_details.status = 1 AND tbl_form_forward.fw_status = 0 AND tbl_form_details.rejected = 0");
-                                $row1 = mysql_fetch_array($sql1);
+                                $sql1 = mysqli_query($conn,"SELECT * FROM tbl_form_details INNER JOIN tbl_form_forward ON tbl_form_details.reference_id = tbl_form_forward.ref_id WHERE tbl_form_forward.forwarded_to = '$pf_no' AND tbl_form_details.status = 1 AND tbl_form_forward.fw_status = 0 AND tbl_form_details.rejected = 0");
+                                $row1 = mysqli_fetch_array($sql1);
                                 if($row1['fw_status'] == '0' && $row1['rejected'] == '0') { ?>
                                     <button type="submit" class="btn btn-success" id='submit_btn' name='button'>Approve</button>
                                     <button type="submit" class="btn btn-danger" id='submit_btn' name='button'>Reject</button>

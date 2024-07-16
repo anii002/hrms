@@ -1,262 +1,262 @@
 <?php
 
-	$GLOBALS['flag']="4.91";
+$GLOBALS['flag'] = "4.91";
 
-	include('common/header.php');
+include('common/header.php');
 
-	include('common/sidebar.php');
+include('common/sidebar.php');
 
-	include("control/function.php");
+include("control/function.php");
 
 ?>
 
-			
-
-	<div class="page-content-wrapper">
-
-		<div class="page-content">
 
 
+<div class="page-content-wrapper">
 
-			<div class="page-bar">
+	<div class="page-content">
 
-				<ul class="page-breadcrumb">
 
-					<li>
 
-						<i class="fa fa-home"></i>
+		<div class="page-bar">
 
-						<a href="index.html">Home / मुख पृष्ठ</a>
+			<ul class="page-breadcrumb">
 
-						<i class="fa fa-angle-right"></i>
+				<li>
 
-					</li>
+					<i class="fa fa-home"></i>
 
-					<li>
+					<a href="index.html">Home / मुख पृष्ठ</a>
 
-						<a href="#"> Update User</a>
+					<i class="fa fa-angle-right"></i>
 
-					</li>
+				</li>
 
-				</ul>
+				<li>
 
-													
+					<a href="#"> Update User</a>
 
-			</div>
+				</li>
 
-			<!-- <h1>ecefce</h1> -->
+			</ul>
 
-			<div class="portlet box blue">
 
-				<div class="portlet-title">
 
-					<div class="caption">
+		</div>
 
-						<i class="fa fa-book"></i> Update User 
+		<!-- <h1>ecefce</h1> -->
 
-					</div>
+		<div class="portlet box blue">
 
-					
+			<div class="portlet-title">
+
+				<div class="caption">
+
+					<i class="fa fa-book"></i> Update User
 
 				</div>
 
-				<div class="portlet-body form">
 
-					<!-- BEGIN FORM-->
 
-					<?php
+			</div>
 
-					dbcon();
+			<div class="portlet-body form">
 
-					$query = mysql_query("SELECT * FROM add_user WHERE user_id = '".$_GET['user_id']."'");
+				<!-- BEGIN FORM-->
 
-					$row = mysql_fetch_array($query);
+				<?php
 
-					dbcon1();
+				$conn = dbcon();
 
-  					$query1 = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['user_pfno']."'");
+				$query = mysqli_query($conn, "SELECT * FROM add_user WHERE user_id = '" . $_GET['user_id'] . "'");
 
-  					$result = mysql_fetch_array($query1);
+				$row = mysqli_fetch_array($query);
 
-					?>
+				$conn = dbcon1();
 
-					<input type="hidden" id="user_id" name="user_id" value="<?php echo $_GET['user_id'];?>">
+				$query1 = mysqli_query($conn, "SELECT * FROM register_user WHERE emp_no = '" . $row['user_pfno'] . "'");
 
-					<form action="control/adminProcess.php?action=update_user" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
+				$result = mysqli_fetch_array($query1);
 
-						<div class="form-body">
+				?>
 
-						<input type="hidden" id="user_id1" name="user_id1" value="<?php echo $_GET['user_id'];?>">
+				<input type="hidden" id="user_id" name="user_id" value="<?php echo $_GET['user_id']; ?>">
 
-										<div class="row">
+				<form action="control/adminProcess.php?action=update_user" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
 
-								<div class="col-md-3">
+					<div class="form-body">
 
-									<div class="form-group">
+						<input type="hidden" id="user_id1" name="user_id1" value="<?php echo $_GET['user_id']; ?>">
 
-										<label class="control-label">कर्मचारी आईडी / PFNO</label>
+						<div class="row">
 
-										<div class="input-group">
+							<div class="col-md-3">
+
+								<div class="form-group">
+
+									<label class="control-label">कर्मचारी आईडी / PFNO</label>
+
+									<div class="input-group">
 
 										<span class="input-group-addon">
 
-										<i class="fa fa-user-circle"></i>
+											<i class="fa fa-user-circle"></i>
 
 										</span>
 
-										<input type="text" class="form-control" id="empid" name="empid" placeholder="PF Number" value="<?php echo $result['emp_no'];?>" required autofocus="true" readonly="">
-
-										</div>
+										<input type="text" class="form-control" id="empid" name="empid" placeholder="PF Number" value="<?php echo $result['emp_no']; ?>" required autofocus="true" readonly="">
 
 									</div>
 
 								</div>
 
-								<!--/span-->
+							</div>
 
-								<div class="col-md-3">
+							<!--/span-->
 
-									<div class="form-group">
+							<div class="col-md-3">
 
-										<label class="control-label">नाम / Name</label>
+								<div class="form-group">
 
-										<div class="input-group">
+									<label class="control-label">नाम / Name</label>
+
+									<div class="input-group">
 
 										<span class="input-group-addon">
 
-										<i class="fas  fa-user"></i>
+											<i class="fas  fa-user"></i>
 
 										</span>
 
-										<input type="text" class="form-control" id="empname" name="empname" placeholder="Employee Name" readonly="" value="<?php echo $result['name'];?>">
-
-										</div>
+										<input type="text" class="form-control" id="empname" name="empname" placeholder="Employee Name" readonly="" value="<?php echo $result['name']; ?>">
 
 									</div>
 
 								</div>
 
-								
+							</div>
 
-								<!--/span-->
+
+
+							<!--/span-->
 
 							<!--/row-->
 
-								<div class="col-md-3">
+							<div class="col-md-3">
 
-									<div class="form-group">
+								<div class="form-group">
 
-										<label class="control-label">मोबाइल / Mobile</label>
+									<label class="control-label">मोबाइल / Mobile</label>
 
-										<div class="input-group">
+									<div class="input-group">
 
 										<span class="input-group-addon">
 
-										<i class="fa fa-phone"></i>
+											<i class="fa fa-phone"></i>
 
 										</span>
 
-										<input type="text" class="form-control" id="mobile" name="mobile" placeholder="Employee Mobile number" readonly="" value="<?php echo $result['mobile'];?>">
-
-										</div>
+										<input type="text" class="form-control" id="mobile" name="mobile" placeholder="Employee Mobile number" readonly="" value="<?php echo $result['mobile']; ?>">
 
 									</div>
 
 								</div>
 
-								<!--/span-->
+							</div>
 
-								<div class="col-md-3">
+							<!--/span-->
 
-									<div class="form-group">
+							<div class="col-md-3">
 
-										<label class="control-label">ई -मेल / E-Mail</label>
+								<div class="form-group">
 
-										<div class="input-group">
+									<label class="control-label">ई -मेल / E-Mail</label>
+
+									<div class="input-group">
 
 										<span class="input-group-addon">
 
-										<i class="fas fa-envelope"></i>
+											<i class="fas fa-envelope"></i>
 
 										</span>
 
-										<input type="email" class="form-control" id="email" name="email" placeholder="Employee Email id" readonly="" value="<?php echo $result['emp_email'];?>">
-
-										</div>
+										<input type="email" class="form-control" id="email" name="email" placeholder="Employee Email id" readonly="" value="<?php echo $result['emp_email']; ?>">
 
 									</div>
 
 								</div>
 
-								<!--/span-->
+							</div>
+
+							<!--/span-->
+
+						</div>
+
+						<!--/row-->
+
+						<div class="row">
+
+							<div class="col-md-3">
+
+								<div class="form-group">
+
+									<label class="control-label">पदनाम / Designation</label>
+
+									<div class="input-group">
+
+										<span class="input-group-addon">
+
+											<i class="fas fa-user-graduate"></i>
+
+										</span>
+
+										<input type="text" id="design" name="design" placeholder="Employee Designation" class="form-control" readonly="" value="<?php echo $result['designation']; ?>">
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="col-md-3">
+
+								<div class="form-group">
+
+									<label class="control-label">विभाग / Department</label>
+
+									<input type="text" id="dept" name="dept" class="form-control" placeholder="Employee Department" readonly="" value="<?php echo getdepartment($result['department']); ?>">
+
+								</div>
 
 							</div>
 
 							<!--/row-->
 
-							<div class="row">
-
-								<div class="col-md-3">
-
-									<div class="form-group">
-
-										<label class="control-label">पदनाम / Designation</label>
-
-										<div class="input-group">
-
-										<span class="input-group-addon">
-
-										<i class="fas fa-user-graduate"></i>
-
-										</span>
-
-										<input type="text" id="design" name="design" placeholder="Employee Designation" class="form-control" readonly="" value="<?php echo $result['designation'];?>">
-
-										</div>
-
-									</div>
-
-								</div>
-
-								<div class="col-md-3">
-
-									<div class="form-group">
-
-										<label class="control-label">विभाग / Department</label>
-
-			                    	<input type="text" id="dept" name="dept" class="form-control" placeholder="Employee Department" readonly="" value="<?php echo getdepartment($result['department']);?>">
-
-									</div>
-
-								</div>
-
 							<!--/row-->
 
-							<!--/row-->	
+							<div class="col-md-3">
 
-								<div class="col-md-3">
+								<div class="form-group">
 
-									<div class="form-group">
+									<label class="control-label">User</label>
 
-										<label class="control-label">User</label>
+									<select class="form-control" style="width: 100%;" tabindex="-1" id="user_role" name="role" autofocus="true">
 
-										<select class="form-control" style="width: 100%;" tabindex="-1" id="user_role" name="role" autofocus="true">
+										<option value="" selected="" disabled="">Select User</option>
 
-			                    		<option value="" selected="" disabled="">Select User</option>
+										<option value="1">Controlling Incharge</option>
 
-			                    		<option value="1">Controlling Incharge</option>
+										<option value="2">SBF Admin</option>
 
-			                    		<option value="2">SBF Admin</option>
+										<option value="3">CSBF Admin</option>
 
-			                    		<option value="3">CSBF Admin</option>
-
-			                    	</select>
-
-									</div>
+									</select>
 
 								</div>
 
-								<!-- <div class="col-md-3">
+							</div>
+
+							<!-- <div class="col-md-3">
 
 									<div class="form-group">
 
@@ -268,19 +268,16 @@
 
 			                    		<?php
 
-			                    		dbcon1();
+										$conn = dbcon1();
 
-			                    		$query = mysql_query("SELECT billunit FROM billunit where au='0107' ORDER BY `billunit` ASC");
+										$query = mysqli_query($conn, "SELECT billunit FROM billunit where au='0107' ORDER BY `billunit` ASC");
 
-			                    		while($row = mysql_fetch_array($query))
+										while ($row = mysqli_fetch_array($query)) {
 
-			                    		{
+											echo "<option value='" . $row['billunit'] . "'>" . $row['billunit'] . "</option>";
+										}
 
-			                    			echo "<option value='".$row['billunit']."'>".$row['billunit']."</option>";
-
-			                    		}
-
-			                    		?>
+										?>
 
 			                    	</select>
 
@@ -288,39 +285,29 @@
 
 								</div> -->
 
-							</div>					
-
-														
-
 						</div>
 
-								<div class="form-actions right">
 
-								<button type="reset" class="btn default">Cancel</button>
 
-								<button type="submit" class="btn blue submit_btn" id='submit_btn' name='button'><i class="fa fa-check"></i> प्रस्तुत करे / Submit</button>
+					</div>
 
-								</div>
+					<div class="form-actions right">
 
-					</form>
+						<button type="reset" class="btn default">Cancel</button>
 
-								<!--/span-->
+						<button type="submit" class="btn blue submit_btn" id='submit_btn' name='button'><i class="fa fa-check"></i> प्रस्तुत करे / Submit</button>
 
-							</div>
+					</div>
 
-							
+				</form>
 
-					<!-- END FORM-->
-
-				</div>
+				<!--/span-->
 
 			</div>
 
 
 
-			
-
-			
+			<!-- END FORM-->
 
 		</div>
 
@@ -328,65 +315,73 @@
 
 
 
-	
 
-	
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
 
 <?php
 
-	include 'common/footer.php';
+include 'common/footer.php';
 
 ?>
 
 <script>
+	$(document).ready(function() {
 
-	$(document).ready(function(){
+		var value = $('#user_id').val();
 
-      var value = $('#user_id').val();
+		//alert(value);
 
-      //alert(value);
+		$.ajax({
 
-      $.ajax({
+				url: 'control/adminProcess.php',
 
-        url: 'control/adminProcess.php',
+				type: 'POST',
 
-        type: 'POST',
+				data: {
+					action: 'fetchuser',
+					id: value
+				},
 
-        data: {action: 'fetchuser', id : value},
+			})
 
-      })
+			.done(function(html)
 
-      .done(function(html) 
+				{
 
-      {
+					// console.log(html);
 
-      	// console.log(html);
+					var data = JSON.parse(html);
 
-        var data = JSON.parse(html);
+					//alert(data.user_bu);
 
-      //alert(data.user_bu);
+					if (data == 1)
 
-        if(data==1)
+					{
 
-          {
+						alert("Error");
 
-            alert("Error");
+					} else
 
-          }
+					{
 
-          else
+						$("#billunit").val(data.user_bu).trigger("change");
 
-          {
+						$("#user_role").val(data.user_role).trigger("change");
 
-            $("#billunit").val(data.user_bu).trigger("change");
+					}
 
-            $("#user_role").val(data.user_role).trigger("change");
+				});
 
-          }
-
-      });
-
-    });
-
+	});
 </script>
-

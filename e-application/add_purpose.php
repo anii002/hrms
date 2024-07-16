@@ -121,11 +121,11 @@
 							<tbody>
 							<?php
 							$counter = 0;
-							dbcon3();
-							$qry = mysql_query("SELECT * FROM `purpose` ORDER BY purpose_id DESC");
-							//$row = mysql_fetch_array($qry);
+							$conn=dbcon3();
+							$qry = mysqli_query($conn,"SELECT * FROM `purpose` ORDER BY purpose_id DESC");
+							//$row = mysqli_fetch_array($qry);
 							//print_r($row);
-							while($row = mysql_fetch_array($qry))
+							while($row = mysqli_fetch_array($qry))
 							{
 							?>
 							<tr class="odd gradeX">

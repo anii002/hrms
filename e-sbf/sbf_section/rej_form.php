@@ -36,9 +36,9 @@
 			
 			<?php
 				$pf_no = $_SESSION['username'];
-					dbcon();
+				$conn=dbcon();
 				$sql = "SELECT * FROM tbl_form_details WHERE rejected_by = '".$pf_no."' AND rejected=1";
-				$result = mysql_query($sql);
+				$result = mysqli_query($conn,$sql);
 			?>
 			
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -55,10 +55,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php $i=1; while($row = mysql_fetch_assoc($result)) { 
-							dbcon1(); 
-							$sql_name = mysql_query("SELECT name FROM register_user WHERE emp_no = '".$row['emp_no']."'");
-							$row_name = mysql_fetch_array($sql_name);?>
+						<?php $i=1; while($row = mysqli_fetch_assoc($result)) { 
+							$conn=dbcon1(); 
+							$sql_name = mysqli_query($conn,"SELECT name FROM register_user WHERE emp_no = '".$row['emp_no']."'");
+							$row_name = mysqli_fetch_array($sql_name);?>
 						<tr class="odd gradeX">
 							<td><?php echo $i++; ?></td>
 							<td><?php echo $row['emp_no']; ?></td>
@@ -66,10 +66,10 @@
 							<td>
 								<?php
 								$sc_id = $row['scheme_id'];
-								dbcon();
+								$conn=dbcon();
 								$sql_scheme = "SELECT scheme_name FROM tbl_master_form WHERE id = '$sc_id'";
-								$result_scheme = mysql_query($sql_scheme);
-								$row_scheme = mysql_fetch_assoc($result_scheme);
+								$result_scheme = mysqli_query($conn,$sql_scheme);
+								$row_scheme = mysqli_fetch_assoc($result_scheme);
 								echo $row_scheme['scheme_name'];
 								?>
 							</td>

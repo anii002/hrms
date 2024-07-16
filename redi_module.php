@@ -958,28 +958,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['username'] = $pf_num;
 				$_SESSION['dept'] = $row['department'];
 				$_SESSION['user_role'] = 'admin';
-				echo "<script>window.location.href='../e-sbf/admin/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-sbf/admin/index.php';</script>";
 			}
 
 			if ($_POST['sbf'] == 1) {
 				$_SESSION['username'] = $pf_num;
 				$_SESSION['dept'] = $row['department'];
 				$_SESSION['user_role'] = 1;
-				echo "<script>window.location.href='../e-sbf/control_incharge/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-sbf/control_incharge/index.php';</script>";
 			}
 
 			if ($_POST['sbf'] == 2) {
 				$_SESSION['username'] = $pf_num;
 				$_SESSION['dept'] = $row['department'];
 				$_SESSION['user_role'] = 2;
-				echo "<script>window.location.href='../e-sbf/sbf_section/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-sbf/sbf_section/index.php';</script>";
 			}
 
 			if ($_POST['sbf'] == 3) {
 				$_SESSION['username'] = $pf_num;
 				$_SESSION['dept'] = $row['department'];
 				$_SESSION['user_role'] = 3;
-				echo "<script>window.location.href='../e-sbf/csbf_section/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-sbf/csbf_section/index.php';</script>";
 			}
 
 
@@ -993,7 +993,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					$_SESSION['username'] = $pf_num;
 					$_SESSION['dept'] = $row['department'];
 					$_SESSION['user_role'] = 4;
-					echo "<script>window.location.href='../e-sbf/employee/index.php';</script>";
+					echo "<script>window.location.href='../hrms/e-sbf/employee/index.php';</script>";
 				} else {
 					echo "<script>
 						alert('You cant access');

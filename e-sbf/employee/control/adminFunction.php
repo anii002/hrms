@@ -33,9 +33,9 @@ print_r($name_array);exit();*/
       
         if (move_uploaded_file($tmp_name_array[$i], $path.$file)) 
         {        
-          dbcon();
+          $conn=dbcon();
         
-          $sql_img = mysql_query("INSERT INTO tbl_doc(reference_id, files, created_at) VALUES('$reference_id', '$file', '$created_at')");       
+          $sql_img = mysqli_query($conn,"INSERT INTO tbl_doc(reference_id, files, created_at) VALUES('$reference_id', '$file', '$created_at')");       
         }      
           
       }
@@ -79,9 +79,9 @@ print_r($name_array);exit();*/
 
         if (move_uploaded_file($tmp_name_array[$i], $path.$file)) 
         {        
-          dbcon();
+          $conn=dbcon();
         
-          $sql_img = mysql_query("INSERT INTO tbl_doc (reference_id, files) VALUES ('$reference_id', '$file')");       
+          $sql_img = mysqli_query($conn,"INSERT INTO tbl_doc (reference_id, files) VALUES ('$reference_id', '$file')");       
         }      
           
       }

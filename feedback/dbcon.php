@@ -1,6 +1,6 @@
 <?php
-// $con = @mysql_connect("localhost","root","");
-// mysql_select_db("drmpsurh_travel_allowance1");
+// $con = @mysqli_connect("localhost","root","");
+// mysqli_select_db("drmpsurh_travel_allowance1");
 
 
 function dbcon()
@@ -9,8 +9,8 @@ function dbcon()
 	$pass  ="root@123";
 	$host  = "localhost";
 	$db    = "drmpsurh_sur_railway";
-	@mysql_connect($host,$user,$pass);
-	mysql_select_db($db); 
+	@mysqli_connect($host,$user,$pass);
+	mysqli_select_db($db); 
 }
 function dbcon2()
 {
@@ -18,8 +18,8 @@ function dbcon2()
 	$pass  ="root@123";
 	$host  = "localhost";
 	$db    = "drmpsurh_feedback";
-	@mysql_connect($host,$user,$pass);
-	mysql_select_db($db); 
+	@mysqli_connect($host,$user,$pass);
+	mysqli_select_db($db); 
 }
 define('SALT1', '2345#$%@3e');
 define('SALT2', 'taesa%#@2%^#');

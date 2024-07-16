@@ -37,9 +37,9 @@
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
 					<?php
-					dbcon3();
-					$query = mysql_query("SELECT * FROM purpose WHERE purpose_id = '".$_GET['purpose_id']."'");
-					$row = mysql_fetch_array($query);
+					$conn=dbcon3();
+					$query = mysqli_query($conn,"SELECT * FROM purpose WHERE purpose_id = '".$_GET['purpose_id']."'");
+					$row = mysqli_fetch_array($query);
 					?>
 					<form action="control/adminProcess.php?action=update_purpose" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
 						<div class="form-body">

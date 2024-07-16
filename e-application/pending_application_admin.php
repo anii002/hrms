@@ -70,18 +70,18 @@ include('common/sidebar.php');
                                     <?php
                                     $counter = 0;
                                     $cnt = 0;
-                                    dbcon3();
-                                    // $qry = mysql_query("SELECT * FROM `add_application`");
-                                    $qry = mysql_query("SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.forward_status = 1 AND forward_appl.admin_status = 0 AND forward_appl.forwarded_to = '" . $_SESSION['user'] . "'");
+                                    $conn = dbcon3();
+                                    // $qry = mysqli_query("SELECT * FROM `add_application`");
+                                    $qry = mysqli_query($conn, "SELECT add_application.*,forward_appl.* FROM `add_application`,forward_appl WHERE add_application.application_id = forward_appl.appli_id AND forward_appl.forward_status = 1 AND forward_appl.admin_status = 0 AND forward_appl.forwarded_to = '" . $_SESSION['user'] . "'");
 
-                                    // $row_emp_name = mysql_fetch_array($name);
-                                    $count_row = mysql_num_rows($qry);
+                                    // $row_emp_name = mysqli_fetch_array($name);
+                                    $count_row = mysqli_num_rows($qry);
                                     // if ($count_row > 0) { } else {
                                     // 	echo "
                                     // 	<script>document.getElementById('gn').style.display='none';</script>";
                                     // }
                                     $cnt = 0;
-                                    while ($row = mysql_fetch_array($qry)) {
+                                    while ($row = mysqli_fetch_array($qry)) {
                                         // print_r($row);
                                         extract($row);
                                         $counter += 1;
@@ -90,9 +90,9 @@ include('common/sidebar.php');
 											<td>$application_id</td>
 											<td>$counter</td>
 abc;
-                                        dbcon2();
-                                        $name = mysql_query("SELECT name FROM register_user WHERE emp_no = '" . $row['pfno'] . "'");
-                                        $row_emp_name = mysql_fetch_array($name);
+                                        $conn = dbcon2();
+                                        $name = mysqli_query($conn, "SELECT name FROM register_user WHERE emp_no = '" . $row['pfno'] . "'");
+                                        $row_emp_name = mysqli_fetch_array($name);
                                         $name = $row_emp_name['name'];
                                         $pfno = $row['pfno'];
                                         $purpose = $row['purpose'];
@@ -139,16 +139,15 @@ xyz;
             <div class="col-md-12">
                 <div class="form-group">
                     <label class="control-label">Select the recipient to forward the Application</label>
-                    <select class="form-control select2 fetchuser" style="width: 100%;" tabindex="-1" id="user"
-                        name="user" autofocus="true" required>
+                    <select class="form-control select2 fetchuser" style="width: 100%;" tabindex="-1" id="user" name="user" autofocus="true" required>
                         <option value="" selected="" disabled="">Select Billunit Clerk</option>
                         <?php
-                        dbcon3();
-                        $query_select = mysql_query("SELECT * FROM add_user WHERE user_role = '1'");
-                        while ($row = mysql_fetch_array($query_select)) {
-                            dbcon2();
-                            $query_name = mysql_query("SELECT name FROM register_user WHERE emp_no = '" . $row['user_pfno'] . "'");
-                            $row_name = mysql_fetch_array($query_name);
+                       $conn= dbcon3();
+                        $query_select = mysqli_query($conn,"SELECT * FROM add_user WHERE user_role = '1'");
+                        while ($row = mysqli_fetch_array($query_select)) {
+                            $conn= dbcon2();
+                            $query_name = mysqli_query($conn,"SELECT name FROM register_user WHERE emp_no = '" . $row['user_pfno'] . "'");
+                            $row_name = mysqli_fetch_array($query_name);
 
                             echo "
 						<option value='" . $row['user_pfno'] . "'>" . $row['office_description'] . "-" . $row_name['name'] . "</option>";
@@ -185,170 +184,170 @@ xyz;
     </div>
 </div>
 <script type="text/javascript">
-    
-$(document).ready(function (){   
-   var table = $('#example').DataTable({
-      'ajax': '',  
-      'columnDefs': [{
-         'targets': 0,
-         'searchable':false,
-         'orderable':false,
-         'className': 'dt-body-center',
-         'render': function (data, type, full, meta){
-             return '<input type="checkbox" name="id[]" value="' 
-                + $('<div/>').text(data).html() + '">';
-         }
-      }],
-      'order': [1, 'asc']
-   });
-
-   // Handle click on "Select all" control
-   $('#example-select-all').on('click', function(){
-      // Check/uncheck all checkboxes in the table
-      var rows = table.rows({ 'search': 'applied' }).nodes();
-      $('input[type="checkbox"]', rows).prop('checked', this.checked);
-   });
-
-   // Handle click on checkbox to set state of "Select all" control
-   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
-      // If checkbox is not checked
-      if(!this.checked){
-         var el = $('#example-select-all').get(0);
-         // If "Select all" control is checked and has 'indeterminate' property
-         if(el && el.checked && ('indeterminate' in el)){
-            // Set visual state of "Select all" control 
-            // as 'indeterminate'
-            el.indeterminate = true;
-         }
-      }
-   });
-    
-   $('#frm-example').on('submit', function(e){
-      var form = this;
-
-      var res=[];
-      // Iterate over all checkboxes in the table
-      $("#example input[type='checkbox']").each(function(){
-        
-        if(this.checked){
-        console.log(this.value);
-        res.push(this.value);    
-        }
-      });
-      // table.$('input[type="checkbox"]').each(function(){
-      //    // If checkbox doesn't exist in DOM
-      //    if(!$.contains(document, this)){
-      //       // If checkbox is checked
-      //       if(this.checked){
-      //          // Create a hidden element 
-      //          console.log(this.value);
-      //          $(form).append(
-      //             $('<input>')
-      //                .attr('type', 'hidden')
-      //                .attr('name', this.name)
-      //                .val(this.value)
-      //          );
-      //          res.push(this.value);
-      //       }
-      //    } 
-      // });
-
-      // console.log(res);
-      if(res.includes('1')){
-        res.shift();
-      }
-      // console.log(res);
-      $("#application_id").val(res);
-    $("#forward_modal").modal("show");
-      // FOR TESTING ONLY
-
-      
-      // Output form data to a console
-      // $('#example-console').text($(form).serialize()); 
-      // console.log("Form submission", $(form).serialize()); 
-       
-      // Prevent actual form submission
-      e.preventDefault();
-   });
-   /*$('#frm-example').on('submit', function(e) {
-
-        // e.preventDefault();
-        var form = this;
-
-        var rows_selected = table.column(0).checkboxes.selected();
-
-        console.log(rows_selected);
-
-        $.each(rows_selected, function(index, rowId) {
-            // Create a hidden element 
-            $(form).append(
-                $('<input>')
-                .attr('type', 'hidden')
-                .attr('name', 'selected_list[]')
-                .val(rowId)
-            );
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            'ajax': '',
+            'columnDefs': [{
+                'targets': 0,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function(data, type, full, meta) {
+                    return '<input type="checkbox" name="id[]" value="' +
+                        $('<div/>').text(data).html() + '">';
+                }
+            }],
+            'order': [1, 'asc']
         });
-        console.log(rows_selected);
 
-    });*/
-});
-$(document).on('click', '.deleteapplication', function() {
-    var id = $(this).val();
-    // alert(id);
-    var result = confirm("Confirm!!! Proceed for Application delete?");
-    if (result == true) {
+        // Handle click on "Select all" control
+        $('#example-select-all').on('click', function() {
+            // Check/uncheck all checkboxes in the table
+            var rows = table.rows({
+                'search': 'applied'
+            }).nodes();
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+
+        // Handle click on checkbox to set state of "Select all" control
+        $('#example tbody').on('change', 'input[type="checkbox"]', function() {
+            // If checkbox is not checked
+            if (!this.checked) {
+                var el = $('#example-select-all').get(0);
+                // If "Select all" control is checked and has 'indeterminate' property
+                if (el && el.checked && ('indeterminate' in el)) {
+                    // Set visual state of "Select all" control 
+                    // as 'indeterminate'
+                    el.indeterminate = true;
+                }
+            }
+        });
+
+        $('#frm-example').on('submit', function(e) {
+            var form = this;
+
+            var res = [];
+            // Iterate over all checkboxes in the table
+            $("#example input[type='checkbox']").each(function() {
+
+                if (this.checked) {
+                    console.log(this.value);
+                    res.push(this.value);
+                }
+            });
+            // table.$('input[type="checkbox"]').each(function(){
+            //    // If checkbox doesn't exist in DOM
+            //    if(!$.contains(document, this)){
+            //       // If checkbox is checked
+            //       if(this.checked){
+            //          // Create a hidden element 
+            //          console.log(this.value);
+            //          $(form).append(
+            //             $('<input>')
+            //                .attr('type', 'hidden')
+            //                .attr('name', this.name)
+            //                .val(this.value)
+            //          );
+            //          res.push(this.value);
+            //       }
+            //    } 
+            // });
+
+            // console.log(res);
+            if (res.includes('1')) {
+                res.shift();
+            }
+            // console.log(res);
+            $("#application_id").val(res);
+            $("#forward_modal").modal("show");
+            // FOR TESTING ONLY
+
+
+            // Output form data to a console
+            // $('#example-console').text($(form).serialize()); 
+            // console.log("Form submission", $(form).serialize()); 
+
+            // Prevent actual form submission
+            e.preventDefault();
+        });
+        /*$('#frm-example').on('submit', function(e) {
+
+             // e.preventDefault();
+             var form = this;
+
+             var rows_selected = table.column(0).checkboxes.selected();
+
+             console.log(rows_selected);
+
+             $.each(rows_selected, function(index, rowId) {
+                 // Create a hidden element 
+                 $(form).append(
+                     $('<input>')
+                     .attr('type', 'hidden')
+                     .attr('name', 'selected_list[]')
+                     .val(rowId)
+                 );
+             });
+             console.log(rows_selected);
+
+         });*/
+    });
+    $(document).on('click', '.deleteapplication', function() {
+        var id = $(this).val();
+        // alert(id);
+        var result = confirm("Confirm!!! Proceed for Application delete?");
+        if (result == true) {
+            $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: {
+                        action: 'deleteapplication',
+                        id: id
+                    },
+                })
+                .done(function(html) {
+                    alert(html);
+                    window.location = "view_application.php";
+                });
+        }
+    });
+    $(document).on("click", ".forward", function() {
+        var user = $('#user').val();
+        var app_id = $('#application_id').val();
+        // alert(user);
         $.ajax({
                 url: 'control/adminProcess.php',
                 type: 'POST',
                 data: {
-                    action: 'deleteapplication',
-                    id: id
+                    action: 'forward_clerk',
+                    user: user,
+                    app_id: app_id
                 },
             })
             .done(function(html) {
                 alert(html);
-                window.location = "view_application.php";
+                window.location = "approved_application_admin.php";
             });
-    }
-});
-$(document).on("click", ".forward", function() {
-    var user = $('#user').val();
-    var app_id = $('#application_id').val();
-    // alert(user);
-    $.ajax({
-            url: 'control/adminProcess.php',
-            type: 'POST',
-            data: {
-                action: 'forward_clerk',
-                user: user,
-                app_id: app_id
-            },
-        })
-        .done(function(html) {
-            alert(html);
-            window.location = "approved_application_admin.php";
-        });
 
-});
-$(document).on("change", ".fetchuser", function() {
-    var id = $('#user').val();
-    //alert(id);
-    $.ajax({
-            url: 'control/adminProcess.php',
-            type: 'POST',
-            data: {
-                action: 'fetchEmployee2',
-                id: id
-            },
-        })
-        .done(function(html) {
-            //alert(html);
-            var data = JSON.parse(html);
-            // alert(data);
-            $("#empname").html(data.empname);
-            $("#design").html(data.desigcode);
-            $("#station").html(data.station);
-        });
-});
-
+    });
+    $(document).on("change", ".fetchuser", function() {
+        var id = $('#user').val();
+        //alert(id);
+        $.ajax({
+                url: 'control/adminProcess.php',
+                type: 'POST',
+                data: {
+                    action: 'fetchEmployee2',
+                    id: id
+                },
+            })
+            .done(function(html) {
+                //alert(html);
+                var data = JSON.parse(html);
+                // alert(data);
+                $("#empname").html(data.empname);
+                $("#design").html(data.desigcode);
+                $("#station").html(data.station);
+            });
+    });
 </script>

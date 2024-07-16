@@ -5,29 +5,29 @@ error_reporting(0);
 <!-- PNotify -->
 <!-- page content -->
 <div class="right_col" role="main">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <h2>Pending Grievance<small> List</small></h2>
-                        <hr>
-                        <div class="x_content">
-                            <table class="table table-striped table-bordered display" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Sr.No</th>
-                                        <th>Employee No</th>
-                                        <th>Employee Name</th>
-                                        <th>Employee Type</th>
-                                        <th>Grievance Ref.No.</th>
-                                        <th>Category</th>
-                                        <th>Updated Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<h2>Pending Grievance<small> List</small></h2>
+						<hr>
+						<div class="x_content">
+							<table class="table table-striped table-bordered display" style="width:100%;">
+								<thead>
+									<tr>
+										<th>Sr.No</th>
+										<th>Employee No</th>
+										<th>Employee Name</th>
+										<th>Employee Type</th>
+										<th>Grievance Ref.No.</th>
+										<th>Category</th>
+										<th>Updated Date</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
 									$cnt = 1;
 									$current_id = $_SESSION["SESSION_ID"];
 									if (isBo() || isBA()) {
@@ -37,8 +37,9 @@ error_reporting(0);
 										// $sql = "Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='2' AND g.gri_ref_no NOT like 'WEL%' ORDER BY g.gri_upload_date DESC";
 										$sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='2' AND g.gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC";
 									}
-									$query = mysql_query($sql);
-									while ($rw_data = mysql_fetch_array($query)) {
+									global $db_egr;
+									$query = mysqli_query( $db_egr,$sql);
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_no"];
 										$emp_name = $rw_data["name"];
 										$emp_type = get_type($rw_data["empType"]);
@@ -62,39 +63,39 @@ error_reporting(0);
 										$cnt++;
 									}
 									?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <h2>Pending Grievance<small> Added By Welfare List</small></h2>
-                        <hr>
-                        <div class="x_content">
-                            <table class="table table-striped table-bordered display" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Sr.No</th>
-                                        <th>Employee No</th>
-                                        <th>Employee Name</th>
-                                        <th>Mobile Number</th>
-                                        <th>Grievance Ref.No.</th>
-                                        <th>Category</th>
-                                        <th>Updated Date</th>
-                                        <th>Uploaded By</th>
-                                        <th>Pending With</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<h2>Pending Grievance<small> Added By Welfare List</small></h2>
+						<hr>
+						<div class="x_content">
+							<table class="table table-striped table-bordered display" style="width:100%;">
+								<thead>
+									<tr>
+										<th>Sr.No</th>
+										<th>Employee No</th>
+										<th>Employee Name</th>
+										<th>Mobile Number</th>
+										<th>Grievance Ref.No.</th>
+										<th>Category</th>
+										<th>Updated Date</th>
+										<th>Uploaded By</th>
+										<th>Pending With</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
 									$cnt = 1;
 									$current_id = getCurrentUser();
 									if (isBo() || isBA()) {
@@ -104,8 +105,8 @@ error_reporting(0);
 										// $sql = "Select gf.user_id_forwarded, e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id, g.uploaded_by, e.emp_mob from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward gf ON g.gri_ref_no = gf.griv_ref_no where g.status='2' AND g.gri_ref_no like 'WEL%' AND g.gri_ref_no = gf.griv_ref_no ORDER BY g.gri_upload_date DESC";
 										$sql = "Select gf.user_id_forwarded, e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id, g.uploaded_by, e.mobile from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward gf ON g.gri_ref_no = gf.griv_ref_no where g.status='2' AND g.gri_ref_no like 'WEL%' GROUP By g.id ORDER BY g.gri_upload_date DESC";
 									}
-									$query = mysql_query($sql);
-									while ($rw_data = mysql_fetch_array($query)) {
+									$query = mysqli_query( $db_egr,$sql);
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_no"];
 										$emp_name = $rw_data["name"];
 										$emp_mobile = $rw_data["mobile"];
@@ -132,21 +133,21 @@ error_reporting(0);
 										$cnt++;
 									}
 									?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <?php
 require_once('Global_Data/footer.php');
 ?>
 <script>
-/* $(document).on("click",".btn1",function(){
+	/* $(document).on("click",".btn1",function(){
 	var g_id=$(this).attr('id');
 	alert(g_id);
 	$.ajax({

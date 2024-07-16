@@ -8,20 +8,20 @@ include("function.php");
 
 function fetchEmployee1($id)
 {
-  global $con;
-  dbcon1();
+  // global $con;
+  $conn=dbcon1();
   $query = "select * from register_user where emp_no = '$id'";
-  $result = mysql_query($query);
-  dbcon();
-  $query_check = mysql_query("SELECT user_pfno FROM add_user WHERE user_pfno = '$id'");
-  $row = mysql_num_rows($query_check);
+  $result = mysqli_query($conn,$query);
+  $conn=dbcon();
+  $query_check = mysqli_query($conn,"SELECT user_pfno FROM add_user WHERE user_pfno = '$id'");
+  $row = mysqli_num_rows($query_check);
   if($row > 0)
   {
     return 1;  
   }
   else
   {
-      $value = mysql_fetch_array($result);
+      $value = mysqli_fetch_array($result);
       $data['empid']=$value['emp_no'];
       $data['empname']=$value['name'];
       $data['billunit']=$value['bill_unit'];
@@ -40,10 +40,10 @@ function fetchEmployee1($id)
 }
 function deleteuser($id)
 {
-  global $con;
-  dbcon();
+  // global $con;
+  $conn=dbcon();
   $query = "delete from add_user where user_id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
     return true;
   else
@@ -51,13 +51,13 @@ function deleteuser($id)
 }
 function fetchuser($id)
 {
-  global $con;
-  dbcon();
+  // global $con;
+  $conn= dbcon();
   $query = "select * from add_user where user_id = '$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($conn,$query);
   if($result)
   {
-      $value = mysql_fetch_array($result);
+      $value = mysqli_fetch_array($result);
       $data['user_bu']=$value['user_bu'];
       $data['user_role']=$value['user_role'];
 
@@ -69,28 +69,31 @@ function fetchuser($id)
   }
 }
 function get_emp($pf)
-	{		dbcon1();
+	{		
+    $conn=dbcon1();
 
 		$sql = "SELECT name, designation, station FROM register_user WHERE emp_no = '$pf'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_assoc($result);
 		return $row;
 	}
 
 	function get_designation($id)
-	{dbcon1();
+	{
+    $conn=dbcon1();
 		$sql = "SELECT DESIGLONGDESC FROM designations WHERE DESIGCODE = '$id'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_assoc($result);
 		return $row['DESIGLONGDESC'];
 	}
 
 
 	function get_station($id)
-	{dbcon1();
+	{
+    $conn=dbcon1();
 		$sql = "SELECT stationdesc FROM station WHERE stationcode = '$id'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_assoc($result);
 		return $row['stationdesc'];
 	}
 ?>

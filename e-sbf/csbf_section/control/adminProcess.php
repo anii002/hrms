@@ -8,9 +8,9 @@ include('adminFunction.php');
 	  case 'approve_form':
         $ref_id     = $_REQUEST['ref_no'];
         $username   = $_REQUEST['empid_session'];
-        dbcon();
+        $conn=dbcon();
         $query = "UPDATE tbl_form_forward set fw_status='1' where ref_id='".$ref_id."' AND forwarded_to = '".$username."'";
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
      
       if($result)
       {
@@ -27,11 +27,11 @@ include('adminFunction.php');
             $emp_no = $_POST['txt_emp_pf'];
             $ref = $_POST['ref_no'];
 
-            dbcon();
+            $conn=dbcon();
             
              $query1 = "UPDATE `tbl_form_details` SET `rejected`='1', `rejected_by`='".$empid_session."' WHERE `reference_id`='".$ref."' AND emp_no='".$emp_no."'";
             
-            $result1 = mysql_query($query1);
+            $result1 = mysqli_query($conn,$query1);
 
                     
             if($result1)

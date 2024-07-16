@@ -10,20 +10,20 @@ $id = $_GET['id'];
 
 //echo $id;exit();
 
-dbcon();
+$conn=dbcon();
 $sql = "SELECT files FROM tbl_doc WHERE id = '$id'";
 
-$result = mysql_query($sql);
+$result = mysqli_query($conn,$sql);
 
-$row = mysql_fetch_assoc($result);
+$row = mysqli_fetch_assoc($result);
 
 $image = $row['files'];
 
 unlink('../uploads/$pf_no/'.$image);
-dbcon();
+$conn=dbcon();
 $sql_del = "DELETE FROM tbl_doc WHERE id = '$id'";
 
-$result_del = mysql_query($sql_del);
+$result_del = mysqli_query($conn,$sql_del);
 
 if($result_del)
 {

@@ -1,23 +1,23 @@
 <?php
 
-$GLOBALS['flag']="1.4";
+$GLOBALS['flag'] = "1.4";
 
-	include('common/header.php');
+include('common/header.php');
 
-	include('common/sidebar.php');
-	
-	//echo "<pre>"; print_r($_SESSION);
-	dbcon1();
-	$sql = "SELECT bill_unit FROM register_user WHERE id = ".$_SESSION['user_id'];
-	//echo $sql;
+include('common/sidebar.php');
 
-	$result = mysql_query($sql);
-	
-	$row = mysql_fetch_assoc($result);
-	
-    $bill_unit = $row['bill_unit'];
-    //echo $bill_unit;
-    
+//echo "<pre>"; print_r($_SESSION);
+$conn = dbcon1();
+$sql = "SELECT bill_unit FROM register_user WHERE id = " . $_SESSION['user_id'];
+//echo $sql;
+
+$result = mysqli_query($conn, $sql);
+
+$row = mysqli_fetch_assoc($result);
+
+$bill_unit = $row['bill_unit'];
+//echo $bill_unit;
+
 
 ?>
 
@@ -29,7 +29,7 @@ $GLOBALS['flag']="1.4";
 
 		<!-- BEGIN PAGE HEADER-->
 
-		
+
 
 		<div class="page-bar">
 
@@ -69,7 +69,7 @@ $GLOBALS['flag']="1.4";
 
 		<!-- BEGIN DASHBOARD STATS -->
 
-		
+
 
 		<!-- END DASHBOARD STATS -->
 
@@ -121,7 +121,9 @@ $GLOBALS['flag']="1.4";
 
 										<center>
 
-										<label class="control-label"><h4 class="">Select Controlling Incharge</h4></label>
+											<label class="control-label">
+												<h4 class="">Select Controlling Incharge</h4>
+											</label>
 
 										</center>
 
@@ -129,7 +131,7 @@ $GLOBALS['flag']="1.4";
 
 								</div>
 
-								<div class="col-md-4">	</div>
+								<div class="col-md-4"> </div>
 
 							</div>
 
@@ -143,25 +145,22 @@ $GLOBALS['flag']="1.4";
 
 										<select name="forwardName" id="forwardName" class="form-control required" style="width: 100%" required>
 
-											<option readonly value='0' selected >Select CI</option>
+											<option readonly value='0' selected>Select CI</option>
 
 											<?php
 
-										        dbcon1();
-										        if($_SESSION['pf_num'] == '123123'){
-										            echo "<option value='00505283012'>R R Adhyapak</option>";	
-										        }
-										        else{
-										            $sql = "SELECT empno, name FROM billunit WHERE billunit = ".$bill_unit;
-										//	echo $sql;
-											$result = mysql_query($sql);
-				              				while($row = mysql_fetch_assoc($result))
-				              				{
-												echo "<option value='".$row['empno']."'>".$row['name']."</option>";	
-				              				}
+											dbcon1();
+											if ($_SESSION['pf_num'] == '123123') {
+												echo "<option value='00505283012'>R R Adhyapak</option>";
+											} else {
+												$sql = "SELECT empno, name FROM billunit WHERE billunit = " . $bill_unit;
+												//	echo $sql;
+												$result = mysqli_query($conn,$sql);
+												while ($row = mysqli_fetch_assoc($result)) {
+													echo "<option value='" . $row['empno'] . "'>" . $row['name'] . "</option>";
+												}
+											}
 
-										        }
-											
 											?>
 
 										</select>
@@ -174,7 +173,7 @@ $GLOBALS['flag']="1.4";
 
 							</div>
 
-							
+
 
 						</div>
 
@@ -202,7 +201,9 @@ $GLOBALS['flag']="1.4";
 
 										<center>
 
-										<label class="control-label"><h4 class="">Enter OTP</h4></label>
+											<label class="control-label">
+												<h4 class="">Enter OTP</h4>
+											</label>
 
 										</center>
 
@@ -210,7 +211,7 @@ $GLOBALS['flag']="1.4";
 
 								</div>
 
-								<div class="col-md-4">	</div>
+								<div class="col-md-4"> </div>
 
 							</div>
 
@@ -224,7 +225,7 @@ $GLOBALS['flag']="1.4";
 
 										<center>
 
-										<input type="text" maxlength="4" autofocus="true" placeholder="Enter OTP" name="c_otp" id="c_otp" class="form-control" required>
+											<input type="text" maxlength="4" autofocus="true" placeholder="Enter OTP" name="c_otp" id="c_otp" class="form-control" required>
 
 										</center>
 
@@ -266,82 +267,84 @@ $GLOBALS['flag']="1.4";
 
 <?php
 
-	include('common/footer.php');
+include('common/footer.php');
 
 ?>
 
 <script type="text/javascript">
+	$(document).on('click', '.btn_confirm_otp', function() {
 
-	$(document).on('click','.btn_confirm_otp',function(){
+		var fdname = $("#forwardName").val();
 
-		var fdname=$("#forwardName").val();
+		var empid = $("#empid").val();
 
-		var empid=$("#empid").val();
-
-		var ref_no=$("#ref").val();
+		var ref_no = $("#ref").val();
 
 		// var c_otp=$("#c_otp").val();
 
 		//alert(empid+"_"+fdname+"_"+ref_no);
 
-		if(fdname != '0')
+		if (fdname != '0')
 
 		{
 
-		$("#otp_loader").show();
+			$("#otp_loader").show();
 
 			$.ajax({
 
-			type:"post",
+				type: "post",
 
-			url:"control/adminProcess.php",
+				url: "control/adminProcess.php",
 
-			data:"action=forward_form&fdname="+fdname+"&empid="+empid+"&ref_no="+ref_no,
+				data: "action=forward_form&fdname=" + fdname + "&empid=" + empid + "&ref_no=" + ref_no,
 
-				success:function(data)
+				success: function(data)
 
-					{
+				{
 
-					 //alert(data);
+					//alert(data);
 
 					$("#otp_loader").hide();
 
-					if(data == 1)
+					if (data == 1)
 
 					{
 
-						$.jGrowl("Your Form has been forwarded to"+fdname, { header: 'Forward Form.' });
+						$.jGrowl("Your Form has been forwarded to" + fdname, {
+							header: 'Forward Form.'
+						});
 
 						var delay = 1500;
 
-						setTimeout(function(){ window.location = 'sub_forms.php'  }, delay);
+						setTimeout(function() {
+							window.location = 'sub_forms.php'
+						}, delay);
 
-					}
-
-					else
+					} else
 
 					{
 
 						// alert("Something Went Wrong.");
 
-						$.jGrowl("Something Went Wrong...", { header: 'Forward Form.' });
+						$.jGrowl("Something Went Wrong...", {
+							header: 'Forward Form.'
+						});
 
 					}
 
-					}
+				}
 
+			});
+
+		} else {
+
+			// alert("Please select Controlling Incahrge to forward TA.");
+
+			$.jGrowl("Please select Controlling Incharge to forward Contingency...", {
+				header: 'Forward Cont.'
 			});
 
 		}
 
-		else{
-
-			// alert("Please select Controlling Incahrge to forward TA.");
-
-			$.jGrowl("Please select Controlling Incharge to forward Contingency...", { header: 'Forward Cont.' });
-
-		}
-
 	});
-
 </script>

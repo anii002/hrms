@@ -4,6 +4,3 @@ date_default_timezone_set("Asia/kolkata");
 session_start();
 include("../../dbconfig/dbcon.php");
 include("function.php");
-
-
-?>

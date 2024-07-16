@@ -43,9 +43,9 @@
 						<div class="details">
 							<div class="number">
 								<?php
-								dbcon(); 
-							$query = mysql_query("SELECT  count(id) as total from tbl_form_forward where forwarded_to = '".$_SESSION['username']."' AND fw_status=0");
-							$resultset = mysql_fetch_array($query);
+								$conn=dbcon(); 
+							$query = mysqli_query($conn,"SELECT  count(id) as total from tbl_form_forward where forwarded_to = '".$_SESSION['username']."' AND fw_status=0");
+							$resultset = mysqli_fetch_array($query);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
 							?>
 							</div>
@@ -66,9 +66,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-									dbcon(); 
-									$query = mysql_query("SELECT  count(id) as total from tbl_form_forward where forwarded_to = '".$_SESSION['username']."' AND fw_status=1");
-									$resultset = mysql_fetch_array($query);
+									$conn=dbcon(); 
+									$query = mysqli_query($conn,"SELECT  count(id) as total from tbl_form_forward where forwarded_to = '".$_SESSION['username']."' AND fw_status=1");
+									$resultset = mysqli_fetch_array($query);
 									echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
 								?>
 							</div>
@@ -89,9 +89,9 @@
 						<div class="details">
 							<div class="number">
 								<?php 
-									dbcon(); 
-									$query = mysql_query("SELECT  count(id) as total from tbl_form_details where rejected_by = '".$_SESSION['username']."' AND rejected=1");
-									$resultset = mysql_fetch_array($query);
+									$conn=dbcon(); 
+									$query = mysqli_query($conn,"SELECT  count(id) as total from tbl_form_details where rejected_by = '".$_SESSION['username']."' AND rejected=1");
+									$resultset = mysqli_fetch_array($query);
 									echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>".$resultset['total']."</h3>";
 								?>
 							</div>

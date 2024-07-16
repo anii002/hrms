@@ -22,93 +22,93 @@ include('common/sidebar.php');
 		</div>
 
 		<div class="row">
-		    <div class="col-md-12">
-    			<div class="portlet box blue">
-    				<div class="portlet-title">
-    					<div class="caption">
-    						<i class="fa fa-book"></i> Report
-    					</div>
-    				</div>
-    				<div class="portlet-body form">
-    					<div class="form-body">
-    						<!-- <h3 class="form-section">Add User</h3> -->
-    						<div class="row">
-    							<div class="col-md-4">
-    								<div class="form-group">
-    									<label class="control-label">Select Section Wise Summary</label>
-    
-    									<select name="section_wise[]" multiple id="section_wise" class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-    										<option value="" selected disabled>--Select Section Wise Summary--</option>
-    										<option value="0">All</option>
-    										<?php
-    										dbcon3();
-    										$query_emp = mysql_query("SELECT * from tbl_section");
-    
-    										while ($value_emp = mysql_fetch_array($query_emp)) {
-    											echo "<option value='" . $value_emp['sec_id'] . "'>" . $value_emp['sec_name'] . "</option>";
-    										}
-    
-    										?>
-    									</select>
-    
-    								</div>
-    							</div>
-    						</div>
-    						<div class="row">
-    							<div class="col-md-4">
-    								<div class="form-group">
-    									<label class="control-label">From Date</label>
-    
-    									<input type="text" class="form-control datePick" id="frm_date" name="frm_date" placeholder="Select From Date " required required autocomplete="off">
-    
-    								</div>
-    							</div>
-    							<div class="col-md-4">
-    								<div class="form-group">
-    									<label class="control-label">To Date</label>
-    
-    									<input type="text" class="form-control datePick" id="to_date" name="to_date" placeholder="Select To Date" required autocomplete="off">
-    									<span style="color:red" id="warning"></span>
-    
-    								</div>
-    							</div>
-    						</div>
-    						<button type="button" id="src_btn" class="btn btn-info">submit</button>
-    						<button type="button" onclick="location.reload();" class="btn default">Clear</button>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="portlet box blue">
-    				<div class="portlet-title">
-    					<div class="caption">
-    						<i class="fa fa-book"></i>Section Wise Summary Report List
-    					</div>
-    				</div>
-    				<div class="portlet-body form">
-    					<div class="form-body">
-    						<div class="table-responsive">
-    							<table class="table table-striped" id="example1">
-    								<thead>
-    									<tr style="font-size: 15px">
-    										<th>Sr. No</th>
-    										<th>Section/Dept</th>
-    										<th>Total E-Application</th>
-    										<th>Action Taken</th>
-    										<th>Pending</th>
-    										<th>Performance in %</th>
-    									</tr>
-    								</thead>
-    								<tbody id="rpt_body">
-    
-    								</tbody>
-    							</table>
-    
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<!-- END DASHBOARD STATS -->
-    			<div class="clearfix"></div>
+			<div class="col-md-12">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-book"></i> Report
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<div class="form-body">
+							<!-- <h3 class="form-section">Add User</h3> -->
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Select Section Wise Summary</label>
+
+										<select name="section_wise[]" multiple id="section_wise" class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+											<option value="" selected disabled>--Select Section Wise Summary--</option>
+											<option value="0">All</option>
+											<?php
+											$conn=dbcon3();
+											$query_emp = mysqli_query($conn,"SELECT * from tbl_section");
+
+											while ($value_emp = mysqli_fetch_array($query_emp)) {
+												echo "<option value='" . $value_emp['sec_id'] . "'>" . $value_emp['sec_name'] . "</option>";
+											}
+
+											?>
+										</select>
+
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">From Date</label>
+
+										<input type="text" class="form-control datePick" id="frm_date" name="frm_date" placeholder="Select From Date " required required autocomplete="off">
+
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">To Date</label>
+
+										<input type="text" class="form-control datePick" id="to_date" name="to_date" placeholder="Select To Date" required autocomplete="off">
+										<span style="color:red" id="warning"></span>
+
+									</div>
+								</div>
+							</div>
+							<button type="button" id="src_btn" class="btn btn-info">submit</button>
+							<button type="button" onclick="location.reload();" class="btn default">Clear</button>
+						</div>
+					</div>
+				</div>
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-book"></i>Section Wise Summary Report List
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<div class="form-body">
+							<div class="table-responsive">
+								<table class="table table-striped" id="example1">
+									<thead>
+										<tr style="font-size: 15px">
+											<th>Sr. No</th>
+											<th>Section/Dept</th>
+											<th>Total E-Application</th>
+											<th>Action Taken</th>
+											<th>Pending</th>
+											<th>Performance in %</th>
+										</tr>
+									</thead>
+									<tbody id="rpt_body">
+
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END DASHBOARD STATS -->
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>

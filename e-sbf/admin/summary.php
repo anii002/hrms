@@ -4,9 +4,9 @@
 	require_once 'common/header.php';
 	require_once 'common/sidebar.php';
 	require_once '../dbconfig/dbcon.php';
-	dbcon();
+	$conn=dbcon();
 	$sql_sch = "SELECT id, scheme_name, scheme_title FROM tbl_master_form";
-	$result_sch = mysql_query($sql_sch);
+	$result_sch = mysqli_query($conn,$sql_sch);
 
  ?>
 <style type="text/css" media="screen">  
@@ -49,7 +49,7 @@
 					<select class="form-control" name="scheme" id="scheme">
 						<option value="none">Choose Scheme</option>
 				<?php 
-				while ($row_sch = mysql_fetch_assoc($result_sch)) { 
+				while ($row_sch = mysqli_fetch_assoc($result_sch)) { 
 					extract($row_sch);
 					?>		
 		<option value="<?php echo $id; ?>" data-form-name="<?php echo $scheme_title; ?>"><?php echo $scheme_name; ?></option>

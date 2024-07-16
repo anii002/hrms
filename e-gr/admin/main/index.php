@@ -1,7 +1,10 @@
 <?php
+session_start();
 require_once('Global_Data/header.php');
 //error_reporting(0);
 include('config.php');
+include('functions.php')
+
 ?>
 
 <div class="right_col" role="main" style="background-image: url('images/small1.png')repeat;">
@@ -148,7 +151,7 @@ include('config.php');
                                                 <?php
                                                 $cnt = 1;
                                                 $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
-                                                $query = mysqli_query($db_egr,$sql);
+                                                $query = mysqli_query($db_egr, $sql);
                                                 // echo mysqli_num_rows($query);
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($rw_data = mysqli_fetch_array($query)) {
@@ -228,7 +231,7 @@ include('config.php');
                                                 // $sql = "Select e.empno,e.empname,e.emptype,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.prmaemp  e INNER JOIN $db_egr_name.tbl_grievance g ON e.empno=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' ORDER BY g.gri_upload_date DESC";
                                                 $sql = "Select e.emp_no,e.name,e.empType,e.mobile,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,g.uploaded_by from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
 
-                                                $query = mysqli_query($db_egr,$sql);
+                                                $query = mysqli_query($db_egr, $sql);
                                                 while ($rw_data = mysqli_fetch_array($query)) {
                                                     $emp_id = $rw_data["emp_no"];
                                                     $emp_name = $rw_data["name"];

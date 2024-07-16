@@ -198,11 +198,11 @@ include('../dbconfig/dbcon.php');
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
 						<li>
-							<a href="../../../index.php">
+							<a href="../../dashboard.php">
 							<i class="fas fa-home"></i>Home</a>
 						</li>
 						<li>
-							<a href="../../../profile.php">
+							<a href="../../profile.php">
 							<i class="fas fa-user"></i>Profile</a>
 						</li>
 						<li>

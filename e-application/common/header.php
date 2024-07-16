@@ -1,10 +1,11 @@
 <?php
 session_start();
+include('dbcon.php');
 if (!isset($_SESSION['user'])) {
 	echo "<script>alert('Unauthorized  Access!!!');window.location='../../../index.php'</script>";
 }
 
-include('dbcon.php');
+
 
 ?>
 <!DOCTYPE html>
@@ -121,7 +122,7 @@ include('dbcon.php');
 		<div class="page-header-inner">
 			<!-- BEGIN LOGO -->
 			<div class="page-logo">
-				<a href="index.php">
+				<a href="dashboard.php">
 
 					<h4>e-Application</h4>
 				</a>
@@ -144,11 +145,11 @@ include('dbcon.php');
 					<li class="dropdown dropdown-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<?php
-							// $query = mysql_query("select img from employees where pfno='".$_SESSION['user']."'");
-							//$result = mysql_fetch_array($query);
+							// $query = mysqli_query("select img from employees where pfno='".$_SESSION['user']."'");
+							//$result = mysqli_fetch_array($query);
 							if (!isset($_SESSION['profile_image'])) {
 							?>
-								<img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
+								<img alt="" class="img-circle" src="../../hrms/new_eta/assets/admin/layout/img/avatar3_small.jpg" />
 							<?php
 							} else { ?>
 								<img alt="" class="img-circle" src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" />
@@ -162,9 +163,9 @@ include('dbcon.php');
 									// }
 									// else
 									// {
-									dbcon2();
-									$query = mysql_query("SELECT `name` FROM `register_user` WHERE `emp_no` = '" . $_SESSION['user'] . "'");
-									$row = mysql_fetch_array($query);
+									$conn = dbcon2();
+									$query = mysqli_query($conn, "SELECT `name` FROM `register_user` WHERE `emp_no` = '" . $_SESSION['user'] . "'");
+									$row = mysqli_fetch_array($query);
 									echo $row['name'];
 									//}
 									?>
@@ -180,7 +181,7 @@ include('dbcon.php');
 								<?php } else { ?>
 								<li>
 								<?php }	?>
-								<a href="../../../profile.php">
+								<a href="../../hrms/profile.php">
 									<i class="far fa-user"></i> My Profile </a>
 								</li>
 								<!-- <li class="divider">
@@ -190,11 +191,11 @@ include('dbcon.php');
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
 								<li>
-									<a href="../../../index.php">
+									<a href="../../hrms/dashboard.php">
 										<i class="fas fa-home"></i> Home </a>
 								</li>
 								<li>
-									<a href="../../../Logout.php">
+									<a href="../../hrms/Logout.php">
 										<i class="fas fa-sign-out-alt"></i> Log Out </a>
 								</li>
 						</ul>

@@ -38,12 +38,12 @@ include('../dbconfig/dbcon.php');
 <!-- END GLOBAL MANDATORY STYLES -->
 <link href="../../new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css"/>
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-<link rel="stylesheet" type="text/css" href="../assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/select2/select2.css"/>
 <!-- Datatable css-->
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />
 
-<link rel="stylesheet" type="text/css" href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 <!-- BEGIN PAGE STYLES -->
 <link href="../../new_eta/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE STYLES -->
@@ -126,9 +126,9 @@ include('../dbconfig/dbcon.php');
 	<div class="pre-loader preloader-single shadow-inner mg-t-30">
         <div class="ts_preloading_box">
             <div id="ts-preloader-absolute30">
-                <div id="absolute30">
+                <!-- <div id="absolute30">
                     <span></span><span></span><span></span><span></span><span></span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -200,11 +200,11 @@ include('../dbconfig/dbcon.php');
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
 						<li>
-							<a href="../../../index.php">
+							<a href="../../dashboard.php">
 							<i class="fas fa-home"></i>Home</a>
 						</li>
 						<li>
-							<a href="../../../profile.php">
+							<a href="../../profile.php">
 							<i class="fas fa-user"></i>Profile</a>
 						</li>
 						<li>

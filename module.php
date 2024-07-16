@@ -320,30 +320,33 @@ if ($name == 'e_gr') {
     }
 
 
+    
     if ($name == 'sbf') {
         $sbf = explode(',', $row['sbf']);
-        for ($i = 0; $i < count($sbf); $i++) { ?>
+        $roles = [
+            0 => 'Admin',
+            1 => 'Control Incharge',
+            2 => 'SBF Admin',
+            3 => 'CSBF Admin',
+            4 => 'Employee'
+        ];
+    
+        foreach ($roles as $roleId => $roleLabel) {
+            $checked = in_array((string)$roleId, $sbf) ? 'checked' : '';
+            ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($sbf[$i] == 0) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="sbf" value="0"> Admin</label>
-                    <?php }
-                    if ($sbf[$i] == 1) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="sbf" value="1"> Control Incharge</label>
-                    <?php }
-                    if ($sbf[$i] == 2) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="sbf" value="2"> SBF Admin</label>
-                    <?php }
-                    if ($sbf[$i] == 3) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="sbf" value="3"> CSBF Admin</label>
-                    <?php }
-                    if ($sbf[$i] == 4) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="sbf" value="4"> Employee</label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="sbf" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
                 </div>
             </div>
-        <?php }
+            <?php
+        }
     }
+    
+    
 
     if ($name == 'dar') {
         $dar = explode(',', $row['dar']);

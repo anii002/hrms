@@ -1,5 +1,5 @@
 <?php
-require_once('config.php');
+require('config.php');
 // if (!isset($_SESSION['SESSION_ROLE'])) {
 //     echo "<script>alert('Unauthorized Access');window.location='../../../../index.php'</script>";
 // }
@@ -82,6 +82,6 @@ require_once('config.php');
         <div class="main_container">
             <?php
 
-            require_once('sidebar.php');
-            require_once('topnavigation.php');
+            require('sidebar.php');
+            require('topnavigation.php');
             ?>

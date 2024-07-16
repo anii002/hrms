@@ -32,12 +32,12 @@
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
 					<?php
-					dbcon2();
-					$query = mysql_query("SELECT * FROM add_application WHERE application_id = '".$_GET['application_id']."'");
-					$row = mysql_fetch_array($query);
-					dbcon2();
-  					$query1 = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['pfno']."'");
-  					$result = mysql_fetch_array($query1);
+					$conn=dbcon2();
+					$query = mysqli_query($conn,"SELECT * FROM add_application WHERE application_id = '".$_GET['application_id']."'");
+					$row = mysqli_fetch_array($query);
+					$conn=dbcon2();
+  					$query1 = mysqli_query($conn,"SELECT * FROM register_user WHERE emp_no = '".$row['pfno']."'");
+  					$result = mysqli_fetch_array($query1);
 					?>
 					<form action="control/adminProcess.php?action=update_application" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
 						<div class="form-body">
@@ -143,9 +143,9 @@
 										<select class="form-control select2" style="width: 100%;" tabindex="-1" id="purpose" name="purpose" autofocus="true" required>
 				                    		<option value="<?php echo $row['purpose'];?>"><?php echo $row['purpose'];?></option>
 				                    		<?php
-				                    			dbcon2();
-				                    			$sql=mysql_query("SELECT `purpose` FROM `purpose`");
-				                    			while($row = mysql_fetch_array($sql)) {
+				                    			$conn=dbcon2();
+				                    			$sql=mysqli_query($conn,"SELECT `purpose` FROM `purpose`");
+				                    			while($row = mysqli_fetch_array($sql)) {
 				                    				echo "<option value='".$row['purpose']."'>".$row['purpose']."</option>";
 				                    			}
 				                    		?>

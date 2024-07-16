@@ -21,14 +21,21 @@ if (!$db_common) {
     die("Unable to connect to the sur_railway database: " . mysqli_connect_error());
 }
 
-// Define salt constants for password hashing
-define('SALT1', '24859f@#$#@$');
-define('SALT2', '^&@#_-=+Afda$#%');
+// Define salt constants for password hashing if not already defined
+if (!defined('SALT1')) {
+    define('SALT1', '24859f@#$#@$');
+}
 
-// Function to hash password with salts
-function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^#")
-{
-    return sha1(md5($pSalt2 . $pPassword . $pSalt1));
+if (!defined('SALT2')) {
+    define('SALT2', '^&@#_-=+Afda$#%');
+}
+
+// Check if the hashPassword function already exists before declaring it
+if (!function_exists('hashPassword')) {
+    function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^#")
+    {
+        return sha1(md5($pSalt2 . $pPassword . $pSalt1));
+    }
 }
 
 // Require_once for functions.php if needed

@@ -38,12 +38,12 @@
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
 					<?php
-					dbcon3();
-					$query = mysql_query("SELECT * FROM add_user WHERE user_id = '".$_GET['user_id']."'");
-					$row = mysql_fetch_array($query);
-					dbcon2();
-  					$query1 = mysql_query("SELECT * FROM register_user WHERE emp_no = '".$row['user_pfno']."'");
-  					$result = mysql_fetch_array($query1);
+					$conn=dbcon3();
+					$query = mysqli_query($conn,"SELECT * FROM add_user WHERE user_id = '".$_GET['user_id']."'");
+					$row = mysqli_fetch_array($query);
+					$conn=dbcon2();
+  					$query1 = mysqli_query($conn,"SELECT * FROM register_user WHERE emp_no = '".$row['user_pfno']."'");
+  					$result = mysqli_fetch_array($query1);
 					?>
 					<input type="hidden" id="user_id" name="user_id" value="<?php echo $_GET['user_id'];?>">
 					<form action="control/adminProcess.php?action=update_user" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
@@ -146,8 +146,8 @@
 								<!--		<select class="form-control select2" style="width: 100%;" tabindex="-1" id="billunit" name="billunit[]" autofocus="true" multiple="multiple">-->
 			     <!--               		<option value="" disabled="disabled">Select Bill Unit</option>-->
 			     <!--               	
-			     <!--               		$query = mysql_query("SELECT billunit FROM billunit where au='0107' ORDER BY `billunit` ASC");-->
-			     <!--               		while($row = mysql_fetch_array($query))-->
+			     <!--               		$query = mysqli_query("SELECT billunit FROM billunit where au='0107' ORDER BY `billunit` ASC");-->
+			     <!--               		while($row = mysqli_fetch_array($query))-->
 			     <!--               		{-->
 			     <!--               			echo "<option value='".$row['billunit']."'>".$row['billunit']."</option>";-->
 			     <!--               		}-->

@@ -66,13 +66,13 @@ include_once('control/function.php');
                                     <?php if(!empty($emp_desig)) { ?>
                                         <p><?php echo $emp_desig; ?></p>
                                     <?php } else { 
-                                    dbcon1();
+                                    $conn=dbcon1();
                                     $sql = "SELECT ID, DESIGCODE, DESIGLONGDESC FROM designations";
-                                    $result = mysql_query($sql);
+                                    $result = mysqli_query($conn,$sql);
                                     ?>
                                     <select class="form-control designation">
                                         <option value="" selected disabled>Select Designation</option>
-                                        <?php while($row = mysql_fetch_assoc($result)) { ?>
+                                        <?php while($row = mysqli_fetch_assoc($result)) { ?>
                                         <option value="<?php echo !empty($row['DESIGCODE'])?$row['DESIGCODE']:""; ?>"><?php echo !empty($row['DESIGLONGDESC'])?$row['DESIGLONGDESC']:""; ?></option>
                                         <?php } ?>
                                     </select>
@@ -112,13 +112,13 @@ include_once('control/function.php');
                                     <?php if(!empty($emp['bill_unit'])) { ?>
                                         <p><?php echo $emp['bill_unit']; ?></p> 
                                     <?php } else { 
-                                        dbcon1();
+                                       $conn= dbcon1();
                                         $sql = "SELECT billunit FROM billunit";
-                                        $result = mysql_query($sql);
+                                        $result = mysqli_query($conn,$sql);
                                     ?>
                                     <select class="form-control bill_unit">
                                         <option value="" selected disabled>Select Bill Unit</option>
-                                        <?php while($row = mysql_fetch_assoc($result)) { ?>
+                                        <?php while($row = mysqli_fetch_assoc($result)) { ?>
                                         <option value="<?php echo !empty($row['billunit'])?$row['billunit']:""; ?>"><?php echo !empty($row['billunit'])?$row['billunit']:""; ?></option>
                                         <?php } ?>
                                     </select>
@@ -202,13 +202,13 @@ include_once('control/function.php');
                                     <?php if(!empty($emp['7th_pay_level'])) { ?>
                                         <p><?php echo $emp['7th_pay_level']; ?></p>
                                     <?php } else {
-                                        dbcon1();
+                                       $conn= dbcon1();
                                         $sql = "SELECT num, pay_text FROM paylevel";
-                                        $result = mysql_query($sql);
+                                        $result = mysqli_query($conn,$sql);
                                     ?>
                                     <select class="form-control 7th_pay_level">
                                         <option value="" selected disabled>Select Pay Level</option>
-                                        <?php while($row = mysql_fetch_assoc($result)) { ?>
+                                        <?php while($row = mysqli_fetch_assoc($result)) { ?>
                                         <option value="<?php echo !empty($row['num'])?$row['num']:""; ?>"><?php echo !empty($row['pay_text'])?$row['pay_text']:""; ?></option>
                                         <?php } ?>
                                     </select>
@@ -232,7 +232,7 @@ include_once('control/function.php');
                                         <select class="form-control" name="scheme_id" id="lst_forms" class=" billunitindex" style="width:100%" required> 
                                             <option value="0" selected disabled>Select Scheme</option> 
                                             <?php 
-                                                    dbcon(); 
+                                                    $conn=dbcon(); 
                                                     // if($emp['7th_pay_level'] <= 4)
                                                     // {
                                                     //     $sql = "SELECT `id`,`scheme_name`,`scheme_title` FROM `tbl_master_form` WHERE `pay_level` IN ('4','7','')";
@@ -248,8 +248,8 @@ include_once('control/function.php');
                                                     
                                                     // st
                                                     $sql = "SELECT `id`,`scheme_name`,`scheme_title` FROM `tbl_master_form` WHERE `status`=1";
-                                                    $rst_forms = mysql_query($sql); 
-                                                    while ($rw_forms = mysql_fetch_assoc($rst_forms)) { 
+                                                    $rst_forms = mysqli_query($conn,$sql); 
+                                                    while ($rw_forms = mysqli_fetch_assoc($rst_forms)) { 
                                                         extract($rw_forms); 
                                                         echo "<option value='$id' data-form-name='$scheme_title'>$scheme_name</option>"; 
                                                     } 

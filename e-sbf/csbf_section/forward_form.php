@@ -1,10 +1,10 @@
 <?php
 
-$GLOBALS['flag']="1.4";
+$GLOBALS['flag'] = "1.4";
 
-	include('common/header.php');
+include('common/header.php');
 
-	include('common/sidebar.php');
+include('common/sidebar.php');
 
 ?>
 
@@ -16,7 +16,7 @@ $GLOBALS['flag']="1.4";
 
 		<!-- BEGIN PAGE HEADER-->
 
-		
+
 
 		<div class="page-bar">
 
@@ -56,7 +56,7 @@ $GLOBALS['flag']="1.4";
 
 		<!-- BEGIN DASHBOARD STATS -->
 
-		
+
 
 		<!-- END DASHBOARD STATS -->
 
@@ -108,7 +108,9 @@ $GLOBALS['flag']="1.4";
 
 										<center>
 
-										<label class="control-label"><h4 class="">Select CSBF Admin</h4></label>
+											<label class="control-label">
+												<h4 class="">Select CSBF Admin</h4>
+											</label>
 
 										</center>
 
@@ -116,7 +118,7 @@ $GLOBALS['flag']="1.4";
 
 								</div>
 
-								<div class="col-md-4">	</div>
+								<div class="col-md-4"> </div>
 
 							</div>
 
@@ -130,34 +132,29 @@ $GLOBALS['flag']="1.4";
 
 										<select name="forwardName" id="forwardName" class="form-control select2 required" style="width: 100%" required>
 
-											<option readonly value='0' selected >Select CSBF Admin</option>
+											<option readonly value='0' selected>Select CSBF Admin</option>
 
 											<?php
 
-											
 
-											dbcon();
 
-											$query_bu_users = mysql_query("SELECT `user_pfno` FROM `add_user` WHERE user_role = '3'");
+											$conn = dbcon();
 
-											while($row_bu_users = mysql_fetch_array($query_bu_users))
+											$query_bu_users = mysqli_query($conn, "SELECT `user_pfno` FROM `add_user` WHERE user_role = '3'");
 
-											{
+											while ($row_bu_users = mysqli_fetch_array($query_bu_users)) {
 
-											
 
-											dbcon1();
 
-											$q_name = mysql_query("SELECT `name` FROM `register_user` WHERE emp_no = '".$row_bu_users['user_pfno']."'");
+												$conn = dbcon1();
 
-											$row_name_emp = mysql_fetch_array($q_name);
+												$q_name = mysqli_query($conn, "SELECT `name` FROM `register_user` WHERE emp_no = '" . $row_bu_users['user_pfno'] . "'");
 
-											// echo $row_name_emp['name'];
+												$row_name_emp = mysqli_fetch_array($q_name);
 
-											echo "<option value='".$row_bu_users['user_pfno']."'>".$row_name_emp['name']."</option>";
+												// echo $row_name_emp['name'];
 
-											
-
+												echo "<option value='" . $row_bu_users['user_pfno'] . "'>" . $row_name_emp['name'] . "</option>";
 											}
 
 											?>
@@ -172,7 +169,7 @@ $GLOBALS['flag']="1.4";
 
 							</div>
 
-							
+
 
 						</div>
 
@@ -200,7 +197,9 @@ $GLOBALS['flag']="1.4";
 
 										<center>
 
-										<label class="control-label"><h4 class="">Enter OTP</h4></label>
+											<label class="control-label">
+												<h4 class="">Enter OTP</h4>
+											</label>
 
 										</center>
 
@@ -208,7 +207,7 @@ $GLOBALS['flag']="1.4";
 
 								</div>
 
-								<div class="col-md-4">	</div>
+								<div class="col-md-4"> </div>
 
 							</div>
 
@@ -222,7 +221,7 @@ $GLOBALS['flag']="1.4";
 
 										<center>
 
-										<input type="text" maxlength="4" autofocus="true" placeholder="Enter OTP" name="c_otp" id="c_otp" class="form-control" required>
+											<input type="text" maxlength="4" autofocus="true" placeholder="Enter OTP" name="c_otp" id="c_otp" class="form-control" required>
 
 										</center>
 
@@ -264,84 +263,86 @@ $GLOBALS['flag']="1.4";
 
 <?php
 
-	include('common/footer.php');
+include('common/footer.php');
 
 ?>
 
 <script type="text/javascript">
+	$(document).on('click', '.btn_confirm_otp', function() {
 
-	$(document).on('click','.btn_confirm_otp',function(){
+		var fdname = $("#forwardName").val();
 
-		var fdname=$("#forwardName").val();
+		var empid = $("#empid").val();
 
-		var empid=$("#empid").val();
+		var emp_no = $("#emp_no").val();
 
-		var emp_no=$("#emp_no").val();
-
-		var ref_no=$("#ref").val();
+		var ref_no = $("#ref").val();
 
 		// var c_otp=$("#c_otp").val();
 
 		//alert(emp_no+"_"+empid+"_"+fdname+"_"+ref_no);
 
-		if(fdname != '0')
+		if (fdname != '0')
 
 		{
 
-		$("#otp_loader").show();
+			$("#otp_loader").show();
 
 			$.ajax({
 
-			type:"post",
+				type: "post",
 
-			url:"control/adminProcess.php",
+				url: "control/adminProcess.php",
 
-			data:"action=forward_form&fdname="+fdname+"&empid="+empid+"&ref_no="+ref_no+"&emp_no="+emp_no,
+				data: "action=forward_form&fdname=" + fdname + "&empid=" + empid + "&ref_no=" + ref_no + "&emp_no=" + emp_no,
 
-				success:function(data)
+				success: function(data)
 
-					{
+				{
 
-					 //alert(data);
+					//alert(data);
 
 					$("#otp_loader").hide();
 
-					if(data == 1)
+					if (data == 1)
 
 					{
 
-						$.jGrowl("Your Form has been forwarded to"+fdname, { header: 'Forward Form.' });
+						$.jGrowl("Your Form has been forwarded to" + fdname, {
+							header: 'Forward Form.'
+						});
 
 						var delay = 1500;
 
-						setTimeout(function(){ window.location = 'sub_forms.php'  }, delay);
+						setTimeout(function() {
+							window.location = 'sub_forms.php'
+						}, delay);
 
-					}
-
-					else
+					} else
 
 					{
 
 						// alert("Something Went Wrong.");
 
-						$.jGrowl("Something Went Wrong...", { header: 'Forward Form.' });
+						$.jGrowl("Something Went Wrong...", {
+							header: 'Forward Form.'
+						});
 
 					}
 
-					}
+				}
 
+			});
+
+		} else {
+
+			// alert("Please select Controlling Incahrge to forward TA.");
+
+			$.jGrowl("Please select Controlling Incharge to forward Contingency...", {
+				header: 'Forward Cont.'
 			});
 
 		}
 
-		else{
-
-			// alert("Please select Controlling Incahrge to forward TA.");
-
-			$.jGrowl("Please select Controlling Incharge to forward Contingency...", { header: 'Forward Cont.' });
-
-		}
-
 	});
-
 </script>

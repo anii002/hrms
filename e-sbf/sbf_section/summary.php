@@ -1,28 +1,28 @@
 <?php
 
-	$GLOBALS['flag']="1.7";
-	require_once 'common/header.php';
-	require_once 'common/sidebar.php';
-	require_once '../dbconfig/dbcon.php';
-	dbcon();
-	$sql_sch = "SELECT id, scheme_name, scheme_title FROM tbl_master_form";
-	$result_sch = mysql_query($sql_sch);
+$GLOBALS['flag'] = "1.7";
+require_once 'common/header.php';
+require_once 'common/sidebar.php';
+require_once '../dbconfig/dbcon.php';
+$conn=dbcon();
+$sql_sch = "SELECT id, scheme_name, scheme_title FROM tbl_master_form";
+$result_sch = mysqli_query($conn,$sql_sch);
 
- ?>
-<style type="text/css" media="screen">  
-@media print {
-  .btnhide {
-    display : none !important;
-	display : block;
-  }
-}
+?>
+<style type="text/css" media="screen">
+	@media print {
+		.btnhide {
+			display: none !important;
+			display: block;
+		}
+	}
 </style>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
 		<h3 class="page-title">
-		Summary
+			Summary
 		</h3>
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
@@ -38,7 +38,7 @@
 			<div class="page-toolbar">
 				<div id="" class="pull-right tooltips btn btn-fit-height grey-salt">
 					<i class=""></i> <span><?php echo date('d-m-Y h:i A'); ?></span>
-					
+
 				</div>
 			</div>
 		</div>
@@ -48,12 +48,12 @@
 				<div class="form-group">
 					<select class="form-control" name="scheme" id="scheme">
 						<option value="none">Choose Scheme</option>
-				<?php 
-				while ($row_sch = mysql_fetch_assoc($result_sch)) { 
-					extract($row_sch);
-					?>		
-		<option value="<?php echo $id; ?>" data-form-name="<?php echo $scheme_title; ?>"><?php echo $scheme_name; ?></option>
-				<?php } ?>		
+						<?php
+						while ($row_sch = mysqli_fetch_assoc($result_sch)) {
+							extract($row_sch);
+						?>
+							<option value="<?php echo $id; ?>" data-form-name="<?php echo $scheme_title; ?>"><?php echo $scheme_name; ?></option>
+						<?php } ?>
 					</select>
 				</div>
 			</div>
@@ -75,11 +75,11 @@
 							<th>Course Name</th>
 							<th>Child Dob</th>
 							<th>Present Year</th>
-							<!-- <th>Action</th> -->	
+							<!-- <th>Action</th> -->
 						</tr>
 					</thead>
 					<tbody id="tb_body">
-						
+
 						<!-- <tr class="odd gradeX">
 							<td></td>
 							<td></td>
@@ -88,7 +88,7 @@
 							<td></td>
 							<td></td>
 						</tr> -->
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -110,28 +110,29 @@
 
 
 <script type="text/javascript">
-		$(document).ready(function() {
-			$('#scheme').change(function() {
-				var id = $(this).val();
-				var action = 'get_data';
-				$.ajax({
-					url: 'control/adminProcess.php',
-					type: 'POST',
-					data: {id:id, action:action},
-					success: function(data)
-					{
-						//console.log(data);
-						$('#tb_body').html(data);
-					}
-				});
+	$(document).ready(function() {
+		$('#scheme').change(function() {
+			var id = $(this).val();
+			var action = 'get_data';
+			$.ajax({
+				url: 'control/adminProcess.php',
+				type: 'POST',
+				data: {
+					id: id,
+					action: action
+				},
+				success: function(data) {
+					//console.log(data);
+					$('#tb_body').html(data);
+				}
 			});
 		});
-		function print_button()
-   		{
-      		$(".btnhide").hide(); 
-      		$("#scheme_hide").hide();
-      		window.print();
-			window.location.reload();	
-   		}
+	});
 
+	function print_button() {
+		$(".btnhide").hide();
+		$("#scheme_hide").hide();
+		window.print();
+		window.location.reload();
+	}
 </script>

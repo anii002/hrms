@@ -7,8 +7,8 @@ date_default_timezone_set('Asia/Kolkata');
 // Function to connect to the sur_railway database
 function dbcon2()
 {
-    $user = "drmpsurh_test";
-    $pass = "root@123";
+    $user = "root";
+    $pass = "";
     $host = "localhost";
     $db = "drmpsurh_sur_railway";
     $conn = new mysqli($host, $user, $pass, $db);
@@ -21,8 +21,8 @@ function dbcon2()
 // Function to connect to the eapplication database
 function dbcon3()
 {
-    $user1 = "drmpsurh_test";
-    $pass1 = "root@123";
+    $user1 = "root";
+    $pass1 = "";
     $host1 = "localhost";
     $db1 = "drmpsurh_eapplication";
     $conn = new mysqli($host1, $user1, $pass1, $db1);
@@ -43,4 +43,3 @@ function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^
 }
 
 date_default_timezone_set('Asia/Kolkata');
-?>

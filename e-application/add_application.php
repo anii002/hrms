@@ -144,9 +144,9 @@
 									<select class="form-control select2" style="width: 100%;" tabindex="-1" id="purpose" name="purpose" autofocus="true" required>
 			                    		<option value="" selected="" disabled="">Select Subject</option>
 			                    		<?php
-			                    			dbcon3();
-			                    			$sql=mysql_query("SELECT `purpose` FROM `purpose`");
-			                    			while($row = mysql_fetch_array($sql)) {
+			                    			$conn=dbcon3();
+			                    			$sql=mysqli_query($conn,"SELECT `purpose` FROM `purpose`");
+			                    			while($row = mysqli_fetch_array($sql)) {
 			                    				echo "<option value='".$row['purpose']."'>".$row['purpose']."</option>";
 			                    			}
 			                    		?>
@@ -169,9 +169,9 @@
 									<div class="form-group">
 										<!-- <label class="control-label">User</label> -->
 										<?php
-										dbcon3();
-										$query = mysql_query("SELECT user_pfno FROM add_user WHERE user_role = 'admin' ");
-										$row = mysql_fetch_array($query);
+										$conn=dbcon3();
+										$query = mysqli_query($conn,"SELECT user_pfno FROM add_user WHERE user_role = 'admin' ");
+										$row = mysqli_fetch_array($query);
 										?>
 										<input type="hidden" id="user" name="user" class="form-control" value="<?php echo $row['user_pfno']; ?>" readonly="">
 										<!-- <input type="text" id="name" name="name" class="form-control" readonly="">

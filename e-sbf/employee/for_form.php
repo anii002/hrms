@@ -36,10 +36,10 @@
 			
 			<?php
 				$pf_no = $_SESSION['username'];
-					dbcon();
+				$conn=dbcon();
 				$sql = "SELECT *
 				 FROM tbl_form_details WHERE emp_no = '$pf_no' AND status = 1";
-				$result = mysql_query($sql);
+				$result = mysqli_query($conn,$sql);
 			?>
 			
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -54,15 +54,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php $i=1; while($row = mysql_fetch_assoc($result)) { ?>
+						<?php $i=1; while($row = mysqli_fetch_assoc($result)) { ?>
 						<tr class="odd gradeX">
 							<td><?php echo $i++; ?></td>
 							<td>
 								<?php
 								$sc_id = $row['scheme_id'];
 								$sql_scheme = "SELECT scheme_name FROM tbl_master_form WHERE id = '$sc_id'";
-								$result_scheme = mysql_query($sql_scheme);
-								$row_scheme = mysql_fetch_assoc($result_scheme);
+								$result_scheme = mysqli_query($conn,$sql_scheme);
+								$row_scheme = mysqli_fetch_assoc($result_scheme);
 								echo $row_scheme['scheme_name'];
 								?>
 							</td>
