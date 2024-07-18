@@ -3,6 +3,7 @@ require('config.php');
 // if (!isset($_SESSION['SESSION_ROLE'])) {
 //     echo "<script>alert('Unauthorized Access');window.location='../../../../index.php'</script>";
 // }
+session_start();
 
 ?>
 <!DOCTYPE html>

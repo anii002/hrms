@@ -1,5 +1,7 @@
 <?php
 require_once('Global_Data/header.php');
+include('config.php');
+include('functions.php');
 error_reporting(0);
 ?>
 <!-- PNotify -->
@@ -42,8 +44,8 @@ error_reporting(0);
                                         $sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('4') AND g.gri_ref_no not like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC";
                                     }
                                     // echo $sql;
-                                    $query = mysql_query($sql);
-                                    while ($rw_data = mysql_fetch_array($query)) {
+                                    $query = mysqli_query($db_egr,$sql);
+                                    while ($rw_data = mysqli_fetch_array($query)) {
                                         $emp_id = $rw_data["emp_no"];
                                         $emp_name = $rw_data["name"];
                                         $emp_type = get_type($rw_data["empType"]);
@@ -112,8 +114,8 @@ error_reporting(0);
                                                 $sql = "Select f.user_id_forwarded, e.emp_no,e.name,e.empType,e.mobile,g.gri_ref_no,g.gri_type, g.uploaded_by, g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') AND g.gri_ref_no LIKE \"WEL%\"  group by g.id ORDER BY g.gri_upload_date DESC";
                                             }
                                             // echo $sql;
-                                            $query = mysql_query($sql);
-                                            while ($rw_data = mysql_fetch_array($query)) {
+                                            $query = mysqli_query($db_egr,$sql);
+                                            while ($rw_data = mysqli_fetch_array($query)) {
                                                 $emp_id = $rw_data["emp_no"];
                                                 $emp_name = $rw_data["name"];
                                                 $emp_mobile = $rw_data["mobile"];

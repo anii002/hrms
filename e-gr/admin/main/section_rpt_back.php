@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 <style>
 @media print {
@@ -69,8 +71,8 @@ error_reporting(0);
                                                 <option disabled hidden>----Select Section----</option>
                                                 <option value="0">All</option>
                                                 <?php
-                                                $fetch_section = mysql_query("select * from tbl_section");
-                                                while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                                $fetch_section = mysqli_query($db_egr,"select * from tbl_section");
+                                                while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                                     echo "<option value='" . $section_fetch['sec_id'] . "'>" . $section_fetch['sec_name'] . "</option>";
                                                 }
 

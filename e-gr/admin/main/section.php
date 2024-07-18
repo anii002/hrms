@@ -1,6 +1,7 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
 ?>
 <!-- PNotify -->
 <!-- page content -->
@@ -25,19 +26,13 @@ error_reporting(0);
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="">Section Name</label>
-                                    <input type="text" class="form-control" placeholder="Section Name"
-                                            name="sec_name" id="sec_name"
-                                            onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /()]/g,'');"
-                                            required>
+                                    <input type="text" class="form-control" placeholder="Section Name" name="sec_name" id="sec_name" onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /()]/g,'');" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class=""> Description</label>
-                                    <input type="text" class="form-control " placeholder=" Description"
-                                            name="sec_desc" id="sec_desc"
-                                            onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /()]/g,'');"
-                                            required>
+                                    <input type="text" class="form-control " placeholder=" Description" name="sec_desc" id="sec_desc" onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /()]/g,'');" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -49,8 +44,7 @@ error_reporting(0);
                                             <label for="is_BA_section1">Yes</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="radio" name="is_BA_section" id="is_BA_section2"
-                                                checked="checked" value='0'>
+                                            <input type="radio" name="is_BA_section" id="is_BA_section2" checked="checked" value='0'>
                                             <label for="is_BA_section2">No</label>
                                         </div>
                                     </div>
@@ -74,7 +68,7 @@ error_reporting(0);
                                 <table class="table table-striped table-bordered display" style="width:100%;">
                                     <?php
                                     $query_fire = "select * from tbl_section";
-                                    $fetch_query = mysql_query($query_fire, $db_egr) or mysql_error();
+                                    $fetch_query = mysqli_query($db_egr,$query_fire) or mysqli_error($db_egr);
                                     ?>
                                     <thead>
                                         <tr>
@@ -87,7 +81,7 @@ error_reporting(0);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        while ($result = mysql_fetch_array($fetch_query)) {
+                                        while ($result = mysqli_fetch_array($fetch_query)) {
                                             $is_BA_section = ($result['is_branch_admin'] > 0) ? "Yes" : "No";
                                             echo " <tr><td>" . $result['sec_id'] . "</td><td>" . $result['sec_name'] . "</td><td>" . $result['sec_desc'] . "</td><td>" . $is_BA_section  . "</td>
 					<td>
@@ -126,9 +120,7 @@ error_reporting(0);
                                 <label class="control-label col-md-4">Section Name</label>
                                 <div class="col-md-8">
                                     <input type="hidden" name="hidden_id" id="hidden_id">
-                                    <input type="text" class="form-control" placeholder="Section Name"
-                                        name="md_sec_name" id="md_sec_name"
-                                        onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');" required>
+                                    <input type="text" class="form-control" placeholder="Section Name" name="md_sec_name" id="md_sec_name" onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');" required>
                                 </div>
                             </div>
                         </div>
@@ -138,9 +130,7 @@ error_reporting(0);
                             <div class="form-group">
                                 <label class="control-label col-md-4">Description</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control " placeholder=" Description"
-                                        name="md_sec_desc" id="md_sec_desc"
-                                        onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');" required>
+                                    <input type="text" class="form-control " placeholder=" Description" name="md_sec_desc" id="md_sec_desc" onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');" required>
                                 </div>
                             </div>
                         </div>
@@ -156,8 +146,7 @@ error_reporting(0);
                                         <label for="md_is_BA_section1">Yes</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="radio" name="md_is_BA_section" id="md_is_BA_section2"
-                                            checked="checked" value='0'>
+                                        <input type="radio" name="md_is_BA_section" id="md_is_BA_section2" checked="checked" value='0'>
                                         <label for="md_is_BA_section2">No</label>
                                     </div>
                                 </div>
@@ -203,30 +192,30 @@ error_reporting(0);
 require_once('Global_Data/footer.php');
 ?>
 <script>
-$(document).on("click", ".btn-delete", function() {
-    $("#hidden_id_delete").val($(this).attr('id'));
-    //alert($("#hidden_id_delete").val());
-});
-$(document).on("click", ".btn-edit", function() {
-    $("#hidden_id").val($(this).attr('id'));
-
-    var hidden = $("#hidden_id").val();
-    //alert(hidden);
-    $.ajax({
-        type: 'post',
-        url: 'process.php',
-        data: 'action=get_section_detail&hidden=' + hidden,
-        success: function(data) {
-            // alert(data);
-            var ddd = data;
-            var arr = ddd.split('$');
-            $("#md_sec_name").val(arr[0]);
-            $("#md_sec_desc").val(arr[1]);
-            if (arr[2] != 0) {
-                // $("input[name=cols][value=" + value + "]").attr('checked', 'checked');
-                $("input[name=md_is_BA_section][value=" + arr[2] + "]").attr('checked', 'checked');
-            }
-        }
+    $(document).on("click", ".btn-delete", function() {
+        $("#hidden_id_delete").val($(this).attr('id'));
+        //alert($("#hidden_id_delete").val());
     });
-});
+    $(document).on("click", ".btn-edit", function() {
+        $("#hidden_id").val($(this).attr('id'));
+
+        var hidden = $("#hidden_id").val();
+        //alert(hidden);
+        $.ajax({
+            type: 'post',
+            url: 'process.php',
+            data: 'action=get_section_detail&hidden=' + hidden,
+            success: function(data) {
+                // alert(data);
+                var ddd = data;
+                var arr = ddd.split('$');
+                $("#md_sec_name").val(arr[0]);
+                $("#md_sec_desc").val(arr[1]);
+                if (arr[2] != 0) {
+                    // $("input[name=cols][value=" + value + "]").attr('checked', 'checked');
+                    $("input[name=md_is_BA_section][value=" + arr[2] + "]").attr('checked', 'checked');
+                }
+            }
+        });
+    });
 </script>

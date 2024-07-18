@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php')
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"
     media="print">
@@ -47,8 +49,8 @@ error_reporting(0);
                                         <option value="0">All</option>
                                         <?php
                                         $sql = "select * from tbl_section where is_branch_admin='1'";
-                                        $fetch_section = mysql_query($sql, $db_egr);
-                                        while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                        $fetch_section = mysqli_query($db_egr,$sql);
+                                        while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                             echo "<option value='" . $section_fetch['sec_id'] . "'>" . $section_fetch['sec_name'] . "</option>";
                                         }
                                         ?>

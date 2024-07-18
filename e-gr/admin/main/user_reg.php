@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 <!-- <link href="select2/select2.min.css" rel="stylesheet" /> -->
 <!-- PNotify -->
@@ -31,8 +33,8 @@ error_reporting(0);
                                             <option disabled selected>----Select User----</option>
                                             <option value='0'>Admin</option>
                                             <?php
-                                            $fetch_section = mysql_query("select * from role_user WHERE id = '1' OR id='2' OR id='3' OR id='5'", $db_egr);
-                                            while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                            $fetch_section = mysqli_query($db_egr,"select * from role_user WHERE id = '1' OR id='2' OR id='3' OR id='5'");
+                                            while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                                 echo "<option value='" . $section_fetch['id'] . "'>" . $section_fetch['role_type'] . "</option>";
                                             }
                                             ?>
@@ -66,8 +68,8 @@ error_reporting(0);
                                             multiple="multiple">
                                             <!-- <option value="0" disabled selected>---Select Section---</option> -->
                                             <?php
-                                            $fetch_section = mysql_query("select * from tbl_section", $db_egr);
-                                            while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                            $fetch_section = mysqli_query($db_egr,"select * from tbl_section");
+                                            while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                                 echo "<option value='" . $section_fetch['sec_id'] . "'>" . $section_fetch['sec_name'] . "</option>";
                                             }
                                             ?>
@@ -83,8 +85,8 @@ error_reporting(0);
                                             class="form-control select2" required>
                                             <option value="" selected disabled>---Select Department---</option>
                                             <?php
-                                            $fetch_dept = mysql_query("select * from  department", $db_common);
-                                            while ($dept_fetch = mysql_fetch_array($fetch_dept)) {
+                                            $fetch_dept = mysqli_query($db_common,"select * from  department");
+                                            while ($dept_fetch = mysqli_fetch_array($fetch_dept)) {
                                                 echo "<option value='" . $dept_fetch['DEPTNO'] . "'>" . $dept_fetch['DEPTDESC'] . "</option>";
                                             }
                                             ?>
@@ -98,8 +100,8 @@ error_reporting(0);
                                             class="form-control select2" required>
                                             <option value="" selected disabled>---Select Designation---</option>
                                             <?php
-                                            $fetch_des = mysql_query("select * from  designations", $db_common);
-                                            while ($des_fetch = mysql_fetch_array($fetch_des)) {
+                                            $fetch_des = mysqli_query($db_common,"select * from  designations");
+                                            while ($des_fetch = mysqli_fetch_array($fetch_des)) {
                                                 echo "<option value='" . $des_fetch['DESIGCODE'] . "'>" . $des_fetch['DESIGLONGDESC'] . "(" . $des_fetch["DESIGSHORTDESC"] . ")</option>";
                                             }
                                             ?>
@@ -142,8 +144,8 @@ error_reporting(0);
                                             class="form-control select2" required>
                                             <option value="" disabled selected>---Select Office---</option>
                                             <?php
-                                            $fetch_office = mysql_query("select * from tbl_office", $db_egr);
-                                            while ($office_fetch = mysql_fetch_array($fetch_office)) {
+                                            $fetch_office = mysqli_query($db_egr,"select * from tbl_office");
+                                            while ($office_fetch = mysqli_fetch_array($fetch_office)) {
                                                 echo "<option value='" . $office_fetch['office_id'] . "'>" . $office_fetch['office_name'] . "</option>";
                                             }
                                             ?>
@@ -159,8 +161,8 @@ error_reporting(0);
                                             class="form-control select2" required>
                                             <option value="" disabled selected>---Select Station---</option>
                                             <?php
-                                            $fetch_station = mysql_query("select * from station", $db_common);
-                                            while ($station_fetch = mysql_fetch_array($fetch_station)) {
+                                            $fetch_station = mysqli_query($db_common,"select * from station");
+                                            while ($station_fetch = mysqli_fetch_array($fetch_station)) {
                                                 echo "<option value='" . $station_fetch['stationcode'] . "'>" . $station_fetch['stationdesc'] . "</option>";
                                             }
                                             ?>

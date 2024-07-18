@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 <!-- PNotify -->
@@ -31,16 +33,17 @@ error_reporting(0);
                                     <?php
 									function get_uploaded_user($emp_id)
 									{
-										$sql_query = mysql_query("select * from tbl_user where user_id='$emp_id'");
-										while ($query_sql = mysql_fetch_array($sql_query)) {
+                                        global $db_egr;
+										$sql_query = mysqli_query($db_egr,"select * from tbl_user where user_id='$emp_id'");
+										while ($query_sql = mysqli_fetch_array($sql_query)) {
 												$user_name = $query_sql['user_name'];
 											}
 										return $user_name;
 									}
 
 									$cnt = 1;
-									$query = mysql_query("Select * FROM employee where delete_status = '0'");
-									while ($rw_data = mysql_fetch_array($query)) {
+									$query = mysqli_query($db_egr,"Select * FROM employee where delete_status = '0'");
+									while ($rw_data = mysqli_fetch_array($query)) {
 										echo "<tr>";
 										echo "<td>$cnt</td>";
 										echo "<td>" . $rw_data["emp_id"] . "</td>";

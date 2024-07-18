@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php')
 ?>
 <!-- PNotify -->
 <!-- page content -->
@@ -55,7 +57,7 @@ error_reporting(0);
                                 <table class="table table-striped table-bordered display" style="width:100%;">
                                     <?php
                                     $query_fire = "select * from category";
-                                    $fetch_query = mysql_query($query_fire, $db_egr) or mysql_error();
+                                    $fetch_query = mysqli_query($db_egr,$query_fire) or mysqli_error($db_egr);
 
                                     ?>
                                     <thead>
@@ -68,7 +70,7 @@ error_reporting(0);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        while ($result = mysql_fetch_array($fetch_query)) {
+                                        while ($result = mysqli_fetch_array($fetch_query)) {
                                             echo " <tr><td>" . $result['cat_id'] . "</td><td>" . $result['cat_name'] . "</td><td>" . $result['cat_desc'] . "</td>
 					<td>
 					<a href='#'><i class='fa fa-pencil-square btn-edit' style='font-size:20px;color:black;margin-left:20px;' data-toggle='modal' data-target='#edit_cat' id=" . $result['cat_id'] . "></i></a>

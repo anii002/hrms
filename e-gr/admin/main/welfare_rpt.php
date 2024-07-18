@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"
     media="print">
@@ -47,8 +49,8 @@ error_reporting(0);
                                         <option disabled hidden>----Select Welfare Inspector----</option>
                                         <option value="0">All</option>
                                         <?php
-                                        $fetch_welfare = mysql_query("select * from tbl_user where role='2'", $db_egr);
-                                        while ($welfare_fetch = mysql_fetch_array($fetch_welfare)) {
+                                        $fetch_welfare = mysqli_query($db_egr,"select * from tbl_user where role='2'");
+                                        while ($welfare_fetch = mysqli_fetch_array($fetch_welfare)) {
                                             echo "<option value='" . $welfare_fetch['user_id'] . "'>" . $welfare_fetch['user_name'] . "</option>";
                                         }
                                         ?>

@@ -10,7 +10,7 @@
 		<li class="">
 		  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			<?php if(isset($_SESSION['profile_image'])) { ?>
-                        <img src="../../../../images/profile/<?php echo $_SESSION['profile_image'];  ?>" alt="Profile Image">
+                        <img src="../../../images/profile/<?php echo $_SESSION['profile_image'];  ?>" alt="Profile Image">
                         <?php } else { ?>
                         <img src="images/img.png" alt="">
                         <?php } ?>
@@ -28,9 +28,9 @@
 			</li-->
 		<!--	<li><a href="../../logout.php" style="font-family:Cambria; font-size:14px;"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 			<li><a href="change_password.php" style="font-family:Cambria; font-size:14px;"><i class="fa fa-pencil-square-o pull-right"></i> Change Password</a></li>-->
-            <li><a href="../../../../index.php"><i class="fa fa-home pull-right"></i> Home</a></li>	
-            <li><a href="../../../../profile.php"><i class="fa fa-user pull-right"></i> Profile</a></li>
-            <li><a href="../../../../Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+            <li><a href="../../../dashboard.php"><i class="fa fa-home pull-right"></i> Home</a></li>	
+            <li><a href="../../../profile.php"><i class="fa fa-user pull-right"></i> Profile</a></li>
+            <li><a href="../../../Logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
             <li><a data-toggle="modal" onClick="modu('e_gr')" href="#" data-target="#myModal"><i class="fa fa-sign-in pull-right"></i> Login as</a></li>
 		  </ul>
 </li>

@@ -35,4 +35,3 @@ function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^
 
 // Optionally require('functions.php'); if needed
 // require('functions.php');
-?>

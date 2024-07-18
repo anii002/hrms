@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 <link href="select2/select2.min.css" rel="stylesheet" />
 
@@ -29,27 +31,25 @@ error_reporting(0);
                                         <option hidden readonly>Select Department</option>
                                         <?php
                                         $query = "select * from department";
-                                        $resultset = mysql_query($query, $db_common);
-                                        while ($result = mysql_fetch_array($resultset)) {
+                                        $resultset = mysqli_query($db_common, $query);
+                                        while ($result = mysqli_fetch_array($resultset)) {
                                             echo "<option value='" . $result['DEPTNO'] . "'>" . $result['DEPTDESC'] . "</option>";
                                         }
                                         ?>
                                     </select>
                                 </div>
                             </div>
-                             <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
-                                <label class="">Office Name</label>
-                                    <input type="text" class="form-control" placeholder="Office Category Name"
-                                        name="off_cat_name" id="off_cat_name">
+                                    <label class="">Office Name</label>
+                                    <input type="text" class="form-control" placeholder="Office Category Name" name="off_cat_name" id="off_cat_name">
                                     <!-- onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 ] /g,'');" -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label class=""> Description</label>
-                                    <input type="text" class="form-control " placeholder=" Description"
-                                            name="off_cat_desc" id="off_cat_desc">
+                                    <input type="text" class="form-control " placeholder=" Description" name="off_cat_desc" id="off_cat_desc">
                                     <!-- onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9] /g,'');" -->
                                 </div>
                             </div>
@@ -65,14 +65,13 @@ error_reporting(0);
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <!-- <div>-->
-                            <h2>Office <small>List</small><button type="button" class="pull-right btn btn-primary"
-                                    id="delDesignation">Delete Designation</button></h2>
+                            <h2>Office <small>List</small><button type="button" class="pull-right btn btn-primary" id="delDesignation">Delete Designation</button></h2>
                             <hr>
                             <div class="x_content">
                                 <table class="table table-striped table-bordered display" style="width:100%;">
                                     <?php
                                     $query_fire = "select * from tbl_office";
-                                    $fetch_query = mysql_query($query_fire, $db_egr) or mysql_error();
+                                    $fetch_query = mysqli_query($db_egr, $query_fire) or mysqli_error($db_egr);
                                     ?>
                                     <thead>
                                         <tr>
@@ -86,7 +85,7 @@ error_reporting(0);
                                     <tbody>
                                         <?php
                                         $cnt = 1;
-                                        while ($result = mysql_fetch_array($fetch_query)) {
+                                        while ($result = mysqli_fetch_array($fetch_query)) {
                                             $dept_name = get_department($result['deptname']);
                                             // echo "<script>alert('$dept_name')</script>";
                                             echo " <tr><td><input type='checkbox' class='checkbox' id='" . $result['office_id'] . "' name='" . $result['office_id'] . "'/></td><td>" . $cnt . "</td><td>" . $dept_name . "</td><td>" . $result['office_name'] . "</td>
@@ -127,12 +126,11 @@ error_reporting(0);
                             <div class="form-group">
                                 <label class="control-label col-md-4">Department</label>
                                 <div class="col-md-8">
-                                    <select class="form-control" style="width:100%" id="md_off_dept" name="md_off_dept"
-                                        required>
+                                    <select class="form-control" style="width:100%" id="md_off_dept" name="md_off_dept" required>
                                         <?php
                                         $query_station = "SELECT * FROM `department`";
-                                        $result_station = mysql_query($query_station, $db_common);
-                                        while ($value_result = mysql_fetch_array($result_station)) {
+                                        $result_station = mysqli_query($db_common, $query_station);
+                                        while ($value_result = mysqli_fetch_array($result_station)) {
                                             echo "<option value='" . $value_result['DEPTNO'] . "'>" . $value_result['DEPTDESC'] . "</option>";
                                         }
                                         ?>
@@ -150,9 +148,7 @@ error_reporting(0);
                             <div class="form-group">
                                 <label class="control-label col-md-4">Office Name</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Office Name" name="md_off_name"
-                                        id="md_off_name" value=""
-                                        onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');">
+                                    <input type="text" class="form-control" placeholder="Office Name" name="md_off_name" id="md_off_name" value="" onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');">
                                 </div>
                             </div>
                         </div>
@@ -162,9 +158,7 @@ error_reporting(0);
                             <div class="form-group">
                                 <label class="control-label col-md-4"> Description</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control " placeholder=" Description"
-                                        name="md_off_desc" id="md_off_desc" value=""
-                                        onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');">
+                                    <input type="text" class="form-control " placeholder=" Description" name="md_off_desc" id="md_off_desc" value="" onkeydown="this.value=this.value.replace(/[^a-zA-Z0-9 /]/g,'');">
                                 </div>
                             </div>
                         </div>
@@ -211,59 +205,59 @@ require_once('Global_Data/footer.php');
 ?>
 <script src="select2/select2.min.js"> </script>
 <script>
-$(document).ready(function() {
-    $("#deptname").select2();
-    $("#md_off_dept").select2();
-});
-$(".checkbox").on("click", function() {
-    if ($(this).prop("checked") == true) {
-        var temp = $("#delete_office").val();
-        var curr = this.id;
-        var final = temp + "," + curr;
-        $("#delete_office").val(final);
-    } else {
-        var temp = this.id;
-        var temp_array = $("#delete_office").val();
-        $("#delete_office").val(temp_array.replace("," + temp, ''));
-    }
-});
-
-$("#delDesignation").on("click", function() {
-    var delete_office = $("#delete_office").val();
-    $.ajax({
-        type: 'POST',
-        url: 'process.php',
-        data: 'action=delete_office_detail&delete_office=' + delete_office,
-        success: function(data) {
-            alert(data);
-            window.location = 'office_cat.php';
+    $(document).ready(function() {
+        $("#deptname").select2();
+        $("#md_off_dept").select2();
+    });
+    $(".checkbox").on("click", function() {
+        if ($(this).prop("checked") == true) {
+            var temp = $("#delete_office").val();
+            var curr = this.id;
+            var final = temp + "," + curr;
+            $("#delete_office").val(final);
+        } else {
+            var temp = this.id;
+            var temp_array = $("#delete_office").val();
+            $("#delete_office").val(temp_array.replace("," + temp, ''));
         }
     });
-});
 
-
-$(document).on("click", ".btn-delete", function() {
-    $("#hidden_id_delete").val($(this).attr('id'));
-    //alert($("#hidden_id_delete").val());
-});
-$(document).on("click", ".btn-edit", function() {
-    $("#hidden_id").val($(this).attr('id'));
-
-    var hidden = $("#hidden_id").val();
-    //alert(hidden);
-    $.ajax({
-        type: 'post',
-        url: 'process.php',
-        data: 'action=get_office_detail&hidden=' + hidden,
-        success: function(data) {
-            //alert(data);
-            var ddd = data;
-            var arr = ddd.split('$');
-            $("#md_off_name").val(arr[0]);
-            $("#md_off_desc").val(arr[1]);
-            $("#md_off_dept").val(arr[2]);
-            $("#md_off_dept").select2();
-        }
+    $("#delDesignation").on("click", function() {
+        var delete_office = $("#delete_office").val();
+        $.ajax({
+            type: 'POST',
+            url: 'process.php',
+            data: 'action=delete_office_detail&delete_office=' + delete_office,
+            success: function(data) {
+                alert(data);
+                window.location = 'office_cat.php';
+            }
+        });
     });
-});
+
+
+    $(document).on("click", ".btn-delete", function() {
+        $("#hidden_id_delete").val($(this).attr('id'));
+        //alert($("#hidden_id_delete").val());
+    });
+    $(document).on("click", ".btn-edit", function() {
+        $("#hidden_id").val($(this).attr('id'));
+
+        var hidden = $("#hidden_id").val();
+        //alert(hidden);
+        $.ajax({
+            type: 'post',
+            url: 'process.php',
+            data: 'action=get_office_detail&hidden=' + hidden,
+            success: function(data) {
+                //alert(data);
+                var ddd = data;
+                var arr = ddd.split('$');
+                $("#md_off_name").val(arr[0]);
+                $("#md_off_desc").val(arr[1]);
+                $("#md_off_dept").val(arr[2]);
+                $("#md_off_dept").select2();
+            }
+        });
+    });
 </script>

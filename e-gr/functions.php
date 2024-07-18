@@ -3,8 +3,8 @@ function add_grievance($name_array, $tmp_name_array, $select_type, $gri_ref_no, 
 {
 	global $db_egr, $db_common;
 	// echo $sql_insert = "insert into tbl_grievance(emp_id,gri_ref_no,gri_type,gri_desc,up_doc,doc_id,gri_upload_date,gri_target_date,status) values('$hidden_id','$gri_ref_no','$select_type','$_gri_desc','$optradio','$last_doc',NOW(),DATE_SUB(DATE_ADD(NOW(),INTERVAL 1 MONTH),INTERVAL 1 DAY),'1')";
-	$sql_count = mysql_query("SELECT count(*) as count FROM doc where griv_ref_no='$gri_ref_no'", $db_egr) or die(mysql_error());
-	$fetch_count = mysql_fetch_array($sql_count);
+	$sql_count = mysqli_query($db_egr,"SELECT count(*) as count FROM doc where griv_ref_no='$gri_ref_no'", ) or die(mysqli_error($db_egr));
+	$fetch_count = mysqli_fetch_array($sql_count);
 	$count = $fetch_count['count'];
 	$count++;
 	// echo $count;
@@ -31,11 +31,11 @@ function add_grievance($name_array, $tmp_name_array, $select_type, $gri_ref_no, 
 			$newfilename = rand(10000, 999999) . '.' . $file_ext;
 			//	move_uploaded_file($_FILES["file"]["tmp_name"], "../img/imageDirectory/" . $newfilename);
 			$current_date = date("Y-m-d H:i:s");
-			$sql_img = mysql_query("insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by,count) values('$gri_ref_no','$newfilename','$current_date','$hidden_id',$count)", $db_egr) or die(mysql_error());
+			$sql_img = mysqli_query($db_egr,"insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by,count) values('$gri_ref_no','$newfilename','$current_date','$hidden_id',$count)") or die(mysqli_error($db_egr));
 			if ($sql_img) {
-				$last_doc = mysql_insert_id($db_egr);
+				$last_doc = mysqli_insert_id($db_egr);
 			}
-			//echo "insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by) values('$gri_ref_no','$folder_name.$newfilename',CURRENT_TIMESTAMP,'$hidden_id')".mysql_error();
+			//echo "insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by) values('$gri_ref_no','$folder_name.$newfilename',CURRENT_TIMESTAMP,'$hidden_id')".mysqli_error();
 			//move_uploaded_file($tmp_name_array[$i],$folder_name.$name_array[$i]);
 			move_uploaded_file($tmp_name_array[$i], $folder_name . $newfilename);
 		}
@@ -47,15 +47,15 @@ function add_grievance($name_array, $tmp_name_array, $select_type, $gri_ref_no, 
 	//echo $last_doc;
 	$current_date = date("Y-m-d H:i:s");
 	$target_date = date("Y-m-d H:i:s", strtotime("$current_date +1 month -1 day"));
-	$_gri_desc = mysql_real_escape_string($gri_desc);
+	$_gri_desc = mysqli_real_escape_string($db_egr,$gri_desc);
 	$sql_insert = "insert into tbl_grievance(emp_id,gri_ref_no,gri_type,gri_desc,up_doc,doc_id,gri_upload_date,gri_target_date,status) values('$hidden_id','$gri_ref_no','$select_type','$_gri_desc','$optradio','$last_doc','$current_date','$target_date','1')";
-	$inserted = mysql_query($sql_insert, $db_egr);
-	//echo "insert into tbl_grievance(emp_id,gri_ref_no,gri_type,gri_desc,up_doc,doc_id,gri_upload_date,status) values('$hidden_id','$gri_ref_no','$select_type','$gri_desc','$optradio','$last_doc',CURRENT_TIMESTAMP,'1')".mysql_error();
+	$inserted = mysqli_query($db_egr,$sql_insert);
+	//echo "insert into tbl_grievance(emp_id,gri_ref_no,gri_type,gri_desc,up_doc,doc_id,gri_upload_date,status) values('$hidden_id','$gri_ref_no','$select_type','$gri_desc','$optradio','$last_doc',CURRENT_TIMESTAMP,'1')".mysqli_error();
 	if ($inserted) {
 		$sql = "SELECT mobile from register_user where emp_no ='" . $hidden_id . "'";
-		$result = mysql_query($sql, $db_common);
-		//echo mysql_affected_rows()."/<br/>".$hidden_id;
-		while ($dat = mysql_fetch_assoc($result)) {
+		$result = mysqli_query($db_common,$sql);
+		//echo mysqli_affected_rows()."/<br/>".$hidden_id;
+		while ($dat = mysqli_fetch_assoc($result)) {
 			$mob = $dat['mobile'];
 		}
 		$message = "Your e-Grievance added successfully with '" . $gri_ref_no . "' reference no.";
@@ -74,7 +74,7 @@ function add_employee($emp_type, $emp_id, $emp_name, $emp_dept, $emp_desig, $emp
 {
 	global $db_egr, $db_common;
 	$sql = "INSERT INTO `employee`(emp_type,emp_id,emp_name,emp_dept,emp_desig,emp_mob,emp_email,emp_aadhar,office,station,emp_address1,emp_address2,emp_state,emp_city,office_emp_address1,office_emp_address2,office_emp_state,office_emp_city,emp_pincode,office_emp_pincode,created_date,delete_status,password) VALUES('" . $emp_type . "','" . $emp_id . "','" . $emp_name . "','" . $emp_dept . "','" . $emp_desig . "','" . $emp_mob . "','" . $emp_email . "','" . $emp_aadhar . "','" . $emp_office . "','" . $emp_station . "','" . $emp_address1 . "','" . $emp_address2 . "','" . $emp_state . "','" . $emp_city . "','" . $office_emp_address1 . "','" . $office_emp_address2 . "','" . $office_emp_state . "','" . $office_emp_city . "','" . $emp_pincode . "','" . $office_emp_pincode . "',Now(),1,'$emp_mob')";
-	$query = mysql_query($sql, $db_common) or trigger_error("Query Failed: " . mysql_error());
+	$query = mysqli_query($db_common,$sql ) or trigger_error("Query Failed: " . mysqli_error($db_common));
 	if ($query) {
 		return true;
 	} else {
@@ -87,9 +87,9 @@ function add_feedback($name, $email, $mob_no, $msg, $griv = 0, $emp_react = NULL
 	global $db_egr;
     // var_dump($name);
     // var_dump($email); var_dump($mob_no);var_dump($msg);var_dump($griv);var_dump($emp_react);var_dump($emp_id);
-	$_msg = mysql_real_escape_string($msg);
+	$_msg = mysqli_real_escape_string($db_egr,$msg);
 	 $sql_feedback = "insert into tbl_feedback(emp_id,name,email,mob_no,remark,griv_ref_id,emp_reaction) values('$emp_id','$name','$email','$mob_no','$_msg','$griv','$emp_react')";
-	$fetch_feedback = mysql_query($sql_feedback, $db_egr);
+	$fetch_feedback = mysqli_query($db_egr,$sql_feedback );
 	if ($fetch_feedback) {
 		return true;
 	} else {
@@ -101,7 +101,7 @@ function UpdateEmployee($emp_type, $emp_name, $emp_dept, $emp_desig, $emp_mob, $
 {
 	global $db_common;
 	$query = "UPDATE register_user set empType='$emp_type', name='$emp_name', department='$emp_dept', designation='$emp_desig', mobile='$emp_mob', emp_email='$emp_email', office='$emp_office', station='$emp_station' where emp_no='$emp_id'";
-	$result = mysql_query($query, $db_common);
+	$result = mysqli_query($db_common,$query);
 	if ($result)
 		return true;
 	else {
@@ -114,7 +114,7 @@ function changepassword($pro_emp_npass, $emp_id)
 	global  $db_common;
 	$pro_emp_npass = hashPassword($pro_emp_npass);
 	$query = "UPDATE register_user set password='$pro_emp_npass' where emp_no='$emp_id'";
-	$result = mysql_query($query, $db_common);
+	$result = mysqli_query($db_common,$query);
 	if ($result)
 		return true;
 	else {
@@ -128,8 +128,8 @@ function add_rem($hidden_date, $rem_emp_id, $rem_griv_no, $rem_remark)
 	global $db_egr, $db_common;
 	$sql_add = "insert into reminder(griv_ref_no,emp_id,griv_upload_date,reminder_date,remark)values('$rem_griv_no','$rem_emp_id','$hidden_date',CURRENT_TIMESTAMP,'$rem_remark')";
 	// echo $sql_add;
-	$sql = mysql_query($sql_add, $db_egr);
-	// echo "insert into reminder(griv_ref_no,emp_id,griv_upload_date,reminder_date,remark)values('$rem_griv_no','$rem_emp_id','$hidden_date',CURRENT_TIMESTAMP,'$rem_remark')" . mysql_error();
+	$sql = mysqli_query($db_egr,$sql_add );
+	// echo "insert into reminder(griv_ref_no,emp_id,griv_upload_date,reminder_date,remark)values('$rem_griv_no','$rem_emp_id','$hidden_date',CURRENT_TIMESTAMP,'$rem_remark')" . mysqli_error();
 	if ($sql) {
 		return true;
 	} else {
@@ -206,7 +206,7 @@ function update_emp_station_dept_degn($pf_no, $station, $dept, $degn)
 {
 	global $db_common;
 	$sql_update = "UPDATE `register_user` SET `designation`='$degn',`department`='$dept',`station`='$station' WHERE `emp_no`='$pf_no'";
-	if (mysql_query($sql_update, $db_common)) {
+	if (mysqli_query($db_common,$sql_update)) {
 		return true;
 	}
 	return false;

@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php')
 ?>
 
 <!-- PNotify -->
@@ -32,8 +34,8 @@ error_reporting(0);
                                 <tbody>
                                     <?php
                                     $cnt = 1;
-                                    $query = mysql_query("Select * from register_user ", $db_common);
-                                    while ($rw_data = mysql_fetch_assoc($query)) {
+                                    $query = mysqli_query($db_common,"Select * from register_user ");
+                                    while ($rw_data = mysqli_fetch_assoc($query)) {
                                         $emp_type = get_emptype($rw_data["empType"]);
                                         $emp_id = $rw_data["emp_no"];
                                         $emp_name = $rw_data["name"];
@@ -227,15 +229,15 @@ error_reporting(0);
                                 <label class="control-label col-md-4" style="margin-left: -50px;">State</label>
                                 <div class="col-md-8">
                                     <?php
-                                    $query = mysql_query("SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
-                                    $rowCount = mysql_num_rows($query);
+                                    $query = mysqli_query($db_egr,"SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
+                                    $rowCount = mysqli_num_rows($query);
                                     ?>
                                     <select name="up_emp_state" id="up_emp_state" class="form-control"
                                         style="margin-top:0px;">
                                         <option>Select State</option>
                                         <?php
                                         if ($rowCount > 0) {
-                                            while ($row = mysql_fetch_assoc($query)) {
+                                            while ($row = mysqli_fetch_assoc($query)) {
                                                 echo '<option value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
                                             }
                                         } else {
@@ -254,15 +256,15 @@ error_reporting(0);
                                     //$state_hidden_id = $_GET['state_hidden_id'];
                                     // echo "<script>alert($state_hidden_id)</script>";
 
-                                    //$query = mysql_query("SELECT * FROM cities where state_id='".$state_hidden_id."'"); 
-                                    //$rowCount = mysql_num_rows($query);
+                                    //$query = mysqli_query("SELECT * FROM cities where state_id='".$state_hidden_id."'"); 
+                                    //$rowCount = mysqli_num_rows($query);
                                     ?>
                                     <select name="up_emp_city" id="up_emp_city" class="form-control"
                                         style="margin-top:0px;">
                                         <option value=""></option>
                                         <?php
                                         // if($rowCount > 0){
-                                        // while($row = mysql_fetch_assoc($query)){ 
+                                        // while($row = mysqli_fetch_assoc($query)){ 
                                         // echo '<option value="'.$row['city_id'].'">'.$row['city_name'].'</option>';
                                         // }
                                         // }else{
@@ -316,15 +318,15 @@ error_reporting(0);
                                 <div class="col-md-8"><input type="hidden" id="state_hidden_id1" name="state_hidden_id1"
                                         class="form-control">
                                     <?php
-                                    $query = mysql_query("SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
-                                    $rowCount = mysql_num_rows($query);
+                                    $query = mysqli_query($db_egr,"SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
+                                    $rowCount = mysqli_num_rows($query);
                                     ?>
                                     <select name="up_office_emp_state" id="up_office_emp_state" class="form-control"
                                         style="margin-top:0px;">
                                         <option>Select State</option>
                                         <?php
                                         if ($rowCount > 0) {
-                                            while ($row = mysql_fetch_assoc($query)) {
+                                            while ($row = mysqli_fetch_assoc($query)) {
                                                 echo '<option value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
                                             }
                                         } else {
@@ -340,15 +342,15 @@ error_reporting(0);
                                 <label class="control-label col-md-4" style="margin-left: -50px;">City</label>
                                 <div class="col-md-8">
                                     <?php
-                                    $query = mysql_query("SELECT * FROM cities");
-                                    $rowCount = mysql_num_rows($query);
+                                    $query = mysqli_query($db_egr,"SELECT * FROM cities");
+                                    $rowCount = mysqli_num_rows($query);
                                     ?>
                                     <select name="up_office_emp_city" id="up_office_emp_city" class="form-control"
                                         style="margin-top:0px;">
                                         <option disabled>Select state first</option>
                                         <?php
                                         if ($rowCount > 0) {
-                                            while ($row = mysql_fetch_assoc($query)) {
+                                            while ($row = mysqli_fetch_assoc($query)) {
                                                 echo '<option value="' . $row['city_id'] . '">' . $row['city_name'] . '</option>';
                                             }
                                         } else {

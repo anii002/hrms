@@ -6,12 +6,12 @@ if (isset($_POST['action'])) {
 
 		case 'submit_change_password':
 			$sql = "UPDATE `tbl_otp` SET `flag`='0' WHERE `flag` = '' OR `flag` = '1' AND `emp_id` = '" . $_REQUEST['fetch_user_id'] . "' AND otp = '" . $_POST['typed_otp'] . "' ";
-			$result = mysql_query($sql, $db_egr);
-			//echo mysql_affected_rows();
+			$result = mysqli_query( $db_egr,$sql);
+			//echo mysqli_affected_rows();
 			//echo $sql;
 			if ($result) {
 				$change_pass = "UPDATE `tbl_user` SET `password`= '" . $_POST['request_password'] . "' WHERE `user_id` = '" . $_REQUEST['fetch_user_id'] . "'";
-				$change_result = mysql_query($change_pass, $db_egr);
+				$change_result = mysqli_query( $db_egr,$change_pass);
 				if ($change_result) {
 					echo "<script>alert('Password changed successfully.'); window.location = 'index.php';</script>";
 				} else {

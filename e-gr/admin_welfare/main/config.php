@@ -1,15 +1,42 @@
 <?php
+// error_reporting(0); // Uncomment during production
 date_default_timezone_set('Asia/Kolkata');
-$db_egr_name = "esoluhp6_e_gr";
-$db_common_name = "esoluhp6_sur_railway";
-$db_egr = mysql_connect('localhost', 'esoluhp6_test', 'root@123', true) or trigger_error("Unable to connect to the database: " . mysql_error());
-mysql_select_db($db_egr_name, $db_egr);
-$db_common = mysql_connect('localhost', 'esoluhp6_test', 'root@123', true) or trigger_error("Unable to connect to the database: " . mysql_error());
-mysql_select_db($db_common_name, $db_common);
-define('SALT1', '24859f@#$#@$');
-define('SALT2', '^&@#_-=+Afda$#%');
-function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^#")
-{
-    return sha1(md5($pSalt2 . $pPassword . $pSalt1));
+
+// Database connection details
+$db_host = "localhost";
+$db_user = "root";
+$db_pass = "";
+$db_egr_name = "drmpsurh_e_gr";
+$db_common_name = "drmpsurh_sur_railway";
+
+// Connecting to the e_gr database using mysqli
+$db_egr = mysqli_connect($db_host, $db_user, $db_pass, $db_egr_name);
+if (!$db_egr) {
+    die("Unable to connect to the e_gr database: " . mysqli_connect_error());
 }
-require_once('functions.php');
+
+// Connecting to the sur_railway database using mysqli
+$db_common = mysqli_connect($db_host, $db_user, $db_pass, $db_common_name);
+if (!$db_common) {
+    die("Unable to connect to the sur_railway database: " . mysqli_connect_error());
+}
+
+// Define salt constants for password hashing if not already defined
+if (!defined('SALT1')) {
+    define('SALT1', '24859f@#$#@$');
+}
+
+if (!defined('SALT2')) {
+    define('SALT2', '^&@#_-=+Afda$#%');
+}
+
+// Check if the hashPassword function already exists before declaring it
+if (!function_exists('hashPassword')) {
+    function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^#")
+    {
+        return sha1(md5($pSalt2 . $pPassword . $pSalt1));
+    }
+}
+
+// Require_once for functions.php if needed
+// require_once('functions.php');

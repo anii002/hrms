@@ -28,8 +28,8 @@ include('config.php');
 						//echo "<script>alert('$cur_user');</script>";
 						$sql="select e.emp_type,e.emp_id,e.emp_name,e.emp_dept,e.emp_desig,e.emp_mob,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id WHERE g.emp_id='$cur_user'";
 							
-							$exe_query=mysql_query($sql) or die(mysql_error());
-						while($result=mysql_fetch_array($exe_query))
+							$exe_query=mysqli_query($db_egr,$sql) or die(mysqli_error($db_egr));
+						while($result=mysqli_fetch_array($exe_query))
 						{
 							$emp_type=$result['emp_type'];
 							$emp_id=$result['emp_id'];
@@ -48,33 +48,33 @@ include('config.php');
 							$gri_ref_no=$result['gri_ref_no'];
 							$doc_path=$result['doc_id'];
 						}
-							$fetch_cat=mysql_query("select * from emp_type where id='".$emp_type."'");
-							while($cat_fetch=mysql_fetch_array($fetch_cat))
+							$fetch_cat=mysqli_query($db_egr,"select * from emp_type where id='".$emp_type."'");
+							while($cat_fetch=mysqli_fetch_array($fetch_cat))
 							{
 								$e_type=$cat_fetch['type'];
 							}
 							
-							$get_des=mysql_query("select designation from tbl_designation where id='".$emp_desig."'");
-							while($fetch_des=mysql_fetch_array($get_des))
+							$get_des=mysqli_query($db_egr,"select designation from tbl_designation where id='".$emp_desig."'");
+							while($fetch_des=mysqli_fetch_array($get_des))
 							{
 								$got_des=$fetch_des['designation'];
 							}
 							//echo "<script>alert('$got_des');</script>";
 						
-							$get_off=mysql_query("select office_name from tbl_office where office_id='".$office."'");
-							while($fetch_off=mysql_fetch_array($get_off))
+							$get_off=mysqli_query($db_egr,"select office_name from tbl_office where office_id='".$office."'");
+							while($fetch_off=mysqli_fetch_array($get_off))
 							{
 								$got_off=$fetch_off['office_name'];
 							}
 							$got_dept="";
-							$get_dept=mysql_query("select deptname from tbl_department where dept_id='".$emp_dept."'");
-							while($fetch_dept=mysql_fetch_array($get_dept))
+							$get_dept=mysqli_query($db_egr,"select deptname from tbl_department where dept_id='".$emp_dept."'");
+							while($fetch_dept=mysqli_fetch_array($get_dept))
 							{
 								$got_dept=$fetch_dept['deptname'];
 							}
 							
-							$get_st=mysql_query("select station_name from tbl_station where station_id='".$station."'");
-							while($fetch_st=mysql_fetch_array($get_st))
+							$get_st=mysqli_query($db_egr,"select station_name from tbl_station where station_id='".$station."'");
+							while($fetch_st=mysqli_fetch_array($get_st))
 							{
 								$got_st=$fetch_st['station_name'];
 							}
@@ -201,24 +201,26 @@ include('config.php');
 					
 						<?php
 								function get_status($status){
-									$sql1=mysql_query("select status from status where id=$status");
+									global $db_egr;
+									$sql1=mysqli_query($db_egr,"select status from status where id=$status");
 									$status_fetch="";
-									while($sql_query1=mysql_fetch_array($sql1))
+									while($sql_query1=mysqli_fetch_array($sql1))
 									{
 										$status_fetch=$sql_query1['status'];
 									}
 									return $status_fetch;
 								}
 								function get_action($action){
-									$f_action=mysql_query("select action from action where id=$action");
-									while($action_f=mysql_fetch_array($f_action))
+									global $db_egr;
+									$f_action=mysqli_query($db_egr,"select action from action where id=$action");
+									while($action_f=mysqli_fetch_array($f_action))
 									{
 										$a_c=$action_f['action'];
 									}
 									return $a_c;
 								}
-								$fire_all=mysql_query("select  * from tbl_grievance where gri_ref_no='".$_GET['griv_no']."'");
-								while($all_fetch=mysql_fetch_array($fire_all))
+								$fire_all=mysqli_query($db_egr,"select  * from tbl_grievance where gri_ref_no='".$_GET['griv_no']."'");
+								while($all_fetch=mysqli_fetch_array($fire_all))
 								{
 									$gri_ref_no=$all_fetch['gri_ref_no'];
 									$forwarded_date=$all_fetch['gri_upload_date'];
@@ -232,18 +234,18 @@ include('config.php');
 									echo "<td>$forwarded_date</td>";
 								//	echo "<td>$return_action</td>";
 									echo "<td>$status</td>";
-									$sql_doc_sec=mysql_query("select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$cur_user'");
-									//echo "select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$cur_user'".mysql_error();
+									$sql_doc_sec=mysqli_query($db_egr,"select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$cur_user'");
+									//echo "select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$cur_user'".mysqli_error();
 									echo "<td>";
 									$count_doc = 1;
 									$cnt=0;
-									while($doc_fetch=mysql_fetch_array($sql_doc_sec))
+									while($doc_fetch=mysqli_fetch_array($sql_doc_sec))
 									{
 										//echo $doc_fetch['doc_path'];
 										echo "<a href='admin/main/upload_doc/".$doc_fetch['doc_path']."' target='_blank' id='".$cnt."' name='".$cnt."' >DOC&nbsp;&nbsp;&nbsp;</a>";
 										$cnt++;
 									}
-									if(mysql_num_rows($sql_doc_sec)>0)
+									if(mysqli_num_rows($sql_doc_sec)>0)
 									{
 										$count_doc++;
 									}
@@ -267,11 +269,11 @@ include('config.php');
                     <label style="padding:5px;font-size:16px;">Grievance History</label>
 	<!------------- Reminder Coding---------------------------------------->
 					<?php
-						$sql_rem=mysql_query("select * from tbl_grievance where gri_ref_no='$gri_ref_no' and status='4'");
-						$rem_ref=(int)mysql_num_rows($sql_rem);
+						$sql_rem=mysqli_query($db_egr,"select * from tbl_grievance where gri_ref_no='$gri_ref_no' and status='4'");
+						$rem_ref=(int)mysqli_num_rows($sql_rem);
 						if($rem_ref == 0){
-							$sql_inner=mysql_query("select * from reminder where griv_ref_no='$gri_ref_no' ORDER BY rem_id DESC LIMIT 1");
-							$inner_sql=mysql_fetch_array($sql_inner);
+							$sql_inner=mysqli_query($db_egr,"select * from reminder where griv_ref_no='$gri_ref_no' ORDER BY rem_id DESC LIMIT 1");
+							$inner_sql=mysqli_fetch_array($sql_inner);
 							$rem_date=$inner_sql['reminder_date'];
 							$got_date=date("Y-m-d", strtotime("$rem_date"));
 							$cur_date=date("Y-m-d");
@@ -305,35 +307,37 @@ include('config.php');
 						$griv_no=$_GET['griv_no'];
 						//echo "<script>alert('$griv_no');</script>";
 								function get_user1($first_id){
-									$first_user=mysql_query("select user_name from tbl_user where user_id='$first_id'");
-									$count_record = mysql_num_rows($first_user);
+									global $db_egr;
+									$first_user=mysqli_query($db_egr,"select user_name from tbl_user where user_id='$first_id'");
+									$count_record = mysqli_num_rows($first_user);
 									if($count_record>0)
 									{
-										$user_first=mysql_fetch_array($first_user);
+										$user_first=mysqli_fetch_array($first_user);
 										$f_user=$user_first['user_name'];
 									}
 									else{
-										$first_user=mysql_query("select emp_name from employee where emp_id='$first_id'");
-										$count_record = mysql_num_rows($first_user);
-										$user_first=mysql_fetch_array($first_user);
+										$first_user=mysqli_query($db_egr,"select emp_name from employee where emp_id='$first_id'");
+										$count_record = mysqli_num_rows($first_user);
+										$user_first=mysqli_fetch_array($first_user);
 										$f_user=$user_first['emp_name'];
 									}
 									return $f_user;
 								}
 								function get_user2($second_id){
-									$second_user=mysql_query("select user_name from tbl_user where user_id='$second_id'");
-									while($user_second=mysql_fetch_array($second_user))
+									global $db_egr;
+									$second_user=mysqli_query($db_egr,"select user_name from tbl_user where user_id='$second_id'");
+									while($user_second=mysqli_fetch_array($second_user))
 									{
 										$s_user=$user_second['user_name'];
 									}
 									return $s_user;
 								}
-								$fire_all=mysql_query("select  * from tbl_grievance_forward where griv_ref_no='$griv_no'");
+								$fire_all=mysqli_query($db_egr,"select  * from tbl_grievance_forward where griv_ref_no='$griv_no'");
 								
 									$count_doc = 1;
 									$cnt=0;
 									$sr_no=1;
-								while($all_fetch=mysql_fetch_array($fire_all))
+								while($all_fetch=mysqli_fetch_array($fire_all))
 								{
 									$forwarded_date=$all_fetch['forwarded_date'];
 									$remark=$all_fetch['remark'];
@@ -349,10 +353,10 @@ include('config.php');
 									echo "<td>$remark</td>";
 									echo "<td>$user_id</td>";
 									echo "<td>$user_id_forwarded</td>";
-									$sql_doc_sec=mysql_query("select * from doc where griv_ref_no='$griv_no' and uploaded_by='".$all_fetch['user_id']."' AND count='".$all_fetch['id']."'");
+									$sql_doc_sec=mysqli_query($db_egr,"select * from doc where griv_ref_no='$griv_no' and uploaded_by='".$all_fetch['user_id']."' AND count='".$all_fetch['id']."'");
 									$sr_no++;
 									echo "<td>";
-									while($doc_fetch=mysql_fetch_array($sql_doc_sec))
+									while($doc_fetch=mysqli_fetch_array($sql_doc_sec))
 									{
 										if($all_fetch['user_id']=='1'){
 											echo "<a href='admin/main/admin_upload/".$doc_fetch['doc_path']."' target='_blank' id='".$cnt."' name='".$cnt."' >DOC&nbsp;&nbsp;&nbsp;</a>";
@@ -361,7 +365,7 @@ include('config.php');
 										}
 										$cnt++;
 									}
-									if(mysql_num_rows($sql_doc_sec)>0)
+									if(mysqli_num_rows($sql_doc_sec)>0)
 									{
 										$count_doc++;
 									}
@@ -373,9 +377,9 @@ include('config.php');
 						<input type="hidden" name="hidden_status" id="hidden_status" value="<?php echo $status;?>">
 						<input type="hidden" name="hidden_griv" id="hidden_griv" value="<?php echo $griv_no;?>">
 						<?php
-							$fetch_satisfy=mysql_query("select * from emp_satisfy where griv_ref_no='$griv_no'");
-							$row_count=mysql_num_rows($fetch_satisfy);
-							while($satisfy_fetch=mysql_fetch_array($fetch_satisfy)){
+							$fetch_satisfy=mysqli_query($db_egr,"select * from emp_satisfy where griv_ref_no='$griv_no'");
+							$row_count=mysqli_num_rows($fetch_satisfy);
+							while($satisfy_fetch=mysqli_fetch_array($fetch_satisfy)){
 								$griv_ref=$satisfy_fetch['griv_ref_no'];
 								$emp_no=get_user1($satisfy_fetch['emp_id']);
 								$emp_remark=$satisfy_fetch['remark'];
@@ -468,14 +472,14 @@ if(isset($_POST['satisfy'])){
 	$griv_no=$_REQUEST['hidden_griv'];
 
 	$remark=$_REQUEST['feedback_desc'];
-	$_remark=mysql_real_escape_string($remark);
+	$_remark=mysqli_real_escape_string($db_egr,$remark);
 	if($react=='Re-Forward'){
 		
-		$sql_satisfy=mysql_query("insert into tbl_grievance_forward(griv_ref_no,emp_id,user_id,user_id_forwarded,forwarded_date,remark,status,section_action) values('$griv_no','$cur_user','$cur_user','1',CURRENT_TIMESTAMP,'$_remark','3','4')");
-		$last_id=mysql_insert_id();
+		$sql_satisfy=mysqli_query($db_egr,"insert into tbl_grievance_forward(griv_ref_no,emp_id,user_id,user_id_forwarded,forwarded_date,remark,status,section_action) values('$griv_no','$cur_user','$cur_user','1',CURRENT_TIMESTAMP,'$_remark','3','4')");
+		$last_id=mysqli_insert_id($db_egr);
 		if($sql_satisfy){
-			$set_zero=mysql_query("update tbl_grievance_forward set status='0' where griv_ref_no='$griv_no' and id < $last_id");
-			$status_update=mysql_query("update tbl_grievance set status='3' where gri_ref_no=$griv_no");
+			$set_zero=mysqli_query($db_egr,"update tbl_grievance_forward set status='0' where griv_ref_no='$griv_no' and id < $last_id");
+			$status_update=mysqli_query($db_egr,"update tbl_grievance set status='3' where gri_ref_no=$griv_no");
 			echo "<script>alert('Grievance Forwarded successfully');window.location='griv_history.php';</script>";
 		}else{//window.location='griv_history.php';
 			echo "<script>alert('failed');</script>";
@@ -484,9 +488,9 @@ if(isset($_POST['satisfy'])){
 	}else{
 		
 	/* $remark=$_REQUEST['feedback_desc'];
-	$_remark=mysql_real_escape_string($remark); */
+	$_remark=mysqli_real_escape_string($remark); */
 	
-	$sql_satisfy=mysql_query("insert into emp_satisfy(griv_ref_no,emp_id,remark,emp_feedback) values('$griv_no','$cur_user','$_remark','$react')");
+	$sql_satisfy=mysqli_query($db_egr,"insert into emp_satisfy(griv_ref_no,emp_id,remark,emp_feedback) values('$griv_no','$cur_user','$_remark','$react')");
 	if($sql_satisfy){
 		echo "<script>alert('Feedback has been added successfully ');window.location='griv_history.php';</script>";
 	}else{//window.location='griv_history.php';

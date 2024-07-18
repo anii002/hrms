@@ -32,8 +32,9 @@ error_reporting(0);
 								<tbody>
 									<?php
 									function get_Cat($type)
-									global $db_egr;
-									{	//echo "<script>alert($type)</script>";
+									
+									{	
+										global $db_egr;//echo "<script>alert($type)</script>";
 										$fetch_cat = mysqli_query($db_egr, "select cat_name from category where cat_id='" . $type . "'");
 										//  $cat_fetch=mysqli_query($fetch_cat);
 										while ($cat_get = mysqli_fetch_assoc($fetch_cat)) {

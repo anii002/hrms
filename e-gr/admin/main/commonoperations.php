@@ -1,16 +1,18 @@
 <?php
-// include_once("db.php");
-require_once('config.php');
+require_once('Global_Data/header.php');
+error_reporting(0);
+include('config.php');
+include('functions.php');
 $Flag = $_REQUEST["Flag"];
 if ($Flag == "getList") {
     // print_r($_POST);
     $Table = $_REQUEST["Table"];
     $ValueField = $_REQUEST["ValueField"];
     $DisplayField = $_REQUEST["DisplayField"];
-    $rstGetList = mysql_query("select $ValueField,$DisplayField from $Table", $db_egr);
-    if (mysql_num_rows($rstGetList) != 0) {
+    $rstGetList = mysqli_query($db_egr,"select $ValueField,$DisplayField from $Table");
+    if (mysqli_num_rows($rstGetList) != 0) {
         echo "<option value=''>Choose a $DisplayField</option>";
-        while ($rwGetList = mysql_fetch_array($rstGetList)) {
+        while ($rwGetList = mysqli_fetch_array($rstGetList)) {
             $Value = $rwGetList[$ValueField];
             $Display = $rwGetList[$DisplayField];
             echo "<option value='$Value'>$Display</option>";
@@ -21,10 +23,10 @@ if ($Flag == "getList") {
     $Table = $_REQUEST["Table"];
     $ValueField = $_REQUEST["ValueField"];
     $DisplayField = $_REQUEST["DisplayField"];
-    $rstGetList = mysql_query("select $ValueField,$DisplayField from $Table", $db_common);
-    if (mysql_num_rows($rstGetList) != 0) {
+    $rstGetList = mysqli_query($db_common,"select $ValueField,$DisplayField from $Table");
+    if (mysqli_num_rows($rstGetList) != 0) {
         echo "<option value=''>Choose a $DisplayField</option>";
-        while ($rwGetList = mysql_fetch_array($rstGetList)) {
+        while ($rwGetList = mysqli_fetch_array($rstGetList)) {
             $Value = $rwGetList[$ValueField];
             $Display = $rwGetList[$DisplayField];
             echo "<option value='$Value'>$Display</option>";
@@ -40,10 +42,10 @@ if ($Flag == "getList") {
     $DisplayField = implode(',', $DisplayField);
     $sql = "select $ValueField,$DisplayField from $Table";
     // echo $sql;
-    $rstGetList = mysql_query($sql, $db_common);
-    if (mysql_num_rows($rstGetList) != 0) {
+    $rstGetList = mysqli_query($db_common,$sql);
+    if (mysqli_num_rows($rstGetList) != 0) {
         echo "<option value='' disabled>Choose a $DisplayField</option>";
-        while ($rwGetList = mysql_fetch_array($rstGetList)) {
+        while ($rwGetList = mysqli_fetch_array($rstGetList)) {
             $Value = $rwGetList[$ValueField];
             // print_r($DisplayField);
 

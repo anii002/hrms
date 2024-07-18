@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php')
 ?>
 
 <style>
@@ -72,8 +74,8 @@ error_reporting(0);
                                         <option disabled hidden>----Select Branch Officer----</option>
                                         <option value="0">All</option>
                                         <?php
-                                        $fetch_user = mysql_query("select * from tbl_user where role='3'", $db_egr);
-                                        while ($user_fetch = mysql_fetch_array($fetch_user)) {
+                                        $fetch_user = mysqli_query($db_egr,"select * from tbl_user where role='3'");
+                                        while ($user_fetch = mysqli_fetch_array($fetch_user)) {
                                             echo "<option value='" . $user_fetch['user_id'] . "'>" . $user_fetch['user_name'] . "</option>";
                                         }
                                         ?>

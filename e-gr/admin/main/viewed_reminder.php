@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 <!-- PNotify -->
@@ -31,8 +33,9 @@ error_reporting(0);
                                     <?php
 									function get_Cat($type)
 									{
-										$fetch_cat = mysql_query("select cat_name from category where cat_id='" . $type . "'");
-										while ($cat_get = mysql_fetch_assoc($fetch_cat)) {
+										global $db_egr;
+										$fetch_cat = mysqli_query($db_egr,"select cat_name from category where cat_id='" . $type . "'");
+										while ($cat_get = mysqli_fetch_assoc($fetch_cat)) {
 											$cat_names = $cat_get['cat_name'];
 											echo "<script>alert($cat_names)</script>";
 										}
@@ -40,15 +43,16 @@ error_reporting(0);
 									}
 									function get_type($emp_type)
 									{
-										$fetch_cat = mysql_query("select * from emp_type where id='$emp_type'");
-										while ($cat_fetch = mysql_fetch_array($fetch_cat)) {
+										global $db_egr;
+										$fetch_cat = mysqli_query($db_egr,"select * from emp_type where id='$emp_type'");
+										while ($cat_fetch = mysqli_fetch_array($fetch_cat)) {
 											$e_type = $cat_fetch['type'];
 										}
 										return $e_type;
 									}
 									$cnt = 1;
-									$query = mysql_query("select * from reminder where status='1'");
-									while ($rw_data = mysql_fetch_array($query)) {
+									$query = mysqli_query($db_egr,"select * from reminder where status='1'");
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_id"];
 										$gri_ref_no = $rw_data["griv_ref_no"];
 										$gri_upload_date = $rw_data["griv_upload_date"];
@@ -61,8 +65,8 @@ error_reporting(0);
 										echo "<td>$gri_upload_date</td>";
 										echo "<td>$rem_date</td>";
 										echo "<td>$remark</td>";
-										$inner = mysql_query("select id from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'");
-										$inner_result = mysql_fetch_array($inner);
+										$inner = mysqli_query($db_egr,"select id from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'");
+										$inner_result = mysqli_fetch_array($inner);
 										echo "<td><div class='btn-group' style='margin-top:-5px;width: 85px;'>
 										<a  style='width:34px' id='" . $inner_result['id'] . "' href='griv_closed.php?g_id=" . $inner_result['id'] . "' class='btn_show_center btn1 btn btn-info' value='" . $inner_result['id'] . "'><i class='fa fa-eye' aria-hidden='true'></i></a>
 										</div>

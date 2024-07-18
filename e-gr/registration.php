@@ -43,8 +43,8 @@ $("#emp_dept").select2();
                                                     <option value="" disabled selected>Select Employee</option>
                                                     <?php
 													$query_emp = "select * from emp_type";
-													$result_emp = mysql_query($query_emp);
-													while ($value_emp = mysql_fetch_array($result_emp)) {
+													$result_emp = mysqli_query($db_egr,$query_emp);
+													while ($value_emp = mysqli_fetch_array($result_emp)) {
 															echo "<option value='" . $value_emp['id'] . "'>" . $value_emp['type'] . "</option>";
 														}
 													?>
@@ -88,8 +88,8 @@ $("#emp_dept").select2();
                                                     <option selected hidden readonly disabled>Select Department</option>
                                                     <?php
 													$query_dept = "SELECT * FROM `tbl_department`";
-													$result_dept = mysql_query($query_dept);
-													while ($value_dept = mysql_fetch_array($result_dept)) {
+													$result_dept = mysqli_query($db_egr,$query_dept);
+													while ($value_dept = mysqli_fetch_array($result_dept)) {
 															echo "<option value='" . $value_dept['dept_id'] . "'>" . $value_dept['deptname'] . "</option>";
 														}
 													?>
@@ -109,8 +109,8 @@ $("#emp_dept").select2();
                                                     <option value="" disabled selected>Select Designation</option>
                                                     <?php
 													/* $query_design = "SELECT * FROM `tbl_designation`";
-										$result_design = mysql_query($query_design);
-										while($value_design = mysql_fetch_array($result_design))
+										$result_design = mysqli_query($query_design);
+										while($value_design = mysqli_fetch_array($result_design))
 										{
 											echo "<option value='".$value_design['id']."'>".$value_design['designation']."</option>";
 										} */
@@ -165,8 +165,8 @@ $("#emp_dept").select2();
                                                     <option value="" disabled selected>Select Office</option>
                                                     <?php
 													$query_office = "SELECT * FROM `tbl_office`";
-													$result_office = mysql_query($query_office);
-													while ($value_office = mysql_fetch_array($result_office)) {
+													$result_office = mysqli_query($db_egr,$query_office);
+													while ($value_office = mysqli_fetch_array($result_office)) {
 															echo "<option value='" . $value_office['office_id'] . "'>" . $value_office['office_name'] . "</option>";
 														}
 													?>
@@ -186,8 +186,8 @@ $("#emp_dept").select2();
                                                     <option value="" disabled selected>Select Station</option>
                                                     <?php
 													$query_station = "SELECT * FROM `tbl_station`";
-													$result_station = mysql_query($query_station);
-													while ($value_result = mysql_fetch_array($result_station)) {
+													$result_station = mysqli_query($db_egr,$query_station);
+													while ($value_result = mysqli_fetch_array($result_station)) {
 															echo "<option value='" . $value_result['station_id'] . "'>" . $value_result['station_name'] . "</option>";
 														}
 													?>
@@ -226,15 +226,15 @@ $("#emp_dept").select2();
                                             <label class="control-label col-md-4 col-sm-3 col-xs-12">State</label>
                                             <div class="col-md-8 col-sm-8 col-xs-12">
                                                 <?php
-												$query = mysql_query("SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
-												$rowCount = mysql_num_rows($query);
+												$query = mysqli_query($db_egr,"SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
+												$rowCount = mysqli_num_rows($query);
 												?>
                                                 <select name="emp_state" id="emp_state" class="form-control"
                                                     style="margin-top:0px; width:100%;">
                                                     <option disabled selected>Select State</option>
                                                     <?php
 													if ($rowCount > 0) {
-														while ($row = mysql_fetch_assoc($query)) {
+														while ($row = mysqli_fetch_assoc($query)) {
 															echo '<option value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
 														}
 													} else {
@@ -298,15 +298,15 @@ $("#emp_dept").select2();
                                             <label class="control-label col-md-4 col-sm-3 col-xs-12">State</label>
                                             <div class="col-md-8 col-sm-8 col-xs-12">
                                                 <?php
-												$query = mysql_query("SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
-												$rowCount = mysql_num_rows($query);
+												$query = mysqli_query($db_egr,"SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
+												$rowCount = mysqli_num_rows($query);
 												?>
                                                 <select name="office_emp_state" id="office_emp_state"
                                                     class="form-control" style="margin-top:0px;width:100%">
                                                     <option disabled selected>Select State</option>
                                                     <?php
 													if ($rowCount > 0) {
-														while ($row = mysql_fetch_assoc($query)) {
+														while ($row = mysqli_fetch_assoc($query)) {
 															echo '<option value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
 														}
 													} else {
@@ -371,8 +371,8 @@ $("#emp_dept").select2();
                       <tbody-->
                     <?php
 					// $cnt=1;
-					// $query=mysql_query("Select * from employee where delete_status=1 Limit 50");
-					// while($rw_data=mysql_fetch_assoc($query)){
+					// $query=mysqli_query("Select * from employee where delete_status=1 Limit 50");
+					// while($rw_data=mysqli_fetch_assoc($query)){
 					// $emp_type=$rw_data["emp_type"];
 					// $emp_id=$rw_data["emp_id"];
 					// $emp_name=$rw_data["emp_name"];

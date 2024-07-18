@@ -31,25 +31,27 @@ error_reporting(0);
 		               <?php
 					   function get_Cat($type)
 					   {
-						   $fetch_cat=mysql_query("select cat_name from category where cat_id='".$type."'");
-						   while($cat_get=mysql_fetch_assoc($fetch_cat)){
+						global $db_egr;
+						   $fetch_cat=mysqli_query($db_egr,"select cat_name from category where cat_id='".$type."'");
+						   while($cat_get=mysqli_fetch_assoc($fetch_cat)){
 							   $cat_names=$cat_get['cat_name'];
 						   }
 						   return($cat_names);
 					   }
 					   $current_id=$_SESSION['SESSION_ID'];
 						function get_type($emp_type){
-						   $fetch_cat=mysql_query("select * from emp_type where id='$emp_type'");
-							while($cat_fetch=mysql_fetch_array($fetch_cat))
+							global $db_egr;
+						   $fetch_cat=mysqli_query($db_egr,"select * from emp_type where id='$emp_type'");
+							while($cat_fetch=mysqli_fetch_array($fetch_cat))
 							{
 								$e_type=$cat_fetch['type'];
 							}
 							return $e_type;
 					   }
 					   $cnt=1;
-					   $query=mysql_query("Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and f.user_id_forwarded='$current_id'");
+					   $query=mysqli_query($db_egr,"Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.status='2' and f.user_id_forwarded='$current_id'");
 					   
-					   while($rw_data=mysql_fetch_array($query)){
+					   while($rw_data=mysqli_fetch_array($query)){
 						   $emp_id=$rw_data["emp_id"];
 						   $emp_name=$rw_data["emp_name"];
 						   $emp_type=get_type($rw_data["emp_type"]);

@@ -53,8 +53,8 @@ error_reporting(0);
                                         <option value="" disabled selected>Select Employee Type</option>
                                         <?php
                                         $query_emp = "select * from emp_type";
-                                        $result_emp = mysql_query($query_emp, $db_egr);
-                                        while ($value_emp = mysql_fetch_array($result_emp)) {
+                                        $result_emp = mysqli_query($db_egr,$query_emp);
+                                        while ($value_emp = mysqli_fetch_array($result_emp)) {
                                             echo "<option value='" . $value_emp['id'] . "'>" . $value_emp['type'] . "</option>";
                                         }
                                         ?>
@@ -69,8 +69,8 @@ error_reporting(0);
                                         <option selected hidden readonly disabled>Select Department</option>
                                         <?php
                                         $query_dept = "SELECT * FROM `department`";
-                                        $result_dept = mysql_query($query_dept, $db_common);
-                                        while ($value_dept = mysql_fetch_array($result_dept)) {
+                                        $result_dept = mysqli_query($db_common,$query_dept);
+                                        while ($value_dept = mysqli_fetch_array($result_dept)) {
                                             echo "<option value='" . $value_dept['DEPTNO'] . "'>" . $value_dept['DEPTDESC'] . "</option>";
                                         }
                                         ?>
@@ -85,8 +85,8 @@ error_reporting(0);
                                         <option value="" disabled selected>Select Office</option>
                                         <?php
                                         $query_office = "SELECT * FROM `tbl_office`";
-                                        $result_office = mysql_query($query_office, $db_egr);
-                                        while ($value_office = mysql_fetch_array($result_office)) {
+                                        $result_office = mysqli_query($db_egr,$query_office);
+                                        while ($value_office = mysqli_fetch_array($result_office)) {
                                             echo "<option value='" . $value_office['office_id'] . "'>" . $value_office['office_name'] . "</option>";
                                         }
                                         ?>
@@ -101,8 +101,8 @@ error_reporting(0);
                                         <option value="" disabled selected>Select Designation</option>
                                         <?php
                                         $query_design = "SELECT * FROM `designations`";
-                                        $result_design = mysql_query($query_design, $db_common);
-                                        while ($value_design = mysql_fetch_array($result_design)) {
+                                        $result_design = mysqli_query($db_common,$query_design);
+                                        while ($value_design = mysqli_fetch_array($result_design)) {
                                             echo "<option value='" . $value_design['DESIGCODE'] . "'>" . $value_design['DESIGLONGDESC'] . "</option>";
                                         }
                                         ?>
@@ -135,8 +135,8 @@ error_reporting(0);
                                         class="form-control" required>
                                         <option disabled selected>----Select Grievance Type----</option>
                                         <?php
-                                        $fetch_section = mysql_query("select * from category", $db_egr);
-                                        while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                        $fetch_section = mysqli_query($db_egr,"select * from category");
+                                        while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                             echo "<option value='" . $section_fetch['cat_id'] . "'>" . $section_fetch['cat_name'] . "</option>";
                                         }
                                         ?>

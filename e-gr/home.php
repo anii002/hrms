@@ -11,7 +11,7 @@ include_once('fun.php');
 $user_last = $_SESSION['user'];
 $fetch = "select * from tbl_grievance where emp_id='$user_last'";
 
-$fetch_result = mysql_query($fetch) or die(mysql_error());
+$fetch_result = mysqli_query($db_egr,$fetch) or die(mysqli_error($db_egr));
 //echo "select * from tbl_grievance where emp_id='$user_last'";;
 
 //echo "<script>alert(".$user_last.");</script>"
@@ -40,27 +40,28 @@ $fetch_result = mysql_query($fetch) or die(mysql_error());
                     <?php
 					function get_status($status)
 					{
-						$sql1 = mysql_query("select status from status where id=$status");
+						global $db_egr;
+						$sql1 = mysqli_query($db_egr,"select status from status where id=$status");
 						$status_fetch = "";
-						while ($sql_query1 = mysql_fetch_array($sql1)) {
+						while ($sql_query1 = mysqli_fetch_array($sql1)) {
 								$status_fetch = $sql_query1['status'];
 							}
 						return $status_fetch;
 					}
 
-					while ($result_fetched = mysql_fetch_array($fetch_result)) {
+					while ($result_fetched = mysqli_fetch_array($fetch_result)) {
 							echo '<tr>';
 							echo '<td>' . $result_fetched['gri_ref_no'] . '</td>';
 							echo '<td>' . $result_fetched['gri_desc'] . '</td>';
 							echo '<td>' . $result_fetched['gri_upload_date'] . '</td>';
 							echo '<td>' . get_status($result_fetched['status']) . '</td>';
 							echo "<td>";
-							while ($doc_fetch = mysql_fetch_array($sql_doc_sec)) {
+							while ($doc_fetch = mysqli_fetch_array($sql_doc_sec)) {
 									//echo $doc_fetch['doc_path'];
 									echo "<a href='admin_user/main/admin_upload/" . $doc_fetch['doc_path'] . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "'>DOC&nbsp;&nbsp;&nbsp;</a>";
 									$cnt++;
 								}
-							if (mysql_num_rows($sql_doc_sec) > 0) {
+							if (mysqli_num_rows($sql_doc_sec) > 0) {
 									$count_doc++;
 								}
 							echo '</td>';

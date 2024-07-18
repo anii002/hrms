@@ -8,9 +8,9 @@ include('config.php');
 		$pass=$_POST['password'];
 		if(!empty($user) && !empty($pass)){
 			$sql_fetch="select * from employee where emp_id='$user' and password='$pass'";
-			$sql_result=mysql_query($sql_fetch) or die(mysql_error());
-			$result=mysql_num_rows($sql_result);
-			$fetch_result = mysql_fetch_array($sql_result);
+			$sql_result=mysqli_query($sql_fetch) or die(mysqli_error());
+			$result=mysqli_num_rows($sql_result);
+			$fetch_result = mysqli_fetch_array($sql_result);
 			if($result>0)
 			{
 				$_SESSION["user"] =$user;
@@ -18,8 +18,8 @@ include('config.php');
 				echo "<script>window.location='home.php'</script>";
 			}else{
 				//echo "error";
-				$sql_admin=mysql_query("select * from tbl_user where username='$user' and password='$pass'") or die(mysql_error());
-				$fetch_admin=mysql_fetch_array($sql_admin);
+				$sql_admin=mysqli_query("select * from tbl_user where username='$user' and password='$pass'") or die(mysqli_error());
+				$fetch_admin=mysqli_fetch_array($sql_admin);
 				 // echo "select * from tbl_user where username='$user' and password='$pass'";
 					$got_id=$fetch_admin['user_id'];
 					$got_role = $fetch_admin['role'];
@@ -95,19 +95,19 @@ if (isset($_REQUEST['login'])) {
 		$emp_pass = hashPassword($pass);
 
 		$sql_fetch = "select * from register_user where emp_no='$user' and password='$emp_pass'";
-		$sql_result = mysql_query($sql_fetch, $db_common) or die(mysql_error());
-		$result = mysql_num_rows($sql_result);
-		$fetch_result = mysql_fetch_array($sql_result);
+		$sql_result = mysqli_query($db_common,$sql_fetch) or die(mysqli_error($db_common));
+		$result = mysqli_num_rows($sql_result);
+		$fetch_result = mysqli_fetch_array($sql_result);
 		if ($result > 0) {
 			$_SESSION["user"] = $user;
 			$_SESSION["empname"] = $fetch_result['name'];
 			echo "<script>window.location='index.php'</script>";
 		} else {
 			//echo "error";
-			$sql_admin = mysql_query("select * from tbl_user where username='$user' and password='$pass'", $db_egr);
-			// echo mysql_error();
-			if (mysql_num_rows($sql_admin) > 0) {
-				$fetch_admin = mysql_fetch_array($sql_admin);
+			$sql_admin = mysqli_query($db_egr,"select * from tbl_user where username='$user' and password='$pass'");
+			// echo mysqli_error();
+			if (mysqli_num_rows($sql_admin) > 0) {
+				$fetch_admin = mysqli_fetch_array($sql_admin);
 
 				$got_id = $fetch_admin['user_id'];
 				$got_role = $fetch_admin['role'];

@@ -9,8 +9,8 @@ function get_type($id)
 	// echo $id;
 	if ($id > 0) {
 
-		$fetch_type = mysql_query("select type from emp_type where id='$id'", $db_egr);
-		$f_s = mysql_fetch_array($fetch_type);
+		$fetch_type = mysqli_query($db_egr,"select type from emp_type where id='$id'",);
+		$f_s = mysqli_fetch_array($fetch_type);
 		return $states = $f_s['type'];
 	} else {
 		return "-";
@@ -20,8 +20,8 @@ function get_office($id)
 {
 	global $db_egr;
 	if ($id != 0) {
-		$fetch_type = mysql_query("select office_name from tbl_office where office_id='$id'", $db_egr);
-		$f_s = mysql_fetch_array($fetch_type);
+		$fetch_type = mysqli_query($db_egr,"select office_name from tbl_office where office_id='$id'" );
+		$f_s = mysqli_fetch_array($fetch_type);
 		return $states = $f_s['office_name'];
 	} else {
 		return "-";
@@ -31,8 +31,8 @@ function get_dept($id)
 {
 	global $db_common;
 	if ($id != 0) {
-		$fetch_type = mysql_query("select DEPTDESC from department where DEPTNO='$id'", $db_common);
-		$f_s = mysql_fetch_array($fetch_type);
+		$fetch_type = mysqli_query($db_common,"select DEPTDESC from department where DEPTNO='$id'", );
+		$f_s = mysqli_fetch_array($fetch_type);
 		return $states = $f_s['DEPTDESC'];
 	} else {
 		return "-";
@@ -43,8 +43,8 @@ function get_desig($id)
 	// echo $id;
 	global $db_common;
 	if ($id != '') {
-		$fetch_type = mysql_query("select DESIGLONGDESC from designations where DESIGCODE='$id'", $db_common);
-		$f_s = mysql_fetch_array($fetch_type);
+		$fetch_type = mysqli_query($db_common,"select DESIGLONGDESC from designations where DESIGCODE='$id'");
+		$f_s = mysqli_fetch_array($fetch_type);
 		return $f_s['DESIGLONGDESC'];
 	} else {
 		return "-";
@@ -61,7 +61,7 @@ function startsWith($string, $startString)
 <section class="header-section-1 bg-image-1 header-js" id="search">
     <div class="overlay-color img-responsive">
         <div class="container img-responsive responsive ">
-            <div class="row section-separator" style="padding-top:100px;'">
+            <div class="row section-separator" style="padding-top:100px;">
                 <div class="col-md-10 col-md-offset-1 col-sm-10">
                     <form class="single-form" action="" method="POST">
                         <?php
@@ -69,16 +69,16 @@ function startsWith($string, $startString)
 						$cur_user = $_SESSION["user"];
 						//echo "<script>alert('$cur_user');</script>";
 						// $query_emp = "select * from register_user where emp_no='$cur_user'";
-						// $resultset = mysql_query($query_emp, $db_common);
-						// $value_emp = mysql_fetch_array($resultset);
+						// $resultset = mysqli_query($query_emp, $db_common);
+						// $value_emp = mysqli_fetch_array($resultset);
 						// // $sql = "select e.empType,e.emp_no,e.name,e.department,e.designation,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id, g.status from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE g.emp_id='$cur_user'";
 						$sql = "select e.empType,e.emp_no,e.name,e.department,e.designation,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE g.emp_id='$cur_user' order by g.gri_upload_date DESC";
 						
 						// echo $sql = "select e.empType,e.emp_no,e.name,e.department,e.designation,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id WHERE e.emp_no='$cur_user'";
 
-						$exe_query = mysql_query($sql) or die(mysql_error());
-						if (mysql_num_rows($exe_query) > 0) {
-							if ($result = mysql_fetch_array($exe_query)) {
+						$exe_query = mysqli_query($db_egr,$sql) or die(mysqli_error($db_egr));
+						if (mysqli_num_rows($exe_query) > 0) {
+							if ($result = mysqli_fetch_array($exe_query)) {
 								// print_r($result);
 								$f = 1;
 								$emp_type = $result['empType'];
@@ -158,8 +158,8 @@ function startsWith($string, $startString)
 										function get_user1($first_id)
 										{
 											global $db_egr;
-											$first_user = mysql_query("select user_name from tbl_user where user_id=$first_id", $db_egr);
-											while ($user_first = mysql_fetch_array($first_user)) {
+											$first_user = mysqli_query($db_egr,"select user_name from tbl_user where user_id=$first_id");
+											while ($user_first = mysqli_fetch_array($first_user)) {
 												$f_user = $user_first['user_name'];
 											}
 											return $f_user;
@@ -167,8 +167,8 @@ function startsWith($string, $startString)
 										function get_user2($second_id)
 										{
 											global $db_egr;
-											$second_user = mysql_query("select user_name from tbl_user where user_id=$second_id", $db_egr);
-											while ($user_second = mysql_fetch_array($second_user)) {
+											$second_user = mysqli_query($db_egr,"select user_name from tbl_user where user_id=$second_id");
+											while ($user_second = mysqli_fetch_array($second_user)) {
 												$s_user = $user_second['user_name'];
 											}
 											return $s_user;
@@ -176,8 +176,8 @@ function startsWith($string, $startString)
 										function get_status($status)
 										{
 											global $db_egr;
-											$sql1 = mysql_query("select status from status where id=$status", $db_egr);
-											while ($sql_query1 = mysql_fetch_array($sql1)) {
+											$sql1 = mysqli_query($db_egr,"select status from status where id=$status");
+											while ($sql_query1 = mysqli_fetch_array($sql1)) {
 												$status_fetch = $sql_query1['status'];
 											}
 											return $status_fetch;
@@ -185,15 +185,15 @@ function startsWith($string, $startString)
 										function get_action($action)
 										{
 											global $db_egr;
-											$f_action = mysql_query("select action from action where id=$action", $db_egr);
-											while ($action_f = mysql_fetch_array($f_action)) {
+											$f_action = mysqli_query($db_egr,"select action from action where id=$action");
+											while ($action_f = mysqli_fetch_array($f_action)) {
 												$a_c = $action_f['action'];
 											}
 											return $a_c;
 										}
-										$fire_all = mysql_query("select  * from tbl_grievance where emp_id='$cur_user' order by gri_upload_date desc", $db_egr);
+										$fire_all = mysqli_query($db_egr,"select  * from tbl_grievance where emp_id='$cur_user' order by gri_upload_date desc");
 										//echo "select  * from tbl_grievance where emp_id='$cur_user'";
-										while ($all_fetch = mysql_fetch_array($fire_all)) {
+										while ($all_fetch = mysqli_fetch_array($fire_all)) {
 											$gri_ref_no = $all_fetch['gri_ref_no'];
 											$forwarded_date = $all_fetch['gri_upload_date'];
 											$remark = $all_fetch['gri_desc'];
@@ -208,16 +208,16 @@ function startsWith($string, $startString)
 											echo "<td>$forwarded_date</td>";
 											//	echo "<td>$return_action</td>";
 											echo "<td>$status</td>";
-											$sql_doc_sec = mysql_query("select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$cur_user'", $db_egr);
+											$sql_doc_sec = mysqli_query($db_egr,"select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$cur_user'");
 											echo "<td>";
 											$count_doc = 1;
 											$cnt = 0;
-											while ($doc_fetch = mysql_fetch_array($sql_doc_sec)) {
+											while ($doc_fetch = mysqli_fetch_array($sql_doc_sec)) {
 												//echo $doc_fetch['doc_path'];
 												echo "<a href='admin/main/admin_upload/" . $doc_fetch['doc_path'] . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "' >DOC&nbsp;&nbsp;&nbsp;</a>";
 												$cnt++;
 											}
-											if (mysql_num_rows($sql_doc_sec) > 0) {
+											if (mysqli_num_rows($sql_doc_sec) > 0) {
 												$count_doc++;
 											}
 

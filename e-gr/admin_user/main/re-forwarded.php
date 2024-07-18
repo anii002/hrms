@@ -33,9 +33,9 @@ error_reporting(0);
 									function get_Cat($type)
 									{
 										global $db_egr;
-										$fetch_cat = mysql_query("select cat_name from category where cat_id='" . $type . "'", $db_egr);
-										//  $cat_fetch=mysql_query($fetch_cat);
-										while ($cat_get = mysql_fetch_assoc($fetch_cat)) {
+										$fetch_cat = mysqli_query( $db_egr,"select cat_name from category where cat_id='" . $type . "'");
+										//  $cat_fetch=mysqli_query($fetch_cat);
+										while ($cat_get = mysqli_fetch_assoc($fetch_cat)) {
 											$cat_names = $cat_get['cat_name'];
 										}
 										return ($cat_names);
@@ -43,8 +43,8 @@ error_reporting(0);
 									function get_type($emp_type)
 									{
 										global $db_egr;
-										$fetch_cat = mysql_query("select * from emp_type where id='$emp_type'", $db_egr);
-										while ($cat_fetch = mysql_fetch_array($fetch_cat)) {
+										$fetch_cat = mysqli_query( $db_egr,"select * from emp_type where id='$emp_type'");
+										while ($cat_fetch = mysqli_fetch_array($fetch_cat)) {
 											$e_type = $cat_fetch['type'];
 										}
 										return $e_type;
@@ -53,9 +53,9 @@ error_reporting(0);
 									$cnt = 1;
 									// $sql = "Select e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date,f.admin_action from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN('1','2','3') and f.admin_action='2' and user_id='$current_id'";
 									$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date,f.admin_action from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN('1','2','3') and f.admin_action='2' and user_id='$current_id' group by g.id order by g.gri_upload_date DESC";
-									$query = mysql_query($sql);
+									$query = mysqli_query( $db_egr,$sql);
 
-									while ($rw_data = mysql_fetch_array($query)) {
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_no"];
 										$emp_name = $rw_data["name"];
 										$emp_type = get_type($rw_data["empType"]);

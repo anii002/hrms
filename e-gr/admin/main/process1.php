@@ -1,6 +1,8 @@
 <?php
-//error_reporting(0);
-require('config.php');
+require_once('Global_Data/header.php');
+error_reporting(0);
+include('config.php');
+include('functions.php');
 if (isset($_REQUEST['action'])) {
 	switch (strtolower($_REQUEST['action'])) {  
 		case 'get_employee_details':

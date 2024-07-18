@@ -24,8 +24,8 @@ error_reporting(0);
                         <div class="tile-stats">
                             <div class="icon"><i class="fa fa-bar-chart"></i></div>
                             <?php
-                            $total_emp = mysql_query("SELECT count(*) as total FROM `tbl_grievance` WHERE uploaded_by='$cur_us'", $db_egr);
-                            $emp_total = mysql_fetch_array($total_emp);
+                            $total_emp = mysqli_query( $db_egr,"SELECT count(*) as total FROM `tbl_grievance` WHERE uploaded_by='$cur_us'");
+                            $emp_total = mysqli_fetch_array($total_emp);
                             $emp_total_count = $emp_total['total'];
                             ?>
                             <div class="count para">
@@ -39,8 +39,8 @@ error_reporting(0);
                     <div class="tile-stats" style="background:#d87510;box-shadow:2px 3px 4px 2px gray;border:none">
                         <div class="icon"><i class="fa fa-plus" style="color:orange"></i></div>
                         <?php
-                        // $total_new = mysql_query("SELECT DISTINCT(griv_ref_no) FROM `tbl_grievance_forward` WHERE user_id_forwarded='$cur_us' and status='2' GROUP BY griv_ref_no", $db_egr);
-                        // $new_total = mysql_num_rows($total_new);
+                        // $total_new = mysqli_query("SELECT DISTINCT(griv_ref_no) FROM `tbl_grievance_forward` WHERE user_id_forwarded='$cur_us' and status='2' GROUP BY griv_ref_no", $db_egr);
+                        // $new_total = mysqli_num_rows($total_new);
                         ?>
                         <div class="count para" style="font-size:24px;margin-left:100px;"><?php /*echo $new_total;*/ ?>
                         </div>
@@ -58,8 +58,8 @@ error_reporting(0);
                             // $sql = "Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us'";
                             // echo $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where (g.status='3' or g.status='2') and (f.status='3' or f.status='2') and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$cur_us' group by g.id order by g.gri_upload_date DESC";
                             $sql = "select * from tbl_grievance where status in (1,2,3) and uploaded_by='$cur_us'";
-                            $total_pend = mysql_query($sql, $db_egr);
-                            $pend_total = mysql_num_rows($total_pend);
+                            $total_pend = mysqli_query( $db_egr,$sql);
+                            $pend_total = mysqli_num_rows($total_pend);
                             ?>
                             <div class="count para"><?php echo $pend_total; ?>
                             </div>
@@ -75,8 +75,8 @@ error_reporting(0);
                             <?php
                             // $sql = "SELECT DISTINCT(user_id_forwarded),griv_ref_no FROM `tbl_grievance_forward` where griv_ref_no IN(SELECT gri_ref_no FROM tbl_grievance WHERE status='4') AND user_id_forwarded<>'1' AND emp_id<>user_id_forwarded AND user_id_forwarded='$cur_us'";
                             $sql = "SELECT id FROM `tbl_grievance` where status='4' and uploaded_by='$cur_us'";
-                            $total_closed = mysql_query($sql, $db_egr);
-                            $closed_total = mysql_num_rows($total_closed);
+                            $total_closed = mysqli_query( $db_egr,$sql);
+                            $closed_total = mysqli_num_rows($total_closed);
                             ?>
                             <div class="count para">
                                 <?php echo $closed_total; ?>
@@ -114,9 +114,9 @@ error_reporting(0);
 
                                         $cnt = 1;
                                         $sql = "Select  e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='2' and f.user_id_forwarded='$current_id' group by g.id order by g.gri_upload_date DESC";
-                                        $query = mysql_query($sql, $db_egr);
+                                        $query = mysqli_query( $db_egr,$sql);
 
-                                        while ($rw_data = mysql_fetch_array($query)) {
+                                        while ($rw_data = mysqli_fetch_array($query)) {
                                             $emp_id = $rw_data["emp_no"];
                                             $emp_name = $rw_data["name"];
                                             $emp_type = get_type($rw_data["empType"]);

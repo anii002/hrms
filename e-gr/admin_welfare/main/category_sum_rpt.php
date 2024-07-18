@@ -61,8 +61,8 @@ error_reporting(0);
                                         <option disabled hidden>----Select Category----</option>
                                         <option value="0">All</option>
                                         <?php
-                                        $fetch_category = mysql_query("select * from category", $db_egr);
-                                        while ($category_fetch = mysql_fetch_array($fetch_category)) {
+                                        $fetch_category = mysqli_query($db_egr,"select * from category" );
+                                        while ($category_fetch = mysqli_fetch_array($fetch_category)) {
                                             echo "<option value='" . $category_fetch['cat_id'] . "'>" . $category_fetch['cat_name'] . "</option>";
                                         }
                                         ?>

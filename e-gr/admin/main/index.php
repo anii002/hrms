@@ -1,7 +1,7 @@
 <?php
-session_start();
+// session_start();
 require_once('Global_Data/header.php');
-//error_reporting(0);
+error_reporting(0);
 include('config.php');
 include('functions.php')
 

@@ -20,12 +20,10 @@ include("fun.php");
                         </div>
                         <div class="row">
                             <div class="col-md-10">
-                                <input class="contact-first-name form-control" name="griv_ref_no" id="griv_ref_no"
-                                    type="text" placeholder="Enter 6 Digit Number" required="">
+                                <input class="contact-first-name form-control" name="griv_ref_no" id="griv_ref_no" type="text" placeholder="Enter 6 Digit Number" required="">
                             </div>
                             <div class="col-md-2">
-                                <input type="submit" class="btn btn-success btn_search" name="search" id="search"
-                                    value='Submit'>
+                                <input type="submit" class="btn btn-success btn_search" name="search" id="search" value='Submit'>
                             </div>
                         </div>
                     </form>
@@ -41,8 +39,7 @@ include("fun.php");
 
 <!-- Start: Features Section 1
         ====================================== -->
-<section class="features-section-1 relative "
-    style='background-image: url("images/small1.png");background-repeat:repeat;'>
+<section class="features-section-1 relative " style='background-image: url("images/small1.png");background-repeat:repeat;'>
     <div class="container">
         <div class="row section-separator">
 
@@ -91,41 +88,41 @@ include("fun.php");
 </html>-->
 <?php include('global/footer.php'); ?>
 <script>
-$(document).ready(function() {
-    // $()
-    $('.nav-menu .menu-active').removeClass('menu-active');
-    // $(container).closest('li').addClass('menu-active');
-    $('#grivance_status').addClass('menu-active');
-    var docHeight = $(window).height();
-    var footerHeight = $('footer').height();
-    var footerTop = $('footer').position().top + footerHeight;
-    if (footerTop < docHeight) {
-        $('footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
-    }
-});
-
-$("#frmSearch").submit(function(e) {
-    e.preventDefault();
-    var gri_ref_no = $('#griv_ref_no').val();
-    // alert(gri_ref_no);
-    $.ajax({
-        type: 'POST',
-        url: 'process.php',
-        data: 'action=search_griv_ref&gri_ref_no=' + gri_ref_no,
-        success: function(data) {
-            // alert(data);
-            // console.log(data);
-            var Response = JSON.parse(data);
-            // console.log(Response);
-            if (Response.res == "success") {
-                $("#fetch_record").html(Response.data);
-                $('footer').css('margin-top', 0);
-            } else {
-                $("#fetch_record").html(Response.data);
-            }
-            // $("#award_count").val(award_count);
-            // award_count++;
+    $(document).ready(function() {
+        // $()
+        $('.nav-menu .menu-active').removeClass('menu-active');
+        // $(container).closest('li').addClass('menu-active');
+        $('#grivance_status').addClass('menu-active');
+        var docHeight = $(window).height();
+        var footerHeight = $('footer').height();
+        var footerTop = $('footer').position().top + footerHeight;
+        if (footerTop < docHeight) {
+            $('footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
         }
     });
-});
+
+    $("#frmSearch").submit(function(e) {
+        e.preventDefault();
+        var gri_ref_no = $('#griv_ref_no').val();
+        // alert(gri_ref_no);
+        $.ajax({
+            type: 'POST',
+            url: 'process.php',
+            data: 'action=search_griv_ref&gri_ref_no=' + gri_ref_no,
+            success: function(data) {
+                // alert(data);
+                // console.log(data);
+                var Response = JSON.parse(data);
+                // console.log(Response);
+                if (Response.res == "success") {
+                    $("#fetch_record").html(Response.data);
+                    $('footer').css('margin-top', 0);
+                } else {
+                    $("#fetch_record").html(Response.data);
+                }
+                // $("#award_count").val(award_count);
+                // award_count++;
+            }
+        });
+    });
 </script>

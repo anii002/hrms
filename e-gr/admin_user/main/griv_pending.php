@@ -34,9 +34,9 @@ error_reporting(0);
 									{	//echo "<script>alert($type)</script>";
 										global $db_egr;
 										
-										$fetch_cat = mysql_query("select cat_name from category where cat_id='" . $type . "'", $db_egr);
-										//  $cat_fetch=mysql_query($fetch_cat);
-										while ($cat_get = mysql_fetch_assoc($fetch_cat)) {
+										$fetch_cat = mysqli_query($db_egr,"select cat_name from category where cat_id='" . $type . "'");
+										//  $cat_fetch=mysqli_query($fetch_cat);
+										while ($cat_get = mysqli_fetch_assoc($fetch_cat)) {
 											$cat_names = $cat_get['cat_name'];
 											//echo "<script>alert($cat_names)</script>";
 										}
@@ -47,8 +47,8 @@ error_reporting(0);
 									function get_type($emp_type)
 									{
 										global $db_egr;
-										$fetch_cat = mysql_query("select * from emp_type where id='$emp_type'", $db_egr);
-										while ($cat_fetch = mysql_fetch_array($fetch_cat)) {
+										$fetch_cat = mysqli_query($db_egr,"select * from emp_type where id='$emp_type'");
+										while ($cat_fetch = mysqli_fetch_array($fetch_cat)) {
 											$e_type = $cat_fetch['type'];
 										}
 										return $e_type;
@@ -57,9 +57,9 @@ error_reporting(0);
 									//echo "<script>alert('$current_id');</script>";
 									$cnt = 1;
 									$sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$current_id' AND g.gri_ref_no not like 'WEL%' group by g.id order by g.gri_upload_date DESC";
-									$query = mysql_query($sql);
+									$query = mysqli_query($db_egr,$sql);
 
-									while ($rw_data = mysql_fetch_array($query)) {
+									while ($rw_data = mysqli_fetch_array($query)) {
 									    
 										$emp_id = $rw_data["emp_no"];
 										
@@ -73,15 +73,15 @@ error_reporting(0);
 										
 										$fetch_query = "select e.station,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=$emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=$gri_ref_no WHERE g.id=$g_id";
 									//	print_r($fetch_query);
-										$fetch_query1 = mysql_query($fetch_query);
-										$fetch_query2 = mysql_fetch_array($fetch_query1);
+										$fetch_query1 = mysqli_query($db_egr,$fetch_query);
+										$fetch_query2 = mysqli_fetch_array($fetch_query1);
 										$st = $fetch_query2["station"];
 										
 										$station_query = "select stationdesc FROM $db_common_name.station WHERE stationcode = '$st'";
 										//print_r($station_query);
-										$st1 = mysql_query($station_query);
+										$st1 = mysqli_query($db_egr,$station_query);
 				
-										$st2 = mysql_fetch_array($st1);
+										$st2 = mysqli_fetch_array($st1);
 										
 										$st3 = $st2["stationdesc"];
 										
@@ -139,8 +139,8 @@ error_reporting(0);
 											{
 												global $db_egr;
 												$e_type = '';
-												$fetch_name_sql = mysql_query("select * from tbl_user where user_id='$id'", $db_egr);
-												while ($name_fetch = mysql_fetch_array($fetch_name_sql)) {
+												$fetch_name_sql = mysqli_query($db_egr,"select * from tbl_user where user_id='$id'");
+												while ($name_fetch = mysqli_fetch_array($fetch_name_sql)) {
 													$e_type = $name_fetch['user_name'];
 												}
 												return $e_type;
@@ -148,8 +148,8 @@ error_reporting(0);
 											$cnt = 1;
 											// $sql = "Select f.user_id_forwarded, e.emp_id,e.emp_name,e.emp_mob,e.emp_type,g.gri_ref_no,g.uploaded_by, g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$current_id' AND g.gri_ref_no like 'WEL%'";
 											$sql = "Select f.user_id_forwarded, e.emp_no,e.name,e.mobile,e.empType,g.gri_ref_no,g.uploaded_by, g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3') and f.admin_action is null and user_id='$current_id' AND g.gri_ref_no like 'WEL%' group by g.id order by g.gri_upload_date DESC";
-											$query = mysql_query($sql);
-											while ($rw_data = mysql_fetch_array($query)) {
+											$query = mysqli_query($db_egr,$sql);
+											while ($rw_data = mysqli_fetch_array($query)) {
 												$emp_id = $rw_data["emp_no"];
 												$emp_name = $rw_data["name"];
 												$emp_mobile = $rw_data["mobile"];

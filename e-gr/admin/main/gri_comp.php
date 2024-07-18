@@ -1,5 +1,8 @@
 <?php
+
 require_once('Global_Data/header.php');
+include('config.php');
+include('functions.php');
 error_reporting(0);
 $userrole = $_SESSION["SESSION_ROLE"];
 ?>
@@ -39,9 +42,9 @@ $userrole = $_SESSION["SESSION_ROLE"];
 										// $sql = "Select e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1' AND g.gri_ref_no not like 'WEL%' ORDER BY g.gri_upload_date DESC";
 										 $sql = "Select e.emp_no,e.name,e.empType,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no NOT like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
 									}
-									$query = mysql_query($sql);
+									$query = mysqli_query($db_egr,$sql);
 
-									while ($rw_data = mysql_fetch_array($query)) {
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_no"];
 										$emp_name = $rw_data["name"];
 										$emp_type = get_type($rw_data["empType"]);
@@ -107,8 +110,8 @@ $userrole = $_SESSION["SESSION_ROLE"];
 												// $sql = "Select  e.emp_id,e.emp_mob,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date, g.uploaded_by, g.id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1' AND g.gri_ref_no like 'WEL%' ORDER BY g.gri_upload_date DESC";
 											 $sql = "Select e.emp_no,e.name,e.empType,e.mobile,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.uploaded_by,g.id from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id where g.status='1' AND gri_ref_no like 'WEL%' group by g.id ORDER BY g.gri_upload_date DESC ";
 											}
-											$query = mysql_query($sql);
-											while ($rw_data = mysql_fetch_array($query)) {
+											$query = mysqli_query($db_egr,$sql);
+											while ($rw_data = mysqli_fetch_array($query)) {
 												$emp_id = $rw_data["emp_no"];
 												$emp_name = $rw_data["name"];
 												$emp_mobile = $rw_data["mobile"];

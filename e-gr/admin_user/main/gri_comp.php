@@ -6,35 +6,37 @@ error_reporting(0);
 <!-- PNotify -->
 <!-- page content -->
 <div class="right_col" role="main" style="background-image: url('images/small1.png');repeat:repeat;">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
 
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <h2>New Grievance Complaints <small>List</small></h2>
-                        <hr>
-                        <div class="x_content">
-                            <table class="table table-striped table-bordered display" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Sr.No</th>
-                                        <th>Employee ID</th>
-                                        <th>Employee Name</th>
-                                        <th>Employee Type</th>
-                                        <th>Grievance Ref.No.</th>
-                                        <th>Category</th>
-                                        <th>Updated Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<h2>New Grievance Complaints <small>List</small></h2>
+						<hr>
+						<div class="x_content">
+							<table class="table table-striped table-bordered display" style="width:100%;">
+								<thead>
+									<tr>
+										<th>Sr.No</th>
+										<th>Employee ID</th>
+										<th>Employee Name</th>
+										<th>Employee Type</th>
+										<th>Grievance Ref.No.</th>
+										<th>Category</th>
+										<th>Updated Date</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
 									function get_Cat($type)
 									{	//echo "<script>alert($type)</script>";
-										$fetch_cat = mysql_query("select cat_name from category where cat_id='" . $type . "'");
-										//  $cat_fetch=mysql_query($fetch_cat);
-										while ($cat_get = mysql_fetch_assoc($fetch_cat)) {
+
+										global $db_egr;
+										$fetch_cat = mysqli_query($db_egr, "select cat_name from category where cat_id='" . $type . "'");
+										//  $cat_fetch=mysqli_query($fetch_cat);
+										while ($cat_get = mysqli_fetch_assoc($fetch_cat)) {
 											$cat_names = $cat_get['cat_name'];
 											//echo "<script>alert($cat_names)</script>";
 										}
@@ -43,8 +45,8 @@ error_reporting(0);
 										return ($cat_names);
 									}
 									$cnt = 1;
-									$query = mysql_query("Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1'");
-									while ($rw_data = mysql_fetch_array($query)) {
+									$query = mysqli_query($db_egr,"Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1'");
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_id"];
 										$emp_name = $rw_data["emp_name"];
 										$emp_type = $rw_data["emp_type"];
@@ -69,23 +71,23 @@ error_reporting(0);
 									}
 									?>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+								</tbody>
+							</table>
+						</div>
+					</div>
 
 
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <?php
 require_once('Global_Data/footer.php');
 ?>
 <script>
-/* $(document).on("click",".btn1",function(){
+	/* $(document).on("click",".btn1",function(){
 	var g_id=$(this).attr('id');
 	alert(g_id);
 	$.ajax({

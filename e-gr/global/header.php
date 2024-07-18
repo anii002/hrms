@@ -143,10 +143,10 @@ if (!isset($_SESSION['empname'])) {
                             ">Login as</a></li>
                             <li>
                                 <!--  onclick="window.location='logout.php';" -->
-                                <a href="../../Logout.php">Logout</a>
+                                <a href="../../hrms/Logout.php">Logout</a>
                             </li>
                             <li>
-                                <a href="../../index.php" data-toggle="tooltip" title="Main Dashboard" class="btn-dashboard">Dashboard</a>
+                                <a href="../../hrms/dashboard.php" data-toggle="tooltip" title="Main Dashboard" class="btn-dashboard">Dashboard</a>
                             </li>
 
 

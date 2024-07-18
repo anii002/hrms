@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 <!-- PNotify -->
@@ -33,8 +35,8 @@ error_reporting(0);
                                     <?php
                                     $cnt = 1;
                                     //  where user_id>1
-                                    $query = mysql_query("Select * from tbl_user", $db_egr);
-                                    while ($rw_data = mysql_fetch_assoc($query)) {
+                                    $query = mysqli_query($db_egr,"Select * from tbl_user" );
+                                    while ($rw_data = mysqli_fetch_assoc($query)) {
                                         $user_id = $rw_data["user_id"];
                                         //$emp_type=get_type($rw_data["emp_type"]);
                                         $emp_id = $rw_data["emp_id"];
@@ -50,8 +52,8 @@ error_reporting(0);
                                         echo "<td>$emp_dept</td>";
                                         echo "<td>$emp_desig</td>";
                                         echo "<td>$emp_mob</td>";
-                                        $fetch_a = mysql_query("select status from tbl_user where user_id='$user_id'", $db_egr);
-                                        $a_fetch = mysql_fetch_array($fetch_a);
+                                        $fetch_a = mysqli_query($db_egr,"select status from tbl_user where user_id='$user_id'");
+                                        $a_fetch = mysqli_fetch_array($fetch_a);
                                         $status = $a_fetch['status'];
                                         echo "<td>";
                                         if ($status == 'active') {
@@ -98,8 +100,8 @@ error_reporting(0);
                                             <option disabled selected>----Select User----</option>
                                             <option value='0'>Admin</option>
                                             <?php
-                                            $fetch_section = mysql_query("select * from role_user WHERE id = '1' OR id='2' OR id='3' OR id='5'", $db_egr);
-                                            while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                            $fetch_section = mysqli_query($db_egr,"select * from role_user WHERE id = '1' OR id='2' OR id='3' OR id='5'");
+                                            while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                                 echo "<option value='" . $section_fetch['id'] . "'>" . $section_fetch['role_type'] . "</option>";
                                             }
                                             ?>
@@ -140,8 +142,8 @@ error_reporting(0);
                                         <select name="section[]" style="width:100%" id="section" class="form-control"
                                             required multiple="multiple">
                                             <?php
-                                            $rst_section = mysql_query("SELECT * FROM `tbl_section`", $db_egr);
-                                            while ($rw_section = mysql_fetch_array($rst_section)) {
+                                            $rst_section = mysqli_query($db_egr,"SELECT * FROM `tbl_section`");
+                                            while ($rw_section = mysqli_fetch_array($rst_section)) {
                                                 echo "<option value='" . $rw_section['sec_id'] . "'>" . $rw_section['sec_name'] . "</option>";
                                             }
                                             ?>
@@ -157,8 +159,8 @@ error_reporting(0);
                                         <select id="user_dept" name="user_dept" style="width:100%"
                                             class="form-control mydept" required>
                                             <?php
-                                            $rst_section = mysql_query("SELECT * FROM `department`", $db_common);
-                                            while ($rw_section = mysql_fetch_array($rst_section)) {
+                                            $rst_section = mysqli_query($db_common,"SELECT * FROM `department`");
+                                            while ($rw_section = mysqli_fetch_array($rst_section)) {
                                                 echo "<option value='" . $rw_section['DEPTNO'] . "'>" . $rw_section['DEPTDESC'] . "</option>";
                                             }
                                             ?>
@@ -175,8 +177,8 @@ error_reporting(0);
                                         <select id="user_desig" name="user_desig" style="width:100%"
                                             class="form-control" required>
                                             <?php
-                                            $rst_section = mysql_query("SELECT * FROM `designations`", $db_common);
-                                            while ($rw_section = mysql_fetch_array($rst_section)) {
+                                            $rst_section = mysqli_query($db_common,"SELECT * FROM `designations`");
+                                            while ($rw_section = mysqli_fetch_array($rst_section)) {
                                                 echo "<option value='" . $rw_section['DESIGCODE'] . "'>" . $rw_section['DESIGLONGDESC'] . "(" . $rw_section["DESIGSHORTDESC"] . ")</option>";
                                             }
                                             ?>
@@ -228,8 +230,8 @@ error_reporting(0);
                                         <select id="user_office" name="user_office" style="width:100%"
                                             class="form-control" required>
                                             <?php
-                                            $rst_section = mysql_query("SELECT * FROM `tbl_office`", $db_egr);
-                                            while ($rw_section = mysql_fetch_array($rst_section)) {
+                                            $rst_section = mysqli_query($db_egr,"SELECT * FROM `tbl_office`");
+                                            while ($rw_section = mysqli_fetch_array($rst_section)) {
                                                 echo "<option value='" . $rw_section['office_id'] . "'>" . $rw_section['office_name'] . "</option>";
                                             }
                                             ?>
@@ -244,8 +246,8 @@ error_reporting(0);
                                         <select id="user_station" name="user_station" style="width:100%"
                                             class="form-control" required>
                                             <?php
-                                            $rst_section = mysql_query("SELECT * FROM `station`", $db_common);
-                                            while ($rw_section = mysql_fetch_array($rst_section)) {
+                                            $rst_section = mysqli_query($db_common,"SELECT * FROM `station`");
+                                            while ($rw_section = mysqli_fetch_array($rst_section)) {
                                                 echo "<option value='" . $rw_section['stationcode'] . "'>" . $rw_section['stationdesc'] . "</option>";
                                             }
                                             ?>

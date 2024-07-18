@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php')
 ?>
 
 
@@ -34,8 +36,8 @@ error_reporting(0);
                                         <div class="col-md-8 col-sm-6 col-xs-12">
                                             <?php
                                             $sql = "SELECT user_mob FROM tbl_user WHERE user_id = '" . $_SESSION['SESSION_ID'] . "'";
-                                            $result = mysql_query($sql, $db_egr);
-                                            $data = mysql_fetch_array($result);
+                                            $result = mysqli_query($db_egr,$sql);
+                                            $data = mysqli_fetch_array($result);
                                             ?>
                                             <label class="control-label"><?php echo $data['user_mob']; ?></label>
                                         </div>

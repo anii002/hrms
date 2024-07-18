@@ -169,7 +169,7 @@ if (!isset($_SESSION['user'])) {
                                     <i class="far fa-user"></i> My Profile </a>
                             </li>
                             <li>
-                                <a href="../../hrms/eims/dashboard.php">
+                                <a href="../../hrms/dashboard.php">
                                     <i class="fas fa-home"></i> Home </a>
                             </li>
                             <li>

@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 
@@ -32,8 +34,8 @@ error_reporting(0);
                             // $fetch_query = "Select u.user_name, u.user_mob, e.emp_id,e.emp_name,e.emp_type,e.emp_dept,e.emp_desig,e.emp_email,e.emp_aadhar,e.office,e.station, g.gri_ref_no, g.gri_type, g.gri_upload_date,g.id ,e.emp_mob from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_user u ON g.uploaded_by = u.user_id where g.id='$got_id' ";
                             $fetch_query = "Select u.user_name, u.user_mob, e.emp_no,e.name,e.empType,e.department,e.designation,e.emp_email,e.emp_aadhar,e.office,e.station, g.gri_ref_no, g.gri_type, g.gri_upload_date,g.id ,e.mobile from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_user u ON g.uploaded_by = u.user_id where g.id='$got_id' group by g.id order by g.gri_upload_date DESC";
 
-                            $exe_query = mysql_query($fetch_query) or die(mysql_error());
-                            while ($result = mysql_fetch_array($exe_query)) {
+                            $exe_query = mysqli_query($db_egr,$fetch_query) or die(mysqli_error($db_egr));
+                            while ($result = mysqli_fetch_array($exe_query)) {
                                 $emp_id = $result['emp_no'];
                                 $emp_name = $result['name'];
                                 $emp_mob = $result['mobile'];
@@ -177,8 +179,8 @@ error_reporting(0);
                                         <label class="control-label col-md-2 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
                                             <?php
-                                            $fetch_cat = mysql_query("select cat_name from category where cat_id=$gri_type", $db_egr);
-                                            while ($cat_fetch = mysql_fetch_array($fetch_cat)) {
+                                            $fetch_cat = mysqli_query($db_egr,"select cat_name from category where cat_id=$gri_type");
+                                            while ($cat_fetch = mysqli_fetch_array($fetch_cat)) {
                                                 $cat_name = $cat_fetch['cat_name'];
                                             }
                                             ?>
@@ -217,9 +219,9 @@ error_reporting(0);
                                             function get_status($status)
                                             {
                                                 global $db_egr;
-                                                $sql1 = mysql_query("select status from status where id=$status", $db_egr);
+                                                $sql1 = mysqli_query($db_egr,"select status from status where id=$status");
                                                 $status_fetch = "";
-                                                while ($sql_query1 = mysql_fetch_array($sql1)) {
+                                                while ($sql_query1 = mysqli_fetch_array($sql1)) {
                                                     $status_fetch = $sql_query1['status'];
                                                 }
                                                 return $status_fetch;
@@ -227,19 +229,19 @@ error_reporting(0);
                                             function get_action($action)
                                             {
                                                 global $db_egr;
-                                                $f_action = mysql_query("select action from action where id=$action", $db_egr);
-                                                while ($action_f = mysql_fetch_array($f_action)) {
+                                                $f_action = mysqli_query($db_egr,"select action from action where id=$action");
+                                                while ($action_f = mysqli_fetch_array($f_action)) {
                                                     $a_c = $action_f['action'];
                                                 }
                                                 return $a_c;
                                             }
-                                            $fire_all = mysql_query("select  * from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'", $db_egr);
-                                            while ($all_fetch = mysql_fetch_array($fire_all)) {
+                                            $fire_all = mysqli_query($db_egr,"select  * from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'");
+                                            while ($all_fetch = mysqli_fetch_array($fire_all)) {
                                                 // print_r($all_fetch);
                                                 $gri_ref_no = $all_fetch['gri_ref_no'];
                                                 $forwarded_date = $all_fetch['gri_upload_date'];
                                                 $remark = $all_fetch['gri_desc'];
-                                                //$return_action=get_action($all_fetch['action']);
+                                                $return_action=get_action($all_fetch['action']);
                                                 $status = get_status($all_fetch['status']);
                                                 $doc_id = $all_fetch['doc_id'];
                                                 $upload = $all_fetch["uploaded_by"];
@@ -249,16 +251,16 @@ error_reporting(0);
                                                 echo "<td>$forwarded_date</td>";
                                                 //	echo "<td>$return_action</td>";
                                                 echo "<td>$status</td>";
-                                                $sql_doc_sec = mysql_query("select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$upload' and doc_id='$doc_id'", $db_egr);
+                                                $sql_doc_sec = mysqli_query($db_egr,"select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$upload' and doc_id='$doc_id'");
                                                 echo "<td>";
                                                 $count_doc = 1;
                                                 $cnt = 0;
-                                                while ($doc_fetch = mysql_fetch_array($sql_doc_sec)) {
+                                                while ($doc_fetch = mysqli_fetch_array($sql_doc_sec)) {
                                                     //echo $doc_fetch['doc_path'];
                                                     echo "<a href='../../admin/main/admin_upload/" . $doc_fetch['doc_path'] . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "' >DOC&nbsp;&nbsp;&nbsp;</a>";
                                                     $cnt++;
                                                 }
-                                                if (mysql_num_rows($sql_doc_sec) > 0) {
+                                                if (mysqli_num_rows($sql_doc_sec) > 0) {
                                                     $count_doc++;
                                                 }
 
@@ -309,8 +311,8 @@ error_reporting(0);
                                                 required>
                                                 <option value="" disabled selected>Select Action</option>
                                                 <?php
-                                                $action = mysql_query("select * from action", $db_egr);
-                                                while ($fetch_action = mysql_fetch_array($action)) {
+                                                $action = mysqli_query($db_egr,"select * from action");
+                                                while ($fetch_action = mysqli_fetch_array($action)) {
                                                     if ($fetch_action['action'] == 'CLOSE') {
                                                         if (isBA() || isBo()) {
                                                             echo "<option value='" . $fetch_action['id'] . "'>" . $fetch_action['action'] . "</option>";
@@ -347,15 +349,15 @@ error_reporting(0);
                                             <select id="lstOtherBO" name="lstOtherBO" style="width:100%"
                                                 class="form-control select2">
                                                 <!-- <?php
-                                                        /*  $user = mysql_query("select * from tbl_user where role='5'", $db_egr);
-                                                while ($fetch_user = mysql_fetch_array($user)) {
+                                                        /*  $user = mysqli_query("select * from tbl_user where role='5'", $db_egr);
+                                                while ($fetch_user = mysqli_fetch_array($user)) {
                                                     echo "<option value='" . $fetch_user['user_id'] . "'>" . $fetch_user['user_name'] . "</option>";
                                                 }*/
                                                         ?> -->
                                                 <?php
                                                 //  where role='5'
-                                                $user = mysql_query("select * from tbl_user where status='active'", $db_egr);
-                                                while ($fetch_user = mysql_fetch_array($user)) {
+                                                $user = mysqli_query($db_egr,"select * from tbl_user where status='active'");
+                                                while ($fetch_user = mysqli_fetch_array($user)) {
                                                     $des_id = $fetch_user['user_desg'];
                                                     $user_role = explode(",", $fetch_user["role"]);
                                                     if (in_array('5', $user_role)) {
@@ -387,8 +389,8 @@ error_reporting(0);
                                                     } else {
                                                         $sql = "select * from tbl_section";
                                                     }
-                                                    $section = mysql_query($sql, $db_egr);
-                                                    while ($fetch_section = mysql_fetch_array($section)) {
+                                                    $section = mysqli_query($db_egr,$sql);
+                                                    while ($fetch_section = mysqli_fetch_array($section)) {
                                                         echo "<option value='" . $fetch_section['sec_id'] . "'>" . $fetch_section['sec_name'] . "</option>";
                                                     }
                                                     ?>
@@ -400,7 +402,7 @@ error_reporting(0);
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-1 col-xs-12">Authority</label>
                                             <div class="col-md-8 col-sm-12 col-xs-12">
-                                                <select id="auth" name="auth" style="width=100%"
+                                                <select id="auth" name="auth" style="width:100%"
                                                     class="form-control select2" multiple="multiple">
 
                                                 </select>

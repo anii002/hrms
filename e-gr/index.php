@@ -2,7 +2,7 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<?php 
+<?php
 include_once('global/header.php');
 include_once('global/model.php');
 ?>

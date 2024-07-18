@@ -15,8 +15,8 @@ if (isset($_REQUEST['action'])) {
 			$all = '0';
 			if (in_array($all, $branchadminuser_array)) {
 				$query = "select * from tbl_user";
-				$rstbranchuser = mysql_query($query, $db_egr);
-				while ($rwbranchuser = mysql_fetch_array($rstbranchuser)) {
+				$rstbranchuser = mysqli_query($db_egr,$query);
+				while ($rwbranchuser = mysqli_fetch_array($rstbranchuser)) {
 					$role_user = explode(",", $rwbranchuser["role"]);
 					if (in_array("5", $role_user)) {
 						$user_id = $rwbranchuser["user_id"];
@@ -43,10 +43,10 @@ if (isset($_REQUEST['action'])) {
 				$username = getUsername($value);
 
 				$sql = "SELECT e.`gri_upload_date`,e.`gri_target_date`,e.`status` FROM `tbl_grievance` e INNER JOIN tbl_grievance_forward e_f ON e.gri_ref_no= e_f.griv_ref_no WHERE e_f.user_id_forwarded='$value' ";
-				$rstRecord = mysql_query($sql, $db_egr);
+				$rstRecord = mysqli_query($db_egr,$sql);
 				$Result = array("res" => "fail");
-				if (mysql_num_rows($rstRecord) > 0) {
-					while ($rwRecords = mysql_fetch_array($rstRecord)) {
+				if (mysqli_num_rows($rstRecord) > 0) {
+					while ($rwRecords = mysqli_fetch_array($rstRecord)) {
 						extract($rwRecords);
 						// print_r($rwRecords);
 						$total_gr++;
@@ -110,8 +110,8 @@ if (isset($_REQUEST['action'])) {
 					$query = "select * from tbl_section";
 				}
 
-				$rstSection = mysql_query($query, $db_egr);
-				while ($rwSection = mysql_fetch_array($rstSection)) {
+				$rstSection = mysqli_query($db_egr,$query);
+				while ($rwSection = mysqli_fetch_array($rstSection)) {
 					// print_r($rwSection);
 					$sec_id = $rwSection["sec_id"];
 					if (!in_array($sec_id, $section_array)) {
@@ -144,14 +144,14 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `uploaded_by`,`section_id`,`status`,`emp_id` FROM tbl_grievance WHERE DATE(`gri_upload_date`) BETWEEN '" . $frm_date . "' AND '" . $to_date . "'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				// $user_id = $data['uploaded_by'];
-				// echo mysql_affected_rows();
+				// echo mysqli_affected_rows();
 				// $section_sql = "SELECT `section` FROM `tbl_user` WHERE `user_id` = '" . $user_id . "'";
-				// $sql_result = mysql_query($section_sql);
-				// while ($sql_data = mysql_fetch_assoc($sql_result)) {
+				// $sql_result = mysqli_query($section_sql);
+				// while ($sql_data = mysqli_fetch_assoc($sql_result)) {
 				// 	//?echo $sql_data['section']."<br/>";
 				// 	//* welcome
 				// 	//! eecho eef
@@ -166,8 +166,8 @@ if (isset($_REQUEST['action'])) {
 						if ($i == 0) {
 							$emp_id = $data["emp_id"];
 							$sql_check_emp = "SELECT * FROM `register_user` WHERE emp_no='$emp_id'";
-							$rst_emp_check = mysql_query($sql_check_emp, $db_common);
-							if (mysql_num_rows($rst_emp_check) > 0) {
+							$rst_emp_check = mysqli_query($db_common,$sql_check_emp);
+							if (mysqli_num_rows($rst_emp_check) > 0) {
 								if ($data["status"] == 1) {
 									$cnt = $associate_array[$section_array[$i]];
 									//echo $section_array[$i];
@@ -186,15 +186,15 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT g.id,g.uploaded_by,g.section_id, g.gri_upload_date,g.status,f.user_id FROM tbl_grievance g JOIN tbl_grievance_forward f  ON g.gri_ref_no=f.griv_ref_no WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status='4' group by g.id";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				// $user_id = $data['uploaded_by'];
-				// //echo mysql_affected_rows();
+				// //echo mysqli_affected_rows();
 				// $section_sql = "SELECT `section` FROM `tbl_user` WHERE `user_id` = '" . $user_id . "'";
-				// $sql_result = mysql_query($section_sql);
+				// $sql_result = mysqli_query($section_sql);
 
-				// while ($sql_data = mysql_fetch_assoc($sql_result)) {
+				// while ($sql_data = mysqli_fetch_assoc($sql_result)) {
 				//echo $sql_data['section']."<br/>";
 				for ($i = 0; $i < $array_count; $i++) {
 					//echo $section_array[1];
@@ -212,16 +212,16 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT g.uploaded_by,g.section_id, g.gri_upload_date,g.status,f.user_id FROM tbl_grievance g JOIN  tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no WHERE g.gri_upload_date between '" . $frm_date . "' AND '" . $to_date . "' AND g.status IN ('1','2','3') group by g.id";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				// $user_id = $data['uploaded_by'];
-				// //echo mysql_affected_rows();
+				// //echo mysqli_affected_rows();
 				// $section_sql = "SELECT `section` FROM `tbl_user` WHERE `user_id` = '" . $user_id . "'";
-				// $sql_result = mysql_query($section_sql);
+				// $sql_result = mysqli_query($section_sql);
 
-				// while ($sql_data = mysql_fetch_assoc($sql_result)) {
+				// while ($sql_data = mysqli_fetch_assoc($sql_result)) {
 				//echo $sql_data['section']."<br/>";
 				for ($i = 0; $i < $array_count; $i++) {
 					//echo $section_array[1];
@@ -251,18 +251,18 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `uploaded_by`,`section_id`, `status`,`gri_upload_date` FROM tbl_grievance WHERE DATE(`gri_upload_date`) between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
-			$result = mysql_query($grie_sql, $db_egr);
-			while ($data = mysql_fetch_assoc($result)) {
+			$result = mysqli_query($db_egr,$grie_sql);
+			while ($data = mysqli_fetch_assoc($result)) {
 				$user_id = $data['uploaded_by'];
 				$DB_date = date_create(date("Y-m-d", strtotime($data['gri_upload_date'])));
 				$date_difference = date_diff($DB_date, date_create($to_date));
 				$date_gap = $date_difference->format("%a");
 				if ($date_gap == 30 || $date_gap >= 28) {
-					//echo mysql_affected_rows();
+					//echo mysqli_affected_rows();
 					// $section_sql = "SELECT `section` FROM `tbl_user` WHERE `user_id` = '" . $user_id . "'";
-					// $sql_result = mysql_query($section_sql);
+					// $sql_result = mysqli_query($section_sql);
 
-					// while ($sql_data = mysql_fetch_assoc($sql_result)) {
+					// while ($sql_data = mysqli_fetch_assoc($sql_result)) {
 					//echo $sql_data['section']."<br/>";
 					for ($i = 0; $i < $array_count; $i++) {
 						//echo $section_array[1];
@@ -338,9 +338,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `uploaded_by` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				for ($i = 0; $i < $array_count; $i++) {
 					if ($section_array[$i] == $data['uploaded_by']) {
 						$cnt = $associate_array[$section_array[$i]];
@@ -352,9 +352,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `uploaded_by` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "' AND `status` = '4'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				for ($i = 0; $i < $array_count; $i++) {
 					//echo $section_array[1];
 					//if($i <= $array_count-1)
@@ -368,9 +368,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `uploaded_by` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				for ($i = 0; $i < $array_count; $i++) {
 					//echo $section_array[1];
 					//if($i <= $array_count-1)
@@ -384,9 +384,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `uploaded_by`, `gri_upload_date` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				$DB_date = date_create(date("Y-m-d", strtotime($data['gri_upload_date'])));
 				$date_difference = date_diff($DB_date, date_create($to_date));
 				$date_gap = $date_difference->format("%a");
@@ -442,8 +442,8 @@ if (isset($_REQUEST['action'])) {
 			if (in_array(0, $section_array)) {
 				// echo "done";
 				$query = "select * from category";
-				$rstCategory = mysql_query($query, $db_egr);
-				while ($rwCategory = mysql_fetch_array($rstCategory)) {
+				$rstCategory = mysqli_query($db_egr,$query);
+				while ($rwCategory = mysqli_fetch_array($rstCategory)) {
 					// print_r($rwCategory);
 					$cat_id = $rwCategory["cat_id"];
 					if (!in_array($cat_id, $section_array)) {
@@ -461,9 +461,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `gri_type`,`section_id` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				for ($i = 0; $i < $array_count; $i++) {
 					if (is_valid_section($data["section_id"])) {
 						if ($section_array[$i] == $data['gri_type']) {
@@ -478,9 +478,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `gri_type`,`section_id` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "' AND `status` = '4'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				for ($i = 0; $i < $array_count; $i++) {
 					//echo $section_array[1];
 					//if($i <= $array_count-1)
@@ -496,9 +496,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `gri_type`,`section_id` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "' AND `status`!= '4'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				for ($i = 0; $i < $array_count; $i++) {
 					//echo $section_array[1];
 					//if($i <= $array_count-1)
@@ -514,9 +514,9 @@ if (isset($_REQUEST['action'])) {
 			}
 
 			$grie_sql = "SELECT `gri_type`, `gri_upload_date`,`section_id` FROM tbl_grievance WHERE `gri_upload_date` between '" . $frm_date . "' AND '" . $to_date . "' AND `status` != '4'";
-			$result = mysql_query($grie_sql, $db_egr);
+			$result = mysqli_query($db_egr,$grie_sql);
 
-			while ($data = mysql_fetch_assoc($result)) {
+			while ($data = mysqli_fetch_assoc($result)) {
 				$DB_date = date_create(date("Y-m-d", strtotime($data['gri_upload_date'])));
 				$date_difference = date_diff($DB_date, date_create($to_date));
 				$date_gap = $date_difference->format("%a");
@@ -577,12 +577,12 @@ if (isset($_REQUEST['action'])) {
 
 		case 'submit_change_password':
 			$sql = "UPDATE `tbl_otp` SET `flag`='0' WHERE `flag` = '' OR `flag` = '1' AND `emp_id` = '" . $_REQUEST['fetch_user_id'] . "' AND otp = '" . $_POST['typed_otp'] . "' ";
-			$result = mysql_query($sql, $db_egr);
-			//echo mysql_affected_rows();
+			$result = mysqli_query($db_egr,$sql);
+			//echo mysqli_affected_rows();
 			//echo $sql;
 			if ($result) {
 				$change_pass = "UPDATE `tbl_user` SET `password`= '" . $_POST['request_password'] . "' WHERE `user_id` = '" . $_REQUEST['fetch_user_id'] . "'";
-				$change_result = mysql_query($change_pass, $db_egr);
+				$change_result = mysqli_query($db_egr,$change_pass);
 				if ($change_result) {
 					echo "<script>alert('Password changed successfully.'); window.location = 'index.php';</script>";
 				} else {
@@ -599,8 +599,8 @@ if (isset($_REQUEST['action'])) {
 			if (isset($_REQUEST['dept'])) {
 				//$data="<option val='' readonly hidden selected disabled>Select Designation</option>";
 				$dept = $_REQUEST['dept'];
-				$sql_desg = mysql_query("select * from tbl_designation where dept_id='$dept'");
-				while ($desg_sql = mysql_fetch_array($sql_desg)) {
+				$sql_desg = mysqli_query($db_egr,"select * from tbl_designation where dept_id='$dept'");
+				while ($desg_sql = mysqli_fetch_array($sql_desg)) {
 					$data .= "<option value='" . $desg_sql['id'] . "'>" . $desg_sql['designation'] . "</option>";
 				}
 			}
@@ -630,8 +630,8 @@ if (isset($_REQUEST['action'])) {
 		case 'get_temp_emp':
 			$data = "";
 			$emp_id = $_POST['emp_id'];
-			$sql = mysql_query("select * from register_user where emp_no='$emp_id'", $db_common);
-			while ($result = mysql_fetch_array($sql)) {
+			$sql = mysqli_query($db_common,"select * from register_user where emp_no='$emp_id'");
+			while ($result = mysqli_fetch_array($sql)) {
 				// $data['emp_type'] = get_emp_type_html($result['emp_type']);
 				$data['emp_type'] = $result['empType'];
 				$data['emp_name'] = $result['name'];

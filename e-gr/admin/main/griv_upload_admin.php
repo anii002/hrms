@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
  <!-- PNotify -->
@@ -27,9 +29,11 @@ error_reporting(0);
 					  </thead>
                       <tbody>
 		               <?php
+					   
 						function get_uploaded_user($emp_id){
-							$sql_query=mysql_query("select * from tbl_user where user_id='$emp_id'");
-							while($query_sql=mysql_fetch_array($sql_query))
+							global $db_egr;
+							$sql_query=mysqli_query($db_egr,"select * from tbl_user where user_id='$emp_id'");
+							while($query_sql=mysqli_fetch_array($sql_query))
 							{
 								$user_name=$query_sql['user_name'];
 							}
@@ -37,8 +41,8 @@ error_reporting(0);
 						}
 					   
 					   $cnt=1;
-					   $query=mysql_query("Select  e.emp_id,e.emp_name,e.mobile_no,g.gri_ref_no,g.uploaded_by,g.id from temp_emp_admin e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1'");
-					   while($rw_data=mysql_fetch_array($query)){
+					   $query=mysqli_query($db_egr,"Select  e.emp_id,e.emp_name,e.mobile_no,g.gri_ref_no,g.uploaded_by,g.id from temp_emp_admin e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id where g.status='1'");
+					   while($rw_data=mysqli_fetch_array($query)){
 						   $emp_id=$rw_data["emp_id"];
 						   $emp_name=$rw_data["emp_name"];
 						   $gri_ref_no=$rw_data["gri_ref_no"];

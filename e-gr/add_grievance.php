@@ -13,8 +13,8 @@ function get_designation_short($id)
 {
     global $db_common;
     $sql = "select DESIGSHORTDESC from designations where DESIGCODE='" . $id . "'";
-    $f_desg = mysql_query($sql, $db_common);
-    $desg_f = mysql_fetch_array($f_desg);
+    $f_desg = mysqli_query($db_common,$sql);
+    $desg_f = mysqli_fetch_array($f_desg);
     return $desg_f['DESIGSHORTDESC'];
 }
 
@@ -23,16 +23,16 @@ function get_department($id)
     global $db_common;
 
     $sql = "select DEPTDESC from department where DEPTNO='" . $id . "'";
-    $f_desg = mysql_query($sql, $db_common);
-    $desg_f = mysql_fetch_array($f_desg);
+    $f_desg = mysqli_query($db_common,$sql);
+    $desg_f = mysqli_fetch_array($f_desg);
     return $desg_f['DEPTDESC'];
 }
 function get_designation($id)
 {
     global $db_common;
     $sql = "select DESIGLONGDESC from designations where DESIGCODE='" . $id . "'";
-    $f_desg = mysql_query($sql, $db_common);
-    $desg_f = mysql_fetch_array($f_desg);
+    $f_desg = mysqli_query($db_common,$sql);
+    $desg_f = mysqli_fetch_array($f_desg);
     return $desg_f['DESIGLONGDESC'];
 }
 
@@ -40,8 +40,8 @@ function get_office_text($id)
 {
     global $db_egr;
     $sql = "select * from tbl_office where office_id='" . $id . "'";
-    $f_desg = mysql_query($sql, $db_egr);
-    $desg_f = mysql_fetch_array($f_desg);
+    $f_desg = mysqli_query($db_egr,$sql );
+    $desg_f = mysqli_fetch_array($f_desg);
     return $desg_f['office_name'];
 }
 
@@ -49,16 +49,16 @@ function get_station_text($id)
 {
     global $db_common;
     $sql = "select * from station where stationcode='" . $id . "'";
-    $f_desg = mysql_query($sql, $db_common);
-    $desg_f = mysql_fetch_array($f_desg);
+    $f_desg = mysqli_query($db_common,$sql);
+    $desg_f = mysqli_fetch_array($f_desg);
     return $desg_f['stationdesc'];
 }
 function get_billunit_text($id)
 {
     global $db_common;
     $sql = "SELECT bill_unit FROM `register_user` WHERE emp_no='$id'";
-    $f_desg = mysql_query($sql, $db_common);
-    $desg_f = mysql_fetch_array($f_desg);
+    $f_desg = mysqli_query($db_common,$sql );
+    $desg_f = mysqli_fetch_array($f_desg);
     return $desg_f['bill_unit'];
 }
 function check()
@@ -69,9 +69,9 @@ function check()
 <?php
 $user_last = $_SESSION['user'];
 $fetch = "select * from register_user where emp_no='$user_last'";
-$fetch_result = mysql_query($fetch, $db_common) or die(mysql_error());
+$fetch_result = mysqli_query($db_common,$fetch) or die(mysqli_error($db_common));
 //echo "select * from employee where emp_id='$user_last'";
-$result_fetched = mysql_fetch_array($fetch_result);
+$result_fetched = mysqli_fetch_array($fetch_result);
 //echo "<script>alert(".$user_last.");</script>"
 // print_r($result_fetched);
 ?>
@@ -157,9 +157,9 @@ $result_fetched = mysql_fetch_array($fetch_result);
                                 <select name="lst_station" id="lst_station" class="form-control cust-select2" required>
                                     <?php
                                     $sql_station = "SELECT * FROM `station`";
-                                    $rst_station = mysql_query($sql_station, $db_common);
+                                    $rst_station = mysqli_query($db_common,$sql_station);
                                     echo "<option value='none' selected disabled>Select Station</option>";
-                                    while ($rw_station = mysql_fetch_array($rst_station)) {
+                                    while ($rw_station = mysqli_fetch_array($rst_station)) {
                                         extract($rw_station);
                                         // print_r($rw_station);
                                         echo "<option value='$stationcode'>$stationdesc ($stationcode) </option>";
@@ -172,9 +172,9 @@ $result_fetched = mysql_fetch_array($fetch_result);
                                 <select name="lst_dept" id="lst_dept" class="form-control cust-select2" required>
                                     <?php
                                     $sql_dept = "SELECT * FROM `departments`";
-                                    $rst_dept = mysql_query($sql_dept, $db_common);
+                                    $rst_dept = mysqli_query($db_common,$sql_dept);
                                     echo "<option value='none' selected disabled>Select Department</option>";
-                                    while ($rw_dept = mysql_fetch_array($rst_dept)) {
+                                    while ($rw_dept = mysqli_fetch_array($rst_dept)) {
                                         extract($rw_dept);
                                         // print_r($rw_dept);
                                         echo "<option value='$DEPTNO'>$DEPTDESC</option>";
@@ -187,9 +187,9 @@ $result_fetched = mysql_fetch_array($fetch_result);
                                 <select name="lst_desig" id="lst_desig" class="form-control cust-select2" required>
                                     <?php
                                     $sql_desig = "SELECT * FROM `designations`";
-                                    $rst_desig = mysql_query($sql_desig, $db_common);
+                                    $rst_desig = mysqli_query($db_common,$sql_desig);
                                     echo "<option value='none' selected disabled>Select Designation</option>";
-                                    while ($rw_desig = mysql_fetch_array($rst_desig)) {
+                                    while ($rw_desig = mysqli_fetch_array($rst_desig)) {
                                         extract($rw_desig);
                                         // print_r($rw_dept);
                                         echo "<option value='$DESIGCODE'>$DESIGLONGDESC($DESIGSHORTDESC)</option>";
@@ -206,9 +206,9 @@ $result_fetched = mysql_fetch_array($fetch_result);
                                     <option value='' selected disabled>Select Your type</option>
                                     <?php
                                     $fetch_cat = "select * from category";
-                                    $cat_result = mysql_query($fetch_cat, $db_egr) or die(mysql_error());
-                                    // var_dump(mysql_error());
-                                    while ($fetch_cat_result = mysql_fetch_array($cat_result)) {
+                                    $cat_result = mysqli_query($db_egr,$fetch_cat ) or die(mysqli_error($db_egr));
+                                    // var_dump(mysqli_error());
+                                    while ($fetch_cat_result = mysqli_fetch_array($cat_result)) {
                                         echo "<option value='" . $fetch_cat_result['cat_id'] . "'>" . $fetch_cat_result['cat_name'] . "</option>";
                                     }
                                     ?>
@@ -260,9 +260,9 @@ $result_fetched = mysql_fetch_array($fetch_result);
                         </div>
                         <?php
                         $sql = "SELECT * FROM `tbl_user` WHERE role like '%0%'";
-                        $rst_auth = mysql_query($sql, $db_egr);
-                        if (mysql_num_rows($rst_auth) > 0) {
-                            if ($rw_auth = mysql_fetch_assoc($rst_auth)) {
+                        $rst_auth = mysqli_query($db_egr,$sql);
+                        if (mysqli_num_rows($rst_auth) > 0) {
+                            if ($rw_auth = mysqli_fetch_assoc($rst_auth)) {
                                 // print_r($rw_auth);
                                 $auth_name = $rw_auth["user_name"];
                                 $auth_pf = $rw_auth["emp_id"];

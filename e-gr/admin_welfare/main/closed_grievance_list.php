@@ -34,11 +34,11 @@ error_reporting(0);
                                     <?php
                                     $cur_user = $_SESSION['SESSION_ID'];
 
-                                    $sql = mysql_query("select * from  tbl_grievance where gri_ref_no like 'WEL%' and uploaded_by='$cur_user' AND status = '4' order by gri_upload_date DESC", $db_egr);
+                                    $sql = mysqli_query($db_egr,"select * from  tbl_grievance where gri_ref_no like 'WEL%' and uploaded_by='$cur_user' AND status = '4' order by gri_upload_date DESC");
 
-                                    // echo "select * from  grievance where gri_ref_no like 'WEL%'".mysql_error();
+                                    // echo "select * from  grievance where gri_ref_no like 'WEL%'".mysqli_error();
                                     $cnt = 1;
-                                    while ($result = mysql_fetch_array($sql)) {
+                                    while ($result = mysqli_fetch_array($sql)) {
                                         $emp_id = $result['emp_id'];
                                         $gri_ref_no = $result['gri_ref_no'];
                                         echo "<tr>";

@@ -20,8 +20,7 @@ error_reporting(0);
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <form action="process.php?action=return_griv" method="POST" class="form-horizontal"
-                            enctype="multipart/form-data">
+                        <form action="process.php?action=return_griv" method="POST" class="form-horizontal" enctype="multipart/form-data">
                             <?php
                             $got_id = $_GET['g_id'];
                             //echo "<script>alert($got_id);</script>";
@@ -29,8 +28,8 @@ error_reporting(0);
                             // $fetch_query = "select e.emp_type,e.emp_id,e.emp_name,e.emp_dept,e.emp_desig,e.emp_mob,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id,f.forwarded_date,f.remark,f.user_id,f.user_id_forwarded from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no WHERE g.id=$got_id";
                             $fetch_query = "select e.empType,e.emp_no,e.name,e.department,e.designation,e.mobile,e.emp_email,e.emp_aadhar,e.office,e.station,g.gri_type,g.gri_desc,g.up_doc,g.gri_upload_date,g.gri_ref_no,g.doc_id,f.forwarded_date,f.remark,f.user_id,f.user_id_forwarded from $db_common_name.register_user e INNER JOIN $db_egr_name.tbl_grievance g ON e.emp_no=g.emp_id INNER JOIN $db_egr_name.tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no WHERE g.id='$got_id'";
 
-                            $exe_query = mysql_query($fetch_query) or die(mysql_error());
-                            while ($result = mysql_fetch_array($exe_query)) {
+                            $exe_query = mysqli_query($db_egr,$fetch_query) or die(mysqli_error($db_egr));
+                            while ($result = mysqli_fetch_array($exe_query)) {
                                 $emp_type = $result['empType'];
                                 $emp_id = $result['emp_no'];
                                 $emp_name = $result['name'];
@@ -51,15 +50,15 @@ error_reporting(0);
                                 //$user_id = $result['user_id'];
                                 $user_id = $result['user_id_forwarded'];
 
-                                $rstRecords = mysql_query("select * from tbl_user where user_id='$user_id'", $db_egr);
-                                $rwRecord = mysql_fetch_array($rstRecords);
+                                $rstRecords = mysqli_query($db_egr,"select * from tbl_user where user_id='$user_id'");
+                                $rwRecord = mysqli_fetch_array($rstRecords);
                                 $OfficerSectionId = $rwRecord['section'];
                                 // var_dump($OfficerSectionId);
                                 // where role='3'
                                 $innerSql = "select section,user_id,user_name,role from tbl_user ";
-                                $innerResult = mysql_query($innerSql, $db_egr);
+                                $innerResult = mysqli_query($db_egr,$innerSql);
                                 $bo_user = array();
-                                while ($rwRecord = mysql_fetch_array($innerResult)) {
+                                while ($rwRecord = mysqli_fetch_array($innerResult)) {
                                     // print_r($rwRecord);
                                     $section = explode(",", $rwRecord["section"]);
                                     $role_arr = explode(",", $rwRecord["role"]);
@@ -86,13 +85,11 @@ error_reporting(0);
                                             $this_id = $_SESSION['SESSION_ID'];
                                             //echo "<script>alert('$this_id');</script>";
                                             ?>
-                                            <input type="hidden" name="hidden_id" id="hidden_id"
-                                                value="<?php echo $this_id; ?>">
+                                            <input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $this_id; ?>">
                                             <?php
                                             $e_type = get_emptype($emp_type);
                                             ?>
-                                            <input type="text" class="form-control" id="emp_id" name="emp_id" readonly
-                                                value="<?php echo $e_type; ?>">
+                                            <input type="text" class="form-control" id="emp_id" name="emp_id" readonly value="<?php echo $e_type; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -101,8 +98,7 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Emp Id/PF No</label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" id="emp_id" name="emp_id" readonly
-                                                value="<?php echo $emp_id; ?>">
+                                            <input type="text" class="form-control" id="emp_id" name="emp_id" readonly value="<?php echo $emp_id; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -112,8 +108,7 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Emp Name</label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" class="form-control" id="emp_name" name="emp_name"
-                                                readonly value="<?php echo $emp_name; ?>">
+                                            <input type="text" class="form-control" id="emp_name" name="emp_name" readonly value="<?php echo $emp_name; ?>">
 
                                         </div>
                                     </div>
@@ -125,8 +120,7 @@ error_reporting(0);
                                             <?php
                                             $got_dept = get_department($emp_dept);
                                             ?>
-                                            <input type="text" class="form-control" id="emp_name" name="emp_name"
-                                                readonly value="<?php echo $got_dept; ?>">
+                                            <input type="text" class="form-control" id="emp_name" name="emp_name" readonly value="<?php echo $got_dept; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -139,8 +133,7 @@ error_reporting(0);
                                             <?php
                                             $got_des = get_designation($emp_desig);
                                             ?>
-                                            <input type="text" class="form-control" id="emp_name" name="emp_name"
-                                                readonly value="<?php echo $got_des; ?>">
+                                            <input type="text" class="form-control" id="emp_name" name="emp_name" readonly value="<?php echo $got_des; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -148,8 +141,7 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.</label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" id="emp_mob" name="emp_mob" class="form-control" readonly
-                                                value="<?php echo $emp_mob; ?>">
+                                            <input type="text" id="emp_mob" name="emp_mob" class="form-control" readonly value="<?php echo $emp_mob; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -159,8 +151,7 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Id</label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" id="emp_email" name="emp_email" class="form-control"
-                                                readonly value="<?php echo $emp_email; ?>">
+                                            <input type="text" id="emp_email" name="emp_email" class="form-control" readonly value="<?php echo $emp_email; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -170,8 +161,7 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Aadhar No.</label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
-                                            <input type="text" id="emp_aadhar" name="emp_aadhar" class="form-control"
-                                                readonly value="<?php echo $emp_aadhar; ?>">
+                                            <input type="text" id="emp_aadhar" name="emp_aadhar" class="form-control" readonly value="<?php echo $emp_aadhar; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -184,8 +174,7 @@ error_reporting(0);
                                             <?php
                                             $office_name = get_office_text($office);
                                             ?>
-                                            <input type="text" id="office" name="office" class="form-control" readonly
-                                                value="<?php echo $office_name; ?>">
+                                            <input type="text" id="office" name="office" class="form-control" readonly value="<?php echo $office_name; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -198,8 +187,7 @@ error_reporting(0);
                                             <?php
                                             $got_st = get_station_text($station);
                                             ?>
-                                            <input type="text" id="emp_aadhar" name="emp_aadhar" class="form-control"
-                                                readonly value="<?php echo $got_st; ?>">
+                                            <input type="text" id="emp_aadhar" name="emp_aadhar" class="form-control" readonly value="<?php echo $got_st; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -214,8 +202,7 @@ error_reporting(0);
                                             <?php
                                             $cat_name = get_category_text($gri_type);
                                             ?>
-                                            <input type="hidden" id="up_office_emp_pincode" name="up_office_emp_pincode"
-                                                class="form-control" readonly value="<?php echo $cat_name; ?>">
+                                            <input type="hidden" id="up_office_emp_pincode" name="up_office_emp_pincode" class="form-control" readonly value="<?php echo $cat_name; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -223,8 +210,7 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
-                                            <input type="hidden" id="griv_ref_no" name="griv_ref_no"
-                                                class="form-control" readonly value="<?php echo $gri_ref_no; ?>">
+                                            <input type="hidden" id="griv_ref_no" name="griv_ref_no" class="form-control" readonly value="<?php echo $gri_ref_no; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -244,8 +230,8 @@ error_reporting(0);
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $fire_all = mysql_query("select  * from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'", $db_egr);
-                                                while ($all_fetch = mysql_fetch_array($fire_all)) {
+                                                $fire_all = mysqli_query($db_egr,"select  * from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'");
+                                                while ($all_fetch = mysqli_fetch_array($fire_all)) {
                                                     $gri_ref_no = $all_fetch['gri_ref_no'];
                                                     $forwarded_date = $all_fetch['gri_upload_date'];
                                                     $remark = $all_fetch['gri_desc'];
@@ -258,16 +244,16 @@ error_reporting(0);
                                                     echo "<td>$forwarded_date</td>";
                                                     //	echo "<td>$return_action</td>";
                                                     echo "<td>$status</td>";
-                                                    $sql_doc_sec = mysql_query("select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$emp_id'", $db_egr);
+                                                    $sql_doc_sec = mysqli_query($db_egr,"select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$emp_id'");
                                                     echo "<td>";
                                                     $count_doc = 1;
                                                     $cnt = 0;
-                                                    while ($doc_fetch = mysql_fetch_array($sql_doc_sec)) {
+                                                    while ($doc_fetch = mysqli_fetch_array($sql_doc_sec)) {
                                                         //echo $doc_fetch['doc_path'];
                                                         echo "<a href='../../admin/main/admin_upload/" . $doc_fetch['doc_path'] . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "' >DOC&nbsp;&nbsp;&nbsp;</a>";
                                                         $cnt++;
                                                     }
-                                                    if (mysql_num_rows($sql_doc_sec) > 0) {
+                                                    if (mysqli_num_rows($sql_doc_sec) > 0) {
                                                         $count_doc++;
                                                     }
 
@@ -298,8 +284,8 @@ error_reporting(0);
                                     function get_user1($first_id)
                                     {
                                         global $db_egr;
-                                        $first_user = mysql_query("select user_name from tbl_user where user_id=$first_id", $db_egr);
-                                        while ($user_first = mysql_fetch_array($first_user)) {
+                                        $first_user = mysqli_query($db_egr,"select user_name from tbl_user where user_id=$first_id");
+                                        while ($user_first = mysqli_fetch_array($first_user)) {
                                             $f_user = $user_first['user_name'];
                                         }
                                         return $f_user;
@@ -307,8 +293,8 @@ error_reporting(0);
                                     function get_user2($second_id)
                                     {
                                         global $db_egr;
-                                        $second_user = mysql_query("select user_name from tbl_user where user_id=$second_id", $db_egr);
-                                        while ($user_second = mysql_fetch_array($second_user)) {
+                                        $second_user = mysqli_query($db_egr,"select user_name from tbl_user where user_id=$second_id");
+                                        while ($user_second = mysqli_fetch_array($second_user)) {
                                             $s_user = $user_second['user_name'];
                                         }
                                         return $s_user;
@@ -316,8 +302,8 @@ error_reporting(0);
                                     function get_status($status)
                                     {
                                         global $db_egr;
-                                        $sql1 = mysql_query("select status from status where id=$status", $db_egr);
-                                        while ($sql_query1 = mysql_fetch_array($sql1)) {
+                                        $sql1 = mysqli_query($db_egr,"select status from status where id=$status");
+                                        while ($sql_query1 = mysqli_fetch_array($sql1)) {
                                             $status_fetch = $sql_query1['status'];
                                         }
                                         return $status_fetch;
@@ -325,8 +311,8 @@ error_reporting(0);
                                     function get_action($action)
                                     {
                                         global $db_egr;
-                                        $f_action = mysql_query("select action from action where id=$action", $db_egr);
-                                        while ($action_f = mysql_fetch_array($f_action)) {
+                                        $f_action = mysqli_query($db_egr,"select action from action where id=$action");
+                                        while ($action_f = mysqli_fetch_array($f_action)) {
                                             $a_c = $action_f['action'];
                                         }
                                         return $a_c;
@@ -334,19 +320,19 @@ error_reporting(0);
                                     function get_section_action($sec_action)
                                     {
                                         global $db_egr;
-                                        $s_action = mysql_query("select action from return_action where id=$sec_action", $db_egr);
-                                        while ($action_s = mysql_fetch_array($s_action)) {
+                                        $s_action = mysqli_query($db_egr,"select action from return_action where id=$sec_action");
+                                        while ($action_s = mysqli_fetch_array($s_action)) {
                                             $s_a = $action_s['action'];
                                         }
                                         return $s_a;
                                     }
-                                    $fire_all = mysql_query("select  * from tbl_grievance_forward where griv_ref_no='$gri_ref_no'", $db_egr);
-                                    while ($all_fetch = mysql_fetch_array($fire_all)) {
+                                    $fire_all = mysqli_query($db_egr,"select  * from tbl_grievance_forward where griv_ref_no='$gri_ref_no'");
+                                    while ($all_fetch = mysqli_fetch_array($fire_all)) {
                                         $forwarded_date = $all_fetch['forwarded_date'];
                                         $remark = $all_fetch['remark'];
-                                        $user_id_inner=$all_fetch['user_id'];
-                                        if(isBASection_Officer()){
-                                            $bo_user_id=get_return_ba($user_id_inner);
+                                        $user_id_inner = $all_fetch['user_id'];
+                                        if (isBASection_Officer()) {
+                                            $bo_user_id = get_return_ba($user_id_inner);
                                             // echo $bo_user_id;
                                         }
                                         $user_id = get_user1($user_id_inner);
@@ -369,10 +355,10 @@ error_reporting(0);
                                         }
                                         echo "<td>$status</td>";
                                         $sql_inner = "select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='" . $all_fetch['user_id'] . "' AND doc_id='" . $doc_id . "'";
-                                        $sql_doc_sec = mysql_query($sql_inner, $db_egr);
+                                        $sql_doc_sec = mysqli_query($db_egr,$sql_inner);
                                         $cnt = 0;
                                         echo "<td>";
-                                        while ($doc_fetch = mysql_fetch_array($sql_doc_sec)) {
+                                        while ($doc_fetch = mysqli_fetch_array($sql_doc_sec)) {
                                             /*if ($all_fetch['user_id'] == '1') {
                                             } else {
                                                 echo "<a href='../../admin_user/main/upload_doc/" . $doc_fetch['doc_path'] . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "' >DOC&nbsp;&nbsp;&nbsp;</a>";
@@ -397,15 +383,15 @@ error_reporting(0);
                                                 <option value="" disabled selected>Select Action</option>
                                                 <?php
                                                 if (isBASection_Officer()) {
-                                                    $action = mysql_query("select * from action", $db_egr);
-                                                    while ($fetch_action = mysql_fetch_array($action)) {
+                                                    $action = mysqli_query($db_egr,"select * from action");
+                                                    while ($fetch_action = mysqli_fetch_array($action)) {
                                                         if ($fetch_action["action"] != "FORWARD") {
                                                             echo "<option value='" . $fetch_action['id'] . "'>" . $fetch_action['action'] . "</option>";
                                                         }
                                                     }
                                                 } else {
-                                                    $return_action = mysql_query("select * from return_action", $db_egr);
-                                                    while ($action_return = mysql_fetch_array($return_action)) {
+                                                    $return_action = mysqli_query($db_egr,"select * from return_action");
+                                                    while ($action_return = mysqli_fetch_array($return_action)) {
                                                         echo "<option value='" . $action_return['id'] . "'>" . $action_return['action'] . "</option>";
                                                     }
                                                 }
@@ -418,64 +404,61 @@ error_reporting(0);
                                     <div class="form-group">
                                         <label class="control-label col-md-5">Upload Document</label>
                                         <div class="col-md-7">
-                                            <input type="file" name="upload_doc[]" id="upload_doc" multiple
-                                                class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
+                                            <input type="file" name="upload_doc[]" id="upload_doc" multiple class="form-control" accept="image/*,.doc, .docx,.txt,.pdf">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php if(!isBASection_Officer()){
-                            if (count($bo_user) > 1) {?>
-                            <div class='row'>
-                                <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-6 col-xs-12">Forward to Branch Officer</label>
-                                        <div class="col-md-7">
-                                            <?php
-                                            //echo "<script>alert('$user_id');</script>";
-                                            
-                                                // print_r($bo_user);
-                                                echo "<select class='form-control' id='hidden_user' name='hidden_user' required><option selected disabled>--Select Branch Officer--</option>";
-                                                foreach ($bo_user as $user) {
-                                                    $bo_id = $user["id"];
-                                                    $bo_name = $user["name"];
-                                                    echo <<<abc
+                            <?php if (!isBASection_Officer()) {
+                                if (count($bo_user) > 1) { ?>
+                                    <div class='row'>
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-6 col-xs-12">Forward to Branch Officer</label>
+                                                <div class="col-md-7">
+                                                    <?php
+                                                    //echo "<script>alert('$user_id');</script>";
+
+                                                    // print_r($bo_user);
+                                                    echo "<select class='form-control' id='hidden_user' name='hidden_user' required><option selected disabled>--Select Branch Officer--</option>";
+                                                    foreach ($bo_user as $user) {
+                                                        $bo_id = $user["id"];
+                                                        $bo_name = $user["name"];
+                                                        echo <<<abc
                                         <option value='$bo_id'>$bo_name</option>
 abc;
-                                                }
-                                                echo "</select>";
-                                ?>            
+                                                    }
+                                                    echo "</select>";
+                                                    ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <?php 
-                                    
-                            } else {
-                                                // print_r($bo_user);
-                                                $bo_user_id=$bo_user[0]["id"];
-                                                // echo $bo_user_id;
-                                                echo <<<xyz
+                                <?php
+
+                                } else {
+                                    // print_r($bo_user);
+                                    $bo_user_id = $bo_user[0]["id"];
+                                    // echo $bo_user_id;
+                                    echo <<<xyz
                                     <input type="hidden" name="hidden_user" id="hidden_user"
                                     value="$bo_user_id" >
 xyz;
-                                            }
-                                            ?>
-                                        <?php } else{
-                                               echo <<<xyz
+                                }
+                                ?>
+                            <?php } else {
+                                echo <<<xyz
                                     <input type="hidden" name="hidden_user" id="hidden_user"
                                     value="$bo_user_id" >
 xyz;
-                                            }
-                                        ?>
+                            }
+                            ?>
                             <div class="row" style="margin-top:30px;">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group">
-                                        <label
-                                            class="control-label col-md-1 col-sm-6 col-xs-12">Remarks/Description</label>
+                                        <label class="control-label col-md-1 col-sm-6 col-xs-12">Remarks/Description</label>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <textarea name="remark" id="remark" rows="5" style="resize:none;"
-                                                class="form-control">
+                                            <textarea name="remark" id="remark" rows="5" style="resize:none;" class="form-control">
                             </textarea>
                                         </div>
                                     </div>
@@ -485,8 +468,7 @@ xyz;
                             <br>
                             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                                 <button type="submit" class="btn btn-info source">Save</button>
-                                <a href="new_grievance.php" class="btn btn-danger"
-                                    data-dismiss="modal">Close</a>
+                                <a href="new_grievance.php" class="btn btn-danger" data-dismiss="modal">Close</a>
                             </div>
                         </form>
                     </div>
@@ -503,71 +485,71 @@ require_once('Global_Data/footer.php');
 <link href="select2/select2.min.css" rel="stylesheet" />
 <script src="select2/select2.min.js"> </script>
 <script>
-$("#emp_dept").select2();
-$("#emp_desig").select2();
-$("#emp_state").select2();
-$("#emp_city").select2();
-$("#office_emp_state").select2();
-$("#office_emp_city").select2();
+    $("#emp_dept").select2();
+    $("#emp_desig").select2();
+    $("#emp_state").select2();
+    $("#emp_city").select2();
+    $("#office_emp_state").select2();
+    $("#office_emp_city").select2();
 </script>
 <script>
-$('#emp_state').on('change', function() {
-    var stateID = $(this).val();
-    //alert(stateID);
-    if (stateID) {
-        $.ajax({
-            type: 'POST',
-            url: 'statechange.php',
-            data: 'state_id=' + stateID,
-            success: function(html) {
-                $('#emp_city').html(html);
-            }
-        });
-    } else {
-        $('#emp_city').html('<option value="">Select state first</option>');
-    }
-});
-$('#office_emp_state').on('change', function() {
-    var stateID = $(this).val();
-    //alert(stateID);
-    if (stateID) {
-        $.ajax({
-            type: 'POST',
-            url: 'statechange.php',
-            data: 'state_id=' + stateID,
-            success: function(html) {
-                $('#office_emp_city').html(html);
-            }
-        });
-    } else {
-        $('#office_emp_city').html('<option value="">Select state first</option>');
-    }
-});
-$(document).on("change", "#section", function() {
-    // debugger;
-    var sec_val = $(this).val();
-    //alert(sec_val);
-    $.ajax({
-        type: 'POST',
-        url: 'get_user.php',
-        data: {
-            //action:get_user,
-            sec_val: sec_val,
-        },
-        success: function(html) {
-            //	alert(html);
-            var a = html;
-            var b = a.split('$');
-            var val_id = b[0];
-            var name = b[1];
-            //alert(val_id);
-            //alert(name);
-
-            $('#auth').append($('<option>', {
-                value: val_id,
-                text: name
-            }));
+    $('#emp_state').on('change', function() {
+        var stateID = $(this).val();
+        //alert(stateID);
+        if (stateID) {
+            $.ajax({
+                type: 'POST',
+                url: 'statechange.php',
+                data: 'state_id=' + stateID,
+                success: function(html) {
+                    $('#emp_city').html(html);
+                }
+            });
+        } else {
+            $('#emp_city').html('<option value="">Select state first</option>');
         }
     });
-});
+    $('#office_emp_state').on('change', function() {
+        var stateID = $(this).val();
+        //alert(stateID);
+        if (stateID) {
+            $.ajax({
+                type: 'POST',
+                url: 'statechange.php',
+                data: 'state_id=' + stateID,
+                success: function(html) {
+                    $('#office_emp_city').html(html);
+                }
+            });
+        } else {
+            $('#office_emp_city').html('<option value="">Select state first</option>');
+        }
+    });
+    $(document).on("change", "#section", function() {
+        // debugger;
+        var sec_val = $(this).val();
+        //alert(sec_val);
+        $.ajax({
+            type: 'POST',
+            url: 'get_user.php',
+            data: {
+                //action:get_user,
+                sec_val: sec_val,
+            },
+            success: function(html) {
+                //	alert(html);
+                var a = html;
+                var b = a.split('$');
+                var val_id = b[0];
+                var name = b[1];
+                //alert(val_id);
+                //alert(name);
+
+                $('#auth').append($('<option>', {
+                    value: val_id,
+                    text: name
+                }));
+            }
+        });
+    });
 </script>

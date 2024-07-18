@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 $userrole = $_SESSION["SESSION_ROLE"];
 ?>
 
@@ -34,8 +36,8 @@ $userrole = $_SESSION["SESSION_ROLE"];
                                     <?php
                                     $cnt = 1;
                                     $sql = "select * from tbl_feedback where (griv_ref_id is null or griv_ref_id='' or griv_ref_id=0) and (emp_reaction is null or emp_reaction='') order by created_date_time desc";
-                                    $query = mysql_query($sql, $db_egr);
-                                    while ($rw_data = mysql_fetch_array($query)) {
+                                    $query = mysqli_query($db_egr,$sql);
+                                    while ($rw_data = mysqli_fetch_array($query)) {
                                         // print_r($rw_data);
                                         extract($rw_data);
                                         echo "<tr>";
@@ -84,8 +86,8 @@ $userrole = $_SESSION["SESSION_ROLE"];
                                             $cnt = 1;
                                             // $sql = "select * from tbl_feedback where (griv_ref_id is not null or griv_ref_id!='' or griv_ref_id>0) and (emp_reaction is not null or emp_reaction!='') order by created_date_time desc";
                                             $sql="SELECT * FROM `tbl_feedback` where (griv_ref_id like 'WEL%' or griv_ref_id>0) and (emp_reaction!='')";
-                                            $query = mysql_query($sql, $db_egr);
-                                            while ($rw_data = mysql_fetch_array($query)) {
+                                            $query = mysqli_query($db_egr,$sql);
+                                            while ($rw_data = mysqli_fetch_array($query)) {
                                                 // print_r($rw_data);
                                                 extract($rw_data);
                                                 echo "<tr>";

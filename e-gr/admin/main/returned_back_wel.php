@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 <!-- PNotify -->
@@ -32,10 +34,12 @@ error_reporting(0);
                                 <tbody>
                                     <?php
 									function get_Cat($type)
-									{	//echo "<script>alert($type)</script>";
-										$fetch_cat = mysql_query("select cat_name from category where cat_id='" . $type . "'");
-										//  $cat_fetch=mysql_query($fetch_cat);
-										while ($cat_get = mysql_fetch_assoc($fetch_cat)) {
+									
+									{
+										global $db_egr;	//echo "<script>alert($type)</script>";
+										$fetch_cat = mysqli_query($db_egr,"select cat_name from category where cat_id='" . $type . "'");
+										//  $cat_fetch=mysqli_query($fetch_cat);
+										while ($cat_get = mysqli_fetch_assoc($fetch_cat)) {
 											$cat_names = $cat_get['cat_name'];
 											//echo "<script>alert($cat_names)</script>";
 										}
@@ -45,15 +49,16 @@ error_reporting(0);
 									}
 									function get_type($emp_type)
 									{
-										$fetch_cat = mysql_query("select * from emp_type where id='$emp_type'");
-										while ($cat_fetch = mysql_fetch_array($fetch_cat)) {
+										global $db_egr;
+										$fetch_cat = mysqli_query($db_egr,"select * from emp_type where id='$emp_type'");
+										while ($cat_fetch = mysqli_fetch_array($fetch_cat)) {
 											$e_type = $cat_fetch['type'];
 										}
 										return $e_type;
 									}
 									$cnt = 1;
-									$query = mysql_query("Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3')");
-									while ($rw_data = mysql_fetch_array($query)) {
+									$query = mysqli_query($db_egr,"Select  e.emp_id,e.emp_name,e.emp_type,g.gri_ref_no,g.gri_type,g.gri_upload_date,g.id,f.forwarded_date from employee e INNER JOIN tbl_grievance g ON e.emp_id=g.emp_id INNER JOIN tbl_grievance_forward f ON g.gri_ref_no=f.griv_ref_no where g.status='3' and f.status='3' and f.section_action IN ('1','2','3')");
+									while ($rw_data = mysqli_fetch_array($query)) {
 										$emp_id = $rw_data["emp_id"];
 										$emp_name = $rw_data["emp_name"];
 										$emp_type = get_type($rw_data["emp_type"]);

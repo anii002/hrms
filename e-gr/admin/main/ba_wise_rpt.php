@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php')
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="print">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript" charset="utf-8" media="print"></script>
@@ -40,8 +42,8 @@ error_reporting(0);
                                         <option value="0">All</option>
                                         <?php
                                         $sql = "SELECT `user_id`,`user_name`,`role` FROM `tbl_user` WHERE  `status`='active'";
-                                        $fetch_user = mysql_query($sql, $db_egr);
-                                        while ($user_fetch = mysql_fetch_array($fetch_user)) {
+                                        $fetch_user = mysqli_query($db_egr,$sql);
+                                        while ($user_fetch = mysqli_fetch_array($fetch_user)) {
                                             // print_r($user_fetch);
                                             extract($user_fetch);
                                             $role_array = explode(",", $role);

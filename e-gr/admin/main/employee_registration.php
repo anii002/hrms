@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 
@@ -157,15 +159,15 @@ error_reporting(0);
                                         <label class="control-label col-md-4" style="margin-left: -50px;">State</label>
                                         <div class="col-md-8">
                                             <?php
-											$query = mysql_query("SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
-											$rowCount = mysql_num_rows($query);
+											$query = mysqli_query($db_egr,"SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
+											$rowCount = mysqli_num_rows($query);
 											?>
                                             <select name="emp_state" id="emp_state" class="form-control"
                                                 style="margin-top:0px;">
                                                 <option>Select State</option>
                                                 <?php
 												if ($rowCount > 0) {
-													while ($row = mysql_fetch_assoc($query)) {
+													while ($row = mysqli_fetch_assoc($query)) {
 														echo '<option value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
 													}
 												} else {
@@ -232,15 +234,15 @@ error_reporting(0);
                                         <label class="control-label col-md-4" style="margin-left: -50px;">State</label>
                                         <div class="col-md-8">
                                             <?php
-											$query = mysql_query("SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
-											$rowCount = mysql_num_rows($query);
+											$query = mysqli_query($db_egr,"SELECT * FROM states WHERE status = 1 AND country_id=100 ORDER BY state_name ASC");
+											$rowCount = mysqli_num_rows($query);
 											?>
                                             <select name="office_emp_state" id="office_emp_state" class="form-control"
                                                 style="margin-top:0px;">
                                                 <option>Select State</option>
                                                 <?php
 												if ($rowCount > 0) {
-													while ($row = mysql_fetch_assoc($query)) {
+													while ($row = mysqli_fetch_assoc($query)) {
 														echo '<option value="' . $row['state_id'] . '">' . $row['state_name'] . '</option>';
 													}
 												} else {
@@ -307,8 +309,8 @@ error_reporting(0);
                                         <tbody>
                                             <?php
 											$cnt = 1;
-											$query = mysql_query("Select * from employee where delete_status=1 Limit 50");
-											while ($rw_data = mysql_fetch_assoc($query)) {
+											$query = mysqli_query($db_egr,"Select * from employee where delete_status=1 Limit 50");
+											while ($rw_data = mysqli_fetch_assoc($query)) {
 												$emp_type = $rw_data["emp_type"];
 												$emp_id = $rw_data["emp_id"];
 												$emp_name = $rw_data["emp_name"];

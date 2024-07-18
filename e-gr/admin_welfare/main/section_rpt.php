@@ -45,8 +45,8 @@ error_reporting(0);
                                         } else {
                                             $sql = "select * from tbl_section";
                                         }
-                                        $fetch_section = mysql_query($sql, $db_egr);
-                                        while ($section_fetch = mysql_fetch_array($fetch_section)) {
+                                        $fetch_section = mysqli_query($db_egr,$sql);
+                                        while ($section_fetch = mysqli_fetch_array($fetch_section)) {
                                             if (!isBA()) {
                                                 if ($section_fetch['is_branch_admin'] <= 0 || $section_fetch['sec_id'] == 5) {
                                                     echo "<option value='" . $section_fetch['sec_id'] . "'>" . $section_fetch['sec_name'] . "</option>";

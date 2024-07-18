@@ -1,8 +1,9 @@
 <?php
 require_once('config.php');
-if (!isset($_SESSION['SESSION_NAME'])) {
-    echo "<script>alert('Unauthorized Access');window.location='../../../index.php'</script>";
-}
+// if (!isset($_SESSION['SESSION_NAME'])) {
+//     echo "<script>alert('Unauthorized Access');window.location='../../../index.php'</script>";
+// }
+require_once('functions.php');
 
 ?>
 <!DOCTYPE html>

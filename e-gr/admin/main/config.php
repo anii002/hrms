@@ -40,4 +40,3 @@ if (!function_exists('hashPassword')) {
 
 // Require_once for functions.php if needed
 // require_once('functions.php');
-?>

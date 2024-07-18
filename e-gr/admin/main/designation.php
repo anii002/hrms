@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 <!-- PNotify -->
 <!-- page content -->
@@ -32,8 +34,8 @@ error_reporting(0);
                                                 <option selected hidden readonly>Select Department</option>
                                                 <?php
                                                 $query = "select * from tbl_department";
-                                                $resultset = mysql_query($query);
-                                                while ($result = mysql_fetch_array($resultset)) {
+                                                $resultset = mysqli_query($db_egr,$query);
+                                                while ($result = mysqli_fetch_array($resultset)) {
                                                     echo "<option value='" . $result['dept_id'] . "'>" . $result['deptname'] . "</option>";
                                                 }
                                                 ?>
@@ -78,7 +80,7 @@ error_reporting(0);
                                         <?php
 
                                         $query_fire = "select * from tbl_designation";
-                                        $fetch_query = mysql_query($query_fire) or mysql_error();
+                                        $fetch_query = mysqli_query($db_egr,$query_fire) or mysqli_error($db_egr);
 
                                         ?>
                                         <thead>
@@ -94,13 +96,14 @@ error_reporting(0);
                                             <?php
                                             function get_dept($dept_id)
                                             {
+                                                global $db_egr;
                                                 $query_dept = "select deptname from tbl_department where dept_id='$dept_id'";
-                                                $resultset_dept = mysql_query($query_dept);
-                                                $result_dept = mysql_fetch_array($resultset_dept);
+                                                $resultset_dept = mysqli_query($db_egr,$query_dept);
+                                                $result_dept = mysqli_fetch_array($resultset_dept);
                                                 return $result_dept['deptname'];
                                             }
                                             $cnt = 1;
-                                            while ($result = mysql_fetch_array($fetch_query)) {
+                                            while ($result = mysqli_fetch_array($fetch_query)) {
                                                 echo " <tr><td><input type='checkbox' class='checkbox' id='" . $result['id'] . "' name='" . $result['id'] . "'/></td><td>" . $cnt . "</td><td>" . $result['designation'] . "</td><td>" . get_dept($result['dept_id']) . "</td>
 					<td>
 					<a href='#' ><i class='fa fa-pencil-square btn-edit' style='font-size:20px;color:black;margin-left:20px;' data-toggle='modal' data-target='#edit_cat' id=" . $result['id'] . "></i></a>

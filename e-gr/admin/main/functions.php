@@ -31,7 +31,7 @@ function delete_employee($id)
 	global $db_egr, $db_common;
 	if (!empty($id)) {
 		$sql = "DELETE from `employee` WHERE `id`='" . $id . "'  ";
-		$query = mysqli_query($db_egr, $sql) or trigger_error("Query Failed: " . mysqli_error());
+		$query = mysqli_query($db_egr, $sql) or trigger_error("Query Failed: " . mysqli_error($db_egr));
 		if ($query) {
 			return true;
 		}
@@ -44,11 +44,11 @@ function add_category($cat_name, $cat_desc)
 	if (!empty($cat_name) && !empty($cat_desc)) {
 
 		$sql_query = "select * from category where `cat_name` = '$cat_name'";
-		$sql_result = mysqli_query($db_egr, $sql_query) or trigger_error("Query Failed: " . mysqli_error());
+		$sql_result = mysqli_query($db_egr, $sql_query) or trigger_error("Query Failed: " . mysqli_error($db_egr));
 		$sql_fetch = mysqli_num_rows($sql_result);
 		if ($sql_fetch == 0) {
 			$sql_inner = "insert into category(cat_name,cat_desc) values('$cat_name','$cat_desc')";
-			$sql_fire = mysqli_query($db_egr, $sql_inner) or trigger_error("Query Failed: " . mysqli_error());
+			$sql_fire = mysqli_query($db_egr, $sql_inner) or trigger_error("Query Failed: " . mysqli_error($db_egr));
 			//echo mysqli_error();
 			if ($sql_fire) {
 				return true;
@@ -129,8 +129,9 @@ function delete_griv($hidden_id_delete)
 }
 function edit_designation($des_name, $updatedeptid, $hidden)
 {
+	global $db_egr;
 	$sql_inner = "update `tbl_designation` set designation='$des_name', dept_id='$updatedeptid' where id=$hidden";
-	$sql_fire = mysqli_query($sql_inner) or trigger_error("Query Failed: " . mysqli_error());
+	$sql_fire = mysqli_query($db_egr,$sql_inner) or trigger_error("Query Failed: " . mysqli_error($db_egr));
 	//echo mysqli_error();
 	if ($sql_fire) {
 		return true;
@@ -142,7 +143,7 @@ function edit_section($sec_name, $sec_desc, $hidden, $is_BA_section)
 	// echo $is_BA_section;
 	global $db_egr;
 	$sql_inner = "update `tbl_section` set sec_name='$sec_name', sec_desc='$sec_desc',is_branch_admin='$is_BA_section' where sec_id=$hidden";
-	$sql_fire = mysqli_query($sql_inner, $db_egr) or trigger_error("Query Failed: " . mysqli_error());
+	$sql_fire = mysqli_query($db_egr,$sql_inner) or trigger_error("Query Failed: " . mysqli_error($db_egr));
 	//echo mysqli_error();
 	if ($sql_fire) {
 		return true;
@@ -152,8 +153,9 @@ function edit_section($sec_name, $sec_desc, $hidden, $is_BA_section)
 
 function delete_designation($hidden_id_delete)
 {
+	global $db_egr;
 	$sql_delete = "delete from `tbl_designation` where id=$hidden_id_delete";
-	$sql_fetch = mysqli_query($sql_delete) or trigger_error("Query Failed: " . mysqli_error());
+	$sql_fetch = mysqli_query($db_egr,$sql_delete) or trigger_error("Query Failed: " . mysqli_error($db_egr));
 	//echo $sql_delete;
 	//echo mysqli_error();
 	if ($sql_fetch) {
@@ -164,8 +166,8 @@ function delete_designation($hidden_id_delete)
 }
 function check_user($emp_id, $user_mob)
 {
-
-	$fetch_before = mysqli_query("select * from tbl_user where emp_id='$emp_id' and user_mob='$user_mob'");
+global $db_egr;
+	$fetch_before = mysqli_query($db_egr,"select * from tbl_user where emp_id='$emp_id' and user_mob='$user_mob'");
 	$fetch_result = mysqli_num_rows($fetch_before);
 	if ($fetch_result > 0) {
 		return true;
@@ -174,7 +176,7 @@ function check_user($emp_id, $user_mob)
 function check_handicap($emp_id)
 {
 	global $db_common;
-	$fetch_before = mysqli_query($db_common, "select handicap_status from register_user where emp_no ='$emp_id'", $db_common);
+	$fetch_before = mysqli_query($db_common, "select handicap_status from register_user where emp_no ='$emp_id'");
 	$result = mysqli_fetch_array($fetch_before);
 
 	if ($result['handicap_status'] == 'Y') {
@@ -186,7 +188,7 @@ function check_handicap($emp_id)
 function check_sex($emp_id)
 {
 	global $db_common;
-	$fetch_before = mysqli_query($db_common, "select gender from register_user where emp_no ='$emp_id'", $db_common);
+	$fetch_before = mysqli_query($db_common, "select gender from register_user where emp_no ='$emp_id'");
 	$result = mysqli_fetch_array($fetch_before);
 	if ($result['gender'] == 'F') {
 		return true;
@@ -197,7 +199,7 @@ function check_sex($emp_id)
 function check_community($emp_id)
 {
 	global $db_common;
-	$fetch_before = mysqli_query($db_common, "select community from register_user where emp_no ='$emp_id'", $db_common);
+	$fetch_before = mysqli_query($db_common, "select community from register_user where emp_no ='$emp_id'");
 	$result = mysqli_fetch_array($fetch_before);
 
 	if ($result['community'] == 'SC' || $result['community'] == 'ST') {
@@ -667,12 +669,21 @@ function get_user_dept($dept)
 }
 function get_designation($id)
 {
-	global $db_common;
-	$sql = "select DESIGLONGDESC from designations where DESIGCODE='" . $id . "'";
-	$f_desg = mysqli_query($db_common, $sql);
-	$desg_f = mysqli_fetch_array($f_desg);
-	return $desg_f['DESIGLONGDESC'];
+    global $db_common;
+    $sql = "SELECT DESIGLONGDESC FROM designations WHERE DESIGCODE = ?";
+    $stmt = mysqli_prepare($db_common, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "s", $id); // Assuming DESIGCODE is a string
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $desiglongdesc);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        return $desiglongdesc ? $desiglongdesc : "Unknown Designation"; // Return "Unknown Designation" if $desiglongdesc is null
+    } else {
+        return "Query Failed"; // Return an error message if the query preparation fails
+    }
 }
+
 function get_designation_short($id)
 {
 	global $db_common;
@@ -684,20 +695,38 @@ function get_designation_short($id)
 
 function get_department($id)
 {
-	global $db_common;
-	$sql = "select DEPTDESC from department where DEPTNO='" . $id . "'";
-	$f_desg = mysqli_query($db_common, $sql);
-	$desg_f = mysqli_fetch_array($f_desg);
-	return $desg_f['DEPTDESC'];
+    global $db_common;
+    $sql = "SELECT DEPTDESC FROM department WHERE DEPTNO = ?";
+    $stmt = mysqli_prepare($db_common, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "s", $id); // Assuming DEPTNO is a string
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $deptdesc);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        return $deptdesc ? $deptdesc : "Unknown Department"; // Return "Unknown Department" if $deptdesc is null
+    } else {
+        return "Query Failed"; // Return an error message if the query preparation fails
+    }
 }
+
 function get_emptype($id)
 {
-	global $db_egr;
-	$sql = "select type from emp_type where id='" . $id . "'";
-	$f_desg = mysqli_query($db_egr, $sql);
-	$desg_f = mysqli_fetch_array($f_desg);
-	return $desg_f['type'];
+    global $db_egr;
+    $sql = "SELECT type FROM emp_type WHERE id = ?";
+    $stmt = mysqli_prepare($db_egr, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $type);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        return $type ? $type : "Unknown Type"; // Return "Unknown Type" if $type is null
+    } else {
+        return "Query Failed"; // Return an error message if the query preparation fails
+    }
 }
+
 
 function get_forwarded_user($id)
 {
@@ -710,12 +739,29 @@ function get_forwarded_user($id)
 
 function get_office_text($id)
 {
-	global $db_egr;
-	$sql = "select * from tbl_office where office_id='" . $id . "'";
-	$f_desg = mysqli_query($db_egr, $sql);
-	$desg_f = mysqli_fetch_array($f_desg);
-	return $desg_f['office_name'];
+    global $db_egr;
+    
+    // Sanitize the input ID to prevent SQL injection
+    $id = mysqli_real_escape_string($db_egr, $id);
+    
+    $sql = "SELECT * FROM tbl_office WHERE office_id = '$id'";
+    $f_desg = mysqli_query($db_egr, $sql);
+
+    if (!$f_desg) {
+        // Query failed
+        return "Error: " . mysqli_error($db_egr);
+    }
+
+    $desg_f = mysqli_fetch_array($f_desg);
+
+    if (!$desg_f) {
+        // No result found
+        return "No office found with ID " . $id;
+    }
+
+    return $desg_f['office_name'];
 }
+
 
 function get_station_text($id)
 {
@@ -728,46 +774,46 @@ function get_station_text($id)
 
 function update_user_modal($emp_id, $user_name, $section, $user_dept, $user_desig, $user_mob, $user_email, $user_aadhar, $user_office, $user_station, $hidden_update, $usertype)
 {
-	global $db_egr, $db_common;
-	$sql_user_permission = "SELECT pf_num,e_grievance FROM `user_permission` where pf_num='$emp_id'";
-	$rst_user_permission = mysqli_query($db_common, $sql_user_permission);
-	if (mysqli_num_rows($rst_user_permission) > 0) {
-		$user_permission_roles = array();
-		while ($rw_user_permission = mysqli_fetch_array($rst_user_permission)) {
-			extract($rw_user_permission);
-			$user_permission_roles = explode(',', $e_grievance);
-			// print_r($user_permission_roles);
-			$usertype_array = explode(',', $usertype);
-			// print_r($usertype_array);
-			foreach ($usertype_array as $value) {
-				if (!in_array($value, $user_permission_roles)) {
-					array_push($user_permission_roles, $value);
-				}
-			}
-			$user_permission_final = array_values(array_intersect($usertype_array, $user_permission_roles));
-			array_push($user_permission_final, '4');
-		}
-		$update_user_permission = implode(',', $user_permission_final);
-		$sql_update_permission = "UPDATE `user_permission` SET `e_grievance`='$update_user_permission' WHERE `pf_num`='$emp_id' ";
-		if (mysqli_query($db_common, $sql_update_permission)) {
-			$update_query = mysqli_query($db_common, "update tbl_user set emp_id='$emp_id',user_name='$user_name',section='$section',user_dept='$user_dept',user_desg='$user_desig',user_mob='$user_mob',user_email='$user_email',user_aadhar='$user_aadhar',user_office='$user_office',user_station='$user_station',role='$usertype' where user_id='$hidden_update'", $db_egr);
-			if ($update_query) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	} else {
-		$sql_user_permission = "INSERT INTO `user_permission`(`pf_num`,`e_grievance`) VALUES('$emp_id','$role')";
-		$insert_permission = mysqli_query($db_common, $sql_user_permission);
-		$update_query = mysqli_query($db_common, "update tbl_user set emp_id='$emp_id',user_name='$user_name',section='$section',user_dept='$user_dept',user_desg='$user_desig',user_mob='$user_mob',user_email='$user_email',user_aadhar='$user_aadhar',user_office='$user_office',user_station='$user_station',role='$usertype' where user_id='$hidden_update'", $db_egr);
-		if ($update_query && $insert_permission) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    global $db_egr, $db_common;
+    $sql_user_permission = "SELECT pf_num, e_grievance FROM `user_permission` WHERE pf_num='$emp_id'";
+    $rst_user_permission = mysqli_query($db_common, $sql_user_permission);
+    if (mysqli_num_rows($rst_user_permission) > 0) {
+        $user_permission_roles = array();
+        while ($rw_user_permission = mysqli_fetch_array($rst_user_permission)) {
+            extract($rw_user_permission);
+            $user_permission_roles = explode(',', $e_grievance);
+            $usertype_array = explode(',', $usertype);
+            foreach ($usertype_array as $value) {
+                if (!in_array($value, $user_permission_roles)) {
+                    array_push($user_permission_roles, $value);
+                }
+            }
+            $user_permission_final = array_values(array_intersect($usertype_array, $user_permission_roles));
+            array_push($user_permission_final, '4');
+        }
+        $update_user_permission = implode(',', $user_permission_final);
+        $sql_update_permission = "UPDATE `user_permission` SET `e_grievance`='$update_user_permission' WHERE `pf_num`='$emp_id'";
+        if (mysqli_query($db_common, $sql_update_permission)) {
+            $update_query = mysqli_query($db_egr, "UPDATE tbl_user SET emp_id='$emp_id', user_name='$user_name', section='$section', user_dept='$user_dept', user_desg='$user_desig', user_mob='$user_mob', user_email='$user_email', user_aadhar='$user_aadhar', user_office='$user_office', user_station='$user_station', role='$usertype' WHERE user_id='$hidden_update'");
+            if ($update_query) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    } else {
+        $role = $usertype; // Assign $role the value of $usertype
+        $sql_user_permission = "INSERT INTO `user_permission`(`pf_num`, `e_grievance`) VALUES('$emp_id', '$role')";
+        $insert_permission = mysqli_query($db_common, $sql_user_permission);
+        $update_query = mysqli_query($db_egr, "UPDATE tbl_user SET emp_id='$emp_id', user_name='$user_name', section='$section', user_dept='$user_dept', user_desg='$user_desig', user_mob='$user_mob', user_email='$user_email', user_aadhar='$user_aadhar', user_office='$user_office', user_station='$user_station', role='$usertype' WHERE user_id='$hidden_update'");
+        if ($update_query && $insert_permission) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
 function add_section($sec_name, $sec_desc, $is_BA_section)
 {
 	global $db_egr;
@@ -842,13 +888,14 @@ function delete_office($hidden_id_delete)
 
 function get_all_department($dept_id)
 {
+	global $db_egr;
 	$data = "";
 	$query_dept = "select * from tbl_department where dept_id='$dept_id'";
-	$resultset_dept = mysqli_query($query_dept);
+	$resultset_dept = mysqli_query($db_egr,$query_dept);
 	$result_dept = mysqli_fetch_array($resultset_dept);
 	$data = "<option value='" . $result_dept['dept_id'] . "'>" . $result_dept['deptname'] . "</option>";
 	$query_dept = "select * from tbl_department where dept_id<>'$dept_id'";
-	$resultset_dept = mysqli_query($query_dept);
+	$resultset_dept = mysqli_query($db_egr,$query_dept);
 	while ($result_dept = mysqli_fetch_array($resultset_dept))
 		$data .= "<option value='" . $result_dept['dept_id'] . "'>" . $result_dept['deptname'] . "</option>";
 	return $data;
@@ -1080,7 +1127,7 @@ function get_type($id)
 
 	if ($id != 0) {
 		$fetch_type = mysqli_query($db_egr, "SELECT type FROM emp_type WHERE id='$id'");
-		
+
 		if (!$fetch_type) {
 			// Handle query error
 			die('Error: ' . mysqli_error($db_egr));
@@ -1120,3 +1167,6 @@ function get_emp_station($pf_no)
 	}
 	return $emp_station;
 }
+
+
+

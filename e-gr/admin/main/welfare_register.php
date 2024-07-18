@@ -1,6 +1,8 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
+include('config.php');
+include('functions.php');
 ?>
 
 	
@@ -53,8 +55,8 @@ error_reporting(0);
 									<select name="section" style="width:100%" id="section" class="form-control" required>
 									<option disabled selected>----Select Section----</option>
 										<?php 
-											$fetch_section=mysql_query("select * from tbl_section");
-											while($section_fetch=mysql_fetch_array($fetch_section))
+											$fetch_section=mysqli_query($db_egr,"select * from tbl_section");
+											while($section_fetch=mysqli_fetch_array($fetch_section))
 											{
 												echo "<option value='".$section_fetch['sec_id']."'>".$section_fetch['sec_name']."</option>";
 											}
@@ -72,8 +74,8 @@ error_reporting(0);
 									<select id="user_dept" name="user_dept" style="width:100%" class="form-control mydept" required>
 									<option value="" disabled selected>---Select Department---</option>
 									<?php
-										$fetch_dept=mysql_query("select * from  tbl_department");
-										while($dept_fetch=mysql_fetch_array($fetch_dept))
+										$fetch_dept=mysqli_query($db_egr,"select * from  tbl_department");
+										while($dept_fetch=mysqli_fetch_array($fetch_dept))
 										{
 											echo "<option value='".$dept_fetch['dept_id']."'>".$dept_fetch['deptname']."</option>";
 										}
@@ -93,8 +95,8 @@ error_reporting(0);
 									<select id="user_desig" name="user_desig" style="width:100%" class="form-control" required>
 									<option value="" disabled selected>---Select Designation---</option>
 									<?php
-										$fetch_des=mysql_query("select * from  tbl_designation");
-										while($des_fetch=mysql_fetch_array($fetch_des))
+										$fetch_des=mysqli_query($db_egr,"select * from  tbl_designation");
+										while($des_fetch=mysqli_fetch_array($fetch_des))
 										{
 											echo "<option value='".$des_fetch['id']."'>".$des_fetch['designation']."</option>";
 										}
@@ -142,8 +144,8 @@ error_reporting(0);
 								  <select id="user_office" name="user_office" style="width:100%" class="form-control" required>
 									<option value="" disabled selected>---Select Office---</option>
 								  <?php
-									$fetch_office=mysql_query("select * from tbl_office");
-									while($office_fetch=mysql_fetch_array($fetch_office))
+									$fetch_office=mysqli_query($db_egr,"select * from tbl_office");
+									while($office_fetch=mysqli_fetch_array($fetch_office))
 									{
 										echo "<option value='".$office_fetch['office_id']."'>".$office_fetch['office_name']."</option>";
 									}
@@ -160,8 +162,8 @@ error_reporting(0);
 								   <select id="user_station" name="user_station" style="width:100%" class="form-control" required>
 								   <option value="" disabled selected>---Select Station---</option>
 								   <?php
-									$fetch_station=mysql_query("select * from tbl_station");
-									while($station_fetch=mysql_fetch_array($fetch_station))
+									$fetch_station=mysqli_query($db_egr,"select * from tbl_station");
+									while($station_fetch=mysqli_fetch_array($fetch_station))
 									{
 										echo "<option value='".$station_fetch['station_id']."'>".$station_fetch['station_name']."</option>";
 									}

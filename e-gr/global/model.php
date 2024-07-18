@@ -64,9 +64,9 @@ require('config.php');
                     if (isset($_SESSION['user'])) {
                         $current = $_SESSION['user'];
                         //echo "<script>alert('$current');</script>";
-                        $sql_fetch = mysql_query("select * from register_user where emp_no='$current'", $db_common);
+                        $sql_fetch = mysqli_query($db_common,"select * from register_user where emp_no='$current'");
 
-                        $fetch = mysql_fetch_array($sql_fetch);
+                        $fetch = mysqli_fetch_array($sql_fetch);
                         $emp_name = $fetch['name'];
                         $emp_email = $fetch['emp_email'];
                         $emp_mob_no = $fetch['mobile'];
@@ -120,9 +120,9 @@ require('config.php');
                 if (isset($_SESSION['user'])) {
                     $current = $_SESSION['user'];
                     //echo "<script>alert('$current');</script>";
-                    $sql_fetch = mysql_query("select * from employee where emp_id='$current'");
+                    $sql_fetch = mysqli_query($db_egr,"select * from employee where emp_id='$current'");
 
-                    $fetch = mysql_fetch_array($sql_fetch);
+                    $fetch = mysqli_fetch_array($sql_fetch);
                     $emp_name = $fetch['emp_name'];
                     $emp_email = $fetch['emp_email'];
                     $emp_mob_no = $fetch['emp_mob'];
