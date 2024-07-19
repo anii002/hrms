@@ -284,47 +284,131 @@ include('functions.php');
                             function get_user1($first_id)
                             {
                                 global $db_egr;
-                                $first_user = mysqli_query($db_egr,"select user_name from tbl_user where user_id=$first_id");
+                            
+                                // Initialize the variable to handle cases where no result is found
+                                $f_user = null;
+                                
+                                // Sanitize the input ID to prevent SQL injection
+                                $first_id = (int) $first_id; // Casting to integer for safety
+                            
+                                $sql = "SELECT user_name FROM tbl_user WHERE user_id = $first_id AND status = 'active'";
+                                $first_user = mysqli_query($db_egr, $sql);
+                            
+                                if (!$first_user) {
+                                    // Query failed
+                                    return "Error: " . mysqli_error($db_egr);
+                                }
+                            
                                 while ($user_first = mysqli_fetch_array($first_user)) {
                                     $f_user = $user_first['user_name'];
                                 }
-                                return $f_user;
+                            
+                                // Return the fetched user name or a default value if not found
+                                return $f_user ?? "User not found";
                             }
+                            
                             function get_user2($second_id)
                             {
                                 global $db_egr;
-                                $second_user = mysqli_query($db_egr,"select user_name from tbl_user where user_id=$second_id");
+                            
+                                // Initialize the variable to handle cases where no result is found
+                                $s_user = null;
+                                
+                                // Sanitize the input ID to prevent SQL injection
+                                $second_id = (int) $second_id; // Casting to integer for safety
+                            
+                                $sql = "SELECT user_name FROM tbl_user WHERE user_id = $second_id AND status = 'active'";
+                                $second_user = mysqli_query($db_egr, $sql);
+                            
+                                if (!$second_user) {
+                                    // Query failed
+                                    return "Error: " . mysqli_error($db_egr);
+                                }
+                            
                                 while ($user_second = mysqli_fetch_array($second_user)) {
                                     $s_user = $user_second['user_name'];
                                 }
-                                return $s_user;
+                            
+                                // Return the fetched user name or a default value if not found
+                                return $s_user ?? "User not found";
                             }
+                            
                             function get_status($status)
                             {
                                 global $db_egr;
-                                $sql1 = mysqli_query($db_egr,"select status from status where id=$status");
+
+                                // Initialize the variable to handle cases where no result is found
+                                $status_fetch = null;
+
+                                // Sanitize the input ID to prevent SQL injection
+                                $status = (int) $status; // Casting to integer for safety
+
+                                $sql = "SELECT status FROM status WHERE id = $status";
+                                $sql1 = mysqli_query($db_egr, $sql);
+
+                                if (!$sql1) {
+                                    // Query failed
+                                    return "Error: " . mysqli_error($db_egr);
+                                }
+
                                 while ($sql_query1 = mysqli_fetch_array($sql1)) {
                                     $status_fetch = $sql_query1['status'];
                                 }
-                                return $status_fetch;
+
+                                // Return the fetched status or a default value if not found
+                                return $status_fetch ?? "Status not found";
                             }
+
                             function get_action($action)
                             {
                                 global $db_egr;
-                                $f_action = mysqli_query($db_egr,"select action from action where id=$action");
+
+                                // Initialize the variable to handle cases where no result is found
+                                $a_c = null;
+
+                                // Sanitize the input ID to prevent SQL injection
+                                $action = (int) $action; // Casting to integer for safety
+
+                                $sql = "SELECT action FROM action WHERE id = $action";
+                                $f_action = mysqli_query($db_egr, $sql);
+
+                                if (!$f_action) {
+                                    // Query failed
+                                    return "Error: " . mysqli_error($db_egr);
+                                }
+
                                 while ($action_f = mysqli_fetch_array($f_action)) {
                                     $a_c = $action_f['action'];
                                 }
-                                return $a_c;
+
+                                // Return the fetched action or a default value if not found
+                                return $a_c ?? "Action not found";
                             }
+
                             function get_section_action($sec_action)
                             {
                                 global $db_egr;
-                                $s_action = mysqli_query($db_egr,"select action from return_action where id=$sec_action");
+
+                                // Initialize the variable to handle cases where no result is found
+                                $s_a = null;
+
+                                // Sanitize the input ID to prevent SQL injection
+                                $sec_action = (int) $sec_action; // Casting to integer for safety
+
+                                $sql = "SELECT action FROM return_action WHERE id = $sec_action";
+                                $s_action = mysqli_query($db_egr, $sql);
+
+                                if (!$s_action) {
+                                    // Query failed
+                                    return "Error: " . mysqli_error($db_egr);
+                                }
+
                                 while ($action_s = mysqli_fetch_array($s_action)) {
                                     $s_a = $action_s['action'];
                                 }
-                                return $s_a;
+
+                                // Return the fetched action or a default value if not found
+                                return $s_a ?? "Section action not found";
                             }
                             $fire_all = mysqli_query($db_egr,"select  * from tbl_grievance_forward where griv_ref_no='$gri_ref_no'");
                             $count_doc = 1;
@@ -419,7 +503,7 @@ include('functions.php');
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12">
+                        <!-- <div class="col-md-4 col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Authority</label>
                                 <div class="col-md-7 col-sm-6 col-xs-12">
@@ -428,7 +512,7 @@ include('functions.php');
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-4 col-sm-12 col-xs-12"><br>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Upload</label>

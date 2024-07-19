@@ -1,9 +1,8 @@
-<?php 
-    session_start();
-    if (!isset($_SESSION["UserName"])) 
-    {
-        //echo "<script>window.location.href='../Login.php';</script>";
-    }
+<?php
+session_start();
+if (!isset($_SESSION["UserName"])) {
+  //echo "<script>window.location.href='../Login.php';</script>";
+}
 ?>
 <!DOCTYPE html>
 <html>

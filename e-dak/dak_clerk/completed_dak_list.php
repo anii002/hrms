@@ -7,7 +7,7 @@ include('common/sidebar.php');
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
-		<!-- BEGIN PAGE HEADER--> 
+		<!-- BEGIN PAGE HEADER-->
 		<div class="page-bar">
 			<ul class="page-breadcrumb">
 				<li>
@@ -22,66 +22,66 @@ include('common/sidebar.php');
 
 		</div>
 		<div class="row">
-		    <div class="col-md-12">
-    			<div class="portlet box blue">
-    				<div class="portlet-title">
-    					<div class="caption">
-    						<i class="fa fa-book"></i>Completed List
-    					</div> 
-    				</div>
-    				<div class="portlet-body form">
-    					<div class="form-body">
-    						<div class="row">
-    							<div class="col-md-6">
-    								<div class="form-group">
-    									<label class="control-label">Select From Date</label>
-    									<div class="input-group">
-    										<span class="input-group-addon">
-    											<i class="fas  fa-user"></i>
-    										</span>
-    										<input type="text" class="form-control txtrdfrom" id="r_date" name="r_date" autocomplete="off">
-    									</div>
-    								</div>
-    							</div>
-    							<div class="col-md-6">
-    								<div class="form-group">
-    									<label class="control-label">Select To Date</label>
-    									<div class="input-group">
-    										<span class="input-group-addon">
-    											<i class="fas  fa-user"></i>
-    										</span>
-    										<input type="text" class="form-control txtrdfrom" id="r_date2" name="r_date2" autocomplete="off">
-    									</div>
-    								</div>
-    							</div>
-    						</div>
-    						<button type="button" class="btn btn-info" id="btnc">Submit</button>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="portlet box blue">
-    				<div class="portlet-title">
-    					<div class="caption">
-    						<i class="fa fa-book"></i>Completed List
-    					</div> 
-    				</div>
-    				<div class="pre-loader preloader-single shadow-inner mg-t-30">
-    					<div class="ts_preloading_box">
-    						<div id="ts-preloader-absolute30">
-    							<div id="absolute30">
-    								<span></span><span></span><span></span><span></span><span></span>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    				<div class="portlet-body form">
-    					<div class="form-body">
-    						<div class="table-responsive" id="setTable">
-    
-    						</div>
-    					</div>
-    				</div>
-    			</div>
+			<div class="col-md-12">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-book"></i>Completed List
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label">Select From Date</label>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fas  fa-user"></i>
+											</span>
+											<input type="text" class="form-control txtrdfrom" id="r_date" name="r_date" autocomplete="off">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label">Select To Date</label>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fas  fa-user"></i>
+											</span>
+											<input type="text" class="form-control txtrdfrom" id="r_date2" name="r_date2" autocomplete="off">
+										</div>
+									</div>
+								</div>
+							</div>
+							<button type="button" class="btn btn-info" id="btnc">Submit</button>
+						</div>
+					</div>
+				</div>
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-book"></i>Completed List
+						</div>
+					</div>
+					<div class="pre-loader preloader-single shadow-inner mg-t-30">
+						<div class="ts_preloading_box">
+							<div id="ts-preloader-absolute30">
+								<div id="absolute30">
+									<span></span><span></span><span></span><span></span><span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<div class="form-body">
+							<div class="table-responsive" id="setTable">
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- END DASHBOARD STATS -->
@@ -107,7 +107,7 @@ include('common/footer.php');
 	});
 
 	$(document).on("click", "#btnc", function() {
-	    $(".pre-loader").show();
+		$(".pre-loader").show();
 		var fdate = $("#r_date").val();
 		var tdate = $("#r_date2").val();
 		//alert(date);
@@ -118,7 +118,7 @@ include('common/footer.php');
 		//var date4 = date3.getMonth() + "-" + date3.getDay()+"-"+date3.getYear();
 		var currentDate = new Date(date3);
 		//console.log(currentDate);
-		 if (fdate == '') {
+		if (fdate == '') {
 			alert("Please select from date field in form..");
 			$("#r_date").focus();
 		} else if (tdate == '') {
@@ -136,15 +136,14 @@ include('common/footer.php');
 			alert("To Date should be less than current date");
 			$("#r_date2").val('').focus();
 			return false;
-		}
-		else {
+		} else {
 
 			$.ajax({
 				type: "post",
 				url: "control/adminProcess.php",
-				data: "action=completeList&fdate=" + fdate+"&tdate="+tdate,
+				data: "action=completeList&fdate=" + fdate + "&tdate=" + tdate,
 				success: function(data) {
-                        $(".pre-loader").hide();
+					$(".pre-loader").hide();
 					$("#setTable").html(data);
 
 					$('#example1').DataTable({

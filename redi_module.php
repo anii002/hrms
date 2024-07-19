@@ -907,7 +907,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION['dept'] = $row_dak['user_dept'];
 				$_SESSION['desig'] = $row_dak['user_desg'];
-				echo "<script>window.location.href='../e-dak/admin/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dak/admin/index.php';</script>";
 			}
 
 			if ($_POST['dak'] == 1) {
@@ -917,7 +917,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['section'] = $row_dak['section'];
 				$_SESSION['dept'] = $row_dak['user_dept'];
 				$_SESSION['desig'] = $row_dak['user_desg'];
-				echo "<script>window.location.href='../e-dak/dak_clerk/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dak/dak_clerk/index.php';</script>";
 			}
 
 			if ($_POST['dak'] == 2) {
@@ -927,7 +927,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['section'] = $row_dak['section'];
 				$_SESSION['dept'] = $row_dak['user_dept'];
 				$_SESSION['desig'] = $row_dak['user_desg'];
-				echo "<script>window.location.href='../e-dak/section_user/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dak/section_user/index.php';</script>";
 			}
 		}
 
@@ -1032,7 +1032,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION["id"] = $row_dar["id"];
 
-				echo "<script>window.location.href='../e-dar/admin/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dar/admin/index.php';</script>";
 			}
 
 			if ($_POST['dar'] == 2) {
@@ -1041,7 +1041,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION["id"] = $row_dar["id"];
 
-				echo "<script>window.location.href='../e-dar/clerk/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dar/clerk/index.php';</script>";
 			}
 
 			if ($_POST['dar'] == 3) {
@@ -1059,7 +1059,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION["id"] = $row_dar["id"];
 
-				echo "<script>window.location.href='../e-dar/inquiry_officer/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dar/inquiry_officer/index.php';</script>";
 			}
 
 
@@ -1069,7 +1069,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['username'] = $pf_num;
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION["id"] = $row_dar["id"];
-				echo "<script>window.location.href='../e-dar/employee/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dar/employee/index.php';</script>";
 			}
 		}
 	} else {

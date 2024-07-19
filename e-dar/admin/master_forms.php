@@ -4,13 +4,13 @@ include_once('../common_files/header.php');
 // include_once('../common_files/sidebar_admin.php');
 ?>
 <style type="text/css">
-.updateModal {
-    width: 805px !important;
-    /* margin-left: 0px !important; */
-    /* width: 100% !important; */
-    left: 38% !important;
-    right: 50% !important;
-}
+    .updateModal {
+        width: 805px !important;
+        /* margin-left: 0px !important; */
+        /* width: 100% !important; */
+        left: 38% !important;
+        right: 50% !important;
+    }
 </style>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
@@ -46,8 +46,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas  fa-user"></i>
                                             </span>
-                                            <input type="text" class="form-control" id="form_name" name="form_name"
-                                                placeholder="Enter Form Name" required>
+                                            <input type="text" class="form-control" id="form_name" name="form_name" placeholder="Enter Form Name" required>
                                         </div>
                                     </div>
                                 </div>
@@ -59,8 +58,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
-                                            <textarea class="form-control" id="form_title" name="form_title"
-                                                required></textarea>
+                                            <textarea class="form-control" id="form_title" name="form_title" required></textarea>
                                             <!-- <input type="text" class="form-control" id="gist_letter" name="gist_letter" placeholder="Enter Gist of letter"> -->
                                         </div>
                                     </div>
@@ -74,17 +72,15 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas  fa-user"></i>
                                             </span>
-                                            <select name="penality_type" id="penality_type"
-                                                class="select2me form-control billunitindex" style="width: 100%;"
-                                                tabindex="-1" aria-hidden="true" required>
+                                            <select name="penality_type" id="penality_type" class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
                                                 <option value="0" selected>--Select Penalty Type--</option>
 
                                                 <?php
-												$query_form = mysql_query("SELECT * from tbl_penality_type", $db_edar);
-												while ($value_form = mysql_fetch_array($query_form)) {
-													echo "<option value='" . $value_form['id'] . "'>" . $value_form['penality_name'] . "</option>";
-												}
-												?>
+                                                $query_form = mysqli_query($db_edar,"SELECT * from tbl_penality_type");
+                                                while ($value_form = mysqli_fetch_array($query_form)) {
+                                                    echo "<option value='" . $value_form['id'] . "'>" . $value_form['penality_name'] . "</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
@@ -121,11 +117,11 @@ include_once('../common_files/header.php');
                             </thead>
                             <tbody>
                                 <?php
-								$query_frm = "SELECT * from tbl_master_form";
-								$result_frm = mysql_query($query_frm, $db_edar);
-								$sr = 1;
-								while ($value_frm = mysql_fetch_array($result_frm)) {
-									echo "
+                                $query_frm = "SELECT * from tbl_master_form";
+                                $result_frm = mysqli_query($db_edar,$query_frm);
+                                $sr = 1;
+                                while ($value_frm = mysqli_fetch_array($result_frm)) {
+                                    echo "
 										<tr>
 										<td>" . $sr++ . "</td>
 										<td>" . $value_frm['form_name'] . "</td>
@@ -133,13 +129,13 @@ include_once('../common_files/header.php');
 										<td>" . getPenalyType($value_frm['form_type']) . "</td>
 
 										";
-									//echo "<a target='_blank'  id='".$value_emp['uploaded_file_path']."' value='".$value_emp['uploaded_file_path']."'>'".$value_emp['uploaded_file_path']."'</a>";
-									echo "<td><button value='" . $value_frm['id'] . "' form-name='" . $value_frm['form_name'] . "' form-title='" . $value_frm['form_title'] . "' form-type='" . $value_frm['form_type'] . "' class='btn btn-info fetchid' data-target='#responsive' data-toggle='modal' style='margin-left:10px;'>Update</button>";
-									echo "<button value='" . $value_frm['id'] . "' class='btn btn-danger remove' style='margin-left:10px;'>Remove</button></td>";
-									echo "</tr>
+                                    //echo "<a target='_blank'  id='".$value_emp['uploaded_file_path']."' value='".$value_emp['uploaded_file_path']."'>'".$value_emp['uploaded_file_path']."'</a>";
+                                    echo "<td><button value='" . $value_frm['id'] . "' form-name='" . $value_frm['form_name'] . "' form-title='" . $value_frm['form_title'] . "' form-type='" . $value_frm['form_type'] . "' class='btn btn-info fetchid' data-target='#responsive' data-toggle='modal' style='margin-left:10px;'>Update</button>";
+                                    echo "<button value='" . $value_frm['id'] . "' class='btn btn-danger remove' style='margin-left:10px;'>Remove</button></td>";
+                                    echo "</tr>
 								";
-								}
-								?>
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -152,15 +148,14 @@ include_once('../common_files/header.php');
     </div>
     <!-- END CONTENT -->
     <?php
-	include_once('../common_files/footer.php');
-	?>
+    include_once('../common_files/footer.php');
+    ?>
     <div id="responsive" class="modal fade modal-scroll updateModal" tabindex="-1" data-replace="true">
         <div class="modal-header btn-orange-moon">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">Update Form Data : <span id="name1" name="name1"></span> </h4>
         </div>
-        <form action="control/adminProcess.php?action=updateMasterForm" method="post" enctype="multipart/form-data"
-            autocomplete="off" class="horizontal-form">
+        <form action="control/adminProcess.php?action=updateMasterForm" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
             <div class="modal-body">
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -174,8 +169,7 @@ include_once('../common_files/header.php');
                                         <span class="input-group-addon">
                                             <i class="fas  fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control" id="u_form_name" name="u_form_name"
-                                            placeholder="Enter Form Name" required>
+                                        <input type="text" class="form-control" id="u_form_name" name="u_form_name" placeholder="Enter Form Name" required>
                                     </div>
                                 </div>
                             </div>
@@ -187,8 +181,7 @@ include_once('../common_files/header.php');
                                         <span class="input-group-addon">
                                             <i class="fas fa-envelope"></i>
                                         </span>
-                                        <textarea rows="3" class="form-control" id="u_form_title" name="u_form_title"
-                                            required></textarea>
+                                        <textarea rows="3" class="form-control" id="u_form_title" name="u_form_title" required></textarea>
                                         <!-- <input type="text" class="form-control" id="gist_letter" name="gist_letter" placeholder="Enter Gist of letter"> -->
                                     </div>
                                 </div>
@@ -202,17 +195,15 @@ include_once('../common_files/header.php');
                                         <span class="input-group-addon">
                                             <i class="fas  fa-user"></i>
                                         </span>
-                                        <select name="u_penality_type" id="u_penality_type"
-                                            class="select2me form-control billunitindex" style="width: 100%;"
-                                            tabindex="-1" aria-hidden="true" required>
+                                        <select name="u_penality_type" id="u_penality_type" class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
                                             <option value="0" selected disabled="">--Select Penalty Type--</option>
 
                                             <?php
-											$query_form = mysql_query("SELECT * from tbl_penality_type", $db_edar);
-											while ($value_form = mysql_fetch_array($query_form)) {
-												echo "<option value='" . $value_form['id'] . "'>" . $value_form['penality_name'] . "</option>";
-											}
-											?>
+                                            $query_form = mysqli_query($db_edar,"SELECT * from tbl_penality_type");
+                                            while ($value_form = mysqli_fetch_array($query_form)) {
+                                                echo "<option value='" . $value_form['id'] . "'>" . $value_form['penality_name'] . "</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -231,78 +222,78 @@ include_once('../common_files/header.php');
         </form>
     </div>
     <script>
-    $(document).on("click", ".remove", function() {
-        var value = $(this).attr("value");
-        var result = confirm("Confirm!!! Proceed for Remove?");
-        if (result == true) {
-            //alert(value);
-            $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: "action=removeMasterForm&id=" + value,
-                success: function(data) {
-                    //alert(data);
-                    if (data == 1) {
-                        alert("Removed Successfully");
-                        window.location = "master_forms.php";
+        $(document).on("click", ".remove", function() {
+            var value = $(this).attr("value");
+            var result = confirm("Confirm!!! Proceed for Remove?");
+            if (result == true) {
+                //alert(value);
+                $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: "action=removeMasterForm&id=" + value,
+                    success: function(data) {
+                        //alert(data);
+                        if (data == 1) {
+                            alert("Removed Successfully");
+                            window.location = "master_forms.php";
+                        }
+                        //
+                        else {
+                            alert("Failed To Remove");
+                        }
                     }
-                    //
-                    else {
-                        alert("Failed To Remove");
-                    }
-                }
-            });
-        }
-    });
-    //Adding form master
-    $(document).on("click", ".add_form", function() {
-        var form_name = $("#form_name").val();
-        var form_title = $("#form_title").val();
-        var r = encodeURIComponent(form_title);
-        var p_type = $("#penality_type").val();
+                });
+            }
+        });
+        //Adding form master
+        $(document).on("click", ".add_form", function() {
+            var form_name = $("#form_name").val();
+            var form_title = $("#form_title").val();
+            var r = encodeURIComponent(form_title);
+            var p_type = $("#penality_type").val();
 
-        alert(r);
-        if (form_name == "") {
-            alert("Enter form name....");
-            $("#form_name").focus();
-        } else if (form_title == "") {
-            alert("Enter form title....");
-            $("#form_title").focus();
-        } else if (p_type == "0") {
-            alert("Please select penalty type....");
-            $("#penality_type").focus();
-        } else {
-            //alert(value);
-            $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: "action=add_masterForm&form_name=" + form_name + "&form_title=" + r +
-                    "&penality_type=" + p_type,
-                success: function(data) {
-                    // alert(data);
-                    // console.log(data);
-                    if (data == 1) {
-                        alert("Form added successfully....");
-                        window.location = "master_forms.php";
+            alert(r);
+            if (form_name == "") {
+                alert("Enter form name....");
+                $("#form_name").focus();
+            } else if (form_title == "") {
+                alert("Enter form title....");
+                $("#form_title").focus();
+            } else if (p_type == "0") {
+                alert("Please select penalty type....");
+                $("#penality_type").focus();
+            } else {
+                //alert(value);
+                $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: "action=add_masterForm&form_name=" + form_name + "&form_title=" + r +
+                        "&penality_type=" + p_type,
+                    success: function(data) {
+                        // alert(data);
+                        // console.log(data);
+                        if (data == 1) {
+                            alert("Form added successfully....");
+                            window.location = "master_forms.php";
+                        }
+                        //
+                        else {
+                            alert("Failed To add form!!!");
+                        }
                     }
-                    //
-                    else {
-                        alert("Failed To add form!!!");
-                    }
-                }
-            });
-        }
-    });
-    $(document).on("click", ".fetchid", function() {
-        var value = $(this).attr("value");
-        var frm_name = $(this).attr("form-name");
-        var frm_title = $(this).attr("form-title");
-        var frm_type = $(this).attr("form-type");
-        //alert(src_name);
-        $("#frm_id").val(value);
-        $("#u_form_name").val(frm_name);
-        $("#u_form_title").val(frm_title);
-        $("#u_penality_type").val(frm_type).trigger("change");
+                });
+            }
+        });
+        $(document).on("click", ".fetchid", function() {
+            var value = $(this).attr("value");
+            var frm_name = $(this).attr("form-name");
+            var frm_title = $(this).attr("form-title");
+            var frm_type = $(this).attr("form-type");
+            //alert(src_name);
+            $("#frm_id").val(value);
+            $("#u_form_name").val(frm_name);
+            $("#u_form_title").val(frm_title);
+            $("#u_penality_type").val(frm_type).trigger("change");
 
-    });
+        });
     </script>

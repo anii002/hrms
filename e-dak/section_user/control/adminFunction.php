@@ -9,7 +9,7 @@ function AddAdmin($empid,$username,$psw,$role,$dept,$station)
 {
   global $con;
   $query = "insert into users(empid,username,password,role,dept, station) values('$empid','$username','".hashPassword($psw,SALT1,SALT2)."','$role','$dept','$station')";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -18,10 +18,11 @@ function AddAdmin($empid,$username,$psw,$role,$dept,$station)
 
 function changeimg($name,$tmp_name)
 {
+  global $con;
 	$upload_dir = "../profile/".$_SESSION['empid'].".jpg";
 	$dir = "profile/".$_SESSION['empid'].".jpg";
 	if (move_uploaded_file($tmp_name, $upload_dir)) {
-		$query = mysql_query("update employees set img='$dir' where pfno='".$_SESSION['empid']."'");
+		$query = mysqli_query($con,"update employees set img='$dir' where pfno='".$_SESSION['empid']."'");
         return true;
     } else {
         return false;
@@ -31,7 +32,7 @@ function updateUser($fname,$email,$mobile,$design)
 {
   global $con;
   $query = "update users set fname='$fname', designation='$design', mobile='$mobile', email='$email' where id='".$_SESSION['admin_id']."'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -40,18 +41,19 @@ function updateUser($fname,$email,$mobile,$design)
 
 function getbackclaimedta($id)
 {
-    $select = mysql_query("select count(id) as total from forward_data where reference_id='$id'");
-    $selectresult = mysql_fetch_array($select);
+  global $con;
+    $select = mysqli_query($con,"select count(id) as total from forward_data where reference_id='$id'");
+    $selectresult = mysqli_fetch_array($select);
     if($selectresult['total'] > 0)
     {
       return false;
     }
     else
     {
-        $delete = mysql_query("delete from forward_data where reference_id='$id'");
+        $delete = mysqli_query($con,"delete from forward_data where reference_id='$id'");
         if($delete)
         {
-          $update = mysql_query("update taentryform_master set forward_status='0' where reference='$id'");
+          $update = mysqli_query($con,"update taentryform_master set forward_status='0' where reference='$id'");
           if($update)
               return true;
           else
@@ -64,16 +66,17 @@ function getbackclaimedta($id)
 
 function forward_TA($empid,$ref,$forwardName)
 {
+  global $con;
     $query1 = "UPDATE `taentry_master` SET `forward_status`='1' WHERE `empid`='".$empid."' AND `reference_no`='".$ref."' ";
-    $result1 = mysql_query($query1);
+    $result1 = mysqli_query($con,$query1);
 
  $query = "insert into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('".$empid."','".$ref."','".$forwardName."',CURRENT_TIMESTAMP,'1')";
-    $result = mysql_query($query);
+    $result = mysqli_query($con,$query);
 
   if($result)
   {
-    $query2 = mysql_query("SELECT mobile FROM employees WHERE pfno='".$empid."'");
-    $result_set = mysql_fetch_array($query2);
+    $query2 = mysqli_query($con,"SELECT mobile FROM employees WHERE pfno='".$empid."'");
+    $result_set = mysqli_fetch_array($query2);
     //Your authentication key
     $authKey = "70302AbSftnyOwtvs53d8e401";
     
@@ -138,10 +141,11 @@ function forward_TA($empid,$ref,$forwardName)
 
 function validate_date($date)
 {
+  global $con;
   $query = "select SUM(percent) AS SUM from taentryforms where empid='".$_SESSION['empid']."' and taDate='$date' AND status != '0'";
-      $result = mysql_query($query);
-      $data = mysql_fetch_array($result);
-      $cnt = mysql_num_rows($result);
+      $result = mysqli_query($con,$query);
+      $data = mysqli_fetch_array($result);
+      $cnt = mysqli_num_rows($result);
       if($cnt>0 && $data['SUM']!="")
       {
         return $data['SUM'];
@@ -157,9 +161,9 @@ function adminapprove($empid,$ref,$original_id)
 {
   global $con;
   echo $query = "update forward_data set admin_approved=CURRENT_TIMESTAMP,hold_status='0' where reference_id='$ref' AND fowarded_to='$empid'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   echo $query = "insert into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('$empid','$ref','$original_id',CURRENT_TIMESTAMP,'1')";
-   $result = mysql_query($query) or die(mysql_erro());
+   $result = mysqli_query($con,$query) or die(mysqli_error($con,));
   if($result)
     return true;
   else
@@ -171,7 +175,7 @@ function changePass($pass,$confirm)
 {
   global $con;
   $query = "update employees set psw='".hashPassword($pass,SALT1,SALT2)."' where pfno='".$_SESSION['empid']."'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result) 
     return true;
   else
@@ -182,7 +186,7 @@ function AddDesign($design)
 {
   global $con;
   $query = "insert into designation(designation) values('$design')";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -192,15 +196,15 @@ function fetchDesign($id)
 {
   global $con;
   $query = "select * from designation where id = '$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
+  $result = mysqli_query($con,$query);
+  $value = mysqli_fetch_array($result);
   return json_encode($value);
 }
 function UpdateDesign($design,$id)
 {
   global $con;
   $query = "update designation set designation='$design' where id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -211,7 +215,7 @@ function DeleteDesign($id)
 {
   global $con;
   $query = "delete from designation where id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
     echo "<script>alert('$query');</script>";
   if($result)
     return true;
@@ -222,7 +226,7 @@ function updateEmployee($empid,$billunit,$panno,$fullname,$desig,$station,$mobil
 {
   global $con;
   $query = "INSERT INTO `employees_update`(`BU`, `pfno`, `panno`, `name`, `desig`, `station`, `mobile`, `email`, `catg`, `dept`, `depot_id`,`bp`, `gp`, `bdate`, `apdate`, `level`, `CI_PF`, `isupdated`) VALUES ('".$billunit."','".$empid."','".$panno."','".$fullname."','".$desig."','".$station."','".$mobile."','".$email."','".$category."','".$dept."','".$txtworkdepot."','".$txtbasicpay."','".$gradepay."','".$txtdob."','".$txtappointment."','".$level."','".$forwardName."','".$isupdated."')";
-  $result = mysql_query($query) or die(mysqli_error($con));
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -232,8 +236,8 @@ function FetchEmployee($id)
 {
   global $con;
   $query = "select * from employees where id = '$id'";
-  $result = mysql_query($query);
-  $value = mysql_fetch_array($result);
+  $result = mysqli_query($con,$query);
+  $value = mysqli_fetch_array($result);
   $data['empid']=$value['pfno'];
   $data['empname']=$value['name'];
   $data['billunit']=$value['BU'];
@@ -248,8 +252,8 @@ function FetchEmployee($id)
 // {
 //   global $con;
 //   $query = "select * from employees where pfno = '$id'";
-//   $result = mysql_query($query);
-//   $value = mysql_fetch_array($result);
+//   $result = mysqli_query($query);
+//   $value = mysqli_fetch_array($result);
 //   $data['empid']=$value['pfno'];
 //   $data['empname']=$value['name'];
 //   $data['billunit']=$value['BU'];
@@ -264,16 +268,16 @@ function fetchEmployee1($id)
 {
   global $con;
   $query = "select * from employees where pfno = '$id'";
-  $result = mysql_query($query);
-  $qu=mysql_query("select empid from users where empid='$id'");
-  $res=mysql_num_rows($qu);
+  $result = mysqli_query($con,$query);
+  $qu=mysqli_query($con,"select empid from users where empid='$id'");
+  $res=mysqli_num_rows($qu);
   if($res > 0)
   {
      return 1;
   }
   else
   {
-      $value = mysql_fetch_array($result);
+      $value = mysqli_fetch_array($result);
       $data['empid']=$value['pfno'];
       $data['empname']=$value['name'];
       $data['billunit']=$value['BU'];
@@ -289,7 +293,7 @@ function deleteEmployee($id)
 {
   global $con;
   $query = "delete from employees where id='$id'";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -302,7 +306,7 @@ function claimTA($data,$reference,$empid,$year,$months,$cnt,$set)
   {
     $query = "INSERT INTO `taentryforms`(`TAYear`,`TAMonth`,`empid`,`reference`, `taDate`, `train`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `objective`,`set_number`) VALUES ('$year','$months','$empid','$reference','".$data['date'][$i]."','".$data['train'][$i]."','".$data['departS'][$i]."','".$data['departT'][$i]."','".$data['arrivalS'][$i]."','".$data['arrivalT'][$i]."','".$data['distance'][$i]."','".$data['percent'][$i]."','".$data['amount'][$i]."','".$data['objective'][$i]."','$set')";
     $_SESSION['table_ref']=$reference;
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($con,$query) or die(mysqli_error($con));
   }
   if($result)
     return true;
@@ -316,7 +320,7 @@ function addclaimTA($data,$reference,$empid,$year,$months,$cnt,$set)
   {
     $query = "INSERT INTO `taentryforms`(`TAYear`,`TAMonth`,`empid`,`reference`, `taDate`, `train`, `departS`, `departT`, `arrivalS`, `arrivalT`, `distance`, `percent`, `amount`, `objective`,`set_number`) VALUES ('$year','$months','$empid','$reference','".$data['date'][$i]."','".$data['train'][$i]."','".$data['departS'][$i]."','".$data['departT'][$i]."','".$data['arrivalS'][$i]."','".$data['arrivalT'][$i]."','".$data['distance'][$i]."','".$data['percent'][$i]."','".$data['amount'][$i]."','".$data['objective'][$i]."','$set')";
     $_SESSION['table_ref']=$reference;
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($con,$query) or die(mysqli_error($con));
   }
   if($result)
     return true;
@@ -326,9 +330,10 @@ function addclaimTA($data,$reference,$empid,$year,$months,$cnt,$set)
 
 function getTaAmount($level)
 {
+  global $con;
   $query = "select amount from ta_amount where min<=$level AND max>=$level";
-  $result  = mysql_query($query);
-  $value = mysql_fetch_array($result);
+  $result  = mysqli_query($con,$query);
+  $value = mysqli_fetch_array($result);
   return $value['amount'];
 }
 
@@ -336,9 +341,9 @@ function approveAndForward($empid,$ref,$forwardName,$original_id)
 {
   global $con;
   $query = "update forward_data set depart_time=CURRENT_TIMESTAMP,hold_status='0' where reference_id='$ref' AND fowarded_to='$empid'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   $query = "insert into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status) values('$original_id','$ref','$forwardName',CURRENT_TIMESTAMP,'1')";
-  $result = mysql_query($query) or die(mysql_erro());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -349,7 +354,7 @@ function AddEmployee($empid,$pannumber,$empname,$billunit,$mobile,$email,$design
 {
   global $con;
   $query = "insert into employees(pfno,panno,name,BU,mobile,gp,desig,level,station,dept,psw) values('$empid','$pannumber','$empname','$billunit','$mobile','$email','$design','$paylevel','Solapur','ACCOUNTS','123')";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -360,7 +365,7 @@ function AddUser($empid,$username,$psw,$role)
 {
   global $con;
   $query = "insert into users(empid,username,password,role) values('$empid','$username','".hashPassword($psw,SALT1,SALT2)."','$role')";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -370,7 +375,7 @@ function AddUser($empid,$username,$psw,$role)
 function activeUser($pfno,$active){
   global $con;
   $query = "update employees set status='$active' where pfno='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -380,7 +385,7 @@ function activeUser($pfno,$active){
 function activeDepot($id,$active){
   global $con;
   $query = "UPDATE `depot_master` SET `status`='".$active."' WHERE id='$id'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -389,7 +394,7 @@ function activeDepot($id,$active){
 function deactiveDepot($id,$active){
   global $con;
   $query = "UPDATE `depot_master` SET `status`='".$active."' WHERE id='$id'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -398,7 +403,7 @@ function deactiveDepot($id,$active){
 function deactiveUser($pfno,$active){
   global $con;
   $query = "update employees set status='$active' where pfno='$pfno'";
-  $result = mysql_query($query) or die(mysql_error());
+  $result = mysqli_query($con,$query) or die(mysqli_error($con));
   if($result)
     return true;
   else
@@ -407,8 +412,9 @@ function deactiveUser($pfno,$active){
 
 function applybillunit($empid,$billunit)
 {
+  global $con;
   $query = "insert into sep_billunit(employee_id,billunit) values('".$empid."','".$billunit."')";
-  $result = mysql_query($query);
+  $result = mysqli_query($con,$query);
   if($result)
     return true;
   else
@@ -418,15 +424,15 @@ function applybillunit($empid,$billunit)
 function generatesummary($selected_list_emp,$selected_list,$title,$description)
 {
   global $con;
-  $query_summary = mysql_query("insert into tbl_summary (title,description, othe_dept) values('$title','$description', '1')");
-  $id = mysql_insert_id();
+  $query_summary = mysqli_query($con,"insert into tbl_summary (title,description, othe_dept) values('$title','$description', '1')");
+  $id = mysqli_insert_id($con);
   $cnt = 0;
   foreach($selected_list as $list)
   {
     $query = "update forward_data set summary='1'where reference_id='$list'";
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($con,$query) or die(mysqli_error($con));
     $query = "insert into tbl_summary_details(summary_id,empid,reference) values('".$id."','".$selected_list_emp[$cnt]."','".$list."')";
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($con,$query) or die(mysqli_error($con));
     $cnt++;
   }
   if($result)
@@ -438,15 +444,15 @@ function generatesummary($selected_list_emp,$selected_list,$title,$description)
 function summarysend($forwardName,$original_id,$loginid)
 {
     global $con;
-    $query_select = mysql_query("SELECT * FROM tbl_summary_details where summary_id = '".$original_id."'");
-    while($result_set = mysql_fetch_array($query_select))
+    $query_select = mysqli_query($con,"SELECT * FROM tbl_summary_details where summary_id = '".$original_id."'");
+    while($result_set = mysqli_fetch_array($query_select))
     {
   echo   $query = "update forward_data set depart_time=CURRENT_TIMESTAMP,hold_status='0' where reference_id='".$result_set['reference']."' and fowarded_to='$loginid' ";
-      $result = mysql_query($query) or die(mysql_error());
+      $result = mysqli_query($con,$query) or die(mysqli_error($con));
       $query_update = "update tbl_summary set forward_status='1', approved_status='1' where id='".$result_set['summary_id']."'";
-      $result = mysql_query($query_update) or die(mysql_error());
+      $result = mysqli_query($con,$query_update) or die(mysqli_error($con));
       $innerquery = "insert into forward_data(empid,reference_id,fowarded_to,arrived_time,hold_status,summary) values('".$result_set['empid']."','".$result_set['reference']."','".$forwardName."',CURRENT_TIMESTAMP,'1','1')";
-      $result = mysql_query($innerquery) or die(mysql_error());
+      $result = mysqli_query($con,$innerquery) or die(mysqli_error($con));
     }
     if($result)
       return true;

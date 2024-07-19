@@ -111,9 +111,9 @@ include('control/function.php');
 		<div class="pre-loader preloader-single shadow-inner mg-t-30">
 			<div class="ts_preloading_box">
 				<div id="ts-preloader-absolute30">
-					<div id="absolute30">
+					<!-- <div id="absolute30">
 						<span></span><span></span><span></span><span></span><span></span>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -148,58 +148,49 @@ include('control/function.php');
 					<li class="dropdown dropdown-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<?php
-							// $query = mysql_query("select img from employees where pfno='".$_SESSION['empid']."'");
-							// $result = mysql_fetch_array($query);
-							if($result['img']=="")
-							{
+							if (empty($result['img'])) {
 							?>
-							<img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg"/>
-							<?php 
+								<img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
+							<?php
+							} else {
+							?>
+								<img alt="" class="img-circle" src="../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
+							<?php
 							}
-							else
-							{ ?>
-							<img alt="" class="img-circle" src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" />
-						<?php } ?>
-					<span class="username username-hide-on-mobile">
-						 <span class="empname" style="color: floralwhite;">
-						 	<?php 
-						 	if($_SESSION['user'] == 'admin')
-						 	{
-						 	    echo $_SESSION['user'];
-						 	}
-						 	else
-						 	{
-						 	    
-						 	    $query = mysql_query("SELECT `name` FROM `register_user` WHERE `emp_no` = '".$_SESSION['emp_id']."'");
-						 	    $row = mysql_fetch_array($query);
-						 	    echo $row['name'];   
-						 	}
-						 	?>
-						 </span>
-					</span>
+							?>
+							<span class="username username-hide-on-mobile">
+								<span class="empname" style="color: floralwhite;">
+									<?php
+									if (isset($_SESSION['user']) && $_SESSION['user'] == 'admin') {
+										echo $_SESSION['user'];
+									} else {
+										$query = mysqli_query($db_common, "SELECT `name` FROM `register_user` WHERE `emp_no` = '" . $_SESSION['emp_id'] . "'");
+										$row = mysqli_fetch_array($query);
+										echo $row['name'];
+									}
+									?>
+								</span>
+							</span>
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
-							<a href="../../../index.php">
-							<i class="fas fa-home"></i> Home </a>
-						</li>
-						<li>
-							<a href="../../../profile.php">
-							<i class="fas fa-user"></i>Profile</a>
-						</li>
-						<li>
-							<a href="../../../Logout.php">
-							<i class="fas fa-sign-out-alt"></i> Log Out </a>
-						</li>
+								<a href="../../dashboard.php">
+									<i class="fas fa-home"></i> Home
+								</a>
+							</li>
+							<li>
+								<a href="../../profile.php">
+									<i class="fas fa-user"></i> Profile
+								</a>
+							</li>
+							<li>
+								<a href="../../Logout.php">
+									<i class="fas fa-sign-out-alt"></i> Log Out
+								</a>
+							</li>
 						</ul>
-
-						<!--<ul class="loginas pull-right">
-        	<li><a class="btn btn-warning" data-toggle="modal" onClick="modu('tamm')" href="#myModal">Login As</a></li>
-       				 </ul>-->
-
 					</li>
-
 				</ul>
 
 				<!--<ul class="loginas pull-right">-->

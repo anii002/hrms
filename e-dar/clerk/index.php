@@ -44,10 +44,10 @@ include_once("../dbconfig/dbcon.php");
                             <?php
                             $current_id = $_SESSION["id"];
                             $sql = "SELECT fw.emp_pf FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON fw.form_reference_id=f_m_e.form_ref_id WHERE f_m_e.current_status='2' AND fw.fw_from='$current_id' AND f_m_e.status='1' GROUP BY fw.`form_reference_id` ORDER BY fw.id DESC";
-                            $rst_pending_list = mysql_query($sql, $db_edar);
-                            echo mysql_num_rows($rst_pending_list);
-                            // $query = mysql_query("SELECT count(tbl_dak_forward.id) as id from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1' ", $db_edak);
-                            // $resultset = mysql_fetch_array($query);
+                            $rst_pending_list = mysqli_query($db_edar,$sql);
+                            echo mysqli_num_rows($rst_pending_list);
+                            // $query = mysqli_query("SELECT count(tbl_dak_forward.id) as id from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1' ", $db_edak);
+                            // $resultset = mysqli_fetch_array($query);
                             // echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
                             ?>
                         </div>
@@ -71,12 +71,12 @@ include_once("../dbconfig/dbcon.php");
                             <?php
                             $current_id = $_SESSION["id"];
                             $sql = "SELECT fw.emp_pf,fw.form_reference_id FROM `tbl_form_forward` fw INNER JOIN  tbl_form_master_entry f_m_e ON f_m_e.form_ref_id=fw.form_reference_id WHERE f_m_e.current_status='9' AND fw.fw_from='$current_id' AND f_m_e.status='2' GROUP BY fw.form_reference_id ORDER BY fw.id DESC";
-                            $rst_closed_list = mysql_query($sql, $db_edar);
-                            $rw_closed_list = mysql_fetch_array($rst_closed_list);
+                            $rst_closed_list = mysqli_query($db_edar,$sql);
+                            $rw_closed_list = mysqli_fetch_array($rst_closed_list);
                             // print_r($rw_closed_list);
-                            echo mysql_num_rows($rst_closed_list);
-                            // $query = mysql_query("SELECT count(id)as id from tbl_dak where status='2' and added_by='" . $_SESSION['emp_id'] . "' ", $db_edak);
-                            // $resultset = mysql_fetch_array($query);
+                            echo mysqli_num_rows($rst_closed_list);
+                            // $query = mysqli_query("SELECT count(id)as id from tbl_dak where status='2' and added_by='" . $_SESSION['emp_id'] . "' ", $db_edak);
+                            // $resultset = mysqli_fetch_array($query);
                             // echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
                             ?>
                         </div>

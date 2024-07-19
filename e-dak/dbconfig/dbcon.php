@@ -4,17 +4,25 @@ date_default_timezone_set('Asia/Kolkata');
 
 $db_edak_name = "drmpsurh_e_dak";
 $db_common_name = "drmpsurh_sur_railway";
-$db_edak = mysql_connect('localhost', 'drmpsurh_test', 'root@123', true) or trigger_error("Unable to connect to the database: " . mysql_error());
-mysql_select_db($db_edak_name, $db_edak);
-$db_common = mysql_connect('localhost', 'esoluhp6_test', 'root@123', true) or trigger_error("Unable to connect to the database: " . mysql_error());
-mysql_select_db($db_common_name, $db_common);
 
+// Connect to the e-dak database
+$db_edak = mysqli_connect('localhost', 'root', '', $db_edak_name);
+if (!$db_edak) {
+    trigger_error("Unable to connect to the e-dak database: " . mysqli_connect_error());
+    exit();
+}
 
+// Connect to the common database
+$db_common = mysqli_connect('localhost', 'root', '', $db_common_name);
+if (!$db_common) {
+    trigger_error("Unable to connect to the common database: " . mysqli_connect_error());
+    exit();
+}
 
 define('SALT1', '2345#$%@3e');
 define('SALT2', 'taesa%#@2%^#');
 
-function hashPassword($pPassword, $pSalt1 = "2345#$%@3e", $pSalt2 = "taesa%#@2%^#")
+function hashPassword($pPassword, $pSalt1 = SALT1, $pSalt2 = SALT2)
 {
-	return sha1(md5($pSalt2 . $pPassword . $pSalt1));
+    return sha1(md5($pSalt2 . $pPassword . $pSalt1));
 }

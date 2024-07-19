@@ -114,9 +114,9 @@ include('common/sidebar.php');
     											<option value="" selected disabled>--Select Role--</option>
     											<?php
     
-    											$query_role = mysql_query("SELECT * from role_user where id NOT in (3)", $db_edak);
+    											$query_role = mysqli_query($db_edak,"SELECT * from role_user where id NOT in (3)" );
     
-    											while ($value_role = mysql_fetch_array($query_role)) {
+    											while ($value_role = mysqli_fetch_array($query_role)) {
     												echo "<option value='" . $value_role['id'] . "'>" . $value_role['role_type'] . "</option>";
     											}
     
@@ -134,9 +134,9 @@ include('common/sidebar.php');
     											<option value="" selected disabled>Select Section</option>
     											<?php
     
-    											$query_src = mysql_query("SELECT sec_id,sec_name from tbl_section", $db_edak);
+    											$query_src = mysqli_query($db_edak,"SELECT sec_id,sec_name from tbl_section");
     
-    											while ($value_src = mysql_fetch_array($query_src)) {
+    											while ($value_src = mysqli_fetch_array($query_src)) {
     												echo "<option value='" . $value_src['sec_id'] . "'>" . $value_src['sec_name'] . "</option>";
     											}
     
@@ -179,9 +179,9 @@ include('common/sidebar.php');
     							<tbody>
     								<?php
     								$query_src = "SELECT $db_edak_name.tbl_user.id,emp_id,section,role,name,designation,department FROM $db_edak_name.tbl_user,$db_common_name.register_user WHERE $db_edak_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(0)";
-    								$result_src = mysql_query($query_src, $db_edak);
+    								$result_src = mysqli_query($db_edak,$query_src);
     								$sr = 1;
-    								while ($value_src = mysql_fetch_array($result_src)) {
+    								while ($value_src = mysqli_fetch_array($result_src)) {
     
     									echo "
     								<tr>
@@ -252,9 +252,9 @@ include('common/sidebar.php');
 										<option value="" selected disabled>--Select Role--</option>
 										<?php
 
-										$query_role = mysql_query("SELECT * from role_user where id NOT in (3)", $db_edak);
+										$query_role = mysqli_query($db_edak,"SELECT * from role_user where id NOT in (3)");
 
-										while ($value_role = mysql_fetch_array($query_role)) {
+										while ($value_role = mysqli_fetch_array($query_role)) {
 											echo "<option value='" . $value_role['id'] . "'>" . $value_role['role_type'] . "</option>";
 										}
 
@@ -271,9 +271,9 @@ include('common/sidebar.php');
 										<option value="" selected disabled>Select Section</option>
 										<?php
 
-										$query_src = mysql_query("SELECT sec_id,sec_name from tbl_section", $db_edak);
+										$query_src = mysqli_query($db_edak,"SELECT sec_id,sec_name from tbl_section");
 
-										while ($value_src = mysql_fetch_array($query_src)) {
+										while ($value_src = mysqli_fetch_array($query_src)) {
 											echo "<option value='" . $value_src['sec_id'] . "'>" . $value_src['sec_name'] . "</option>";
 										}
 

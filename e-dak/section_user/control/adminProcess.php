@@ -19,9 +19,9 @@ switch ($_REQUEST['action']) {
 
     $data='';
       $remark = isset($_POST['remark']) ? $_POST['remark'] : "";
-    $query_fdak = mysql_query("UPDATE tbl_dak_forward set remark='" . $remark . "',status='2' where id='" . $_POST['uid'] . "' and unique_dak_no='" . $_POST['dak_no'] . "'", $db_edak);
+    $query_fdak = mysqli_query($db_edak,"UPDATE tbl_dak_forward set remark='" . $remark . "',status='2' where id='" . $_POST['uid'] . "' and unique_dak_no='" . $_POST['dak_no'] . "'");
 
-    $query_dak = mysql_query("UPDATE tbl_dak set replied='" . $_POST['status'] . "',status='2',closedby='" . $_SESSION['emp_id'] . "' where unique_dak_no='" . $_POST['dak_no'] . "'", $db_edak);
+    $query_dak = mysqli_query($db_edak,"UPDATE tbl_dak set replied='" . $_POST['status'] . "',status='2',closedby='" . $_SESSION['emp_id'] . "' where unique_dak_no='" . $_POST['dak_no'] . "'");
 
     if ($query_fdak && $query_dak) {
       $data='1';

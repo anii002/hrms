@@ -51,47 +51,54 @@ include('common/sidebar.php');
 								</tr>
 							</thead>
 							<tbody>
-								<?php
-								$today_date=date('Y-m-d');
+<?php
+$today_date = date('Y-m-d');
 
-								$days = 151;
+$query_src = "SELECT *, DATEDIFF('".$today_date."', curr_date) as days 
+              FROM tbl_dak_forward, tbl_dak 
+              WHERE tbl_dak.unique_dak_no = tbl_dak_forward.unique_dak_no 
+              AND tbl_dak_forward.status = '1' 
+              GROUP BY tbl_dak.unique_dak_no";
+$result_src = mysqli_query($db_edak, $query_src);
+$sr = 1;
+while ($value_src = mysqli_fetch_array($result_src)) {
+    // Ensure days_diff is a valid integer
+    $days_diff = (int)$value_src['days'];
 
+    // Debugging: Print the days_diff to ensure it is correct
+    // echo "Days Diff: " . $days_diff . "<br>";
 
+    try {
+        // Create DateInterval with days_diff
+        $start_date = new DateTime();
+        $end_date = (clone $start_date)->add(new DateInterval("P{$days_diff}D"));
+        $dd = $start_date->diff($end_date);
 
-								$query_src = "SELECT *,source,DATEDIFF('".$today_date."',curr_date) as days from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1' GROUP BY tbl_dak.unique_dak_no ";
-								// order by tbl_dak.id desc
-								$result_src = mysql_query($query_src, $db_edak);
-								$sr = 1;
-								while ($value_src = mysql_fetch_array($result_src)) {
+        $months = $dd->m;
+        $days = $dd->d;
+    } catch (Exception $e) {
+        // Handle any exceptions and provide fallback values
+        $months = 0;
+        $days = 0;
+        // Optionally log or display the error message
+        // echo "Error: " . $e->getMessage();
+    }
 
-									echo "
-								<tr>
-								<td>" . $sr++ . "</td>
-								<td>" . $value_src['unique_dak_no'] . "</td>
-								<td>" . $value_src['gist_of_letter'] . "</td>
-								<td>" . getSectionMarked($value_src['marked_to']) . "</td>
-								<td>" . $value_src['forwarded_date'] . "</td>
-								<td>" . getSource($value_src['source']) . "</td>
-								<td class='text-danger'>" . getStatus($value_src['status']) . "</td>";
+    echo "
+    <tr>
+        <td>" . $sr++ . "</td>
+        <td>" . $value_src['unique_dak_no'] . "</td>
+        <td>" . $value_src['gist_of_letter'] . "</td>
+        <td>" . getSectionMarked($value_src['marked_to']) . "</td>
+        <td>" . $value_src['forwarded_date'] . "</td>
+        <td>" . getSource($value_src['source']) . "</td>
+        <td class='text-danger'>" . getStatus($value_src['status']) . "</td>
+        <td>" . $months . " months, " . $days . " days" . "</td>
+    </tr>";
+}
+?>
+</tbody>
 
-								$start_date = new DateTime();
-								$end_date = (new $start_date)->add(new DateInterval("P{$value_src['days']}D") );
-								$dd = date_diff($start_date,$end_date);
-								
-								echo "<td >" .$dd->m." months ,".$dd->d." days". "</td>
-								
-								";
-
-									//echo "<a target='_blank'  id='".$value_emp['uploaded_file_path']."' value='".$value_emp['uploaded_file_path']."'>'".$value_emp['uploaded_file_path']."'</a>";
-
-									echo "</tr>
-								";
-								}
-
-
-
-								?>
-							</tbody>
 						</table>
 					</div>
 				</div>

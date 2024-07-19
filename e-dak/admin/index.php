@@ -41,8 +41,8 @@ include('common/sidebar.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							$query = mysql_query("SELECT count(id) as total from master_source", $db_edak);
-							$f_query = mysql_fetch_array($query);
+							$query = mysqli_query($db_edak,"SELECT count(id) as total from master_source" );
+							$f_query = mysqli_fetch_array($query);
 							echo $f_query['total'];
 							?>
 						</div>
@@ -64,8 +64,8 @@ include('common/sidebar.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							$query = mysql_query("SELECT count(id) as total from tbl_user where role in(2)", $db_edak);
-							$f_query = mysql_fetch_array($query);
+							$query = mysqli_query($db_edak,"SELECT count(id) as total from tbl_user where role in(2)");
+							$f_query = mysqli_fetch_array($query);
 							echo $f_query['total'];
 
 							?>

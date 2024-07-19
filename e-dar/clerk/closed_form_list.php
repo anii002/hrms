@@ -40,10 +40,10 @@ include_once('../common_files/header.php');
                             $current_id = $_SESSION["id"];
                             // $sql = "SELECT * FROM `tbl_form_master_entry` WHERE status='2'";
                             $sql = "SELECT fw.emp_pf,fw.form_reference_id FROM `tbl_form_forward` fw INNER JOIN  tbl_form_master_entry f_m_e ON f_m_e.form_ref_id=fw.form_reference_id WHERE f_m_e.current_status='9' AND fw.fw_from='$current_id' AND f_m_e.status='2' GROUP BY fw.form_reference_id ORDER BY fw.id DESC";
-                            $rst_closed_list = mysql_query($sql, $db_edar);
-                            if (mysql_num_rows($rst_closed_list) > 0) {
+                            $rst_closed_list = mysqli_query($db_edar,$sql);
+                            if (mysqli_num_rows($rst_closed_list) > 0) {
                                 $sr = 1;
-                                while ($rw_closed_list = mysql_fetch_assoc($rst_closed_list)) {
+                                while ($rw_closed_list = mysqli_fetch_assoc($rst_closed_list)) {
                                     # code...
                                     // print_r($rw_closed_list);     
                                     $emp_pf = $rw_closed_list["emp_pf"];

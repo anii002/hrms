@@ -42,8 +42,8 @@ include('common/sidebar.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							$query = mysql_query("SELECT count(tbl_dak_forward.id) as id from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1' ", $db_edak);
-							$resultset = mysql_fetch_array($query);
+							$query = mysqli_query($db_edak,"SELECT count(tbl_dak_forward.id) as id from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1' ");
+							$resultset = mysqli_fetch_array($query);
 							//echo "SELECT count(tbl_dak_forward.id) as id from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1'";
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
 							?>
@@ -67,8 +67,8 @@ include('common/sidebar.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							$query = mysql_query("SELECT count(id)as id from tbl_dak where status='2' and added_by='" . $_SESSION['emp_id'] . "' ", $db_edak);
-							$resultset = mysql_fetch_array($query);
+							$query = mysqli_query($db_edak,"SELECT count(id)as id from tbl_dak where status='2' and added_by='" . $_SESSION['emp_id'] . "' ");
+							$resultset = mysqli_fetch_array($query);
 							echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
 							?>
 						</div>

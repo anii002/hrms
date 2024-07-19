@@ -26,10 +26,10 @@
 
                 <?php
                 if ($GLOBALS['flag'] == "1.1") {
-                    ?>
-                <li class="active">
+                ?>
+                    <li class="active">
                     <?php } else { ?>
-                <li>
+                    <li>
                     <?php } ?>
                     <a href="index.php">
                         <i class="fas fa-home"></i>
@@ -37,72 +37,72 @@
                         <span class="selected"></span>
                         <!-- <span class="arrow open"></span> -->
                     </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.3") {
+                    </li>
+                    <?php
+                    if ($GLOBALS['flag'] == "1.3") {
                     ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="forms_of_emp.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Employee Forms </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.4") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="pending_froms.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Pending Forms List</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.5") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="accepted_forms_list.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Accepted Forms List</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.6") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="rejected_forms_list.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Rejected Forms List </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.7") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="closed_form_list.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Closed Forms List </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
+                        <li class="active">
+                        <?php } else { ?>
+                        <li>
+                        <?php } ?>
+                        <a href="forms_of_emp.php">
+                            <i class="fa fa-user-plus"></i>
+                            <span class="title">Employee Forms </span>
+                            <span class="selected"></span>
+                        </a>
+                        </li>
+                        <?php
+                        if ($GLOBALS['flag'] == "1.4") {
+                        ?>
+                            <li class="active">
+                            <?php } else { ?>
+                            <li>
+                            <?php } ?>
+                            <a href="pending_froms.php">
+                                <i class="fa fa-user-plus"></i>
+                                <span class="title">Pending Forms List</span>
+                                <span class="selected"></span>
+                            </a>
+                            </li>
+                            <?php
+                            if ($GLOBALS['flag'] == "1.5") {
+                            ?>
+                                <li class="active">
+                                <?php } else { ?>
+                                <li>
+                                <?php } ?>
+                                <a href="accepted_forms_list.php">
+                                    <i class="fa fa-user-plus"></i>
+                                    <span class="title">Accepted Forms List</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <?php
+                                if ($GLOBALS['flag'] == "1.6") {
+                                ?>
+                                    <li class="active">
+                                    <?php } else { ?>
+                                    <li>
+                                    <?php } ?>
+                                    <a href="rejected_forms_list.php">
+                                        <i class="fa fa-user-plus"></i>
+                                        <span class="title">Rejected Forms List </span>
+                                        <span class="selected"></span>
+                                    </a>
+                                    </li>
+                                    <?php
+                                    if ($GLOBALS['flag'] == "1.7") {
+                                    ?>
+                                        <li class="active">
+                                        <?php } else { ?>
+                                        <li>
+                                        <?php } ?>
+                                        <a href="closed_form_list.php">
+                                            <i class="fa fa-user-plus"></i>
+                                            <span class="title">Closed Forms List </span>
+                                            <span class="selected"></span>
+                                        </a>
+                                        </li>
             </ul>
             </li>
 

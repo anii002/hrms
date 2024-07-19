@@ -84,9 +84,9 @@ include_once('../common_files/header.php');
                             <tbody>
                                 <?php
 								$query_frm = "SELECT * from tbl_penality_type";
-								$result_frm = mysql_query($query_frm, $db_edar);
+								$result_frm = mysqli_query($db_edar,$query_frm);
 								$sr = 1;
-								while ($value_frm = mysql_fetch_array($result_frm)) {
+								while ($value_frm = mysqli_fetch_array($result_frm)) {
 									echo "
 										<tr>
 										<td>" . $sr++ . "</td>

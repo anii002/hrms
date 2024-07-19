@@ -153,9 +153,9 @@ include_once('../common_files/header.php');
                                             <option value="" selected disabled>--Select Role--</option>
                                             <?php
 
-                                            $query_role = mysql_query("SELECT id,role_name from tbl_master_role where id NOT in (1) and status='1'", $db_edar);
+                                            $query_role = mysqli_query($db_edar,"SELECT id,role_name from tbl_master_role where id NOT in (1) and status='1'");
 
-                                            while ($value_role = mysql_fetch_array($query_role)) {
+                                            while ($value_role = mysqli_fetch_array($query_role)) {
                                                 echo "<option value='" . $value_role['id'] . "'>" . $value_role['role_name'] . "</option>";
                                             }
 
@@ -207,9 +207,9 @@ include_once('../common_files/header.php');
                             <tbody>
                                 <?php
                                 $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,designation,department,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1,7)";
-                                $result_src = mysql_query($query_src, $db_edar);
+                                $result_src = mysqli_query($db_edar,$query_src);
                                 $sr = 1;
-                                while ($value_src = mysql_fetch_array($result_src)) {
+                                while ($value_src = mysqli_fetch_array($result_src)) {
 
                                     echo "
 								<tr>
@@ -292,9 +292,9 @@ include_once('../common_files/header.php');
                                         <option value="0" selected disabled>--Select Role--</option>
                                         <?php
 
-                                        $query_role = mysql_query("SELECT * from tbl_master_role where id NOT in (1) and status='1'", $db_edar);
+                                        $query_role = mysqli_query($db_edar,"SELECT * from tbl_master_role where id NOT in (1) and status='1'");
 
-                                        while ($value_role = mysql_fetch_array($query_role)) {
+                                        while ($value_role = mysqli_fetch_array($query_role)) {
                                             echo "<option value='" . $value_role['id'] . "'>" . $value_role['role_name'] . "</option>";
                                         }
 

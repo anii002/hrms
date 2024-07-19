@@ -43,9 +43,9 @@ include('common/sidebar.php');
     										<option value="0">All</option>
     										<?php
     
-    										$query_emp = mysql_query("SELECT * from tbl_section", $db_edak);
+    										$query_emp = mysqli_query($db_edak,"SELECT * from tbl_section");
     
-    										while ($value_emp = mysql_fetch_array($query_emp)) {
+    										while ($value_emp = mysqli_fetch_array($query_emp)) {
     											echo "<option value='" . $value_emp['sec_id'] . "'>" . $value_emp['sec_name'] . "</option>";
     										}
     

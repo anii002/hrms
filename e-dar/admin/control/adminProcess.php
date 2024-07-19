@@ -7,11 +7,11 @@ switch ($_REQUEST['action']) {
   case 'add_masterForm':
     $data = '';
 
-    $form_name = mysql_real_escape_string($_POST['form_name']);
-    $form_title = (mysql_real_escape_string($_POST['form_title']));
+    $form_name = mysqli_real_escape_string($db_edar,$_POST['form_name']);
+    $form_title = (mysqli_real_escape_string($db_edar,$_POST['form_title']));
     $penality_type = $_POST['penality_type'];
     $ins_date = date('Y-m-d h:i:s');
-    $ins_frm = mysql_query("INSERT into tbl_master_form (form_name,form_title,form_type,created_at,created_by,status) values('" . $form_name . "','" . $form_title . "','" . $penality_type . "','" . $ins_date . "','" . $_SESSION['id'] . "','1')", $db_edar);
+    $ins_frm = mysqli_query($db_edar,"INSERT into tbl_master_form (form_name,form_title,form_type,created_at,created_by,status) values('" . $form_name . "','" . $form_title . "','" . $penality_type . "','" . $ins_date . "','" . $_SESSION['id'] . "','1')");
     if ($ins_frm) {
       $data = '1';
     } else {
@@ -21,7 +21,7 @@ switch ($_REQUEST['action']) {
     break;
 
   case 'updateMasterForm':
-    $update_frm = mysql_query("UPDATE tbl_master_form set form_name='" . $_POST['u_form_name'] . "',form_title='" . $_POST['u_form_title'] . "',form_type='" . $_POST['u_penality_type'] . "' where id='" . $_POST['frm_id'] . "' ", $db_edar);
+    $update_frm = mysqli_query($db_edar,"UPDATE tbl_master_form set form_name='" . $_POST['u_form_name'] . "',form_title='" . $_POST['u_form_title'] . "',form_type='" . $_POST['u_penality_type'] . "' where id='" . $_POST['frm_id'] . "' ");
     if ($update_frm) {
       echo "<script>alert('Updated Successfully');window.location='../master_forms.php';</script>";
     } else {
@@ -33,7 +33,7 @@ switch ($_REQUEST['action']) {
   case 'removeMasterForm':
 
     $sql = "DELETE from tbl_master_form where id='" . $_POST['id'] . "' ";
-    $result = mysql_query($sql, $db_edar);
+    $result = mysqli_query($db_edar,$sql);
     if ($result) {
       $data = 1;
     } else {
@@ -47,7 +47,7 @@ switch ($_REQUEST['action']) {
 
     $penality_type = $_POST['p_name'];
     $ins_date = date('Y-m-d h:i:s');
-    $ins_frm = mysql_query("INSERT into tbl_penality_type (penality_name,created_at,created_by,status) values('" . $penality_type . "','" . $ins_date . "','" . $_SESSION['id'] . "','1')", $db_edar);
+    $ins_frm = mysqli_query($db_edar,"INSERT into tbl_penality_type (penality_name,created_at,created_by,status) values('" . $penality_type . "','" . $ins_date . "','" . $_SESSION['id'] . "','1')");
     if ($ins_frm) {
       $data = '1';
     } else {
@@ -58,7 +58,7 @@ switch ($_REQUEST['action']) {
 
 
   case 'updatePType':
-    $update_ptype = mysql_query("UPDATE tbl_penality_type set penality_name='" . $_POST['u_p_name'] . "' where id='" . $_POST['frm_id'] . "' ", $db_edar);
+    $update_ptype = mysqli_query($db_edar,"UPDATE tbl_penality_type set penality_name='" . $_POST['u_p_name'] . "' where id='" . $_POST['frm_id'] . "' ");
     if ($update_ptype) {
       echo "<script>alert('Updated Successfully');window.location='../master_penalty_type.php';</script>";
     } else {
@@ -68,7 +68,7 @@ switch ($_REQUEST['action']) {
 
   case 'removePType':
     $sql = "DELETE from tbl_penality_type where id='" . $_POST['id'] . "' ";
-    $result = mysql_query($sql, $db_edar);
+    $result = mysqli_query($db_edar,$sql);
     if ($result) {
       $data = 1;
     } else {
@@ -115,8 +115,8 @@ switch ($_REQUEST['action']) {
     $pf = $_POST['pf'];
     $role = $_POST['role'];
 
-    $sql2 = mysql_query("UPDATE user_permission set dar='7' where pf_num='" . $pf . "'", $db_common);
-    $sql3 = mysql_query("UPDATE tbl_user set role='',pre_role='" . $role . "',status='0' where emp_id='" . $pf . "' and id='" . $id . "'", $db_edar);
+    $sql2 = mysqli_query($db_common,"UPDATE user_permission set dar='7' where pf_num='" . $pf . "'");
+    $sql3 = mysqli_query($db_edar,"UPDATE tbl_user set role='',pre_role='" . $role . "',status='0' where emp_id='" . $pf . "' and id='" . $id . "'");
     if ($sql3 && $sql2) {
       $data = '1';
     }
@@ -129,15 +129,15 @@ switch ($_REQUEST['action']) {
     $pf = $_POST['pf'];
    //echo  $role = $_POST['role'];
 
-     $sql = mysql_query("SELECT pre_role from tbl_user where emp_id='" . $pf . "' and id='" . $id . "'", $db_edar);
-     $sql_fetch = mysql_fetch_array($sql);
+     $sql = mysqli_query($db_edar,"SELECT pre_role from tbl_user where emp_id='" . $pf . "' and id='" . $id . "'");
+     $sql_fetch = mysqli_fetch_array($sql);
 
      $sql_user_permission = "SELECT pf_num,dar FROM `user_permission` where pf_num='".$pf."'";
-     $rst_user_permission = mysql_query($sql_user_permission, $db_common);
+     $rst_user_permission = mysqli_query($db_common,$sql_user_permission);
   
      $user_permission_roles = array();
      $role_final = array();
-     $rw_user_permission = mysql_fetch_array($rst_user_permission);
+     $rw_user_permission = mysqli_fetch_array($rst_user_permission);
     
        $user_permission_roles = explode(',', $rw_user_permission['dar']);
       $role_final = explode(',', $sql_fetch['pre_role']);
@@ -159,11 +159,11 @@ switch ($_REQUEST['action']) {
 
      $update_user_permission = implode(',', $user_permission_roles);
      $role = implode(",", $role_final);
-     $sql_update_permission = mysql_query("UPDATE `user_permission` SET `dar`='$update_user_permission' WHERE `pf_num`='".$pf."' ",$db_common);
+     $sql_update_permission = mysqli_query($db_common,"UPDATE `user_permission` SET `dar`='$update_user_permission' WHERE `pf_num`='".$pf."' ");
 
 
 
-     $sql3 = mysql_query("UPDATE tbl_user set role='" . $role . "',pre_role='',status='1' where emp_id='" . $pf . "' and id='" . $id . "'", $db_edar);
+     $sql3 = mysqli_query($db_edar,"UPDATE tbl_user set role='" . $role . "',pre_role='',status='1' where emp_id='" . $pf . "' and id='" . $id . "'");
     if ($sql3 && $sql_update_permission) {
       $data = '1';
     }

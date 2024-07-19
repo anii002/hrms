@@ -45,9 +45,9 @@ include('common/header.php');
                                         <option value="0">All</option>
                                         <?php
 
-										$query_emp = mysql_query("SELECT * from master_source", $db_edak);
+										$query_emp = mysqli_query($db_edak,"SELECT * from master_source", );
 
-										while ($value_emp = mysql_fetch_array($query_emp)) {
+										while ($value_emp = mysqli_fetch_array($query_emp)) {
 											echo "<option value='" . $value_emp['id'] . "'>" . $value_emp['src_name'] . "</option>";
 										}
 

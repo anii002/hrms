@@ -7,7 +7,7 @@ include('adminFunction.php');
 
 switch ($_REQUEST['action']) {
   case 'add_src':
-    $ins_src = mysql_query("INSERT into master_source (src_name,created_by) values('" . $_POST['src_name'] . "','" . $_SESSION['role'] . "')", $db_edak);
+    $ins_src = mysqli_query($db_edak,"INSERT into master_source (src_name,created_by) values('" . $_POST['src_name'] . "','" . $_SESSION['role'] . "')");
     if ($ins_src) {
       echo "<script>alert('Inserted Successfully');window.location='../master_src.php';</script>";
     } else {
@@ -15,7 +15,7 @@ switch ($_REQUEST['action']) {
     }
     break;
   case 'update_src':
-    $update_src = mysql_query("UPDATE master_source set src_name='" . $_POST['src_name'] . "' where id='" . $_POST['fid'] . "' ", $db_edak);
+    $update_src = mysqli_query($db_edak,"UPDATE master_source set src_name='" . $_POST['src_name'] . "' where id='" . $_POST['fid'] . "' ");
     if ($update_src) {
       echo "<script>alert('Updated Successfully');window.location='../master_src.php';</script>";
     } else {
@@ -27,7 +27,7 @@ switch ($_REQUEST['action']) {
   case 'removeSRC':
 
     $sql = "DELETE from master_source where id='" . $_POST['id'] . "' ";
-    $result = mysql_query($sql, $db_edak);
+    $result = mysqli_query($db_edak,$sql);
     if ($result) {
       $data = 1;
     } else {
@@ -37,7 +37,7 @@ switch ($_REQUEST['action']) {
     break;
 
   case 'add_section':
-    $ins_src = mysql_query("INSERT into tbl_section (sec_name,created_by) values('" . $_POST['sec_name'] . "','" . $_SESSION['role'] . "')", $db_edak);
+    $ins_src = mysqli_query($db_edak,"INSERT into tbl_section (sec_name,created_by) values('" . $_POST['sec_name'] . "','" . $_SESSION['role'] . "')");
     if ($ins_src) {
       echo "<script>alert('Inserted Successfully');window.location='../master_section.php';</script>";
     } else {
@@ -46,7 +46,7 @@ switch ($_REQUEST['action']) {
     break;
 
   case 'update_section':
-    $update_src = mysql_query("UPDATE tbl_section set sec_name='" . $_POST['sec_name'] . "' where sec_id='" . $_POST['fid'] . "' ", $db_edak);
+    $update_src = mysqli_query($db_edak,"UPDATE tbl_section set sec_name='" . $_POST['sec_name'] . "' where sec_id='" . $_POST['fid'] . "' ");
     if ($update_src) {
       echo "<script>alert('Updated Successfully');window.location='../master_section.php';</script>";
     } else {
@@ -58,7 +58,7 @@ switch ($_REQUEST['action']) {
   case 'removeSec':
 
     $sql = "DELETE from tbl_section where sec_id='" . $_POST['id'] . "' ";
-    $result = mysql_query($sql, $db_edak);
+    $result = mysqli_query($db_edak,$sql);
     if ($result) {
       $data = 1;
     } else {
@@ -91,27 +91,27 @@ switch ($_REQUEST['action']) {
     $data = '';
     $username = $_POST['pf'];
 
-    $fetch_role = mysql_query("SELECT role From tbl_user where id='" . $_POST['id'] . "' AND  emp_id='" . $_POST['pf'] . "'", $db_edak);
-    $ress = mysql_fetch_array($fetch_role);
+    $fetch_role = mysqli_query($db_edak,"SELECT role From tbl_user where id='" . $_POST['id'] . "' AND  emp_id='" . $_POST['pf'] . "'");
+    $ress = mysqli_fetch_array($fetch_role);
     $role = $ress['role'];
 
     $sql2 = '';
     $sql3 = '';
 
     $sql_in = "SELECT pf_num,e_dak from user_permission where pf_num='$username'";
-    $sql = mysql_query($sql_in, $db_common);
-    $row_usr = mysql_fetch_array($sql);
+    $sql = mysqli_query($db_common,$sql_in);
+    $row_usr = mysqli_fetch_array($sql);
     $user_perm = explode(",", $row_usr["e_dak"]);
     //print_r($user_perm);
     if (($key = array_search($role, $user_perm)) !== false) {
       unset($user_perm[$key]);
       //print_r($user_perm);
       $cgaa = implode(",", $user_perm);
-      $sql2 = mysql_query("UPDATE user_permission set e_dak='$cgaa' where pf_num='" . $_POST['pf'] . "'", $db_common);
+      $sql2 = mysqli_query($db_common,"UPDATE user_permission set e_dak='$cgaa' where pf_num='" . $_POST['pf'] . "'");
 
-      $sql3 = mysql_query("DELETE from tbl_user where id='" . $_POST['id'] . "' AND  emp_id='" . $_POST['pf'] . "'", $db_edak);
+      $sql3 = mysqli_query($db_edak,"DELETE from tbl_user where id='" . $_POST['id'] . "' AND  emp_id='" . $_POST['pf'] . "'");
     }
-    //echo mysql_error();
+    //echo mysqli_error();
     if ($sql2 && $sql3) {
       $data = 1;
     } else {
@@ -125,28 +125,28 @@ switch ($_REQUEST['action']) {
     $pf_num = $_POST['pf_num'];
     $role = $_POST['role_up'];
     $sql_in = "SELECT pf_num,e_dak from user_permission where pf_num='$pf_num'";
-    $sql = mysql_query($sql_in, $db_common);
+    $sql = mysqli_query($db_common,$sql_in );
     //var_dump($sql);
-    $row_usr = mysql_fetch_array($sql);
+    $row_usr = mysqli_fetch_array($sql);
     $user_perm = explode(",", $row_usr["e_dak"]);
     //print_r($user_perm);
     if (in_array("$role", $user_perm)) {
       $updd = ("UPDATE user_permission set e_dak='$role' where pf_num='$pf_num'");
-      $ss = mysql_query($updd, $db_common);
+      $ss = mysqli_query($db_common,$updd);
     } elseif (!in_array(",", $user_perm)) {
       array_push($user_perm, $role);
       $user_perm = (count($user_perm) > 1) ? implode(",", $user_perm) : 1;
       //print_r($user_perm);
       $upd = ("UPDATE user_permission set e_dak='$user_perm' where pf_num='$pf_num'");
-      $s = mysql_query($upd, $db_common);
+      $s = mysqli_query($db_common,$upd);
     }
     if ($role == 1) {
-      $update_src = mysql_query("UPDATE tbl_user set section='',role='" . $_POST['role_up'] . "' where id='" . $_POST['fid'] . "' ", $db_edak);
+      $update_src = mysqli_query($db_edak,"UPDATE tbl_user set section='',role='" . $_POST['role_up'] . "' where id='" . $_POST['fid'] . "' ");
     } else {
-      $update_src = mysql_query("UPDATE tbl_user set section='" . $_POST['section_up'] . "',role='" . $_POST['role_up'] . "' where id='" . $_POST['fid'] . "' ", $db_edak);
+      $update_src = mysqli_query($db_edak,"UPDATE tbl_user set section='" . $_POST['section_up'] . "',role='" . $_POST['role_up'] . "' where id='" . $_POST['fid'] . "' ");
     }
 
-    echo mysql_error();
+    echo mysqli_error($db_edak);
     if ($update_src) {
       echo "<script>alert('Updated Successfully');window.location='../master_marked.php';</script>";
     } else {
@@ -168,17 +168,17 @@ switch ($_REQUEST['action']) {
   <tbody>';
 
     $query_src = "SELECT marked_to from tbl_dak where  source='" . $_POST['src'] . "' group by marked_to ";
-    $result_src = mysql_query($query_src, $db_edak);
+    $result_src = mysqli_query($db_edak,$query_src);
 
 
     $sr = 1;
-    while ($value_src = mysql_fetch_array($result_src)) {
+    while ($value_src = mysqli_fetch_array($result_src)) {
 
-      $sql_src = mysql_query("SELECT count(status) as pending,id from tbl_dak where source='" . $_POST['src'] . "' and `status`='1' and  marked_to='" . $value_src['marked_to'] . "' group by marked_to ", $db_edak);
-      $fetch_src = mysql_fetch_array($sql_src);
+      $sql_src = mysqli_query($db_edak,"SELECT count(status) as pending,id from tbl_dak where source='" . $_POST['src'] . "' and `status`='1' and  marked_to='" . $value_src['marked_to'] . "' group by marked_to ");
+      $fetch_src = mysqli_fetch_array($sql_src);
 
-      $sql_src = mysql_query("SELECT count(id) as total_id,id from tbl_dak where source='" . $_POST['src'] . "'  and  marked_to='" . $value_src['marked_to'] . "' group by marked_to ", $db_edak);
-      $fetch_m = mysql_fetch_array($sql_src);
+      $sql_src = mysqli_query($db_edak,"SELECT count(id) as total_id,id from tbl_dak where source='" . $_POST['src'] . "'  and  marked_to='" . $value_src['marked_to'] . "' group by marked_to ");
+      $fetch_m = mysqli_fetch_array($sql_src);
 
       $total = $fetch_m['total_id'];
       $pending = $fetch_src['pending'];
@@ -214,18 +214,18 @@ switch ($_REQUEST['action']) {
     </tr>
   </thead>
   <tbody>';
-    $sql = mysql_query("SELECT emp_id from tbl_user  where  section='" . $_POST['section'] . "'", $db_edak);
-    $sql_fetch = mysql_fetch_array($sql);
+    $sql = mysqli_query($db_edak,"SELECT emp_id from tbl_user  where  section='" . $_POST['section'] . "'");
+    $sql_fetch = mysqli_fetch_array($sql);
 
     $query_src = "SELECT count(id) as  total_id,marked_to from  tbl_dak where  marked_to ='"  . $sql_fetch['emp_id'] . "' ";
-    $result_src = mysql_query($query_src, $db_edak);
+    $result_src = mysqli_query($db_edak,$query_src);
 
-    $sql_status  = mysql_query("SELECT count(status) as pending from tbl_dak  where  marked_to='"  . $sql_fetch['emp_id'] . "' and `status` ='1' ", $db_edak);
-    $sql_fetch_s = mysql_fetch_array($sql_status);
+    $sql_status  = mysqli_query($db_edak,"SELECT count(status) as pending from tbl_dak  where  marked_to='"  . $sql_fetch['emp_id'] . "' and `status` ='1' ");
+    $sql_fetch_s = mysqli_fetch_array($sql_status);
 
 
     $sr = 1;
-    while ($value_src = mysql_fetch_array($result_src)) {
+    while ($value_src = mysqli_fetch_array($result_src)) {
       $total = $value_src['total_id'];
       //echo "<br>" . $replied = $sql_fetch_r['replied'];
       $pending1 = $sql_fetch_s['pending'];
@@ -268,8 +268,8 @@ switch ($_REQUEST['action']) {
     if (in_array(0, $section_array)) {
       // echo "done";
       $query = "SELECT * from tbl_section ORDER BY `tbl_section`.`sec_name` ASC";
-      $rstSection = mysql_query($query, $db_edak);
-      while ($rwSection = mysql_fetch_array($rstSection)) {
+      $rstSection = mysqli_query($db_edak,$query);
+      while ($rwSection = mysqli_fetch_array($rstSection)) {
         // print_r($rwSection);
         $sec_id = $rwSection["sec_id"];
         if (!in_array($sec_id, $section_array)) {
@@ -294,9 +294,9 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT `curr_date`,`section` FROM tbl_dak,tbl_user WHERE tbl_dak.marked_to=tbl_user.emp_id and `curr_date` between '" . $frm_date . "' AND '" . $to_date . "'";
-    $result = mysql_query($grie_sql, $db_edak);
+    $result = mysqli_query($db_edak,$grie_sql);
 
-    while ($data = mysql_fetch_assoc($result)) {
+    while ($data = mysqli_fetch_assoc($result)) {
 
       for ($i = 0; $i < $array_count; $i++) {
         //echo $section_array[1];
@@ -313,9 +313,9 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT tbl_dak.id,tbl_dak.curr_date,tbl_user.section, tbl_dak.status,tbl_dak_forward.marked_to FROM tbl_dak,tbl_dak_forward,tbl_user WHERE tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak.marked_to=tbl_user.emp_id and tbl_dak.curr_date between '" . $frm_date . "' AND '" . $to_date . "' AND tbl_dak.status=2 group by tbl_dak.id";
-    $result = mysql_query($grie_sql, $db_edak);
+    $result = mysqli_query($db_edak,$grie_sql);
 
-    while ($data = mysql_fetch_assoc($result)) {
+    while ($data = mysqli_fetch_assoc($result)) {
 
       for ($i = 0; $i < $array_count; $i++) {
         //echo $section_array[1];
@@ -333,10 +333,10 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT tbl_dak.id,tbl_dak.curr_date,tbl_user.section, tbl_dak.status,tbl_dak_forward.marked_to FROM tbl_dak,tbl_dak_forward,tbl_user WHERE tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak.marked_to=tbl_user.emp_id and tbl_dak.curr_date between '" . $frm_date . "' AND '" . $to_date . "' AND tbl_dak.status=1 group by tbl_dak.id";
-    $result = mysql_query($grie_sql, $db_edak);
+    $result = mysqli_query($db_edak,$grie_sql);
 
 
-    while ($data = mysql_fetch_assoc($result)) {
+    while ($data = mysqli_fetch_assoc($result)) {
 
       for ($i = 0; $i < $array_count; $i++) {
         //echo $section_array[1];
@@ -354,8 +354,8 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT `added_by`,`section`, `curr_date` FROM tbl_dak,tbl_user WHERE tbl_dak.marked_to=tbl_user.emp_id and `curr_date` between '" . $frm_date . "' AND '" . $to_date . "' AND tbl_dak.status != '2'";
-    $result = mysql_query($grie_sql, $db_edak);
-    while ($data = mysql_fetch_assoc($result)) {
+    $result = mysqli_query($db_edak,$grie_sql);
+    while ($data = mysqli_fetch_assoc($result)) {
       $user_id = $data['added_by'];
       $DB_date = date_create(date("Y-m-d", strtotime($data['curr_date'])));
       $date_difference = date_diff($DB_date, date_create($to_date));
@@ -440,8 +440,8 @@ switch ($_REQUEST['action']) {
     $all = '0';
     if (in_array($all, $section_array)) {
       $query = "SELECT * from tbl_section ORDER BY `tbl_section`.`sec_name` ASC";
-      $rstSection = mysql_query($query, $db_edak);
-      while ($rwSection = mysql_fetch_array($rstSection)) {
+      $rstSection = mysqli_query($db_edak,$query);
+      while ($rwSection = mysqli_fetch_array($rstSection)) {
         $sec_id = $rwSection["sec_id"];
         if (!in_array($sec_id, $section_array)) {
           array_push($section_array, $sec_id);
@@ -455,8 +455,8 @@ switch ($_REQUEST['action']) {
         $section_name = "New Section";
       }
       $sql = "SELECT * FROM tbl_dak,tbl_user WHERE tbl_dak.marked_to=tbl_user.emp_id and curr_date between '" . $frm_date . "' AND '" . $to_date . "' and section='$value'";
-      $rstRecord = mysql_query($sql, $db_edak);
-      if (mysql_num_rows($rstRecord) > 0) {
+      $rstRecord = mysqli_query($db_edak,$sql);
+      if (mysqli_num_rows($rstRecord) > 0) {
         //if (isBA()) {
         //if (is_valid_section($value)) {
         //echo "<tr><td colspan='8'  style='font-size:16px;font-weight: bold'>Section : $section_name<td>              </tr>";
@@ -471,7 +471,7 @@ switch ($_REQUEST['action']) {
         <td style="display: none"></td>
         
     </tr>';
-        while ($rwRecords = mysql_fetch_array($rstRecord)) {
+        while ($rwRecords = mysqli_fetch_array($rstRecord)) {
           extract($rwRecords);
 
           echo "<tr>
@@ -512,8 +512,8 @@ switch ($_REQUEST['action']) {
     if (in_array(0, $section_array)) {
       // echo "done";
       echo $query = "select * from master_source";
-      $rstSection = mysql_query($query, $db_edak);
-      while ($rwSection = mysql_fetch_array($rstSection)) {
+      $rstSection = mysqli_query($db_edak,$query);
+      while ($rwSection = mysqli_fetch_array($rstSection)) {
         // print_r($rwSection);
         $sec_id = $rwSection["id"];
         if (!in_array($sec_id, $section_array)) {
@@ -538,9 +538,9 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT `curr_date`,`source` FROM tbl_dak WHERE  `curr_date` between '" . $frm_date . "' AND '" . $to_date . "'";
-    $result = mysql_query($grie_sql, $db_edak);
+    $result = mysqli_query($db_edak,$grie_sql);
 
-    while ($data = mysql_fetch_assoc($result)) {
+    while ($data = mysqli_fetch_assoc($result)) {
 
       for ($i = 0; $i < $array_count; $i++) {
         //echo $section_array[1];
@@ -557,9 +557,9 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT tbl_dak.id,tbl_dak.curr_date,tbl_dak.source, tbl_dak.status,tbl_dak_forward.marked_to FROM tbl_dak,tbl_dak_forward WHERE tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak.curr_date between '" . $frm_date . "' AND '" . $to_date . "' AND tbl_dak.status=2 group by tbl_dak.id";
-    $result = mysql_query($grie_sql, $db_edak);
+    $result = mysqli_query($db_edak,$grie_sql);
 
-    while ($data = mysql_fetch_assoc($result)) {
+    while ($data = mysqli_fetch_assoc($result)) {
 
       for ($i = 0; $i < $array_count; $i++) {
         //echo $section_array[1];
@@ -577,10 +577,10 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT tbl_dak.id,tbl_dak.curr_date,tbl_dak.source, tbl_dak.status,tbl_dak_forward.marked_to FROM tbl_dak,tbl_dak_forward WHERE tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no  and tbl_dak.curr_date between '" . $frm_date . "' AND '" . $to_date . "' AND tbl_dak.status=1 group by tbl_dak.id";
-    $result = mysql_query($grie_sql, $db_edak);
+    $result = mysqli_query($db_edak,$grie_sql);
 
 
-    while ($data = mysql_fetch_assoc($result)) {
+    while ($data = mysqli_fetch_assoc($result)) {
 
       for ($i = 0; $i < $array_count; $i++) {
         //echo $section_array[1];
@@ -598,8 +598,8 @@ switch ($_REQUEST['action']) {
     }
 
     $grie_sql = "SELECT `added_by`,`source`, `curr_date` FROM tbl_dak WHERE  `curr_date` between '" . $frm_date . "' AND '" . $to_date . "' AND tbl_dak.status != '2'";
-    $result = mysql_query($grie_sql, $db_edak);
-    while ($data = mysql_fetch_assoc($result)) {
+    $result = mysqli_query($db_edak,$grie_sql);
+    while ($data = mysqli_fetch_assoc($result)) {
       $user_id = $data['added_by'];
       $DB_date = date_create(date("Y-m-d", strtotime($data['curr_date'])));
       $date_difference = date_diff($DB_date, date_create($to_date));
@@ -684,8 +684,8 @@ switch ($_REQUEST['action']) {
     $all = '0';
     if (in_array($all, $section_array)) {
       $query = "select * from master_source";
-      $rstSection = mysql_query($query, $db_edak);
-      while ($rwSection = mysql_fetch_array($rstSection)) {
+      $rstSection = mysqli_query($db_edak,$query);
+      while ($rwSection = mysqli_fetch_array($rstSection)) {
         $sec_id = $rwSection["id"];
         if (!in_array($sec_id, $section_array)) {
           array_push($section_array, $sec_id);
@@ -699,8 +699,8 @@ switch ($_REQUEST['action']) {
         $section_name = "New Section";
       }
       $sql = "SELECT * FROM tbl_dak,tbl_user WHERE tbl_dak.marked_to=tbl_user.emp_id and curr_date between '" . $frm_date . "' AND '" . $to_date . "' and source='$value'";
-      $rstRecord = mysql_query($sql, $db_edak);
-      if (mysql_num_rows($rstRecord) > 0) {
+      $rstRecord = mysqli_query($db_edak,$sql);
+      if (mysqli_num_rows($rstRecord) > 0) {
         //if (isBA()) {
         //if (is_valid_section($value)) {
         //echo "<tr><td colspan='8'  style='font-size:16px;font-weight: bold'>Section : $section_name<td>              </tr>";
@@ -715,7 +715,7 @@ switch ($_REQUEST['action']) {
         <td style="display: none"></td>
         
     </tr>';
-        while ($rwRecords = mysql_fetch_array($rstRecord)) {
+        while ($rwRecords = mysqli_fetch_array($rstRecord)) {
           extract($rwRecords);
 
           echo "<tr>

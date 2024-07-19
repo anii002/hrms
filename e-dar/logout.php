@@ -32,7 +32,7 @@ if (isset($_SESSION['username'])) {
 
 	 		var delay = 1000;
 
-            setTimeout(function(){ window.location = "../../../index.php" }, delay);           
+            setTimeout(function(){ window.location = "../../index.php" }, delay);           
 
 	      </script>';
 

@@ -48,42 +48,43 @@ include('common/sidebar.php');
 								</tr>
 							</thead>
 							<tbody>
-								<?php
-								$query_src = "SELECT tbl_dak_forward.id,gist_of_letter,tbl_dak_forward.unique_dak_no,tbl_dak_forward.marked_to,tbl_dak.station_id,forwarded_date,source from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.marked_to='" . $_SESSION['emp_id'] . "' and tbl_dak_forward.status='1'  ";
-								// order by tbl_dak.id desc
-								$result_src = mysql_query($query_src, $db_edak);
-								$sr = 1;
-								while ($value_src = mysql_fetch_array($result_src)) {
-								  
-                                    $fetch_query = "SELECT stationdesc FROM station WHERE stationcode = '".$value_src['station_id']."'";
-                               
-                               $fetch_query1 = mysql_query($fetch_query,$db_common);
-										$fetch_query2 = mysql_fetch_array($fetch_query1);
-										$st = $fetch_query2["stationdesc"];
-										
-									echo "
-								<tr>
-								<td>" . $sr++ . "</td>
-								<td>" . $value_src['unique_dak_no'] . "</td>
-								<td>" . getSectionMarked($value_src['marked_to']) . "</td>
-								<td>" . $st . "</td>
-								<td>" . $value_src['forwarded_date'] . "</td>
-								<td>" . $value_src['gist_of_letter'] . "</td>
-								<td>" . getSource($value_src['source']) . "</td>
-								
-								
-								";
+<?php
+$query_src = "SELECT tbl_dak_forward.id, gist_of_letter, tbl_dak_forward.unique_dak_no, tbl_dak_forward.marked_to, tbl_dak.station_id, forwarded_date, source 
+              FROM tbl_dak_forward, tbl_dak 
+              WHERE tbl_dak.unique_dak_no = tbl_dak_forward.unique_dak_no 
+              AND tbl_dak_forward.marked_to = '" . $_SESSION['emp_id'] . "' 
+              AND tbl_dak_forward.status = '1'";
+// order by tbl_dak.id desc
+$result_src = mysqli_query($db_edak, $query_src);
+$sr = 1;
+while ($value_src = mysqli_fetch_array($result_src)) {
 
-									echo "<td><button dak_no='" . $value_src['unique_dak_no'] . "' value='" . $value_src['id'] . "'  class='btn btn-info fetchid' data-target='#responsive' data-toggle='modal' style='margin-left:10px;'>Reply</button></td>";
+    $fetch_query = "SELECT stationdesc FROM station WHERE stationcode = '" . $value_src['station_id'] . "'";
+    $fetch_query1 = mysqli_query($db_common, $fetch_query);
 
-									echo "</tr>
-								";
-								}
+    if ($fetch_query1 && mysqli_num_rows($fetch_query1) > 0) {
+        $fetch_query2 = mysqli_fetch_array($fetch_query1);
+        $st = $fetch_query2["stationdesc"];
+    } else {
+        $st = "Unknown Station"; // Default value if no matching station is found
+    }
 
+    echo "
+    <tr>
+        <td>" . $sr++ . "</td>
+        <td>" . $value_src['unique_dak_no'] . "</td>
+        <td>" . getSectionMarked($value_src['marked_to']) . "</td>
+        <td>" . $st . "</td>
+        <td>" . $value_src['forwarded_date'] . "</td>
+        <td>" . $value_src['gist_of_letter'] . "</td>
+        <td>" . getSource($value_src['source']) . "</td>
+        <td><button dak_no='" . $value_src['unique_dak_no'] . "' value='" . $value_src['id'] . "' class='btn btn-info fetchid' data-target='#responsive' data-toggle='modal' style='margin-left:10px;'>Reply</button></td>
+    </tr>
+    ";
+}
+?>
+</tbody>
 
-
-								?>
-							</tbody>
 						</table>
 					</div>
 				</div>
@@ -126,9 +127,9 @@ include('common/footer.php');
 									<option value="" selected disabled>--Select Status--</option>
 									<?php
 
-									$query_role = mysql_query("SELECT * from replied_status ", $db_edak);
+									$query_role = mysqli_query($db_edak,"SELECT * from replied_status ");
 
-									while ($value_role = mysql_fetch_array($query_role)) {
+									while ($value_role = mysqli_fetch_array($query_role)) {
 										echo "<option value='" . $value_role['id'] . "'>" . $value_role['status'] . "</option>";
 									}
 

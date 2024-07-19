@@ -45,8 +45,8 @@ include('common/sidebar.php');
 						<div class="number">
 							<?php
 							$query_src = "SELECT count(tbl_dak_forward.id) as total from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.marked_to='" . $_SESSION['emp_id'] . "' and tbl_dak_forward.status='1'";
-							$result_src = mysql_query($query_src, $db_edak);
-							$res = mysql_fetch_array($result_src);
+							$result_src = mysqli_query($db_edak,$query_src );
+							$res = mysqli_fetch_array($result_src);
 							echo $res['total'];
 							?>
 						</div>
@@ -68,8 +68,8 @@ include('common/sidebar.php');
 						<div class="number">
 							<?php
 							$query_src = "SELECT count(id) as total from tbl_dak where status='2' and marked_to='" . $_SESSION['emp_id'] . "'";
-							$result_src = mysql_query($query_src, $db_edak);
-							$res = mysql_fetch_array($result_src);
+							$result_src = mysqli_query($db_edak,$query_src);
+							$res = mysqli_fetch_array($result_src);
 							echo $res['total'];
 							?>
 						</div>

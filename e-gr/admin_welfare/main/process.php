@@ -1,5 +1,6 @@
 <?php
 //error_reporting(0);
+require_once('functions.php');
 require('config.php');
 if (isset($_REQUEST['action'])) {
 	switch (strtolower($_REQUEST['action'])) {
@@ -607,25 +608,29 @@ if (isset($_REQUEST['action'])) {
 			echo $data;
 			break;
 
-		case 'add_grievance':
-			// print_r($_REQUEST);
-			$name_array = "";
-			$tmp_name_array = "";
-			$cnt = 0;
-			if ($_FILES['upload_doc']['error'][0] != 4) {
-				$cnt = count($_FILES['upload_doc']['name']);
-				for ($i = 0; $i < $cnt; $i++) {
-					$name_array[$i] = $_FILES['upload_doc']['name'][$i];
-					$tmp_name_array[$i] = $_FILES['upload_doc']['tmp_name'][$i];
+			case 'add_grievance':
+				// print_r($_REQUEST);
+				$name_array = array();
+				$tmp_name_array = array();
+				$cnt = 0;
+				if ($_FILES['upload_doc']['error'][0] != 4) {
+					$cnt = count($_FILES['upload_doc']['name']);
+					for ($i = 0; $i < $cnt; $i++) {
+						$name_array[$i] = $_FILES['upload_doc']['name'][$i];
+						$tmp_name_array[$i] = $_FILES['upload_doc']['tmp_name'][$i];
+					}
 				}
-			}
-
-			if (add_grievance($name_array, $tmp_name_array, $_POST['emp_id'], $_POST['emp_name'], $_POST['emp_type'], $_POST['emp_office'], $_POST['emp_dept'], $_POST['emp_desig'], $_POST['emp_mob_no'], $_POST['gri_type'], $_POST['wel_remark'], $_POST['griv_ref_no'], $_POST['hidden_id'])) {
-				echo "<script>window.location='add_grievance.php';alert('Grievance Added Successfully');</script>";
-			} else {
-				echo "<script>window.location='add_grievance.php';alert('Grievance Not Added');</script>";
-			}
-			break;
+			
+				$emp_office = isset($_POST['emp_office']) ? $_POST['emp_office'] : '';
+				$emp_desig = isset($_POST['emp_desig']) ? $_POST['emp_desig'] : '';
+			
+				if (add_grievance($name_array, $tmp_name_array, $_POST['emp_id'], $_POST['emp_name'], $_POST['emp_type'], $emp_office, $_POST['emp_dept'], $emp_desig, $_POST['emp_mob_no'], $_POST['gri_type'], $_POST['wel_remark'], $_POST['griv_ref_no'], $_POST['hidden_id'])) {
+					echo "<script>window.location='add_grievance.php';alert('Grievance Added Successfully');</script>";
+				} else {
+					echo "<script>window.location='add_grievance.php';alert('Grievance Not Added');</script>";
+				}
+				break;
+			
 
 		case 'get_temp_emp':
 			$data = "";

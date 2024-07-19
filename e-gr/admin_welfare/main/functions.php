@@ -361,13 +361,22 @@ function isAdmin()
 		return false;
 	}
 }
-function get_section_name($section)
-{
-	global $db_egr;
-	$f_section = mysqli_query( $db_egr,"select * from tbl_section where sec_id='$section'");
-	$section_f = mysqli_fetch_array($f_section);
-	return $section_f['sec_name'];
+if (!function_exists('get_section_name')) {
+    function get_section_name($section)
+    {
+        global $db_egr;
+        // Use prepared statements to prevent SQL injection
+        $stmt = mysqli_prepare($db_egr, "SELECT sec_name FROM tbl_section WHERE sec_id = ?");
+        mysqli_stmt_bind_param($stmt, 's', $section);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $sec_name);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        return $sec_name;
+    }
 }
+
 function get_category_name($section)
 {
 	global $db_egr;
@@ -492,13 +501,19 @@ function get_Cat($type)
 	return ($cat_names);
 }
 
-function get_uploaded_user($id)
-{
-	global $db_egr;
-	$e_type = '';
-	$fetch_name_sql = mysqli_query( $db_egr,"select * from tbl_user where user_id='$id'");
-	while ($name_fetch = mysqli_fetch_array($fetch_name_sql)) {
-		$e_type = $name_fetch['user_name'];
-	}
-	return $e_type;
+if (!function_exists('get_uploaded_user')) {
+    function get_uploaded_user($id)
+    {
+        global $db_egr;
+
+        // Use prepared statements to prevent SQL injection
+        $stmt = mysqli_prepare($db_egr, "SELECT user_name FROM tbl_user WHERE user_id = ?");
+        mysqli_stmt_bind_param($stmt, 's', $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $user_name);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        return $user_name;
+    }
 }

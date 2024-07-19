@@ -49,9 +49,9 @@ include('common/sidebar.php');
     												<i class="fas  fa-user"></i>
     											</span>
     											<input type="text" class="form-control" id="u_dak_no" name="u_dak_no" value="<?php 
-    											 $query = mysql_query("SELECT CAST(unique_dak_no AS UNSIGNED) unique_dak_no from tbl_dak order by unique_dak_no desc", $db_edak);
-    											 //$query = mysql_query("SELECT unique_dak_no from tbl_dak order by id desc", $db_edak);
-                                                $fetch_id = mysql_fetch_array($query);
+    											 $query = mysqli_query($db_edak,"SELECT CAST(unique_dak_no AS UNSIGNED) unique_dak_no from tbl_dak order by unique_dak_no desc");
+    											 //$query = mysqli_query("SELECT unique_dak_no from tbl_dak order by id desc", $db_edak);
+                                                $fetch_id = mysqli_fetch_array($query);
                                                 
                                                 $no=$fetch_id['unique_dak_no'];
                                                 $no=$no+1;
@@ -103,9 +103,9 @@ include('common/sidebar.php');
     
     											<?php
     
-    											$query_role = mysql_query("SELECT * from tbl_section", $db_edak);
+    											$query_role = mysqli_query($db_edak,"SELECT * from tbl_section");
     
-    											while ($value_role = mysql_fetch_array($query_role)) {
+    											while ($value_role = mysqli_fetch_array($query_role)) {
     												echo "<option value='" . $value_role['sec_id'] . "'>" . $value_role['sec_name'] . "</option>";
     											}
     
@@ -135,9 +135,9 @@ include('common/sidebar.php');
     											<option value="" selected disabled>Select Source</option>
     											<?php
     
-    											$query_src = mysql_query("SELECT id,src_name from master_source", $db_edak);
+    											$query_src = mysqli_query($db_edak,"SELECT id,src_name from master_source");
     
-    											while ($value_src = mysql_fetch_array($query_src)) {
+    											while ($value_src = mysqli_fetch_array($query_src)) {
     												echo "<option value='" . $value_src['id'] . "'>" . $value_src['src_name'] . "</option>";
     											}
     
@@ -151,9 +151,9 @@ include('common/sidebar.php');
     										<select name="station" id="station" class="form-control select2me" required>
                                         <?php
                                         $sql_station = "SELECT * FROM `station`";
-                                        $rst_station = mysql_query($sql_station, $db_common);
+                                        $rst_station = mysqli_query($db_common,$sql_station );
                                         echo "<option value='none' selected disabled>Select Station</option>";
-                                        while ($rw_station = mysql_fetch_array($rst_station)) {
+                                        while ($rw_station = mysqli_fetch_array($rst_station)) {
                                             extract($rw_station);
                                             // print_r($rw_station);
                                             echo "<option value='$stationcode'>$stationdesc ($stationcode) </option>";

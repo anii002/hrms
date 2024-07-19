@@ -347,30 +347,31 @@ if ($name == 'e_gr') {
     }
     
     
-
+  
     if ($name == 'dar') {
         $dar = explode(',', $row['dar']);
-        for ($i = 0; $i < count($dar); $i++) { ?>
+        $roles = [
+            1 => 'Admin',
+            2 => 'Clerk',
+            3 => 'Discipline Authority',
+            4 => 'Inquiry Officer',
+            7 => 'Employee'
+        ];
+    
+        foreach ($roles as $roleId => $roleLabel) {
+            $checked = in_array((string)$roleId, $dar) ? 'checked' : '';
+            ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
-                    <?php if ($dar[$i] == 1) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dar" value="1"> Admin</label>
-                    <?php }
-                    if ($dar[$i] == 2) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dar" value="2"> Clerk</label>
-                    <?php }
-                    if ($dar[$i] == 3) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dar" value="3"> Discipline Authority</label>
-                    <?php }
-                    if ($dar[$i] == 4) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dar" value="4"> Inquiry Officer</label>
-                    <?php }
-                    if ($dar[$i] == 7) { ?>
-                        <label class="form-check-label"><input class="form-check-input" type="radio" name="dar" value="7">Employee</label>
-                    <?php } ?>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="dar" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
                 </div>
             </div>
-
-<?php }
+            <?php
+        }
     }
+    
+    
 } ?>

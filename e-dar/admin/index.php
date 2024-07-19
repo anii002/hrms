@@ -41,8 +41,8 @@ include('../common_files/header.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							// $query = mysql_query("SELECT count(id) as total from master_source", $db_edak);
-							// $f_query = mysql_fetch_array($query);
+							// $query = mysqli_query("SELECT count(id) as total from master_source", $db_edak);
+							// $f_query = mysqli_fetch_array($query);
 							// echo $f_query['total'];
 							?>
 						</div>
@@ -51,7 +51,7 @@ include('../common_files/header.php');
 						</div>
 						<div></div>
 					</div>
-					<a class="more" href="master_src.php">
+					<a class="more" href="#">
 						अधिक जानकारी / View more <i class="m-icon-swapright m-icon-white"></i>
 					</a>
 				</div>
@@ -64,8 +64,8 @@ include('../common_files/header.php');
 					<div class="details">
 						<div class="number">
 							<?php
-							// $query = mysql_query("SELECT count(id) as total from tbl_user where role in(2)", $db_edak);
-							// $f_query = mysql_fetch_array($query);
+							// $query = mysqli_query("SELECT count(id) as total from tbl_user where role in(2)", $db_edak);
+							// $f_query = mysqli_fetch_array($query);
 							// echo $f_query['total'];
 
 							?>
@@ -74,7 +74,7 @@ include('../common_files/header.php');
 							<p>Master Marked</p>
 						</div>
 					</div>
-					<a class="more" href="master_marked.php">
+					<a class="more" href="#">
 						अधिक जानकारी / View more <i class="m-icon-swapright m-icon-white"></i>
 					</a>
 				</div>

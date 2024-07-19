@@ -21,29 +21,29 @@ include_once('common_functions.php');
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Khand:300,400,500,600,700&amp;subset=devanagari" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="../../../new_eta/assets/global/plugins/js_glow/jquery.jgrowl.css" type="text/css" /> 
+    <link rel="stylesheet" href="../../new_eta/assets/global/plugins/js_glow/jquery.jgrowl.css" type="text/css" /> 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- <link href="../../../new_eta/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"> -->
-    <link href="../../../new_eta/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../new_eta/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
     <link rel="stylesheet" type="text/css" href="../../../new_eta/assets/global/plugins/select2/select2.css" /> 
-    <link href="../../../new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
-    <link href="../../../new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="../../../new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="../../../new_eta/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="../../../new_eta/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../../new_eta/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="../../new_eta/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES --> 
-    <link href="../../../new_eta/assets/global/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../new_eta/assets/global/plugins/jquery-datatable/style.css"> 
-    <link rel="stylesheet" href="../../../new_eta/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css"> 
-    <link rel="stylesheet" href="../../../new_eta/assets/global/plugins/bootstrap-datepicker/css/datepicker.css"> 
+    <link href="../../new_eta/assets/global/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../new_eta/assets/global/plugins/jquery-datatable/style.css"> 
+    <link rel="stylesheet" href="../../new_eta/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css"> 
+    <link rel="stylesheet" href="../../new_eta/assets/global/plugins/bootstrap-datepicker/css/datepicker.css"> 
     <!-- summer note css file --> 
-    <link href="../../../new_eta/assets/summernote/dist/summernote.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="../../../new_eta/assets/css/preloader/preloader-style.css"> 
-    <link rel="shortcut icon" href="../../../new_eta/assets/img/logo1.png" /> 
+    <link href="../../new_eta/assets/summernote/dist/summernote.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="../../new_eta/assets/css/preloader/preloader-style.css"> 
+    <link rel="shortcut icon" href="../../new_eta/assets/img/logo1.png" /> 
 </head>
 
 <style type="text/css"> 
@@ -64,7 +64,7 @@ include_once('common_functions.php');
     } 
     .pre-otploader {
         background-color: #ffff; 
-        background-image: url("../../../new_eta/assets/img/loader-2.gif"); 
+        background-image: url("../../new_eta/assets/img/loader-2.gif"); 
         position: fixed; 
         background-repeat: no-repeat; 
         background-position: center; 
@@ -108,9 +108,9 @@ include_once('common_functions.php');
         <div class="pre-loader preloader-single shadow-inner mg-t-30" id="loader"> 
             <div class="ts_preloading_box"> 
                 <div id="ts-preloader-absolute30"> 
-                    <div id="absolute30"> 
+                    <!-- <div id="absolute30"> 
                         <span></span><span></span><span></span><span></span><span></span> 
-                    </div> 
+                    </div>  -->
                 </div> 
             </div> 
         </div> 
@@ -144,7 +144,7 @@ include_once('common_functions.php');
                             // if($result['img']=="")
                             // {
                             ?> 
-                            <img alt="" class="img-circle" src="../../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
+                            <img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
 
                             <?php
                             // }
@@ -168,17 +168,17 @@ include_once('common_functions.php');
                                     <?php } else { ?>
                                 <li>
                             <?php } ?> 
-                                <!--<a href="../../../profile.php">-->
-                                <!--<i class="far fa-key"></i> Change Password </a>-->
+                                 <!-- <a href="../../../profile.php">
+                                <i class="far fa-key"></i> Change Password </a>  -->
                             </li> 
                             <!-- <li class="divider">  </li> --> 
                             <!--<li> <a href="../logout.php"> <i class="fas fa-sign-out-alt"></i> Log Out </a> </li>--> 
                             <li>
-                                <a href="../../../index.php"> 
+                                <a href="../../dashboard.php"> 
                                 <i class="fas fa-home"></i>Home</a>
                             </li>
                             <li>
-                                <a href="../logout.php">
+                                <a href="../../logout.php">
                                 <i class="fas fa-sign-out-alt"></i> Log Out </a>
                             </li>
                         </ul>

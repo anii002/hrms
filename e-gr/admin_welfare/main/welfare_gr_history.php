@@ -1,16 +1,16 @@
 <?php
 require_once('Global_Data/header.php');
 error_reporting(0);
-// include('config.php');
+include('config.php');
 ?>
 
 <?php
 $empid = $_GET['emp_id'];
 $griv_no = $_REQUEST['griv_no'];
-$emp = mysql_query("select * from register_user where emp_no='$empid'", $db_common);
+$emp = mysqli_query($db_common,"select * from register_user where emp_no='$empid'" );
 //echo"select * from employee where emp_id='$empid'";
-$nominee = mysql_query("select * from  tbl_grievance where gri_ref_no='$griv_no'", $db_egr);
-while ($fetch_nominee = mysql_fetch_array($nominee)) {
+$nominee = mysqli_query($db_egr,"select * from  tbl_grievance where gri_ref_no='$griv_no'" );
+while ($fetch_nominee = mysqli_fetch_array($nominee)) {
     $emp_id = $fetch_nominee['emp_id'];
     $griv_id = $fetch_nominee['gri_ref_no'];
     $gri_type = $fetch_nominee['gri_type'];
@@ -19,7 +19,7 @@ while ($fetch_nominee = mysql_fetch_array($nominee)) {
     $gri_remark = $fetch_nominee['gri_desc'];
     $upload = $fetch_nominee['uploaded_by'];
 }
-while ($fetch_emp = mysql_fetch_array($emp)) {
+while ($fetch_emp = mysqli_fetch_array($emp)) {
     $emp_name = $fetch_emp['name'];
     $mobile_no = $fetch_emp['mobile'];
     $emp_dept = $fetch_emp['department'];
@@ -30,8 +30,8 @@ while ($fetch_emp = mysql_fetch_array($emp)) {
 function get_desc($name)
 {
     global $db_egr;
-    $query = mysql_query("select cat_name from category where cat_id='$name'", $db_egr);
-    while ($fetch = mysql_fetch_array($query)) {
+    $query = mysqli_query($db_egr,"select cat_name from category where cat_id='$name'");
+    while ($fetch = mysqli_fetch_array($query)) {
         return $fetch['cat_name'];
     }
 }
@@ -141,8 +141,8 @@ function get_desc($name)
                     {
                         global $db_egr;
                         $e_type = '';
-                        $fetch_name_sql = mysql_query("select * from tbl_user where user_id='$id'", $db_egr);
-                        while ($name_fetch = mysql_fetch_array($fetch_name_sql)) {
+                        $fetch_name_sql = mysqli_query($db_egr,"select * from tbl_user where user_id='$id'");
+                        while ($name_fetch = mysqli_fetch_array($fetch_name_sql)) {
                             $e_type = $name_fetch['user_name'];
                             $e_section = $name_fetch['section'];
                         }
@@ -152,8 +152,8 @@ function get_desc($name)
                     {
                         global $db_egr;
                         $e_type = '';
-                        $fetch_name_sql = mysql_query("select * from tbl_section where sec_id='$id'", $db_egr);
-                        while ($name_fetch = mysql_fetch_array($fetch_name_sql)) {
+                        $fetch_name_sql = mysqli_query($db_egr,"select * from tbl_section where sec_id='$id'");
+                        while ($name_fetch = mysqli_fetch_array($fetch_name_sql)) {
                             $e_type = $name_fetch['sec_name'];
                         }
                         return $e_type;
@@ -162,17 +162,17 @@ function get_desc($name)
                     {
                         global $db_egr;
                         $e_type = '';
-                        $fetch_name_sql = mysql_query("select * from status where id='$id'", $db_egr);
-                        while ($name_fetch = mysql_fetch_array($fetch_name_sql)) {
+                        $fetch_name_sql = mysqli_query($db_egr,"select * from status where id='$id'");
+                        while ($name_fetch = mysqli_fetch_array($fetch_name_sql)) {
                             $e_type = $name_fetch['status'];
                         }
                         return $e_type;
                     }
                     $sql = "SELECT f.`user_id_forwarded`, f.id,  f.`status` FROM `tbl_grievance_forward` f INNER JOIN `tbl_grievance` tg ON f.`griv_ref_no` = tg.`gri_ref_no` WHERE tg.`gri_ref_no` = '" . $_GET['griv_no'] . "' AND tg.emp_id = '" . $_GET['emp_id'] . "' ORDER BY f.id DESC LIMIT 1";
 
-                    $result = mysql_query($sql, $db_egr);
-                    if (mysql_affected_rows() > 0) {
-                        $data = mysql_fetch_array($result);
+                    $result = mysqli_query($db_egr,$sql);
+                    if (mysqli_affected_rows($db_egr) > 0) {
+                        $data = mysqli_fetch_array($result);
                         $array = get_uploaded_user($data['user_id_forwarded']);
                         $arr = explode("$", $array);
                         $pending_with = $arr[0] . " (" . $arr[1] . ")";

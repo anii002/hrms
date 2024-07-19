@@ -11,8 +11,8 @@ function get_employee_details($id)
 {
   global $db_common;
   $data = [];
-  $sql = mysql_query("SELECT * from register_user where emp_no='$id'", $db_common);
-  $res = mysql_fetch_array($sql);
+  $sql = mysqli_query($db_common,"SELECT * from register_user where emp_no='$id'");
+  $res = mysqli_fetch_array($sql);
   $data['pf_number'] = $res['emp_no'];
   $data['emp_name'] = $res['name'];
   $data['designation'] = designation($res['designation']);
@@ -32,10 +32,10 @@ function add_user($emp_id,$role,$password)
   global $db_edar, $db_common;
   $datee = date("Y-m-d h:i:s");
   $sql_user_permission = "SELECT pf_num,dar FROM `user_permission` where pf_num='$emp_id'";
-  $rst_user_permission = mysql_query($sql_user_permission, $db_common);
-  if (mysql_num_rows($rst_user_permission) > 0) {
+  $rst_user_permission = mysqli_query($db_common,$sql_user_permission);
+  if (mysqli_num_rows($rst_user_permission) > 0) {
     $user_permission_roles = array();
-    while ($rw_user_permission = mysql_fetch_array($rst_user_permission)) {
+    while ($rw_user_permission = mysqli_fetch_array($rst_user_permission)) {
       extract($rw_user_permission);
       $user_permission_roles = ($dar!="")?explode(',', $dar):array();
       // echo "User Persmission ROles";
@@ -61,10 +61,10 @@ function add_user($emp_id,$role,$password)
     $update_user_permission = implode(',', $user_permission_roles);
     $role = implode(",", $role_final);
     $sql_update_permission = "UPDATE `user_permission` SET `dar`='$update_user_permission' WHERE `pf_num`='$emp_id' ";
-    if (mysql_query($sql_update_permission, $db_common)) {
+    if (mysqli_query($db_common,$sql_update_permission)) {
 
       $sql_user="INSERT INTO `tbl_user`(`emp_id`,`username`,`password`,`role`,`status`,`created_date`,`created_by`) VALUES ('$emp_id','$emp_id','$password','$role','1','" . $datee . "','" . $_SESSION['id'] . "')";
-      $insert_user = mysql_query($sql_user, $db_edar) or trigger_error("Query Failed: " . mysql_error());
+      $insert_user = mysqli_query( $db_edar,$sql_user) or trigger_error("Query Failed: " . mysqli_error($db_edar));
       if ($insert_user) {
         return true;
       } else {
@@ -76,10 +76,10 @@ function add_user($emp_id,$role,$password)
     array_push($role_final, '7');
     $role_common = implode(",", $role_final);
     $sql_user_permission = "INSERT INTO `user_permission`(`pf_num`,`dar`) VALUES('$emp_id','$role_common')";
-    $insert_permission = mysql_query($sql_user_permission, $db_common);
+    $insert_permission = mysqli_query($db_common,$sql_user_permission );
     
     $sql_user=("INSERT INTO `tbl_user`(`emp_id`,`username`,`password`,`role`,`status`,`created_date`,`created_by`) VALUES ('$emp_id','$emp_id','$password','$role','1','" . $datee . "','" . $_SESSION['id'] . "')");
-    $insert_user = mysql_query($sql_user, $db_edar) or trigger_error("Query Failed: " . mysql_error());
+    $insert_user = mysqli_query( $db_edar,$sql_user) or trigger_error("Query Failed: " . mysqli_error($db_edar));
     if ($insert_user && $insert_permission) {
       return true;
     } else {
@@ -94,10 +94,10 @@ function update_user($emp_id,$role)
   global $db_edar, $db_common;
   $datee = date("Y-m-d h:i:s");
   $sql_user_permission = "SELECT pf_num,dar FROM `user_permission` where pf_num='$emp_id'";
-  $rst_user_permission = mysql_query($sql_user_permission, $db_common);
-  if (mysql_num_rows($rst_user_permission) > 0) {
+  $rst_user_permission = mysqli_query($db_common,$sql_user_permission);
+  if (mysqli_num_rows($rst_user_permission) > 0) {
     $user_permission_roles = array();
-    while ($rw_user_permission = mysql_fetch_array($rst_user_permission)) {
+    while ($rw_user_permission = mysqli_fetch_array($rst_user_permission)) {
       extract($rw_user_permission);
       // $user_permission_roles = explode(',', $dar);
       $user_permission_roles = ($dar!="")?explode(',', $dar):array();
@@ -124,10 +124,10 @@ function update_user($emp_id,$role)
     $update_user_permission = implode(',', $user_permission_roles);
     $role = implode(",", $role_final);
     $sql_update_permission = "UPDATE `user_permission` SET `dar`='$update_user_permission' WHERE `pf_num`='$emp_id' ";
-    if (mysql_query($sql_update_permission, $db_common)) {
+    if (mysqli_query($db_common,$sql_update_permission )) {
 
        $sql_user=("update tbl_user set role='$role' where emp_id='$emp_id'");
-    $insert_user = mysql_query($sql_user, $db_edar) or trigger_error("Query Failed: " . mysql_error());
+    $insert_user = mysqli_query($db_edar,$sql_user ) or trigger_error("Query Failed: " . mysqli_error($db_edar));
     if ($insert_user ) {
       return true;
     } else {
@@ -143,10 +143,10 @@ function update_user($emp_id,$role)
     array_push($role_final, '7');
     $role_common = implode(",", $role_final);
     $sql_user_permission = "INSERT INTO `user_permission`(`pf_num`,`dar`) VALUES('$emp_id','$role_common')";
-    $insert_permission = mysql_query($sql_user_permission, $db_common);
+    $insert_permission = mysqli_query($db_common,$sql_user_permission );
    
     $sql_user=("update tbl_user set role='$role' where emp_id='$emp_id'");
-    $insert_user = mysql_query($sql_user, $db_edar) or trigger_error("Query Failed: " . mysql_error());
+    $insert_user = mysqli_query($db_edar,$sql_user) or trigger_error("Query Failed: " . mysqli_error($db_edar));
     if ($insert_user && $insert_permission) {
       return true;
     } else {

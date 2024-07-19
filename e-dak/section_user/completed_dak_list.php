@@ -53,9 +53,9 @@ include('common/sidebar.php');
 								<tbody>
 									<?php
 									$query_src = "SELECT * from tbl_dak where status='2' and marked_to='" . $_SESSION['emp_id'] . "'";
-									$result_src = mysql_query($query_src, $db_edak);
+									$result_src = mysqli_query( $db_edak,$query_src);
 									$sr = 1;
-									while ($value_src = mysql_fetch_array($result_src)) {
+									while ($value_src = mysqli_fetch_array($result_src)) {
 
 										echo "
 								<tr>
