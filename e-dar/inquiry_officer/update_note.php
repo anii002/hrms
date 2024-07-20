@@ -61,8 +61,8 @@ include_once('../common_files/header.php');
                                 <div class="col-md-11">
                                     <textarea id="summernote">
                                     <?php
-                                    $sql = mysql_query("SELECT * from tbl_note where emp_pf='" . $_GET['emp_id'] . "' and form_reference_id='" . $_GET['refernce_id'] . "' and type_of_note='" . $_GET['type_id'] . "'", $db_edar);
-                                    $f_sql = mysql_fetch_array($sql);
+                                    $sql = mysqli_query($db_edar,"SELECT * from tbl_note where emp_pf='" . $_GET['emp_id'] . "' and form_reference_id='" . $_GET['refernce_id'] . "' and type_of_note='" . $_GET['type_id'] . "'");
+                                    $f_sql = mysqli_fetch_array($sql);
                                     echo $f_sql['note'];
                                     ?>
                                 </textarea>

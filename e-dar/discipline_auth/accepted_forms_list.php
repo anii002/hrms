@@ -43,10 +43,10 @@ include_once('../common_files/header.php');
                             <?php
                             $current_id = $_SESSION["id"];
                             $sql = "SELECT DISTINCT(fw.emp_pf),approved_date FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON f_m_e.form_ref_id=fw.form_reference_id WHERE f_m_e.current_status IN ('3','5','6','7','8') AND fw.fw_from='$current_id' AND fw.approved_date is not NULL AND NOW() > (SELECT DATE_ADD(DATE(`approved_date`),INTERVAL 10 DAY) AS DATEADDED from tbl_form_forward WHERE fw_from='$current_id' AND status='3' ORDER BY id DESC LIMIT 1) ORDER BY fw.id DESC";
-                            $rst_pending_list = mysql_query($sql, $db_edar);
-                            if (mysql_num_rows($rst_pending_list) > 0) {
+                            $rst_pending_list = mysqli_query($db_edar,$sql);
+                            if (mysqli_num_rows($rst_pending_list) > 0) {
                                 $sr = 1;
-                                while ($rw_pending_list = mysql_fetch_assoc($rst_pending_list)) {
+                                while ($rw_pending_list = mysqli_fetch_assoc($rst_pending_list)) {
                                     # code...
                                     // print_r($rw_pending_list);
                                     $emp_pf = $rw_pending_list["emp_pf"];

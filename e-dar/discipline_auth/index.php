@@ -45,8 +45,8 @@ include_once("../dbconfig/dbcon.php");
                             $current_id = $_SESSION["id"];
                             $sql = "SELECT fw.emp_pf FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON fw.form_reference_id=f_m_e.form_ref_id WHERE f_m_e.current_status='2' AND fw.fw_to='$current_id' AND f_m_e.status='1' GROUP BY fw.`form_reference_id` ORDER BY fw.id DESC";
                             // $sql = "SELECT fw.emp_pf FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e WHERE f_m_e.current_status='2' AND fw.fw_to='$current_id' GROUP BY fw.`form_reference_id` ORDER BY fw.id DESC";
-                            $rst_pending_list = mysql_query($sql, $db_edar);
-                            echo mysql_num_rows($rst_pending_list);
+                            $rst_pending_list = mysqli_query($db_edar,$sql );
+                            echo mysqli_num_rows($rst_pending_list);
                             ?>
                         </div>
                         <div class="desc">
@@ -68,8 +68,8 @@ include_once("../dbconfig/dbcon.php");
                         <div class="number">
                             <?php
                             $sql = "SELECT fw.emp_pf,fw.form_reference_id FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON f_m_e.form_ref_id=fw.form_reference_id WHERE f_m_e.current_status='9' AND fw.fw_from='$current_id' AND f_m_e.status='2' GROUP BY fw.form_reference_id ORDER BY fw.id DESC";
-                            $rst_closed_list = mysql_query($sql, $db_edar);
-                            echo mysql_num_rows($rst_closed_list);
+                            $rst_closed_list = mysqli_query($db_edar,$sql);
+                            echo mysqli_num_rows($rst_closed_list);
                             ?>
                         </div>
                         <div class="desc">

@@ -5,9 +5,9 @@ include_once("../dbconfig/dbcon.php");
 $emp_name = get_emp_name($emp_pf);
 $emp_desig = get_emp_designation($emp_pf); ?>
 <style>
-    .text-tabbed {
-        text-indent: 5em;
-    }
+.text-tabbed {
+    text-indent: 5em;
+}
 </style>
 <div class="padding-20">
     <h3 class="text-center"><strong>STANDARD FORM NO.1</strong></h3>

@@ -47,8 +47,8 @@ include_once('../common_files/header.php');
                                 </option>
                                 <?php
                                 $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                $rst_emp = mysql_query($query, $db_common);
-                                while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                $rst_emp = mysqli_query( $db_common,$query,);
+                                while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);
                                     extract($rw_emp);
                                     echo "<option value='$emp_no'>$name</option>";

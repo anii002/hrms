@@ -47,12 +47,12 @@ include_once('../common_files/header.php');
 
                         
 
-                        $sql=mysql_query("SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.fw_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='7' and  tbl_form_forward.current_role='3' and fw_to='".$_SESSION['id']."' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where current_status='7' ) order by form_reference_id desc",$db_edar);
+                        $sql=mysqli_query($db_edar,"SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.fw_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='7' and  tbl_form_forward.current_role='3' and fw_to='".$_SESSION['id']."' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where current_status='7' ) order by form_reference_id desc");
 
 
 
                         $sr=0;
-                        while ($row=mysql_fetch_array($sql)) 
+                        while ($row=mysqli_fetch_array($sql)) 
                         {
 
                             $fw_date=$row['fw_date'];
@@ -65,8 +65,8 @@ include_once('../common_files/header.php');
                               //  var_dump($c); 
                             $sr++;
 
-                            $master=mysql_query("SELECT * from tbl_form_master_entry where form_ref_id='".$row['form_reference_id']."' and emp_pf='".$_SESSION['emp_id']."' ",$db_edar);
-                            $fetch_master=mysql_fetch_array($master);
+                            $master=mysqli_query($db_edar,"SELECT * from tbl_form_master_entry where form_ref_id='".$row['form_reference_id']."' and emp_pf='".$_SESSION['emp_id']."' ");
+                            $fetch_master=mysqli_fetch_array($master);
 
                             echo "<tr>";
                             echo "<td>".$sr."</td>";
@@ -205,8 +205,8 @@ $(document).ready(function() {
                         </option>
                         <?php
                         $query = "SELECT * FROM `tbl_user`";
-                        $rst_emp = mysql_query($query, $db_edar);
-                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                        $rst_emp = mysqli_query($db_edar,$query);
+                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                             // print_r($rw_emp);
                             extract($rw_emp);
                             $emp_name = get_emp_name($emp_id);

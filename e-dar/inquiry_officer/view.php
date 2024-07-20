@@ -56,12 +56,12 @@ a.disabled {
                             <?php
                             //echo "SELECT tbl_note.id,tbl_note.type_of_note,tbl_form_master_entry.current_status from tbl_note,tbl_form_master_entry where tbl_note.form_reference_id=tbl_form_master_entry.form_ref_id and tbl_note.emp_pf='".$_GET['emp_pf']."' and tbl_note.form_reference_id='".$_GET['reference_id']."'";
 
-                            $sql = mysql_query("SELECT tbl_note.id,tbl_note.type_of_note,tbl_form_master_entry.current_status from tbl_note,tbl_form_master_entry where tbl_note.form_reference_id=tbl_form_master_entry.form_ref_id and tbl_note.emp_pf='" . $_GET['emp_pf'] . "' and tbl_note.form_reference_id='" . $_GET['reference_id'] . "' ", $db_edar);
-                            while ($fetch = mysql_fetch_array($sql)) {
+                            $sql = mysqli_query($db_edar,"SELECT tbl_note.id,tbl_note.type_of_note,tbl_form_master_entry.current_status from tbl_note,tbl_form_master_entry where tbl_note.form_reference_id=tbl_form_master_entry.form_ref_id and tbl_note.emp_pf='" . $_GET['emp_pf'] . "' and tbl_note.form_reference_id='" . $_GET['reference_id'] . "' ", );
+                            while ($fetch = mysqli_fetch_array($sql)) {
                                 //print_r($fetch);
                                 $tt = $fetch['type_of_note'];
                             }
-                            if (mysql_num_rows($sql) == 0) {
+                            if (mysqli_num_rows($sql) == 0) {
                                 echo "<td><a href='add_note.php?emp_pf=" . $_GET['emp_pf'] . "&reference_id=" . $_GET['reference_id'] . "&type_id=1' class='btn btn-success  ' >Add Preliminary Note</a></td>";
                                 echo "<td><a href='add_note.php?emp_pf=" . $_GET['emp_pf'] . "&reference_id=" . $_GET['reference_id'] . "&type_id=2' class='btn btn-success ' >Add Regular</a></td>";
                             } else if ($tt == '1') {
@@ -82,8 +82,8 @@ a.disabled {
 
                             // }
                             else {
-                                $sql = mysql_query("SELECT * from tbl_form_forward where emp_pf='" . $_GET['emp_pf'] . "' and form_reference_id='" . $_GET['reference_id'] . "' order by id desc ", $db_edar);
-                                $sql_ff = mysql_fetch_array($sql);
+                                $sql = mysqli_query($db_edar,"SELECT * from tbl_form_forward where emp_pf='" . $_GET['emp_pf'] . "' and form_reference_id='" . $_GET['reference_id'] . "' order by id desc ", $db_edar);
+                                $sql_ff = mysqli_fetch_array($sql);
                                 //print_r($sql_ff);
                                 if ($sql_ff['status'] == '8') {
                                     echo "<td><a href='add_note.php?emp_pf=" . $_GET['emp_pf'] . "&reference_id=" . $_GET['reference_id'] . "&type_id=1' class='btn btn-success disabled ' >Add Preliminary Note</a></td>";
@@ -163,8 +163,8 @@ include_once('../common_files/footer.php');
                         </option>
                         <?php
                         $query = "SELECT * FROM `tbl_user`";
-                        $rst_emp = mysql_query($query, $db_edar);
-                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                        $rst_emp = mysqli_query($db_edar,$query, );
+                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                             // print_r($rw_emp);
                             extract($rw_emp);
                             $emp_name = get_emp_name($emp_id);

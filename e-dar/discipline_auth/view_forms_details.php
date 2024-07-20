@@ -3,9 +3,9 @@ $GLOBALS['flag'] = "";
 include_once('../common_files/header.php');
 ?>
 <style>
-.rp-20 {
-    padding-right: 25px;
-}
+    .rp-20 {
+        padding-right: 25px;
+    }
 </style>
 
 <!-- BEGIN CONTENT -->
@@ -41,14 +41,13 @@ include_once('../common_files/header.php');
                             <label for="lst_emp_pf">Please Select the Employee</label>
                         </div>
                         <div class="col-md-6">
-                            <select name="lst_emp_pf" id="lst_emp_pf" class="select2 get_emp_pf billunitindex"
-                                style="width:100%">
+                            <select name="lst_emp_pf" id="lst_emp_pf" class="select2 get_emp_pf billunitindex" style="width:100%">
                                 <option value="0" selected="selected " disabled="disabled">Select Employee
                                 </option>
                                 <?php
                                 $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                $rst_emp = mysql_query($query, $db_common);
-                                while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                $rst_emp = mysqli_query($db_common, $query,);
+                                while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);
                                     extract($rw_emp);
                                     echo "<option value='$emp_no'>$name</option>";
@@ -87,42 +86,42 @@ include_once('../common_files/header.php');
 include_once('../common_files/footer.php');
 ?>
 <script>
-$(document).ready(function() {
-    // alert("w");
-    $("#lst_emp_pf").val('');
-    $("#lst_emp_pf").select2("destroy").select2({
-        minimumInputLength: 2,
+    $(document).ready(function() {
+        // alert("w");
+        $("#lst_emp_pf").val('');
+        $("#lst_emp_pf").select2("destroy").select2({
+            minimumInputLength: 2,
+        });
+        var emp_pf = getQueryVariable("emp_pf");
+        $("#lst_emp_pf").val(emp_pf).trigger('change');
+        $("#lst_emp_pf").attr("disabled", "disabled");
+        // $('#lst_emp_pf').attr("readOnly", true);
     });
-    var emp_pf = getQueryVariable("emp_pf");
-    $("#lst_emp_pf").val(emp_pf).trigger('change');
-    $("#lst_emp_pf").attr("disabled", "disabled");
-    // $('#lst_emp_pf').attr("readOnly", true);
-});
-// !set employee pf no in forward Modal
-// ! get employee forms using ajax
-$(document).on("change", ".get_emp_pf", function(e) {
-    e.preventDefault();
-    var emp_no = $("#lst_emp_pf").val();
-    // alert(emp_no);
-    var display = getQueryVariable("display");
-    if (emp_no == '' || emp_no == null) {
-        alert("Please select the employee..");
-    } else {
-        $.post("control/da_process.php", {
-                action: "get_emp_forms",
-                emp_no: emp_no,
-                display: display
-            },
-            function(data, textStatus, jqXHR) {
-                // alert(data);
-                // console.log(data);
-                // console.log(textStatus);
-                $("#tbl_emp_forms").html('');
-                $("#tbl_emp_forms").html(data);
-                /*$('#tbl_forms_emp').DataTable().destroy();
-                $('#tbl_forms_emp').DataTable();*/
-            }
-        );
-    }
-});
+    // !set employee pf no in forward Modal
+    // ! get employee forms using ajax
+    $(document).on("change", ".get_emp_pf", function(e) {
+        e.preventDefault();
+        var emp_no = $("#lst_emp_pf").val();
+        // alert(emp_no);
+        var display = getQueryVariable("display");
+        if (emp_no == '' || emp_no == null) {
+            alert("Please select the employee..");
+        } else {
+            $.post("control/da_process.php", {
+                    action: "get_emp_forms",
+                    emp_no: emp_no,
+                    display: display
+                },
+                function(data, textStatus, jqXHR) {
+                    // alert(data);
+                    // console.log(data);
+                    // console.log(textStatus);
+                    $("#tbl_emp_forms").html('');
+                    $("#tbl_emp_forms").html(data);
+                    /*$('#tbl_forms_emp').DataTable().destroy();
+                    $('#tbl_forms_emp').DataTable();*/
+                }
+            );
+        }
+    });
 </script>

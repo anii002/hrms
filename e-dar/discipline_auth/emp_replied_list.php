@@ -51,10 +51,10 @@ include_once('../common_files/header.php');
                             $sql = "SELECT DISTINCT(fw.emp_pf),approved_date FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON fw.form_reference_id=f_m_e.form_ref_id WHERE f_m_e.current_status IN ('5') AND fw.fw_from='$current_id' AND fw.approved_date is not NULL  ORDER BY fw.id DESC";
                             // $sql = "SELECT * FROM `tbl_form_forward` WHERE `hold_status`='0' and `fw_to`='$current_id' And `form_reference_id` in (SELECT `form_ref_id` FROM `tbl_form_master_entry` WHERE status='1') ORDER BY id DESC";
                             // $sql = "SELECT * FROM `tbl_form_forward` WHERE `status`='2' AND `current_role`='2' AND `hold_status`='0' GROUP By `form_reference_id` ORDER BY `id`";
-                            $rst_pending_list = mysql_query($sql, $db_edar);
-                            if (mysql_num_rows($rst_pending_list) > 0) {
+                            $rst_pending_list = mysqli_query($db_edar,$sql, );
+                            if (mysqli_num_rows($rst_pending_list) > 0) {
                                 $sr = 1;
-                                while ($rw_pending_list = mysql_fetch_assoc($rst_pending_list)) {
+                                while ($rw_pending_list = mysqli_fetch_assoc($rst_pending_list)) {
                                     # code...
                                     // print_r($rw_pending_list);
                                     $emp_pf = $rw_pending_list["emp_pf"];

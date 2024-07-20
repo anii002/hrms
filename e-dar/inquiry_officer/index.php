@@ -41,8 +41,8 @@ include_once('../common_files/header.php');
                     <div class="details">
                         <div class="number">
                             <?php
-                            $query = mysql_query("SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='1' and current_status='7' ", $db_edar);
-                            $resultset = mysql_fetch_array($query);
+                            $query = mysqli_query($db_edar,"SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='1' and current_status='7' ");
+                            $resultset = mysqli_fetch_array($query);
                             echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
                             ?>
                         </div>
@@ -64,8 +64,8 @@ include_once('../common_files/header.php');
                     <div class="details">
                         <div class="number">
                             <?php
-                            $query = mysql_query("SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='1' and current_status='8' ", $db_edar);
-                            $resultset = mysql_fetch_array($query);
+                            $query = mysqli_query($db_edar,"SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='1' and current_status='8' ");
+                            $resultset = mysqli_fetch_array($query);
                             echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
                             ?>
                         </div>
@@ -87,8 +87,8 @@ include_once('../common_files/header.php');
                     <div class="details">
                         <div class="number">
                             <?php
-                            $query = mysql_query("SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='1' and current_status='11' ", $db_edar);
-                            $resultset = mysql_fetch_array($query);
+                            $query = mysqli_query($db_edar,"SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='1' and current_status='11' ");
+                            $resultset = mysqli_fetch_array($query);
                             echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
                             ?>
                         </div>
@@ -110,8 +110,8 @@ include_once('../common_files/header.php');
                     <div class="details">
                         <div class="number">
                             <?php
-                            $query = mysql_query("SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='2' and current_status='9' ", $db_edar);
-                            $resultset = mysql_fetch_array($query);
+                            $query = mysqli_query($db_edar,"SELECT count(id) as id  from tbl_form_master_entry where emp_pf in (SELECT emp_id from tbl_form_details where inquiry_o_pf ='".$_SESSION['id']."') and status='2' and current_status='9' ");
+                            $resultset = mysqli_fetch_array($query);
                             echo "<h3 style='margin-bottom: 0px;margin-top: 18px;'>" . $resultset['id'] . "</h3>";
                             ?>
                         </div>

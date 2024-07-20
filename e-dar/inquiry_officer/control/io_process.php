@@ -10,22 +10,22 @@ switch ($action) {
         $emp_no = $_POST['emp_pf'];
         $refernce_id = $_POST['reference_id'];
         $search_emp = "SELECT * from tbl_form_master_entry where emp_pf='$emp_no' and form_ref_id='$refernce_id' and status='1' ";
-        $res_emp = mysql_query($search_emp, $db_edar);
+        $res_emp = mysqli_query( $db_edar,$search_emp);
 
-        if (mysql_num_rows($res_emp) > 0) {
-            $fetch_emp = mysql_fetch_array($res_emp);
+        if (mysqli_num_rows($res_emp) > 0) {
+            $fetch_emp = mysqli_fetch_array($res_emp);
             $form_ids = $fetch_emp['form_ids'];
             $ack_ids = $fetch_emp['ack_ids'];
             $note_ids = $fetch_emp['note_ids'];
-            $fetch_emp = mysql_fetch_array($res_emp);
+            $fetch_emp = mysqli_fetch_array($res_emp);
             $speaking_ids = $fetch_emp['speaking_ids'];
             $office_note_id = $fetch_emp["office_note_id"];
             $frms = explode(",", $form_ids);
             // print_r($frms);
             $sr = 0;
             foreach ($frms as $key => $frm_id) {
-                $form_details = mysql_query("SELECT tbl_form_details.id,form_name,form_id,form_reference_id,emp_id from tbl_form_details,tbl_master_form where tbl_master_form.id=tbl_form_details.form_id and form_id='$frm_id' and emp_id='$emp_no' ", $db_edar);
-                while ($frm_get = mysql_fetch_array($form_details)) {
+                $form_details = mysqli_query( $db_edar,"SELECT tbl_form_details.id,form_name,form_id,form_reference_id,emp_id from tbl_form_details,tbl_master_form where tbl_master_form.id=tbl_form_details.form_id and form_id='$frm_id' and emp_id='$emp_no' ");
+                while ($frm_get = mysqli_fetch_array($form_details)) {
                     $sr++;
                     //echo $frm_get['form_id']." ".$frm_get['form_no']."\n";
                     echo "<tr>
@@ -79,8 +79,8 @@ switch ($action) {
                 $explode = explode(",", $ack_ids);
 
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_ack_sorder where id='$value'", $db_edar);
-                    $ack_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query( $db_edar,"SELECT * From  tbl_ack_sorder where id='$value'");
+                    $ack_fetch = mysqli_fetch_array($sqll);
 
                     $sr++;
                     echo "<tr>";
@@ -103,8 +103,8 @@ switch ($action) {
                 $explode = explode(",", $note_ids);
 
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_note where id='$value'", $db_edar);
-                    $note_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query( $db_edar,"SELECT * From  tbl_note where id='$value'");
+                    $note_fetch = mysqli_fetch_array($sqll);
 
                     $sr++;
                     echo "<tr>";
@@ -127,8 +127,8 @@ switch ($action) {
             if (!empty($speaking_ids)) {
                 $explode = explode(",", $speaking_ids);
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_ack_sorder where id='$value' and type_name='3'", $db_edar);
-                    $ack_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query( $db_edar,"SELECT * From  tbl_ack_sorder where id='$value' and type_name='3'");
+                    $ack_fetch = mysqli_fetch_array($sqll);
                     $sr++;
                     echo "<tr>";
                     echo "<td>" . $sr . "</td>";
@@ -149,9 +149,9 @@ switch ($action) {
             $sr++;
             if (!empty($office_note_id)) {
                 $sql_office_note = "SELECT * FROM `tbl_officer_note` WHERE `emp_pf`='$emp_no' AND `form_reference_id`='$form_ref_id'";
-                $rst_office_note = mysql_query($sql_office_note, $db_edar);
-                if (mysql_num_rows($rst_office_note) > 0) {
-                    $rw_office_note = mysql_fetch_assoc($rst_office_note);
+                $rst_office_note = mysqli_query( $db_edar,$sql_office_note);
+                if (mysqli_num_rows($rst_office_note) > 0) {
+                    $rw_office_note = mysqli_fetch_assoc($rst_office_note);
                     // print_r($rw_office_note);
                     $emp_office_pf = $rw_office_note["emp_pf"];
                     $office_id = $rw_office_note["id"];

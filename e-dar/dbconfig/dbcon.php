@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
+$db_edak_name = "drmpsurh_e_dak";
 $db_edar_name = "drmpsurh_e_dar";
 $db_common_name = "drmpsurh_sur_railway";
 
@@ -10,7 +11,7 @@ function dbcon($db_name) {
     }
     return $connection;
 }
-
+$db_edak = dbcon($db_edak_name);
 $db_edar = dbcon($db_edar_name);
 $db_common = dbcon($db_common_name);
 

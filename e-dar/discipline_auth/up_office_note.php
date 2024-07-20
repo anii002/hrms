@@ -87,9 +87,9 @@
             $emp_desig = get_emp_designation($emp_pf);
             $office_id = $_GET["office_id"];
             $sql_office_note = "SELECT * FROM `tbl_officer_note` WHERE `emp_pf`='$emp_pf' AND `id`='$office_id'";
-            $rst_office_note = mysql_query($sql_office_note, $db_edar);
-            if (mysql_num_rows($rst_office_note) > 0) {
-                $rw_office_note = mysql_fetch_assoc($rst_office_note);
+            $rst_office_note = mysqli_query($db_edar,$sql_office_note, );
+            if (mysqli_num_rows($rst_office_note) > 0) {
+                $rw_office_note = mysqli_fetch_assoc($rst_office_note);
                 // print_r($rw_office_note);
                 /**
         Array ( [id] => 1 [emp_pf] => 00512206892 [form_no] => SUR/01 [form_reference_id] => 2 [railway_board] => Central [place_of_issue] => Solapur [form_dated] => 2019-07-24 [for_details] => Something Goes Here!!!. [penality_type] => 1 [penalty_memo_1] => 1 [ack_2] => 2 [reply_to_memo_3] => 3 to 6 [order_of_ap_4] => 7 [enquiry_from_5] => 8 [findings_of_eo_6] => 9 [defence_7] => 10 [eo_8] => 11 [rate_of_pay_9] => 4500 [grade_10] => 4500 [nxt_increment_date] => 2019-08-02 00:00:00 [suspension_from] => 2019-07-01 [suspension_to] => 2019-09-01 [total_days] => 61 [appointing_authority] => SR.DPO/SUR [imposing_penalty] => SR.DPO/SUR [memo_even_dated] => 2019-07-24 [guilty] => 12 [created_date] => 2019-07-17 10:54:27 [created_by] => 3 )  
@@ -205,8 +205,8 @@
                                      <option value="0" selected disabled>Select Penalty Type</option>
                                      <?php
                                                     $sql = "SELECT `id`,`penality_name` FROM `tbl_penality_type` WHERE `status`='1'";
-                                                    $rst_penalty_type = mysql_query($sql, $db_edar);
-                                                    while ($rw_penalty_type = mysql_fetch_assoc($rst_penalty_type)) {
+                                                    $rst_penalty_type = mysqli_query($db_edar,$sql, );
+                                                    while ($rw_penalty_type = mysqli_fetch_assoc($rst_penalty_type)) {
                                                         extract($rw_penalty_type);
                                                         echo "<option value='$id'>$penality_name</option>";
                                                     }

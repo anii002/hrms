@@ -47,12 +47,12 @@ include_once('../common_files/header.php');
                             // $sql = "SELECT * FROM `tbl_form_master_entry` WHERE `current_status`='2' ORDER BY id DESC";
                             // $sql = "SELECT * FROM `tbl_form_forward` WHERE `status`='2' AND `current_role`='2' AND `hold_status`='1' GROUP By `form_reference_id` ORDER BY `id`";
                             $sql = "SELECT fw.emp_pf FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON fw.form_reference_id=f_m_e.form_ref_id WHERE f_m_e.current_status='2' AND fw.fw_from='$current_id' AND f_m_e.status='1' GROUP BY fw.`form_reference_id` ORDER BY fw.id DESC";
-                            $rst_pending_list = mysql_query($sql, $db_edar);
-                            // echo mysql_error();
+                            $rst_pending_list = mysqli_query( $db_edar,$sql);
+                            // echo mysqli_error();
                             // var_dump($rst_pending_list);
-                            if (mysql_num_rows($rst_pending_list) > 0) {
+                            if (mysqli_num_rows($rst_pending_list) > 0) {
                                 $sr = 1;
-                                while ($rw_pending_list = mysql_fetch_assoc($rst_pending_list)) {
+                                while ($rw_pending_list = mysqli_fetch_assoc($rst_pending_list)) {
                                     # code...
                                     // print_r($rw_pending_list);
                                     $emp_pf = $rw_pending_list["emp_pf"];

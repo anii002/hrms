@@ -29,7 +29,7 @@ include_once('common_functions.php');
     <link href="../../new_eta/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../../new_eta/assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-    <link rel="stylesheet" type="text/css" href="../../../new_eta/assets/global/plugins/select2/select2.css" /> 
+    <link rel="stylesheet" type="text/css" href="../../new_eta/assets/global/plugins/select2/select2.css" /> 
     <link href="../../new_eta/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
     <link href="../../new_eta/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="../../new_eta/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
@@ -135,57 +135,52 @@ include_once('common_functions.php');
                 <ul class="nav navbar-nav pull-right"> 
                     <!-- BEGIN USER LOGIN DROPDOWN --> 
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte --> 
-                    <li class="dropdown dropdown-user"> 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-
-                            <?php 
-                            // $query = mysql_query("select img from employees where pfno='".$_SESSION['empid']."'");
-                            // $result = mysql_fetch_array($query);
-                            // if($result['img']=="")
-                            // {
-                            ?> 
-                            <img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
-
-                            <?php
-                            // }
-                            // else
-                            // {
-                            // 	echo "<img src='".$result['img']."' class='user-image' ";
-                            // }
-                            ?>
-                            <span class="username username-hide-on-mobile">
-                                <span class="empname" style="color: floralwhite;">
-                                    <?php echo $_SESSION['username']; ?>
-                                </span>
-                            </span>
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-default">
-                            <?php
-                                if ($GLOBALS['flag'] == "5.2") {
-                                    ?>
-                                <li class="active">
-                                    <?php } else { ?>
-                                <li>
-                            <?php } ?> 
-                                 <!-- <a href="../../../profile.php">
-                                <i class="far fa-key"></i> Change Password </a>  -->
-                            </li> 
-                            <!-- <li class="divider">  </li> --> 
-                            <!--<li> <a href="../logout.php"> <i class="fas fa-sign-out-alt"></i> Log Out </a> </li>--> 
-                            <li>
-                                <a href="../../dashboard.php"> 
-                                <i class="fas fa-home"></i>Home</a>
-                            </li>
-                            <li>
-                                <a href="../../logout.php">
-                                <i class="fas fa-sign-out-alt"></i> Log Out </a>
-                            </li>
-                        </ul>
-                        <!--<ul class="loginas pull-right"> 
-                        	<li><a class="btn btn-warning" data-toggle="modal" onClick="modu('tamm')" href="#myModal">Login As</a></li> 
-       				    </ul>--> 
-                    </li> 
+                    <li class="dropdown dropdown-user">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<?php
+							if (empty($result['img'])) {
+							?>
+								<img alt="" class="img-circle" src="../../new_eta/assets/admin/layout/img/avatar3_small.jpg" />
+							<?php
+							} else {
+							?>
+								<img alt="" class="img-circle" src="../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
+							<?php
+							}
+							?>
+							<span class="username username-hide-on-mobile">
+								<span class="empname" style="color: floralwhite;">
+									<?php
+									if (isset($_SESSION['user']) && $_SESSION['user'] == 'admin') {
+										echo $_SESSION['user'];
+									} else {
+										$query = mysqli_query($db_common, "SELECT `name` FROM `register_user` WHERE `emp_no` = '" . $_SESSION['emp_id'] . "'");
+										$row = mysqli_fetch_array($query);
+										echo $row['name'];
+									}
+									?>
+								</span>
+							</span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-default">
+							<li>
+								<a href="../../dashboard.php">
+									<i class="fas fa-home"></i> Home
+								</a>
+							</li>
+							<li>
+								<a href="../../profile.php">
+									<i class="fas fa-user"></i> Profile
+								</a>
+							</li>
+							<li>
+								<a href="../../Logout.php">
+									<i class="fas fa-sign-out-alt"></i> Log Out
+								</a>
+							</li>
+						</ul>
+					</li>
                 </ul> 
                 <ul class="loginas pull-right"> 
                     <li><a class="btn btn-info" data-toggle="modal" onClick="modu('dar')" href="#" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Login As</a></li>

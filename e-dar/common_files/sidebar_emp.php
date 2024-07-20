@@ -26,10 +26,10 @@
 
                 <?php
                 if ($GLOBALS['flag'] == "1.1") {
-                    ?>
-                <li class="active">
+                ?>
+                    <li class="active">
                     <?php } else { ?>
-                <li>
+                    <li>
                     <?php } ?>
                     <a href="index.php">
                         <i class="fas fa-home"></i>
@@ -37,61 +37,61 @@
                         <span class="selected"></span>
                         <!-- <span class="arrow open"></span> -->
                     </a>
-                </li>
-                
-                <?php
-                if ($GLOBALS['flag'] == "1.2") {
+                    </li>
+
+                    <?php
+                    if ($GLOBALS['flag'] == "1.2") {
                     ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="pending_froms.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Pending Forms List</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.5") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="forwarded_list.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Forwarded List</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.3") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="completed_forms.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Completed Forms List</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <?php
-                if ($GLOBALS['flag'] == "1.4") {
-                    ?>
-                <li class="active">
-                    <?php } else { ?>
-                <li>
-                    <?php } ?>
-                    <a href="track_forms.php">
-                        <i class="fa fa-user-plus"></i>
-                        <span class="title">Track of Employee Forms </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                
+                        <li class="active">
+                        <?php } else { ?>
+                        <li>
+                        <?php } ?>
+                        <a href="pending_froms.php">
+                            <i class="fa fa-user-plus"></i>
+                            <span class="title">Pending Forms List</span>
+                            <span class="selected"></span>
+                        </a>
+                        </li>
+                        <?php
+                        if ($GLOBALS['flag'] == "1.5") {
+                        ?>
+                            <li class="active">
+                            <?php } else { ?>
+                            <li>
+                            <?php } ?>
+                            <a href="forwarded_list.php">
+                                <i class="fa fa-user-plus"></i>
+                                <span class="title">Forwarded List</span>
+                                <span class="selected"></span>
+                            </a>
+                            </li>
+                            <?php
+                            if ($GLOBALS['flag'] == "1.3") {
+                            ?>
+                                <li class="active">
+                                <?php } else { ?>
+                                <li>
+                                <?php } ?>
+                                <a href="completed_forms.php">
+                                    <i class="fa fa-user-plus"></i>
+                                    <span class="title">Completed Forms List</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <?php
+                                if ($GLOBALS['flag'] == "1.4") {
+                                ?>
+                                    <li class="active">
+                                    <?php } else { ?>
+                                    <li>
+                                    <?php } ?>
+                                    <a href="track_forms.php">
+                                        <i class="fa fa-user-plus"></i>
+                                        <span class="title">Track of Employee Forms </span>
+                                        <span class="selected"></span>
+                                    </a>
+                                    </li>
+
             </ul>
             </li>
 

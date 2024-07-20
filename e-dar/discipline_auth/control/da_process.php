@@ -137,25 +137,25 @@ switch ($action) {
         $rail_board = $_REQUEST["hd_rail_board"];
         $place_of_issue = $_REQUEST["hd_place_of_issue"];
         $form_dated = $_REQUEST["hd_dated"];
-        $form_no = mysql_real_escape_string($_REQUEST["hd_no"]);
-        $for_text = mysql_real_escape_string($_REQUEST["hd_for"]);
-        $memo_one = mysql_real_escape_string($_REQUEST["hd_memo_one"]);
-        $ack_two = mysql_real_escape_string($_REQUEST["hd_ack_two"]);
-        $reply_three = mysql_real_escape_string($_REQUEST["hd_reply_three"]);
-        $apoint_four = mysql_real_escape_string($_REQUEST["hd_apoint_four"]);
-        $enquiry_five = mysql_real_escape_string($_REQUEST["hd_enquiry_five"]);
-        $finding_six = mysql_real_escape_string($_REQUEST["hd_finding_six"]);
-        $defence_seven = mysql_real_escape_string($_REQUEST["hd_defence_seven"]);
-        $eo_eight = mysql_real_escape_string($_REQUEST["hd_eo_eight"]);
-        $rate_nine = mysql_real_escape_string($_REQUEST["hd_rate_nine"]);
-        $grade_ten = mysql_real_escape_string($_REQUEST["hd_grade_ten"]);
-        $guilty_text = mysql_real_escape_string($_REQUEST["hd_guilty_text"]);
-        $db_inc_eleven = mysql_real_escape_string($_REQUEST["hd_db_inc_eleven"]);
+        $form_no = mysqli_real_escape_string($db_edar,$_REQUEST["hd_no"]);
+        $for_text = mysqli_real_escape_string($db_edar,$_REQUEST["hd_for"]);
+        $memo_one = mysqli_real_escape_string($db_edar,$_REQUEST["hd_memo_one"]);
+        $ack_two = mysqli_real_escape_string($db_edar,$_REQUEST["hd_ack_two"]);
+        $reply_three = mysqli_real_escape_string($db_edar,$_REQUEST["hd_reply_three"]);
+        $apoint_four = mysqli_real_escape_string($db_edar,$_REQUEST["hd_apoint_four"]);
+        $enquiry_five = mysqli_real_escape_string($db_edar,$_REQUEST["hd_enquiry_five"]);
+        $finding_six = mysqli_real_escape_string($db_edar,$_REQUEST["hd_finding_six"]);
+        $defence_seven = mysqli_real_escape_string($db_edar,$_REQUEST["hd_defence_seven"]);
+        $eo_eight = mysqli_real_escape_string($db_edar,$_REQUEST["hd_eo_eight"]);
+        $rate_nine = mysqli_real_escape_string($db_edar,$_REQUEST["hd_rate_nine"]);
+        $grade_ten = mysqli_real_escape_string($db_edar,$_REQUEST["hd_grade_ten"]);
+        $guilty_text = mysqli_real_escape_string($db_edar,$_REQUEST["hd_guilty_text"]);
+        $db_inc_eleven = mysqli_real_escape_string($db_edar,$_REQUEST["hd_db_inc_eleven"]);
         $db_suspension_from = $_REQUEST["hd_db_suspension_from"];
         $db_suspension_to = $_REQUEST["hd_db_suspension_to"];
         $total_days = $_REQUEST["hd_total_days"];
-        $imposing_penalty  = mysql_real_escape_string($_REQUEST["hd_imposing_penalty"]);
-        $appontingauth   = mysql_real_escape_string($_REQUEST["hd_apponting_auth"]);
+        $imposing_penalty  = mysqli_real_escape_string($db_edar,$_REQUEST["hd_imposing_penalty"]);
+        $appontingauth   = mysqli_real_escape_string($db_edar,$_REQUEST["hd_apponting_auth"]);
         $db_memo_even_dated   = $_REQUEST["hd_db_memo_even_dated"];
         $res = save_office_note(
             $emp_pf,
@@ -196,13 +196,13 @@ switch ($action) {
         $display = $_POST["display"];
         $form_ref_id = get_emp_ref($emp_no);
         $search_emp = "SELECT * from tbl_form_master_entry where emp_pf='$emp_no' and status='1' and form_ref_id='$form_ref_id'";
-        $res_emp = mysql_query($search_emp, $db_edar);
-        // echo mysql_error();
+        $res_emp = mysqli_query($db_edar,$search_emp);
+        // echo mysqli_error();
         // var_dump($res_emp);
-        // var_dump(mysql_num_rows($res_emp));
+        // var_dump(mysqli_num_rows($res_emp));
         $display_array = explode(",", $display);
-        if (mysql_num_rows($res_emp) > 0) {
-            $fetch_emp = mysql_fetch_array($res_emp);
+        if (mysqli_num_rows($res_emp) > 0) {
+            $fetch_emp = mysqli_fetch_array($res_emp);
             // print_r($fetch_emp);
             $form_ids = $fetch_emp['form_ids'];
             $ack_ids = $fetch_emp['ack_ids'];
@@ -214,8 +214,8 @@ switch ($action) {
             $sr = 0;
             foreach ($frms as $key => $frm_id) {
                 $sql_inner = "SELECT tbl_form_details.id,form_name,form_id,form_reference_id,emp_id from tbl_form_details,tbl_master_form where tbl_master_form.id=tbl_form_details.form_id and form_id='$frm_id' and emp_id='$emp_no' and form_reference_id='$form_ref_id'";
-                $form_details = mysql_query($sql_inner, $db_edar);
-                while ($frm_get = mysql_fetch_array($form_details)) {
+                $form_details = mysqli_query($db_edar,$sql_inner);
+                while ($frm_get = mysqli_fetch_array($form_details)) {
                     $sr++;
                     //echo $frm_get['form_id']." ".$frm_get['form_no']."\n";
                     echo "<tr>
@@ -413,8 +413,8 @@ switch ($action) {
             if (!empty($ack_ids)) {
                 $explode = explode(",", $ack_ids);
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_ack_sorder where id='$value'", $db_edar);
-                    $ack_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query($db_edar,"SELECT * From  tbl_ack_sorder where id='$value'");
+                    $ack_fetch = mysqli_fetch_array($sqll);
 
                     $sr++;
                     echo "<tr>";
@@ -435,8 +435,8 @@ switch ($action) {
             if (!empty($note_ids)) {
                 $explode = explode(",", $note_ids);
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_note where id='$value'", $db_edar);
-                    $note_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query($db_edar,"SELECT * From  tbl_note where id='$value'");
+                    $note_fetch = mysqli_fetch_array($sqll);
                     $sr++;
                     echo "<tr>";
                     echo "<td>" . $sr . "</td>";
@@ -457,8 +457,8 @@ switch ($action) {
             if (!empty($speaking_ids)) {
                 $explode = explode(",", $speaking_ids);
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_ack_sorder where id='$value' and type_name='3'", $db_edar);
-                    $ack_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query($db_edar,"SELECT * From  tbl_ack_sorder where id='$value' and type_name='3'");
+                    $ack_fetch = mysqli_fetch_array($sqll);
                     $sr++;
                     echo "<tr>";
                     echo "<td>" . $sr . "</td>";
@@ -476,9 +476,9 @@ switch ($action) {
             $sr++;
             if (!empty($office_note_id)) {
                 $sql_office_note = "SELECT * FROM `tbl_officer_note` WHERE `emp_pf`='$emp_no' AND `form_reference_id`='$form_ref_id'";
-                $rst_office_note = mysql_query($sql_office_note, $db_edar);
-                if (mysql_num_rows($rst_office_note) > 0) {
-                    $rw_office_note = mysql_fetch_assoc($rst_office_note);
+                $rst_office_note = mysqli_query($db_edar,$sql_office_note);
+                if (mysqli_num_rows($rst_office_note) > 0) {
+                    $rw_office_note = mysqli_fetch_assoc($rst_office_note);
                     // print_r($rw_office_note);
                     $emp_office_pf = $rw_office_note["emp_pf"];
                     $office_id = $rw_office_note["id"];
@@ -514,13 +514,13 @@ switch ($action) {
         $display = $_POST["display"];
         $emp_form_ref = $_POST["form_ref_id"];
         $search_emp = "SELECT * from tbl_form_master_entry where emp_pf='$emp_no' AND form_ref_id='$emp_form_ref'";
-        $res_emp = mysql_query($search_emp, $db_edar);
-        // echo mysql_error();
+        $res_emp = mysqli_query($db_edar,$search_emp);
+        // echo mysqli_error();
         // var_dump($res_emp);
-        // var_dump(mysql_num_rows($res_emp));
+        // var_dump(mysqli_num_rows($res_emp));
         $display_array = explode(",", $display);
-        if (mysql_num_rows($res_emp) > 0) {
-            $fetch_emp = mysql_fetch_array($res_emp);
+        if (mysqli_num_rows($res_emp) > 0) {
+            $fetch_emp = mysqli_fetch_array($res_emp);
             $form_ids = $fetch_emp['form_ids'];
             $ack_ids = $fetch_emp['ack_ids'];
             $speaking_ids = $fetch_emp['speaking_ids'];
@@ -530,8 +530,8 @@ switch ($action) {
             // print_r($frms);
             $sr = 0;
             foreach ($frms as $key => $frm_id) {
-                $form_details = mysql_query("SELECT tbl_form_details.id,form_name,form_id,form_reference_id,emp_id from tbl_form_details,tbl_master_form where tbl_master_form.id=tbl_form_details.form_id and form_id='$frm_id' and emp_id='$emp_no' and form_reference_id ='$emp_form_ref'", $db_edar);
-                while ($frm_get = mysql_fetch_array($form_details)) {
+                $form_details = mysqli_query( $db_edar,"SELECT tbl_form_details.id,form_name,form_id,form_reference_id,emp_id from tbl_form_details,tbl_master_form where tbl_master_form.id=tbl_form_details.form_id and form_id='$frm_id' and emp_id='$emp_no' and form_reference_id ='$emp_form_ref'", );
+                while ($frm_get = mysqli_fetch_array($form_details)) {
                     $sr++;
                     //echo $frm_get['form_id']." ".$frm_get['form_no']."\n";
                     echo "<tr>
@@ -729,8 +729,8 @@ switch ($action) {
             if (!empty($speaking_ids)) {
                 $explode = explode(",", $speaking_ids);
                 foreach ($explode as  $value) {
-                    $sqll = mysql_query("SELECT * From  tbl_ack_sorder where id='$value' and type_name='3'", $db_edar);
-                    $ack_fetch = mysql_fetch_array($sqll);
+                    $sqll = mysqli_query($db_edar,"SELECT * From  tbl_ack_sorder where id='$value' and type_name='3'",);
+                    $ack_fetch = mysqli_fetch_array($sqll);
                     $sr++;
                     echo "<tr>";
                     echo "<td>" . $sr . "</td>";
@@ -751,9 +751,9 @@ switch ($action) {
             $sr++;
             if (!empty($office_note_id)) {
                 $sql_office_note = "SELECT * FROM `tbl_officer_note` WHERE `emp_pf`='$emp_no' AND `form_reference_id`='$form_ref_id'";
-                $rst_office_note = mysql_query($sql_office_note, $db_edar);
-                if (mysql_num_rows($rst_office_note) > 0) {
-                    $rw_office_note = mysql_fetch_assoc($rst_office_note);
+                $rst_office_note = mysqli_query($db_edar,$sql_office_note, );
+                if (mysqli_num_rows($rst_office_note) > 0) {
+                    $rw_office_note = mysqli_fetch_assoc($rst_office_note);
                     // print_r($rw_office_note);
                     $emp_office_pf = $rw_office_note["emp_pf"];
                     $office_id = $rw_office_note["id"];
@@ -788,7 +788,7 @@ switch ($action) {
         $desc_note = ($_POST['desc_note']);
         $form_id = "123";
         $date = date('Y-m-d h:i:s');
-        $ins_desc_note = mysql_query("INSERT INTO `tbl_ack_sorder`(`form_id`, `form_reference_id`, `emp_id`, `type_name`, `desc_note`, `created_date`) VALUES('" . $form_id . "','" . $refernce_id . "','" . $empid . "','" . $type_id . "','" . $desc_note . "','" . $date . "')", $db_edar);
+        $ins_desc_note = mysqli_query($db_edar,"INSERT INTO `tbl_ack_sorder`(`form_id`, `form_reference_id`, `emp_id`, `type_name`, `desc_note`, `created_date`) VALUES('" . $form_id . "','" . $refernce_id . "','" . $empid . "','" . $type_id . "','" . $desc_note . "','" . $date . "')", );
         if ($ins_desc_note) {
             $data = 1;
         }
@@ -819,20 +819,20 @@ switch ($action) {
         $ref_id = $_GET['refernce_id'];
         $form_id = $_GET['form_id'];
 
-        $sql = mysql_query("SELECT * from tbl_form_master_entry where form_ref_id='" . $ref_id . "' and emp_pf='" . $emp_pf . "' and status='1' ", $db_edar);
-        $sql_fetch = mysql_fetch_array($sql);
+        $sql = mysqli_query($db_edar,"SELECT * from tbl_form_master_entry where form_ref_id='" . $ref_id . "' and emp_pf='" . $emp_pf . "' and status='1' ", );
+        $sql_fetch = mysqli_fetch_array($sql);
         $frm_ids = explode(",", $sql_fetch['form_ids']);
         //print_r($frm_ids);
         if (($key = array_search($form_id, $frm_ids)) !== false) {
             unset($frm_ids[$key]);
             $removed_frm_id = implode(",", $frm_ids);
-            $update_master_frm = mysql_query("UPDATE tbl_form_master_entry set form_ids='" . $removed_frm_id . "' where emp_pf='" . $emp_pf . "' AND form_ref_id='" . $ref_id . "'", $db_edar);
-            $del_frm_detalis = mysql_query("DELETE from  tbl_form_details where id='" . $_GET['id'] . "'", $db_edar);
+            $update_master_frm = mysqli_query($db_edar,"UPDATE tbl_form_master_entry set form_ids='" . $removed_frm_id . "' where emp_pf='" . $emp_pf . "' AND form_ref_id='" . $ref_id . "'");
+            $del_frm_detalis = mysqli_query($db_edar,"DELETE from  tbl_form_details where id='" . $_GET['id'] . "'", );
             echo "<script>window.location='../forms_of_emp.php';AlertBox('Removed','successfully removed..');</script>";
         } else {
             echo "<script>window.location='../forms_of_emp.php';AlertBox('Error','failed to remove form..');</script>";
         }
-        //$del_frm_detalis=mysql_query("DELETE from  tbl_form_details where id='".$_GET['id']."'",$db_edar);
+        //$del_frm_detalis=mysqli_query("DELETE from  tbl_form_details where id='".$_GET['id']."'",$db_edar);
 
         break;
 
@@ -845,15 +845,15 @@ switch ($action) {
         $emp_pf = $_REQUEST["emp_pf"];
         $ref_id = get_emp_ref($emp_pf);
         $sql_update = "UPDATE `tbl_form_master_entry` SET `office_note_id`='NULL' WHERE `form_ref_id`='$ref_id' AND `emp_pf`='$emp_pf'  AND `status`='1'";
-        $update_master_frm = mysql_query($sql_update, $db_edar);
+        $update_master_frm = mysqli_query($db_edar,$sql_update, );
         $sql_del = "DELETE FROM `tbl_officer_note` WHERE `id`='$office_id'";
-        $del_frm_detalis = mysql_query($sql_del, $db_edar);
+        $del_frm_detalis = mysqli_query($db_edar,$sql_del, );
         if ($del_frm_detalis && $update_master_frm) {
             echo "<script>window.location='../view_forms_details_new.php?display=view,update,remove&emp_pf=$emp_pf&baction=forward,close&action=add_forms,add_speak,add_office_note'; AlertBox('Removed','successfully removed..');</script>";
         } else {
             echo "<script>window.location='../view_forms_details_new.php?display=view,update,remove&emp_pf=$emp_pf&baction=forward,close&action=add_forms,add_speak,add_office_note'; AlertBox('Error','failed to remove form..');</script>";
         }
-        //$del_frm_detalis=mysql_query("DELETE from  tbl_form_details where id='".$_GET['id']."'",$db_edar);
+        //$del_frm_detalis=mysqli_query("DELETE from  tbl_form_details where id='".$_GET['id']."'",$db_edar);
 
         break;
 

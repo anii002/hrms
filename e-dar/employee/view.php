@@ -4,9 +4,9 @@ include_once('../common_files/header.php');
 // include_once('../common_files/sidebar.php');
 ?>
 <style>
-.rp-20 {
-    padding-right: 25px;
-}
+    .rp-20 {
+        padding-right: 25px;
+    }
 </style>
 
 <!-- BEGIN CONTENT -->
@@ -45,8 +45,7 @@ include_once('../common_files/header.php');
                 <div class="portlet-body">
 
                     <input type="hidden" name="emp_pf" id="emp_pf" value="<?php echo $_GET['emp_pf'] ?>">
-                    <input type="hidden" name="reference_id" id="reference_id"
-                        value="<?php echo $_GET['reference_id'] ?>">
+                    <input type="hidden" name="reference_id" id="reference_id" value="<?php echo $_GET['reference_id'] ?>">
 
                     <table class="table table-resposive table-bordered" id="example1">
                         <thead>
@@ -76,39 +75,39 @@ include_once('../common_files/header.php');
 include_once('../common_files/footer.php');
 ?>
 <script>
-// ! get employee forms using ajax
-$(document).ready(function() {
-    var emp_pf = $("#emp_pf").val();
-    var reference_id = $("#reference_id").val();
+    // ! get employee forms using ajax
+    $(document).ready(function() {
+        var emp_pf = $("#emp_pf").val();
+        var reference_id = $("#reference_id").val();
 
-    if (emp_pf == '' || emp_pf == null) {
-        alert("Please select the employee..");
-    } else {
-        $.post("control/emp_process.php", {
-                action: "get_emp_forms",
-                emp_pf: emp_pf,
-                reference_id: reference_id
-            },
-            function(data, textStatus, jqXHR) {
-                // alert(data);
-                //  console.log(data);
-                $('#example1').DataTable().destroy();
-                $("#tbl_emp_forms").html('');
-                $("#tbl_emp_forms").html(data);
-                $('#example1').DataTable({
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copyHtml5',
-                        'excelHtml5',
-                        'csvHtml5',
-                        'pdfHtml5'
-                    ],
-                    "ordering": false
+        if (emp_pf == '' || emp_pf == null) {
+            alert("Please select the employee..");
+        } else {
+            $.post("control/emp_process.php", {
+                    action: "get_emp_forms",
+                    emp_pf: emp_pf,
+                    reference_id: reference_id
+                },
+                function(data, textStatus, jqXHR) {
+                    // alert(data);
+                    //  console.log(data);
+                    $('#example1').DataTable().destroy();
+                    $("#tbl_emp_forms").html('');
+                    $("#tbl_emp_forms").html(data);
+                    $('#example1').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdfHtml5'
+                        ],
+                        "ordering": false
 
-                });
-            }
-        );
-    }
+                    });
+                }
+            );
+        }
 
-});
+    });
 </script>

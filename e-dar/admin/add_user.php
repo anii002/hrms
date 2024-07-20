@@ -4,20 +4,20 @@ include_once('../common_files/header.php');
 // include_once('../common_files/sidebar_admin.php');
 ?>
 <style type="text/css">
-.updateModal {
-    width: 805px !important;
-    /* margin-left: 0px !important; */
-    /* width: 100% !important; */
-    left: 38% !important;
-    right: 50% !important;
+    .updateModal {
+        width: 805px !important;
+        /* margin-left: 0px !important; */
+        /* width: 100% !important; */
+        left: 38% !important;
+        right: 50% !important;
 
 
-}
+    }
 
-.billunitindex {
+    .billunitindex {
 
-    z-index: 9
-}
+        z-index: 9
+    }
 </style>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
@@ -58,8 +58,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas  fa-user"></i>
                                             </span>
-                                            <input type="text" class="form-control" id="empid" name="empid"
-                                                placeholder="Enter PF Number" required>
+                                            <input type="text" class="form-control" id="empid" name="empid" placeholder="Enter PF Number" required>
                                         </div>
                                     </div>
                                 </div>
@@ -71,8 +70,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas  fa-user"></i>
                                             </span>
-                                            <input type="text" class="form-control" id="empname" name="empname"
-                                                placeholder="Employee Name" readonly="">
+                                            <input type="text" class="form-control" id="empname" name="empname" placeholder="Employee Name" readonly="">
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +85,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
-                                            <input type="text" class="form-control" id="mobile" name="mobile"
-                                                placeholder="Enter Mobile number" readonly="">
+                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile number" readonly="">
                                         </div>
                                     </div>
                                 </div>
@@ -100,8 +97,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
-                                            <input type="text" id="design" name="design"
-                                                placeholder="Employee Designation" class="form-control" readonly="">
+                                            <input type="text" id="design" name="design" placeholder="Employee Designation" class="form-control" readonly="">
 
                                         </div>
                                     </div>
@@ -120,8 +116,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
-                                            <input type="text" id="dept" name="dept" class="form-control"
-                                                placeholder="Employee Department" readonly="">
+                                            <input type="text" id="dept" name="dept" class="form-control" placeholder="Employee Department" readonly="">
 
                                         </div>
                                     </div>
@@ -134,8 +129,7 @@ include_once('../common_files/header.php');
                                             <span class="input-group-addon">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
-                                            <input type="text" id="paylevel" name="paylevel" class="form-control"
-                                                placeholder="Employee Pay Level" readonly="">
+                                            <input type="text" id="paylevel" name="paylevel" class="form-control" placeholder="Employee Pay Level" readonly="">
                                         </div>
                                     </div>
                                 </div>
@@ -147,13 +141,11 @@ include_once('../common_files/header.php');
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Select Role</label>
-                                        <select name="role[]" id="role" multiple=""
-                                            class="select2me form-control billunitindex" style="width: 100%;"
-                                            tabindex="-1" aria-hidden="true" required>
+                                        <select name="role[]" id="role" multiple="" class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
                                             <option value="" selected disabled>--Select Role--</option>
                                             <?php
 
-                                            $query_role = mysqli_query($db_edar,"SELECT id,role_name from tbl_master_role where id NOT in (1) and status='1'");
+                                            $query_role = mysqli_query($db_edar, "SELECT id,role_name from tbl_master_role where id NOT in (1) and status='1'");
 
                                             while ($value_role = mysqli_fetch_array($query_role)) {
                                                 echo "<option value='" . $value_role['id'] . "'>" . $value_role['role_name'] . "</option>";
@@ -207,7 +199,7 @@ include_once('../common_files/header.php');
                             <tbody>
                                 <?php
                                 $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,designation,department,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1,7)";
-                                $result_src = mysqli_query($db_edar,$query_src);
+                                $result_src = mysqli_query($db_edar, $query_src);
                                 $sr = 1;
                                 while ($value_src = mysqli_fetch_array($result_src)) {
 
@@ -285,14 +277,12 @@ include_once('../common_files/header.php');
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Select Role</label>
-                                    <select name="u_role[]" id="u_role" multiple="multiple"
-                                        class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1"
-                                        aria-hidden="true" required>
+                                    <select name="u_role[]" id="u_role" multiple="multiple" class="select2me form-control billunitindex" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
 
                                         <option value="0" selected disabled>--Select Role--</option>
                                         <?php
 
-                                        $query_role = mysqli_query($db_edar,"SELECT * from tbl_master_role where id NOT in (1) and status='1'");
+                                        $query_role = mysqli_query($db_edar, "SELECT * from tbl_master_role where id NOT in (1) and status='1'");
 
                                         while ($value_role = mysqli_fetch_array($query_role)) {
                                             echo "<option value='" . $value_role['id'] . "'>" . $value_role['role_name'] . "</option>";
@@ -322,182 +312,182 @@ include_once('../common_files/header.php');
     </div>
 
     <script type="text/javascript">
-    //Adding User
-    $(document).on("click", ".addUser", function() {
-        var empid = $("#empid").val();
-        var dob = $("#dob").val();
-        var role = $("#role").val();
+        //Adding User
+        $(document).on("click", ".addUser", function() {
+            var empid = $("#empid").val();
+            var dob = $("#dob").val();
+            var role = $("#role").val();
 
-        //alert(r);
-        if (empid == "") {
-            alert("Enter form name....");
-            $("#empid").focus();
-        } else if (role == "") {
-            alert("please select role..");
-            $("#role").focus();
-        } else {
+            //alert(r);
+            if (empid == "") {
+                alert("Enter form name....");
+                $("#empid").focus();
+            } else if (role == "") {
+                alert("please select role..");
+                $("#role").focus();
+            } else {
+                //alert(value);
+                $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: "action=add_user&empid=" + empid + "&dob=" + dob + "&role=" + role,
+                    success: function(data) {
+                        //alert(data);
+                        //console.log(data);
+                        if (data == 1) {
+                            alert("Added successfully....");
+                            window.location = "add_user.php";
+                        } else if (data == 2) {
+                            alert("Already presented in user list!!!!.");
+                            window.location = "add_user.php";
+                        } else {
+                            alert("Failed To add user!!!");
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $(document).on("change", "#empid", function() {
+            var value = $('#empid').val();
             //alert(value);
             $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: "action=add_user&empid=" + empid + "&dob=" + dob + "&role=" + role,
-                success: function(data) {
-                    //alert(data);
-                    //console.log(data);
-                    if (data == 1) {
-                        alert("Added successfully....");
-                        window.location = "add_user.php";
-                    } else if (data == 2) {
-                        alert("Already presented in user list!!!!.");
-                        window.location = "add_user.php";
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: {
+                        action: 'fetch_employee_details',
+                        id: value
+                    },
+                })
+                .done(function(html) {
+                    //alert(html);
+                    var data = JSON.parse(html);
+                    if (data.pf_number == null) {
+                        alert("Not Found PF number.....")
+                        $('#empid').focus().val('');
                     } else {
-                        alert("Failed To add user!!!");
+                        $("#empid").val(data.pf_number);
+                        $("#empname").val(data.emp_name);
+                        $("#design").val(data.designation);
+                        $("#paylevel").val(data.scale);
+                        $("#dept").val(data.dept);
+                        $("#dept1").val(data.dept1);
+                        $("#design1").val(data.designation1);
+                        $("#mobile").val(data.mobile);
+                        $("#dob").val(data.dob);
                     }
-                }
-            });
-        }
-    });
 
 
-    $(document).on("change", "#empid", function() {
-        var value = $('#empid').val();
-        //alert(value);
-        $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: {
-                    action: 'fetch_employee_details',
-                    id: value
-                },
-            })
-            .done(function(html) {
-                //alert(html);
-                var data = JSON.parse(html);
-                if (data.pf_number == null) {
-                    alert("Not Found PF number.....")
-                    $('#empid').focus().val('');
-                } else {
-                    $("#empid").val(data.pf_number);
-                    $("#empname").val(data.emp_name);
-                    $("#design").val(data.designation);
-                    $("#paylevel").val(data.scale);
-                    $("#dept").val(data.dept);
-                    $("#dept1").val(data.dept1);
-                    $("#design1").val(data.designation1);
-                    $("#mobile").val(data.mobile);
-                    $("#dob").val(data.dob);
-                }
+                });
+
+        });
 
 
-            });
+        $(document).on("click", ".deactive", function() {
+            var value = $(this).attr("value");
+            var pf = $(this).attr("pf");
+            var role = $(this).attr("role");
+            //alert(pf);
+            var result = confirm("Confirm!!! Proceed for Disabled user?");
+            if (result == true) {
+                //alert(value);
 
-    });
-
-
-    $(document).on("click", ".deactive", function() {
-        var value = $(this).attr("value");
-        var pf = $(this).attr("pf");
-        var role = $(this).attr("role");
-        //alert(pf);
-        var result = confirm("Confirm!!! Proceed for Disabled user?");
-        if (result == true) {
-            //alert(value);
-
-            $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: "action=deactiveUser&id=" + value + "&pf=" + pf + "&role=" + role,
-                success: function(data) {
-                    //alert(data);
-                    //console.log(data);
-                    if (data == 1) {
-                        alert("Disabled Succeessfully");
-                        window.location = "add_user.php";
+                $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: "action=deactiveUser&id=" + value + "&pf=" + pf + "&role=" + role,
+                    success: function(data) {
+                        //alert(data);
+                        //console.log(data);
+                        if (data == 1) {
+                            alert("Disabled Succeessfully");
+                            window.location = "add_user.php";
+                        }
+                        //     	
+                        else {
+                            alert("Failed To Disabled");
+                        }
                     }
-                    //     	
-                    else {
-                        alert("Failed To Disabled");
+
+
+                });
+            }
+        });
+
+        $(document).on("click", ".aactive", function() {
+            var value = $(this).attr("value");
+            var pf = $(this).attr("pf");
+            var role = $(this).attr("role");
+            //alert(pf);
+            var result = confirm("Confirm!!! Proceed for Enable user?");
+            if (result == true) {
+                //alert(value);
+
+                $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: "action=activeUser&id=" + value + "&pf=" + pf + "&role=" + role,
+                    success: function(data) {
+                        //alert(data);
+                        //console.log(data);
+                        if (data == 1) {
+                            alert("Enabled Succeessfully");
+                            window.location = "add_user.php";
+                        }
+                        //     	
+                        else {
+                            alert("Failed To Enabled");
+                        }
                     }
-                }
 
 
-            });
-        }
-    });
+                });
+            }
+        });
 
-    $(document).on("click", ".aactive", function() {
-        var value = $(this).attr("value");
-        var pf = $(this).attr("pf");
-        var role = $(this).attr("role");
-        //alert(pf);
-        var result = confirm("Confirm!!! Proceed for Enable user?");
-        if (result == true) {
-            //alert(value);
+        $(document).on("click", ".fetchid", function() {
+            var id = $(this).attr("value");
+            var pf = $(this).attr("pf");
+            var role = $(this).attr("role");
+            var array = role.split(",");
+            //alert(array);
+            $("#u_fid").val(id);
+            $("#u_pf_num").val(pf);
+            $("#u_role").val(array).trigger("change");
 
-            $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: "action=activeUser&id=" + value + "&pf=" + pf + "&role=" + role,
-                success: function(data) {
-                    //alert(data);
-                    //console.log(data);
-                    if (data == 1) {
-                        alert("Enabled Succeessfully");
-                        window.location = "add_user.php";
+
+        });
+
+
+        $(document).on("click", ".update", function() {
+            var id = $("#u_fid").val();
+            var pf = $("#u_pf_num").val();
+            var role = $("#u_role").val();
+            //alert(pf);
+            var result = confirm("Confirm!!! Proceed for Update role...?");
+            if (result == true) {
+                //alert(value);
+
+                $.ajax({
+                    url: 'control/adminProcess.php',
+                    type: 'POST',
+                    data: "action=updateUser&id=" + id + "&pf=" + pf + "&role=" + role,
+                    success: function(data) {
+                        //alert(data);
+                        //console.log(data);
+                        if (data == 1) {
+                            alert("Role updated Successfully");
+                            window.location = "add_user.php";
+                        }
+                        //     	
+                        else {
+                            alert("Failed To update role");
+                        }
                     }
-                    //     	
-                    else {
-                        alert("Failed To Enabled");
-                    }
-                }
 
 
-            });
-        }
-    });
-
-    $(document).on("click", ".fetchid", function() {
-        var id = $(this).attr("value");
-        var pf = $(this).attr("pf");
-        var role = $(this).attr("role");
-        var array = role.split(",");
-        //alert(array);
-        $("#u_fid").val(id);
-        $("#u_pf_num").val(pf);
-        $("#u_role").val(array).trigger("change");
-
-
-    });
-
-
-    $(document).on("click", ".update", function() {
-        var id = $("#u_fid").val();
-        var pf = $("#u_pf_num").val();
-        var role = $("#u_role").val();
-        //alert(pf);
-        var result = confirm("Confirm!!! Proceed for Update role...?");
-        if (result == true) {
-            //alert(value);
-
-            $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: "action=updateUser&id=" + id + "&pf=" + pf + "&role=" + role,
-                success: function(data) {
-                    //alert(data);
-                    //console.log(data);
-                    if (data == 1) {
-                        alert("Role updated Successfully");
-                        window.location = "add_user.php";
-                    }
-                    //     	
-                    else {
-                        alert("Failed To update role");
-                    }
-                }
-
-
-            });
-        }
-    });
+                });
+            }
+        });
     </script>

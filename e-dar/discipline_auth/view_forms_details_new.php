@@ -56,8 +56,8 @@ include_once('../common_files/header.php');
                                 </option>
                                 <?php
                                 $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                $rst_emp = mysql_query($query, $db_common);
-                                while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                $rst_emp = mysqli_query( $db_common,$query,);
+                                while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                     // print_r($rw_emp);
                                     extract($rw_emp);
                                     echo "<option value='$emp_no'>$name</option>";
@@ -149,9 +149,9 @@ include_once('../common_files/header.php');
                             $emp_pf = $_GET["emp_pf"];
                             $ref_id = get_emp_ref($emp_pf);
                             $sql = "SELECT `rejected_reason` FROM `tbl_form_forward` WHERE `status`='4' AND `emp_pf`='$emp_pf' AND `form_reference_id`='$ref_id'";
-                            $rst_reject_reason = mysql_query($sql, $db_edar);
-                            if (mysql_num_rows($rst_reject_reason) > 0) {
-                                $rw_reject_reason = mysql_fetch_assoc($rst_reject_reason);
+                            $rst_reject_reason = mysqli_query($db_edar,$sql, );
+                            if (mysqli_num_rows($rst_reject_reason) > 0) {
+                                $rw_reject_reason = mysqli_fetch_assoc($rst_reject_reason);
                                 // print_r($rw_reject_reason);
                                 $rejected_reason = $rw_reject_reason["rejected_reason"];
                             }
@@ -489,8 +489,8 @@ $(document).on("change", ".get_emp_pf", function(e) {
                         </option>
                         <?php
                         $query = "SELECT * FROM `tbl_user`";
-                        $rst_emp = mysql_query($query, $db_edar);
-                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                        $rst_emp = mysqli_query($db_edar,$query);
+                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                             // print_r($rw_emp);
                             extract($rw_emp);
                             $emp_name = get_emp_name($emp_id);

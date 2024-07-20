@@ -171,8 +171,8 @@ $(document).on("change", ".get_emp_pf", function(e) {
                         </option>
                         <?php
                         $query = "SELECT * FROM `tbl_user`";
-                        $rst_emp = mysql_query($query, $db_edar);
-                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                        $rst_emp = mysqli_query($db_edar,$query);
+                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                             // print_r($rw_emp);
                             extract($rw_emp);
                             $emp_name = get_emp_name($emp_id);

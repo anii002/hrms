@@ -44,9 +44,9 @@ include('common/sidebar.php');
 										<option selected disabled>--Select Status--</option>
 										<?php
 
-										$query_rply = mysql_query("SELECT * from replied_status");
+										$query_rply = mysqli_query($db_edak,"SELECT * from replied_status");
 
-										while ($value_rply = mysql_fetch_array($query_rply)) {
+										while ($value_rply = mysqli_fetch_array($query_rply)) {
 											echo "<option value='" . $value_rply['id'] . "'>" . $value_rply['status'] . "</option>";
 										}
 

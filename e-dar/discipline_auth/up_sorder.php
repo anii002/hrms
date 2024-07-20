@@ -58,8 +58,8 @@ include_once('../common_files/header.php');
                             <div class="col-md-11">
                                 <textarea id="summernote">
                                     <?php 
-                                    $sql=mysql_query("SELECT * from  tbl_ack_sorder where emp_id='".$_GET['emp_id']."' and form_reference_id='".$_GET['refernce_id']."' and type_name='".$_GET['type_name']."'",$db_edar);
-                                    $f_sql=mysql_fetch_array($sql);
+                                    $sql=mysqli_query($db_edar,"SELECT * from  tbl_ack_sorder where emp_id='".$_GET['emp_id']."' and form_reference_id='".$_GET['refernce_id']."' and type_name='".$_GET['type_name']."'",);
+                                    $f_sql=mysqli_fetch_array($sql);
                                     echo $f_sql['desc_note'];
                                     ?>
                                 </textarea> 

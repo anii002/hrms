@@ -47,11 +47,11 @@ include_once('../common_files/header.php');
 
                                 
 
-                                $sql=mysql_query("SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.approved_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='3' and  tbl_form_forward.current_role='3' and ack_id is NULL  and fw_to='".$_SESSION['emp_id']."' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where emp_pf='".$_SESSION
-                                    ['emp_id']."' and current_status='3' ) order by form_reference_id desc",$db_edar);
+                                $sql=mysqli_query($db_edar,"SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.approved_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='3' and  tbl_form_forward.current_role='3' and ack_id is NULL  and fw_to='".$_SESSION['emp_id']."' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where emp_pf='".$_SESSION
+                                    ['emp_id']."' and current_status='3' ) order by form_reference_id desc");
 
                                 $sr=0;
-                                while ($row=mysql_fetch_array($sql)) 
+                                while ($row=mysqli_fetch_array($sql)) 
                                 {
 
                                     $fw_date=$row['approved_date'];
@@ -68,15 +68,15 @@ include_once('../common_files/header.php');
                                     echo "<td>".get_emp_name_from_id($row['fw_from'])." (".get_emp_desig_from_id($row['fw_from']).")</td>";    
                                         
 
-                                    $ackmt_tbl=mysql_query("SELECT id,type_name,created_date,status from tbl_ack_sorder where form_reference_id='".$row['form_reference_id']."' and emp_id='".$_SESSION['emp_id']."'",$db_edar);
+                                    $ackmt_tbl=mysqli_query($db_edar,"SELECT id,type_name,created_date,status from tbl_ack_sorder where form_reference_id='".$row['form_reference_id']."' and emp_id='".$_SESSION['emp_id']."'");
 
-                                    $fetch_ack=mysql_fetch_array($ackmt_tbl);
-
-                                    
+                                    $fetch_ack=mysqli_fetch_array($ackmt_tbl);
 
                                     
 
-                                    if(mysql_num_rows($ackmt_tbl)==0)
+                                    
+
+                                    if(mysqli_num_rows($ackmt_tbl)==0)
                                     {
                                         if(($interval->format('%R%a days'))!="0 days")
                                         {
@@ -271,8 +271,8 @@ $(document).ready(function() {
                         </option>
                         <?php
                         $query = "SELECT * FROM `tbl_user`";
-                        $rst_emp = mysql_query($query, $db_edar);
-                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                        $rst_emp = mysqli_query($db_edar,$query);
+                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                             // print_r($rw_emp);
                             extract($rw_emp);
                             $emp_name = get_emp_name($emp_id);

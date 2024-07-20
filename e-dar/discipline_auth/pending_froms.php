@@ -45,10 +45,10 @@ include_once('../common_files/header.php');
                             $current_id = $_SESSION["id"];
                             $sql = "SELECT fw.emp_pf FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e ON fw.form_reference_id=f_m_e.form_ref_id WHERE f_m_e.current_status='2' AND fw.fw_to='$current_id' AND f_m_e.status='1' GROUP BY fw.`form_reference_id` ORDER BY fw.id DESC";
                             // $sql = "SELECT fw.emp_pf FROM `tbl_form_forward` fw INNER JOIN tbl_form_master_entry f_m_e WHERE f_m_e.current_status='2' AND fw.fw_to='$current_id' GROUP BY fw.`form_reference_id` ORDER BY fw.id DESC";
-                            $rst_pending_list = mysql_query($sql, $db_edar);
-                            if (mysql_num_rows($rst_pending_list) > 0) {
+                            $rst_pending_list = mysqli_query($db_edar,$sql, );
+                            if (mysqli_num_rows($rst_pending_list) > 0) {
                                 $sr = 1;
-                                while ($rw_pending_list = mysql_fetch_assoc($rst_pending_list)) {
+                                while ($rw_pending_list = mysqli_fetch_assoc($rst_pending_list)) {
                                     # code...
                                     // print_r($rw_pending_list);
                                     $emp_pf = $rw_pending_list["emp_pf"];

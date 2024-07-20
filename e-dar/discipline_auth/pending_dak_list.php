@@ -50,9 +50,9 @@ include('common/sidebar.php');
 							<tbody>
 								<?php
 								$query_src = "SELECT *,source from tbl_dak_forward,tbl_dak where tbl_dak.unique_dak_no=tbl_dak_forward.unique_dak_no and tbl_dak_forward.status='1' order by tbl_dak.id desc";
-								$result_src = mysql_query($query_src, $db_edak);
+								$result_src = mysqli_query($db_edak,$query_src, );
 								$sr = 1;
-								while ($value_src = mysql_fetch_array($result_src)) {
+								while ($value_src = mysqli_fetch_array($result_src)) {
 
 								echo "
 								<tr>

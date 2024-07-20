@@ -109,9 +109,9 @@ include('common/sidebar.php');
 
                                             <?php
 
-                                            $query_role = mysql_query("SELECT * from tbl_section", $db_edak);
+                                            $query_role = mysqli_query( $db_edak,"SELECT * from tbl_section");
 
-                                            while ($value_role = mysql_fetch_array($query_role)) {
+                                            while ($value_role = mysqli_fetch_array($query_role)) {
                                                 echo "<option value='" . $value_role['sec_id'] . "'>" . $value_role['sec_name'] . "</option>";
                                             }
 
@@ -152,9 +152,9 @@ include('common/sidebar.php');
                                             <option value="" selected disabled>Select Source</option>
                                             <?php
 
-                                            $query_src = mysql_query("SELECT id,src_name from master_source", $db_edak);
+                                            $query_src = mysqli_query( $db_edak,"SELECT id,src_name from master_source");
 
-                                            while ($value_src = mysql_fetch_array($query_src)) {
+                                            while ($value_src = mysqli_fetch_array($query_src)) {
                                                 echo "<option value='" . $value_src['id'] . "'>" . $value_src['src_name'] . "</option>";
                                             }
 

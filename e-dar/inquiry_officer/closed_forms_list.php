@@ -46,10 +46,10 @@ include_once('../common_files/header.php');
 
                                 //echo "SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.approved_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='9' and  tbl_form_forward.current_role='3'  and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where current_status='9' ) order by form_reference_id desc";
 
-                                $sql=mysql_query("SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.approved_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='9' and  tbl_form_forward.current_role='3' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where current_status='9' ) order by form_reference_id desc",$db_edar);
+                                $sql=mysqli_query($db_edar,"SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.approved_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='9' and  tbl_form_forward.current_role='3' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where current_status='9' ) order by form_reference_id desc",);
 
                                 $sr=0;
-                                while ($row=mysql_fetch_array($sql)) {
+                                while ($row=mysqli_fetch_array($sql)) {
 
                                          $fw_date=$row['approved_date'];
                                         
@@ -198,8 +198,8 @@ $(document).on("change", ".get_emp_pf", function(e) {
                         </option>
                         <?php
                         $query = "SELECT * FROM `tbl_user`";
-                        $rst_emp = mysql_query($query, $db_edar);
-                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                        $rst_emp = mysqli_query($db_edar,$query, );
+                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                             // print_r($rw_emp);
                             extract($rw_emp);
                             $emp_name = get_emp_name($emp_id);

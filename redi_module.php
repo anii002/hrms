@@ -1050,7 +1050,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_SESSION['emp_id'] = $pf_num;
 				$_SESSION["id"] = $row_dar["id"];
 
-				echo "<script>window.location.href='../e-dar/discipline_auth/index.php';</script>";
+				echo "<script>window.location.href='../hrms/e-dar/discipline_auth/index.php';</script>";
 			}
 
 			if ($_POST['dar'] == 4) {

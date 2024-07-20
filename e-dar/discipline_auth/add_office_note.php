@@ -184,8 +184,8 @@ if (!isset($_GET["emp_pf"])) {
                                     <option value="0" selected disabled>Select Penalty Type</option>
                                     <?php
                                             $sql = "SELECT `id`,`penality_name` FROM `tbl_penality_type` WHERE `status`='1'";
-                                            $rst_penalty_type = mysql_query($sql, $db_edar);
-                                            while ($rw_penalty_type = mysql_fetch_assoc($rst_penalty_type)) {
+                                            $rst_penalty_type = mysqli_query( $db_edar,$sql);
+                                            while ($rw_penalty_type = mysqli_fetch_assoc($rst_penalty_type)) {
                                                 extract($rw_penalty_type);
                                                 echo "<option value='$id'>$penality_name</option>";
                                             }

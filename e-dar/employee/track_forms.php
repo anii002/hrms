@@ -34,8 +34,8 @@ include_once('../common_files/header.php');
                 </div>
                 <div class="portlet-body">
                     <?php 
-                        $tbl_master=mysql_query("SELECT * from  tbl_form_master_entry where emp_pf='".$_SESSION['emp_id']."'",$db_edar);
-                        $fetch_data=mysql_fetch_array($tbl_master);
+                        $tbl_master=mysqli_query($db_edar,"SELECT * from  tbl_form_master_entry where emp_pf='".$_SESSION['emp_id']."'");
+                        $fetch_data=mysqli_fetch_array($tbl_master);
 
                         $mster_current_st=$fetch_data['current_status'];
 
@@ -68,8 +68,8 @@ include_once('../common_files/header.php');
                         <div class="boxtrack">
                     <?php
 
-                        $tbl_fw=mysql_query("SELECT * from tbl_form_forward where emp_pf='".$_SESSION['emp_id']."' and tbl_form_forward.form_reference_id='".$fetch_data['form_ref_id']."' order by tbl_form_forward.id asc ",$db_edar);
-                        while ($row=mysql_fetch_array($tbl_fw)) 
+                        $tbl_fw=mysqli_query($db_edar,"SELECT * from tbl_form_forward where emp_pf='".$_SESSION['emp_id']."' and tbl_form_forward.form_reference_id='".$fetch_data['form_ref_id']."' order by tbl_form_forward.id asc ");
+                        while ($row=mysqli_fetch_array($tbl_fw)) 
                         {
 
                     ?>

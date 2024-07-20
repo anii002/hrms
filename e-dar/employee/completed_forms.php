@@ -47,10 +47,10 @@ include_once('../common_files/header.php');
 
                                 //echo "SELECT tbl_form_forward.id,tbl_form_forward.form_reference_id,tbl_form_forward.emp_pf,tbl_form_forward.approved_date,tbl_form_forward.fw_from,fw_to,form_id from tbl_form_forward where tbl_form_forward.status='3' and  tbl_form_forward.current_role='3' and ack_id is NULL  and fw_to='".$_SESSION['emp_id']."' and form_reference_id in(SELECT form_ref_id from  tbl_form_master_entry where emp_pf='".$_SESSION['emp_id']."' and current_status='3' ) order by form_reference_id desc";
 
-                                $sql=mysql_query("SELECT * from  tbl_form_master_entry where emp_pf='".$_SESSION['emp_id']."' and status='2' and current_status='9'",$db_edar);
+                                $sql=mysqli_query($db_edar,"SELECT * from  tbl_form_master_entry where emp_pf='".$_SESSION['emp_id']."' and status='2' and current_status='9'");
 
                                 $sr=0;
-                                while ($row=mysql_fetch_array($sql)) {
+                                while ($row=mysqli_fetch_array($sql)) {
 
                                         
                                         

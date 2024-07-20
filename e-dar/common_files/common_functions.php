@@ -304,35 +304,55 @@ function get_io_id($emp_pf, $ref_no)
     return $io_id;
 }
 // .......................................................
-function get_emp_name_from_id($id)
-{
-    global $db_edar_name, $db_common_name;
-    $query = "SELECT `name` FROM $db_common_name.register_user,$db_edar_name.tbl_user WHERE register_user.emp_no=tbl_user.emp_id and tbl_user.id='$id'";
+function get_emp_name_from_id($id) {
+    global $db_edar, $db_common_name;
+    // Prepare the query
+    $query = "SELECT `name` FROM drmpsurh_sur_railway.register_user, drmpsurh_e_dar.tbl_user WHERE register_user.emp_no = tbl_user.emp_id AND tbl_user.id = '$id'";
+
+    // Execute the query
+    $rst_emp = mysqli_query($db_edar, $query);
     $emp_name = "";
-    $rst_emp = mysqli_query($query);
+
+    // Check if any rows were returned and fetch the name
     if (mysqli_num_rows($rst_emp) > 0) {
         while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
             $emp_name = $rw_emp["name"];
         }
     }
+
     return $emp_name;
 }
-function get_emp_desig_from_id($id)
-{
+
+function get_emp_desig_from_id($id) {
+    global $db_edar, $db_common;
+
+    // Ensure global variables for database names are accessible
     global $db_edar_name, $db_common_name;
-    $query = "SELECT `designation` FROM $db_common_name.register_user,$db_edar_name.tbl_user WHERE register_user.emp_no=tbl_user.emp_id and tbl_user.id='$id'";
+
+    // Prepare the query
+    $query = "SELECT `designation` FROM $db_common_name.register_user, $db_edar_name.tbl_user WHERE register_user.emp_no = tbl_user.emp_id AND tbl_user.id = '$id'";
+
+    // Execute the query using the $db_edar connection
+    $rst_emp = mysqli_query($db_edar, $query);
     $emp_desgi = "";
-    $rst_emp = mysqli_query($query);
+
+    // Check if any rows were returned and fetch the designation
     if (mysqli_num_rows($rst_emp) > 0) {
         while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
             $emp_desgi = $rw_emp["designation"];
         }
     }
+
+    // Check if designation is not empty and get the final designation
+    $final_desgn = "";
     if ($emp_desgi != "") {
         $final_desgn = designation($emp_desgi);
     }
+
     return $final_desgn;
 }
+
+
 function fetch_emp_place($emp_pf)
 {
     global $db_common;

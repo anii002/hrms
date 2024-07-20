@@ -137,8 +137,8 @@ if (!isset($_GET["emp_pf"])) {
                                     <option value="0" selected disabled>Select Penalty Type</option>
                                     <?php
                                             $sql = "SELECT `id`,`penality_name` FROM `tbl_penality_type` WHERE `status`='1'";
-                                            $rst_penalty_type = mysql_query($sql, $db_edar);
-                                            while ($rw_penalty_type = mysql_fetch_assoc($rst_penalty_type)) {
+                                            $rst_penalty_type = mysqli_query($db_edar,$sql);
+                                            while ($rw_penalty_type = mysqli_fetch_assoc($rst_penalty_type)) {
                                                 extract($rw_penalty_type);
                                                 echo "<option value='$id'>$penality_name</option>";
                                             }
@@ -154,8 +154,8 @@ if (!isset($_GET["emp_pf"])) {
                                     <option value="0" selected disabled>Select Form</option>
                                     <?php
                                             $sql = "SELECT `id`,`form_name`,`form_title` FROM `tbl_master_form` WHERE `status`='1'";
-                                            $rst_forms = mysql_query($sql, $db_edar);
-                                            while ($rw_forms = mysql_fetch_assoc($rst_forms)) {
+                                            $rst_forms = mysqli_query($db_edar,$sql);
+                                            while ($rw_forms = mysqli_fetch_assoc($rst_forms)) {
                                                 extract($rw_forms);
                                                 echo "<option value='$id' data-form-name='$form_name'>$form_title</option>";
                                             }
@@ -285,8 +285,8 @@ if (!isset($_GET["emp_pf"])) {
                                         </option>
                                         <?php
                                                 $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                                $rst_emp = mysql_query($query, $db_common);
-                                                while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                                $rst_emp = mysqli_query($db_common,$query);
+                                                while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                                     // print_r($rw_emp);
                                                     extract($rw_emp);
                                                     echo "<option value='$emp_no'>$name</option>";
@@ -398,8 +398,8 @@ if (!isset($_GET["emp_pf"])) {
                                                     Manager</option>
                                                 <?php
                                                         $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                                        $rst_emp = mysql_query($query, $db_common);
-                                                        while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                                        $rst_emp = mysqli_query($db_common,$query);
+                                                        while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                                             // print_r($rw_emp);
                                                             extract($rw_emp);
                                                             echo "<option value='$emp_no'>$name</option>";
@@ -426,8 +426,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                 $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                                $result_src = mysql_query($query_src, $db_edar);
-                                                while ($value_src = mysql_fetch_array($result_src)) {
+                                                $result_src = mysqli_query( $db_edar,$query_src);
+                                                while ($value_src = mysqli_fetch_array($result_src)) {
 
                                                     $val = explode(",", $value_src['role']);
 
@@ -468,8 +468,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                 $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                                $result_src = mysql_query($query_src, $db_edar);
-                                                while ($value_src = mysql_fetch_array($result_src)) {
+                                                $result_src = mysqli_query( $db_edar,$query_src);
+                                                while ($value_src = mysqli_fetch_array($result_src)) {
     
                                                     $val = explode(",", $value_src['role']);
     
@@ -505,8 +505,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                 $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                                $result_src = mysql_query($query_src, $db_edar);
-                                                while ($value_src = mysql_fetch_array($result_src)) {
+                                                $result_src = mysqli_query( $db_edar,$query_src);
+                                                while ($value_src = mysqli_fetch_array($result_src)) {
     
                                                     $val = explode(",", $value_src['role']);
     
@@ -557,8 +557,8 @@ if (!isset($_GET["emp_pf"])) {
                                                     Employee</option>
                                                 <?php
                                    $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                   $rst_emp = mysql_query($query, $db_common);
-                                   while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                   $rst_emp = mysqli_query($db_common,$query);
+                                   while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                        // print_r($rw_emp);
                                        extract($rw_emp);
                                        echo "<option value='$emp_no'>$name</option>";
@@ -610,8 +610,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                               $result_src = mysql_query($query_src, $db_edar);
-                                               while ($value_src = mysql_fetch_array($result_src)) {
+                                               $result_src = mysqli_query($db_edar,$query_src);
+                                               while ($value_src = mysqli_fetch_array($result_src)) {
    
                                                    $val = explode(",", $value_src['role']);
    
@@ -648,8 +648,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                               $result_src = mysql_query($query_src, $db_edar);
-                                               while ($value_src = mysql_fetch_array($result_src)) {
+                                               $result_src = mysqli_query($db_edar,$query_src);
+                                               while ($value_src = mysqli_fetch_array($result_src)) {
    
                                                    $val = explode(",", $value_src['role']);
    
@@ -710,8 +710,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                               $result_src = mysql_query($query_src, $db_edar);
-                                               while ($value_src = mysql_fetch_array($result_src)) {
+                                               $result_src = mysqli_query($db_edar,$query_src);
+                                               while ($value_src = mysqli_fetch_array($result_src)) {
    
                                                    $val = explode(",", $value_src['role']);
    
@@ -748,8 +748,8 @@ if (!isset($_GET["emp_pf"])) {
 
                                         <?php
                                                $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                               $result_src = mysql_query($query_src, $db_edar);
-                                               while ($value_src = mysql_fetch_array($result_src)) {
+                                               $result_src = mysqli_query($db_edar,$query_src);
+                                               while ($value_src = mysqli_fetch_array($result_src)) {
    
                                                    $val = explode(",", $value_src['role']);
    
@@ -815,8 +815,8 @@ if (!isset($_GET["emp_pf"])) {
                                                 Officer</option>
                                             <?php
                                             $query_src = "SELECT $db_edar_name.tbl_user.id,emp_id,role,name,$db_edar_name.tbl_user.status FROM $db_edar_name.tbl_user,$db_common_name.register_user WHERE $db_edar_name.tbl_user.emp_id=$db_common_name.register_user.emp_no and role not in(1)";
-                                            $result_src = mysql_query($query_src, $db_edar);
-                                            while ($value_src = mysql_fetch_array($result_src)) {
+                                            $result_src = mysqli_query($db_edar,$query_src);
+                                            while ($value_src = mysqli_fetch_array($result_src)) {
 
                                                 $val = explode(",", $value_src['role']);
 
@@ -861,8 +861,8 @@ if (!isset($_GET["emp_pf"])) {
                                                 Manager</option>
                                             <?php
                                     $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                    $rst_emp = mysql_query($query, $db_common);
-                                    while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                    $rst_emp = mysqli_query($db_common,$query);
+                                    while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                         // print_r($rw_emp);
                                         extract($rw_emp);
                                         echo "<option value='$emp_no'>$name</option>";
@@ -911,8 +911,8 @@ if (!isset($_GET["emp_pf"])) {
                                                 Manager</option>
                                             <?php
                                        $query = "SELECT `emp_no`,`name` FROM `register_user`";
-                                       $rst_emp = mysql_query($query, $db_common);
-                                       while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+                                       $rst_emp = mysqli_query($db_common,$query);
+                                       while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                                            // print_r($rw_emp);
                                            extract($rw_emp);
                                            echo "<option value='$emp_no'>$name</option>";
@@ -1144,8 +1144,8 @@ function add_sf7_row() {
         '" class="select2 billunitindex cls_sf7_mem_name" style="width:100%"><option value="0" selected="selected" disabled="disabled">Select General Manager</option>';
     $content += '<?php
             $query = "SELECT `emp_no`,`name` FROM `register_user`";
-            $rst_emp = mysql_query($query, $db_common);
-            while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+            $rst_emp = mysqli_query($db_common,$query);
+            while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                 // print_r($rw_emp);
                 extract($rw_emp);
                 echo "<option value=\"$emp_no\">$name</option>";
@@ -1178,8 +1178,8 @@ function add_sf10_row() {
         '" class="select2 billunitindex cls_sf10_mem_name" style="width:100%"><option value="0" selected="selected" disabled="disabled">Select Employee </option>';
     $content += '<?php
             $query = "SELECT `emp_no`,`name` FROM `register_user`";
-            $rst_emp = mysql_query($query, $db_common);
-            while ($rw_emp = mysql_fetch_assoc($rst_emp)) {
+            $rst_emp = mysqli_query($db_common,$query);
+            while ($rw_emp = mysqli_fetch_assoc($rst_emp)) {
                 // print_r($rw_emp);
                 extract($rw_emp);
                 echo "<option value=\"$emp_no\">$name</option>";
