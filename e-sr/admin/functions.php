@@ -63,7 +63,8 @@ function get_words($pf_count)
 
 function fetchaward($id)
 {
-	$query = mysqli_query($conn1,"select * from awards where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from awards where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['awards'] = $resultset['awards'];
@@ -74,7 +75,8 @@ function fetchaward($id)
 
 function fetchproperty($id)
 {
-	$query = mysqli_query("select * from property_source where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from property_source where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['property_source'] = $resultset['property_source'];
@@ -86,7 +88,8 @@ function fetchproperty($id)
 
 function fetchrecruitment($id)
 {
-	$query = mysqli_query("select * from recruitment_code where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from recruitment_code where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['recruitment_code'] = $resultset['recruitment_code'];
@@ -99,7 +102,8 @@ function fetchrecruitment($id)
 
 function update_recruitment($hide_field, $update_recruitment)
 {
-	$query = mysqli_query("update recruitment_code set recruitment_code.recruitment_code ='$update_recruitment' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update recruitment_code set recruitment_code.recruitment_code ='$update_recruitment' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -111,7 +115,8 @@ function update_recruitment($hide_field, $update_recruitment)
 
 function delete_recruitment($delete_id)
 {
-	$query = mysqli_query("delete from recruitment_code where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from recruitment_code where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -122,7 +127,8 @@ function delete_recruitment($delete_id)
 
 function update_property($hide_field, $update_property)
 {
-	$query = mysqli_query("update property_source set property_source.property_source ='$update_property' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update property_source set property_source.property_source ='$update_property' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -132,7 +138,8 @@ function update_property($hide_field, $update_property)
 
 function delete_property($delete_id)
 {
-	$query = mysqli_query("delete from property_source where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from property_source where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -143,7 +150,8 @@ function delete_property($delete_id)
 
 function update_award($hide_field, $update_award)
 {
-	$query = mysqli_query("update awards set awards.awards ='$update_award' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update awards set awards.awards ='$update_award' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -154,7 +162,8 @@ function update_award($hide_field, $update_award)
 
 function update_penalty($hide_field, $update_penalty)
 {
-	$query = mysqli_query("update penalty_effected set penalty_effected.penalty_effected ='$update_penalty' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update penalty_effected set penalty_effected.penalty_effected ='$update_penalty' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -165,7 +174,8 @@ function update_penalty($hide_field, $update_penalty)
 
 function delete_penalty_effect($delete_id)
 {
-	$query = mysqli_query("delete from penalty_effected where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from penalty_effected where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -175,7 +185,8 @@ function delete_penalty_effect($delete_id)
 
 function delete_award($delete_id)
 {
-	$query = mysqli_query("delete from awards where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from awards where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -184,7 +195,8 @@ function delete_award($delete_id)
 }
 function fetchpenalty($id)
 {
-	$query = mysqli_query("select * from penalty_effected where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from penalty_effected where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['penalty_effected'] = $resultset['penalty_effected'];
@@ -195,7 +207,8 @@ function fetchpenalty($id)
 
 function fetchreligion($id)
 {
-	$query = mysqli_query("select * from religion where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from religion where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['shortdesc'] = $resultset['shortdesc'];
@@ -207,7 +220,8 @@ function fetchreligion($id)
 
 function fetchcommunity($id)
 {
-	$query = mysqli_query("select * from community where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from community where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['SHORTDESC'] = $resultset['SHORTDESC'];
@@ -220,7 +234,8 @@ function fetchcommunity($id)
 
 function update_community($hide_field, $update_community, $update_short)
 {
-	$query = mysqli_query("update community set SHORTDESC ='$update_community', LONGDESC='$update_short' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update community set SHORTDESC ='$update_community', LONGDESC='$update_short' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -231,7 +246,8 @@ function update_community($hide_field, $update_community, $update_short)
 
 function delete_community($delete_id)
 {
-	$query = mysqli_query("delete from community where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from community where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -243,7 +259,8 @@ function delete_community($delete_id)
 
 function update_religion($hide_field, $update_religion, $update_short)
 {
-	$query = mysqli_query("update religion set shortdesc='$update_religion', longdesc='$update_short' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update religion set shortdesc='$update_religion', longdesc='$update_short' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -254,7 +271,8 @@ function update_religion($hide_field, $update_religion, $update_short)
 
 function delete_religion($delete_id)
 {
-	$query = mysqli_query("delete from religion where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from religion where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -270,7 +288,8 @@ function delete_religion($delete_id)
 
 function fetchincrement($id)
 {
-	$query = mysqli_query("select * from increment_type where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from increment_type where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['increment_type'] = $resultset['increment_type'];
@@ -280,7 +299,8 @@ function fetchincrement($id)
 
 function fetchpenalty_awarded($id)
 {
-	$query = mysqli_query("select * from penalty_awarded where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from penalty_awarded where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['penalty_awarded'] = $resultset['penalty_awarded'];
@@ -291,7 +311,8 @@ function fetchpenalty_awarded($id)
 
 function fetchinmovableitem($id)
 {
-	$query = mysqli_query("select * from property_item_inmovable where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from property_item_inmovable where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['property_item_inmovable'] = $resultset['property_item_inmovable'];
@@ -301,7 +322,8 @@ function fetchinmovableitem($id)
 
 function fetchmovableitem($id)
 {
-	$query = mysqli_query("select * from property_item_movable where id='$id'") or die(mysqli_error());
+	global $conn;
+	$query = mysqli_query($conn,"select * from property_item_movable where id='$id'") or die(mysqli_error($conn));
 	$data = [];
 	while ($resultset = mysqli_fetch_array($query)) {
 		$data['property_item_movable'] = $resultset['property_item_movable'];
@@ -311,7 +333,8 @@ function fetchmovableitem($id)
 
 function delete_increment($delete_id)
 {
-	$query = mysqli_query("delete from increment_type where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from increment_type where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -321,7 +344,8 @@ function delete_increment($delete_id)
 
 function delete_penalty($delete_id)
 {
-	$query = mysqli_query("delete from penalty_awarded where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from penalty_awarded where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -333,7 +357,8 @@ function delete_penalty($delete_id)
 
 function delete_inmovable_item($delete_id)
 {
-	$query = mysqli_query("delete from property_item_inmovable where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from property_item_inmovable where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -344,7 +369,8 @@ function delete_inmovable_item($delete_id)
 
 function delete_movable_item($delete_id)
 {
-	$query = mysqli_query("delete from property_item_movable where id='$delete_id'");
+	global $conn;
+	$query = mysqli_query($conn,"delete from property_item_movable where id='$delete_id'");
 	if ($query)
 		return true;
 	else {
@@ -354,7 +380,8 @@ function delete_movable_item($delete_id)
 
 function update_increment($hide_field, $update_increment)
 {
-	$query = mysqli_query("update increment_type set increment_type='$update_increment' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update increment_type set increment_type='$update_increment' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -364,7 +391,8 @@ function update_increment($hide_field, $update_increment)
 
 function update_penalty_awarded($hide_field, $update_penalty)
 {
-	$query = mysqli_query("update penalty_awarded set penalty_awarded='$update_penalty' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update penalty_awarded set penalty_awarded='$update_penalty' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -375,7 +403,8 @@ function update_penalty_awarded($hide_field, $update_penalty)
 
 function update_inmovable_item($hide_field, $update_inmovable_item)
 {
-	$query = mysqli_query("update property_item_inmovable set property_item_inmovable='$update_inmovable_item' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update property_item_inmovable set property_item_inmovable='$update_inmovable_item' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {
@@ -386,7 +415,8 @@ function update_inmovable_item($hide_field, $update_inmovable_item)
 
 function update_movable_item($hide_field, $update_movable_item)
 {
-	$query = mysqli_query("update property_item_movable set property_item_movable='$update_movable_item' where id='$hide_field'");
+	global $conn;
+	$query = mysqli_query($conn,"update property_item_movable set property_item_movable='$update_movable_item' where id='$hide_field'");
 	if ($query) {
 		return true;
 	} else {

@@ -1,15 +1,15 @@
 <?php
+// session_start();
 // if(!isset($_SESSION['SESS_MEMBER_NAME']))
 // {
 // echo "<script>window.location='http://localhost/E_APR_FINAL/index.php';</script>";
 // }
 $GLOBALS['a'] = 'sr_entry';
 include_once('../global/header.php');
-$conn = dbcon();
 include_once('../global/topbar.php');
-
 include('mini_function.php');
 include('fetch_all_column.php');
+$conn = dbcon();
 
 ?>
 
@@ -378,7 +378,7 @@ Follow me on Twitter @maridlcrmn
 
           $pay_scale_type = "";
 
-          $sqlDept = mysqli_query($conn,"select * from pay_scale_type where id='6'");
+          $sqlDept = mysqli_query($conn, "select * from pay_scale_type where id='6'");
           while ($rwDept = mysqli_fetch_array($sqlDept)) {
             $pay_scale_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
           }
@@ -390,29 +390,29 @@ Follow me on Twitter @maridlcrmn
           }
 
           $dept = "";
-          $sqlDept = mysqli_query($conn,"select * from department");
+          $sqlDept = mysqli_query($conn, "select * from department");
           if (!$sqlDept) {
-            echo 'Database error: ' . mysqli_error();
+            echo 'Database error: ' . mysqli_error($conn);
           }
           while ($rwDept = mysqli_fetch_array($sqlDept)) {
             $dept .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["DEPTDESC"] . "</option>";
           }
 
           $alldesignations = "";
-          $sqlDept = mysqli_query($conn,"select * from designations");
+          $sqlDept = mysqli_query($conn, "select * from designation");
           while ($rwDept = mysqli_fetch_array($sqlDept)) {
             $alldesignations .= "<option value=" . $rwDept["id"] . ">(" . $rwDept["desigshortdesc"] . ")" . $rwDept["desiglongdesc"] . "</option>";
           }
 
           $appo_type = "";
-          $sqlDept = mysqli_query($conn,"select * from appointment_type");
+          $sqlDept = mysqli_query($conn, "select * from appointment_type");
           while ($rwDept = mysqli_fetch_array($sqlDept)) {
             $appo_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
           }
 
           $group = "";
           $group = "<option value='' selected disabled>Select Group</option>";
-          $group_col = mysqli_query($conn,"select * from group_col");
+          $group_col = mysqli_query($conn, "select * from group_col");
           while ($group_colre = mysqli_fetch_array($group_col)) {
             $group .= "<option value='" . $group_colre["id"] . "'>" . $group_colre["group_col"] . "</option>";
           }

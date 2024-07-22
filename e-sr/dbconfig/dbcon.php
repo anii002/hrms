@@ -31,14 +31,14 @@ if (!function_exists('dbcon1')) {
 		$db1 = "drmpsurh_sr";
 
 		// Create connection
-		$conn1 = new mysqli($host1, $user1, $pass1, $db1);
+		$conn = new mysqli($host1, $user1, $pass1, $db1);
 
 		// Check connection
-		if ($conn1->connect_error) {
-			die("Connection failed: " . $conn1->connect_error);
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
 		}
 
-		return $conn1;
+		return $conn;
 	}
 }
 

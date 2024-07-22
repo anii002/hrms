@@ -1,15 +1,15 @@
 <?php
 $_GLOBALS['a'] = 'index';
-session_start();
+// session_start();
 error_reporting(0);
-if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
- echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
-}
+// if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
+// 	// echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
+// }
 $GLOBALS['a'] = 'index';
 include_once('../global/header.php');
 include_once('../global/topbar.php');
 include_once('mini_function.php');
-// include_once('create_log.php');
+include_once('create_log.php');
 //include_once('../global/sidebaradmin.php');
 
 ?>
@@ -71,9 +71,9 @@ include_once('mini_function.php');
 									</thead>
 									<tbody>
 										<?php
-										$conn1 = dbcon1();
+										$conn = dbcon1();
 										$i = 1;
-										$qu = mysqli_query($conn1, 'select * from user_login where username="' . $_SESSION['SESS_ADMIN_NAME'] . '"');
+										$qu = mysqli_query($conn, 'select * from user_login where username="' . $_SESSION['SESS_ADMIN_NAME'] . '"');
 										$qu = mysqli_fetch_array($qu);
 										// echo 'select * from user_login where username="'.$_SESSION['SESS_ADMIN_NAME'].'"'.mysqli_error();
 										$bill = $qu['multi_bill_unit'];
@@ -92,8 +92,8 @@ include_once('mini_function.php');
 											// $bill1=bill_id1($billunit);
 											$a = bill_to_id($billunit);
 											// echo $a."<br>";
-											$conn1 = dbcon1();
-											$query2 = mysqli_query($conn1, "select * from present_work_temp where preapp_billunit='$a'");
+											$conn = dbcon1();
+											$query2 = mysqli_query($conn, "select * from present_work_temp where preapp_billunit='$a'");
 											// echo "select * from present_work_temp where preapp_billunit='$a'".mysqli_error()."<br>";
 
 
@@ -115,9 +115,9 @@ include_once('mini_function.php');
 											// echo "SELECT * FROM present_work_temp WHERE preapp_billunit IN (SELECT * from user_login WHERE  multi_bill_unit='$data')".mysqli_error();	
 
 											while ($res = mysqli_fetch_array($query2)) {
-												$conn1 = dbcon1();
+												$conn = dbcon1();
 												$pf = $res['preapp_pf_number'];
-												$query = mysqli_query($conn1, "select *  from biodata_temp where pf_number='$pf'");
+												$query = mysqli_query($conn, "select *  from biodata_temp where pf_number='$pf'");
 												$bioq = mysqli_fetch_array($query);
 												// $billunit=bill_depot1($res['preapp_billunit']);
 												$dt = date('d-m-Y', strtotime($res['date_time']));
@@ -154,8 +154,8 @@ include_once('mini_function.php');
 						<?php if ($_SESSION['SESSION_ROLE'] == 'superadmin' || $_SESSION['SESSION_ROLE'] == 'guest') { ?>
 
 							<h3 class="" style="margin-left:20px;">Department List <span class="pull-right" style="margin-right:20px;">Total Serving Employees : <?php
-																																									$conn1 = dbcon1();
-																																									$qu = mysqli_query($conn1, "select * from present_work_temp where serving_status='1'");
+																																									$conn = dbcon1();
+																																									$qu = mysqli_query($conn, "select * from present_work_temp where serving_status='1'");
 																																									$se = mysqli_num_rows($qu);
 																																									?> <?php echo $se; ?><br><span></span></span></h3>
 							<h3 class="box-title" style="margin-left:20px;"></h3>
@@ -192,8 +192,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">ACCOUNTS</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=3 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=3 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -233,8 +233,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">GEN.ADMIN</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=5 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=5 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -254,8 +254,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">COMMERCIAL</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=6 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=6 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -274,8 +274,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">ENGINEERING</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=7 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=7 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -300,8 +300,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">ELECTRICAL</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=8 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=8 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -321,8 +321,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">MECHANICAL</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=9 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=9 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -342,8 +342,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">MEDICAL</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=10 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=10 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -362,8 +362,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">OPERATING</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=11 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=11 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -389,8 +389,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">PERSONAL</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=12 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=12 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -410,8 +410,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">SnT</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=13 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=13 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -431,8 +431,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">STORES</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=14 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=14 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -451,8 +451,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">SECURITY</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=15 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=15 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -478,8 +478,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">RCT</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=16 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=16 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -499,8 +499,8 @@ include_once('mini_function.php');
 									</h3>
 									<p style="font-size:18px;">RLY BOARD</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=17 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=17 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -521,8 +521,8 @@ include_once('mini_function.php');
 
 									<p style="font-size:18px;">Not Avaiable</p>
 									<?php
-									$conn1 = dbcon1();
-									$qu = mysqli_query($conn1, "select * from present_work_temp where preapp_department=1 and serving_status='1'");
+									$conn = dbcon1();
+									$qu = mysqli_query($conn, "select * from present_work_temp where preapp_department=1 and serving_status='1'");
 									$se = mysqli_num_rows($qu);
 									?>
 									<center><span style="font-size:24px"><b><?php echo $se; ?></b></span></center>
@@ -567,8 +567,8 @@ include_once('mini_function.php');
 			<tbody>
 				<?php
 				$i = 1;
-				$conn1 = dbcon1();
-				$sql = mysqli_query($conn1, "select * from log_history order by id desc limit 50");
+				$conn = dbcon1();
+				$sql = mysqli_query($conn, "select * from log_history order by id desc limit 50");
 				while ($res = mysqli_fetch_array($sql)) {
 					$dt = date('d-m-Y', strtotime($res['date_time']));
 					echo "<tr>";

@@ -1,12 +1,13 @@
 <?php
+// session_start();
 $_GLOBALS['a'] = 'biodata';
 include_once('../global/header_update.php');
 include_once('../dbconfig/dbcon.php');
 include('create_log.php');
-
 $action = "Visited Biodata page";
 $action_on = $_SESSION['set_update_pf'];
 create_log($action, $action_on);
+$conn = dbcon1();
 ?>
 <!--Bio Tab Start -->
 <div style="padding:10px;margin:5px;padding-top:0px;margin-top:-15px;">
@@ -19,8 +20,7 @@ create_log($action, $action_on);
 		<div class="row">
 			<div class="col-md-10 col-sm-12 col-xs-12 text-center">
 				<div class="checkbox form-group">
-					<label class="control-label"><label style="cursor:pointer; color:red" class="control-label col-md-12 col-sm-3 col-xs-12"><b onclick="refresh_code();">Click Here
-								If You want start SR entry With New PF Number </b></label>
+					<label class="control-label"><label style="cursor:pointer; color:red" class="control-label col-md-12 col-sm-3 col-xs-12"><b onclick="refresh_code();">Click Here If You want start SR entry With New PF Number </b></label>
 				</div>
 			</div>
 		</div>
@@ -40,14 +40,14 @@ create_log($action, $action_on);
 							</div>
 						</div>
 						<?php
-						$conn1 = dbcon1();
+						// $conn = dbcon1();
 						$bio_exist = 0;
-						$sql = mysqli_query($conn1, "select * from biodata_temp where pf_number='" . $_SESSION['set_update_pf'] . "'");
+						$sql = mysqli_query($conn, "select * from biodata_temp where pf_number='" . $_SESSION['set_update_pf'] . "'");
 						$bio_row = mysqli_num_rows($sql);
 						if ($bio_row > 0) {
 							$bio_exist = 1;
 						}
-						//echo "<script>alert('$bio_exist');</script>";
+						// echo "<script>alert('$bio_exist');</script>";
 						?>
 						<div class="col-md-6 col-sm-12 col-xs-12">
 							<div class="form-group old_pf">
@@ -59,7 +59,6 @@ create_log($action, $action_on);
 							</div>
 						</div>
 					</div>
-
 					<div class="row">
 						<div class="col-md-6 col-sm-12 col-xs-12">
 							<div class="form-group">
@@ -111,12 +110,11 @@ create_log($action, $action_on);
 										<option value="" disabled selected>SELECT GENDER </option>
 										<option value="blank">NA</option>
 										<?php
-										// $conn = dbcon();
+										$conn = dbcon();
 										$sqlreligion = mysqli_query($conn, "select * from gender");
 										while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 										?>
-											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["gender"]; ?>
-											</option>
+											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["gender"]; ?></option>
 										<?php
 										}
 										?>
@@ -132,12 +130,11 @@ create_log($action, $action_on);
 										<option value="" disabled selected>SELECT MARITAL STATUS</option>
 										<option value="blank">NA</option>
 										<?php
-										// $conn = dbcon();
+										$conn = dbcon();
 										$sqlreligion = mysqli_query($conn, "select * from marital_status");
 										while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 										?>
-											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["shortdesc"]; ?>
-											</option>
+											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["shortdesc"]; ?></option>
 										<?php
 										}
 										?>
@@ -146,7 +143,6 @@ create_log($action, $action_on);
 							</div>
 						</div>
 					</div>
-
 				</div>
 				<div class="col-md-3">
 					<img id="blah" src="avatar5.png" height="200" width="200" /><br>
@@ -277,12 +273,10 @@ create_log($action, $action_on);
 								<option value="" disabled selected>SELECT STATE</option>
 								<option value="blank"></option>
 								<?php
-								// $conn = dbcon();
 								$sqlreligion = mysqli_query($conn, "select * from state");
 								while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 								?>
-									<option value="<?php echo $rwDept["longdesc"]; ?>"><?php echo $rwDept["longdesc"]; ?>
-									</option>
+									<option value="<?php echo $rwDept["longdesc"]; ?>"><?php echo $rwDept["longdesc"]; ?></option>
 								<?php
 								}
 								?>
@@ -329,8 +323,7 @@ create_log($action, $action_on);
 								$sqlreligion = mysqli_query($conn, "select * from state");
 								while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 								?>
-									<option value="<?php echo $rwDept["longdesc"]; ?>"><?php echo $rwDept["longdesc"]; ?>
-									</option>
+									<option value="<?php echo $rwDept["longdesc"]; ?>"><?php echo $rwDept["longdesc"]; ?></option>
 								<?php
 								}
 								?>
@@ -383,7 +376,6 @@ create_log($action, $action_on);
 								<option value="" disabled selected>SELECT RELIGION</option>
 								<option value="blank">NA</option>
 								<?php
-								// $conn = dbcon();
 								$sqlreligion = mysqli_query($conn, "select * from religion");
 								while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 								?>
@@ -405,7 +397,6 @@ create_log($action, $action_on);
 								<option value="" disabled selected>SELECT COMMUNITY</option>
 								<option value="blank">NA</option>
 								<?php
-								// $conn = dbcon();
 								$sqlreligion = mysqli_query($conn, "select * from community");
 								while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 								?>
@@ -433,8 +424,7 @@ create_log($action, $action_on);
 
 				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label class="control-label col-md-6 col-sm-3 col-xs-12">Recruitment Code / Appointment
-							Type</label>
+						<label class="control-label col-md-6 col-sm-3 col-xs-12">Recruitment Code / Appointment Type</label>
 						<div class="col-md-6 col-sm-8 col-xs-12">
 							<select class="form-control select2" id="bio_req_code" name="bio_req_code" style="width:100%;" required>
 								<option value="" disabled selected>SELECT RECRUITMENT CODE</option>
@@ -461,12 +451,10 @@ create_log($action, $action_on);
 								<option value="" disabled selected>SELECT GROUP</option>
 								<option value="blank">NA</option>
 								<?php
-								// $conn = dbcon();
 								$group_col = mysqli_query($conn, "select * from group_col");
 								while ($group_colre = mysqli_fetch_array($group_col)) {
 								?>
-									<option value="<?php echo $group_colre["id"]; ?>">
-										<?php echo $group_colre["group_col"]; ?></option>
+									<option value="<?php echo $group_colre["id"]; ?>"><?php echo $group_colre["group_col"]; ?></option>
 								<?php
 								}
 								?>
@@ -489,8 +477,7 @@ create_log($action, $action_on);
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-sm-12 col-xs-12" id="0">
-						<div class="form-group" id=""><label class="control-label col-md-4 col-sm-3 col-xs-12">Edu.
-								Qual.</label>
+						<div class="form-group" id=""><label class="control-label col-md-4 col-sm-3 col-xs-12">Edu. Qual.</label>
 							<div class="col-md-8 col-sm-12 col-xs-12" id="">
 								<select name="edu_pri_info[0]" id="edu_pri_info_0" class="form-control" style="margin-top:0px; width:100%;" required>
 									<option value="" selected disabled>Select Education</option>
@@ -611,13 +598,12 @@ create_log($action, $action_on);
 	</div>
 </div>
 <!--Bio Tab End -->
-<!--?php include('modal_js_header.php'); ?-->
+<?php include('modal_js_header.php'); ?>
 
 <script>
 	var x = '';
 	var y = '';
 	var z = '';
-
 	var pf_no = '<?php echo $_SESSION['set_update_pf']; ?>';
 	var bio_c = <?php echo $bio_exist; ?>;
 	//debugger;
@@ -716,7 +702,6 @@ create_log($action, $action_on);
 				$("#bio_bank_name").val(data['bank_name']);
 				$("#bio_micr").val(data['micr_code']);
 				$("#bio_bank_address").val(data['address']);
-
 				$("#bio_bank_name").attr('readonly', true);
 				$("#bio_acc_no").attr('readonly', true);
 				$("#bio_micr").attr('readonly', true);
@@ -1065,8 +1050,7 @@ if (isset($_SESSION['set_update_pf'])) {
 	$("#add_mark_box").click(function() {
 		z++;
 		//alert(z);
-		var box = "<div><input type='text' class='form-control col-md-6 col-sm-12 col-xs-12' name='bio_mark[" + z +
-			"]' id='bio_mark_" + z + "' style='margin-top:20px;'></div>";
+		var box = "<div><input type='text' class='form-control col-md-6 col-sm-12 col-xs-12' name='bio_mark[" + z + "]' id='bio_mark_" + z + "' style='margin-top:20px;'></div>";
 		$("#add_iden_mark").append(box);
 
 	});
@@ -1102,33 +1086,17 @@ if (isset($_SESSION['set_update_pf'])) {
 <script>
 	$("#add_edu_info_1").click(function() {
 		//debugger;
-		// Assuming dbcon() is a function to establish the database connection
 		x++;
+		var edu_drop_ini = "<div class='form-group' id='" + x + "'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Edu. Qual.</label><div class=col-md-8 col-sm-12 col-xs-12' id='edu_main_info'><select name='edu_pri_info[" + x + "]' id='edu_pri_info_" + x + "' class='form-control' style='margin-top:0px; width:100%;' required><option value='blank' selected></option><?php $sql = mysqli_query($conn, "select * from education");
+																																																																																														while ($sql_fetch = mysqli_fetch_array($sql)) {
+																																																																																															echo "<option value='" . $sql_fetch['id'] . "'>" . $sql_fetch['education'] . "</option>";
+																																																																																														} ?></select></div></div>";
 
-		var edu_drop_ini = "<div class='form-group' id='" + x + "'>" +
-			"<label class='control-label col-md-4 col-sm-3 col-xs-12'>Edu. Qual.</label>" +
-			"<div class='col-md-8 col-sm-12 col-xs-12' id='edu_main_info'>" +
-			"<select name='edu_pri_info[" + x + "]' id='edu_pri_info_" + x +
-			"' class='form-control' style='margin-top:0px; width:100%;' required>" +
-			"<option value='blank' selected></option>";
-
-		<?php
-		// $conn = dbcon();
-		$sql = mysqli_query($conn, "select * from education");
-		while ($sql_fetch = mysqli_fetch_array($sql)) {
-			echo "edu_drop_ini += \"<option value='" . $sql_fetch['id'] . "'>" . $sql_fetch['education'] . "</option>\";";
-		}
-		?>
-
-		edu_drop_ini += "</select></div></div>";
-
-		var edu_drop_desc = "<div class='form-group' id='desc_" + x + "'>" +
-			"<input type='text' class='form-control col-md-12 col-sm-12 col-xs-12' name='bio_edu_ini[" + x +
-			"]' id='bio_edu_ini" + x + "' placeholder='Description' required>" +
-			"</div>";
+		var edu_drop_desc = "<div class='form-group' id='desc_" + x + "'><input type='text' class='form-control col-md-12 col-sm-12 col-xs-12' name='bio_edu_ini[" + x + "]' id='bio_edu_ini" + x + "' placeholder='Description' required></div>";
 
 		$("#add_edu_info_drop_1").append(edu_drop_ini);
 		$("#edu_pri_info_desc_1").append(edu_drop_desc);
+
 	});
 
 
@@ -1152,38 +1120,18 @@ if (isset($_SESSION['set_update_pf'])) {
 	}
 
 	$("#add_edu_info_2").click(function() {
-		// Increment y for unique IDs
+		//debugger;
 		y++;
+		var edu_drop_ini = "<div class='form-group' id='sub_" + y + "'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Edu. Qual.</label><div class=col-md-8 col-sm-12 col-xs-12' id='edu_main_info'><select name='edu_pri_info_sub[" + y + "]' id='edu_pri_info_sub" + y + "' class='form-control' style='margin-top:0px; width:100%;'   ><option value='blank' selected></option><?php $sql = mysqli_query($conn, "select * from education");
+																																																																																																while ($sql_fetch = mysqli_fetch_array($sql)) {
+																																																																																																	echo "<option value='" . $sql_fetch['id'] . "'>" . $sql_fetch['education'] . "</option>";
+																																																																																																} ?></select></div></div>";
 
-		// Construct the HTML for the new education dropdown and description input
-		var edu_drop_ini = "<div class='form-group' id='sub_" + y + "'>" +
-			"<label class='control-label col-md-4 col-sm-3 col-xs-12'>Edu. Qual.</label>" +
-			"<div class='col-md-8 col-sm-12 col-xs-12' id='edu_main_info'>" +
-			"<select name='edu_pri_info_sub[" + y + "]' id='edu_pri_info_sub" + y +
-			"' class='form-control' style='margin-top:0px; width:100%;' required>" +
-			"<option value='blank' selected></option>";
+		var edu_drop_desc = "<div class='form-group' id='sub_desc_" + y + "'><input type='text' class='form-control col-md-12 col-sm-12 col-xs-12' name='bio_edu_sub[" + y + "]' id='bio_edu_sub" + y + "' placeholder='Description'></div>";
 
-		// Add PHP-generated options for the select dropdown
-		<?php
-		// $conn = dbcon();
-		$sql = mysqli_query($conn, "select * from education");
-		while ($sql_fetch = mysqli_fetch_array($sql)) {
-			echo "edu_drop_ini += \"<option value='" . $sql_fetch['id'] . "'>" . $sql_fetch['education'] . "</option>\";";
-		}
-		?>
-
-		edu_drop_ini += "</select></div></div>";
-
-		var edu_drop_desc = "<div class='form-group' id='sub_desc_" + y + "'>" +
-			"<input type='text' class='form-control col-md-12 col-sm-12 col-xs-12' name='bio_edu_sub[" + y +
-			"]' id='bio_edu_sub" + y + "' placeholder='Description' required>" +
-			"</div>";
-
-		// Append the constructed HTML to respective containers in your DOM
 		$("#add_edu_info_drop_2").append(edu_drop_ini);
 		$("#add_edu_info_desc_2").append(edu_drop_desc);
 	});
-
 	$(document).on("click", "#remove_edu_info_2", function() {
 		if (y > 0) { //debugger;
 			$("#sub_" + y).remove();
@@ -1227,16 +1175,14 @@ if (isset($_SESSION['set_update_pf'])) {
 				var blnValid = false;
 				for (var j = 0; j < _validFileExtensions.length; j++) {
 					var sCurExtension = _validFileExtensions[j];
-					if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() ==
-						sCurExtension.toLowerCase()) {
+					if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
 						blnValid = true;
 						break;
 					}
 				}
 
 				if (!blnValid) {
-					alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(
-						", "));
+					alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
 					oInput.value = "";
 					return false;
 				}

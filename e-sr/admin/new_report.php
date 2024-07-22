@@ -1,6 +1,6 @@
 <?php
 $_GLOBALS['a'] = 'report1';
-session_start();
+// session_start();
 //error_reporting(0);
 $GLOBALS['a'] = 'reports';
 include_once('../global/header.php');

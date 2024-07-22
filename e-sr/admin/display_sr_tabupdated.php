@@ -17,17 +17,19 @@ $conn1=dbcon1();
     border: 1px solid black;
     border-collapse: collapse;
 }
-.labelhed{
-	font-size:17px;
-	font-weight:400;
+
+.labelhed {
+    font-size: 17px;
+    font-weight: 400;
 }
-.labelhdata{
-	font-size:17px;
-	
+
+.labelhdata {
+    font-size: 17px;
+
 }
 </style>
 
-				<?php
+<?php
 				
 				// Bio
 					 $pf_no=$_GET['pf'];
@@ -1041,180 +1043,261 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 							$rev_car_re_remark=$result['rev_car_re_remark'];
 				        }*/
 	?>
-				
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-		<div class="box box-warning box-solid">
-			<div class="box-header with-border">
-				<ul class="nav nav-tabs" style="border-bottom: 0px solid #ddd;">
-					<li class="active"><a href="#bio" data-toggle="tab"><b>Bio-Data</b></a></li>
-					<li class=""><a href="#medical" data-toggle="tab"><b>Medical Details</b></a></li>
-					<li class=""><a href="#appointment" data-toggle="tab"><b>Initial Appointment</b></a></li>
-					<li class=""><a href="#present_appointment" data-toggle="tab"><b>Present Appointment</b></a></li>	<li class=""><a href="#prft" data-toggle="tab"><b>PRFT</b></a></li> 
-					<li class=""><a href="#penalty" data-toggle="tab"><b>Penalty</b></a></li> 
-					<li class=""><a href="#increment" data-toggle="tab"><b>Increment</b></a></li>	
-					<li class=""><a href="#awards" data-toggle="tab"><b>Awards</b></a></li> 
-					<li class=""><a href="#family" data-toggle="tab"><b>Family Composition</b></a></li>  
-					<li class=""><a href="#nominee" data-toggle="tab"><b>Nominee(s)</b></a></li>
-					<li class=""><a href="#training" data-toggle="tab"><b>Training</b></a></li>  
-					<li class=""><a href="#advance" data-toggle="tab"><b>Advance</b></a></li> 
-					<li class=""><a href="#property" data-toggle="tab"><b>Property</b></a></li>
-					<li class=""><a href="#extra_entry" data-toggle="tab"><b>Last Entry</b></a></li>  
-					<li class=""><a href="#leave" data-toggle="tab"><b>Leave & Encashment</b></a></li>
-				</ul>     	 
-			</div>	 
-			<div class="modal-body">
-				<div class="row">
-					<div class="box-body"> 
-						<div class="tab-content">
-			      <!--Bio Tab Start -->
-	<div class="tab-pane active in" id="bio"> 		 
-		<div class="table-responsive" style="padding:20px;">
-			<h3>&nbsp;&nbsp;Personal Info</h3>
-				<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-				<input type="hidden" name="hidden_pfno" value="<?php echo $pf_no; ?>" id="hidden_pfno"/>
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>
-						<tr>
-							<td colspan="5"></td>
-							<td style="width:10%"> <img id="blah" src="upload_doc/<?php echo $imagefile;?>" width ="200px" height="200px"/></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed " >PF Number</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $pf_number ?></label></td>
-							<td><label class="control-label labelhed " > Old PF Number</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $oldpf_number ?></label></td>
-							<td><label class="control-label labelhed" >SR NO</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $sr_no ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Date Of Birth<span class=""></span></label></td>
-							<td><label class="control-label labelhdata"><?php echo $dob; ?></label></td>
-							<td><label class="control-label labelhed" >ID Card Number<span class=""></span></label></td>
-							<td><label class="control-label labelhdata"></label></td>
-							<td><label class="control-label labelhed" >Aadhar Number<span class=""></span></label></td>
-							<td><label class="control-label labelhdata"><?php echo $aadhar_number ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Employee Name</label></td>
-							<td><label class="control-label labelhdata"><?php echo $emp_name ?></label></td>
-							<td><label class="control-label labelhed" >Employee Old Name</label></td>
-							<td><label class="control-label labelhdata"><?php echo $emp_old_name ?></label></td><td><label class="control-label labelhed" >Gender</label></td>
-							<td><label class="control-label labelhdata"><?php echo $gender ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Marital Status</label></td>
-							<td><label class="control-label labelhdata"><?php echo $marrital_status ?></label></td>
-							<td><label class="control-label labelhed" >Father/Husband Name</label></td>
-							<td><label class="control-label labelhdata"><?php echo $f_h_name ?></label></td>
-							<td><label class="control-label labelhed">CUG Number</label></td>
-							<td><label class="control-label labelhdata"><?php echo $cug ?></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Personal Mobile Number</label></td>
-							<td><label class="control-label labelhdata"><?php echo $mobile_number; ?></label></td>
-							<td><label class="control-label labelhed" >PAN No</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pan_number; ?></label></td>
-							<td><label class="control-label labelhed" >PRAN Number</label></td>
-							<td><label class="control-label labelhdata"><?php echo $nps_no; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >RUID Number</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ruid_no; ?></label></td>
-							<td><label class="control-label labelhed" >E-mail Id</label></td>
-							<td colspan="3"><label class="control-label labelhdata"><?php echo $email; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Persent Address</label></td>
-							<td><label class="control-label labelhdata"><?php echo $present_address; ?></label></td>
-							<td><label class="control-label labelhed" >State Code</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_statecode; ?></label></td>
-							<td><label class="control-label labelhed" >Pincode</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_pincode; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Permanent Address</label></td>
-							<td><label class="control-label labelhdata"><?php echo $permanent_address; ?></label></td>
-							<td><label class="control-label labelhed" >State Code</label></td>
-							<td><label class="control-label labelhdata"><?php echo $per_statecode; ?></label></td>
-							<td><label class="control-label labelhed" >Pincode</label></td>
-							<td><label class="control-label labelhdata"><?php echo $per_pincode; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Identification Mark</label></td>
-							<td colspan="5"><label class="control-label labelhdata"><?php echo $identification_mark; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Religion</label></td>
-							<td><label class="control-label labelhdata"><?php echo $religion; ?></label></td>
-							<td><label class="control-label labelhed" >Community</label></td>
-							<td><label class="control-label labelhdata"><?php echo $community; ?></label></td><td><label class="control-label labelhed" >Caste</label></td>
-							<td><label class="control-label labelhdata"><?php echo $caste; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Recruitment Code/<br>Appointment Type</label></td>
-							<td colspan="3"><label class="control-label labelhdata"><?php echo $recruit_code; ?></label></td><td><label class="control-label labelhed" >Group</label></td>
-							<td colspan="2"><label class="control-label labelhdata"><?php echo $group_col; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Education Qualification at the time of Initial Appointment</label></td>
-							<td colspan="3"><label class="control-label labelhdata"><?php echo $education_ini; ?></label></td><td><label class="control-label labelhed" >Education Qualification at the time of Subsequent</label></td>
-							<td colspan="2"><label class="control-label labelhdata"><?php echo $education_sub; ?></label></td>
-						</tr>
-						
-					</tbody>
-				</table>
-				<h3>&nbsp;&nbsp;Bank Details</h3>
-				<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>				
-						<tr>
-							<td><label class="control-label labelhed " >Bank Name</label></td>
-							<td> <label class="control-label labelhdata"><?php echo $bank_name; ?></label></td>
-							<td><label class="control-label labelhed" >Account No</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $account_number; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >MICR Number</label></td>
-							<td><label class="control-label labelhdata"><?php echo $micr_number; ?></label></td>
-							<td><label class="control-label labelhed" >IFSC No</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ifsc_code; ?></label></td>
-						</tr>
-						<tr>
-							
-							<td><label class="control-label labelhed" >Bank Address</label></td>
-							<td colspan="5"><label class="control-label labelhdata"><?php echo $bank_address; ?></label></td>
-						</tr>
-						<tr>
-							
-							
-						</tr>						
-					</tbody>
-				</table>			
-		</div>
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="#" class="btn btn-primary back_btn">Back</a>
-		</div>						  
-    </div>
-	<!----Medical Details------>
-	<div class="tab-pane" id="medical">
-		<h3>&nbsp;&nbsp;Medical Details</h3>
-		<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">				 		 
-			<div class="table-responsive" style="padding:20px;">				
-				<table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Sr No</th>
-                  <th>Type Of Medical</th>
-                  <th>Medical Class</th>
-                  <th>Letter No</th>
-                  <th>Letter Date</th>
-                  <th>View</th>
-                </tr>
-                </thead>
-                <tbody>
-               <?php 
+        <div class="box box-warning box-solid">
+            <div class="box-header with-border">
+                <ul class="nav nav-tabs" style="border-bottom: 0px solid #ddd;">
+                    <li class="active"><a href="#bio" data-toggle="tab"><b>Bio-Data</b></a></li>
+                    <li class=""><a href="#medical" data-toggle="tab"><b>Medical Details</b></a></li>
+                    <li class=""><a href="#appointment" data-toggle="tab"><b>Initial Appointment</b></a></li>
+                    <li class=""><a href="#present_appointment" data-toggle="tab"><b>Present Appointment</b></a></li>
+                    <li class=""><a href="#prft" data-toggle="tab"><b>PRFT</b></a></li>
+                    <li class=""><a href="#penalty" data-toggle="tab"><b>Penalty</b></a></li>
+                    <li class=""><a href="#increment" data-toggle="tab"><b>Increment</b></a></li>
+                    <li class=""><a href="#awards" data-toggle="tab"><b>Awards</b></a></li>
+                    <li class=""><a href="#family" data-toggle="tab"><b>Family Composition</b></a></li>
+                    <li class=""><a href="#nominee" data-toggle="tab"><b>Nominee(s)</b></a></li>
+                    <li class=""><a href="#training" data-toggle="tab"><b>Training</b></a></li>
+                    <li class=""><a href="#advance" data-toggle="tab"><b>Advance</b></a></li>
+                    <li class=""><a href="#property" data-toggle="tab"><b>Property</b></a></li>
+                    <li class=""><a href="#extra_entry" data-toggle="tab"><b>Last Entry</b></a></li>
+                    <li class=""><a href="#leave" data-toggle="tab"><b>Leave & Encashment</b></a></li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="box-body">
+                        <div class="tab-content">
+                            <!--Bio Tab Start -->
+                            <div class="tab-pane active in" id="bio">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Personal Info</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <input type="hidden" name="hidden_pfno" value="<?php echo $pf_no; ?>"
+                                        id="hidden_pfno" />
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5"></td>
+                                                <td style="width:10%"> <img id="blah"
+                                                        src="upload_doc/<?php echo $imagefile;?>" width="200px"
+                                                        height="200px" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF Number</label></td>
+                                                <td> <label class="control-label labelhdata">
+                                                        <?php echo $pf_number ?></label></td>
+                                                <td><label class="control-label labelhed "> Old PF Number</label></td>
+                                                <td> <label class="control-label labelhdata">
+                                                        <?php echo $oldpf_number ?></label></td>
+                                                <td><label class="control-label labelhed">SR NO</label></td>
+                                                <td><label class="labelhdata labelhdata"><?php echo $sr_no ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Date Of Birth<span
+                                                            class=""></span></label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $dob; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">ID Card Number<span
+                                                            class=""></span></label></td>
+                                                <td><label class="control-label labelhdata"></label></td>
+                                                <td><label class="control-label labelhed">Aadhar Number<span
+                                                            class=""></span></label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $aadhar_number ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Employee Name</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $emp_name ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Employee Old Name</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $emp_old_name ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Gender</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $gender ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Marital Status</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $marrital_status ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Father/Husband Name</label>
+                                                </td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $f_h_name ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">CUG Number</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $cug ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Personal Mobile Number</label>
+                                                </td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $mobile_number; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">PAN No</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pan_number; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">PRAN Number</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $nps_no; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">RUID Number</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ruid_no; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">E-mail Id</label></td>
+                                                <td colspan="3"><label
+                                                        class="control-label labelhdata"><?php echo $email; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Persent Address</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $present_address; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">State Code</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_statecode; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Pincode</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_pincode; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Permanent Address</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $permanent_address; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">State Code</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $per_statecode; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Pincode</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $per_pincode; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Identification Mark</label>
+                                                </td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $identification_mark; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Religion</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $religion; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Community</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $community; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Caste</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $caste; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Recruitment
+                                                        Code/<br>Appointment Type</label></td>
+                                                <td colspan="3"><label
+                                                        class="control-label labelhdata"><?php echo $recruit_code; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Group</label></td>
+                                                <td colspan="2"><label
+                                                        class="control-label labelhdata"><?php echo $group_col; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Education Qualification at the
+                                                        time of Initial Appointment</label></td>
+                                                <td colspan="3"><label
+                                                        class="control-label labelhdata"><?php echo $education_ini; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Education Qualification at the
+                                                        time of Subsequent</label></td>
+                                                <td colspan="2"><label
+                                                        class="control-label labelhdata"><?php echo $education_sub; ?></label>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <h3>&nbsp;&nbsp;Bank Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">Bank Name</label></td>
+                                                <td> <label
+                                                        class="control-label labelhdata"><?php echo $bank_name; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Account No</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $account_number; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">MICR Number</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $micr_number; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">IFSC No</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ifsc_code; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td><label class="control-label labelhed">Bank Address</label></td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $bank_address; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+                            <!----Medical Details------>
+                            <div class="tab-pane" id="medical">
+                                <h3>&nbsp;&nbsp;Medical Details</h3>
+                                <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr No</th>
+                                                <th>Type Of Medical</th>
+                                                <th>Medical Class</th>
+                                                <th>Letter No</th>
+                                                <th>Letter Date</th>
+                                                <th>View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
 					$conn1=dbcon1();
 					$sql=mysql_query("select * from medical_temp where medi_pf_number='$pf_no'");
 					$cnt=1;
@@ -1233,274 +1316,382 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 						$cnt++;
 					}
 				?>
-                </tbody>
-                <tfoot>
-               
-                </tfoot>
-              </table>
-			</div>
-			<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-				<a href="#" class="btn btn-primary back_btn">Back</a>
-			</div>					 
-    </div>
-			
-	<div class="tab-pane" id="appointment">
-		<h3>&nbsp;&nbsp;Initial Appointment</h3>
-		<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">				 		 
-			<div class="table-responsive" style="padding:20px;">
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>
-						<tr>
-							<td><label class="control-label labelhed " >PF Number</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $app_pf_number; ?> </label></td>
-							<td><label class="control-label labelhed" >Department</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $app_department; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Type of Initial Appointment</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $app_department; ?></label></td>
-							<td><label class="control-label labelhed" >Designation<span class=""></span></label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $app_department; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Appointment Date</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_date; ?></label></td>
-							<td><label class="control-label labelhed" >Regularisation Date</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_regul_date; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Pay Scale type</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_payscale; ?></label></td><td><label class="control-label labelhed" >Scale</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_scale; ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Level</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_level; ?></label></td>
-							<td><label class="control-label labelhed" >Group</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_group; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Station</label></td>
-							<td colspan="5"><label class="control-label labelhdata"><?php echo $app_station; ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >ROP</label></td>
-							<td colspan="5"><label class="control-label labelhdata"><?php echo $app_rop; ?></label></td>
-						</tr>
-						<tr>	
-							<td><label class="control-label labelhed" >Workplace</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_depot; ?></label></td>
-							<td><label class="control-label labelhed" >Appointment Reference Number</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_refno; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Appointment Letter Date</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_letter_date; ?></label></td>
-							<td><label class="control-label labelhed" >Remark</label></td>
-							<td><label class="control-label labelhdata"><?php echo $app_remark; ?></label></td>
-						</tr>					
-					</tbody>
-				</table>
-			</div>
-			<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-				<a href="#" class="btn btn-primary back_btn">Back</a>
-			</div>						 
-    </div>
- <div class="tab-pane" id="present_appointment">
-			<div class="table-responsive" style="padding:20px;" id="sgd_ogd_no">
-			<h3>&nbsp;&nbsp;Present Working Details</h3>
-			<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>
-						<tr> 
-							<td><label class="control-label labelhed " >PF Number</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $preapp_pf_number; ?> </label></td>
-							<td><label class="control-label labelhed" >Department</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $pre_app_department ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Weather Employee is officiating in 
-higher grade than substansive grade?<span class=""></span></label></td>
-							<td><label class="labelhdata"><?php echo $pre_app_designation ?></label></td>
-							<td><label class="control-label labelhed" >Designation</label></td>
-							<td><label class="labelhdata"><?php echo $pre_app_billunit ?></label></td>
-						</tr>
-						
-						<tr>
-							<td><label class="control-label labelhed" >Pay Scale Type</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_scale ?></label></td>
-							<td><label class="control-label labelhed" >Scale</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_scale ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Level</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_level ?></label></td>
-							<td><label class="control-label labelhed" >Bill Unit</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_group_col ?></label></td>
-							
-						</tr>
-						<tr>
-						<td><label class="control-label labelhed" >Depot/Workplace</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_depot ?></label></td>
-							<td><label class="control-label labelhed" >Station</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_station ?></label></td>
-							
-						</tr>
-						<tr>
-							
-							<td><label class="control-label labelhed" >Station</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_other ?></label></td>	
-							<td><label class="control-label labelhed" >Rate Of Pay</label></td>
-							<td><label class="control-label labelhdata"><?php echo $pre_app_rop ?></label></td>	
-						</tr>	
-					</tbody>		
-				</table>
-			</div>
-			
-			<div class="table-responsive" style="padding:20px;" id="sgd_ogd_yes">
-			<h3>&nbsp;&nbsp;Present Working Details</h3>
-			<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>
-						<tr> 
-							<td><label class="control-label labelhed " >PF Number</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $preapp_pf_number ?> </label></td>
-							<td><label class="control-label labelhed" >Department</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $pre_app_department ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Weather Employee is Officiating in 
-higher grade than substansive grade?<span class=""></span></label></td>
-							<td colspan="5"><label class="labelhdata"><?php echo $sgd_dropdwn ?></label></td>
-							
-						</tr>
-						
-						<tr>
-							<td colspan="4"> <label class="control-label labelhed" style="font-size:18px;" ><b>Substancive Grade Details</b></label></td>
-						</tr>
-							
-						<tr>
-							<td><label class="control-label labelhed" >Designation</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_designation ?></label></td>
-							<td><label class="control-label labelhed" >Pay Scale Type</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_pst ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Scale</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_scale ?></label></td>
-							<td><label class="control-label labelhed" >Level</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_level ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Bill Unit</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_billunit ?></label></td>
-							<td><label class="control-label labelhed" >Depot</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_depot ?></label></td>
-							
-						</tr>
-							
-						<tr>
-							<td><label class="control-label labelhed" >Station</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_station ?></label></td>
-							<td><label class="control-label labelhed" >Group</label></td>
-							<td><label class="control-label labelhdata"><?php echo $sgd_group ?></label></td>
-							
-						</tr>
-						
-						
-						<tr>
-							<td colspan="4"> <label class="control-label labelhed" style="font-size:18px;" ><b>Officiating Grade Details</b></label></td>
-						</tr>
-								
-						<tr>
-							<td><label class="control-label labelhed" >Designation</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_desig ?></label></td>
-							<td><label class="control-label labelhed" >Pay Scale Type</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_pst ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Scale</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_scale ?></label></td>
-							<td><label class="control-label labelhed" >Level</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_level ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Bill Unit</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_billunit ?></label></td>
-							<td><label class="control-label labelhed" >Depot</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_depot ?></label></td>
-							
-						</tr>
-							
-						<tr>
-							<td><label class="control-label labelhed" >Station</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_station ?></label></td>
-							<td><label class="control-label labelhed" >Group</label></td>
-							<td><label class="control-label labelhdata"><?php echo $ogd_group ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Rate Of Pay</label></td>
-							<td colspan="5"><label class="control-label labelhdata"><?php echo $ogd_rop ?></label></td>	
-						</tr>
-						
-					</tbody>		
-				</table>
-			</div>
-			
-			
-			<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-				<a href="sr_view.php" class="btn btn-primary">Back</a>
-			</div>					 
-      </div>
-	<!---- PRTF DEtails----->			 
-	<!---- PRTF DEtails----->			 
-		<div class="tab-pane" id="prft">
-		
-		<div  class="tab-pane" id="prft" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-						<li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
-						<li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
-						<li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
-						<li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>Promotion</h3><hr>
-							<div class="row">
-										<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Employee List</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example2" class="table table-striped">
-                <thead>
-                <tr>
-                  <th>Sr No</th>
-                  <th>PF No</th>
-                  <th>Order Type</th>
-                  <th>Transaction Id</th>
-                  <th>View</th>
-                </tr>
-                </thead>
-                <tbody>
-				<?php
+                                        </tbody>
+                                        <tfoot>
+
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="appointment">
+                                <h3>&nbsp;&nbsp;Initial Appointment</h3>
+                                <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF Number</label></td>
+                                                <td> <label class="control-label labelhdata">
+                                                        <?php echo $app_pf_number; ?> </label></td>
+                                                <td><label class="control-label labelhed">Department</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $app_department; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Type of Initial
+                                                        Appointment</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $app_department; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Designation<span
+                                                            class=""></span></label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $app_department; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Appointment Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_date; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Regularisation Date</label>
+                                                </td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_regul_date; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Pay Scale type</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_payscale; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Scale</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_scale; ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Level</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_level; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Group</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_group; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Station</label></td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $app_station; ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">ROP</label></td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $app_rop; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Workplace</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_depot; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Appointment Reference
+                                                        Number</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_refno; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Appointment Letter
+                                                        Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_letter_date; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Remark</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $app_remark; ?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="present_appointment">
+                                <div class="table-responsive" style="padding:20px;" id="sgd_ogd_no">
+                                    <h3>&nbsp;&nbsp;Present Working Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF Number</label></td>
+                                                <td> <label class="control-label labelhdata">
+                                                        <?php echo $preapp_pf_number; ?> </label></td>
+                                                <td><label class="control-label labelhed">Department</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $pre_app_department ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Weather Employee is
+                                                        officiating in
+                                                        higher grade than substansive grade?<span
+                                                            class=""></span></label></td>
+                                                <td><label class="labelhdata"><?php echo $pre_app_designation ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Designation</label></td>
+                                                <td><label class="labelhdata"><?php echo $pre_app_billunit ?></label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Pay Scale Type</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_scale ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Scale</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_scale ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Level</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_level ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Bill Unit</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_group_col ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Depot/Workplace</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_depot ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Station</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_station ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+
+                                                <td><label class="control-label labelhed">Station</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_other ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Rate Of Pay</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pre_app_rop ?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="table-responsive" style="padding:20px;" id="sgd_ogd_yes">
+                                    <h3>&nbsp;&nbsp;Present Working Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF Number</label></td>
+                                                <td> <label class="control-label labelhdata">
+                                                        <?php echo $preapp_pf_number ?> </label></td>
+                                                <td><label class="control-label labelhed">Department</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $pre_app_department ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Weather Employee is
+                                                        Officiating in
+                                                        higher grade than substansive grade?<span
+                                                            class=""></span></label></td>
+                                                <td colspan="5"><label
+                                                        class="labelhdata"><?php echo $sgd_dropdwn ?></label></td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="4"> <label class="control-label labelhed"
+                                                        style="font-size:18px;"><b>Substancive Grade Details</b></label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Designation</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_designation ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Pay Scale Type</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_pst ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Scale</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_scale ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Level</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_level ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Bill Unit</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_billunit ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Depot</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_depot ?></label>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Station</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_station ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Group</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $sgd_group ?></label>
+                                                </td>
+
+                                            </tr>
+
+
+                                            <tr>
+                                                <td colspan="4"> <label class="control-label labelhed"
+                                                        style="font-size:18px;"><b>Officiating Grade Details</b></label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Designation</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_desig ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Pay Scale Type</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_pst ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Scale</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_scale ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Level</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_level ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Bill Unit</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_billunit ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Depot</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_depot ?></label>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Station</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_station ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Group</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $ogd_group ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Rate Of Pay</label></td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $ogd_rop ?></label>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <!---- PRTF DEtails----->
+                            <!---- PRTF DEtails----->
+                            <div class="tab-pane" id="prft">
+
+                                <div class="tab-pane" id="prft" style="padding:10px;">
+                                    <h3 class="box-title"><i
+                                            class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation
+                                    </h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
+                                            <li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
+                                            <li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
+                                            <li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>Promotion</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Employee List</h3>
+                                                                    </div>
+                                                                    <!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <table id="example2"
+                                                                            class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Sr No</th>
+                                                                                    <th>PF No</th>
+                                                                                    <th>Order Type</th>
+                                                                                    <th>Transaction Id</th>
+                                                                                    <th>View</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
 					$cnt_pr=1;
 					$sql=mysql_query("select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
 					while($result=mysql_fetch_array($sql)){
@@ -1514,75 +1705,79 @@ higher grade than substansive grade?<span class=""></span></label></td>
 						$cnt_pr++;
 					}
 				?>
-						
-                </tbody>
-                <tfoot>
-               
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example2').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 
-	<div class="tab-pane" id="rever">
-		
-		<div  class="tab-pane" id="rever" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-						<li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
-						<li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
-						<li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
-						<li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>Reversion</h3><hr>
-							<div class="row">
-										<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Employee List</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example3" class="table table-striped">
-                <thead>
-                <tr>
-                  <th>Sr No</th>
-                  <th>PF No</th>
-                  <th>Order Type</th>
-                  <th>Transaction Id</th>
-                  <th>View</th>
-                </tr>
-                </thead>
-                <tbody>
-				<?php
+
+                                                                            </tbody>
+                                                                            <tfoot>
+
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example2').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="rever">
+
+                                <div class="tab-pane" id="rever" style="padding:10px;">
+                                    <h3 class="box-title"><i
+                                            class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation
+                                    </h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
+                                            <li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
+                                            <li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
+                                            <li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>Reversion</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Employee List</h3>
+                                                                    </div>
+                                                                    <!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <table id="example3"
+                                                                            class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Sr No</th>
+                                                                                    <th>PF No</th>
+                                                                                    <th>Order Type</th>
+                                                                                    <th>Transaction Id</th>
+                                                                                    <th>View</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
 					$cnt_rv=1;
 					$sql=mysql_query("select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
 					while($result=mysql_fetch_array($sql)){
@@ -1596,78 +1791,82 @@ higher grade than substansive grade?<span class=""></span></label></td>
 						$cnt_rv++;
 					}
 				?>
-              		
-						
-					
-			
-                </tbody>
-                <tfoot>
-               
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example3').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 	
-	<div class="tab-pane" id="trans">
-		
-		<div  class="tab-pane" id="trans" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-						<li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
-						<li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
-						<li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
-						<li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>Transfer</h3><hr>
-							<div class="row">
-										<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Employee List</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example4" class="table table-striped">
-                <thead>
-                <tr>
-                   <th>Sr No</th>
-                   <th>PF No</th>
-                  <th>Order Type</th>
-                  <th>Transaction ID</th>
-                  <th>View</th>
-                </tr>
-                </thead>
-                <tbody>
-              		<?php
+
+
+
+
+                                                                            </tbody>
+                                                                            <tfoot>
+
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example3').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="trans">
+
+                                <div class="tab-pane" id="trans" style="padding:10px;">
+                                    <h3 class="box-title"><i
+                                            class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation
+                                    </h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
+                                            <li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
+                                            <li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
+                                            <li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>Transfer</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Employee List</h3>
+                                                                    </div>
+                                                                    <!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <table id="example4"
+                                                                            class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Sr No</th>
+                                                                                    <th>PF No</th>
+                                                                                    <th>Order Type</th>
+                                                                                    <th>Transaction ID</th>
+                                                                                    <th>View</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
 						$cnt_tr=1;
 						$sql=mysql_query("select * from prft_transfer_temp where trans_pf_no='$pf_no'");
 						while($result=mysql_fetch_array($sql)){
@@ -1681,74 +1880,78 @@ higher grade than substansive grade?<span class=""></span></label></td>
 							$cnt_tr++;
 						}
 					?>
-						
-                </tbody>
-                <tfoot>
-               
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example4').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 	
-	<div class="tab-pane" id="fix">
-		
-		<div  class="tab-pane" id="rever" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-						<li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
-						<li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
-						<li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
-						<li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>Fixation</h3><hr>
-							<div class="row">
-										<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Employee List</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example5" class="table table-striped">
-                <thead>
-                <tr>
-                   <th>Sr No</th>
-                  <th>Order Type</th>
-                  <th>Last updated Date</th>
-                  <th>View</th>
-                </tr>
-                </thead>
-                <tbody>
-              		<?php
+
+                                                                            </tbody>
+                                                                            <tfoot>
+
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example4').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="fix">
+
+                                <div class="tab-pane" id="rever" style="padding:10px;">
+                                    <h3 class="box-title"><i
+                                            class="fa fa-book"></i>&nbsp;&nbsp;Promotion/Reversion/Transfer/Fixation
+                                    </h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#prft" data-toggle="tab"><b>Promotion</b></a></li>
+                                            <li class=""><a href="#rever" data-toggle="tab"><b>Reversion</b></a></li>
+                                            <li class=""><a href="#trans" data-toggle="tab"><b>Transfer</b></a></li>
+                                            <li class=""><a href="#fix" data-toggle="tab"><b>Fixation</b></a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>Fixation</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Employee List</h3>
+                                                                    </div>
+                                                                    <!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <table id="example5"
+                                                                            class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Sr No</th>
+                                                                                    <th>Order Type</th>
+                                                                                    <th>Last updated Date</th>
+                                                                                    <th>View</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
 						$cnt_fx=1;
 						$sql=mysql_query("select * from prft_fixation_temp where fix_pf_no='$pf_no'");
 						while($result=mysql_fetch_array($sql)){
@@ -1762,37 +1965,37 @@ higher grade than substansive grade?<span class=""></span></label></td>
 							$cnt_fx++;
 						}
 					?>
-						
-                </tbody>
-                <tfoot>
-               
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example5').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 
-<?php
+
+                                                                            </tbody>
+                                                                            <tfoot>
+
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example5').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <?php
 
 
 
@@ -2106,133 +2309,185 @@ $conn1=dbcon1();
 						 $pen_update_Date=date('d-m-Y',strtotime($date_time));	
 				}		
 		?>
-<!--Penalty Tab Start -->
-	<div class="tab-pane" id="penalty">
-		<div class="table-responsive" style="padding:20px;">
-			<h3>&nbsp;&nbsp;Penalty Details</h3>
-			<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-			<div class="row">
-	<div class="col-sm-6 col-md-6">
-	<label class="control-label labelhed" style="float:left;">Transaction Id:&nbsp;<?php echo $pen_final_transaction_id; ?>
-	</div>
-	<div class="col-sm-6 col">
-		<label class="control-label labelhed" style="float:right;">Last Update:&nbsp;<?php echo $pen_update_Date; ?>	</div>
-	</div>
-			<table border="1" class="table table-bordered"  style="width:100%">
-				<tbody>
-					<tr>
-						<td><label class="control-label labelhed " >PF No</label></td>
-						<td> <label class="control-label labelhdata"><?php echo $pen_pf_number;?></label></td>
-						<td><label class="control-label labelhed" >Penalty Type</label></td>
-						<td><label class="labelhdata labelhdata"><?php echo $pen_type;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Penalty Issued</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_issued;?></label></td>
-						<td><label class="control-label labelhed" >Penalty Effected</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_effetcted;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Letter No</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_letterno;?></label></td>
-						<td><label class="control-label labelhed" >Letter Date</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_letterdate;?></label></td>
-					</tr>	
-					<tr>
-						<td><label class="control-label labelhed" >ChargeSheet Status</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_chargestatus;?></label></td>
-						<td><label class="control-label labelhed" >ChargeSheet Reference Number </label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_chargeref;?></label></td>
-					</tr>	
-					<tr>
-						<td><label class="control-label labelhed" >From Date</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_from;?></label></td>
-						<td><label class="control-label labelhed" >To Date</label></td>
-						<td><label class="control-label labelhdata"><?php echo $pen_to;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Remarks</label></td>
-						<td colspan="5"><label class="control-label labelhdata"><?php echo $pen_remark; ?></label></td>
-						
-					</tr>	
-				</tbody>
-			</table>
-		</div>
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="#" class="btn btn-primary back_btn">Back</a>
-		</div>
-    </div>
-	<!--Penalty Tab End -->
-	<!--Increment tab begins -->
-<div class="tab-pane" id="increment">
-	<div class="table-responsive" style="padding:20px;">
-	<h3 >&nbsp;&nbsp;Increment Details</h3>
-	<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4" style="font-size:15px; font-weight:400px;">Transaction ID:<b><?php echo $inc_transc_id; ?></b></div>
-				<div class="col-sm-4"></div>
-					<div class="col-sm-4"style="font-size:15px; font-weight:400px;">Updated Date:<b><?php echo $inc_updated_date; ?></b></div>
-		</div>
-	</div>
-	<table border="1" class="table table-bordered"  style="width:100%">
-		<tbody>
-			<tr>
-				<td><label class="control-label labelhed " >PF No</label></td>
-				<td> <label class="control-label labelhdata"><?php echo $inc_pf_number ?></label></td>
-				<td><label class="control-label labelhed" >Pay Scale type</label></td>
-				<td><label class="labelhdata labelhdata"><?php echo $inc_ps_type;?></label></td>
-				
-			</tr>
-			<tr>
-				<td><label class="control-label labelhed" >Increment type</label></td>
-				<td><label class="labelhdata labelhdata"><?php echo $inc_increment_type;?></label></td>
-				<td><label class="control-label labelhed" >Increment Date</label></td>
-				<td><label class="labelhdata labelhdata"><?php echo $inc_increment_date;?></label></td>
-				
-			</tr>
-			<tr>
-				<td><label class="control-label labelhed" >Scale</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_scale;?></label></td>
-				<td><label class="control-label labelhed" >Level</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_level;?></label></td>
-				
-			</tr>
-			<tr>
-				<td><label class="control-label labelhed" >Old Rate Of Pay</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_old_rop;?></label></td>
-				<td><label class="control-label labelhed" >Rate Of Pay</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_rop ?></label></td>
-				
-			</tr>
-			<tr>
-				<td><label class="control-label labelhed" >Personal Pay</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_personal_pay;?></label></td>
-				<td><label class="control-label labelhed" >Special Pay</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_special_pay;?></label></td>
-				
-			</tr>
-			<tr>
-				<td><label class="control-label labelhed" >Next Increment</label></td>
-				<td><label class="control-label labelhdata"><?php echo $inc_next_incr_date;?></label></td>
-			</tr>
-			<tr>
-				<td><label class="control-label labelhed" >Remark</label></td>
-				<td colspan="4"><label class="control-label labelhdata" ><?php echo $inc_remark;?></label></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-	<a href="#" class="btn btn-primary back_btn">Back</a>
-</div>
-</div>
+                            <!--Penalty Tab Start -->
+                            <div class="tab-pane" id="penalty">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Penalty Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6">
+                                            <label class="control-label labelhed" style="float:left;">Transaction
+                                                Id:&nbsp;<?php echo $pen_final_transaction_id; ?>
+                                        </div>
+                                        <div class="col-sm-6 col">
+                                            <label class="control-label labelhed" style="float:right;">Last
+                                                Update:&nbsp;<?php echo $pen_update_Date; ?>
+                                        </div>
+                                    </div>
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF No</label></td>
+                                                <td> <label
+                                                        class="control-label labelhdata"><?php echo $pen_pf_number;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Penalty Type</label></td>
+                                                <td><label class="labelhdata labelhdata"><?php echo $pen_type;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Penalty Issued</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_issued;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Penalty Effected</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_effetcted;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Letter No</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_letterno;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Letter Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_letterdate;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">ChargeSheet Status</label>
+                                                </td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_chargestatus;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">ChargeSheet Reference Number
+                                                    </label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_chargeref;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">From Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_from;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">To Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $pen_to;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Remarks</label></td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $pen_remark; ?></label>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+                            <!--Penalty Tab End -->
+                            <!--Increment tab begins -->
+                            <div class="tab-pane" id="increment">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Increment Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4" style="font-size:15px; font-weight:400px;">Transaction
+                                                ID:<b><?php echo $inc_transc_id; ?></b></div>
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4" style="font-size:15px; font-weight:400px;">Updated
+                                                Date:<b><?php echo $inc_updated_date; ?></b></div>
+                                        </div>
+                                    </div>
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF No</label></td>
+                                                <td> <label
+                                                        class="control-label labelhdata"><?php echo $inc_pf_number ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Pay Scale type</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $inc_ps_type;?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Increment type</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $inc_increment_type;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Increment Date</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $inc_increment_date;?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Scale</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_scale;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Level</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_level;?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Old Rate Of Pay</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_old_rop;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Rate Of Pay</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_rop ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Personal Pay</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_personal_pay;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Special Pay</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_special_pay;?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Next Increment</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $inc_next_incr_date;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Remark</label></td>
+                                                <td colspan="4"><label
+                                                        class="control-label labelhdata"><?php echo $inc_remark;?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
 
 
-	
 
-<!---- advance details---->
-<?php
+
+                            <!---- advance details---->
+                            <?php
 $conn1=dbcon1();
 				$sql=mysql_query("select * from  advance_track where adv_pf_number='$pf_no'");
 				if($sql){
@@ -2315,87 +2570,121 @@ $conn1=dbcon1();
 </div>';
 	echo '</div>';
     ?>
-	<!----Property tab------>
-	<div class="tab-pane" id="property">
-	<h3>&nbsp;&nbsp;Property</h3>
-	<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4" style="font-size:15px; font-weight:400px;">Transaction ID:<b><?php echo $inc_transc_id; ?></b></div>
-				<div class="col-sm-4"></div>
-					<div class="col-sm-4"style="font-size:15px; font-weight:400px;">Updated Date:<b><?php echo $inc_updated_date; ?></b></div>
-		</div>
-	</div>
-		<div class="table-responsive" style="padding:20px;">
-		<h3>&nbsp;&nbsp;Property Details</h3>
-		<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
-			<table border="1" class="table table-bordered"  style="width:100%">
-				<tbody>
-					<tr>
-						<td><label class="control-label labelhed " >PF No</label></td>
-						<td> <label class="control-label labelhdata"><?php echo $pf_no; ?></label></td>
-						<td><label class="control-label labelhed" >Property Type</label></td>
-						<td><label class="labelhdata labelhdata"><?php echo $property_type;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Item</label></td>
-						<td><label class="control-label labelhdata"><?php echo $item;?></label></td>
-						<td><label class="control-label labelhed" >Other Item</label></td>
-						<td><label class="control-label labelhdata"><?php echo $other_item;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Make/Model</label></td>
-						<td><label class="control-label labelhdata"><?php echo $make_modal;?></label></td>
-						<td><label class="control-label labelhed" >Date Of Pay</label></td>
-						<td><label class="control-label labelhdata"><?php echo $dop;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Location</label></td>
-						<td><label class="control-label labelhdata"><?php echo $location;?></label></td>
-						<td><label class="control-label labelhed" >Registration No</label></td>
-						<td><label class="control-label labelhdata"><?php echo $reg_no ;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Area</label></td>
-						<td><label class="control-label labelhdata"><?php echo $area;?></label></td>
-						<td><label class="control-label labelhed" >Survey Number</label></td>
-						<td><label class="control-label labelhdata"><?php echo $survey_number;?></label></td>
-					</tr><tr>
-						<td><label class="control-label labelhed" >Total Cost</label></td>
-						<td><label class="control-label labelhdata"><?php echo $tot_cost;?></label></td>
-						<td><label class="control-label labelhed" >Source</label></td>
-						<td><label class="control-label labelhdata"><?php echo $source;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Source type</label></td>
-						<td><label class="control-label labelhdata"><?php echo $source_type;?></label></td>
-						<td><label class="control-label labelhed" >Amount</label></td>
-						<td><label class="control-label labelhdata"><?php echo $amount;?></label></td>
-					</tr>
+                            <!----Property tab------>
+                            <div class="tab-pane" id="property">
+                                <h3>&nbsp;&nbsp;Property</h3>
+                                <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-4" style="font-size:15px; font-weight:400px;">Transaction
+                                            ID:<b><?php echo $inc_transc_id; ?></b></div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4" style="font-size:15px; font-weight:400px;">Updated
+                                            Date:<b><?php echo $inc_updated_date; ?></b></div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Property Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF No</label></td>
+                                                <td> <label
+                                                        class="control-label labelhdata"><?php echo $pf_no; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Property Type</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $property_type;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Item</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $item;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Other Item</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $other_item;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Make/Model</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $make_modal;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Date Of Pay</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $dop;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Location</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $location;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Registration No</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $reg_no ;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Area</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $area;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Survey Number</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $survey_number;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Total Cost</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tot_cost;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Source</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $source;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Source type</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $source_type;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Amount</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $amount;?></label>
+                                                </td>
+                                            </tr>
 
-					<tr>
-						<td><label class="control-label labelhed" >Letter No</label></td>
-						<td><label class="control-label labelhdata"><?php echo $letter_number;?></label></td>
-						<td><label class="control-label labelhed" >Letter Date</label></td>
-						<td><label class="control-label labelhdata"><?php echo $letter_dates;?></label></td>
-					</tr>
-					<tr>
-						<td><label class="control-label labelhed" >Remarks</label></td>
-						<td colspan="3"><label class="control-label labelhdata"><?php echo $remark;?></label></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="#" class="btn btn-primary back_btn">Back</a>
-		</div>
-    </div>
-<!--- family composition--->
-<div class="tab-pane" id="family">
-	<div class="table-responsive" style="padding:20px;">
-	<h3>&nbsp;&nbsp;Family Composition Details</h3>
-	<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-	<?php
+                                            <tr>
+                                                <td><label class="control-label labelhed">Letter No</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $letter_number;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Letter Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $letter_dates;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Remarks</label></td>
+                                                <td colspan="3"><label
+                                                        class="control-label labelhdata"><?php echo $remark;?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+                            <!--- family composition--->
+                            <div class="tab-pane" id="family">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Family Composition Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <?php
 		$sql=mysql_query("select * from  family_temp where emp_pf='$pf_no'");
 		
 		while($result=mysql_fetch_array($sql)){
@@ -2433,16 +2722,16 @@ $conn1=dbcon1();
 			echo "</table>";
 			
 		}
-	?>				
-			
-		
-	</div>
-	<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-		<a href="#" class="btn btn-primary back_btn">Back</a>
-	</div>
-</div>
-<!--awards-->
-<?php
+	?>
+
+
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+                            <!--awards-->
+                            <?php
 
 
 
@@ -2644,69 +2933,85 @@ $conn1=dbcon1();
 				    }
 					
 		?>
-<div class="tab-pane" id="awards">
-	<div class="table-responsive" style="padding:20px;">
-	<h3>&nbsp;&nbsp;Award Details</h3>
-	<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
-	<div class="row">
-	<div class="col-sm-6 col-md-6">
-	<label class="control-label labelhed" style="float:left;">Transaction Id:&nbsp;<?php echo $awd_final_transaction_id ?>
-	</div>
-	<div class="col-sm-6 col">
-		<label class="control-label labelhed" style="float:right;">Last Update:&nbsp;<?php echo $awd_update_Date ?>	</div>
-	</div>
-		<table border="1" class="table table-bordered"  style="width:100%">
-			<tbody>
-				<tr>
-					<td><label class="control-label labelhed " >PF No</label></td>
-					<td> <label class="control-label labelhdata"><?php echo $awd_pf_number ?></label></td>
-					<td><label class="control-label labelhed" >Date Of Award</label></td>
-					<td><label class="labelhdata labelhdata"><?php echo $awddate;?></label></td>
-				</tr>
-				<tr>
-					<td><label class="control-label labelhed" >Awarded By</label></td>
-					<td><label class="control-label labelhdata"><?php echo $awd_by;?></label></td>
-					<td><label class="control-label labelhed" >Type Of Award</label></td>
-					<td><label class="control-label labelhdata"><?php echo $awd_type;?></label></td>
-				</tr>
-				<tr>
-					<td><label class="control-label labelhed" >Other Award</label></td>
-					<td><label class="control-label labelhdata"><?php echo $awd_other;?></label></td>
-					<td><label class="control-label labelhed" >Award Details</label></td>
-					<td><label class="control-label labelhdata"><?php echo $awd_detail ?></label></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-		<a href="#" class="btn btn-primary back_btn">Back</a>
-	</div>
-</div>
-<!----nominee---->
-<div class="tab-pane" id="nominee">
-		
-		<div  class="tab-pane" id="nominee" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Nominee Details</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-					<li class=""><a href="#nominee" data-toggle="tab"><b>PF Nominee</b></a></li>
-						<li class=""><a href="#gis" data-toggle="tab"><b>GIS Nominee</b></a></li>
-						<li class=""><a href="#gratuity" data-toggle="tab"><b>Gratuity Nominee</b></a></li>
-						
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>PF Nominee</h3><hr>
-							<div class="row">
-	<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-             <div class="table-responsive">
-			 <?php 
+                            <div class="tab-pane" id="awards">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Award Details</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6">
+                                            <label class="control-label labelhed" style="float:left;">Transaction
+                                                Id:&nbsp;<?php echo $awd_final_transaction_id ?>
+                                        </div>
+                                        <div class="col-sm-6 col">
+                                            <label class="control-label labelhed" style="float:right;">Last
+                                                Update:&nbsp;<?php echo $awd_update_Date ?>
+                                        </div>
+                                    </div>
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF No</label></td>
+                                                <td> <label
+                                                        class="control-label labelhdata"><?php echo $awd_pf_number ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Date Of Award</label></td>
+                                                <td><label class="labelhdata labelhdata"><?php echo $awddate;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Awarded By</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $awd_by;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Type Of Award</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $awd_type;?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Other Award</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $awd_other;?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Award Details</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $awd_detail ?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+                            <!----nominee---->
+                            <div class="tab-pane" id="nominee">
+
+                                <div class="tab-pane" id="nominee" style="padding:10px;">
+                                    <h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Nominee Details</h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#nominee" data-toggle="tab"><b>PF Nominee</b></a></li>
+                                            <li class=""><a href="#gis" data-toggle="tab"><b>GIS Nominee</b></a></li>
+                                            <li class=""><a href="#gratuity" data-toggle="tab"><b>Gratuity
+                                                        Nominee</b></a></li>
+
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>PF Nominee</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="table-responsive">
+                                                                        <?php 
 				$sql=mysql_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='PF'");
 				while($result=mysql_fetch_array($sql)){
 					
@@ -2759,54 +3064,56 @@ $conn1=dbcon1();
 					echo "</table>";
 				}
 			 ?>
-			</div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example2').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 
-	<div class="tab-pane" id="gis">
-		
-		<div  class="tab-pane" id="gis" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Nominee Details	</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-						<li class=""><a href="#nominee" data-toggle="tab"><b>PF Nominee</b></a></li>
-						<li class=""><a href="#gis" data-toggle="tab"><b>GIS Nominee</b></a></li>
-						<li class=""><a href="#gratuity" data-toggle="tab"><b>Gratuity Nominee</b></a></li>
-						
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>GIS Nominee</h3><hr>
-							<div class="row">
-										<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="table-responsive">
-			<?php 
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example2').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="gis">
+
+                                <div class="tab-pane" id="gis" style="padding:10px;">
+                                    <h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Nominee Details </h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#nominee" data-toggle="tab"><b>PF Nominee</b></a></li>
+                                            <li class=""><a href="#gis" data-toggle="tab"><b>GIS Nominee</b></a></li>
+                                            <li class=""><a href="#gratuity" data-toggle="tab"><b>Gratuity
+                                                        Nominee</b></a></li>
+
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>GIS Nominee</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="table-responsive">
+                                                                        <?php 
 				$sql=mysql_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
 				while($result=mysql_fetch_array($sql)){
 					
@@ -2859,54 +3166,56 @@ $conn1=dbcon1();
 					echo "</table>";
 				}
 			 ?>
-			</div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example3').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 	
-	<div class="tab-pane" id="gratuity">
-		
-		<div  class="tab-pane" id="gratuity" style="padding:10px;">
-			<h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Nominee</h3>
-			<div class="box-header with-border">
-			<ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
-						<li class=""><a href="#nominee" data-toggle="tab"><b>PF Nominee</b></a></li>
-						<li class=""><a href="#gis" data-toggle="tab"><b>GIS Nominee</b></a></li>
-						<li class=""><a href="#gratuity" data-toggle="tab"><b>Gratuity Nominee</b></a></li>
-						
-			</ul>
-				 
-			</div>
-					<div class="box-body">
-					<form method="post" action="process_main.php?action=" class="">
-				<div class="modal-body">
-						<h3>Gratuity Nominee</h3><hr>
-							<div class="row">
-										<section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="table-responsive">
-				<?php 
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example3').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="gratuity">
+
+                                <div class="tab-pane" id="gratuity" style="padding:10px;">
+                                    <h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Nominee</h3>
+                                    <div class="box-header with-border">
+                                        <ul class="nav nav-tabs" style="border-bottom: 1px solid #ddd;">
+                                            <li class=""><a href="#nominee" data-toggle="tab"><b>PF Nominee</b></a></li>
+                                            <li class=""><a href="#gis" data-toggle="tab"><b>GIS Nominee</b></a></li>
+                                            <li class=""><a href="#gratuity" data-toggle="tab"><b>Gratuity
+                                                        Nominee</b></a></li>
+
+                                        </ul>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <form method="post" action="process_main.php?action=" class="">
+                                            <div class="modal-body">
+                                                <h3>Gratuity Nominee</h3>
+                                                <hr>
+                                                <div class="row">
+                                                    <section class="content">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="table-responsive">
+                                                                        <?php 
 				$sql=mysql_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
 				while($result=mysql_fetch_array($sql)){
 					
@@ -2959,33 +3268,33 @@ $conn1=dbcon1();
 					echo "</table>";
 				}
 			 ?>
-			</div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>	
-	<script>
-  $(function () {
-    $('#example4').DataTable()
-   
-  })
-</script>
-							</div>
-				</div>
-				</form>
-			</div>
-		</div>			 
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						 
-    </div> 	
-<!----training tab----->	
-<div class="tab-pane" id="training">
-<?php
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+                                                                </div>
+                                                                <!-- /.box -->
+                                                            </div>
+                                                            <!-- /.col -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </section>
+                                                    <script>
+                                                    $(function() {
+                                                        $('#example4').DataTable()
+
+                                                    })
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+                            <!----training tab----->
+                            <div class="tab-pane" id="training">
+                                <?php
 
 			$conn1=dbcon1();
 				$sql=mysql_query("select *from  training_track where pf_number='$pf_no' ORDER BY ID DESC");
@@ -3280,205 +3589,254 @@ $conn1=dbcon1();
 										
 								
 			?>
-							
-	<div class="table-responsive" style="padding:20px;">
-	<h3>&nbsp;&nbsp Training</h3>
-	<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-							<div class="container">
-							<div class="row">
-							<div class="col-sm-4" style="font-size:15px; font-weight:400px;">Transaction ID:<b><?php echo $transc_id; ?></b></div>
-							<div class="col-sm-4"></div>
-							<div class="col-sm-4"style="font-size:15px; font-weight:400px;">Updated Date:<b><?php echo $tra_upd_date; ?></b></div>
-							</div>
-							</div>
-	<br>
-		<table border="1" class="table table-bordered"  style="width:100%">
-			<tbody>						
-				<tr>
-					<td><label class="control-label labelhed " >PF No</label></td>
-					<td> <label class="control-label labelhdata"><?php echo $tra_pf_number; ?></label></td>
-					<td><label class="control-label labelhed" >Training Type</label></td>
-					<td><label class="labelhdata labelhdata"><?php echo $tra_type; ?></label></td>
-				</tr>
-				
-				<tr>
-				<td><label class="control-label labelhed" >Last Date</label></td>
-					<td><label class="labelhdata labelhdata"><?php echo $tra_last_date; ?></label>
-				</td><td><label class="control-label labelhed" >Due Date</label></td>
-					<td><label class="labelhdata labelhdata"><?php echo $tra_due_date; ?></label>
-				</td>
-				</tr>
-				
-				
-				<tr>
-					<td><label class="control-label labelhed" >Training From</label></td>
-					<td><label class="control-label labelhdata"><?php echo $tra_training_from; ?></label></td>
-					<td><label class="control-label labelhed" >Training To</label></td>
-					<td><label class="control-label labelhdata"><?php echo $tra_training_to; ?></label></td>
-				</tr>
-				<tr>
-					<td><label class="control-label labelhed" >Letter No</label></td>
-					<td><label class="control-label labelhdata"><?php echo $tra_letter_number ?></label></td>
-					<td><label class="control-label labelhed" >Letter Date</label></td>
-					<td><label class="control-label labelhdata"><?php echo $tra_letter_date ?></label></td>
-				</tr>	
-				<tr>
-					<td><label class="control-label labelhed" >Description</label></td>
-					<td><label class="control-label labelhdata"><?php echo $tra_description ?></label></td>
-					<td><label class="control-label labelhed" >remark</label></td>
-					<td><label class="control-label labelhdata"><?php echo $tra_remark ?></label></td>
-				</tr>					
-			</tbody>
-		</table>							
-	</div>
-	<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-		<a href="#" class="btn btn-primary back_btn">Back</a>
-	</div>
-</div>		
 
-<div class="tab-pane" id="extra_entry"> 		 
-		<div class="table-responsive" style="padding:20px;">
-			<h3>&nbsp;&nbsp;Personal Info</h3>
-				<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>
-						<tr>
-							<td><label class="control-label labelhed " >PF Number</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $pf_number ?></label></td>
-							<td><label class="control-label labelhed " > Date Of Joining</label></td>
-							<td> <label class="control-label labelhdata"> <?php echo $doj ?></label></td>
-						</tr>
-						<tr>
-								<td><label class="control-label labelhed" >Retirement type</label></td>
-							   <td><label class="labelhdata labelhdata"><?php echo $retire_type ?></label></td>
-							   <td><label class="control-label labelhed" >Date Of Retirement</label></td>
-							  <td><label class="control-label labelhdata"><?php echo $dor; ?></label></td>
-						</tr>
-						
-						<tr>
-							<td><label class="control-label labelhed" >Designation on Retirement</label></td>
-							<td><label class="control-label labelhdata"><?php echo $desig_or ?></label></td>
-							<td><label class="control-label labelhed" >Department</label></td>
-							<td><label class="control-label labelhdata"><?php echo $dept ?></label></td>
-						</tr>
-						<tr>
-							
-							<td><label class="control-label labelhed" >Station</label></td>
-							<td><label class="control-label labelhdata"><?php echo $station ?></label></td>
-							<td><label class="control-label labelhed" >ROP</label></td>
-							<td><label class="control-label labelhdata"><?php echo $rop ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Bill Unit</label></td>
-							<td><label class="control-label labelhdata"><?php echo $bill_unit ?></label></td>
-							<td><label class="control-label labelhed" >Scale/Level</label></td>
-							<td><label class="control-label labelhdata"><?php echo $scale_lvl ?></label></td>
-						</tr>
-						<tr>	
-							<td><label class="control-label labelhed">Depot</label></td>
-							<td><label class="control-label labelhdata"><?php echo $depot ?></td>
-							<td><label class="control-label labelhed" >Employee Category</label></td>
-							<td><label class="control-label labelhdata"><?php echo $emp_cat; ?></label></td>
-						</tr>
-						<tr>
-							
-							<td><label class="control-label labelhed" >Total Service</label></td>
-							<td colspan="3"><label class="control-label labelhdata"><?php echo $tot_years,"  Years  ", $tot_months,"  Months  ", $tot_days,"  Days  "; ?></label></td>
-							
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >No. of Qualification Service</label></td>
-							<td colspan="3"><label class="control-label labelhdata"><?php echo $no_years,"  Years  ", $no_months,"  Months  ", $no_days,"  Days  "; ?></label></td>
-						</tr>						
-					</tbody>
-				</table>
-				<h3>&nbsp;&nbsp;Leave Balance</h3>
-				<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">	
-				<table border="1" class="table table-bordered"  style="width:100%">
-					<tbody>				
-						<tr>
-							<td><label class="control-label labelhed " >LAP</label></td>
-							<td> <label class="control-label labelhdata"><?php echo $lap; ?></label></td>
-							<td><label class="control-label labelhed" >LHAP</label></td>
-							<td><label class="labelhdata labelhdata"><?php echo $lhap; ?></label></td>
-						</tr>
-						<tr>
-							<td><label class="control-label labelhed" >Advance Leaves</label></td>
-							<td colspan="5"><label class="control-label labelhdata"><?php echo $ad_leaves; ?></label></td>
-						</tr>
-						
-					</tbody>
-				</table>			
-		</div>
-		<div class="pull-right col-md-7 col-sm-12 col-xs-12">
-			<a href="sr_view.php" class="btn btn-primary">Back</a>
-		</div>						  
-    </div>	
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp Training</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4" style="font-size:15px; font-weight:400px;">Transaction
+                                                ID:<b><?php echo $transc_id; ?></b></div>
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4" style="font-size:15px; font-weight:400px;">Updated
+                                                Date:<b><?php echo $tra_upd_date; ?></b></div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF No</label></td>
+                                                <td> <label
+                                                        class="control-label labelhdata"><?php echo $tra_pf_number; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Training Type</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $tra_type; ?></label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Last Date</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $tra_last_date; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Due Date</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $tra_due_date; ?></label>
+                                                </td>
+                                            </tr>
 
 
-		 
-		       </div>	    
-             </div>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Training From</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tra_training_from; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Training To</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tra_training_to; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Letter No</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tra_letter_number ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Letter Date</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tra_letter_date ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Description</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tra_description ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">remark</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $tra_remark ?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="#" class="btn btn-primary back_btn">Back</a>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="extra_entry">
+                                <div class="table-responsive" style="padding:20px;">
+                                    <h3>&nbsp;&nbsp;Personal Info</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">PF Number</label></td>
+                                                <td> <label class="control-label labelhdata">
+                                                        <?php echo $pf_number ?></label></td>
+                                                <td><label class="control-label labelhed "> Date Of Joining</label></td>
+                                                <td> <label class="control-label labelhdata"> <?php echo $doj ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Retirement type</label></td>
+                                                <td><label
+                                                        class="labelhdata labelhdata"><?php echo $retire_type ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Date Of Retirement</label>
+                                                </td>
+                                                <td><label class="control-label labelhdata"><?php echo $dor; ?></label>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><label class="control-label labelhed">Designation on
+                                                        Retirement</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $desig_or ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Department</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $dept ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td><label class="control-label labelhed">Station</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $station ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">ROP</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $rop ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Bill Unit</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $bill_unit ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">Scale/Level</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $scale_lvl ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Depot</label></td>
+                                                <td><label class="control-label labelhdata"><?php echo $depot ?></td>
+                                                <td><label class="control-label labelhed">Employee Category</label></td>
+                                                <td><label
+                                                        class="control-label labelhdata"><?php echo $emp_cat; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td><label class="control-label labelhed">Total Service</label></td>
+                                                <td colspan="3"><label
+                                                        class="control-label labelhdata"><?php echo $tot_years,"  Years  ", $tot_months,"  Months  ", $tot_days,"  Days  "; ?></label>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">No. of Qualification
+                                                        Service</label></td>
+                                                <td colspan="3"><label
+                                                        class="control-label labelhdata"><?php echo $no_years,"  Years  ", $no_months,"  Months  ", $no_days,"  Days  "; ?></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3>&nbsp;&nbsp;Leave Balance</h3>
+                                    <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
+                                    <table border="1" class="table table-bordered" style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td><label class="control-label labelhed ">LAP</label></td>
+                                                <td> <label class="control-label labelhdata"><?php echo $lap; ?></label>
+                                                </td>
+                                                <td><label class="control-label labelhed">LHAP</label></td>
+                                                <td><label class="labelhdata labelhdata"><?php echo $lhap; ?></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label class="control-label labelhed">Advance Leaves</label></td>
+                                                <td colspan="5"><label
+                                                        class="control-label labelhdata"><?php echo $ad_leaves; ?></label>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="pull-right col-md-7 col-sm-12 col-xs-12">
+                                    <a href="sr_view.php" class="btn btn-primary">Back</a>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
-   </div>
-	  </section>
-	 </div>	
-   <?php
+</div>
+</section>
+</div>
+<?php
  include_once('../global/footer.php');
  ?>
 
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id=""><strong>Transaction History</strong></h4>
-        </div>
-        <div class="modal-body">
-           <form class="form-horizontal" method="POST" >
-
-            <div style="padding: 10px" class="form-group table-responsive">
-            		<table class="table table-bordered table-striped">
-            			<thead>
-            			<tr>
-            			<th>Sr. No.</th>
-            			<th>Transaction ID</th>
-            			<th>From (Old)</th>
-            			<th>To (New)</th>
-            			<th>Updated Date</th>
-            			<th>Updated Time</th>
-            			<th>Updated By</th>
-            			</tr>
-            			</thead>
-            			<tbody class="display_history">
-            				
-
-
-            			</tbody>
-              		</table>
-              <div class="col-sm-10">
-                <input type="hidden" class="form-control" id="delete_id" name="delete_id">
-              </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id=""><strong>Transaction History</strong></h4>
             </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="POST">
+
+                    <div style="padding: 10px" class="form-group table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>Transaction ID</th>
+                                    <th>From (Old)</th>
+                                    <th>To (New)</th>
+                                    <th>Updated Date</th>
+                                    <th>Updated Time</th>
+                                    <th>Updated By</th>
+                                </tr>
+                            </thead>
+                            <tbody class="display_history">
+
+
+
+                            </tbody>
+                        </table>
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="delete_id" name="delete_id">
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </form>
-  </div>
-</div>
+    </div>
 </div>
 </div>
 
 
 
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
     // Handle back button click
-    $(".back_btn").click(function(){
-        window.location='sr_search.php';
+    $(".back_btn").click(function() {
+        window.location = 'sr_search.php';
     });
 
     // Toggle visibility based on pre_wk value
@@ -3492,12 +3850,12 @@ $(document).ready(function(){
     }
 
     // Combine similar click handlers
-    $(document).on("click", ".click_pro, .click_open", function(){
+    $(document).on("click", ".click_pro, .click_open", function() {
         var pf = $("#hidden_pfno").val();
         var val = $(this).data('val');
         var tblName = $(this).data('tbl-name');
         var colNm = $(this).data('col-nm');
-        
+
         $.ajax({
             type: "post",
             url: "process.php",
@@ -3508,10 +3866,10 @@ $(document).ready(function(){
                 tbl_name: tblName,
                 col_nm: colNm
             },
-            success: function(data){
+            success: function(data) {
                 $(".display_history").html(data);
             },
-            error: function(jqXHR, textStatus, errorThrown){
+            error: function(jqXHR, textStatus, errorThrown) {
                 console.error("AJAX Request failed: " + textStatus + ", " + errorThrown);
             }
         });

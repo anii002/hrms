@@ -1,15 +1,15 @@
 <?php
-session_start();
+// session_start();
 $GLOBALS['a'] = 'display_sr';
 require_once('../global/header.php');
 require_once('../global/topbar.php');
-//error_reporting(0);
+error_reporting(0);
 require('mini_function.php');
 require('fetch_all_column.php');
 require_once('../dbconfig/dbcon.php');
 // dbcon1();
-$conn1 = dbcon1();
-// include('create_log.php');
+$conn = dbcon1();
+include('create_log.php');
 
 ?>
 <style>
@@ -99,7 +99,7 @@ $conn1 = dbcon1();
 // Bio
 $pf_no = $_GET['pf'];
 // echo"<script>alert('$pf_no');</script>";
-$query = mysqli_query($conn1, "select * from biodata_temp where pf_number='$pf_no'");
+$query = mysqli_query($conn, "select * from biodata_temp where pf_number='$pf_no'");
 // $result = mysqli_fetch_assoc($query);
 // print_r($result['pf_number']);
 if (mysqli_num_rows($query) <= 0) {
@@ -164,7 +164,7 @@ if (mysqli_num_rows($query) <= 0) {
 //Appointment
 // dbcon1();
 // $pf_no = $_GET['pf'];
-// $query = mysqli_query($conn1,"Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysql_error());
+// $query = mysqli_query($conn,"Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysql_error());
 // //$resultset = mysqli_fetch_array($query);
 // $result = mysqli_fetch_array($query);
 // //{
@@ -204,7 +204,7 @@ if (mysqli_num_rows($query) <= 0) {
 // Present Appointment
 // dbcon1();
 // $pf_no = $_GET['pf'];
-// $query = mysqli_query($conn1,"Select * from present_work_temp where preapp_pf_number='$pf_no'");
+// $query = mysqli_query($conn,"Select * from present_work_temp where preapp_pf_number='$pf_no'");
 // ($result = mysqli_fetch_assoc($query));
 // //{
 // $preapp_pf_number = $result['preapp_pf_number'];
@@ -254,7 +254,7 @@ if (mysqli_num_rows($query) <= 0) {
 // //awards query
 // // dbcon1();
 // // $pf_no = $_GET['pf'];
-// $sql = mysqli_query($conn1,"select * from  award_temp where awd_pf_number='$pf_no'");
+// $sql = mysqli_query($conn,"select * from  award_temp where awd_pf_number='$pf_no'");
 // if ($sql) {
 // 	($fetch_sql = mysqli_fetch_array($sql));
 // 	//{
@@ -270,7 +270,7 @@ if (mysqli_num_rows($query) <= 0) {
 // //advance query
 // // dbcon1();
 // // $pf_no = $_GET['pf'];
-// $sql = mysqli_query($conn1,"select * from  advance_temp where adv_pf_number='$pf_no'");
+// $sql = mysqli_query($conn,"select * from  advance_temp where adv_pf_number='$pf_no'");
 // if ($sql) {
 // 	$fetch_sql = mysqli_fetch_array($sql);
 // 	//{
@@ -294,7 +294,7 @@ if (mysqli_num_rows($query) <= 0) {
 //increment query	
 // dbcon1();
 // $pf_no = $_GET['pf'];
-// $sql = mysqli_query($conn1,"select * from  increment_temp where incr_pf_number='$pf_no'");
+// $sql = mysqli_query($conn,"select * from  increment_temp where incr_pf_number='$pf_no'");
 // if ($sql) {
 // 	($fetch_sql = mysqli_fetch_array($sql));
 // 	//{
@@ -361,7 +361,7 @@ if (mysqli_num_rows($query) <= 0) {
 // //Prft promotion Code Start
 
 // // $pf_no = $_GET['pf'];
-// $query = mysqli_query($conn1,"Select * from prft_promotion_temp where pro_pf_no='$pf_no'");
+// $query = mysqli_query($conn,"Select * from prft_promotion_temp where pro_pf_no='$pf_no'");
 // // echo "Select * from prft_promotion_temp where pro_pf_no='$pf_no'".mysql_error();
 // while ($result = mysqli_fetch_assoc($query)) {
 // 	$pro_pf_no = $result['pro_pf_no'];
@@ -403,7 +403,7 @@ if (mysqli_num_rows($query) <= 0) {
 // }
 //prft reversion code
 // $pf_no = $_GET['pf'];
-// $query = mysqli_query($conn1,"Select * from prft_reversion_temp where rev_pf_no='$pf_no' ");
+// $query = mysqli_query($conn,"Select * from prft_reversion_temp where rev_pf_no='$pf_no' ");
 // while ($result = mysqli_fetch_assoc($query)) {
 // 	$rev_pf_no = $result['rev_pf_no'];
 // 	$rev_order_type = $result['rev_order_type'];
@@ -626,7 +626,7 @@ if (mysqli_num_rows($query) <= 0) {
 										<tbody>
 											<?php
 											// dbcon1();
-											$sql = mysqli_query($conn1, "select * from medical_temp where medi_pf_number='$pf_no'");
+											$sql = mysqli_query($conn, "select * from medical_temp where medi_pf_number='$pf_no'");
 											$cnt = 1;
 											while ($result = mysqli_fetch_array($sql)) {
 												echo "<tr>";

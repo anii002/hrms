@@ -61,7 +61,7 @@ function fetch_all_desig($id)
 	$data = "";
 	if (!empty($id)) {
 
-		$sql = "SELECT * FROM `designation` WHERE `id` = '" . $id . "'";
+		$sql = "SELECT * FROM `designations` WHERE `id` = '" . $id . "'";
 		$query = mysqli_query($conn, $sql) or trigger_error("Query Failed: " . mysqli_error($conn));
 		while ($res = mysqli_fetch_array($query)) {
 			$data = "<option selected value='" . $res['id'] . "'>" . $res['desiglongdesc'] . "</option>";

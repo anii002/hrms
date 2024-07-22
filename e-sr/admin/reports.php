@@ -1,9 +1,7 @@
 <?php
 
 $_GLOBALS['a'] = 'reports';
-
-session_start();
-
+// session_start();
 //error_reporting(0);
 $GLOBALS['a'] = 'reports';
 include_once('../global/header.php');
@@ -12,7 +10,7 @@ include('mini_function.php');
 include('fetch_all_column.php');
 include_once('../dbconfig/dbcon.php');
 
-$conn1 = dbcon1();
+$conn = dbcon1();
 
 //include_once('../global/header_update.php');
 ?>
@@ -255,9 +253,9 @@ $conn1 = dbcon1();
 
 																echo "<td><a href='#' bill_value='$bill_id' from_date='$from_date' to_date='$to_date' form_name='biodata' data-toggle='modal' data-target='#myModal' class='info'>$f</a></td>";
 
-																$conn1 = dbcon1();
+																$conn = dbcon1();
 
-																$sql3 = mysqli_query($conn1, "select * from medical_temp b INNER JOIN present_work_temp p ON b.medi_pf_number=p.preapp_pf_number where date(b.datetime) between '$from_date' and '$to_date' and (p.preapp_billunit='$bill_id' OR p.ogd_billunit='$bill_id')");
+																$sql3 = mysqli_query($conn, "select * from medical_temp b INNER JOIN present_work_temp p ON b.medi_pf_number=p.preapp_pf_number where date(b.datetime) between '$from_date' and '$to_date' and (p.preapp_billunit='$bill_id' OR p.ogd_billunit='$bill_id')");
 
 																$f = mysqli_num_rows($sql3);
 
@@ -271,9 +269,9 @@ $conn1 = dbcon1();
 
 
 
-																$conn1 = dbcon1();
+																$conn = dbcon1();
 
-																$sql4 = mysqli_query($conn1, "select * from appointment_temp b INNER JOIN present_work_temp p ON b.app_pf_number=p.preapp_pf_number where date(b.date_time) between '$from_date' and '$to_date' and (p.preapp_billunit='$bill_id' OR p.ogd_billunit='$bill_id')");
+																$sql4 = mysqli_query($conn, "select * from appointment_temp b INNER JOIN present_work_temp p ON b.app_pf_number=p.preapp_pf_number where date(b.date_time) between '$from_date' and '$to_date' and (p.preapp_billunit='$bill_id' OR p.ogd_billunit='$bill_id')");
 
 																$f = mysqli_num_rows($sql4);
 
@@ -285,9 +283,9 @@ $conn1 = dbcon1();
 
 
 
-																$conn1 = dbcon1();
+																$conn = dbcon1();
 
-																$sql1 = mysqli_query($conn1, "select * from present_work_temp where date_time between '$from_date' and '$to_date' and (preapp_billunit='$bill_id' OR ogd_billunit='$bill_id')");
+																$sql1 = mysqli_query($conn, "select * from present_work_temp where date_time between '$from_date' and '$to_date' and (preapp_billunit='$bill_id' OR ogd_billunit='$bill_id')");
 
 																$f = mysqli_num_rows($sql1);
 
@@ -301,9 +299,9 @@ $conn1 = dbcon1();
 
 
 
-																$conn1 = dbcon1();
+																$conn = dbcon1();
 
-																$sql1 = mysqli_query($conn1, "select * from family_temp b INNER JOIN present_work_temp p ON b.fmy_pf_number=p.preapp_pf_number where date(b.date_time) between '$from_date' and '$to_date' and (p.preapp_billunit='$bill_id' OR p.ogd_billunit='$bill_id')");
+																$sql1 = mysqli_query($conn, "select * from family_temp b INNER JOIN present_work_temp p ON b.fmy_pf_number=p.preapp_pf_number where date(b.date_time) between '$from_date' and '$to_date' and (p.preapp_billunit='$bill_id' OR p.ogd_billunit='$bill_id')");
 
 																$f = mysqli_num_rows($sql1);
 

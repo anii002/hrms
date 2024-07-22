@@ -178,7 +178,7 @@ function get_designation($id)
 {
 	$conn = dbcon();
 	if (!empty($id)) {
-		$sql = "SELECT * FROM `designation` WHERE `id` = ?";
+		$sql = "SELECT * FROM `designations` WHERE `id` = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s", $id);
 		$stmt->execute();

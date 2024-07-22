@@ -26,8 +26,8 @@
           <li class="dropdown user user-menu">
 		   <?php
 				//session_start();
-			  $sqladmin=mysql_query("select * from tbl_user where userid='".$_SESSION['SESS_USER_ID']."'");
-			  while($rwUser=mysql_fetch_array($sqladmin,MYSQL_BOTH))
+			  $sqladmin=mysqli_query("select * from tbl_user where userid='".$_SESSION['SESS_USER_ID']."'");
+			  while($rwUser=mysqli_fetch_array($sqladmin))
 			  {
 			  $rwname=$rwUser["fullname"];
 			 //echo "$rwname";
@@ -54,7 +54,7 @@
                   <a href="../user/frmuserprofile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="../../index.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="../../dashboard.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

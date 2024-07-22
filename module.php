@@ -45,32 +45,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 
+    if ($name == 'e_gr') {
+        $e_gr = explode(',', $row['e_grievance']);
+        $roles = [
+            0 => 'Admin',
+            1 => 'Section Officer',
+            2 => 'Welfare Inspector',
+            3 => 'Branch Officer',
+            4 => 'Accountant',
+            5 => 'Branch Admin'
+        ];
 
-if ($name == 'e_gr') {
-    $e_gr = explode(',', $row['e_grievance']);
-    $roles = [
-        0 => 'Admin',
-        1 => 'Section Officer',
-        2 => 'Welfare Inspector',
-        3 => 'Branch Officer',
-        4 => 'Accountant',
-        5 => 'Branch Admin'
-    ];
-
-    foreach ($roles as $roleId => $roleLabel) {
-        $checked = in_array((string)$roleId, $e_gr) ? 'checked' : '';
+        foreach ($roles as $roleId => $roleLabel) {
+            $checked = in_array((string)$roleId, $e_gr) ? 'checked' : '';
         ?>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="e_gr" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
-                    <?php echo $roleLabel; ?>
-                </label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="e_gr" id="<?php echo strtolower(str_replace(' ', '', $roleLabel)); ?>" value="<?php echo $roleId; ?>" <?php echo $checked; ?>>
+                        <?php echo $roleLabel; ?>
+                    </label>
+                </div>
             </div>
-        </div>
         <?php
+        }
     }
-}
 
 
     if ($name == 'eims') {
@@ -104,9 +103,6 @@ if ($name == 'e_gr') {
         }
     }
 
-
-
-
     if ($name == 'cga') {
         $cga = explode(',', $row['cga']);
         $roles = [
@@ -136,9 +132,6 @@ if ($name == 'e_gr') {
     }
 
 
-
-
-
     if ($name == 'itp') {
         $itp = explode(',', $row['it_form']);
         $roles = [
@@ -160,8 +153,6 @@ if ($name == 'e_gr') {
         <?php
         }
     }
-
-
 
     if ($name == 'sar') {
         $sar = explode(',', $row['e_sar']);
@@ -212,9 +203,6 @@ if ($name == 'e_gr') {
         }
     }
 
-
-
-
     if ($name == 'apar') {
         $apar = explode(',', $row['e_apar']);
         $options = [
@@ -241,10 +229,8 @@ if ($name == 'e_gr') {
         <?php
         }
     }
-
-
     // e-application
-    
+
     if ($name == 'eapp') {
         $e_app = explode(',', $row['e_app']);
         $roles = [
@@ -253,10 +239,10 @@ if ($name == 'e_gr') {
             2 => 'Chief OS',
             3 => 'Employee'
         ];
-    
+
         foreach ($roles as $roleId => $roleLabel) {
             $checked = in_array((string)$roleId, $e_app) ? 'checked' : '';
-            ?>
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <label class="form-check-label">
@@ -265,12 +251,9 @@ if ($name == 'e_gr') {
                     </label>
                 </div>
             </div>
-            <?php
+        <?php
         }
     }
-    
-    
-
 
     if ($name == 'dak') {
         $dak = explode(',', $row['e_dak']);
@@ -319,8 +302,6 @@ if ($name == 'e_gr') {
         <?php }
     }
 
-
-    
     if ($name == 'sbf') {
         $sbf = explode(',', $row['sbf']);
         $roles = [
@@ -330,10 +311,10 @@ if ($name == 'e_gr') {
             3 => 'CSBF Admin',
             4 => 'Employee'
         ];
-    
+
         foreach ($roles as $roleId => $roleLabel) {
             $checked = in_array((string)$roleId, $sbf) ? 'checked' : '';
-            ?>
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <label class="form-check-label">
@@ -342,12 +323,10 @@ if ($name == 'e_gr') {
                     </label>
                 </div>
             </div>
-            <?php
+        <?php
         }
     }
-    
-    
-  
+
     if ($name == 'dar') {
         $dar = explode(',', $row['dar']);
         $roles = [
@@ -357,10 +336,10 @@ if ($name == 'e_gr') {
             4 => 'Inquiry Officer',
             7 => 'Employee'
         ];
-    
+
         foreach ($roles as $roleId => $roleLabel) {
             $checked = in_array((string)$roleId, $dar) ? 'checked' : '';
-            ?>
+        ?>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="form-check">
                     <label class="form-check-label">
@@ -369,9 +348,7 @@ if ($name == 'e_gr') {
                     </label>
                 </div>
             </div>
-            <?php
+<?php
         }
     }
-    
-    
 } ?>
