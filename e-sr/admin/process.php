@@ -8,7 +8,6 @@ if (isset($_REQUEST['action'])) {
 	switch (strtolower($_REQUEST['action'])) {
 
 		case 'get_present_work_detail':
-
 			$data = [];
 			$pf = $_POST['prft_pf_no'];
 

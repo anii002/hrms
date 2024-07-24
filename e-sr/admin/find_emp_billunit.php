@@ -39,10 +39,10 @@ include_once('mini_function.php');
                             <button type="submit" id="search" name="search" class="btn btn-primary">Search</button>
                             <button type="reset" class="btn btn-warning">Cancel</button>
                             <?php
-							$conn1 = dbcon1();
+							$conn = dbcon1();
 							if (isset($_POST['search'])) {
 								$pf = $_POST['pf_no'];
-								$sql = mysqli_query($conn1, "select preapp_pf_number,preapp_department,preapp_billunit,preapp_depot from present_work_temp where preapp_pf_number='$pf'");
+								$sql = mysqli_query($conn, "select preapp_pf_number,preapp_department,preapp_billunit,preapp_depot from present_work_temp where preapp_pf_number='$pf'");
 
 
 								$res = mysqli_fetch_array($sql);

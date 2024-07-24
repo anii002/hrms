@@ -1,11 +1,11 @@
 <?php
 
-session_start();
+// session_start();
 
-if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
+// if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
 
-  echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
-}
+//   echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
+// }
 
 include_once('../global/header.php');
 
@@ -124,8 +124,8 @@ include_once('../global/topbar.php');
                 <tbody>
 
                   <?php
-
-                  $sql = mysqli_query("select * from  awards");
+global $conn;
+                  $sql = mysqli_query($conn,"select * from  awards");
 
                   while ($result = mysqli_fetch_array($sql)) {
 
@@ -241,9 +241,6 @@ include_once('../global/topbar.php');
             <div class="form-group">
 
               <label for="inputEmail3" class="col-md-3 col-sm-3 col-xs-12 control-label">Award Name</label>
-
-
-
               <div class="col-md-8 col-sm-10 col-xs-12">
 
                 <input type="text" class="form-control" placeholder="Enter Award Name" name="update_awr" id="update_awr" required maxlength="50">
@@ -253,15 +250,7 @@ include_once('../global/topbar.php');
               </div>
 
             </div>
-
-
-
-
-
-
-
           </div>
-
           <div class="modal-footer">
 
             <button type="submit" class="btn btn-success">Submit</button>

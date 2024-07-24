@@ -1,7 +1,7 @@
 <?php
 
 include_once('../dbconfig/dbcon.php');
-$conn1=dbcon1();
+$conn=dbcon1();
 session_start();
 
 $emp_id = ($_REQUEST["empcode"] <> "") ? trim($_REQUEST["empcode"]) : "";
@@ -174,7 +174,7 @@ $year = $_POST["btnshow"];
         <?php
         if ($year == "none") {
           $sql = "select * from `sr_doc` where pf_number='" . $_SESSION['set_update_pf'] . "'";
-          $path = mysqli_query($conn1,$sql);
+          $path = mysqli_query($conn,$sql);
           $h = mysqli_num_rows($path);
           if ($h > 0) {
             while ($row = mysqli_fetch_assoc($path)) {
@@ -194,7 +194,7 @@ $year = $_POST["btnshow"];
         } else {
 
           $sql = "select pf_number,$year from `sr_doc` where pf_number='" . $_SESSION['set_update_pf'] . "'";
-          $path = mysqli_query($conn1,$sql);
+          $path = mysqli_query($conn,$sql);
           $h = mysqli_num_rows($path);
           if ($h > 0) {
             while ($row = mysqli_fetch_assoc($path)) {

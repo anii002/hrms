@@ -125,8 +125,8 @@
 								<select class="form-control primary select2" id="search_dept" name="search_dept" style="width:100%;" required>
 									<option value="" selected hidden disabled>-- Select Department --</option>
 									<?php
-										$sqlDept=mysql_query("select * from department");
-									while($rwDept=mysql_fetch_array($sqlDept))
+										$sqlDept=mysqli_query($conn,"select * from department");
+									while($rwDept=mysqli_fetch_array($sqlDept))
 										{
 										?>
 									<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["DEPTDESC"]; ?></option>

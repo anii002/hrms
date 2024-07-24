@@ -40,8 +40,8 @@ create_log($action, $action_on);
 				<div id="add_member_div" name="add_member_div">
 				</div>
 				<?php
-				$conn1=dbcon1();
-				$sql = mysqli_query($conn1,"select * from family_temp where emp_pf='" . $_SESSION['set_update_pf'] . "' order by fmy_dob asc");
+				$conn = dbcon1();
+				$sql = mysqli_query($conn, "select * from family_temp where emp_pf='" . $_SESSION['set_update_pf'] . "' order by fmy_dob asc");
 				$result = mysqli_num_rows($sql);
 				//echo "<script>alert('$result');</script>";
 				$family_fetch_count = $result;
@@ -61,8 +61,8 @@ create_log($action, $action_on);
 								  <div class="col-md-8 col-sm-8 col-xs-12" >
 									<input type="text" id="fc_pf_no<?php //echo $i;
 																	?>" name="fc_pf_no<?php //echo $i;
-																										?>" class="form-control TextNumber" value="<?php //echo $result2['fmy_pf_number'];
-																																								?>"   >
+																						?>" class="form-control TextNumber" value="<?php //echo $result2['fmy_pf_number'];
+																																					?>"   >
 								  </div>
                                 </div>
 						    </div-->
@@ -85,7 +85,7 @@ create_log($action, $action_on);
 									<select name="fc_mem_rel<?php echo $i; ?>" id="fc_mem_rel<?php echo $i; ?>" class="form-control select2" style="margin-top:0px; width:100%;" required>
 										<option value="<?php echo $result2['fmy_rel']; ?>" selected><?php echo get_relation($result2['fmy_rel']); ?></option>
 										<?php
-										$sqlDept = mysqli_query($conn1,"select * from relation where code<>'" . $result2['fmy_rel'] . "'");
+										$sqlDept = mysqli_query($conn, "select * from relation where code<>'" . $result2['fmy_rel'] . "'");
 										while ($rwDept = mysqli_fetch_array($sqlDept)) {
 										?>
 											<option value="<?php echo $rwDept["code"]; ?>"><?php echo $rwDept["longdesc"]; ?></option>
@@ -106,7 +106,7 @@ create_log($action, $action_on);
 									<select name="fc_mem_gender<?php echo $i; ?>" id="fc_mem_gender<?php echo $i; ?>" class="form-control select2" style="margin-top:0px; width:100%;" required>
 										<option selected value="<?php echo $result2['fmy_gender']; ?>"><?php echo get_gender($result2['fmy_gender']); ?></option>
 										<?php
-										$sqlreligion = mysqli_query($conn1,"select * from gender where id<>'" . $result2['fmy_gender'] . "'");
+										$sqlreligion = mysqli_query($conn, "select * from gender where id<>'" . $result2['fmy_gender'] . "'");
 										while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 										?>
 											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["gender"]; ?></option>

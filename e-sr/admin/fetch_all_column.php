@@ -1,5 +1,5 @@
 <?php
-// require_once('../dbconfig/dbcon.php');
+require_once('../dbconfig/dbcon.php');
 
 function get_medical_classi($id)
 {
@@ -750,21 +750,21 @@ function get_all_relation($id)
 
 function get_family_member($id, $pf)
 {
-	$conn1 = dbcon1();
+	$conn = dbcon1();
 	$data = '';
 	if (!empty($id) and !empty($pf)) {
-		$sql = mysqli_query($conn1, "select * from family_temp where emp_pf='$pf' and id='$id'");
+		$sql = mysqli_query($conn, "select * from family_temp where emp_pf='$pf' and id='$id'");
 		//echo "select * from family_temp where emp_pf='$pf' and id='$id'".mysqli_error($conn);
 		while ($result = mysqli_fetch_array($sql)) {
 			$data = "<option value='" . $result['id'] . "' selected>" . $result['fmy_member'] . "</option>";
 		}
-		$sql = mysqli_query($conn1, "select * from family_temp where emp_pf='$pf'");
+		$sql = mysqli_query($conn, "select * from family_temp where emp_pf='$pf'");
 		//echo "select * from family_temp where emp_pf='$pf'".mysqli_error($conn);
 		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['id'] . "'>" . $result['fmy_member'] . "</option>";
 		}
 	} else {
-		$sql = mysqli_query($conn1, "select * from family_temp where emp_pf='$pf'");
+		$sql = mysqli_query($conn, "select * from family_temp where emp_pf='$pf'");
 		//echo "select * from family_temp where emp_pf='$pf'".mysqli_error($conn);
 		while ($result = mysqli_fetch_array($sql)) {
 			$data .= "<option value='" . $result['id'] . "'>" . $result['fmy_member'] . "</option>";

@@ -491,7 +491,7 @@ $unit = 6;
 
 														<?php
 
-														$sqlreligion = mysqli_query($conn,"select * from religion");
+														$sqlreligion = mysqli_query($conn, "select * from religion");
 
 														while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 
@@ -533,7 +533,7 @@ $unit = 6;
 
 														<?php
 
-														$sqlreligion = mysqli_query($conn,"select * from community");
+														$sqlreligion = mysqli_query($conn, "select * from community");
 
 														while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 
@@ -595,7 +595,7 @@ $unit = 6;
 
 														<?php
 
-														$sqlreligion = mysqli_query($conn,"select * from gender");
+														$sqlreligion = mysqli_query($conn, "select * from gender");
 
 														while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 
@@ -647,7 +647,7 @@ $unit = 6;
 
 														<?php
 
-														$group_col = mysqli_query($conn,"select * from group_col");
+														$group_col = mysqli_query($conn, "select * from group_col");
 
 														while ($group_colre = mysqli_fetch_array($group_col)) {
 
@@ -972,7 +972,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlreligion = mysqli_query($conn,"select * from medical_code");
+															$sqlreligion = mysqli_query($conn, "select * from medical_code");
 
 															while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 
@@ -1165,7 +1165,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select * from department");
+															$sqlDept = mysqli_query($conn, "select * from department");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1207,7 +1207,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select * from designations");
+															$sqlDept = mysqli_query($conn, "select * from designations");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1355,7 +1355,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select distinct(7_pc_level) from scale");
+															$sqlDept = mysqli_query($conn, "select distinct(7_pc_level) from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1391,7 +1391,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select distinct(6_cpc_scale) from scale");
+															$sqlDept = mysqli_query($conn,"select distinct(6_cpc_scale) from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1433,7 +1433,7 @@ $unit = 6;
 
 															<?php
 
-															$group_col = mysqli_query("select * from group_col");
+															$group_col = mysqli_query($conn,"select * from group_col");
 
 															while ($group_colre = mysqli_fetch_array($group_col)) {
 
@@ -1469,7 +1469,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from station");
+															$sqlDept = mysqli_query($conn,"select * from station");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1527,7 +1527,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from depot where unit_id='6'");
+															$sqlDept = mysqli_query($conn,"select * from depot where unit_id='6'");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1585,7 +1585,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from depot where unit_id='6'");
+															$sqlDept = mysqli_query($conn,"select * from depot where unit_id='6'");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1745,7 +1745,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from department");
+															$sqlDept = mysqli_query($conn,"select * from department");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1787,7 +1787,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from designation");
+															$sqlDept = mysqli_query($conn,"select * from designation");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1847,7 +1847,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from depot");
+															$sqlDept = mysqli_query($conn,"select * from depot");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1885,7 +1885,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select distinct 6_cpc_scale from scale");
+															$sqlDept = mysqli_query($conn,"select distinct 6_cpc_scale from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1937,7 +1937,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select distinct 7_pc_level from scale");
+															$sqlDept = mysqli_query($conn,"select distinct 7_pc_level from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1977,7 +1977,7 @@ $unit = 6;
 
 															<?php
 
-															$group_col = mysqli_query("select * from group_col");
+															$group_col = mysqli_query($conn,"select * from group_col");
 
 															while ($group_colre = mysqli_fetch_array($group_col)) {
 
@@ -2019,7 +2019,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from station");
+															$sqlDept = mysqli_query($conn,"select * from station");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2077,7 +2077,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from depot");
+															$sqlDept = mysqli_query($conn,"select * from depot");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2221,7 +2221,7 @@ $unit = 6;
 
 															<?php
 
-															$sql_prtf = mysqli_query("select * from prtf_type");
+															$sql_prtf = mysqli_query($conn,"select * from prtf_type");
 
 															while ($prtf_sql = mysqli_fetch_array($sql_prtf)) {
 
@@ -2371,7 +2371,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from department");
+															$sqlDept = mysqli_query($conn,"select * from department");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2409,7 +2409,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from designation");
+															$sqlDept = mysqli_query($conn,"select * from designation");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2469,7 +2469,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select distinct 6_cpc_scale from scale");
+															$sqlDept = mysqli_query($conn,"select distinct 6_cpc_scale from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2513,7 +2513,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from group_col");
+															$sqlDept = mysqli_query($conn,"select * from group_col");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2551,7 +2551,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select distinct 7_pc_level from scale");
+															$sqlDept = mysqli_query($conn,"select distinct 7_pc_level from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2595,7 +2595,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from station");
+															$sqlDept = mysqli_query($conn,"select * from station");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2673,7 +2673,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from depot");
+															$sqlDept = mysqli_query($conn,"select * from depot");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -2713,7 +2713,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query("select * from depot where zone='1' and unit='6'");
+															$sqlDept = mysqli_query($conn,"select * from depot where zone='1' and unit='6'");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -3062,7 +3062,7 @@ $unit = 6;
 
 														<?php
 
-														$sql_status = mysqli_query("select * from charge_sheet_status");
+														$sql_status = mysqli_query($conn,"select * from charge_sheet_status");
 
 														while ($status_sql = mysqli_fetch_array($sql_status)) {
 
@@ -3323,7 +3323,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select distinct 6_cpc_scale from scale");
+															$sqlDept = mysqli_query($conn, "select distinct 6_cpc_scale from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -3375,7 +3375,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select distinct 7_pc_level from scale");
+															$sqlDept = mysqli_query($conn, "select distinct 7_pc_level from scale");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -3441,7 +3441,7 @@ $unit = 6;
 
 							 <?php
 
-								$sqlDept = mysqli_query($conn,"select * from group_col");
+								$sqlDept = mysqli_query($conn, "select * from group_col");
 
 								while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -3485,7 +3485,7 @@ $unit = 6;
 
 							 <?php
 
-								$sqlDept = mysqli_query($conn,"select * from group_col");
+								$sqlDept = mysqli_query($conn, "select * from group_col");
 
 								while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -3899,7 +3899,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select * from nomination_type");
+															$sqlDept = mysqli_query($conn, "select * from nomination_type");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -3959,7 +3959,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select * from relation");
+															$sqlDept = mysqli_query($conn, "select * from relation");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -4037,7 +4037,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select * from marital_status");
+															$sqlDept = mysqli_query($conn, "select * from marital_status");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -4343,7 +4343,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn,"select * from relation");
+															$sqlDept = mysqli_query($conn, "select * from relation");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -4386,7 +4386,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlreligion = mysqli_query($conn,"select * from gender");
+															$sqlreligion = mysqli_query($conn, "select * from gender");
 
 															while ($rwDept = mysqli_fetch_array($sqlreligion)) {
 

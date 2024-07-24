@@ -21,27 +21,26 @@ function dbcon()
 }
 
 // Conditional function declaration for dbcon1()
-if (!function_exists('dbcon1')) {
-	// Function for the second database connection using MySQLi
-	function dbcon1()
-	{
-		$user1 = "root";
-		$pass1 = "";
-		$host1 = "localhost";
-		$db1 = "drmpsurh_sr";
 
-		// Create connection
-		$conn = new mysqli($host1, $user1, $pass1, $db1);
+function dbcon1()
+{
+	$user1 = "root";
+	$pass1 = "";
+	$host1 = "localhost";
+	$db1 = "drmpsurh_sr";
 
-		// Check connection
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		}
+	// Create connection
+	$conn = new mysqli($host1, $user1, $pass1, $db1);
 
-		return $conn;
+	// Check connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
 	}
+
+	return $conn;
 }
 
+global $conn;
 // Conditional function declaration for hashPassword()
 if (!function_exists('hashPassword')) {
 	// Function to hash passwords using SHA1 and MD5

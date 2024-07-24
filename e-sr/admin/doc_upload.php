@@ -160,8 +160,8 @@ create_log($action, $action_on);
 
     <form method="POST" action="process_main.php?action=upload_doc" class="apply_readonly" enctype="multipart/form-data">
       <?php
-      $conn1 = dbcon1();
-      $sql = mysqli_query($conn1, "select * from biodata_temp where pf_number='" . $_SESSION['set_update_pf'] . "'");
+      $conn = dbcon1();
+      $sql = mysqli_query($conn, "select * from biodata_temp where pf_number='" . $_SESSION['set_update_pf'] . "'");
       $result = mysqli_fetch_array($sql);
       ?>
       <div class="modal-body">

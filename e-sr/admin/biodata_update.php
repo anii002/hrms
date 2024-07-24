@@ -2,12 +2,12 @@
 // session_start();
 $_GLOBALS['a'] = 'biodata';
 include_once('../global/header_update.php');
-include_once('../dbconfig/dbcon.php');
+// include_once('../dbconfig/dbcon.php');
 include('create_log.php');
+// echo 'test';exit;
 $action = "Visited Biodata page";
 $action_on = $_SESSION['set_update_pf'];
 create_log($action, $action_on);
-$conn = dbcon1();
 ?>
 <!--Bio Tab Start -->
 <div style="padding:10px;margin:5px;padding-top:0px;margin-top:-15px;">
@@ -40,10 +40,11 @@ $conn = dbcon1();
 							</div>
 						</div>
 						<?php
-						// $conn = dbcon1();
+						$conn = dbcon1();
 						$bio_exist = 0;
 						$sql = mysqli_query($conn, "select * from biodata_temp where pf_number='" . $_SESSION['set_update_pf'] . "'");
 						$bio_row = mysqli_num_rows($sql);
+					
 						if ($bio_row > 0) {
 							$bio_exist = 1;
 						}
@@ -1011,6 +1012,7 @@ if (isset($_SESSION['set_update_pf'])) {
 	//echo "<script>alert('".$_SESSION['same_pf_no']."'); </script>";
 }
 ?>
+
 <script>
 	$(document).on("change", "#bio_pf_no", function() {
 		if ($(".bio_pf_no").text() == "") {

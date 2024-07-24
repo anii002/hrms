@@ -33,9 +33,9 @@ include_once('../global/header1.php'); ?>
 
 		if (isset($_SESSION['same_pf_no'])) {
 
-			$conn1 =	dbcon1();
+			$conn =	dbcon1();
 
-			$sql = mysqli_query($conn1, "select * from biodata_temp where pf_number='" . $_SESSION['same_pf_no'] . "'");
+			$sql = mysqli_query($conn, "select * from biodata_temp where pf_number='" . $_SESSION['same_pf_no'] . "'");
 
 			$result = mysqli_num_rows($sql);
 
@@ -295,7 +295,7 @@ include_once('../global/header1.php'); ?>
 
 								<?php
 
-								$conn1 = dbcon();
+								$conn = dbcon();
 
 								$sqlreligion = mysqli_query($conn, "select * from marital_status");
 
@@ -1433,7 +1433,7 @@ if (isset($_SESSION['same_pf_no'])) {
 
 		x++;
 
-		var edu_drop_ini = "<div class='form-group' id='" + x + "'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Edu. Qual.</label><div class=col-md-8 col-sm-12 col-xs-12' id='edu_main_info'><select name='edu_pri_info[" + x + "]' id='edu_pri_info" + x + "' class='form-control' style='margin-top:0px; width:100%;' required><option value='blank' selected></option><?php $sql = mysqli_query("select * from education");
+		var edu_drop_ini = "<div class='form-group' id='" + x + "'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Edu. Qual.</label><div class=col-md-8 col-sm-12 col-xs-12' id='edu_main_info'><select name='edu_pri_info[" + x + "]' id='edu_pri_info" + x + "' class='form-control' style='margin-top:0px; width:100%;' required><option value='blank' selected></option><?php $sql = mysqli_query($conn,"select * from education");
 																																																																																														while ($sql_fetch = mysqli_fetch_array($sql)) {
 																																																																																															echo "<option value='" . $sql_fetch['id'] . "'>" . $sql_fetch['education'] . "</option>";
 																																																																																														} ?></select></div></div>";
@@ -1482,7 +1482,7 @@ if (isset($_SESSION['same_pf_no'])) {
 
 		y++;
 
-		var edu_drop_ini = "<div class='form-group' id='" + y + "'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Edu. Qual.</label><div class=col-md-8 col-sm-12 col-xs-12' id='edu_main_info'><select name='edu_pri_info_sub[" + y + "]' id='edu_pri_info_sub" + y + "' class='form-control' style='margin-top:0px; width:100%;' required><option value='blank' selected></option><?php $sql = mysqli_query("select * from education");
+		var edu_drop_ini = "<div class='form-group' id='" + y + "'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Edu. Qual.</label><div class=col-md-8 col-sm-12 col-xs-12' id='edu_main_info'><select name='edu_pri_info_sub[" + y + "]' id='edu_pri_info_sub" + y + "' class='form-control' style='margin-top:0px; width:100%;' required><option value='blank' selected></option><?php $sql = mysqli_query($conn,"select * from education");
 																																																																																																while ($sql_fetch = mysqli_fetch_array($sql)) {
 																																																																																																	echo "<option value='" . $sql_fetch['id'] . "'>" . $sql_fetch['education'] . "</option>";
 																																																																																																} ?></select></div></div>";

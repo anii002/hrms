@@ -1,14 +1,11 @@
-<?php 
+<?php
 
- session_start();
+session_start();
 
- if(!isset($_SESSION['SESS_MEMBER_NAME']))
+if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
 
- {
-
-	 echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
-
- }
+  echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
+}
 
 include_once('../global/header.php');
 
@@ -18,55 +15,55 @@ include_once('../global/topbar.php');
 
 ?>
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
 
-    <section class="content-header" style=" padding-left:20px;padding-bottom:10px;">
+  <section class="content-header" style=" padding-left:20px;padding-bottom:10px;">
 
-      <h1>
+    <h1>
 
-        Increment Type Master
+      Increment Type Master
 
-      </h1>
+    </h1>
 
-    </section>
+  </section>
 
-    <section class="content">
+  <section class="content">
 
-        <div class="box box-info">
+    <div class="box box-info">
 
-            <div class="box-header with-border">
+      <div class="box-header with-border">
 
-              <h3 class="box-title">Increment</h3>
+        <h3 class="box-title">Increment</h3>
+
+      </div>
+
+      <!-- /.box-header -->
+
+      <!-- form start -->
+
+
+
+      <!--Umesh Code Here-->
+
+      <form class="form-horizontal" method="POST" action="process.php?action=add_increment">
+
+        <div class="box-body">
+
+          <div class="form-group">
+
+            <label for="inputEmail3" class="col-md-2 col-sm-2 col-xs-12 control-label">Increment Type</label>
+
+
+
+            <div class="col-md-6 col-sm-10 col-xs-12">
+
+              <input type="text" class="form-control" placeholder="Enter Increment Type" name="name" id="desc" required maxlength="50">
 
             </div>
 
-            <!-- /.box-header -->
+          </div>
 
-            <!-- form start -->
-
-			
-
-			<!--Umesh Code Here-->
-
-            <form class="form-horizontal" method="POST" action="process.php?action=add_increment">
-
-              <div class="box-body">
-
-                <div class="form-group">
-
-                  <label for="inputEmail3" class="col-md-2 col-sm-2 col-xs-12 control-label">Increment Type</label>
-
-
-
-                  <div class="col-md-6 col-sm-10 col-xs-12">
-
-                    <input type="text" class="form-control"  placeholder="Enter Increment Type" name="name" id="desc" required maxlength="50">
-
-                  </div>
-
-                </div>
-
-                <!--div class="form-group">
+          <!--div class="form-group">
 
                   <label for="inputPassword3" class="col-md-2 col-sm-2 col-xs-12 control-label">Short Desc</label>
 
@@ -80,31 +77,31 @@ include_once('../global/topbar.php');
 
                 </div-->
 
-				<div class="form-group">
+          <div class="form-group">
 
-                  <label for="inputPassword3" class="col-md-2 col-sm-2 col-xs-12 control-label"></label>
+            <label for="inputPassword3" class="col-md-2 col-sm-2 col-xs-12 control-label"></label>
 
-                  <div class="col-md-6 col-sm-10 col-xs-12">
+            <div class="col-md-6 col-sm-10 col-xs-12">
 
-                <button type="submit" class="btn btn-primary">ADD</button>
+              <button type="submit" class="btn btn-primary">ADD</button>
 
-                     <button type="reset" class="btn btn-warning">Cancel</button>
+              <button type="reset" class="btn btn-warning">Cancel</button>
 
-                  </div>
+            </div>
 
-                </div>
+          </div>
 
-                
 
-              </div>
 
-            </form>
+        </div>
 
-         </div>
+      </form>
 
-	
+    </div>
 
-	 <section class="content">
+
+
+    <section class="content">
 
       <div class="row">
 
@@ -126,59 +123,54 @@ include_once('../global/topbar.php');
 
                 <thead>
 
-                <tr>
+                  <tr>
 
-                  <th>Id</th>
+                    <th>Id</th>
 
-                  <th>Increment Type</th>
+                    <th>Increment Type</th>
 
-                  <!--th>Short Description</th-->
+                    <!--th>Short Description</th-->
 
-				  <th>Action</th>
+                    <th>Action</th>
 
-                </tr>
+                  </tr>
 
                 </thead>
 
                 <tbody>
 
-               <?php 
+                  <?php
+                  global $conn;
+                  $sql = mysqli_query($conn, "select * from  increment_type");
 
-					$sql=mysqli_query("select * from  increment_type");
+                  while ($result = mysqli_fetch_array($sql)) {
 
-					while($result=mysqli_fetch_array($sql))
+                    echo "<tr>";
 
-					{
+                    echo "<td>" . $result['id'] . "</td>";
 
-						echo "<tr>";
+                    echo "<td>" . $result['increment_type'] . "</td>";
 
-						echo "<td>".$result['id']."</td>";
+                    //echo "<td>".$result['shortdesc']."</td>";
 
-						echo "<td>".$result['increment_type']."</td>";
+                    echo "<td>
 
-						//echo "<td>".$result['shortdesc']."</td>";
+							<button type='button' value='" . $result['id'] . "' data-target='#update' data-toggle='modal' class='btn btn-primary update_btn'>Update</button>
 
-						echo "<td>
-
-							<button type='button' value='".$result['id']."' data-target='#update' data-toggle='modal' class='btn btn-primary update_btn'>Update</button>
-
-                      <button value='".$result['id']."' data-toggle='modal' data-target='#delete' class='btn btn-danger deleteBtn' style='margin-left:8px;'>Delete</button>
+                      <button value='" . $result['id'] . "' data-toggle='modal' data-target='#delete' class='btn btn-danger deleteBtn' style='margin-left:8px;'>Delete</button>
 
 						</td>";
 
-						echo "</tr>";
+                    echo "</tr>";
+                  }
 
-						
-
-					}
-
-				?>
+                  ?>
 
                 </tbody>
 
                 <tfoot>
 
-               
+
 
                 </tfoot>
 
@@ -202,89 +194,87 @@ include_once('../global/topbar.php');
 
     </section>
 
-		 <!--Umesh Code end here-->
+    <!--Umesh Code end here-->
 
-		 <script>
+    <script>
+      $(function() {
 
-  $(function () {
+        $('#example1').DataTable()
 
-    $('#example1').DataTable()
+        /* $('#example2').DataTable({
 
-    /* $('#example2').DataTable({
+          'paging'      : true,
 
-      'paging'      : true,
+          'lengthChange': false,
 
-      'lengthChange': false,
+          'searching'   : false,
 
-      'searching'   : false,
+          'ordering'    : true,
 
-      'ordering'    : true,
+          'info'        : true,
 
-      'info'        : true,
+          'autoWidth'   : false
 
-      'autoWidth'   : false
+        }) */
 
-    }) */
+      })
+    </script>
 
-  })
+  </section>
 
-</script> 
+</div>
 
-    </section>
-
-  </div>
-
-  <!--Content code end here--->
+<!--Content code end here--->
 
 
 
-  
 
-  <!-- Yogesh Coding Here-->
 
-  
+<!-- Yogesh Coding Here-->
 
-  
 
-  <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 
-    <div class="modal-dialog">
 
-      <div class="modal-content">
 
-        <div class="modal-header">
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <div class="modal-dialog">
 
-          <h4 class="modal-title" id=""><strong>Update Increment Type</strong></h4>
+    <div class="modal-content">
 
-        </div>
+      <div class="modal-header">
 
-       <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h4 class="modal-title" id=""><strong>Update Increment Type</strong></h4>
+
+      </div>
+
+      <div class="modal-body">
 
         <form class="form-horizontal" method="POST" action="process.php?action=update_increment">
 
-              <div class="box-body">
+          <div class="box-body">
 
-                <div class="form-group">
+            <div class="form-group">
 
-                  <label for="inputEmail3" class="col-md-3 col-sm-3 col-xs-12 control-label">Increment Type</label>
+              <label for="inputEmail3" class="col-md-3 col-sm-3 col-xs-12 control-label">Increment Type</label>
 
 
 
-                  <div class="col-md-8 col-sm-10 col-xs-12">
+              <div class="col-md-8 col-sm-10 col-xs-12">
 
-                  	  <input type="hidden" class="form-control" id="hide_field" name="hide_field">
+                <input type="hidden" class="form-control" id="hide_field" name="hide_field">
 
-                    <input type="text" class="form-control"  placeholder="Enter Increment Type" name="update_incr" id="update_incr" required maxlength="50">
+                <input type="text" class="form-control" placeholder="Enter Increment Type" name="update_incr" id="update_incr" required maxlength="50">
 
-                    <!--input type="hidden" class="form-control"  placeholder="Enter Department Name" name="hide_field" id="hide_field" required maxlength="50"-->
+                <!--input type="hidden" class="form-control"  placeholder="Enter Department Name" name="hide_field" id="hide_field" required maxlength="50"-->
 
-                  </div>
+              </div>
 
-                </div>
+            </div>
 
-                <!--div class="form-group">
+            <!--div class="form-group">
 
                   <label for="inputPassword3" class="col-md-3 col-sm-3 col-xs-12 control-label">Short Name</label>
 
@@ -298,147 +288,145 @@ include_once('../global/topbar.php');
 
                 </div-->
 
-                
 
-              </div>
+
+          </div>
 
       </div>
 
-	  
 
-	 <!--Yogesh Coding End here-->
 
-	 
+      <!--Yogesh Coding End here-->
 
-	 
 
-        <div class="modal-footer">
 
-          <button type="submit" class="btn btn-success">Submit</button>
 
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-        </div>
+      <div class="modal-footer">
+
+        <button type="submit" class="btn btn-success">Submit</button>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
 
       </form>
-
-      </div>
 
     </div>
 
   </div>
 
-  <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+</div>
 
-    <div class="modal-dialog">
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 
-      <div class="modal-content">
+  <div class="modal-dialog">
 
-        <div class="modal-header">
+    <div class="modal-content">
 
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <div class="modal-header">
 
-          <h4 class="modal-title" id=""><strong>Delete Increment</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-        </div>
+        <h4 class="modal-title" id=""><strong>Delete Increment</strong></h4>
 
-        <div class="modal-body">
+      </div>
 
-           <form class="form-horizontal" method="POST" action="process.php?action=delete_increment">
+      <div class="modal-body">
+
+        <form class="form-horizontal" method="POST" action="process.php?action=delete_increment">
 
 
 
-            <div class="form-group">
+          <div class="form-group">
 
-              Do you really want to delete the specified record?
+            Do you really want to delete the specified record?
 
-              <div class="col-sm-10">
+            <div class="col-sm-10">
 
-                <input type="hidden" class="form-control" id="delete_id" name="delete_id">
-
-              </div>
+              <input type="hidden" class="form-control" id="delete_id" name="delete_id">
 
             </div>
 
-        </div>
-
-        <div class="modal-footer">
-
-          <button type="submit" class="btn btn-success">Submit</button>
-
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
-
-      </form>
+          </div>
 
       </div>
+
+      <div class="modal-footer">
+
+        <button type="submit" class="btn btn-success">Submit</button>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+
+      </form>
 
     </div>
 
   </div>
 
-   <?php
+</div>
 
- include_once('../global/footer.php');
+<?php
 
- ?>
+include_once('../global/footer.php');
+
+?>
 
 
 
-   <script>
-
-  $(function () {
+<script>
+  $(function() {
 
     $('#example1').DataTable()
 
   });
 
-  $(document).on("click",".update_btn",function(){
+  $(document).on("click", ".update_btn", function() {
 
-	 var values = $(this).val();
+    var values = $(this).val();
 
-	 //alert(values);
+    //alert(values);
 
-			$.ajax({
+    $.ajax({
 
-                url: 'process.php',
+        url: 'process.php',
 
-                type: 'POST',
+        type: 'POST',
 
-                data: {action: 'fetchincrement', id: values}
+        data: {
+          action: 'fetchincrement',
+          id: values
+        }
 
-              })
+      })
 
-              .done(function(html) {
+      .done(function(html) {
 
-				  //alert(html);
+        //alert(html);
 
-                var data = JSON.parse(html);
+        var data = JSON.parse(html);
 
-                $("#update_incr").val(data.increment_type);
+        $("#update_incr").val(data.increment_type);
 
-              // $("#update_short").val(data.longdesc);
+        // $("#update_short").val(data.longdesc);
 
-                $("#hide_field").val(values);
+        $("#hide_field").val(values);
 
-              });
+      });
 
   });
 
-  
-
-  $(document).on("click", ".deleteBtn", function(){
-
-            debugger;
-
-              var id = $(this).val();
-
-                $("#delete_id").val(id);
-
-          });
 
 
+  $(document).on("click", ".deleteBtn", function() {
 
+    debugger;
+
+    var id = $(this).val();
+
+    $("#delete_id").val(id);
+
+  });
 </script>
-

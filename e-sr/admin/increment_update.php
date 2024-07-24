@@ -40,7 +40,7 @@ $_GLOBALS['a'] ='increment';
 		
 		
 				<div class="table-responsive"> 
-					<table class="table" style="border-collapse:collapse width:100%" border="1" >
+					<table class="table" style="border-collapse:collapse width=100%" border="1" >
 						<tr>
 							<th width="2%">Sr No</th>
 							<th width="15%">Increment Type</th>
@@ -54,12 +54,12 @@ $_GLOBALS['a'] ='increment';
 						<tbody id="ad_row_incr">
 						<?php
 							$cnt=1;
-							dbcon1();
-							$sql=mysql_query("select * from increment_temp where incr_pf_number='".$_SESSION['set_update_pf']."' order by id asc");
+							$conn=dbcon1();
+							$sql=mysqli_query($conn,"select * from increment_temp where incr_pf_number='".$_SESSION['set_update_pf']."' order by id asc");
 							
-							$i_count=mysql_num_rows($sql);
+							$i_count=mysqli_num_rows($sql);
 							for($i=1;$i<=$i_count;$i++){
-								$result=mysql_fetch_array($sql);
+								$result=mysqli_fetch_array($sql);
 						?>
 							<input type="hidden" id="incr_hidden_id<?php echo $i;?>" name="incr_hidden_id<?php echo $i;?>" value="<?php echo $result['id']; ?>">
 							<tr>
@@ -75,8 +75,8 @@ $_GLOBALS['a'] ='increment';
 								<td>
 									<?php
 										$pay_scale_type="";
-									$sqlDept=mysql_query("select * from pay_scale_type");
-									while($rwDept=mysql_fetch_array($sqlDept))
+									$sqlDept=mysqli_query($conn,"select * from pay_scale_type");
+									while($rwDept=mysqli_fetch_array($sqlDept))
 									{
 									$pay_scale_type .= "<option value='".$rwDept["id"]."'>".$rwDept["type"]."</option>";
 									}
@@ -225,7 +225,7 @@ $("#incr_add_row").click(function(){
 // 	console.log(pre_level_drop);
 	ad++;
 	
-	var add_new_row="<tr><td>"+ad+"</td><td><select class='form-control primary incr_type select2' id='incr_type"+ad+"' name='incr_type"+ad+"' style='width:100%;' required><option value='blank' selected tabindex=1>-- Select Type --</option><option value='blank' ></option><?php $sqlDept=mysql_query('select * from increment_type');while($rwDept=mysql_fetch_array($sqlDept)){echo "<option value='".$rwDept["id"]."'>".$rwDept["increment_type"]."</option>";}?></select></td><td><select class='form-control primary ps_type_addnew_row select2' id='ps_type_row_"+ad+"' name='ps_type_row_"+ad+"' style='margin-top:0px; width:100%;' num='"+ad+"' required tabindex=2><option value='' selected hidden disabled>-- Select PC Type --</option><?php echo $pay_scale_type;?></select></td><td><div class='col-md-12 col-sm-12 col-xs-12' id='scale_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'> <div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 scale_drop_"+ad+"' id='scale_drop_"+ad+"' name='scale_drop_"+ad+"' style='width:100%;'></select></div></div></div><div class='col-md-12 col-sm-12 col-xs-12' id='scale_text_row_"+ad+"' style='display:none;'><div class='form-group'><div class='col-md-12 col-sm-12 col-xs-12'><input type='text' class='form-control ps_3 primary scale_text_row_"+ad+"'  id='scale_drop_text_"+ad+"' name='scale_drop_text_"+ad+"' placeholder='Enter 3rd Pay Rate' tabindex=3/></div></div><br></div><div class='col-md-12 col-sm-12 col-xs-12' id='level_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'><div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 level_drop_"+ad+"' id='level_drop_"+ad+"' name='level_drop_"+ad+"' style='width:100%;'></select></div></div></div></td><td><input type='text' style='width:100%' class='onlyNumber' id='incr_add_row_rop_"+ad+"' placeholder='enter rop' name='incr_add_row_rop"+ad+"' tabindex=4></td><td><input type='text' class='form-control primary calender_picker'placeholder='enter date' id='incr_date"+ad+"' name='incr_date"+ad+"' required tabindex=5/></td><td><textarea style='resize:none;width:100%' id='incr_row_reason_"+ad+"' name='incr_row_reason"+ad+"' placeholder='enter reason' class='clsreason description' tabindex=6> </textarea></td></tr>";
+	var add_new_row="<tr><td>"+ad+"</td><td><select class='form-control primary incr_type select2' id='incr_type"+ad+"' name='incr_type"+ad+"' style='width:100%;' required><option value='blank' selected tabindex=1>-- Select Type --</option><option value='blank' ></option><?php $sqlDept=mysqli_query($conn,'select * from increment_type');while($rwDept=mysqli_fetch_array($sqlDept)){echo "<option value='".$rwDept["id"]."'>".$rwDept["increment_type"]."</option>";}?></select></td><td><select class='form-control primary ps_type_addnew_row select2' id='ps_type_row_"+ad+"' name='ps_type_row_"+ad+"' style='margin-top:0px; width:100%;' num='"+ad+"' required tabindex=2><option value='' selected hidden disabled>-- Select PC Type --</option><?php echo $pay_scale_type;?></select></td><td><div class='col-md-12 col-sm-12 col-xs-12' id='scale_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'> <div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 scale_drop_"+ad+"' id='scale_drop_"+ad+"' name='scale_drop_"+ad+"' style='width:100%;'></select></div></div></div><div class='col-md-12 col-sm-12 col-xs-12' id='scale_text_row_"+ad+"' style='display:none;'><div class='form-group'><div class='col-md-12 col-sm-12 col-xs-12'><input type='text' class='form-control ps_3 primary scale_text_row_"+ad+"'  id='scale_drop_text_"+ad+"' name='scale_drop_text_"+ad+"' placeholder='Enter 3rd Pay Rate' tabindex=3/></div></div><br></div><div class='col-md-12 col-sm-12 col-xs-12' id='level_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'><div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 level_drop_"+ad+"' id='level_drop_"+ad+"' name='level_drop_"+ad+"' style='width:100%;'></select></div></div></div></td><td><input type='text' style='width:100%' class='onlyNumber' id='incr_add_row_rop_"+ad+"' placeholder='enter rop' name='incr_add_row_rop"+ad+"' tabindex=4></td><td><input type='text' class='form-control primary calender_picker'placeholder='enter date' id='incr_date"+ad+"' name='incr_date"+ad+"' required tabindex=5/></td><td><textarea style='resize:none;width:100%' id='incr_row_reason_"+ad+"' name='incr_row_reason"+ad+"' placeholder='enter reason' class='clsreason description' tabindex=6> </textarea></td></tr>";
 	
         
     	$("#ad_row_incr").append(add_new_row);

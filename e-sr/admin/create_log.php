@@ -4,7 +4,7 @@ define('ENCRYPTION_KEY', 'E26C86962EB738FC817A48EF8971B67A9C68DA95B916B8ECFCDD06
 
 function create_log($action, $action_on)
 {
-    $conn1 = dbcon1();
+    $conn = dbcon1();
 
     date_default_timezone_set('Asia/Kolkata');
     $trans_id = date('dmYHis');
@@ -16,7 +16,7 @@ function create_log($action, $action_on)
         $action_encrypt = encrypt_data($action, ENCRYPTION_KEY);
 
         // Prepare statement for insertion
-        $stmt = mysqli_prepare($conn1, "INSERT INTO `log_history`(`transaction_id`, `action_by`, `action_on`, `activity_details`, `ip_address`, `date_time`) VALUES (?, ?, ?, ?, ?, NOW())");
+        $stmt = mysqli_prepare($conn, "INSERT INTO `log_history`(`transaction_id`, `action_by`, `action_on`, `activity_details`, `ip_address`, `date_time`) VALUES (?, ?, ?, ?, ?, NOW())");
         
         // Bind parameters
         mysqli_stmt_bind_param($stmt, "sssss", $trans_id, $pf_number, $action_on, $action_encrypt, $localIP);

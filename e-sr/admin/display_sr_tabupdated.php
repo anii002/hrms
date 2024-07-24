@@ -1,5 +1,5 @@
 <?php 
- session_start();
+session_start();
 $GLOBALS['a'] = 'sr_entry';
 include_once('../global/header.php');
 include_once('../global/topbar.php');
@@ -243,19 +243,9 @@ $conn1=dbcon1();
 									$date_to = $fetch_sql['adv_to'];
 									$remark = $fetch_sql['adv_remark'];
 							}
-						}
+			
 
-
-
-
-
-
-
-
-/*
-
-
-			//property query
+/*//property query
 			$sql=mysql_query("select * from  property_temp where pro_pf_number='$pf_no'");
 				if($sql){
 					while($fetch_sql=mysql_fetch_array($sql))

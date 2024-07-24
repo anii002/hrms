@@ -131,25 +131,24 @@ if (mysqli_num_rows($query) <= 0) {
 	$per_statecode = $result['per_statecode'];
 	$per_pincode = $result['per_pincode'];
 	$identification_mark = $result['identification_mark'];
-	$religion = $result['religion'];
-	// $religion = get_religion($result['religion']);
-	// $community = get_community($result['community']);
-	$community = $result['community'];
+	// $religion = $result['religion'];
+	$religion = get_religion($result['religion']);
+	$community = get_community($result['community']);
+	// $community = $result['community'];
 	$caste = $result['caste'];
-	// $gender = get_gender($result['gender']);
-	$gender = $result['gender'];
-	// $marrital_status = got_mr($result['marrital_status']);
-	$marrital_status = $result['marrital_status'];
-	// $recruit_code = get_recruitment_code($result['recruit_code']);
-	$recruit_code = $result['recruit_code'];
-	// $group_col = get_group($result['group_col']);
-	$group_col = $result['group_col'];
-	// $education_ini = get_initial_edu($result['education_ini']);
-	$education_ini = $result['education_ini'];
+	$gender = get_gender($result['gender']);
+	// $gender = $result['gender'];
+	$marrital_status = got_mr($result['marrital_status']);
+	// $marrital_status = $result['marrital_status'];
+	$recruit_code = get_recruitment_code($result['recruit_code']);
+	// $recruit_code = $result['recruit_code'];
+	$group_col = get_group($result['group_col']);
+	// $group_col = $result['group_col'];
+	$education_ini = get_initial_edu($result['education_ini']);
+	// $education_ini = $result['education_ini'];
 	$edu_desc_ini = $result['edu_desc_ini'];
-	// $education_sub = get_sub_edu($result['education_sub']);
-	$education_sub = $result['education_sub'];
-	// echo $pf_number_bio;
+	$education_sub = get_sub_edu($result['education_sub']);
+	// $education_sub = $result['education_sub'];
 	$edu_desc_sub = $result['edu_desc_sub'];
 	$bank_name = $result['bank_name'];
 	$account_number = $result['account_number'];
@@ -159,6 +158,7 @@ if (mysqli_num_rows($query) <= 0) {
 	$bank_address = $result['bank_address'];
 	$nps_no = $result['nps_no'];
 	$imagefile = $result['imagefile'];
+	// echo $imagefile;
 	// }
 }
 //Appointment
@@ -488,6 +488,7 @@ if (mysqli_num_rows($query) <= 0) {
 											<tr>
 												<td colspan="5"></td>
 												<td style="width:10%"> <img id="blah" src="upload_doc/<?php echo $imagefile; ?>" width="200px" height="200px" /></td>
+
 											</tr>
 											<tr>
 												<td><label class="control-label labelhed ">PF Number</label></td>
@@ -668,7 +669,7 @@ if (mysqli_num_rows($query) <= 0) {
 								<tbody>
 									<tr>
 										<td colspan="5"></td>
-										<td style="width:10%"> <img id="blah" src="upload_doc/<?php echo $imagefile; ?>" width="200px" height="200px" /></td>
+										<td style="width:10%"> <img id="blah" src="../admin/upload_doc/<?php echo $imagefile; ?>" width="200px" height="200px" /></td>
 									</tr>
 									<tr>
 										<td><label class="control-label labelhed ">PF Number</label></td>
@@ -780,8 +781,6 @@ if (mysqli_num_rows($query) <= 0) {
 								</tbody>
 							</table>
 						</div>
-
-						
 					</div>
 				</div>
 			</div>

@@ -4,12 +4,13 @@
 // {
 // echo "<script>window.location='http://localhost/E_APR_FINAL/index.php';</script>";
 // }
+// include_once('../dbconfig/dbcon.php');
 $GLOBALS['a'] = 'sr_entry';
 include_once('../global/header.php');
 include_once('../global/topbar.php');
 include('mini_function.php');
 include('fetch_all_column.php');
-$conn = dbcon();
+// echo 'test';exit;
 
 ?>
 
@@ -278,7 +279,7 @@ Follow me on Twitter @maridlcrmn
   });
 </script>
 <div class="col-xs-12">
-  <div class="content-wrapper" style="">
+  <div class="content-wrapper">
     <section class="">
       <div class="row">
         <div class="box">

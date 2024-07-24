@@ -20,7 +20,7 @@ include('fetch_all_column.php');
 
 include_once('../dbconfig/dbcon.php');
 
-dbcon1();
+$conn=dbcon1();
 
 //include_once('../global/header_update.php');
 ?>
@@ -178,9 +178,9 @@ dbcon1();
 
 
 
-									$conn1=dbcon1();
+									$conn=dbcon1();
 
-									$sql = mysqli_query($conn1,"select * from present_work_temp where preapp_billunit='$billunit'");
+									$sql = mysqli_query($conn,"select * from present_work_temp where preapp_billunit='$billunit'");
 
 									$sr_no = 1;
 

@@ -62,9 +62,6 @@ error_reporting(0);
     <!-- Header Navbar: style can be found in header.less -->
 
     <nav class="navbar navbar-static-top">
-
-
-
         <!-- Sidebar toggle button-->
         <!--a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
 		<span class="sr-only">Toggle navigation</span>
@@ -160,12 +157,6 @@ error_reporting(0);
                         </div>
                     </div>
                 </li>
-
-
-
-
-
-
             <?php } ?>
 
             <?php if ($_SESSION['SESSION_ROLE'] == 'user') { ?>
@@ -178,14 +169,13 @@ error_reporting(0);
                 <li <?php if ($_GLOBALS['a'] == 'find_billunit') {
                         echo 'class="active"';
                     } ?>><a href="find_emp_billunit.php">FIND EMP BILLUNIT</a></li>
+                  
             <?php } ?>
         </ul>
 
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-
-
                 <li class="dropdown user user-menu">
                     <?php
                     //session_start();
@@ -235,7 +225,7 @@ error_reporting(0);
             <a href="../index.php" data-toggle="control-sidebar"><i class="fa fa-power-off text-yellow" ></i> Logout</a>
           </li-->
             </ul>
-
         </div>
     </nav>
+    
 </header>

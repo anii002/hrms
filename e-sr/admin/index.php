@@ -1,6 +1,6 @@
 <?php
 $_GLOBALS['a'] = 'index';
-// session_start();
+session_start();
 error_reporting(0);
 // if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
 // 	// echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
@@ -135,9 +135,9 @@ include_once('create_log.php');
 
 										?>
 										<!--tr>
-				<td>John</td>
-				<td>Doe</td>
-			  </tr-->
+				                        <td>John</td>
+				                        <td>Doe</td>
+			                            </tr-->
 									</tbody>
 								</table>
 								<script>
@@ -187,9 +187,9 @@ include_once('create_log.php');
 							<!-- small box -->
 							<div class="small-box" style="box-shadow:3px 3px 8px #333333ab;background:#00b3b3;border-radius:10px;">
 								<div class="inner">
-									<h3>
+									<!-- <h3>
 
-									</h3>
+									</h3> -->
 									<p style="font-size:18px;">ACCOUNTS</p>
 									<?php
 									$conn = dbcon1();
@@ -573,7 +573,7 @@ include_once('create_log.php');
 					$dt = date('d-m-Y', strtotime($res['date_time']));
 					echo "<tr>";
 					echo "<td>$i</td>";
-					echo "<td>" . fetch_user_name($res['action_by']) . " " . mc_decrypt($res['activity_details'], ENCRYPTION_KEY) . "</td>";
+					echo "<td>" . fetch_user_name($res['action_by']) . " " .mc_decrypt($res['activity_details'], ENCRYPTION_KEY) . "</td>";
 					echo "<td>" . $res['action_on'] . "</td>";
 					echo "<td>" . $res['ip_address'] . "</td>";
 					echo "<td>$dt" . substr($res['date_time'], 10) . "</td>";
@@ -623,10 +623,10 @@ include_once('../global/footer.php');
 		}
 	});
 </script>
-<script>
+<!-- <script>
 	$(document).on("click", ".pf1", function() {
 
 
 
 	});
-</script>
+</script> -->

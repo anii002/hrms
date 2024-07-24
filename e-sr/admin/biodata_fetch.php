@@ -9,20 +9,14 @@ error_reporting(0);
 if (isset($_REQUEST['action'])) {
 
 	switch (strtolower($_REQUEST['action'])) {  
-
-
-
 		case 'get_bio_data':
-
 			$data = '';
-
 			session_start();
-
-			$conn1=dbcon1();
+			$conn=dbcon1();
 
 			$bio_sql = "SELECT * FROM `biodata_temp` WHERE `pf_number` = '".$_SESSION['same_pf_no']."'";
 
-			$bio_query = mysqli_query($conn1,$bio_sql);
+			$bio_query = mysqli_query($conn,$bio_sql);
 
 			if($bio_query){
 
