@@ -23,9 +23,9 @@
 				<div class="row">
 					 <?php
 						$init_exist=0;
-						dbcon1();
-						$sql=mysql_query("select * from appointment_temp where app_pf_number='".$_SESSION['set_update_pf']."'");
-						$result=mysql_num_rows($sql);
+						$conn=dbcon1();
+						$sql=mysqli_query($conn,"select * from appointment_temp where app_pf_number='".$_SESSION['set_update_pf']."'");
+						$result=mysqli_num_rows($sql);
 						if($result>0){
 							$init_exist=1;
 						}

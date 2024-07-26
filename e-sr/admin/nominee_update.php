@@ -45,14 +45,14 @@ $_GLOBALS['a'] ='nominee';
 						<div id="append_PFdata">
                         </div>
 					<?php 
-						dbcon1();
-						$sql=mysql_query("select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."'");
-						//echo "select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."' and nom_type='PF'".mysql_error();
-						$result=mysql_num_rows($sql);
+						$conn=dbcon1();
+						$sql=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."'");
+						//echo "select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."' and nom_type='PF'".mysqli_error();
+						$result=mysqli_num_rows($sql);
 						$pf_fetch_count=$result;
 						for($i=1;$i<=$result;$i++)
 						{
-							$result2=mysql_fetch_array($sql);
+							$result2=mysqli_fetch_array($sql);
 					?>
                     <div class="modal-body">
                     	
@@ -135,9 +135,9 @@ $_GLOBALS['a'] ='nominee';
                                         <select class="form-control primary select2" id="nom_status<?php echo $i;?>" name="nom_status<?php echo $i;?>" style="width:100%;"   >
                                             <option value="<?php echo $result2['nom_status'];?>" selected><?php echo got_mr($result2['nom_status']);?></option>
                                             <?php
-											dbcon();
-                                            $sqlDept=mysql_query("select * from marital_status");
-                                            while($rwDept=mysql_fetch_array($sqlDept))
+											$conn=dbcon();
+                                            $sqlDept=mysqli_query($conn,"select * from marital_status");
+                                            while($rwDept=mysqli_fetch_array($sqlDept))
                                             {
                                             ?>
                                             <option value="<?php echo $rwDept["id"]; ?>">
@@ -261,14 +261,14 @@ $_GLOBALS['a'] ='nominee';
  						<div id="append_GISdata">
                         </div><br/>
 						<?php 
-						dbcon1();
-						$sql=mysql_query("select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."' and nom_type='GIS'");
-						$result=mysql_num_rows($sql);
+						$conn=dbcon1();
+						$sql=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."' and nom_type='GIS'");
+						$result=mysqli_num_rows($sql);
 						//echo "<script>alert('$result');</script>";
 						$gis_fetch_count=$result;
 						for($i=1;$i<=$result;$i++)
 						{
-							$result2=mysql_fetch_array($sql)
+							$result2=mysqli_fetch_array($sql)
 					?>
 						<div class='box-header'><h3 class='box-title'><i class='fa fa-book'></i><?php echo $i;?> GIS Nominee</h3><hr/></div>
                        
@@ -296,8 +296,8 @@ $_GLOBALS['a'] ='nominee';
                                         <select class="form-control primary select2" id="gis_rel<?php echo $i;?>" name="gis_rel<?php echo $i;?>" style="width:100%;"   >
                                             <option value="<?php echo $result2['nom_rel'];?>" selected><?php echo get_relation($result2['nom_rel']);?></option>
                                             <?php
-                                            $sqlDept=mysql_query("select * from relation where id <> '".$result2['nom_rel']."'");
-                                            while($rwDept=mysql_fetch_array($sqlDept))
+                                            $sqlDept=mysqli_query($conn,"select * from relation where id <> '".$result2['nom_rel']."'");
+                                            while($rwDept=mysqli_fetch_array($sqlDept))
                                             {
                                             ?>
                                             <option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["longdesc"]; ?></option>
@@ -338,9 +338,9 @@ $_GLOBALS['a'] ='nominee';
                                         <select class="form-control primary select2" id="gis_status<?php echo $i;?>" name="gis_status<?php echo $i;?>" style="width:100%;"   >
 										<option value="<?php echo $result2['nom_status'];?>" selected><?php echo got_mr($result2['nom_status']);?></option>
                                             <?php
-											dbcon();
-                                            $sqlDept=mysql_query("select * from marital_status where id<>'".$result2['nom_status']."'");
-                                            while($rwDept=mysql_fetch_array($sqlDept))
+											$conn=dbcon();
+                                            $sqlDept=mysqli_query($conn,"select * from marital_status where id<>'".$result2['nom_status']."'");
+                                            while($rwDept=mysqli_fetch_array($sqlDept))
                                             {
                                             ?>
                                             <option value="<?php echo $rwDept["id"]; ?>">
@@ -460,14 +460,14 @@ $_GLOBALS['a'] ='nominee';
                     	<div id="append_GRAdata">
                         </div>
 						<?php 
-						 dbcon1();
-						$sql=mysql_query("select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."' and nom_type='GRA'");
-						$result=mysql_num_rows($sql);
+						 $conn=dbcon1();
+						$sql=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_SESSION['set_update_pf']."' and nom_type='GRA'");
+						$result=mysqli_num_rows($sql);
 						//echo "<script>alert('$result');</script>";
 						$gra_fetch_count=$result;
 						for($i=1;$i<=$result;$i++)
 						{
-							$result2=mysql_fetch_array($sql);
+							$result2=mysqli_fetch_array($sql);
 						
 						?>
                         
@@ -493,8 +493,8 @@ $_GLOBALS['a'] ='nominee';
                                         <select class="form-control primary select2" id="gra_rel<?php echo $i;?>" name="gra_rel<?php echo $i;?>" style="width:100%;"   >
                                             <option value="<?php echo $result2['nom_rel'];?>" selected><?php echo get_relation($result2['nom_rel']);?></option>
                                             <?php
-                                            $sqlDept=mysql_query("select * from relation where id <> '".$result2['nom_rel']."'");
-                                            while($rwDept=mysql_fetch_array($sqlDept))
+                                            $sqlDept=mysqli_query($conn,"select * from relation where id <> '".$result2['nom_rel']."'");
+                                            while($rwDept=mysqli_fetch_array($sqlDept))
                                             {
                                             ?>
                                             <option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["longdesc"]; ?></option>
@@ -535,9 +535,9 @@ $_GLOBALS['a'] ='nominee';
                                         <select class="form-control primary select2" id="gra_status<?php echo $i;?>" name="gra_status<?php echo $i;?>" style="width:100%;"   >
                                             <option value="<?php echo $result2['nom_status'];?>" selected><?php echo got_mr($result2['nom_status']);?></option>
                                             <?php
-											dbcon();
-                                            $sqlDept=mysql_query("select * from marital_status where id<>'".$result2['nom_status']."'");
-                                            while($rwDept=mysql_fetch_array($sqlDept))
+											$conn=dbcon();
+                                            $sqlDept=mysqli_query($conn,"select * from marital_status where id<>'".$result2['nom_status']."'");
+                                            while($rwDept=mysqli_fetch_array($sqlDept))
                                             {
                                             ?>
                                             <option value="<?php echo $rwDept["id"]; ?>">

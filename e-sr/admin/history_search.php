@@ -1,8 +1,8 @@
 <?php
-session_start();
-if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
-  echo "<script>window.location='http://localhost/SR/index.php';</script>";
-}
+// session_start();
+// if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
+//   echo "<script>window.location='http://localhost/SR/index.php';</script>";
+// }
 $GLOBALS['a'] = 'update_search';
 include_once('../global/header.php');
 include_once('../global/topbar.php');

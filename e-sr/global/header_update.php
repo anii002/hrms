@@ -376,45 +376,44 @@ Follow me on Twitter @maridlcrmn
             </div><!-- /.container -->
           </nav><!-- /.navbar -->
           <?php
+        //   $conn = dbcon();
+        //   $pay_scale_type = "";
+        //  echo $sqlDept = mysqli_query($conn, "select * from pay_scale_type where id='6'");
+        //   while ($rwDept = mysqli_fetch_array($sqlDept)) {
+        //     $pay_scale_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
+        //   }
+        
 
-          $pay_scale_type = "";
+          // $sqlDept = mysqli_query($conn, "select * from pay_scale_type where id!='6'");
+          // while ($rwDept = mysqli_fetch_array($sqlDept)) {
+          //   $pay_scale_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
+          // }
 
-          $sqlDept = mysqli_query($conn, "select * from pay_scale_type where id='6'");
-          while ($rwDept = mysqli_fetch_array($sqlDept)) {
-            $pay_scale_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
-          }
+          // $dept = "";
+          // $sqlDept = mysqli_query($conn, "select * from department");
+          // if (!$sqlDept) {
+          //   echo 'Database error: ' . mysqli_error($conn);
+          // }
+          // while ($rwDept = mysqli_fetch_array($sqlDept)) {
+          //   $dept .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["DEPTDESC"] . "</option>";
+          // }
 
+          // $alldesignations = "";
+          // $sqlDept = mysqli_query($conn, "select * from designations");
+          // while ($rwDept = mysqli_fetch_array($sqlDept)) {
+          //   $alldesignations .= "<option value=" . $rwDept["id"] . ">(" . $rwDept["desigshortdesc"] . ")" . $rwDept["desiglongdesc"] . "</option>";
+          // }
 
-          $sqlDept = mysqli_query($conn, "select * from pay_scale_type where id!='6'");
-          while ($rwDept = mysqli_fetch_array($sqlDept)) {
-            $pay_scale_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
-          }
+          // $appo_type = "";
+          // $sqlDept = mysqli_query($conn, "select * from appointment_type");
+          // while ($rwDept = mysqli_fetch_array($sqlDept)) {
+          //   $appo_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
+          // }
 
-          $dept = "";
-          $sqlDept = mysqli_query($conn, "select * from department");
-          if (!$sqlDept) {
-            echo 'Database error: ' . mysqli_error($conn);
-          }
-          while ($rwDept = mysqli_fetch_array($sqlDept)) {
-            $dept .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["DEPTDESC"] . "</option>";
-          }
-
-          $alldesignations = "";
-          $sqlDept = mysqli_query($conn, "select * from designation");
-          while ($rwDept = mysqli_fetch_array($sqlDept)) {
-            $alldesignations .= "<option value=" . $rwDept["id"] . ">(" . $rwDept["desigshortdesc"] . ")" . $rwDept["desiglongdesc"] . "</option>";
-          }
-
-          $appo_type = "";
-          $sqlDept = mysqli_query($conn, "select * from appointment_type");
-          while ($rwDept = mysqli_fetch_array($sqlDept)) {
-            $appo_type .= "<option value='" . $rwDept["id"] . "'>" . $rwDept["type"] . "</option>";
-          }
-
-          $group = "";
-          $group = "<option value='' selected disabled>Select Group</option>";
-          $group_col = mysqli_query($conn, "select * from group_col");
-          while ($group_colre = mysqli_fetch_array($group_col)) {
-            $group .= "<option value='" . $group_colre["id"] . "'>" . $group_colre["group_col"] . "</option>";
-          }
+          // $group = "";
+          // $group = "<option value='' selected disabled>Select Group</option>";
+          // $group_col = mysqli_query($conn, "select * from group_col");
+          // while ($group_colre = mysqli_fetch_array($group_col)) {
+          //   $group .= "<option value='" . $group_colre["id"] . "'>" . $group_colre["group_col"] . "</option>";
+          // }
           ?>

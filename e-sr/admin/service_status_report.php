@@ -1,6 +1,6 @@
 <?php 
 $_GLOBALS['a'] ='reports';
-session_start();
+// session_start();
 //error_reporting(0);
 $GLOBALS['a'] = 'reports';
 include_once('../global/header.php');
@@ -9,7 +9,7 @@ include_once('../global/topbar.php');
 include('mini_function.php');
 include('fetch_all_column.php');
 include_once('../dbconfig/dbcon.php');
-dbcon1();
+$conn=dbcon1();
 ?>
 
 	<div class="row" style="background:#67809f;margin:0px;">
@@ -61,14 +61,14 @@ dbcon1();
 
 					if($service=='serving')
 					{
-						$sql1=mysql_query('select preapp_pf_number,preapp_billunit from present_work_temp where serving_status="1"');
-						//echo 'select preapp_pf_number,preapp_billunit from present_work_temp where serving_status="1"'.mysql_error();
+						$sql1=mysqli_query($conn,'select preapp_pf_number,preapp_billunit from present_work_temp where serving_status="1"');
+						//echo 'select preapp_pf_number,preapp_billunit from present_work_temp where serving_status="1"'.mysqli_error();
 					}else if($service == 'retired')
 					{
-						$sql1=mysql_query("select preapp_pf_number,preapp_billunit from present_work_temp where serving_status='$type'");
+						$sql1=mysqli_query($conn,"select preapp_pf_number,preapp_billunit from present_work_temp where serving_status='$type'");
 					}else if($serice == 'transfered')
 					{
-						$sql1=mysql_query("select trans_pf_no from prft_transfer_temp where trans_order_type='$type'");
+						$sql1=mysqli_query($conn,"select trans_pf_no from prft_transfer_temp where trans_order_type='$type'");
 					}
 					?>
 					<div class="row">
@@ -94,7 +94,7 @@ dbcon1();
 										if($service=='transfered')
 										{
 											$sr_no=1;
-											while($res=mysql_fetch_array($sql1))
+											while($res=mysqli_fetch_array($sql1))
 											{
 												echo "<tr>";
 												
@@ -109,7 +109,7 @@ dbcon1();
 											}
 										}else{
 											$sr_no=1;
-											while($res=mysql_fetch_array($sql1))
+											while($res=mysqli_fetch_array($sql1))
 											{
 												echo "<tr>";
 												echo "<td>$sr_no</td>";

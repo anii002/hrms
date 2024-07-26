@@ -10,7 +10,7 @@ include_once('../global/topbar.php');
 include('mini_function.php');
 include('create_log.php');
 
-dbcon1();
+$conn=dbcon1();
 $pf=$_GET['pf_no'];
 $id=$_GET['id'];
 $print=$_GET['print'];
@@ -20,9 +20,9 @@ $print=$_GET['print'];
 			}
 			$action_on=$_SESSION['set_update_pf'];
 			create_log($action,$action_on); 				
-			$query=mysql_query("Select * from prft_reversion_temp where rev_pf_no='$pf' and id='$id'");
+			$query=mysqli_query($conn,"Select * from prft_reversion_temp where rev_pf_no='$pf' and id='$id'");
 
-					 while($result=mysql_fetch_assoc($query))		
+					 while($result=mysqli_fetch_assoc($query))		
 						{
 							$rev_pf_no=$result['rev_pf_no'];
 							$rev_order_type=$result['rev_order_type'];

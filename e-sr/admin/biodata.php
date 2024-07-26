@@ -1,10 +1,8 @@
 <?php
-
-session_start();
+// session_start();
 // if(!isset($_SESSION['SESS_MEMBER_NAME']))
 
 // {
-
 // echo "<script>window.location='http://localhost/E_APR_FINAL/index.php';</script>";
 
 // }
@@ -1207,7 +1205,7 @@ $unit = 6;
 
 															<?php
 
-															$sqlDept = mysqli_query($conn, "select * from designations");
+															$sqlDept = mysqli_query($conn, "select * from designation");
 
 															while ($rwDept = mysqli_fetch_array($sqlDept)) {
 
@@ -1218,8 +1216,6 @@ $unit = 6;
 															<?php
 
 															}
-
-
 
 															?>
 
@@ -5899,8 +5895,6 @@ $unit = 6;
 					.height(200);
 
 			};
-
-
 
 			reader.readAsDataURL(input.files[0]);
 

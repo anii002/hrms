@@ -5,7 +5,7 @@ include('mini_function.php');
 include('fetch_all_column.php');
 error_reporting(0);
 session_start();
-dbcon1();
+$conn=dbcon1();
 if (isset($_REQUEST['action'])) {
 	switch (strtolower($_REQUEST['action'])) {  
 		
@@ -37,8 +37,8 @@ if (isset($_REQUEST['action'])) {
 					$temp = explode(".", $name_array);
 					$newfilename = rand(1000,99999) . '.' . end($temp);
 					
-					$q=mysql_query("select count from leave_account where pf_number='$pf_number' order by id desc limit 1");
-					$f=mysql_fetch_array($q);
+					$q=mysqli_query($conn,"select count from leave_account where pf_number='$pf_number' order by id desc limit 1");
+					$f=mysqli_fetch_array($q);
 					if($f['count']!="")
 					{
 						$count=$f['count']+1;
@@ -49,7 +49,7 @@ if (isset($_REQUEST['action'])) {
 			
 					$year=$_POST['year'];
 
-					$sql_img=mysql_query("insert into leave_account(pf_number,doc_name,count,updated_date,uploaded_by,year) values('$pf_number','$newfilename','$count',CURRENT_TIMESTAMP,'1','$year')")or die(mysql_error());
+					$sql_img=mysqli_query($conn,"insert into leave_account(pf_number,doc_name,count,updated_date,uploaded_by,year) values('$pf_number','$newfilename','$count',CURRENT_TIMESTAMP,'1','$year')")or die(mysqli_error($conn));
 					
 					$action="Inserted Record in Leave Account Table";
 					$action_on=$pf_number;
@@ -107,8 +107,8 @@ if (isset($_REQUEST['action'])) {
 						$temp = explode(".", $name_array[$i]);
 						$newfilename = rand(1000,99999) . '.' . end($temp);
 						
-						$q=mysql_query("select count from sr_doc where pf_number='$pf_number' order by id desc limit 1");
-						$f=mysql_fetch_array($q);
+						$q=mysqli_query($conn,"select count from sr_doc where pf_number='$pf_number' order by id desc limit 1");
+						$f=mysqli_fetch_array($q);
 						if($f['count']!="")
 						{
 							$count=$f['count']+1;
@@ -118,7 +118,7 @@ if (isset($_REQUEST['action'])) {
 						}
 				
 						
-						$sql_img=mysql_query("insert into sr_doc(pf_number,doc_name,count,update_date,uploaded_by) values('$pf_number','$newfilename','$count',CURRENT_TIMESTAMP,'1')")or die(mysql_error());
+						$sql_img=mysqli_query($conn,"insert into sr_doc(pf_number,doc_name,count,update_date,uploaded_by) values('$pf_number','$newfilename','$count',CURRENT_TIMESTAMP,'1')")or die(mysqli_error($conn));
 						
 						$action="Inserted Record in SR Doc Table";
 						$action_on=$pf_number;
@@ -139,8 +139,8 @@ if (isset($_REQUEST['action'])) {
 		  $prft_pf_no=$_POST['prft_pf_no'];
 		  $prft_id=$_POST['prft_id'];
 		  
-		  $qry=mysql_query("SELECT * from prft_promotion_temp where pro_pf_no='$prft_pf_no' and id='$prft_id'");
-			while($fetch=mysql_fetch_assoc($qry))
+		  $qry=mysqli_query($conn,"SELECT * from prft_promotion_temp where pro_pf_no='$prft_pf_no' and id='$prft_id'");
+			while($fetch=mysqli_fetch_assoc($qry))
 			{
 				$data['pro_pf_no']=$fetch['pro_pf_no'];
 				$data['pro_order_type']=$fetch['pro_order_type'];
@@ -196,9 +196,9 @@ if (isset($_REQUEST['action'])) {
 		  $data=[];
 		  $prft_pf_no=$_POST['prft_pf_no'];
 		  $prft_id=$_POST['prft_id'];
-		  $qry=mysql_query("SELECT * from prft_reversion_temp where rev_pf_no = '$prft_pf_no' and id='$prft_id'");
+		  $qry=mysqli_query($conn,"SELECT * from prft_reversion_temp where rev_pf_no = '$prft_pf_no' and id='$prft_id'");
 		  
-		  while($fetch=mysql_fetch_assoc($qry)){
+		  while($fetch=mysqli_fetch_assoc($qry)){
 			  
 		  $data['rev_order_type']=$fetch['rev_order_type'];
 		  $data['rev_letter_no']=$fetch['rev_letter_no'];
@@ -248,18 +248,18 @@ if (isset($_REQUEST['action'])) {
 		  break;
 		
 		  case 'get_prft_transfer':
-			dbcon1();
+			$conn=dbcon1();
 			 $prft_pf_no=$_POST['prft_pf_no'];
 		     $prft_id=$_POST['prft_id'];
 			 
 			$data='';
-			$sql=mysql_query("select * from prft_transfer_temp where trans_pf_no='$prft_pf_no' and id='$prft_id'");
+			$sql=mysqli_query($conn,"select * from prft_transfer_temp where trans_pf_no='$prft_pf_no' and id='$prft_id'");
 
-			$sql_fetch=mysql_num_rows($sql);
+			$sql_fetch=mysqli_num_rows($sql);
 			 
 			if($sql_fetch>0)
 			{
-				while($result=mysql_fetch_array($sql))
+				while($result=mysqli_fetch_array($sql))
 				{
 					 
 				  $data['trans_order_type']=get_all_order_type_transfer($result['trans_order_type']);
@@ -325,16 +325,16 @@ if (isset($_REQUEST['action'])) {
 		//fixation process_main
 
 		 case 'get_prft_fixtion':
-			dbcon1();
+			$conn=dbcon1();
 			 $prft_pf_no=$_POST['prft_pf_no'];
 		     $prft_id=$_POST['prft_id'];
 			$data='';
-			$sql=mysql_query("select * from prft_fixation_temp where fix_pf_no='$prft_pf_no' and id='$prft_id'");
+			$sql=mysqli_query($conn,"select * from prft_fixation_temp where fix_pf_no='$prft_pf_no' and id='$prft_id'");
 			
-			$sql_fetch=mysql_num_rows($sql);
+			$sql_fetch=mysqli_num_rows($sql);
 			if($sql_fetch>0)
 			{
-				while($result=mysql_fetch_array($sql))
+				while($result=mysqli_fetch_array($sql))
 				{
 					 
 					$data['fix_order_type']=get_all_order_type_fixation($result['fix_order_type']);
@@ -385,8 +385,8 @@ if (isset($_REQUEST['action'])) {
 		  $prft_id=$_POST['prft_id'];
 		  
 		   
-		  $qry=mysql_query("SELECT * from prft_promotion_temp where pro_pf_no='$prft_pf_no' and id='$prft_id'");
-		   while($fetch=mysql_fetch_assoc($qry)){
+		  $qry=mysqli_query($conn,"SELECT * from prft_promotion_temp where pro_pf_no='$prft_pf_no' and id='$prft_id'");
+		   while($fetch=mysqli_fetch_assoc($qry)){
 		   $data.="".$fetch['pro_pf_no']."$".$fetch['pro_order_type']."$".$fetch['pro_letter_no']."$".$fetch['pro_letter_date']."$".$fetch['pro_wef']."$".$fetch['pro_frm_dept']."$".$fetch['pro_frm_desig']."$".$fetch['pro_frm_othr_desig']."$".get_all_pay_scale_type($fetch['pro_frm_pay_scale_type'])."$".$fetch['pro_frm_scale']."$".$fetch['pro_frm_level']."$".$fetch['pro_frm_group']."$".$fetch['pro_frm_station']."$".$fetch['pro_frm_othr_station']."$".get_billunit($fetch['pro_frm_billunit'])."$".get_depot($fetch['pro_frm_depot'])."$".$fetch['pro_to_dept']."$".$fetch['pro_to_desig']."$".$fetch['pro_to_othr_desig']."$".get_all_pay_scale_type($fetch['pro_to_pay_scale_type'])."$".$fetch['pro_to_scale']."$".$fetch['pro_to_level']."$".$fetch['pro_to_group']."$".$fetch['pro_to_station']."$".$fetch['pro_to_othr_station']."$".$fetch['pro_frm_rop']."$".$fetch['rop_to']."$".get_billunit($fetch['pro_to_billunit'])."$".get_depot($fetch['pro_to_depot'])."$".$fetch['pro_carried_out_type']."$".$fetch['pro_carri_wef']."$".$fetch['pro_carri_date_of_incr']."$".$fetch['pro_car_re_accept_ltr_no']."$".$fetch['pro_car_re_accept_ltr_date']."$".$fetch['pro_car_re_wef_date']."$".$fetch['pro_car_re_remark']."$".$fetch['pro_frm_billunit']."$".$fetch['pro_to_billunit']."$".$fetch['pro_frm_pay_scale_type']."$".$fetch['pro_to_pay_scale_type']."$".get_all_scale($fetch['pro_frm_scale'],$fetch['pro_frm_pay_scale_type'])."$".get_all_scale($fetch['pro_frm_level'],$fetch['pro_frm_pay_scale_type'])."$".get_all_scale($fetch['pro_to_scale'],$fetch['pro_to_pay_scale_type'])."$".get_all_scale($fetch['pro_to_level'],$fetch['pro_to_pay_scale_type'])."";
 		   }
 		  echo $data;
@@ -397,17 +397,17 @@ if (isset($_REQUEST['action'])) {
 		  $data='';
 		  $prft_pf_no=$_POST['prft_pf_no'];
 		  $prft_id=$_POST['prft_id'];
-		  $qry=mysql_query("SELECT * from prft_reversion_temp where rev_pf_no = '$prft_pf_no' and id='$prft_id'");
-		  //echo mysql_error();
-		  while($fetch=mysql_fetch_assoc($qry)){
+		  $qry=mysqli_query($conn,"SELECT * from prft_reversion_temp where rev_pf_no = '$prft_pf_no' and id='$prft_id'");
+		  //echo mysqli_error();
+		  while($fetch=mysqli_fetch_assoc($qry)){
 		  $data.=""."$".$fetch['rev_order_type']."$".$fetch['rev_letter_no']."$".$fetch['rev_letter_date']."$".$fetch['rev_wef']."$".$fetch['rev_frm_dept']."$".$fetch['rev_frm_desig']."$".$fetch['rev_frm_othr_desig']."$".get_all_pay_scale_type($fetch['rev_frm_pay_scale_type'])."$".$fetch['rev_frm_scale']."$".$fetch['rev_frm_level']."$".$fetch['rev_frm_group']."$".$fetch['rev_frm_station']."$".$fetch['rev_frm_othr_station']."$".get_billunit($fetch['rev_frm_billunit'])."$".get_depot($fetch['rev_frm_depot'])."$".$fetch['rev_to_dept']."$".$fetch['rev_to_desig']."$".$fetch['rev_to_othr_desig']."$".get_all_pay_scale_type($fetch['rev_to_pay_scale_type'])."$".$fetch['rev_to_scale']."$".$fetch['rev_to_level']."$".$fetch['rev_to_group']."$".$fetch['rev_to_station']."$".$fetch['rev_to_othr_station']."$".$fetch['rev_frm_rop']."$".$fetch['rev_to_rop']."$".get_billunit($fetch['rev_to_billunit'])."$".get_depot($fetch['rev_to_depot'])."$".$fetch['rev_carried_out_type']."$".$fetch['rev_carri_wef']."$".$fetch['rev_carri_date_of_incr']."$".$fetch['rev_car_re_accept_ltr_no']."$".$fetch['rev_car_re_accept_ltr_date']."$".$fetch['rev_car_re_wef_date']."$".$fetch['rev_car_re_remark']."$".$fetch['rev_frm_billunit']."$".$fetch['rev_to_billunit']."$".get_all_scale($fetch['rev_frm_scale'],$fetch['rev_frm_pay_scale_type'])."$".get_all_scale($fetch['rev_frm_level'],$fetch['rev_frm_pay_scale_type'])."$".get_all_scale($fetch['rev_to_scale'],$fetch['rev_to_pay_scale_type'])."$".get_all_scale($fetch['rev_to_level'],$fetch['rev_to_pay_scale_type'])."$".$fetch['rev_frm_pay_scale_type']."$".$fetch['rev_to_pay_scale_type']."$".$fetch['rev_to_pay_scale_type']."";
 		  }
 		  echo $data;
 		  break;
 		  
 		case 'update_property':
-			$fetch_pre=mysql_query("select * from property_temp where pro_pf_number='".$_POST['pd_pf_no']."'");
-			$pre_result=mysql_num_rows($fetch_pre);
+			$fetch_pre=mysqli_query($conn,"select * from property_temp where pro_pf_number='".$_POST['pd_pf_no']."'");
+			$pre_result=mysqli_num_rows($fetch_pre);
 
 			session_start();
 
@@ -449,8 +449,8 @@ if (isset($_REQUEST['action'])) {
 			 
 				if($i > $pre_result)
 				{
-					$sq=mysql_query("select count from `property_temp` where `pro_pf_number`='$pro_pf_no' order by id desc limit 1");
-					$fetch=mysql_fetch_array($sq);
+					$sq=mysqli_query($conn,"select count from `property_temp` where `pro_pf_number`='$pro_pf_no' order by id desc limit 1");
+					$fetch=mysqli_fetch_array($sq);
 					if($fetch['count']=="")
 					{
 						$count=$count+1;
@@ -463,8 +463,8 @@ if (isset($_REQUEST['action'])) {
 				
 					$sql2=("insert into `property_track` (`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`pro_pf_number`,`pro_oldpf_number`,`pro_type`,`pro_item`,`pro_otheritem`,`pro_make`,`pro_dop`,`pro_location`,`pro_regno`,`pro_area`,`pro_surveyno`,`pro_cost`,`pro_source`,`pro_sourcetype`,`pro_amount`,`pro_letterno`,`pro_letterdate`,`pro_remark`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pro_pf_no','','$pro_type','$pro_item','$pro_otheritem','$pro_make','$pro_dop','$pro_location','$pro_regno','$pro_area','$pro_surveyno','$pro_cost','$pro_source','$pro_sourcetype','$pro_amount','$pro_letter_no','$pro_letterdate','$pro_remark','$update_by',Now(),'','','','','','','','','','$count')");
 
-				$result1=mysql_query($sql1);
-				$result2=mysql_query($sql2);
+				$result1=mysqli_query($conn,$sql1);
+				$result2=mysqli_query($conn,$sql2);
 				
 				$action="Inserted Record in Property Temp and in Property Track";
 				
@@ -472,13 +472,13 @@ if (isset($_REQUEST['action'])) {
 			}
 			else
 			{
-				dbcon1();
-				$sq=mysql_query("SELECT * from property_temp where pro_pf_number='".$pro_pf_no."' and id='".$property_update_id."'");
-				//echo "SELECT * from property_temp where pro_pf_number='".$pro_pf_no."' and id='".$property_update_id."'".mysql_error();
+				$conn=dbcon1();
+				$sq=mysqli_query($conn,"SELECT * from property_temp where pro_pf_number='".$pro_pf_no."' and id='".$property_update_id."'");
+				//echo "SELECT * from property_temp where pro_pf_number='".$pro_pf_no."' and id='".$property_update_id."'".mysqli_error();
 
 				if($sq){
 					
-					while($fetch_sql=mysql_fetch_array($sq))
+					while($fetch_sql=mysqli_fetch_array($sq))
 					{
 						if($pro_type==$fetch_sql['pro_type'] && $pro_item==$fetch_sql['pro_item'] && $pro_otheritem==$fetch_sql['pro_otheritem'] && $pro_make==$fetch_sql['pro_make'] && $pro_dop==$fetch_sql['pro_dop'] && $pro_location==$fetch_sql['pro_location'] && $pro_regno==$fetch_sql['pro_regno'] && $pro_area==$fetch_sql['pro_area'] && $pro_surveyno==$fetch_sql['pro_surveyno'] && $pro_cost==$fetch_sql['pro_cost'] && $pro_sourcetype==$fetch_sql['pro_sourcetype'] && $pro_amount==$fetch_sql['pro_amount'] && $pro_letter_no==$fetch_sql['pro_letterno'] && $pro_letterdate==$fetch_sql['pro_letterdate'] && $pro_remark==$fetch_sql['pro_remark'])
 						{
@@ -486,8 +486,8 @@ if (isset($_REQUEST['action'])) {
 						}
 						else
 						{
-							$sq=mysql_query("select count from `property_temp` where `pro_pf_number`='$pro_pf_no' and id='$property_update_id'");
-							$fetch=mysql_fetch_array($sq);
+							$sq=mysqli_query($conn,"select count from `property_temp` where `pro_pf_number`='$pro_pf_no' and id='$property_update_id'");
+							$fetch=mysqli_fetch_array($sq);
 							if($fetch['count']=="")
 							{
 								$count=$count+1;
@@ -515,7 +515,7 @@ if (isset($_REQUEST['action'])) {
 							
 							$sql1="insert into `property_track` (`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`pro_pf_number`,`pro_type`,`pro_item`,`pro_otheritem`,`pro_make`,`pro_dop`,`pro_location`,`pro_regno`,`pro_area`,`pro_surveyno`,`pro_cost`,`pro_source`,`pro_sourcetype`,`pro_amount`,`pro_letterno`,`pro_letterdate`,`pro_remark`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pro_pf_no','$pro_type','$pro_item','$pro_otheritem','$pro_make','$pro_dop','$pro_location','$pro_regno','$pro_area','$pro_surveyno','$pro_cost','$pro_source','$pro_sourcetype','$pro_amount','$pro_letter_no','$pro_letterdate','$pro_remark','$update_by',Now(),'','','','','','','','','','$count')";
 							
-							$result1=mysql_query($sql1);
+							$result1=mysqli_query($conn,$sql1);
 							
 							$action="Updated Record in Property Temp and Inserted Record in Property Track";
 					
@@ -527,7 +527,7 @@ if (isset($_REQUEST['action'])) {
 				$sql2="UPDATE `property_temp` SET `temp_transaction_id`='$trans_id',`zone`='01',`division`='SUR',`pro_pf_number`='$pro_pf_no',`pro_type`='$pro_type',`pro_item`='$pro_item',`pro_otheritem`='$pro_otheritem',`pro_make`='$pro_make',`pro_dop`='$pro_dop',`pro_location`='$pro_location',`pro_regno`='$pro_regno',`pro_area`='$pro_area',`pro_surveyno`='$pro_surveyno',`pro_cost`='$pro_cost',`pro_source`='$pro_source',`pro_sourcetype`='$pro_sourcetype',`pro_amount`='$pro_amount',`pro_letterno`='$pro_letter_no',`pro_letterdate`='$pro_letterdate',`pro_remark`='$pro_remark',`updated_by`='$update_by',`date_time`=Now() WHERE pro_pf_number='$pro_pf_no' and id='$property_update_id'";
 		
 	
-			$result2=mysql_query($sql2);
+			$result2=mysqli_query($conn,$sql2);
 			
 		}
 	}	
@@ -545,8 +545,8 @@ if (isset($_REQUEST['action'])) {
 		 //update training case code
 
 		case 'update_training':
-			$fetch_pre=mysql_query("select * from training_temp where pf_number='".$_POST['tr_pf_no']."'");
-			$pre_result=mysql_num_rows($fetch_pre);
+			$fetch_pre=mysqli_query($conn,"select * from training_temp where pf_number='".$_POST['tr_pf_no']."'");
+			$pre_result=mysqli_num_rows($fetch_pre);
 			session_start();
 
 			$hidden_tr_count=$_POST['training_count'];
@@ -580,8 +580,8 @@ if (isset($_REQUEST['action'])) {
 			if($i > $pre_result)
 			{
 				$count=0;
-				$f_c=mysql_query("select count from training_temp where pf_number='".$tra_pf_no."' order by id desc limit 1");
-				$res=mysql_fetch_array($f_c);
+				$f_c=mysqli_query($conn,"select count from training_temp where pf_number='".$tra_pf_no."' order by id desc limit 1");
+				$res=mysqli_fetch_array($f_c);
 				if($res['count']==""){
 					$count++;
 					//echo "if".$count."<br>";
@@ -597,8 +597,8 @@ if (isset($_REQUEST['action'])) {
 				
 				$action="Inserted Record in Training Temp and in Training Track";
 				
-				$result1=mysql_query($sql1);
-				$result2=mysql_query($sql2);
+				$result1=mysqli_query($conn,$sql1);
+				$result2=mysqli_query($conn,$sql2);
 			
 			}
 			else
@@ -606,18 +606,18 @@ if (isset($_REQUEST['action'])) {
 			 //   echo "f_sql:";
 				 $f_sql="select count from training_temp where pf_number='".$tra_pf_no."' and id='".$hidden_training."'";
 				// echo "<br>";
-				$f_q=mysql_query($f_sql);
-				$re=mysql_fetch_array($f_q);
+				$f_q=mysqli_query($conn,$f_sql);
+				$re=mysqli_fetch_array($f_q);
 				$count=$re['count'];
 				$count=($count==NULL)?"":$count;
 				// echo "cnt:".$count."<br>";
 				
-				dbcon1();
-				$sq=mysql_query("SELECT * from training_temp where pf_number='".$tra_pf_no."' and id='".$hidden_training."'");
+				$conn=dbcon1();
+				$sq=mysqli_query($conn,"SELECT * from training_temp where pf_number='".$tra_pf_no."' and id='".$hidden_training."'");
 
 				if($sq){
 					
-					while($fetch_sql=mysql_fetch_array($sq))
+					while($fetch_sql=mysqli_fetch_array($sq))
 					{
 						if($tra_type==$fetch_sql['training_type'] && $inst==$fetch_sql['tr_inst'] && $tr_dept==$fetch_sql['tr_dept'] && $tr_desig==$fetch_sql['tr_desig'] && $tra_last_date==$fetch_sql['last_date'] && $tra_due_date==$fetch_sql['due_date'] && $tra_from==$fetch_sql['training_from'] && $tra_to==$fetch_sql['training_to'] && $tra_letter_no==$fetch_sql['letter_no'] && $tra_letter_date==$fetch_sql['letter_date']  && $tra_desc==$fetch_sql['description'] && $tra_remarks==$fetch_sql['remarks'])
 						{
@@ -628,7 +628,7 @@ if (isset($_REQUEST['action'])) {
 							//echo "<script>alert('inside else')</script>";
 						 $sql1="insert into `training_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `pf_number`, `last_date`, `training_from`, `letter_no`, `description`, `remarks`, `training_type`,`tr_inst`,`tr_dept`,`tr_desig`, `due_date`, `training_to`, `letter_date`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`,`uploaded_status`, `updated_datetime`, `letter_number`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('01','SUR','$trans_id','$trans_id','$tra_pf_no','$tra_last_date','$tra_from','$tra_letter_no','$tra_desc','$tra_remarks','$tra_type','$inst','$tr_dept','$tr_desig','$tra_due_date','$tr_tra_to','$tra_letter_date','$update_by',Now(),'','','','','','','','','','','$count')";
 							
-							$result1=mysql_query($sql1);
+							$result1=mysqli_query($conn,$sql1);
 							
 							$action="Updated Record in Training Temp and Inserted Record in Training Track";
 							
@@ -639,7 +639,7 @@ if (isset($_REQUEST['action'])) {
 				// echo "cnt:".$count."<br>";
 			  $sql2="UPDATE `training_temp` SET `temp_transaction_id`='$trans_id',`zone`='01',`division`='SUR',`pf_number`='$tra_pf_no',`old_pf_number`='',`last_date`='$tra_last_date',`training_type`='$tra_type',`tr_inst`='$inst',`tr_dept`='$tr_dept',`tr_desig`='$tr_desig',`due_date`='$tra_due_date',`training_from`='$tra_from',`training_to`='$tra_to',`letter_no`='$tra_letter_no',`letter_date`='$tra_letter_date',`description`='$tra_desc',`remarks`='$tra_remarks',`updated_by`='$update_by',`date_time`=Now(), `count`='$count' WHERE pf_number='$tra_pf_no' and id='$hidden_training'";
 	
-			$result2=mysql_query($sql2);
+			$result2=mysqli_query($conn,$sql2);
 
 			}
 			
@@ -650,7 +650,7 @@ if (isset($_REQUEST['action'])) {
 // 			echo "rst2:";
 // 			var_dump($result2);
 // 			echo "<br>";
-// 			echo mysql_error();
+// 			echo mysqli_error();
 			if($result1 && $result2)
 			{
 				$action_on=$tra_pf_no;
@@ -664,10 +664,10 @@ if (isset($_REQUEST['action'])) {
                		
 		
 		 case 'update_penalty':
-		dbcon1();
+		$conn=dbcon1();
 
-		$fetch_pre=mysql_query("select * from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."'");
-		$pre_result=mysql_num_rows($fetch_pre);
+		$fetch_pre=mysqli_query($conn,"select * from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."'");
+		$pre_result=mysqli_num_rows($fetch_pre);
 		session_start();
 
 		$hidden_pen_count=$_POST['penalty_count'];
@@ -683,10 +683,10 @@ if (isset($_REQUEST['action'])) {
 			$pen_pf_no=$_POST['penalty_pf_no'];
 			
 			$count=0;
-			$s=mysql_query("select * from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' ORDER BY id DESC");
-			$rs=mysql_num_rows($s);
+			$s=mysqli_query($conn,"select * from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' ORDER BY id DESC");
+			$rs=mysqli_num_rows($s);
 			if($rs>0){
-				$re=mysql_fetch_array($s);
+				$re=mysqli_fetch_array($s);
 				$count=$re['count']+1;
 			}
 		
@@ -710,8 +710,8 @@ if (isset($_REQUEST['action'])) {
 			{	
 				
 				$count=0;
-				$f_c=mysql_query("select count from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' order by id desc limit 1");
-				$res=mysql_fetch_array($f_c);
+				$f_c=mysqli_query($conn,"select count from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' order by id desc limit 1");
+				$res=mysqli_fetch_array($f_c);
 				if($res['count']==""){
 					$count++;
 				}else{
@@ -724,24 +724,24 @@ if (isset($_REQUEST['action'])) {
 				$sql2=("insert into `penalty_temp`(`temp_transaction_id`,`zone`,`division`,`pen_pf_number`,`pen_oldpf_number`, `pen_type`, `pen_issued`, `pen_effetcted`, `pen_letterno`, `pen_letterdate`, `pen_chargestatus`, `pen_chargeref`, `pen_from`, `pen_to`, `pen_remark`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`,`letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pen_sub_type`)values('$trans_id','01','SUR','$pen_pf_no','','$pen_type','$pen_issued','$pen_effected','$pen_letter_no','$pen_letter_date','$pen_chargesheet_status','$pen_chargesheet_ref','$pen_from_date','$pen_to_date','$pen_remark','$update_by',Now(),'','','','','','','','','','$count','$penalty_sub_type')");
 				
 			
-				$result1=mysql_query($sql1);
-				$result2=mysql_query($sql2);
+				$result1=mysqli_query($conn,$sql1);
+				$result2=mysqli_query($conn,$sql2);
 				
 				$action="Inserted Record in Penalty Temp and in Penalty Track";
 		}
 		else
 		{	
 	
-			$f_q=mysql_query("select count from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' and `id`='$hidden_penalty_id'");
+			$f_q=mysqli_query($conn,"select count from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' and `id`='$hidden_penalty_id'");
 			
-				$re=mysql_fetch_array($f_q);
+				$re=mysqli_fetch_array($f_q);
 				$count=$re['count'];
 			
-            dbcon1();
-			$sq=mysql_query("SELECT * from penalty_temp where pen_pf_number='".$pen_pf_no."' and id='".$hidden_penalty_id."'");
+            $conn=dbcon1();
+			$sq=mysqli_query($conn,"SELECT * from penalty_temp where pen_pf_number='".$pen_pf_no."' and id='".$hidden_penalty_id."'");
 			if($sq){
 				
-					while($fetch_sql=mysql_fetch_array($sq))
+					while($fetch_sql=mysqli_fetch_array($sq))
 					{
 
 						if($pen_type==$fetch_sql['pen_type'] && $pen_issued==$fetch_sql['pen_issued'] && $pen_effected==$fetch_sql['pen_effetcted'] && $pen_letter_no==$fetch_sql['pen_letterno'] && $pen_letter_date==$fetch_sql['pen_letterdate'] && $pen_chargesheet_status==$fetch_sql['pen_chargestatus'] && $pen_chargesheet_ref==$fetch_sql['pen_chargeref'] && $pen_from_date==$fetch_sql['pen_from'] && $pen_to_date==$fetch_sql['pen_to'] && $pen_remark==$fetch_sql['pen_remark'] && $penalty_sub_type==$fetch_sql['pen_sub_type'])
@@ -750,14 +750,14 @@ if (isset($_REQUEST['action'])) {
 						}
 						else
 						{
-							$f_q=mysql_query("select count from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' and `id`='$hidden_penalty_id'");
+							$f_q=mysqli_query($conn,"select count from penalty_temp where pen_pf_number='".$_POST['penalty_pf_no']."' and `id`='$hidden_penalty_id'");
 			
-							$re=mysql_fetch_array($f_q);
+							$re=mysqli_fetch_array($f_q);
 							$count=$re['count'];
 							
 							$sql1=("insert into `penalty_track`(`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`pen_pf_number`,`pen_oldpf_number`, `pen_type`, `pen_issued`, `pen_effetcted`, `pen_letterno`, `pen_letterdate`, `pen_chargestatus`, `pen_chargeref`, `pen_from`, `pen_to`, `pen_remark`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`,`letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pen_sub_type`)values('01','SUR','$trans_id','$trans_id','$pen_pf_no','','$pen_type','$pen_issued','$pen_effected','$pen_letter_no','$pen_letter_date','$pen_chargesheet_status','$pen_chargesheet_ref','$pen_from_date','$pen_to_date','$pen_remark','$update_by',Now(),'','','','','','','','','','$count','$penalty_sub_type')");
 							
-							$result1=mysql_query($sql1)or die(mysql_error());
+							$result1=mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 							
 							$action="Updated Record in Penalty Temp and Inserted Record in Penalty Track";
 							
@@ -768,7 +768,7 @@ if (isset($_REQUEST['action'])) {
 			
 				$sql2=("UPDATE `penalty_temp` SET `temp_transaction_id`= '$trans_id',`pen_pf_number`='$pen_pf_no',`pen_type`='$pen_type',`pen_issued`='$pen_issued',`pen_effetcted`='$pen_effected',`pen_letterno`='$pen_letter_no',`pen_letterdate`='$pen_letter_date',`pen_chargestatus`='$pen_chargesheet_status',`pen_chargeref`='$pen_chargesheet_ref',`pen_from`='$pen_from_date',`pen_to`='$pen_to_date',`pen_remark`='$pen_remark',updated_datetime=Now(),`pen_sub_type`='$penalty_sub_type' where `pen_pf_number`='$pen_pf_no' and id='$hidden_penalty_id'");
 			
-			$result2=mysql_query($sql2);
+			$result2=mysqli_query($conn,$sql2);
 		}
 
 		}
@@ -790,8 +790,8 @@ if (isset($_REQUEST['action'])) {
 		//update awards case code
 
 	    case 'update_awards':
-			$fetch_pre=mysql_query("select * from award_temp where awd_pf_number='".$_POST['award_pf_no']."'");
-			$pre_result=mysql_num_rows($fetch_pre);
+			$fetch_pre=mysqli_query($conn,"select * from award_temp where awd_pf_number='".$_POST['award_pf_no']."'");
+			$pre_result=mysqli_num_rows($fetch_pre);
 
 			session_start();
 			$hidden_awd_count=$_POST['award_count'];
@@ -820,8 +820,8 @@ if (isset($_REQUEST['action'])) {
 		{
 			
 			$count=0;
-				$f_c=mysql_query("select count from award_temp where awd_pf_number='$pf_no' order by id desc limit 1");
-				$res=mysql_fetch_array($f_c);
+				$f_c=mysqli_query($conn,"select count from award_temp where awd_pf_number='$pf_no' order by id desc limit 1");
+				$res=mysqli_fetch_array($f_c);
 				if($res['count']==""){
 					$count++;
 				}else{
@@ -832,8 +832,8 @@ if (isset($_REQUEST['action'])) {
 			
 			$sql2=("insert into `award_track`(`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`awd_pf_number`,`awd_oldpf_number`,`awd_date`,`awd_by`,`awd_type`,`awd_other`,`awd_detail`,`date_time`,`updated_by`,`letter_no`,`letter_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pf_no','','$doa','$awarded_by','$select_awd_type','$other_award','$award_details',Now(),'$update_by','$award_ltr_no','$award_ltr_date','$count')");
 			
-			$res1=mysql_query($sql1);
-			$res2=mysql_query($sql2);
+			$res1=mysqli_query($conn,$sql1);
+			$res2=mysqli_query($conn,$sql2);
 			
 			$action="Inserted Record in Award Temp and in Award Track";
 			
@@ -841,8 +841,8 @@ if (isset($_REQUEST['action'])) {
 		else
 		{
 			
-			$f_q=mysql_query("select * from award_temp where awd_pf_number='$pf_no' and `id`='$hidden_award_id'");
-				$re=mysql_fetch_array($f_q);
+			$f_q=mysqli_query($conn,"select * from award_temp where awd_pf_number='$pf_no' and `id`='$hidden_award_id'");
+				$re=mysqli_fetch_array($f_q);
 				$count=$re['count'];
 			if($re['awd_pf_number']==$pf_no && $re['awd_date']==$doa && $re['awd_by']==$awarded_by && $re['awd_type']==$select_awd_type && $re['awd_other']==$other_award && $re['awd_detail']==$award_details )
 			{
@@ -867,7 +867,7 @@ if (isset($_REQUEST['action'])) {
 				
 				$sql1=("insert into `award_track`(`temp_transaction_id`,`final_transaction_id`,`zone`,`division`,`awd_pf_number`,`awd_date`,`awd_by`,`awd_type`,`awd_other`,`awd_detail`,`date_time`,`updated_by`,`letter_no`,`letter_datetime`,`count`)values('$trans_id','$trans_id',01,'SUR','$pf_no','$doa','$awarded_by','$select_awd_type','$other_award','$award_details',Now(),'$update_by','$award_ltr_no','$award_ltr_date','$count')");
 				
-				$res1=mysql_query($sql1)or die(mysql_error());
+				$res1=mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 				
 				$action="Updated Record in Award Temp and Inserted Record in Award Track";
 				
@@ -875,7 +875,7 @@ if (isset($_REQUEST['action'])) {
 			
 			$sql2=("UPDATE `award_temp` SET `temp_transaction_id`='$trans_id',`zone`='01',`division`='SUR',`awd_pf_number`='$pf_no',`awd_date`='$doa',`awd_by`='$awarded_by',`awd_type`='$select_awd_type',`awd_other`='$other_award',`awd_detail`='$award_details',`date_time`=Now(),`letter_no`='$award_ltr_no',`letter_datetime`='$award_ltr_date', `count`='$count' WHERE awd_pf_number='$pf_no' and id='$hidden_award_id'");
 		
-		$res2=mysql_query($sql2)or die(mysql_error());
+		$res2=mysqli_query($conn,$sql2)or die(mysqli_error($conn));
 		
 		}
 
@@ -894,11 +894,11 @@ if (isset($_REQUEST['action'])) {
         
 
 		case 'update_increment':
-			dbcon1();
+			$conn=dbcon1();
 			$incr_pf=$_POST['incr_pf'];
 			
-			$sql=mysql_query("select * from `increment_temp` where `incr_pf_number`='$incr_pf'");
-			$fetch_sql=mysql_num_rows($sql);
+			$sql=mysqli_query($conn,"select * from `increment_temp` where `incr_pf_number`='$incr_pf'");
+			$fetch_sql=mysqli_num_rows($sql);
 			$row_count=$_POST['row_count'];
 			if($row_count=="")
 			{
@@ -938,41 +938,41 @@ if (isset($_REQUEST['action'])) {
 				$incr_rop=$_POST['incr_add_row_rop'.$i];
 				$incr_remark=$_POST['incr_row_reason'.$i];
 				
-				$sql=mysql_query("select * from `increment_temp` where `incr_pf_number`='$incr_pf'");
+				$sql=mysqli_query($conn,"select * from `increment_temp` where `incr_pf_number`='$incr_pf'");
 				
-				$fetch_sql=mysql_num_rows($sql);
+				$fetch_sql=mysqli_num_rows($sql);
 				
 				if($i > $fetch_sql)
 				{	
 					
 					$count=0;
-					$f_c=mysql_query("select count from `increment_temp` where `incr_pf_number`='$incr_pf' order by id desc limit 1");
-					$res=mysql_fetch_array($f_c);
+					$f_c=mysqli_query($conn,"select count from `increment_temp` where `incr_pf_number`='$incr_pf' order by id desc limit 1");
+					$res=mysqli_fetch_array($f_c);
 					if($res['count']==""){
 						$count++;
 					}else{
 						$count=$res['count']+1;
 					}
 					
-					$sql1=mysql_query("insert into `increment_temp`(`temp_transaction_id`, `zone`, `division`, `incr_pf_number`, `incr_type`, `incr_date`, `ps_type`, `incr_scale`, `incr_level`, `incr_oldrop`, `incr_rop`, `incr_personel`, `incr_special`, `incr_nextdate`, `incr_remark`, `date_time`, `updated_by`,  `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$transaction_id','$zone','$division','$incr_pf','$incr_type','$incr_date','$ps_type_4','$incr_scale','$incr_level','','$incr_rop','','','','$incr_remark',Now(),$updated_by,'','','','','','','','','','$count')");
+					$sql1=mysqli_query($conn,"insert into `increment_temp`(`temp_transaction_id`, `zone`, `division`, `incr_pf_number`, `incr_type`, `incr_date`, `ps_type`, `incr_scale`, `incr_level`, `incr_oldrop`, `incr_rop`, `incr_personel`, `incr_special`, `incr_nextdate`, `incr_remark`, `date_time`, `updated_by`,  `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$transaction_id','$zone','$division','$incr_pf','$incr_type','$incr_date','$ps_type_4','$incr_scale','$incr_level','','$incr_rop','','','','$incr_remark',Now(),$updated_by,'','','','','','','','','','$count')");
 				
 					
-					$sql2=mysql_query("insert into `increment_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `incr_pf_number`, `incr_type`, `incr_date`, `ps_type`, `incr_scale`, `incr_level`, `incr_oldrop`, `incr_rop`, `incr_personel`, `incr_special`, `incr_nextdate`, `incr_remark`, `date_time`, `updated_by`,  `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$transaction_id','$final_transaction_id','$zone','$division','$incr_pf','$incr_type','$incr_date','$ps_type_4','$incr_scale','$incr_level','','$incr_rop','','','','$incr_remark',Now(),$updated_by,'','','','','','','','','','$count')");
+					$sql2=mysqli_query($conn,"insert into `increment_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `incr_pf_number`, `incr_type`, `incr_date`, `ps_type`, `incr_scale`, `incr_level`, `incr_oldrop`, `incr_rop`, `incr_personel`, `incr_special`, `incr_nextdate`, `incr_remark`, `date_time`, `updated_by`,  `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$transaction_id','$final_transaction_id','$zone','$division','$incr_pf','$incr_type','$incr_date','$ps_type_4','$incr_scale','$incr_level','','$incr_rop','','','','$incr_remark',Now(),$updated_by,'','','','','','','','','','$count')");
 					
 					$action="Inserted Record in Increment Temp and in Increment Track";
 					
 					
 				}else{
 					
-					$f_q=mysql_query("select count from `increment_temp` where incr_pf_number='".$incr_pf."' and id='".$incr_hidden_id."'");
-					$re=mysql_fetch_array($f_q);
+					$f_q=mysqli_query($conn,"select count from `increment_temp` where incr_pf_number='".$incr_pf."' and id='".$incr_hidden_id."'");
+					$re=mysqli_fetch_array($f_q);
 					$count=$re['count'];
 					
-					dbcon1();
-					$sq=mysql_query("SELECT * from increment_temp where incr_pf_number='".$incr_pf."' and id='".$incr_hidden_id."'");
+					$conn=dbcon1();
+					$sq=mysqli_query($conn,"SELECT * from increment_temp where incr_pf_number='".$incr_pf."' and id='".$incr_hidden_id."'");
 
 					if($sq){
-    					while($fetch_sql=mysql_fetch_array($sq))
+    					while($fetch_sql=mysqli_fetch_array($sq))
     					{
     						if($incr_type==$fetch_sql['incr_type'] && $incr_date==$fetch_sql['incr_date'] && $ps_type_4==$fetch_sql['ps_type'] && $incr_scale==$fetch_sql['incr_scale'] && $incr_level==$fetch_sql['incr_level'] && $incr_rop==$fetch_sql['incr_rop'] && $incr_remark==$fetch_sql['incr_remark'])
     						{
@@ -982,7 +982,7 @@ if (isset($_REQUEST['action'])) {
     						else
     						{
     							
-    							$sql1=mysql_query("insert into `increment_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `incr_pf_number`, `incr_type`, `incr_date`, `ps_type`, `incr_scale`, `incr_level`, `incr_oldrop`, `incr_rop`, `incr_personel`, `incr_special`, `incr_nextdate`, `incr_remark`, `date_time`, `updated_by`,  `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$transaction_id','$final_transaction_id','$zone','$division','$incr_pf','$incr_type','$incr_date','$ps_type_4','$incr_scale','$incr_level','','$incr_rop','','','','$incr_remark',Now(),$updated_by,'','','','','','','','','','$count')");
+    							$sql1=mysqli_query($conn,"insert into `increment_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `incr_pf_number`, `incr_type`, `incr_date`, `ps_type`, `incr_scale`, `incr_level`, `incr_oldrop`, `incr_rop`, `incr_personel`, `incr_special`, `incr_nextdate`, `incr_remark`, `date_time`, `updated_by`,  `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$transaction_id','$final_transaction_id','$zone','$division','$incr_pf','$incr_type','$incr_date','$ps_type_4','$incr_scale','$incr_level','','$incr_rop','','','','$incr_remark',Now(),$updated_by,'','','','','','','','','','$count')");
     							
     							$action="Updated Record in Increment Temp and Inserted Record in Increment Track";
     							
@@ -991,7 +991,7 @@ if (isset($_REQUEST['action'])) {
     					}
 					}
 			 //   echo $count;
-				$sql2=mysql_query("UPDATE `increment_temp` SET `temp_transaction_id`='$transaction_id',`zone`='$zone',`division`='$division',`incr_pf_number`='$incr_pf',`incr_type`='$incr_type',`incr_date`='$incr_date',`ps_type`='$ps_type_4',`incr_scale`='$incr_scale',`incr_level`='$incr_level',`incr_rop`='$incr_rop',`incr_remark`='$incr_remark',`updated_by`='$updated_by',`date_time`=Now() WHERE incr_pf_number='$incr_pf' and id='$incr_hidden_id'");
+				$sql2=mysqli_query($conn,"UPDATE `increment_temp` SET `temp_transaction_id`='$transaction_id',`zone`='$zone',`division`='$division',`incr_pf_number`='$incr_pf',`incr_type`='$incr_type',`incr_date`='$incr_date',`ps_type`='$ps_type_4',`incr_scale`='$incr_scale',`incr_level`='$incr_level',`incr_rop`='$incr_rop',`incr_remark`='$incr_remark',`updated_by`='$updated_by',`date_time`=Now() WHERE incr_pf_number='$incr_pf' and id='$incr_hidden_id'");
 					
 				}	
 			}
@@ -1011,8 +1011,8 @@ if (isset($_REQUEST['action'])) {
 	        $del_pf_num=$_SESSION["set_update_pf"];
 	        $del_id=$_POST["id"];
 	       // echo "id=>$id pf_num=>$pf_num";
-	       $res=mysql_query("DELETE FROM `increment_temp` WHERE incr_pf_number='$del_pf_num' and id='$del_id'");
-	       //echo mysql_error();
+	       $res=mysqli_query($conn,"DELETE FROM `increment_temp` WHERE incr_pf_number='$del_pf_num' and id='$del_id'");
+	       //echo mysqli_error();
 	       if($res){
 	           echo "true";
 	       }else{
@@ -1022,8 +1022,8 @@ if (isset($_REQUEST['action'])) {
 	
 		case 'update_advance':
 		
-			$fetch_pre=mysql_query("select * from advance_temp where adv_pf_number='".$_POST['adv_pf']."'");
-			$pre_result=mysql_num_rows($fetch_pre);
+			$fetch_pre=mysqli_query($conn,"select * from advance_temp where adv_pf_number='".$_POST['adv_pf']."'");
+			$pre_result=mysqli_num_rows($fetch_pre);
 			session_start();
 
 			$hidden_adv_count=$_POST['adv_count'];
@@ -1058,8 +1058,8 @@ if (isset($_REQUEST['action'])) {
 		if($i > $pre_result)
 		{
 			$count=0;
-				$f_c=mysql_query("select count from advance_temp where adv_pf_number='".$_POST['adv_pf']."' order by id desc limit 1");
-				$res=mysql_fetch_array($f_c);
+				$f_c=mysqli_query($conn,"select count from advance_temp where adv_pf_number='".$_POST['adv_pf']."' order by id desc limit 1");
+				$res=mysqli_fetch_array($f_c);
 				if($res['count']==""){
 					$count++;
 				}else{
@@ -1070,23 +1070,23 @@ if (isset($_REQUEST['action'])) {
 		
 			$sql2=("insert into `advance_track`(`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`adv_pf_number`,`adv_oldpf_number`,`adv_type`,`adv_letterno`,`adv_letterdate`,`adv_wefdate`,`adv_amount`,`adv_principle`,`adv_interest`,`adv_from`,`adv_to`,`adv_remark`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pf_no','','$advance_type','$letter_no','$letter_date','$wefdate','$amount','$principle','$interest','$fromdate','$todate','$remark','$update_by',Now(),'','','','','','','','','','$count')");
 		
-			$res1=mysql_query($sql1);
-			$res2=mysql_query($sql2);
+			$res1=mysqli_query($conn,$sql1);
+			$res2=mysqli_query($conn,$sql2);
 			
 			$action="Inserted Record in Advance Temp and in Advance Track";
 			
 		}
 		else
 		{
-			$f_q=mysql_query("select count from advance_temp where adv_pf_number='".$pf_no."' and id='".$hidden_advance_id."'");
-				$re=mysql_fetch_array($f_q);
+			$f_q=mysqli_query($conn,"select count from advance_temp where adv_pf_number='".$pf_no."' and id='".$hidden_advance_id."'");
+				$re=mysqli_fetch_array($f_q);
 				$count=$re['count'];
 			
-			dbcon1();
-			$sq=mysql_query("SELECT * from advance_temp where adv_pf_number='".$pf_no."' and id='".$hidden_advance_id."'");
+			$conn=dbcon1();
+			$sq=mysqli_query($conn,"SELECT * from advance_temp where adv_pf_number='".$pf_no."' and id='".$hidden_advance_id."'");
 			if($sq)
 			{
-				while($fetch_sql=mysql_fetch_array($sq))
+				while($fetch_sql=mysqli_fetch_array($sq))
 				{
 
 					if($advance_type==$fetch_sql['adv_type'] && $letter_no==$fetch_sql['adv_letterno'] && $letter_date==$fetch_sql['adv_letterdate'] && $wefdate==$fetch_sql['adv_wefdate'] && $amount==$fetch_sql['adv_amount'] && $principle==$fetch_sql['adv_principle'] && $interest==$fetch_sql['adv_interest'] && $fromdate==$fetch_sql['adv_from'] && $todate==$fetch_sql['adv_to'] && $remark==$fetch_sql['adv_remark'])
@@ -1098,7 +1098,7 @@ if (isset($_REQUEST['action'])) {
 				
 						$sql1=("insert into `advance_track`(`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`adv_pf_number`,`adv_oldpf_number`,`adv_type`,`adv_letterno`,`adv_letterdate`,`adv_wefdate`,`adv_amount`,`adv_principle`,`adv_interest`,`adv_from`,`adv_to`,`adv_remark`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pf_no','','$advance_type','$letter_no','$letter_date','$wefdate','$amount','$principle','$interest','$fromdate','$todate','$remark','$update_by',Now(),'','','','','','','','','','$count')");
 						
-						$res1=mysql_query($sql1)or die(mysql_error());
+						$res1=mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 						
 						$action="Updated Record in Advance Temp and Inserted Record in Advance Track";
 						
@@ -1108,7 +1108,7 @@ if (isset($_REQUEST['action'])) {
 			
 			$sql2=("UPDATE `advance_temp` SET `zone`='01',`division`='SUR',`temp_transaction_id`='$trans_id',`adv_pf_number`='$pf_no',`adv_type`='$advance_type',`adv_letterno`='$letter_no',`adv_letterdate`='$letter_date',`adv_wefdate`='$wefdate',`adv_amount`='$amount',`adv_principle`='$principle',`adv_interest`='$interest',`adv_from`='$fromdate',`adv_to`='$todate',`adv_remark`='$remark',`updated_by`='$update_by',`date_time`=Now(), `count`='$count'  WHERE adv_pf_number='$pf_no' and id='$hidden_advance_id'");
 			
-			$res2=mysql_query($sql2);
+			$res2=mysqli_query($conn,$sql2);
 			
 		}
 		}
@@ -1148,9 +1148,9 @@ if (isset($_REQUEST['action'])) {
 					$gra_subsciber=$_POST['gra_subsciber'.$i];
 					
 		
-					$sql1=mysql_query("insert into `nominee_temp`(`zone`,`division`,`temp_transaction_id`,`nom_pf_number`,`nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`, `count`)values('01','SUR','$trans_id','$gra_pf','$nominee_type_gra','$gra_name','$gra_rel','$gra_otherrel','$gra_perc','$gra_status','$gra_age','$gra_dob','$gra_pan','$gra_adhr','$gra_address','$gra_conting','$gra_subsciber','$update_by',Now(),'$i')");
+					$sql1=mysqli_query($conn,"insert into `nominee_temp`(`zone`,`division`,`temp_transaction_id`,`nom_pf_number`,`nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`, `count`)values('01','SUR','$trans_id','$gra_pf','$nominee_type_gra','$gra_name','$gra_rel','$gra_otherrel','$gra_perc','$gra_status','$gra_age','$gra_dob','$gra_pan','$gra_adhr','$gra_address','$gra_conting','$gra_subsciber','$update_by',Now(),'$i')");
 					
-					$sql2=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$gra_pf','$nominee_type_gra','$gra_name','$gra_rel','$gra_otherrel','$gra_perc','$gra_status','$gra_age','$gra_dob','$gra_pan','$gra_adhr','$gra_address','$gra_conting','$gra_subsciber','$update_by',Now(),'$i')");
+					$sql2=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$gra_pf','$nominee_type_gra','$gra_name','$gra_rel','$gra_otherrel','$gra_perc','$gra_status','$gra_age','$gra_dob','$gra_pan','$gra_adhr','$gra_address','$gra_conting','$gra_subsciber','$update_by',Now(),'$i')");
 					
 				}
 				if($sql1 && $sql2){
@@ -1162,9 +1162,9 @@ if (isset($_REQUEST['action'])) {
 		
 		case 'update_gra_nominee':
 		
-			$fetch_pre=mysql_query("select * from nominee_temp where nom_pf_number='".$_POST['gra_pf1']."' and nom_type='GRA'");
+			$fetch_pre=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_POST['gra_pf1']."' and nom_type='GRA'");
 			
-			$pre_result=mysql_num_rows($fetch_pre);
+			$pre_result=mysqli_num_rows($fetch_pre);
 			
 			$gra_counter=$_POST['gra_counter'];
 			if($gra_counter=="")
@@ -1173,10 +1173,10 @@ if (isset($_REQUEST['action'])) {
 			}
 			
 			$count=0;
-			$s=mysql_query("select * from nominee_temp where nom_pf_number='".$_POST['gra_pf1']."' ORDER BY id DESC");
-			$rs=mysql_num_rows($s);
+			$s=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_POST['gra_pf1']."' ORDER BY id DESC");
+			$rs=mysqli_num_rows($s);
 			if($rs>0){
-				$re=mysql_fetch_array($s);
+				$re=mysqli_fetch_array($s);
 				$count=$re['count']+1;
 			}
 			
@@ -1202,15 +1202,15 @@ if (isset($_REQUEST['action'])) {
 					
 					if($i > $pre_result)
 					{
-						$sql1=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')");
+						$sql1=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')");
 						
-						$sql2=mysql_query("INSERT INTO `nominee_temp`(`zone`, `division`, `temp_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')") or die(mysql_error());
+						$sql2=mysqli_query($conn,"INSERT INTO `nominee_temp`(`zone`, `division`, `temp_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')") or die(mysqli_error($conn));
 						
 					}else{
 						
-						$sql1=mysql_query("UPDATE `nominee_temp` SET `zone`='01',`division`='SUR',`temp_transaction_id`='$trans_id',`nom_pf_number`='$nom_pf',`nom_type`='$nominee_type',`nom_name`='$nom_name',`nom_rel`='$nomn_rel',`nom_otherrel`='$nom_otherrel',`nom_per`='$nom_perc',`nom_status`='$nom_status',`nom_age`='$nom_age',`nom_dob`='$nom_dob',`nom_panno`='$nom_pan',`nom_aadhar`='$nom_adhr',`nom_address`='$nom_address',`nom_conti`='$nom_conting',`nom_subscriber`='$nom_subsciber',`updated_by`='$update_by',`date_time`=Now() WHERE `nom_pf_number`='$nom_pf' and id='$update_id'");
+						$sql1=mysqli_query($conn,"UPDATE `nominee_temp` SET `zone`='01',`division`='SUR',`temp_transaction_id`='$trans_id',`nom_pf_number`='$nom_pf',`nom_type`='$nominee_type',`nom_name`='$nom_name',`nom_rel`='$nomn_rel',`nom_otherrel`='$nom_otherrel',`nom_per`='$nom_perc',`nom_status`='$nom_status',`nom_age`='$nom_age',`nom_dob`='$nom_dob',`nom_panno`='$nom_pan',`nom_aadhar`='$nom_adhr',`nom_address`='$nom_address',`nom_conti`='$nom_conting',`nom_subscriber`='$nom_subsciber',`updated_by`='$update_by',`date_time`=Now() WHERE `nom_pf_number`='$nom_pf' and id='$update_id'");
 						
-						$sql2=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now())");
+						$sql2=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now())");
 						
 					}	
 				}
@@ -1258,9 +1258,9 @@ if (isset($_REQUEST['action'])) {
 					$nom_subsciber=$_POST['nom_subsciber'.$i];
 					
 		
-					$sql1=mysql_query("insert into `nominee_temp`(`zone`,`division`,`temp_transaction_id`,`nom_pf_number`,`nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`)values('01','SUR','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$i')");
+					$sql1=mysqli_query($conn,"insert into `nominee_temp`(`zone`,`division`,`temp_transaction_id`,`nom_pf_number`,`nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`)values('01','SUR','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$i')");
 					
-					$sql2=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$i')");
+					$sql2=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$i')");
 					
 				}
 				if($sql1){
@@ -1273,9 +1273,9 @@ if (isset($_REQUEST['action'])) {
 		//update nominee
 		case 'update_pf_nominee':
 				
-			$fetch_pre=mysql_query("select * from nominee_temp where nom_pf_number='".$_POST['nom_pf1']."'");
+			$fetch_pre=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_POST['nom_pf1']."'");
 			
-			$pre_result=mysql_num_rows($fetch_pre);
+			$pre_result=mysqli_num_rows($fetch_pre);
 			
 			$pf_counter=$_POST['pf_counter'];
 			if($pf_counter=="")
@@ -1307,8 +1307,8 @@ if (isset($_REQUEST['action'])) {
 					if($i > $pre_result)
 					{
 						$count=0;
-						$f_c=mysql_query("select count from nominee_temp where `nom_pf_number`='$nom_pf' order by id desc limit 1");
-						$res=mysql_fetch_array($f_c);
+						$f_c=mysqli_query($conn,"select count from nominee_temp where `nom_pf_number`='$nom_pf' order by id desc limit 1");
+						$res=mysqli_fetch_array($f_c);
 						if($res['count']==""){
 							$count++;
 							//echo "if".$count."<br>";
@@ -1317,20 +1317,20 @@ if (isset($_REQUEST['action'])) {
 							//echo "else".$count."<br>";
 						}
 						
-						$sql1=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')");
+						$sql1=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')");
 						
-						$sql2=mysql_query("INSERT INTO `nominee_temp`(`zone`, `division`, `temp_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')") or die(mysql_error());
+						$sql2=mysqli_query($conn,"INSERT INTO `nominee_temp`(`zone`, `division`, `temp_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')") or die(mysqli_error($conn));
 						
 						$action="Inserted Record in Nominee Temp and in Nominee Track";
 						
 						
 					}else{
-							dbcon1();
-							$sq=mysql_query("SELECT * from nominee_temp where nom_pf_number='".$nom_pf."' and id='".$update_id."'");
+							$conn=dbcon1();
+							$sq=mysqli_query($conn,"SELECT * from nominee_temp where nom_pf_number='".$nom_pf."' and id='".$update_id."'");
 
 							if($sq)
 							{
-								while($fetch_sql=mysql_fetch_array($sq))
+								while($fetch_sql=mysqli_fetch_array($sq))
 								{
 
 									if($nom_name==$fetch_sql['nom_name'] && $nomn_rel==$fetch_sql['nom_rel'] && $nominee_type==$fetch_sql['nom_type'] && $nom_otherrel==$fetch_sql['nom_otherrel'] && $nom_perc==$fetch_sql['nom_per'] && $nom_status==$fetch_sql['nom_status'] && $nom_age==$fetch_sql['nom_age'] && $nom_dob==$fetch_sql['nom_dob'] && $nom_pan==$fetch_sql['nom_panno'] && $nom_adhr==$fetch_sql['nom_aadhar'] && $nom_address==$fetch_sql['nom_address'] && $nom_conting==$fetch_sql['nom_conti'] && $nom_subsciber==$fetch_sql['nom_subscriber'])
@@ -1339,13 +1339,13 @@ if (isset($_REQUEST['action'])) {
 									}
 							else
 							{
-								$f_q=mysql_query("select count from nominee_temp where `nom_pf_number`='$nom_pf' and `id`='$update_id'");
-								$re=mysql_fetch_array($f_q);
+								$f_q=mysqli_query($conn,"select count from nominee_temp where `nom_pf_number`='$nom_pf' and `id`='$update_id'");
+								$re=mysqli_fetch_array($f_q);
 								$count=$re['count'];
 							
 								$sql1=("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$nom_name','$nomn_rel','$nom_otherrel','$nom_perc','$nom_status','$nom_age','$nom_dob','$nom_pan','$nom_adhr','$nom_address','$nom_conting','$nom_subsciber','$update_by',Now(),'$count')");
 															
-								$result1=mysql_query($sql1)or die(mysql_error());
+								$result1=mysqli_query($conn,$sql1)or die(mysqli_error($conn));
 								
 								$action="Updated Record in Nominee Temp and Inserted Record in Nominee Track";
 								
@@ -1355,7 +1355,7 @@ if (isset($_REQUEST['action'])) {
 					
 					$sql2=("UPDATE `nominee_temp` SET `zone`='01',`division`='SUR',`temp_transaction_id`='$trans_id',`nom_pf_number`='$nom_pf',`nom_type`='$nominee_type',`nom_name`='$nom_name',`nom_rel`='$nomn_rel',`nom_otherrel`='$nom_otherrel',`nom_per`='$nom_perc',`nom_status`='$nom_status',`nom_age`='$nom_age',`nom_dob`='$nom_dob',`nom_panno`='$nom_pan',`nom_aadhar`='$nom_adhr',`nom_address`='$nom_address',`nom_conti`='$nom_conting',`nom_subscriber`='$nom_subsciber',`updated_by`='$update_by',`date_time`=Now() WHERE `nom_pf_number`='$nom_pf' and id='$update_id'");
 					
-					$result2=mysql_query($sql2);
+					$result2=mysqli_query($conn,$sql2);
 						
 						
 					}
@@ -1398,9 +1398,9 @@ if (isset($_REQUEST['action'])) {
 					$gis_subsciber=$_POST['gis_subsciber'.$i];
 					
 		
-					$sql1=mysql_query("insert into `nominee_temp`(`zone`,`division`,`temp_transaction_id`,`nom_pf_number`,`nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`)values('01','SUR','$trans_id','$gis_pf','$nominee_type_gis','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$i')");
+					$sql1=mysqli_query($conn,"insert into `nominee_temp`(`zone`,`division`,`temp_transaction_id`,`nom_pf_number`,`nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`)values('01','SUR','$trans_id','$gis_pf','$nominee_type_gis','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$i')");
 					
-					$sql2=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$gis_pf','$nominee_type_gis','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$i')");
+					$sql2=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$gis_pf','$nominee_type_gis','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$i')");
 				
 				}
 				if($sql1 && $sql2){
@@ -1412,8 +1412,8 @@ if (isset($_REQUEST['action'])) {
 		
 		case 'update_gis_nominee':
 				
-			$fetch_pre=mysql_query("select * from nominee_temp where nom_pf_number='".$_POST['gis_pf1']."' and nom_type='GIS'");
-			$pre_result=mysql_num_rows($fetch_pre);
+			$fetch_pre=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_POST['gis_pf1']."' and nom_type='GIS'");
+			$pre_result=mysqli_num_rows($fetch_pre);
 			
 			$gis_counter=$_POST['gis_counter'];
 			if($gis_counter=="")
@@ -1426,10 +1426,10 @@ if (isset($_REQUEST['action'])) {
 			$nominee_type='GIS';
 			
 			$count=0;
-			$s=mysql_query("select * from nominee_temp where nom_pf_number='".$_POST['gis_pf1']."' ORDER BY id DESC");
-			$rs=mysql_num_rows($s);
+			$s=mysqli_query($conn,"select * from nominee_temp where nom_pf_number='".$_POST['gis_pf1']."' ORDER BY id DESC");
+			$rs=mysqli_num_rows($s);
 			if($rs>0){
-				$re=mysql_fetch_array($s);
+				$re=mysqli_fetch_array($s);
 				$count=$re['count']+1;
 			}
 			
@@ -1453,16 +1453,16 @@ if (isset($_REQUEST['action'])) {
 					
 					if($i > $pre_result)
 					{
-						$sql1=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$count')");
+						$sql1=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$count')");
 						
-						$sql2=mysql_query("INSERT INTO `nominee_temp`(`zone`, `division`, `temp_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$nom_pf','$nominee_type','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$count')") or die(mysql_error());
+						$sql2=mysqli_query($conn,"INSERT INTO `nominee_temp`(`zone`, `division`, `temp_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`,`count`) VALUES ('01','SUR','$trans_id','$nom_pf','$nominee_type','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now(),'$count')") or die(mysqli_error($conn));
 						
 						
 					}else{
 						
-						$sql1=mysql_query("UPDATE `nominee_temp` SET `zone`='01',`division`='SUR',`temp_transaction_id`='$trans_id',`nom_pf_number`='$nom_pf',`nom_type`='$nominee_type',`nom_name`='$gis_name',`nom_rel`='$gis_rel',`nom_otherrel`='$gis_otherrel',`nom_per`='$gis_perc',`nom_status`='$gis_status',`nom_age`='$gis_age',`nom_dob`='$gis_dob',`nom_panno`='$gis_pan',`nom_aadhar`='$gis_adhr',`nom_address`='$gis_address',`nom_conti`='$gis_conting',`nom_subscriber`='$gis_subsciber',`updated_by`='$update_by',`date_time`=Now() WHERE `nom_pf_number`='$nom_pf' and id='$gis_update_id'");
+						$sql1=mysqli_query($conn,"UPDATE `nominee_temp` SET `zone`='01',`division`='SUR',`temp_transaction_id`='$trans_id',`nom_pf_number`='$nom_pf',`nom_type`='$nominee_type',`nom_name`='$gis_name',`nom_rel`='$gis_rel',`nom_otherrel`='$gis_otherrel',`nom_per`='$gis_perc',`nom_status`='$gis_status',`nom_age`='$gis_age',`nom_dob`='$gis_dob',`nom_panno`='$gis_pan',`nom_aadhar`='$gis_adhr',`nom_address`='$gis_address',`nom_conti`='$gis_conting',`nom_subscriber`='$gis_subsciber',`updated_by`='$update_by',`date_time`=Now() WHERE `nom_pf_number`='$nom_pf' and id='$gis_update_id'");
 						
-						$sql2=mysql_query("INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now())");
+						$sql2=mysqli_query($conn,"INSERT INTO `nominee_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `nom_pf_number`, `nom_type`, `nom_name`, `nom_rel`, `nom_otherrel`, `nom_per`, `nom_status`, `nom_age`, `nom_dob`, `nom_panno`, `nom_aadhar`, `nom_address`, `nom_conti`, `nom_subscriber`, `updated_by`, `date_time`) VALUES ('01','SUR','$trans_id','$trans_id','$nom_pf','$nominee_type','$gis_name','$gis_rel','$gis_otherrel','$gis_perc','$gis_status','$gis_age','$gis_dob','$gis_pan','$gis_adhr','$gis_address','$gis_conting','$gis_subsciber','$update_by',Now())");
 						
 						
 					}
@@ -1512,22 +1512,22 @@ if (isset($_REQUEST['action'])) {
 				//echo "id".$medi_id; 
 				if($medi_id=="")
 				{
-					$sql=mysql_query("insert into medical_temp(temp_transaction_id,zone,division,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('$trans_id','01','SUR','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
+					$sql=mysqli_query($conn,"insert into medical_temp(temp_transaction_id,zone,division,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('$trans_id','01','SUR','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
 				
 				
-					$sql2=mysql_query("insert into medical_track(zone,temp_transaction_id,final_transaction_id,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('01','$trans_id','$trans_id','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
+					$sql2=mysqli_query($conn,"insert into medical_track(zone,temp_transaction_id,final_transaction_id,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('01','$trans_id','$trans_id','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
 					
 					$action="Inserted Initial Medical Record in Medical Temp and in Medical Track";
 					
 				}
 				else
 				{	
-					dbcon1();
-					$fetch=mysql_query("select * from `medical_temp` where `medi_pf_number`='$medi_pf_no' and id='$medi_id'");
+					$conn=dbcon1();
+					$fetch=mysqli_query($conn,"select * from `medical_temp` where `medi_pf_number`='$medi_pf_no' and id='$medi_id'");
 					
-					//echo "select * from `medical_temp` where `medi_pf_number`='$medi_pf_no' and id='$medi_id'".mysql_error();
+					//echo "select * from `medical_temp` where `medi_pf_number`='$medi_pf_no' and id='$medi_id'".mysqli_error();
 					
-					$re=mysql_fetch_array($fetch);
+					$re=mysqli_fetch_array($fetch);
 					
 					if($re['medi_pf_number']==$medi_pf_no && $re['medi_examtype']==$medi_exam && $re['medi_cate']==$medi_cat && $re['medi_dob']==$med_dob && $re['medi_appo_date']==$med_appo_date && $re['medi_class']==$medi_cat_pme && $re['medi_design']==$in_med_desig && $re['medi_certino']==$medi_cer_no && $re['medi_certidate']==$med_cer_date && $re['medi_refno']==$med_ref && $re['medi_refdate']==$med_ref_date && $re['medi_remark']==$med_remark)
 					{
@@ -1549,13 +1549,13 @@ if (isset($_REQUEST['action'])) {
 					else
 					{
 						//echo "<script>alert('in else');</script>";
-						$sql2=mysql_query("insert into medical_track(zone,temp_transaction_id,final_transaction_id,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('01','$trans_id','$trans_id','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
+						$sql2=mysqli_query($conn,"insert into medical_track(zone,temp_transaction_id,final_transaction_id,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('01','$trans_id','$trans_id','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
 						
 						$action="Updated Initial Medical Record in Medical Temp and Inserted Record in Medical Track";
 						
 					}
 					
-					$sql=mysql_query("UPDATE `medical_temp` SET `medi_examtype`='$medi_exam',`medi_cate`='$medi_cat',`medi_dob`='$med_dob',`medi_appo_date`='$med_appo_date',`medi_class`='$medi_cat_pme',`medi_design`='$in_med_desig',`medi_certino`='$medi_cer_no',`medi_certidate`='$med_cer_date',`medi_refno`='$med_ref',`medi_refdate`='$med_ref_date',`medi_remark`='$med_remark',`datetime`='NOW()' WHERE `medi_pf_number`='$medi_pf_no' and id='$medi_id'");
+					$sql=mysqli_query($conn,"UPDATE `medical_temp` SET `medi_examtype`='$medi_exam',`medi_cate`='$medi_cat',`medi_dob`='$med_dob',`medi_appo_date`='$med_appo_date',`medi_class`='$medi_cat_pme',`medi_design`='$in_med_desig',`medi_certino`='$medi_cer_no',`medi_certidate`='$med_cer_date',`medi_refno`='$med_ref',`medi_refdate`='$med_ref_date',`medi_remark`='$med_remark',`datetime`='NOW()' WHERE `medi_pf_number`='$medi_pf_no' and id='$medi_id'");
 				}
 				
 				if($sql && $sql2)
@@ -1609,9 +1609,9 @@ if (isset($_REQUEST['action'])) {
 				$med_appo_date=date('Y-m-d', strtotime($_POST['med_appo_date']));
 				}
 				
-				$sql=mysql_query("insert into medical_temp(temp_transaction_id,zone,division,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('$trans_id','01','SUR','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
+				$sql=mysqli_query($conn,"insert into medical_temp(temp_transaction_id,zone,division,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('$trans_id','01','SUR','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
 				
-				$sql2=mysql_query("insert into medical_track(zone,temp_transaction_id,final_transaction_id,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('01','$trans_id','$trans_id','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
+				$sql2=mysqli_query($conn,"insert into medical_track(zone,temp_transaction_id,final_transaction_id,medi_pf_number,medi_examtype,medi_cate,medi_class,medi_design,medi_certino,medi_certidate,medi_refno,medi_refdate,medi_remark,datetime,updated_by,medi_dob,medi_appo_date)values('01','$trans_id','$trans_id','$medi_pf_no','$medi_exam','$medi_cat','$medi_cat_pme','$in_med_desig','$medi_cer_no','$med_cer_date','$med_ref','$med_ref_date','$med_remark',NOW(),'$update_by','$med_dob','$med_appo_date')");
 				
 				$action="Updated Record in Medical Temp and Inserted Record in Medical Track";
 				$action_on=$medi_pf_no;
@@ -1662,8 +1662,8 @@ if (isset($_REQUEST['action'])) {
 			
 				$sql2=("insert into `penalty_temp`(`temp_transaction_id`,`zone`,`division`,`pen_pf_number`,`pen_oldpf_number`, `pen_type`, `pen_issued`, `pen_effetcted`, `pen_letterno`, `pen_letterdate`, `pen_chargestatus`, `pen_chargeref`, `pen_from`, `pen_to`, `pen_remark`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`,`letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`)values('$trans_id','01','SUR','$pen_pf_no','','$pen_type','$pen_issued','$pen_effected','$pen_letter_no','$pen_letter_date','$pen_chargesheet_status','$pen_chargesheet_ref','$pen_from_date','$pen_to_date','$pen_remark','$update_by',Now(),'','','','','','','','','','$i')");
 			
-				$result1=mysql_query($sql1);
-				$result2=mysql_query($sql2);
+				$result1=mysqli_query($conn,$sql1);
+				$result2=mysqli_query($conn,$sql2);
 				
 			}
 			
@@ -1707,8 +1707,8 @@ if (isset($_REQUEST['action'])) {
 			 
 				$sql2="insert into `training_temp`(`temp_transaction_id`,`zone`,`division`,`pf_number`,`old_pf_number`, `last_date`, `training_type`,`tr_inst`,`tr_dept`,`tr_desig`, `due_date`, `training_from`, `letter_no`, `letter_date`, `description`, `remarks`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_number`, `letter_datetime`,`uploaded_letter`,`uploaded_status`, `approved_by`, `approved_datetime`, `training_to`, `count`)values('$trans_id','01','SUR','$tra_pf_no','','$tra_last_date','$tra_type','$inst','$tr_dept','$tr_desig','$tra_due_date','$tra_from','$tra_letter_no','$tra_letter_date','$tra_desc','$tra_remarks','$update_by',Now(),'','','','','','','','','','$tra_to','$i')";
 			
-				$result1=mysql_query($sql1);
-				$result2=mysql_query($sql2);
+				$result1=mysqli_query($conn,$sql1);
+				$result2=mysqli_query($conn,$sql2);
 				
 				
 			}
@@ -1747,8 +1747,8 @@ if (isset($_REQUEST['action'])) {
 		
 			$sql2=("insert into `award_track`(`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`awd_pf_number`,`awd_oldpf_number`,`awd_date`,`awd_by`,`awd_type`,`awd_other`,`awd_detail`,`date_time`,`updated_by`,`letter_no`,`letter_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pf_no','','$doa','$awarded_by','$select_awd_type','$other_award','$award_details',Now(),'$update_by','$award_ltr_no','$award_ltr_date','$i')");
 		
-			$res1=mysql_query($sql1);
-			$res2=mysql_query($sql2);
+			$res1=mysqli_query($conn,$sql1);
+			$res2=mysqli_query($conn,$sql2);
 		}
 		
 		if($res1 && $res2)
@@ -1786,8 +1786,8 @@ if (isset($_REQUEST['action'])) {
 			$sql2=("INSERT INTO `family_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `emp_pf`, `fmy_pf_number`,`fmy_updatedate`, `fmy_member`, `fmy_rel`, `fmy_gender`, `fmy_dob`, `updated_by`, `date_time`,`count`) VALUES (01,'SUR','$trans_id','$trans_id','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$i')");
 	
 		
-			$res1=mysql_query($sql1);	
-			$res2=mysql_query($sql2);	
+			$res1=mysqli_query($conn,$sql1);	
+			$res2=mysqli_query($conn,$sql2);	
 			
 		}
 		
@@ -1801,8 +1801,8 @@ if (isset($_REQUEST['action'])) {
 		break;
 		
 		case 'update_family_compo':
-		$fetch_pre=mysql_query("select * from family_temp where emp_pf='".$_POST['fc_pf_main']."'");
-		$pre_result=mysql_num_rows($fetch_pre);
+		$fetch_pre=mysqli_query($conn,"select * from family_temp where emp_pf='".$_POST['fc_pf_main']."'");
+		$pre_result=mysqli_num_rows($fetch_pre);
 		
 		session_start();
 		
@@ -1815,10 +1815,10 @@ if (isset($_REQUEST['action'])) {
 		$update_by=$_SESSION['id'];
 		$trans_id=date('dmYHis');
 		$count=0;
-		$s=mysql_query("select * from family_temp where emp_pf='$fc_pf_main' ORDER BY id DESC");
-		$rs=mysql_num_rows($s);
+		$s=mysqli_query($conn,"select * from family_temp where emp_pf='$fc_pf_main' ORDER BY id DESC");
+		$rs=mysqli_num_rows($s);
 		if($rs>0){
-			$re=mysql_fetch_array($s);
+			$re=mysqli_fetch_array($s);
 			$count=$re['count']+1;
 		}
 		
@@ -1839,8 +1839,8 @@ if (isset($_REQUEST['action'])) {
 			if($i > $pre_result)
 			{
 				$count=0;
-				$f_c=mysql_query("select count from family_temp where `emp_pf`='$fc_pf_main' order by id desc limit 1");
-				$res=mysql_fetch_array($f_c);
+				$f_c=mysqli_query($conn,"select count from family_temp where `emp_pf`='$fc_pf_main' order by id desc limit 1");
+				$res=mysqli_fetch_array($f_c);
 				if($res['count']==""){
 					$count++;
 					//echo "if".$count."<br>";
@@ -1849,23 +1849,23 @@ if (isset($_REQUEST['action'])) {
 					//echo "else".$count."<br>";
 				}
 				
-				$sql1=mysql_query("insert into `family_temp`(`temp_transaction_id`,`zone`,`division`,`emp_pf`,`fmy_pf_number`,`fmy_updatedate`,`fmy_member`,`fmy_rel`,`fmy_gender`,`fmy_dob`,`updated_by`,`date_time`,`count`)values('$trans_id',01,'SUR','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$count')");
+				$sql1=mysqli_query($conn,"insert into `family_temp`(`temp_transaction_id`,`zone`,`division`,`emp_pf`,`fmy_pf_number`,`fmy_updatedate`,`fmy_member`,`fmy_rel`,`fmy_gender`,`fmy_dob`,`updated_by`,`date_time`,`count`)values('$trans_id',01,'SUR','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$count')");
 				
-				$sql2=mysql_query("INSERT INTO `family_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `emp_pf`, `fmy_pf_number`,`fmy_updatedate`, `fmy_member`, `fmy_rel`, `fmy_gender`, `fmy_dob`, `updated_by`, `date_time`,`count`) VALUES (01,'SUR','$trans_id','$trans_id','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$count')");
+				$sql2=mysqli_query($conn,"INSERT INTO `family_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `emp_pf`, `fmy_pf_number`,`fmy_updatedate`, `fmy_member`, `fmy_rel`, `fmy_gender`, `fmy_dob`, `updated_by`, `date_time`,`count`) VALUES (01,'SUR','$trans_id','$trans_id','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$count')");
 				
 				$action="Inserted Record in Family Temp and in Family Track";
 				
 				
 			}else{
-				$f_q=mysql_query("select count from family_temp where `emp_pf`='$fc_pf_main' and `id`='$family_update_id'");
-				$re=mysql_fetch_array($f_q);
+				$f_q=mysqli_query($conn,"select count from family_temp where `emp_pf`='$fc_pf_main' and `id`='$family_update_id'");
+				$re=mysqli_fetch_array($f_q);
 				$count=$re['count'];
 				
-				dbcon1();
-				$sq=mysql_query("SELECT * from family_temp where emp_pf='".$fc_pf_main."' and id='".$family_update_id."'");
+				$conn=dbcon1();
+				$sq=mysqli_query($conn,"SELECT * from family_temp where emp_pf='".$fc_pf_main."' and id='".$family_update_id."'");
 				if($sq)
 				{
-					while($fetch_sql=mysql_fetch_array($sq))
+					while($fetch_sql=mysqli_fetch_array($sq))
 					{
 						if($fc_updated_date==$fetch_sql['fmy_updatedate'] && $fc_fam_mem_name==$fetch_sql['fmy_member'] && $fc_mem_rel==$fetch_sql['fmy_rel'] && $fc_mem_gender==$fetch_sql['fmy_gender'] && $fc_fam_mem_dob==$fetch_sql['fmy_dob'])
 						{
@@ -1874,7 +1874,7 @@ if (isset($_REQUEST['action'])) {
 						else
 						{
 							
-							$sql2=mysql_query("INSERT INTO `family_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `emp_pf`, `fmy_pf_number`,`fmy_updatedate`, `fmy_member`, `fmy_rel`, `fmy_gender`, `fmy_dob`, `updated_by`, `date_time`,`count`) VALUES (01,'SUR','$trans_id','$trans_id','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$count')")or die(mysql_error());
+							$sql2=mysqli_query($conn,"INSERT INTO `family_track`(`zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `emp_pf`, `fmy_pf_number`,`fmy_updatedate`, `fmy_member`, `fmy_rel`, `fmy_gender`, `fmy_dob`, `updated_by`, `date_time`,`count`) VALUES (01,'SUR','$trans_id','$trans_id','$fc_pf_main','$fc_pf_no','$fc_updated_date','$fc_fam_mem_name','$fc_mem_rel','$fc_mem_gender','$fc_fam_mem_dob','$update_by',Now(),'$count')")or die(mysqli_error($conn));
 							
 							$action="Updated Record in Family Temp and Inserted Record in Family Track";
 							
@@ -1883,7 +1883,7 @@ if (isset($_REQUEST['action'])) {
 					}
 				}
 				
-				$sql1=mysql_query("UPDATE `family_temp` SET `zone`=01,`division`='SUR',`emp_pf`='$fc_pf_main',`fmy_pf_number`='$fc_pf_no',`fmy_updatedate`='$fc_updated_date',`fmy_member`='$fc_fam_mem_name',`fmy_rel`='$fc_mem_rel',`fmy_gender`='$fc_mem_gender',`fmy_dob`='$fc_fam_mem_dob',`updated_by`='$update_by',`date_time`=Now() WHERE `emp_pf`='$fc_pf_main' and `id`='$family_update_id'");
+				$sql1=mysqli_query($conn,"UPDATE `family_temp` SET `zone`=01,`division`='SUR',`emp_pf`='$fc_pf_main',`fmy_pf_number`='$fc_pf_no',`fmy_updatedate`='$fc_updated_date',`fmy_member`='$fc_fam_mem_name',`fmy_rel`='$fc_mem_rel',`fmy_gender`='$fc_mem_gender',`fmy_dob`='$fc_fam_mem_dob',`updated_by`='$update_by',`date_time`=Now() WHERE `emp_pf`='$fc_pf_main' and `id`='$family_update_id'");
 				
 			}
 		}
@@ -1928,8 +1928,8 @@ if (isset($_REQUEST['action'])) {
 		
 			$sql2=("insert into `advance_track`(`zone`,`division`,`temp_transaction_id`,`final_transaction_id`,`adv_pf_number`,`adv_oldpf_number`,`adv_type`,`adv_letterno`,`adv_letterdate`,`adv_wefdate`,`adv_amount`,`adv_principle`,`adv_interest`,`adv_from`,`adv_to`,`adv_remark`,`updated_by`,`date_time`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`,`count`)values(01,'SUR','$trans_id','$trans_id','$pf_no','','$advance_type','$letter_no','$letter_date','$wefdate','$amount','$principle','$interest','$fromdate','$todate','$remark','$update_by',Now(),'','','','','','','','','','$i')");
 		
-			$res1=mysql_query($sql1);
-			$res2=mysql_query($sql2);
+			$res1=mysqli_query($conn,$sql1);
+			$res2=mysqli_query($conn,$sql2);
 			
 			$action="Inserted Record in Advance Temp and in Advance Track";
 			$action_on=$pf_no;
@@ -2001,27 +2001,27 @@ if (isset($_REQUEST['action'])) {
 			    $final_transaction_id= date('Ymdhis');
 				session_start();
 				$updated_by=$_SESSION['id'];
-				$pre=mysql_query("select * from `present_work_temp` where preapp_pf_number='".$_SESSION['set_update_pf']."'");
+				$pre=mysqli_query($conn,"select * from `present_work_temp` where preapp_pf_number='".$_SESSION['set_update_pf']."'");
 					
-				$pre_fetch=mysql_num_rows($pre);
+				$pre_fetch=mysqli_num_rows($pre);
 				
 				if($pre_fetch==0){
 					
-					$sql=mysql_query("INSERT INTO `present_work_temp` (`temp_transaction_id`, `zone`, `division`, `preapp_pf_number`,`preapp_department`, `preapp_designation`,`pre_otherdesign`, `ps_type`, `preapp_scale`, `preapp_level`, `preapp_group`, `preapp_station`, `preapp_billunit`, `preapp_rop`, `preapp_depot`, `sgd_dropdwn`, `sgd_designation`,`presgd_otherdesign`, `sgd_pst`, `sgd_scale`,`sgd_level`, `sgd_billunit`, `sgd_depot`, `sgd_station`, `sgd_group`, `ogd_desig`,`preogd_otherdesign`, `ogd_pst`, `ogd_scale`,`ogd_level`, `ogd_billunit`, `ogd_depot`, `ogd_station`, `ogd_group`, `ogd_rop`,`pre_remarky`,`pre_remarkn`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) VALUES ('$transaction_id','01','SUR','$pre_pf_no','$preapp_dept','$preapp_desig','$preapp_otherstation','$ps_type_2','$preapp_scale','$preapp_level','$preapp_group','$station_id6','$depot_bill_unit1','$preapp_rop','$depot_bill_unit1','$preapp_subtype1','$preapp_sgd_desig','$preapp_sgd_other_desig','$sgd_ps_type_2','$preapp_sgd_scale','$preapp_sgd_level','$sgd_depot_bill_unit1','$sgd_depot_bill_unit1','$station_id4','$sgd_preapp_group' ,'$preapp_ogd_desig','$preapp_ogd_other_desig','$ogd_ps_type_2','$preapp_ogd_scale','$preapp_ogd_level','$ogd_depot_bill_unit1','$ogd_depot_bill_unit1','$station_id5','$ogd_preapp_group','$preapp_ogd_rop','$yremark','$nremark','$updated_by',Now(),'','','','','','','','')");
+					$sql=mysqli_query($conn,"INSERT INTO `present_work_temp` (`temp_transaction_id`, `zone`, `division`, `preapp_pf_number`,`preapp_department`, `preapp_mysqli`,`pre_otherdesign`, `ps_type`, `preapp_scale`, `preapp_level`, `preapp_group`, `preapp_station`, `preapp_billunit`, `preapp_rop`, `preapp_depot`, `sgd_dropdwn`, `sgd_mysqli`,`presgd_otherdesign`, `sgd_pst`, `sgd_scale`,`sgd_level`, `sgd_billunit`, `sgd_depot`, `sgd_station`, `sgd_group`, `ogd_desig`,`preogd_otherdesign`, `ogd_pst`, `ogd_scale`,`ogd_level`, `ogd_billunit`, `ogd_depot`, `ogd_station`, `ogd_group`, `ogd_rop`,`pre_remarky`,`pre_remarkn`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) VALUES ('$transaction_id','01','SUR','$pre_pf_no','$preapp_dept','$preapp_desig','$preapp_otherstation','$ps_type_2','$preapp_scale','$preapp_level','$preapp_group','$station_id6','$depot_bill_unit1','$preapp_rop','$depot_bill_unit1','$preapp_subtype1','$preapp_sgd_desig','$preapp_sgd_other_desig','$sgd_ps_type_2','$preapp_sgd_scale','$preapp_sgd_level','$sgd_depot_bill_unit1','$sgd_depot_bill_unit1','$station_id4','$sgd_preapp_group' ,'$preapp_ogd_desig','$preapp_ogd_other_desig','$ogd_ps_type_2','$preapp_ogd_scale','$preapp_ogd_level','$ogd_depot_bill_unit1','$ogd_depot_bill_unit1','$station_id5','$ogd_preapp_group','$preapp_ogd_rop','$yremark','$nremark','$updated_by',Now(),'','','','','','','','')");
 				
-					$sq2=mysql_query("INSERT INTO `present_work_track` (`temp_transaction_id`, `zone`, `division`, `preapp_pf_number`,`preapp_department`, `preapp_designation`,`pre_otherdesign`, `ps_type`, `preapp_scale`, `preapp_level`, `preapp_group`, `preapp_station`, `preapp_billunit`, `preapp_rop`, `preapp_depot`, `sgd_dropdwn`, `sgd_designation`,`presgd_otherdesign`, `sgd_pst`, `sgd_scale`,`sgd_level`, `sgd_billunit`, `sgd_depot`, `sgd_station`, `sgd_group`, `ogd_desig`,`preogd_otherdesign`, `ogd_pst`, `ogd_scale`,`ogd_level`, `ogd_billunit`, `ogd_depot`, `ogd_station`, `ogd_group`, `ogd_rop`, `pre_remarky`,`pre_remarkn`,`updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`final_transaction_id`) VALUES ('$transaction_id','01','SUR','$pre_pf_no','$preapp_dept','$preapp_desig','$preapp_otherstation','$ps_type_2','$preapp_scale','$preapp_level','$preapp_group','$station_id6','$depot_bill_unit1','$preapp_rop','$depot_bill_unit1','$preapp_subtype1','$preapp_sgd_desig','$preapp_sgd_other_desig','$sgd_ps_type_2','$preapp_sgd_scale','$preapp_sgd_level','$sgd_depot_bill_unit1','$sgd_depot_bill_unit1','$station_id4','$sgd_preapp_group' ,'$preapp_ogd_desig','$preapp_ogd_other_desig','$ogd_ps_type_2','$preapp_ogd_scale','$preapp_ogd_level','$ogd_depot_bill_unit1','$ogd_depot_bill_unit1','$station_id5','$ogd_preapp_group','$preapp_ogd_rop','$yremark','$nremark','$updated_by',Now(),'','','','','','','','','$transaction_id')");
+					$sq2=mysqli_query($conn,"INSERT INTO `present_work_track` (`temp_transaction_id`, `zone`, `division`, `preapp_pf_number`,`preapp_department`, `preapp_mysqli`,`pre_otherdesign`, `ps_type`, `preapp_scale`, `preapp_level`, `preapp_group`, `preapp_station`, `preapp_billunit`, `preapp_rop`, `preapp_depot`, `sgd_dropdwn`, `sgd_mysqli`,`presgd_otherdesign`, `sgd_pst`, `sgd_scale`,`sgd_level`, `sgd_billunit`, `sgd_depot`, `sgd_station`, `sgd_group`, `ogd_desig`,`preogd_otherdesign`, `ogd_pst`, `ogd_scale`,`ogd_level`, `ogd_billunit`, `ogd_depot`, `ogd_station`, `ogd_group`, `ogd_rop`, `pre_remarky`,`pre_remarkn`,`updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`final_transaction_id`) VALUES ('$transaction_id','01','SUR','$pre_pf_no','$preapp_dept','$preapp_desig','$preapp_otherstation','$ps_type_2','$preapp_scale','$preapp_level','$preapp_group','$station_id6','$depot_bill_unit1','$preapp_rop','$depot_bill_unit1','$preapp_subtype1','$preapp_sgd_desig','$preapp_sgd_other_desig','$sgd_ps_type_2','$preapp_sgd_scale','$preapp_sgd_level','$sgd_depot_bill_unit1','$sgd_depot_bill_unit1','$station_id4','$sgd_preapp_group' ,'$preapp_ogd_desig','$preapp_ogd_other_desig','$ogd_ps_type_2','$preapp_ogd_scale','$preapp_ogd_level','$ogd_depot_bill_unit1','$ogd_depot_bill_unit1','$station_id5','$ogd_preapp_group','$preapp_ogd_rop','$yremark','$nremark','$updated_by',Now(),'','','','','','','','','$transaction_id')");
 					
 					$action="Inserted Record in Present Work Temp and in Present Work Track";
 					
 					
 				}else{
-					dbcon1();
-					$sq=mysql_query("SELECT * from present_work_temp where preapp_pf_number='".$pre_pf_no."'");
+					$conn=dbcon1();
+					$sq=mysqli_query($conn,"SELECT * from present_work_temp where preapp_pf_number='".$pre_pf_no."'");
 					if($sq)
 					{
-						while($fetch_sql=mysql_fetch_array($sq))
+						while($fetch_sql=mysqli_fetch_array($sq))
 						{
-							if($preapp_dept==$fetch_sql['preapp_department'] && $preapp_subtype1==$fetch_sql['sgd_dropdwn'] && $preapp_desig==$fetch_sql['preapp_designation'] && $depot_bill_unit1==$fetch_sql['preapp_billunit'] && $ps_type_2==$fetch_sql['ps_type'] && $preapp_scale==$fetch_sql['preapp_scale'] && $preapp_level==$fetch_sql['preapp_level'] && $preapp_group==$fetch_sql['preapp_group'] && $station_id6==$fetch_sql['preapp_station'] && $preapp_otherstation==$fetch_sql['pre_otherdesign'] && $preapp_rop==$fetch_sql['preapp_rop'] && $preapp_sgd_desig==$fetch_sql['sgd_designation'] && $sgd_ps_type_2==$fetch_sql['sgd_pst'] && $preapp_sgd_other_desig==$fetch_sql['presgd_otherdesign'] && $preapp_sgd_level==$fetch_sql['sgd_level'] && $preapp_sgd_scale==$fetch_sql['sgd_scale'] && $sgd_depot_bill_unit1==$fetch_sql['sgd_billunit'] && $station_id4==$fetch_sql['sgd_station'] && $sgd_preapp_group==$fetch_sql['sgd_group'] && $preapp_ogd_desig==$fetch_sql['ogd_desig'] && $ogd_ps_type_2==$fetch_sql['ogd_pst'] && $preapp_ogd_scale==$fetch_sql['ogd_scale'] && $preapp_ogd_other_desig==$fetch_sql['preogd_otherdesign'] && $preapp_ogd_level==$fetch_sql['ogd_level'] && $ogd_depot_bill_unit1==$fetch_sql['ogd_billunit'] && $station_id5==$fetch_sql['ogd_station'] && $ogd_preapp_group==$fetch_sql['ogd_group'] && $preapp_ogd_rop==$fetch_sql['ogd_rop'] && $yremark==$fetch_sql['pre_remarky'] && $nremark==$fetch_sql['pre_remarkn'])
+							if($preapp_dept==$fetch_sql['preapp_department'] && $preapp_subtype1==$fetch_sql['sgd_dropdwn'] && $preapp_desig==$fetch_sql['preapp_mysqli'] && $depot_bill_unit1==$fetch_sql['preapp_billunit'] && $ps_type_2==$fetch_sql['ps_type'] && $preapp_scale==$fetch_sql['preapp_scale'] && $preapp_level==$fetch_sql['preapp_level'] && $preapp_group==$fetch_sql['preapp_group'] && $station_id6==$fetch_sql['preapp_station'] && $preapp_otherstation==$fetch_sql['pre_otherdesign'] && $preapp_rop==$fetch_sql['preapp_rop'] && $preapp_sgd_desig==$fetch_sql['sgd_mysqli'] && $sgd_ps_type_2==$fetch_sql['sgd_pst'] && $preapp_sgd_other_desig==$fetch_sql['presgd_otherdesign'] && $preapp_sgd_level==$fetch_sql['sgd_level'] && $preapp_sgd_scale==$fetch_sql['sgd_scale'] && $sgd_depot_bill_unit1==$fetch_sql['sgd_billunit'] && $station_id4==$fetch_sql['sgd_station'] && $sgd_preapp_group==$fetch_sql['sgd_group'] && $preapp_ogd_desig==$fetch_sql['ogd_desig'] && $ogd_ps_type_2==$fetch_sql['ogd_pst'] && $preapp_ogd_scale==$fetch_sql['ogd_scale'] && $preapp_ogd_other_desig==$fetch_sql['preogd_otherdesign'] && $preapp_ogd_level==$fetch_sql['ogd_level'] && $ogd_depot_bill_unit1==$fetch_sql['ogd_billunit'] && $station_id5==$fetch_sql['ogd_station'] && $ogd_preapp_group==$fetch_sql['ogd_group'] && $preapp_ogd_rop==$fetch_sql['ogd_rop'] && $yremark==$fetch_sql['pre_remarky'] && $nremark==$fetch_sql['pre_remarkn'])
 							{
 								echo "<script>alert('Nothing Has Changed')</script>";
 							}
@@ -2031,7 +2031,7 @@ if (isset($_REQUEST['action'])) {
 								
 								echo $preapp_dept."==".$fetch_sql['preapp_department']."<br>";
 								echo $preapp_subtype1."==".$fetch_sql['sgd_dropdwn']."<br>";
-								echo $preapp_desig."==".$fetch_sql['preapp_designation']."<br>"; 
+								echo $preapp_desig."==".$fetch_sql['preapp_mysqli']."<br>"; 
 								echo $depot_bill_unit1."==".$fetch_sql['preapp_billunit']."<br>";
 								echo $ps_type_2."==".$fetch_sql['ps_type']."<br>";
 								echo $preapp_scale."==".$fetch_sql['preapp_scale']."<br>";
@@ -2040,7 +2040,7 @@ if (isset($_REQUEST['action'])) {
 								echo $station_id6."==".$fetch_sql['preapp_station']."<br>"; 
 								echo $preapp_otherstation."==".$fetch_sql['pre_otherdesign']."<br>"; 
 								echo $preapp_rop."==".$fetch_sql['preapp_rop']."<br>"; 
-								echo $preapp_sgd_desig."==".$fetch_sql['sgd_designation']."<br>"; 
+								echo $preapp_sgd_desig."==".$fetch_sql['sgd_mysqli']."<br>"; 
 								echo $sgd_ps_type_2."==".$fetch_sql['sgd_pst']."<br>"; 
 								echo $preapp_sgd_other_desig."==".$fetch_sql['presgd_otherdesign']."<br>"; 
 								echo $preapp_sgd_level."==".$fetch_sql['sgd_level']."<br>"; 
@@ -2061,14 +2061,14 @@ if (isset($_REQUEST['action'])) {
 								echo $nremark."==".$fetch_sql['pre_remarkn']."<br>";  */
 							
 							
-								$sq2=mysql_query("INSERT INTO `present_work_track` (`temp_transaction_id`, `zone`, `division`, `preapp_pf_number`,`preapp_department`, `preapp_designation`,`pre_otherdesign`, `ps_type`, `preapp_scale`, `preapp_level`, `preapp_group`, `preapp_station`, `preapp_billunit`, `preapp_rop`, `preapp_depot`, `sgd_dropdwn`, `sgd_designation`,`presgd_otherdesign`, `sgd_pst`, `sgd_scale`,`sgd_level`, `sgd_billunit`, `sgd_depot`, `sgd_station`, `sgd_group`, `ogd_desig`,`preogd_otherdesign`, `ogd_pst`, `ogd_scale`,`ogd_level`, `ogd_billunit`, `ogd_depot`, `ogd_station`, `ogd_group`, `ogd_rop`, `pre_remarky`,`pre_remarkn`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) VALUES ('$transaction_id','01','SUR','$pre_pf_no','$preapp_dept','$preapp_desig','$preapp_otherstation','$ps_type_2','$preapp_scale','$preapp_level','$preapp_group','$station_id6','$depot_bill_unit1','$preapp_rop','$depot_bill_unit1','$preapp_subtype1','$preapp_sgd_desig','$preapp_sgd_other_desig','$sgd_ps_type_2','$preapp_sgd_scale','$preapp_sgd_level','$sgd_depot_bill_unit1','$sgd_depot_bill_unit1','$station_id4','$sgd_preapp_group' ,'$preapp_ogd_desig','$preapp_ogd_other_desig','$ogd_ps_type_2','$preapp_ogd_scale','$preapp_ogd_level','$ogd_depot_bill_unit1','$ogd_depot_bill_unit1','$station_id5','$ogd_preapp_group','$preapp_ogd_rop','$yremark','$nremark','$updated_by',Now(),'','','','','','','','')");
+								$sq2=mysqli_query($conn,"INSERT INTO `present_work_track` (`temp_transaction_id`, `zone`, `division`, `preapp_pf_number`,`preapp_department`, `preapp_mysqli`,`pre_otherdesign`, `ps_type`, `preapp_scale`, `preapp_level`, `preapp_group`, `preapp_station`, `preapp_billunit`, `preapp_rop`, `preapp_depot`, `sgd_dropdwn`, `sgd_mysqli`,`presgd_otherdesign`, `sgd_pst`, `sgd_scale`,`sgd_level`, `sgd_billunit`, `sgd_depot`, `sgd_station`, `sgd_group`, `ogd_desig`,`preogd_otherdesign`, `ogd_pst`, `ogd_scale`,`ogd_level`, `ogd_billunit`, `ogd_depot`, `ogd_station`, `ogd_group`, `ogd_rop`, `pre_remarky`,`pre_remarkn`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) VALUES ('$transaction_id','01','SUR','$pre_pf_no','$preapp_dept','$preapp_desig','$preapp_otherstation','$ps_type_2','$preapp_scale','$preapp_level','$preapp_group','$station_id6','$depot_bill_unit1','$preapp_rop','$depot_bill_unit1','$preapp_subtype1','$preapp_sgd_desig','$preapp_sgd_other_desig','$sgd_ps_type_2','$preapp_sgd_scale','$preapp_sgd_level','$sgd_depot_bill_unit1','$sgd_depot_bill_unit1','$station_id4','$sgd_preapp_group' ,'$preapp_ogd_desig','$preapp_ogd_other_desig','$ogd_ps_type_2','$preapp_ogd_scale','$preapp_ogd_level','$ogd_depot_bill_unit1','$ogd_depot_bill_unit1','$station_id5','$ogd_preapp_group','$preapp_ogd_rop','$yremark','$nremark','$updated_by',Now(),'','','','','','','','')");
 								
 								$action="Updated Record in Present Work Temp and Inserted Record in Present Work Track";
 								
 							}
 						}
 					}
-					$sql=mysql_query("UPDATE `present_work_temp` SET `zone`='SUR',`division`='06',`preapp_pf_number`='$pre_pf_no',`preapp_department`='$preapp_dept',`preapp_designation`='$preapp_desig',`ps_type`='$ps_type_2',`preapp_scale`='$preapp_scale',`preapp_level`='$preapp_level',`preapp_group`='$preapp_group',`preapp_station`='$station_id6',`preapp_billunit`='$depot_bill_unit1',`preapp_rop`='$preapp_rop',`preapp_depot`='$depot_bill_unit1',`sgd_dropdwn`='$preapp_subtype1',`sgd_designation`='$preapp_sgd_desig',`presgd_otherdesign`='$preapp_sgd_other_desig',`sgd_pst`='$sgd_ps_type_2',`sgd_scale`='$preapp_sgd_scale',`sgd_level`='$preapp_sgd_level',`sgd_billunit`='$sgd_depot_bill_unit1',`sgd_depot`='$sgd_depot_bill_unit1',`sgd_station`='$station_id4',`sgd_group`='$sgd_preapp_group',`ogd_desig`='$preapp_ogd_desig',`preogd_otherdesign`='$preapp_ogd_other_desig',`ogd_pst`='$ogd_ps_type_2',`ogd_scale`='$preapp_ogd_scale',`ogd_level`='$preapp_ogd_level',`ogd_billunit`='$ogd_depot_bill_unit1',`ogd_depot`='$ogd_depot_bill_unit1',`ogd_station`='$station_id5',`ogd_group`='$ogd_preapp_group',`ogd_rop`='$preapp_ogd_rop',`pre_remarky`='$yremark',`pre_remarkn`='$nremark',`updated_by`='$updated_by',`date_time`='NOW()' WHERE preapp_pf_number='$pre_pf_no'");
+					$sql=mysqli_query($conn,"UPDATE `present_work_temp` SET `zone`='SUR',`division`='06',`preapp_pf_number`='$pre_pf_no',`preapp_department`='$preapp_dept',`preapp_mysqli`='$preapp_desig',`ps_type`='$ps_type_2',`preapp_scale`='$preapp_scale',`preapp_level`='$preapp_level',`preapp_group`='$preapp_group',`preapp_station`='$station_id6',`preapp_billunit`='$depot_bill_unit1',`preapp_rop`='$preapp_rop',`preapp_depot`='$depot_bill_unit1',`sgd_dropdwn`='$preapp_subtype1',`sgd_mysqli`='$preapp_sgd_desig',`presgd_otherdesign`='$preapp_sgd_other_desig',`sgd_pst`='$sgd_ps_type_2',`sgd_scale`='$preapp_sgd_scale',`sgd_level`='$preapp_sgd_level',`sgd_billunit`='$sgd_depot_bill_unit1',`sgd_depot`='$sgd_depot_bill_unit1',`sgd_station`='$station_id4',`sgd_group`='$sgd_preapp_group',`ogd_desig`='$preapp_ogd_desig',`preogd_otherdesign`='$preapp_ogd_other_desig',`ogd_pst`='$ogd_ps_type_2',`ogd_scale`='$preapp_ogd_scale',`ogd_level`='$preapp_ogd_level',`ogd_billunit`='$ogd_depot_bill_unit1',`ogd_depot`='$ogd_depot_bill_unit1',`ogd_station`='$station_id5',`ogd_group`='$ogd_preapp_group',`ogd_rop`='$preapp_ogd_rop',`pre_remarky`='$yremark',`pre_remarkn`='$nremark',`updated_by`='$updated_by',`date_time`='NOW()' WHERE preapp_pf_number='$pre_pf_no'");
 				}
 				
 				if($sql && $sq2)
@@ -2151,14 +2151,14 @@ if (isset($_REQUEST['action'])) {
 		   session_start();
 		   $update_by=$_SESSION['id'];
 		   
-		   $sql=mysql_query("insert into `lastentry_temp`(`zone`, `division`, `trans_id`, `pf_number`, `old_pf_number`, `date_of_join`, `retire_type`, `retire_date`, `retire_designation`, `department`, `station`, `rop`, `bill_unit`, `scale`, `depot`, `emp_category`, `total_years`, `total_months`, `total_days`, `no_years`, `no_months`, `no_days`, `lap`, `lhap`, `advance_leave`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`)values('01','SUR','$trans_id','$le_pf_no','','$le_doj','$le_retiredment_type','$le_retirement_date','$le_des_retire','$le_dept','$station11','$le_rop','$billunit20','$le_scale_level','$depot20','$le_total_year','$le_total_month','$le_total_day','$le_total_year2','$le_total_month2','$le_total_day2','$le_lap','$le_lhap','$update_by','Now()','','','','','','','','','','$due_type','$due_amt')");
+		   $sql=mysqli_query($conn,"insert into `lastentry_temp`(`zone`, `division`, `trans_id`, `pf_number`, `old_pf_number`, `date_of_join`, `retire_type`, `retire_date`, `retire_mysqli`, `department`, `station`, `rop`, `bill_unit`, `scale`, `depot`, `emp_category`, `total_years`, `total_months`, `total_days`, `no_years`, `no_months`, `no_days`, `lap`, `lhap`, `advance_leave`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`)values('01','SUR','$trans_id','$le_pf_no','','$le_doj','$le_retiredment_type','$le_retirement_date','$le_des_retire','$le_dept','$station11','$le_rop','$billunit20','$le_scale_level','$depot20','$le_total_year','$le_total_month','$le_total_day','$le_total_year2','$le_total_month2','$le_total_day2','$le_lap','$le_lhap','$update_by','Now()','','','','','','','','','','$due_type','$due_amt')");
 		   
 
-		   $sql1=mysql_query("update present_work_temp set serving_status='$service_status' where preapp_pf_number='$le_pf_no'");
+		   $sql1=mysqli_query($conn,"update present_work_temp set serving_status='$service_status' where preapp_pf_number='$le_pf_no'");
 
-		   // echo "update present_work_temp set serving_status='$service_status' where preapp_pf_number='$le_pf_no'".mysql_error()."<br>";
+		   // echo "update present_work_temp set serving_status='$service_status' where preapp_pf_number='$le_pf_no'".mysqli_error()."<br>";
 		   
-		   // echo "insert into `lastentry_temp``zone`, `division`, `trans_id`, `pf_number`, `old_pf_number`, `date_of_join`, `retire_type`, `retire_date`, `retire_designation`, `department`, `station`, `rop`, `bill_unit`, `scale`, `depot`, `emp_category`, `total_years`, `total_months`, `total_days`, `no_years`, `no_months`, `no_days`, `lap`, `lhap`, `advance_leave`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`)values('01','SUR','$trans_id','$le_pf_no','','$le_doj','$le_retiredment_type','$le_retirement_date','$le_des_retire','$le_dept','$station11','$le_rop','$billunit20','$le_scale_level','$depot20','$le_total_year','$le_total_month','$le_total_day','$le_total_year2','$le_total_month2','$le_total_day2','$le_lap','$le_lhap','$update_by','Now()','','','','','','','','','','$due_type','$due_amt')".mysql_error();
+		   // echo "insert into `lastentry_temp``zone`, `division`, `trans_id`, `pf_number`, `old_pf_number`, `date_of_join`, `retire_type`, `retire_date`, `retire_mysqli`, `department`, `station`, `rop`, `bill_unit`, `scale`, `depot`, `emp_category`, `total_years`, `total_months`, `total_days`, `no_years`, `no_months`, `no_days`, `lap`, `lhap`, `advance_leave`, `updated_by`, `date_time`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`)values('01','SUR','$trans_id','$le_pf_no','','$le_doj','$le_retiredment_type','$le_retirement_date','$le_des_retire','$le_dept','$station11','$le_rop','$billunit20','$le_scale_level','$depot20','$le_total_year','$le_total_month','$le_total_day','$le_total_year2','$le_total_month2','$le_total_day2','$le_lap','$le_lhap','$update_by','Now()','','','','','','','','','','$due_type','$due_amt')".mysqli_error();
 		   
 			$action="Inserted Record in Last Entry";
 			$action_on=$le_pf_no;
@@ -2220,27 +2220,27 @@ if (isset($_REQUEST['action'])) {
 				session_start();
 				$updated_by=$_SESSION['id'];
 				
-				$sql=mysql_query("select * from appointment_temp where app_pf_number='".$_SESSION['set_update_pf']."'");
-				$sql_fetch=mysql_num_rows($sql);
+				$sql=mysqli_query($conn,"select * from appointment_temp where app_pf_number='".$_SESSION['set_update_pf']."'");
+				$sql_fetch=mysqli_num_rows($sql);
 				
 			if($sql_fetch==0){
 					
-					$appoint_temp_sql =mysql_query( "INSERT INTO `appointment_temp`(`temp_transaction_id`, `zone`, `division`,`app_type`, `app_pf_number`, `app_department`, `app_designation`, `other_designation`, `app_date`, `app_regul_date`, `app_payscale`, `app_scale`, `app_level`, `app_group`, `app_station`, `other_station`, `app_billunit`, `app_rop`, `app_depot`, `app_refno`, `app_letter_date`, `app_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) VALUES ('".$temp_transaction_id."', '".$zone."', '".$division."','".$initial_type."','".$app_pf_no."', '".$app_dept."', '".$app_desig."', '".$app_other_desig."', '".$app_date."', '".$app_datereg."', '".$ps_type_1."', '".$app_scale."', '".$app_level."', '".$app_group."', '".$station_id3."', '".$app_otherstation."', '".$app_bill_unit."', '".$app_rop."', '".$app_depot."', '".$app_letterno."', '".$app_letterdate."', '".$app_remark."', Now(), '".$updated_by."', '', '', '', '', '', '', '', '', '')");
+					$appoint_temp_sql =mysqli_query( $conn,"INSERT INTO `appointment_temp`(`temp_transaction_id`, `zone`, `division`,`app_type`, `app_pf_number`, `app_department`, `app_mysqli`, `other_mysqli`, `app_date`, `app_regul_date`, `app_payscale`, `app_scale`, `app_level`, `app_group`, `app_station`, `other_station`, `app_billunit`, `app_rop`, `app_depot`, `app_refno`, `app_letter_date`, `app_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`) VALUES ('".$temp_transaction_id."', '".$zone."', '".$division."','".$initial_type."','".$app_pf_no."', '".$app_dept."', '".$app_desig."', '".$app_other_desig."', '".$app_date."', '".$app_datereg."', '".$ps_type_1."', '".$app_scale."', '".$app_level."', '".$app_group."', '".$station_id3."', '".$app_otherstation."', '".$app_bill_unit."', '".$app_rop."', '".$app_depot."', '".$app_letterno."', '".$app_letterdate."', '".$app_remark."', Now(), '".$updated_by."', '', '', '', '', '', '', '', '', '')");
 
-					$appoint_track_sql =mysql_query("INSERT INTO `appointment_track`( `zone`, `division`, `app_type`,`temp_transaction_id`,`final_transaction_id`,`app_pf_number`,`app_department`, `app_designation`,`app_other_desig`,`app_date`,`app_regul_date`,`app_payscale`,`app_scale`,`app_level`,`app_group`,`app_station`,`other_station`,`app_billunit`,`app_rop`,`app_depot`,`app_refno`,`app_letter_date`,`app_remark`,`date_time`,`updated_by`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`)VALUES('".$zone."', '".$division."','".$initial_type."','".$temp_transaction_id."', '".$final_transaction_id."', '".$app_pf_no."', '".$app_dept."', '".$app_desig."', '".$app_other_desig."', '".$app_date."', '".$app_datereg."', '".$ps_type_1."', '".$app_scale."', '".$app_level."', '".$app_group."', '".$station_id3."', '".$app_otherstation."', '".$app_bill_unit."', '".$app_rop."', '".$app_depot."', '".$app_letterno."', '".$app_letterdate."', '".$app_remark."', Now(), '".$updated_by."', '', '', '', '', '', '', '', '', '')");
+					$appoint_track_sql =mysqli_query($conn,"INSERT INTO `appointment_track`( `zone`, `division`, `app_type`,`temp_transaction_id`,`final_transaction_id`,`app_pf_number`,`app_department`, `app_mysqli`,`app_other_desig`,`app_date`,`app_regul_date`,`app_payscale`,`app_scale`,`app_level`,`app_group`,`app_station`,`other_station`,`app_billunit`,`app_rop`,`app_depot`,`app_refno`,`app_letter_date`,`app_remark`,`date_time`,`updated_by`,`updated_fields`,`updated_reason`,`updated_datetime`,`letter_no`,`letter_datetime`,`uploaded_letter`,`approved_status`,`approved_by`,`approved_datetime`)VALUES('".$zone."', '".$division."','".$initial_type."','".$temp_transaction_id."', '".$final_transaction_id."', '".$app_pf_no."', '".$app_dept."', '".$app_desig."', '".$app_other_desig."', '".$app_date."', '".$app_datereg."', '".$ps_type_1."', '".$app_scale."', '".$app_level."', '".$app_group."', '".$station_id3."', '".$app_otherstation."', '".$app_bill_unit."', '".$app_rop."', '".$app_depot."', '".$app_letterno."', '".$app_letterdate."', '".$app_remark."', Now(), '".$updated_by."', '', '', '', '', '', '', '', '', '')");
 					
 					$action="Inserted Record in Initial Appointment Temp and in Initial Appointment Track";
 					
 					
 				}else{
-					dbcon1();
-					$sq=mysql_query("SELECT * from appointment_temp where app_pf_number='".$app_pf_no."'");
+					$conn=dbcon1();
+					$sq=mysqli_query($conn,"SELECT * from appointment_temp where app_pf_number='".$app_pf_no."'");
 					if($sq)
 					{
-						while($fetch_sql=mysql_fetch_array($sq))
+						while($fetch_sql=mysqli_fetch_array($sq))
 						{
 
-							if($app_dept==$fetch_sql['app_department'] && $app_desig==$fetch_sql['app_designation'] && $app_other_desig==$fetch_sql['other_designation'] && $initial_type==$fetch_sql['app_type'] && $app_date==$fetch_sql['app_date'] && $app_datereg==$fetch_sql['app_regul_date'] && $ps_type_1==$fetch_sql['app_payscale'] && $app_group==$fetch_sql['app_group'] && $app_level==$fetch_sql['app_level'] && $app_scale==$fetch_sql['app_scale'] && $station_id3==$fetch_sql['app_station'] && $app_rop==$fetch_sql['app_rop'] && $app_depot==$fetch_sql['app_depot'] && $app_letterno==$fetch_sql['app_refno'] && $app_letterdate==$fetch_sql['app_letter_date'] && $app_remark==$fetch_sql['app_remark'] && $app_otherstation==$fetch_sql['other_station'])
+							if($app_dept==$fetch_sql['app_department'] && $app_desig==$fetch_sql['app_mysqli'] && $app_other_desig==$fetch_sql['other_mysqli'] && $initial_type==$fetch_sql['app_type'] && $app_date==$fetch_sql['app_date'] && $app_datereg==$fetch_sql['app_regul_date'] && $ps_type_1==$fetch_sql['app_payscale'] && $app_group==$fetch_sql['app_group'] && $app_level==$fetch_sql['app_level'] && $app_scale==$fetch_sql['app_scale'] && $station_id3==$fetch_sql['app_station'] && $app_rop==$fetch_sql['app_rop'] && $app_depot==$fetch_sql['app_depot'] && $app_letterno==$fetch_sql['app_refno'] && $app_letterdate==$fetch_sql['app_letter_date'] && $app_remark==$fetch_sql['app_remark'] && $app_otherstation==$fetch_sql['other_station'])
 							{
 								echo "<script>alert('Nothing Has Changed')</script>";
 							}
@@ -2248,8 +2248,8 @@ if (isset($_REQUEST['action'])) {
 							{
 								 //echo "<script>alert('In else')</script>";
 								 //echo $app_dept."=".$fetch_sql['app_department']."<br>";
-								// echo $app_desig."=".$fetch_sql['app_designation'] ."<br>";
-								// echo $app_other_desig."=".$fetch_sql['other_designation']."<br>";
+								// echo $app_desig."=".$fetch_sql['app_mysqli'] ."<br>";
+								// echo $app_other_desig."=".$fetch_sql['other_mysqli']."<br>";
 								// echo $initial_type."=".$fetch_sql['app_type'] ."<br>";
 								// echo $app_date."=".$fetch_sql['app_date'] ."<br>";
 								// echo $app_datereg."=".$fetch_sql['app_regul_date'] ."<br>";
@@ -2266,9 +2266,9 @@ if (isset($_REQUEST['action'])) {
 								// echo $app_otherstation."=".$fetch_sql['other_station']."<br>"; 
 					
 					
-								$appoint_track_sql = "INSERT INTO `appointment_track`( `zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `app_pf_number`, `app_department`, `app_designation`, `app_other_desig`, `app_date`, `app_regul_date`, `app_payscale`, `app_scale`, `app_level`, `app_group`, `app_station`, `other_station`, `app_billunit`, `app_rop`, `app_depot`, `app_refno`, `app_letter_date`, `app_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`app_type`) VALUES ('SUR', '06', '".$temp_transaction_id."', '".$final_transaction_id."', '".$app_pf_no."', '".$app_dept."', '".$app_desig."', '".$app_other_desig."', '".$app_date."', '".$app_datereg."', '".$ps_type_1."', '".$app_scale."', '".$app_level."', '".$app_group."', '".$station_id3."', '".$app_otherstation."', '".$app_bill_unit."', '".$app_rop."', '".$app_depot."', '".$app_letterno."', '".$app_letterdate."', '".$app_remark."', Now(), '".$updated_by."', '', '', '', '', '', '', '', '', '','$initial_type')";
+								$appoint_track_sql = "INSERT INTO `appointment_track`( `zone`, `division`, `temp_transaction_id`, `final_transaction_id`, `app_pf_number`, `app_department`, `app_mysqli`, `app_other_desig`, `app_date`, `app_regul_date`, `app_payscale`, `app_scale`, `app_level`, `app_group`, `app_station`, `other_station`, `app_billunit`, `app_rop`, `app_depot`, `app_refno`, `app_letter_date`, `app_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_datetime`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`app_type`) VALUES ('SUR', '06', '".$temp_transaction_id."', '".$final_transaction_id."', '".$app_pf_no."', '".$app_dept."', '".$app_desig."', '".$app_other_desig."', '".$app_date."', '".$app_datereg."', '".$ps_type_1."', '".$app_scale."', '".$app_level."', '".$app_group."', '".$station_id3."', '".$app_otherstation."', '".$app_bill_unit."', '".$app_rop."', '".$app_depot."', '".$app_letterno."', '".$app_letterdate."', '".$app_remark."', Now(), '".$updated_by."', '', '', '', '', '', '', '', '', '','$initial_type')";
 						
-								$result2=mysql_query($appoint_track_sql)or die(mysql_error());
+								$result2=mysqli_query($conn,$appoint_track_sql)or die(mysqli_error($conn));
 								
 								$action="Updated Record in Initial Appointment Temp and Inserted Record in Initial Appointment Track";
 								
@@ -2277,9 +2277,9 @@ if (isset($_REQUEST['action'])) {
 						}
 					}
 					
-					$appoint_temp_sql = "UPDATE `appointment_temp` SET `app_type`='$initial_type',`app_department`='$app_dept',`app_designation`='$app_desig',`other_designation`='$app_other_desig',`app_date`='$app_date',`app_regul_date`='$app_datereg',`app_payscale`='$ps_type_1',`app_scale`='$app_scale',`app_level`='$app_level',`app_group`='$app_group',`app_station`='$station_id3',`other_station`='$app_otherstation',`app_rop`='$app_rop',`app_depot`='$app_depot',`app_refno`='$app_letterno',`app_letter_date`='$app_letterdate',`app_remark`='$app_remark',`date_time`=Now(),`updated_by`='$updated_by' WHERE `app_pf_number`='$app_pf_no'";
+					$appoint_temp_sql = "UPDATE `appointment_temp` SET `app_type`='$initial_type',`app_department`='$app_dept',`app_mysqli`='$app_desig',`other_mysqli`='$app_other_desig',`app_date`='$app_date',`app_regul_date`='$app_datereg',`app_payscale`='$ps_type_1',`app_scale`='$app_scale',`app_level`='$app_level',`app_group`='$app_group',`app_station`='$station_id3',`other_station`='$app_otherstation',`app_rop`='$app_rop',`app_depot`='$app_depot',`app_refno`='$app_letterno',`app_letter_date`='$app_letterdate',`app_remark`='$app_remark',`date_time`=Now(),`updated_by`='$updated_by' WHERE `app_pf_number`='$app_pf_no'";
 					
-					$result1=mysql_query($appoint_temp_sql);
+					$result1=mysqli_query($conn,$appoint_temp_sql);
 				}
 				 
 				if($result1 && $result2 or $appoint_temp_sql && $appoint_track_sql){
@@ -2430,11 +2430,11 @@ if (isset($_REQUEST['action'])) {
 					if($pm_ordertype=='LDCE' || $pm_ordertype=='GDCE' || $pm_ordertype=='LGS' || $pm_ordertype=='Departmental' || $pm_ordertype=='Re-structuring' || $pm_ordertype=='MACP-1' || $pm_ordertype=='MACP-2' || $pm_ordertype=='MACP-3')
 					{
 						
-						$fetch=mysql_query("select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' and id='$pm_id'");
+						$fetch=mysqli_query($conn,"select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' and id='$pm_id'");
 
 						if($fetch)
 						{
-							$re=mysql_fetch_array($fetch);
+							$re=mysqli_fetch_array($fetch);
 							
 							if($re['count']=="")
 							{
@@ -2488,22 +2488,22 @@ if (isset($_REQUEST['action'])) {
 								
 								echo "<script>alert('in else');</script>"; */
 								
-								$sql1=mysql_query("INSERT INTO `prft_promotion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`rop_to`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_pay_scale_type`, `pro_to_scale`, `pro_to_level`, `pro_to_group`, `pro_to_station`, `pro_to_othr_station`, `pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$pm_frm_rop','$pm_to_rop','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_incrdate','$prtf_wefdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+								$sql1=mysqli_query($conn,"INSERT INTO `prft_promotion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`rop_to`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_pay_scale_type`, `pro_to_scale`, `pro_to_level`, `pro_to_group`, `pro_to_station`, `pro_to_othr_station`, `pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$pm_frm_rop','$pm_to_rop','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_incrdate','$prtf_wefdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 								
 								$action="Updated Record in PRFT Promotion Temp and Inserted Record in PRFT Promotion Track";
 								
 							}
 						}
 						
-						$sql=mysql_query("UPDATE  `prft_promotion_temp` SET `pro_order_type`='$pm_ordertype', `pro_letter_no`='$pm_letterno', `pro_letter_date`='$pm_letterdate', `pro_wef`='$pm_wef', `pro_frm_dept`='$pm_frm_dept', `pro_frm_desig`='$pm_frm_desig', `pro_frm_othr_desig`='$pm_frm_otherdesig', `pro_frm_pay_scale_type`='$pm_frm_ps_type_3', `pro_frm_scale`='$pm_frm_scale', `pro_frm_level`='$pm_frm_level', `pro_frm_group`='$pm_frm_group', `pro_frm_station`='$station_id1', `pro_frm_othr_station`='$pm_frm_otherstation', `pro_frm_rop`='$pm_frm_rop',`pro_frm_billunit`='$depot_bill_unit2', `pro_frm_depot`='$depot2', `pro_to_dept`='$pm_to_dept', `pro_to_desig`='$pm_to_desig', `pro_to_othr_desig`='$pm_to_otherdesig', `pro_to_pay_scale_type`='$pm_to_ps_type_3', `pro_to_scale`='$pro_to_scale', `pro_to_level`='$pm_to_level', `pro_to_group`='$pm_to_group', `pro_to_station`='$station_id7', `pro_to_othr_station`='$pm_to_otherstation', `rop_to`='$pm_to_rop', `pro_to_billunit`='$depot_bill_unit5', `pro_to_depot`='$depot5', `pro_carried_out_type`='$prtf_carried', `pro_carri_wef`='$prtf_wefdate', `pro_carri_date_of_incr`='$prtf_incrdate', `pro_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `pro_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `pro_car_re_wef_date`='$prtf_carr_wef_date', `pro_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `pro_remark`='$pm_remark' where `pro_pf_no`='$pm_pf' and id='$pm_id'");
+						$sql=mysqli_query($conn,"UPDATE  `prft_promotion_temp` SET `pro_order_type`='$pm_ordertype', `pro_letter_no`='$pm_letterno', `pro_letter_date`='$pm_letterdate', `pro_wef`='$pm_wef', `pro_frm_dept`='$pm_frm_dept', `pro_frm_desig`='$pm_frm_desig', `pro_frm_othr_desig`='$pm_frm_otherdesig', `pro_frm_pay_scale_type`='$pm_frm_ps_type_3', `pro_frm_scale`='$pm_frm_scale', `pro_frm_level`='$pm_frm_level', `pro_frm_group`='$pm_frm_group', `pro_frm_station`='$station_id1', `pro_frm_othr_station`='$pm_frm_otherstation', `pro_frm_rop`='$pm_frm_rop',`pro_frm_billunit`='$depot_bill_unit2', `pro_frm_depot`='$depot2', `pro_to_dept`='$pm_to_dept', `pro_to_desig`='$pm_to_desig', `pro_to_othr_desig`='$pm_to_otherdesig', `pro_to_pay_scale_type`='$pm_to_ps_type_3', `pro_to_scale`='$pro_to_scale', `pro_to_level`='$pm_to_level', `pro_to_group`='$pm_to_group', `pro_to_station`='$station_id7', `pro_to_othr_station`='$pm_to_otherstation', `rop_to`='$pm_to_rop', `pro_to_billunit`='$depot_bill_unit5', `pro_to_depot`='$depot5', `pro_carried_out_type`='$prtf_carried', `pro_carri_wef`='$prtf_wefdate', `pro_carri_date_of_incr`='$prtf_incrdate', `pro_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `pro_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `pro_car_re_wef_date`='$prtf_carr_wef_date', `pro_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `pro_remark`='$pm_remark' where `pro_pf_no`='$pm_pf' and id='$pm_id'");
 					}
 					else if($pm_ordertype=='Deputation'){
 						
-						$fetch=mysql_query("select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' and id='$pm_id'");
+						$fetch=mysqli_query($conn,"select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' and id='$pm_id'");
 						
 						if($fetch)
 						{
-							$re=mysql_fetch_array($fetch);
+							$re=mysqli_fetch_array($fetch);
 							
 							if($re['count']=="")
 							{
@@ -2553,22 +2553,22 @@ if (isset($_REQUEST['action'])) {
 								echo $re['pro_car_re_wef_date']."=".$prtf_carr_wef_date."<br>"; 
 								echo $re['pro_car_re_remark']."=".$prtf_carr_remark."<br>"; */
 								
-								$sql1=mysql_query("INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$dp_frm_rop','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$dp_to_rop','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+								$sql1=mysqli_query($conn,"INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$dp_frm_rop','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$dp_to_rop','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 								
 								$action="Updated Record in PRFT Promotion Temp and Inserted Record in PRFT Promotion Track";
 								
 							}
 						}
 						
-						$sql=mysql_query("UPDATE `prft_promotion_temp` SET `pro_order_type`='$pm_ordertype', `pro_letter_no`='$pm_letterno', `pro_letter_date`='$pm_letterdate', `pro_wef`='$pm_wef', `pro_frm_dept`='$dp_frm_dept', `pro_frm_desig`='$dp_frm_desig', `pro_frm_othr_desig`='$dp_frm_otherdesig', `pro_frm_pay_scale_type`='$dp_frm_ps_type_3', `pro_frm_scale`='$dp_frm_scale', `pro_frm_level`='$dp_frm_level', `pro_frm_group`='$dp_frm_group', `pro_frm_station`='$station_id8', `pro_frm_othr_station`='$dp_frm_otherstation', `pro_frm_rop`='$dp_frm_rop',`pro_frm_billunit`='$depot_bill_unit6', `pro_frm_depot`='$depot6', `pro_to_dept`='$dp_to_dept', `pro_to_desig`='$dp_to_desig', `pro_to_othr_desig`='$dp_to_othr_desig', `pro_to_scale`='$dp_to_pay_scale_level', `pro_to_group`='$dp_to_grp', `pro_to_station`='$dp_to_place',`rop_to`='$dp_to_rop',`pro_to_billunit`='$depot_bill_unit7', `pro_to_depot`='$depot7', `pro_carried_out_type`='$prtf_carried', `pro_carri_wef`='$prtf_wefdate', `pro_carri_date_of_incr`='$prtf_incrdate', `pro_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `pro_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `pro_car_re_wef_date`='$prtf_carr_wef_date', `pro_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by',`pro_remark`='$pm_remark' where `pro_pf_no`='$pm_pf' and id='$pm_id'");
+						$sql=mysqli_query($conn,"UPDATE `prft_promotion_temp` SET `pro_order_type`='$pm_ordertype', `pro_letter_no`='$pm_letterno', `pro_letter_date`='$pm_letterdate', `pro_wef`='$pm_wef', `pro_frm_dept`='$dp_frm_dept', `pro_frm_desig`='$dp_frm_desig', `pro_frm_othr_desig`='$dp_frm_otherdesig', `pro_frm_pay_scale_type`='$dp_frm_ps_type_3', `pro_frm_scale`='$dp_frm_scale', `pro_frm_level`='$dp_frm_level', `pro_frm_group`='$dp_frm_group', `pro_frm_station`='$station_id8', `pro_frm_othr_station`='$dp_frm_otherstation', `pro_frm_rop`='$dp_frm_rop',`pro_frm_billunit`='$depot_bill_unit6', `pro_frm_depot`='$depot6', `pro_to_dept`='$dp_to_dept', `pro_to_desig`='$dp_to_desig', `pro_to_othr_desig`='$dp_to_othr_desig', `pro_to_scale`='$dp_to_pay_scale_level', `pro_to_group`='$dp_to_grp', `pro_to_station`='$dp_to_place',`rop_to`='$dp_to_rop',`pro_to_billunit`='$depot_bill_unit7', `pro_to_depot`='$depot7', `pro_carried_out_type`='$prtf_carried', `pro_carri_wef`='$prtf_wefdate', `pro_carri_date_of_incr`='$prtf_incrdate', `pro_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `pro_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `pro_car_re_wef_date`='$prtf_carr_wef_date', `pro_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by',`pro_remark`='$pm_remark' where `pro_pf_no`='$pm_pf' and id='$pm_id'");
 					}
 					else{
 						
-							$fetch=mysql_query("select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' and id='$pm_id'");
+							$fetch=mysqli_query($conn,"select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' and id='$pm_id'");
 							
 							if($fetch)
 							{
-								$re=mysql_fetch_array($fetch);
+								$re=mysqli_fetch_array($fetch);
 								
 								if($re['count']=="")
 								{
@@ -2620,7 +2620,7 @@ if (isset($_REQUEST['action'])) {
 									echo $re['pro_car_re_remark']."=".$prtf_carr_remark."<br>";  */
 									
 									
-									$sql1=mysql_query("INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$re_frm_rop','$depot_bill_unit9','$depot_bill_unit9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','$re_to_rop','$billunit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+									$sql1=mysqli_query($conn,"INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$re_frm_rop','$depot_bill_unit9','$depot_bill_unit9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','$re_to_rop','$billunit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 									
 									$action="Updated Record in PRFT Promotion Temp and Inserted Record in PRFT Promotion Track";
 									
@@ -2628,7 +2628,7 @@ if (isset($_REQUEST['action'])) {
 								}
 							}
 						
-						$sql=mysql_query("UPDATE  `prft_promotion_temp` SET  `pro_order_type`='$pm_ordertype', `pro_letter_no`='$pm_letterno', `pro_letter_date`='$pm_letterdate', `pro_wef`='$pm_wef', `pro_frm_dept`='$re_frm_dept', `pro_frm_desig`='$re_frm_desig', `pro_frm_othr_desig`='$re_frm_otherdesig', `pro_frm_pay_scale_type`='$re_frm_ps_type_3', `pro_frm_scale`='$re_frm_scale', `pro_frm_level`='$re_frm_level', `pro_frm_group`='$re_frm_group', `pro_frm_station`='$station_id9', `pro_frm_othr_station`='$re_frm_otherstation', `pro_frm_rop`='$re_frm_rop',`pro_frm_billunit`='$depot_bill_unit9', `pro_frm_depot`='$depot9', `pro_to_dept`='$re_to_dept', `pro_to_desig`='$re_to_desig', `pro_to_othr_desig`='$re_to_otr_desig', `pro_to_scale`='$re_to_pay_scale', `pro_to_group`='$re_to_group', `pro_to_station`='$re_to_place',`rop_to`='$re_to_rop',`pro_to_billunit`='$billunit8', `pro_to_depot`='$depot8', `pro_carried_out_type`='$prtf_carried', `pro_carri_wef`='$prtf_wefdate', `pro_carri_date_of_incr`='$prtf_incrdate', `pro_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `pro_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `pro_car_re_wef_date`='$prtf_carr_wef_date', `pro_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `pro_remark`='$pm_remark' where `pro_pf_no`='$pm_pf' and id='$pm_id'");
+						$sql=mysqli_query($conn,"UPDATE  `prft_promotion_temp` SET  `pro_order_type`='$pm_ordertype', `pro_letter_no`='$pm_letterno', `pro_letter_date`='$pm_letterdate', `pro_wef`='$pm_wef', `pro_frm_dept`='$re_frm_dept', `pro_frm_desig`='$re_frm_desig', `pro_frm_othr_desig`='$re_frm_otherdesig', `pro_frm_pay_scale_type`='$re_frm_ps_type_3', `pro_frm_scale`='$re_frm_scale', `pro_frm_level`='$re_frm_level', `pro_frm_group`='$re_frm_group', `pro_frm_station`='$station_id9', `pro_frm_othr_station`='$re_frm_otherstation', `pro_frm_rop`='$re_frm_rop',`pro_frm_billunit`='$depot_bill_unit9', `pro_frm_depot`='$depot9', `pro_to_dept`='$re_to_dept', `pro_to_desig`='$re_to_desig', `pro_to_othr_desig`='$re_to_otr_desig', `pro_to_scale`='$re_to_pay_scale', `pro_to_group`='$re_to_group', `pro_to_station`='$re_to_place',`rop_to`='$re_to_rop',`pro_to_billunit`='$billunit8', `pro_to_depot`='$depot8', `pro_carried_out_type`='$prtf_carried', `pro_carri_wef`='$prtf_wefdate', `pro_carri_date_of_incr`='$prtf_incrdate', `pro_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `pro_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `pro_car_re_wef_date`='$prtf_carr_wef_date', `pro_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `pro_remark`='$pm_remark' where `pro_pf_no`='$pm_pf' and id='$pm_id'");
 						
 					}
 				
@@ -2639,9 +2639,9 @@ if (isset($_REQUEST['action'])) {
 						
 						echo "in second if<br>";
 						
-						$fetch=mysql_query("select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' order by id desc limit 1");
+						$fetch=mysqli_query($conn,"select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' order by id desc limit 1");
 							
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						if($re['count']=="")
 						{
@@ -2650,17 +2650,17 @@ if (isset($_REQUEST['action'])) {
 							$count=$re['count']+1;
 						}
 						
-						$sql=mysql_query("INSERT INTO `prft_promotion_temp`(`temp_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`rop_to`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_pay_scale_type`, `pro_to_scale`, `pro_to_level`, `pro_to_group`, `pro_to_station`, `pro_to_othr_station`, `pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$pm_frm_rop','$pm_to_rop','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+						$sql=mysqli_query($conn,"INSERT INTO `prft_promotion_temp`(`temp_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`rop_to`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_pay_scale_type`, `pro_to_scale`, `pro_to_level`, `pro_to_group`, `pro_to_station`, `pro_to_othr_station`, `pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$pm_frm_rop','$pm_to_rop','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 				
-						$sql1=mysql_query("INSERT INTO `prft_promotion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`rop_to`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_pay_scale_type`, `pro_to_scale`, `pro_to_level`, `pro_to_group`, `pro_to_station`, `pro_to_othr_station`, `pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$pm_frm_rop','$pm_to_rop','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_incrdate','$prtf_wefdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+						$sql1=mysqli_query($conn,"INSERT INTO `prft_promotion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`rop_to`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_pay_scale_type`, `pro_to_scale`, `pro_to_level`, `pro_to_group`, `pro_to_station`, `pro_to_othr_station`, `pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$pm_frm_rop','$pm_to_rop','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_incrdate','$prtf_wefdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 						
 						$action="Inserted Record in PRFT Promotion Temp and in PRFT Promotion Track";			
 					}
 					else if($pm_ordertype=='Deputation'){
 						
-						$fetch=mysql_query("select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' order by id desc limit 1");
+						$fetch=mysqli_query($conn,"select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' order by id desc limit 1");
 							
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						if($re['count']=="")
 						{
@@ -2669,9 +2669,9 @@ if (isset($_REQUEST['action'])) {
 							$count=$re['count']+1;
 						}
 					
-						$sql=mysql_query("INSERT INTO `prft_promotion_temp`(`temp_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$dp_frm_rop','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$dp_to_rop','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+						$sql=mysqli_query($conn,"INSERT INTO `prft_promotion_temp`(`temp_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$dp_frm_rop','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$dp_to_rop','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 					
-						$sql1=mysql_query("INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$dp_frm_rop','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$dp_to_rop','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+						$sql1=mysqli_query($conn,"INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$dp_frm_rop','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$dp_to_rop','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 						
 						$action="Inserted Record in PRFT Promotion Temp and in PRFT Promotion Track";
 						
@@ -2679,9 +2679,9 @@ if (isset($_REQUEST['action'])) {
 					}
 					else{
 							
-						$fetch=mysql_query("select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' order by id desc limit 1");
+						$fetch=mysqli_query($conn,"select * from `prft_promotion_temp` where `pro_pf_no`='$pm_pf' order by id desc limit 1");
 							
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						if($re['count']=="")
 						{
@@ -2690,10 +2690,10 @@ if (isset($_REQUEST['action'])) {
 							$count=$re['count']+1;
 						}
 					
-						$sql1=mysql_query("INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$re_frm_rop','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','$re_to_rop','$billunit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+						$sql1=mysqli_query($conn,"INSERT INTO `prft_promotion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$re_frm_rop','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','$re_to_rop','$billunit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 						
 						
-						$sql=mysql_query("INSERT INTO `prft_promotion_temp`(`temp_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$re_frm_rop','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','$re_to_rop','$billunit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
+						$sql=mysqli_query($conn,"INSERT INTO `prft_promotion_temp`(`temp_transaction_id`, `zone`, `division`, `pro_pf_no`, `pro_order_type`, `pro_letter_no`, `pro_letter_date`, `pro_wef`, `pro_frm_dept`, `pro_frm_desig`, `pro_frm_othr_desig`, `pro_frm_pay_scale_type`, `pro_frm_scale`, `pro_frm_level`, `pro_frm_group`, `pro_frm_station`, `pro_frm_othr_station`, `pro_frm_rop`,`pro_frm_billunit`, `pro_frm_depot`, `pro_to_dept`, `pro_to_desig`, `pro_to_othr_desig`, `pro_to_scale`, `pro_to_group`, `pro_to_station`,`rop_to`,`pro_to_billunit`, `pro_to_depot`, `pro_carried_out_type`, `pro_carri_wef`, `pro_carri_date_of_incr`, `pro_car_re_accept_ltr_no`, `pro_car_re_accept_ltr_date`, `pro_car_re_wef_date`, `pro_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`pro_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$re_frm_rop','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','$re_to_rop','$billunit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$pm_remark')");
 						
 						$action="Inserted Record in PRFT Promotion Temp and in PRFT Promotion Track";
 					}
@@ -2848,11 +2848,11 @@ if (isset($_REQUEST['action'])) {
 					
 					if($pm_ordertype=='Under DAR' || $pm_ordertype=='Own Request' || $pm_ordertype=='Medically Decategories')
 					{
-						$fetch=mysql_query("select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' and id='$rev_id'");
+						$fetch=mysqli_query($conn,"select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' and id='$rev_id'");
 						
 						if($fetch)
 						{
-							$re=mysql_fetch_array($fetch);
+							$re=mysqli_fetch_array($fetch);
 							
 							if($re['count']=="")
 							{
@@ -2943,24 +2943,24 @@ if (isset($_REQUEST['action'])) {
 								echo $re['rev_frm_rop']."=".$pm_frm_rop."<br>"; 
 								echo $re['rev_to_rop']."=".$pm_to_rop."<br>";   */
 								
-								$sql1=mysql_query("INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`, `rev_to_scale`, `rev_to_level`, `rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$pm_frm_rop','$pm_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+								$sql1=mysqli_query($conn,"INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`, `rev_to_scale`, `rev_to_level`, `rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$pm_frm_rop','$pm_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 								
 								$action="Updated Record in PRFT Reversion Temp and Inserted Record in PRFT Reversion Track";
 								
 							}
 						}
 						
-						$sql=mysql_query("UPDATE `prft_reversion_temp` SET `rev_order_type`='$pm_ordertype', `rev_letter_no`='$pm_letterno', `rev_letter_date`='$pm_letterdate', `rev_wef`='$pm_wef', `rev_frm_dept`='$pm_frm_dept', `rev_frm_desig`='$pm_frm_desig', `rev_frm_othr_desig`='$pm_frm_otherdesig', `rev_frm_pay_scale_type`='$pm_frm_ps_type_3', `rev_frm_scale`='$pm_frm_scale', `rev_frm_level`='$pm_frm_level', `rev_frm_group`='$pm_frm_group', `rev_frm_station`='$station_id1', `rev_frm_othr_station`='$pm_frm_otherstation', `rev_frm_rop`='$pm_frm_rop',`rev_frm_billunit`='$depot_bill_unit2', `rev_frm_depot`='$depot2', `rev_to_dept`='$pm_to_dept', `rev_to_desig`='$pm_to_desig', `rev_to_othr_desig`='$pm_to_otherdesig', `rev_to_pay_scale_type`='$pm_to_ps_type_3', `rev_to_scale`='$pro_to_scale', `rev_to_level`='$pm_to_level', `rev_to_group`='$pm_to_group', `rev_to_station`='$station_id7', `rev_to_othr_station`='$pm_to_otherstation', `rev_to_billunit`='$depot_bill_unit5', `rev_to_depot`='$depot5',`rev_to_rop`='$pm_to_rop',`rev_carried_out_type`='$prtf_carried', `rev_carri_wef`='$prtf_wefdate', `rev_carri_date_of_incr`='$prtf_incrdate', `rev_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `rev_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `rev_car_re_wef_date`='$prtf_carr_wef_date', `rev_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `rev_remark`='$rev_remark' where `rev_pf_no`='$pm_pf' and id='$rev_id'");
+						$sql=mysqli_query($conn,"UPDATE `prft_reversion_temp` SET `rev_order_type`='$pm_ordertype', `rev_letter_no`='$pm_letterno', `rev_letter_date`='$pm_letterdate', `rev_wef`='$pm_wef', `rev_frm_dept`='$pm_frm_dept', `rev_frm_desig`='$pm_frm_desig', `rev_frm_othr_desig`='$pm_frm_otherdesig', `rev_frm_pay_scale_type`='$pm_frm_ps_type_3', `rev_frm_scale`='$pm_frm_scale', `rev_frm_level`='$pm_frm_level', `rev_frm_group`='$pm_frm_group', `rev_frm_station`='$station_id1', `rev_frm_othr_station`='$pm_frm_otherstation', `rev_frm_rop`='$pm_frm_rop',`rev_frm_billunit`='$depot_bill_unit2', `rev_frm_depot`='$depot2', `rev_to_dept`='$pm_to_dept', `rev_to_desig`='$pm_to_desig', `rev_to_othr_desig`='$pm_to_otherdesig', `rev_to_pay_scale_type`='$pm_to_ps_type_3', `rev_to_scale`='$pro_to_scale', `rev_to_level`='$pm_to_level', `rev_to_group`='$pm_to_group', `rev_to_station`='$station_id7', `rev_to_othr_station`='$pm_to_otherstation', `rev_to_billunit`='$depot_bill_unit5', `rev_to_depot`='$depot5',`rev_to_rop`='$pm_to_rop',`rev_carried_out_type`='$prtf_carried', `rev_carri_wef`='$prtf_wefdate', `rev_carri_date_of_incr`='$prtf_incrdate', `rev_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `rev_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `rev_car_re_wef_date`='$prtf_carr_wef_date', `rev_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `rev_remark`='$rev_remark' where `rev_pf_no`='$pm_pf' and id='$rev_id'");
 				
 					}
 				
 					else if($pm_ordertype=='Deputation'){
 						
-						$fetch=mysql_query("select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' and id='$rev_id'");
+						$fetch=mysqli_query($conn,"select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' and id='$rev_id'");
 						
 						if($fetch)
 						{
-							$re=mysql_fetch_array($fetch);
+							$re=mysqli_fetch_array($fetch);
 							
 							if($re['count']=="")
 							{
@@ -3011,7 +3011,7 @@ if (isset($_REQUEST['action'])) {
 								echo $re['rev_frm_rop']."=".$dp_frm_rop."<br>"; 
 								echo $re['rev_to_rop']."=".$dp_to_rop."<br>"; */
 								
-								$sql1=mysql_query("INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$dp_frm_rop','$dp_to_rop',Now(),'$updated_by','','','','','','','','','',,'$count','$rev_remark')");
+								$sql1=mysqli_query($conn,"INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$dp_frm_rop','$dp_to_rop',Now(),'$updated_by','','','','','','','','','',,'$count','$rev_remark')");
 								
 								$action="Updated Record in PRFT Reversion Temp and Inserted Record in PRFT Reversion Track";
 								
@@ -3020,17 +3020,17 @@ if (isset($_REQUEST['action'])) {
 							}
 						}
 							
-						$sql=mysql_query("UPDATE `prft_reversion_temp` SET `rev_order_type`='$pm_ordertype', `rev_letter_no`='$pm_letterno', `rev_letter_date`='$pm_letterdate', `rev_wef`='$pm_wef', `rev_frm_dept`='$dp_frm_dept', `rev_frm_desig`='$dp_frm_desig', `rev_frm_othr_desig`='$dp_frm_otherdesig', `rev_frm_pay_scale_type`='$dp_frm_ps_type_3', `rev_frm_scale`='$dp_frm_scale', `rev_frm_level`='$dp_frm_level', `rev_frm_group`='$dp_frm_group', `rev_frm_station`='$station_id8', `rev_frm_othr_station`='$dp_frm_otherstation', `rev_frm_rop`='$dp_frm_rop',`rev_frm_billunit`='$depot_bill_unit6', `rev_frm_depot`='$depot6', `rev_to_dept`='$dp_to_dept', `rev_to_desig`='$dp_to_desig', `rev_to_othr_desig`='$dp_to_othr_desig', `rev_to_pay_scale_type`='$dp_to_pay_scale_level', `rev_to_group`='$dp_to_grp', `rev_to_station`='$dp_to_place',`rev_to_rop`='$dp_to_rop',`rev_to_billunit`='$depot_bill_unit7', `rev_to_depot`='$depot7', `rev_carried_out_type`='$prtf_carried', `rev_carri_wef`='$prtf_wefdate', `rev_carri_date_of_incr`='$prtf_incrdate', `rev_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `rev_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `rev_car_re_wef_date`='$prtf_carr_wef_date', `rev_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by',`rev_remark`='$rev_remark' where `rev_pf_no`='$pm_pf' and id='$rev_id'");
+						$sql=mysqli_query($conn,"UPDATE `prft_reversion_temp` SET `rev_order_type`='$pm_ordertype', `rev_letter_no`='$pm_letterno', `rev_letter_date`='$pm_letterdate', `rev_wef`='$pm_wef', `rev_frm_dept`='$dp_frm_dept', `rev_frm_desig`='$dp_frm_desig', `rev_frm_othr_desig`='$dp_frm_otherdesig', `rev_frm_pay_scale_type`='$dp_frm_ps_type_3', `rev_frm_scale`='$dp_frm_scale', `rev_frm_level`='$dp_frm_level', `rev_frm_group`='$dp_frm_group', `rev_frm_station`='$station_id8', `rev_frm_othr_station`='$dp_frm_otherstation', `rev_frm_rop`='$dp_frm_rop',`rev_frm_billunit`='$depot_bill_unit6', `rev_frm_depot`='$depot6', `rev_to_dept`='$dp_to_dept', `rev_to_desig`='$dp_to_desig', `rev_to_othr_desig`='$dp_to_othr_desig', `rev_to_pay_scale_type`='$dp_to_pay_scale_level', `rev_to_group`='$dp_to_grp', `rev_to_station`='$dp_to_place',`rev_to_rop`='$dp_to_rop',`rev_to_billunit`='$depot_bill_unit7', `rev_to_depot`='$depot7', `rev_carried_out_type`='$prtf_carried', `rev_carri_wef`='$prtf_wefdate', `rev_carri_date_of_incr`='$prtf_incrdate', `rev_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `rev_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `rev_car_re_wef_date`='$prtf_carr_wef_date', `rev_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by',`rev_remark`='$rev_remark' where `rev_pf_no`='$pm_pf' and id='$rev_id'");
 		
 					}
 				
 					else{
 						
-						$fetch=mysql_query("select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' and id='$rev_id'");
+						$fetch=mysqli_query($conn,"select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' and id='$rev_id'");
 						
 						if($fetch)
 						{
-							$re=mysql_fetch_array($fetch);
+							$re=mysqli_fetch_array($fetch);
 							if($re['count']=="")
 							{
 								$count=$count+1;;
@@ -3079,7 +3079,7 @@ if (isset($_REQUEST['action'])) {
 								echo $re['rev_frm_rop']."=".$re_frm_rop."<br>"; 
 								echo $re['rev_to_rop']."=".$re_to_rop."<br>"; */
 								
-								$sql1=mysql_query("INSERT INTO `prft_reversion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`)VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','','$depot_bill_unit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$re_frm_rop','$re_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+								$sql1=mysqli_query($conn,"INSERT INTO `prft_reversion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`)VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','','$depot_bill_unit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$re_frm_rop','$re_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 								
 								$action="Updated Record in PRFT Reversion Temp and Inserted Record in PRFT Reversion Track";
 								
@@ -3087,7 +3087,7 @@ if (isset($_REQUEST['action'])) {
 							}
 						}
 				 
-						$sql=mysql_query("UPDATE `prft_reversion_temp` SET  `rev_order_type`='$pm_ordertype', `rev_letter_no`='$pm_letterno', `rev_letter_date`='$pm_letterdate', `rev_wef`='$pm_wef', `rev_frm_dept`='$re_frm_dept', `rev_frm_desig`='$re_frm_desig', `rev_frm_othr_desig`='$re_frm_otherdesig', `rev_frm_pay_scale_type`='$re_frm_ps_type_3', `rev_frm_scale`='$re_frm_scale', `rev_frm_level`='$re_frm_level', `rev_frm_group`='$re_frm_group', `rev_frm_station`='$station_id9', `rev_frm_othr_station`='$re_frm_otherstation', `rev_frm_rop`='$re_frm_rop',`rev_frm_billunit`='$depot_bill_unit9', `rev_frm_depot`='$depot9', `rev_to_dept`='$re_to_dept', `rev_to_desig`='$re_to_desig', `rev_to_othr_desig`='$re_to_otr_desig', `rev_to_pay_scale_type`='$re_to_pay_scale', `rev_to_group`='$re_to_group', `rev_to_station`='$re_to_place',`rev_to_rop`='$re_to_rop',`rev_to_billunit`='$depot_bill_unit8', `rev_to_depot`='$depot8', `rev_carried_out_type`='$prtf_carried', `rev_carri_wef`='$prtf_wefdate', `rev_carri_date_of_incr`='$prtf_incrdate', `rev_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `rev_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `rev_car_re_wef_date`='$prtf_carr_wef_date', `rev_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `rev_remark`='$rev_remark' where `rev_pf_no`='$pm_pf' and id='$rev_id'");
+						$sql=mysqli_query($conn,"UPDATE `prft_reversion_temp` SET  `rev_order_type`='$pm_ordertype', `rev_letter_no`='$pm_letterno', `rev_letter_date`='$pm_letterdate', `rev_wef`='$pm_wef', `rev_frm_dept`='$re_frm_dept', `rev_frm_desig`='$re_frm_desig', `rev_frm_othr_desig`='$re_frm_otherdesig', `rev_frm_pay_scale_type`='$re_frm_ps_type_3', `rev_frm_scale`='$re_frm_scale', `rev_frm_level`='$re_frm_level', `rev_frm_group`='$re_frm_group', `rev_frm_station`='$station_id9', `rev_frm_othr_station`='$re_frm_otherstation', `rev_frm_rop`='$re_frm_rop',`rev_frm_billunit`='$depot_bill_unit9', `rev_frm_depot`='$depot9', `rev_to_dept`='$re_to_dept', `rev_to_desig`='$re_to_desig', `rev_to_othr_desig`='$re_to_otr_desig', `rev_to_pay_scale_type`='$re_to_pay_scale', `rev_to_group`='$re_to_group', `rev_to_station`='$re_to_place',`rev_to_rop`='$re_to_rop',`rev_to_billunit`='$depot_bill_unit8', `rev_to_depot`='$depot8', `rev_carried_out_type`='$prtf_carried', `rev_carri_wef`='$prtf_wefdate', `rev_carri_date_of_incr`='$prtf_incrdate', `rev_car_re_accept_ltr_no`='$prtf_acc_ltr_no', `rev_car_re_accept_ltr_date`='$prtf_acc_ltr_date', `rev_car_re_wef_date`='$prtf_carr_wef_date', `rev_car_re_remark`='$prtf_carr_remark', `date_time`=Now(), `updated_by`='$updated_by', `rev_remark`='$rev_remark' where `rev_pf_no`='$pm_pf' and id='$rev_id'");
 						
 					}
 					
@@ -3096,9 +3096,9 @@ if (isset($_REQUEST['action'])) {
 					if($pm_ordertype=='Under DAR' || $pm_ordertype=='Own Request' || $pm_ordertype=='Medically Decategories')
 					{
 					 
-						$fetch=mysql_query("select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf'");
+						$fetch=mysqli_query($conn,"select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf'");
 						
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						if($re['count']=="")
 						{
@@ -3107,9 +3107,9 @@ if (isset($_REQUEST['action'])) {
 							$count=$re['count']+1;
 						}
 						
-						$sql=mysql_query("INSERT INTO `prft_reversion_temp`(`temp_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`, `rev_to_scale`, `rev_to_level`, `rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$pm_frm_rop','$pm_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+						$sql=mysqli_query($conn,"INSERT INTO `prft_reversion_temp`(`temp_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`, `rev_to_scale`, `rev_to_level`, `rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$pm_frm_rop','$pm_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 				
-						$sql1=mysql_query("INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`, `rev_to_scale`, `rev_to_level`, `rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$pm_frm_rop','$pm_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+						$sql1=mysqli_query($conn,"INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`, `rev_to_scale`, `rev_to_level`, `rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$station_id1','$pm_frm_otherstation','$depot_bill_unit2','$depot2','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pro_to_scale','$pm_to_level','$pm_to_group','$station_id7','$pm_to_otherstation','$depot_bill_unit5','$depot5','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$pm_frm_rop','$pm_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 				
 						$action="Inserted Record in PRFT Reversion Temp and in PRFT Reversion Track";
 						
@@ -3117,9 +3117,9 @@ if (isset($_REQUEST['action'])) {
 				
 					else if($pm_ordertype=='Deputation'){
 						
-						$fetch=mysql_query("select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' order by id desc limit 1");
+						$fetch=mysqli_query($conn,"select * from `prft_reversion_temp` where `rev_pf_no`='$pm_pf' order by id desc limit 1");
 						
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						if($re['count']=="")
 						{
 							$count=$count+1;
@@ -3127,10 +3127,10 @@ if (isset($_REQUEST['action'])) {
 							$count=$re['count']+1;
 						}
 					 
-						$sql=mysql_query("INSERT INTO `prft_reversion_temp`(`temp_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$dp_frm_rop','$dp_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+						$sql=mysqli_query($conn,"INSERT INTO `prft_reversion_temp`(`temp_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$dp_frm_rop','$dp_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 						
 					
-						$sql1=mysql_query("INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$dp_frm_rop','$dp_to_rop','Now()','$updated_by','','','','','','','','','','$count','$rev_remark')");
+						$sql1=mysqli_query($conn,"INSERT INTO `prft_reversion_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$dp_frm_dept','$dp_frm_desig','$dp_frm_otherdesig','$dp_frm_ps_type_3','$dp_frm_scale','$dp_frm_level','$dp_frm_group','$station_id8','$dp_frm_otherstation','$depot_bill_unit6','$depot6','$dp_to_dept','$dp_to_desig','$dp_to_othr_desig','$dp_to_pay_scale_level','$dp_to_grp','$dp_to_place','$depot_bill_unit7','$depot7','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$dp_frm_rop','$dp_to_rop','Now()','$updated_by','','','','','','','','','','$count','$rev_remark')");
 						
 						$action="Inserted Record in PRFT Reversion Temp and in PRFT Reversion Track";
 						
@@ -3138,9 +3138,9 @@ if (isset($_REQUEST['action'])) {
 					}
 					else{
 				 
-						$sql=mysql_query("INSERT INTO `prft_reversion_temp`(`temp_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','','$depot_bill_unit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$re_frm_rop','$re_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+						$sql=mysqli_query($conn,"INSERT INTO `prft_reversion_temp`(`temp_transaction_id`, `zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','','$depot_bill_unit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$re_frm_rop','$re_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 					
-						$sql1=mysql_query("INSERT INTO `prft_reversion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`)VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','','$depot_bill_unit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$re_frm_rop','$re_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
+						$sql1=mysqli_query($conn,"INSERT INTO `prft_reversion_track`(`temp_transaction_id`, `final_transaction_id`,`zone`, `division`, `rev_pf_no`, `rev_order_type`, `rev_letter_no`, `rev_letter_date`, `rev_wef`, `rev_frm_dept`, `rev_frm_desig`, `rev_frm_othr_desig`, `rev_frm_pay_scale_type`, `rev_frm_scale`, `rev_frm_level`, `rev_frm_group`, `rev_frm_station`, `rev_frm_othr_station`, `rev_frm_billunit`, `rev_frm_depot`, `rev_to_dept`, `rev_to_desig`, `rev_to_othr_desig`, `rev_to_pay_scale_type`,`rev_to_group`, `rev_to_station`, `rev_to_othr_station`, `rev_to_billunit`, `rev_to_depot`, `rev_carried_out_type`, `rev_carri_wef`, `rev_carri_date_of_incr`, `rev_car_re_accept_ltr_no`, `rev_car_re_accept_ltr_date`, `rev_car_re_wef_date`, `rev_car_re_remark`, `rev_frm_rop`, `rev_to_rop`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`rev_remark`)VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$re_frm_dept','$re_frm_desig','$re_frm_otherdesig','$re_frm_ps_type_3','$re_frm_scale','$re_frm_level','$re_frm_group','$station_id9','$re_frm_otherstation','$depot_bill_unit9','$depot9','$re_to_dept','$re_to_desig','$re_to_otr_desig','$re_to_pay_scale','$re_to_group','$re_to_place','','$depot_bill_unit8','$depot8','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark','$re_frm_rop','$re_to_rop',Now(),'$updated_by','','','','','','','','','','$count','$rev_remark')");
 						
 						$action="Inserted Record in PRFT Reversion Temp and in PRFT Reversion Track";
 						
@@ -3226,11 +3226,11 @@ if (isset($_REQUEST['action'])) {
 
 				if($fix_id!=""){
 					
-					$fetch=mysql_query("select * from `prft_fixation_temp` where `fix_pf_no`='$pm_pf' order by id desc LIMIT 1");
-					$res=mysql_num_rows($fetch);
+					$fetch=mysqli_query($conn,"select * from `prft_fixation_temp` where `fix_pf_no`='$pm_pf' order by id desc LIMIT 1");
+					$res=mysqli_num_rows($fetch);
 					if($res>0)
 					{
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						
 						if($re['fix_carri_wef']=='0000-00-00')
@@ -3286,8 +3286,8 @@ if (isset($_REQUEST['action'])) {
 							echo $fix_car_re_wef_date."=".$prtf_carr_wef_date."<br>";
 							echo $re['fix_car_re_remark']."=".$prtf_carr_remark."<br>"; */
 							
-							$f_q=mysql_query("select count from `prft_fixation_temp` where id='$fix_id' and `fix_pf_no`='$pm_pf'");
-							$resl=mysql_fetch_array($f_q);
+							$f_q=mysqli_query($conn,"select count from `prft_fixation_temp` where id='$fix_id' and `fix_pf_no`='$pm_pf'");
+							$resl=mysqli_fetch_array($f_q);
 							if($resl['count']=="")
 							{
 								$count=$count+1;
@@ -3295,20 +3295,20 @@ if (isset($_REQUEST['action'])) {
 								$count=$resl['count'];
 							}
 						
-							$sql2=mysql_query("INSERT INTO `prft_fixaction_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `fix_pf_no`, `fix_order_type`, `fix_letter_no`, `fix_letter_date`, `fix_wef`,`fix_remark`,`fix_frm_rop`,`fix_frm_ps_type`, `fix_frm_scale`, `fix_frm_level`,   `fix_to_rop`, `fix_to_ps_type`, `fix_to_scale`, `fx_to_level`, `fix_carried_out_type`, `fix_carri_wef`, `fix_carri_date_of_incr`, `fix_car_re_accept_ltr_no`, `fix_car_re_accept_ltr_date`, `fix_car_re_wef_date`, `fix_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_fx_remark','$pm_oldrop','$pm_fx_ps_type_e','$pm_fx_frm_scale','$pm_fx_frm_level','$pm_newrop','$pm_fx_to_type_p','$pm_fx_to_scale','$pm_fx_to_level','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count')");
+							$sql2=mysqli_query($conn,"INSERT INTO `prft_fixaction_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `fix_pf_no`, `fix_order_type`, `fix_letter_no`, `fix_letter_date`, `fix_wef`,`fix_remark`,`fix_frm_rop`,`fix_frm_ps_type`, `fix_frm_scale`, `fix_frm_level`,   `fix_to_rop`, `fix_to_ps_type`, `fix_to_scale`, `fx_to_level`, `fix_carried_out_type`, `fix_carri_wef`, `fix_carri_date_of_incr`, `fix_car_re_accept_ltr_no`, `fix_car_re_accept_ltr_date`, `fix_car_re_wef_date`, `fix_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_fx_remark','$pm_oldrop','$pm_fx_ps_type_e','$pm_fx_frm_scale','$pm_fx_frm_level','$pm_newrop','$pm_fx_to_type_p','$pm_fx_to_scale','$pm_fx_to_level','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count')");
 							
 							$action="Updated Record in PRFT Fixation Temp and Inserted Record in PRFT Fixaction Track";
 							
 						}
 					}
 					
-					$sql1=mysql_query("UPDATE `prft_fixation_temp` SET `temp_transaction_id`='$transaction_id',`zone`='$zone',`division`='$division',`fix_pf_no`='$pm_pf',`fix_order_type`='$pm_ordertype',`fix_letter_no`='$pm_letterno',`fix_letter_date`='$pm_letterdate',`fix_wef`='$pm_wef',`fix_remark`='$pm_fx_remark',`fix_frm_ps_type`='$pm_fx_ps_type_e',`fix_frm_scale`='$pm_fx_frm_scale',`fix_frm_level`='$pm_fx_frm_level',`fix_frm_rop`='$pm_oldrop',`fix_to_ps_type`='$pm_fx_to_type_p',`fix_to_scale`='$pm_fx_to_scale',`fx_to_level`='$pm_fx_to_level',`fix_to_rop`='$pm_newrop',`fix_carried_out_type`='$prtf_carried',`fix_carri_wef`='$prtf_wefdate',`fix_carri_date_of_incr`='$prtf_incrdate',`fix_car_re_accept_ltr_no`='$prtf_acc_ltr_no',`fix_car_re_accept_ltr_date`='$prtf_acc_ltr_date',`fix_car_re_wef_date`='$prtf_carr_wef_date',`fix_car_re_remark`='$prtf_carr_remark',`date_time`=Now(),`updated_by`='$updated_by' WHERE id='$fix_id'");
+					$sql1=mysqli_query($conn,"UPDATE `prft_fixation_temp` SET `temp_transaction_id`='$transaction_id',`zone`='$zone',`division`='$division',`fix_pf_no`='$pm_pf',`fix_order_type`='$pm_ordertype',`fix_letter_no`='$pm_letterno',`fix_letter_date`='$pm_letterdate',`fix_wef`='$pm_wef',`fix_remark`='$pm_fx_remark',`fix_frm_ps_type`='$pm_fx_ps_type_e',`fix_frm_scale`='$pm_fx_frm_scale',`fix_frm_level`='$pm_fx_frm_level',`fix_frm_rop`='$pm_oldrop',`fix_to_ps_type`='$pm_fx_to_type_p',`fix_to_scale`='$pm_fx_to_scale',`fx_to_level`='$pm_fx_to_level',`fix_to_rop`='$pm_newrop',`fix_carried_out_type`='$prtf_carried',`fix_carri_wef`='$prtf_wefdate',`fix_carri_date_of_incr`='$prtf_incrdate',`fix_car_re_accept_ltr_no`='$prtf_acc_ltr_no',`fix_car_re_accept_ltr_date`='$prtf_acc_ltr_date',`fix_car_re_wef_date`='$prtf_carr_wef_date',`fix_car_re_remark`='$prtf_carr_remark',`date_time`=Now(),`updated_by`='$updated_by' WHERE id='$fix_id'");
 					
 				
 				}else{
 					
-					$f_q=mysql_query("select count from `prft_fixation_temp` where `fix_pf_no`='$pm_pf' order by id desc LIMIT 1");
-						$resl=mysql_fetch_array($f_q);
+					$f_q=mysqli_query($conn,"select count from `prft_fixation_temp` where `fix_pf_no`='$pm_pf' order by id desc LIMIT 1");
+						$resl=mysqli_fetch_array($f_q);
 						if($resl['count']=="")
 						{
 							$count=$count+1;
@@ -3317,10 +3317,10 @@ if (isset($_REQUEST['action'])) {
 						}
 			
 					
-					$sql2=mysql_query("INSERT INTO `prft_fixaction_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `fix_pf_no`, `fix_order_type`, `fix_letter_no`, `fix_letter_date`, `fix_wef`,`fix_remark`,`fix_frm_rop`,`fix_frm_ps_type`, `fix_frm_scale`, `fix_frm_level`,   `fix_to_rop`, `fix_to_ps_type`, `fix_to_scale`, `fx_to_level`, `fix_carried_out_type`, `fix_carri_wef`, `fix_carri_date_of_incr`, `fix_car_re_accept_ltr_no`, `fix_car_re_accept_ltr_date`, `fix_car_re_wef_date`, `fix_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_fx_remark','$pm_oldrop','$pm_fx_ps_type_e','$pm_fx_frm_scale','$pm_fx_frm_level','$pm_newrop','$pm_fx_to_type_p','$pm_fx_to_scale','$pm_fx_to_level','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count')");
+					$sql2=mysqli_query($conn,"INSERT INTO `prft_fixaction_track`(`temp_transaction_id`, `final_transaction_id`, `zone`, `division`, `fix_pf_no`, `fix_order_type`, `fix_letter_no`, `fix_letter_date`, `fix_wef`,`fix_remark`,`fix_frm_rop`,`fix_frm_ps_type`, `fix_frm_scale`, `fix_frm_level`,   `fix_to_rop`, `fix_to_ps_type`, `fix_to_scale`, `fx_to_level`, `fix_carried_out_type`, `fix_carri_wef`, `fix_carri_date_of_incr`, `fix_car_re_accept_ltr_no`, `fix_car_re_accept_ltr_date`, `fix_car_re_wef_date`, `fix_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_fx_remark','$pm_oldrop','$pm_fx_ps_type_e','$pm_fx_frm_scale','$pm_fx_frm_level','$pm_newrop','$pm_fx_to_type_p','$pm_fx_to_scale','$pm_fx_to_level','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count')");
 					
 					
-					$sql1=mysql_query("INSERT INTO `prft_fixation_temp`(`temp_transaction_id`, `zone`, `division`, `fix_pf_no`, `fix_order_type`, `fix_letter_no`, `fix_letter_date`,  `fix_wef`,`fix_remark`,`fix_frm_rop`,`fix_frm_ps_type`, `fix_frm_scale`, `fix_frm_level`,`fix_to_rop`, `fix_to_ps_type`, `fix_to_scale`, `fx_to_level`, `fix_carried_out_type`, `fix_carri_wef`, `fix_carri_date_of_incr`, `fix_car_re_accept_ltr_no`, `fix_car_re_accept_ltr_date`, `fix_car_re_wef_date`, `fix_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_fx_remark','$pm_oldrop','$pm_fx_ps_type_e','$pm_fx_frm_scale','$pm_fx_frm_level','$pm_newrop','$pm_fx_to_type_p','$pm_fx_to_scale','$pm_fx_to_level','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count')");
+					$sql1=mysqli_query($conn,"INSERT INTO `prft_fixation_temp`(`temp_transaction_id`, `zone`, `division`, `fix_pf_no`, `fix_order_type`, `fix_letter_no`, `fix_letter_date`,  `fix_wef`,`fix_remark`,`fix_frm_rop`,`fix_frm_ps_type`, `fix_frm_scale`, `fix_frm_level`,`fix_to_rop`, `fix_to_ps_type`, `fix_to_scale`, `fx_to_level`, `fix_carried_out_type`, `fix_carri_wef`, `fix_carri_date_of_incr`, `fix_car_re_accept_ltr_no`, `fix_car_re_accept_ltr_date`, `fix_car_re_wef_date`, `fix_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_fx_remark','$pm_oldrop','$pm_fx_ps_type_e','$pm_fx_frm_scale','$pm_fx_frm_level','$pm_newrop','$pm_fx_to_type_p','$pm_fx_to_scale','$pm_fx_to_level','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count')");
 					
 					$action="Inserted Record in PRFT Fixation Temp and in PRFT Fixaction Track";
 					
@@ -3424,15 +3424,15 @@ if (isset($_REQUEST['action'])) {
 				$t_id=$_POST['trans_id'];
 				$count=0;
 
-				$sl=mysql_query("select max(id) as max from prft_transfer_temp where trans_pf_no='$pm_pf'");
-				$max=mysql_fetch_array($sl);
+				$sl=mysqli_query($conn,"select max(id) as max from prft_transfer_temp where trans_pf_no='$pm_pf'");
+				$max=mysqli_fetch_array($sl);
 				
 				if($tran_id=="")
 				{
-					$fetch=mysql_query("select * from `prft_transfer_temp` where trans_pf_no='pm_pf' order by id desc LIMIT 1");
+					$fetch=mysqli_query($conn,"select * from `prft_transfer_temp` where trans_pf_no='pm_pf' order by id desc LIMIT 1");
 					if($fetch)
 					{
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						if($re['count']=="")
 						{
@@ -3442,21 +3442,21 @@ if (isset($_REQUEST['action'])) {
 						}
 					}
 					
-					$sql1=mysql_query("INSERT INTO `prft_transfer_temp`(`temp_transaction_id`, `zone`, `division`, `trans_pf_no`, `trans_order_type`, `trans_letter_no`, `trans_letter_date`, `trans_wef`, `trans_frm_dept`, `trans_frm_desig`, `trans_frm_othr_desig`, `trans_frm_pay_scale_type`, `trans_frm_scale`, `trans_frm_level`, `trans_frm_group`, `trans_frm_station`, `trans_frm_othr_station`, `trans_frm_rop`, `trans_frm_billunit`, `trans_frm_depot`, `trans_to_dept`, `trans_to_desig`, `trans_to_othr_desig`, `trans_to_pay_scale_type`, `trans_to_scale`, `trans_to_level`, `trans_to_group`, `trans_to_station`, `trans_to_othr_station`, `trans_to_rop`, `trans_to_billunit`, `trans_to_depot`, `trans_carried_out_type`, `trans_carri_wef`, `trans_carri_date_of_incr`, `trans_car_re_accept_ltr_no`, `trans_car_re_accept_ltr_date`, `trans_car_re_wef_date`, `trans_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`trans_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$pm_frm_station','$pm_frm_otherstation','$pm_frm_rop','$pm_frm_bill_unith','$pm_frm_depoth','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pm_to_scale','$pm_to_level','$pm_to_group','$pm_to_station','$pm_to_otherstation','$pm_to_rop','$pm_to_bill_unitj','$pm_to_depotj','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$trans_remark')");
+					$sql1=mysqli_query($conn,"INSERT INTO `prft_transfer_temp`(`temp_transaction_id`, `zone`, `division`, `trans_pf_no`, `trans_order_type`, `trans_letter_no`, `trans_letter_date`, `trans_wef`, `trans_frm_dept`, `trans_frm_desig`, `trans_frm_othr_desig`, `trans_frm_pay_scale_type`, `trans_frm_scale`, `trans_frm_level`, `trans_frm_group`, `trans_frm_station`, `trans_frm_othr_station`, `trans_frm_rop`, `trans_frm_billunit`, `trans_frm_depot`, `trans_to_dept`, `trans_to_desig`, `trans_to_othr_desig`, `trans_to_pay_scale_type`, `trans_to_scale`, `trans_to_level`, `trans_to_group`, `trans_to_station`, `trans_to_othr_station`, `trans_to_rop`, `trans_to_billunit`, `trans_to_depot`, `trans_carried_out_type`, `trans_carri_wef`, `trans_carri_date_of_incr`, `trans_car_re_accept_ltr_no`, `trans_car_re_accept_ltr_date`, `trans_car_re_wef_date`, `trans_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`trans_remark`) VALUES ('$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$pm_frm_station','$pm_frm_otherstation','$pm_frm_rop','$pm_frm_bill_unith','$pm_frm_depoth','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pm_to_scale','$pm_to_level','$pm_to_group','$pm_to_station','$pm_to_otherstation','$pm_to_rop','$pm_to_bill_unitj','$pm_to_depotj','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$trans_remark')");
 					
 				
-					$sql2=mysql_query("INSERT INTO `prft_transfer_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `trans_pf_no`, `tran_order_type`, `tran_letter_no`, `tran_letter_date`, `tran_wef`, `tran_frm_dept`, `tran_frm_desig`, `tran_frm_othr_desig`, `tran_frm_pay_scale_type`, `tran_frm_scale`, `tran_frm_level`, `tran_frm_group`, `tran_frm_station`, `tran_frm_othr_station`, `tran_frm_rop`, `tran_frm_billunit`, `tran_frm_depot`, `tran_to_dept`, `tran_to_desig`, `tran_to_othr_desig`, `tran_to_pay_scale_type`, `tran_to_scale`, `tran_to_level`, `tran_to_group`, `tran_to_station`, `tran_to_othr_station`, `tran_to_rop`, `tran_to_billunit`, `tran_to_depot`, `tran_carried_out_type`, `tran_carri_wef`, `tran_carri_date_of_incr`, `tran_car_re_accept_ltr_no`, `tran_car_re_accept_ltr_date`, `tran_car_re_wef_date`, `tran_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`trans_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$pm_frm_station','$pm_frm_otherstation','$pm_frm_rop','$pm_frm_bill_unith','$pm_frm_depoth','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3', '$pm_to_scale', '$pm_to_level','$pm_to_group', '$pm_to_station', '$pm_to_otherstation', '$pm_to_rop', '$pm_to_bill_unitj', '$pm_to_depotj','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$trans_remark')");
+					$sql2=mysqli_query($conn,"INSERT INTO `prft_transfer_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `trans_pf_no`, `tran_order_type`, `tran_letter_no`, `tran_letter_date`, `tran_wef`, `tran_frm_dept`, `tran_frm_desig`, `tran_frm_othr_desig`, `tran_frm_pay_scale_type`, `tran_frm_scale`, `tran_frm_level`, `tran_frm_group`, `tran_frm_station`, `tran_frm_othr_station`, `tran_frm_rop`, `tran_frm_billunit`, `tran_frm_depot`, `tran_to_dept`, `tran_to_desig`, `tran_to_othr_desig`, `tran_to_pay_scale_type`, `tran_to_scale`, `tran_to_level`, `tran_to_group`, `tran_to_station`, `tran_to_othr_station`, `tran_to_rop`, `tran_to_billunit`, `tran_to_depot`, `tran_carried_out_type`, `tran_carri_wef`, `tran_carri_date_of_incr`, `tran_car_re_accept_ltr_no`, `tran_car_re_accept_ltr_date`, `tran_car_re_wef_date`, `tran_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`trans_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$pm_frm_station','$pm_frm_otherstation','$pm_frm_rop','$pm_frm_bill_unith','$pm_frm_depoth','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3', '$pm_to_scale', '$pm_to_level','$pm_to_group', '$pm_to_station', '$pm_to_otherstation', '$pm_to_rop', '$pm_to_bill_unitj', '$pm_to_depotj','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$trans_remark')");
 					
 					$action="Inserted Record in PRFT Transfer Temp and in PRFT Transfer Track";
 					
 					
 				}else{
-					dbcon1();
-					$fetch=mysql_query("select * from `prft_transfer_temp` where trans_pf_no='$pm_pf' and id='$t_id'");
+					$conn=dbcon1();
+					$fetch=mysqli_query($conn,"select * from `prft_transfer_temp` where trans_pf_no='$pm_pf' and id='$t_id'");
 					
 					if($fetch)
 					{	
-						$re=mysql_fetch_array($fetch);
+						$re=mysqli_fetch_array($fetch);
 						
 						if($re['count']=="")
 						{
@@ -3535,7 +3535,7 @@ if (isset($_REQUEST['action'])) {
 							//echo "<script>alert('In Else');</script>";
 							
 						
-							$sql2=mysql_query("INSERT INTO `prft_transfer_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `trans_pf_no`, `tran_order_type`, `tran_letter_no`, `tran_letter_date`, `tran_wef`, `tran_frm_dept`, `tran_frm_desig`, `tran_frm_othr_desig`, `tran_frm_pay_scale_type`, `tran_frm_scale`, `tran_frm_level`, `tran_frm_group`, `tran_frm_station`, `tran_frm_othr_station`, `tran_frm_rop`, `tran_frm_billunit`, `tran_frm_depot`, `tran_to_dept`, `tran_to_desig`, `tran_to_othr_desig`, `tran_to_pay_scale_type`, `tran_to_scale`, `tran_to_level`, `tran_to_group`, `tran_to_station`, `tran_to_othr_station`, `tran_to_rop`, `tran_to_billunit`, `tran_to_depot`, `tran_carried_out_type`, `tran_carri_wef`, `tran_carri_date_of_incr`, `tran_car_re_accept_ltr_no`, `tran_car_re_accept_ltr_date`, `tran_car_re_wef_date`, `tran_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`trans_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$pm_frm_station','$pm_frm_otherstation','$pm_frm_rop','$pm_frm_bill_unith','$pm_frm_depoth','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pm_to_scale','$pm_to_level','$pm_to_group','$pm_to_station','$pm_to_otherstation','$pm_to_rop','$pm_to_bill_unitj','$pm_to_depotj','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$trans_remark')");
+							$sql2=mysqli_query($conn,"INSERT INTO `prft_transfer_track`(`temp_transaction_id`,`final_transaction_id`, `zone`, `division`, `trans_pf_no`, `tran_order_type`, `tran_letter_no`, `tran_letter_date`, `tran_wef`, `tran_frm_dept`, `tran_frm_desig`, `tran_frm_othr_desig`, `tran_frm_pay_scale_type`, `tran_frm_scale`, `tran_frm_level`, `tran_frm_group`, `tran_frm_station`, `tran_frm_othr_station`, `tran_frm_rop`, `tran_frm_billunit`, `tran_frm_depot`, `tran_to_dept`, `tran_to_desig`, `tran_to_othr_desig`, `tran_to_pay_scale_type`, `tran_to_scale`, `tran_to_level`, `tran_to_group`, `tran_to_station`, `tran_to_othr_station`, `tran_to_rop`, `tran_to_billunit`, `tran_to_depot`, `tran_carried_out_type`, `tran_carri_wef`, `tran_carri_date_of_incr`, `tran_car_re_accept_ltr_no`, `tran_car_re_accept_ltr_date`, `tran_car_re_wef_date`, `tran_car_re_remark`, `date_time`, `updated_by`, `updated_fields`, `updated_reason`, `updated_date_time`, `letter_no`, `letter_datetime`, `uploaded_letter`, `approved_status`, `approved_by`, `approved_datetime`,`count`,`trans_remark`) VALUES ('$transaction_id','$transaction_id','$zone','$division','$pm_pf','$pm_ordertype','$pm_letterno','$pm_letterdate','$pm_wef','$pm_frm_dept','$pm_frm_desig','$pm_frm_otherdesig','$pm_frm_ps_type_3','$pm_frm_scale','$pm_frm_level','$pm_frm_group','$pm_frm_station','$pm_frm_otherstation','$pm_frm_rop','$pm_frm_bill_unith','$pm_frm_depoth','$pm_to_dept','$pm_to_desig','$pm_to_otherdesig','$pm_to_ps_type_3','$pm_to_scale','$pm_to_level','$pm_to_group','$pm_to_station','$pm_to_otherstation','$pm_to_rop','$pm_to_bill_unitj','$pm_to_depotj','$prtf_carried','$prtf_wefdate','$prtf_incrdate','$prtf_acc_ltr_no','$prtf_acc_ltr_date','$prtf_carr_wef_date','$prtf_carr_remark',Now(),'$updated_by','','','','','','','','','','$count','$trans_remark')");
 							
 							$action="Updated Record in PRFT Transfer Temp and Inserted Record in PRFT Transfer Track";
 							
@@ -3543,7 +3543,7 @@ if (isset($_REQUEST['action'])) {
 						}
 					}											
 					
-					$sql1=mysql_query("UPDATE `prft_transfer_temp` SET `temp_transaction_id`='$transaction_id',`zone`='$zone',`division`='$division',`trans_pf_no`='$pm_pf',`trans_order_type`='$pm_ordertype',`trans_letter_no`='$pm_letterno',`trans_letter_date`='$pm_letterdate',`trans_wef`='$pm_wef',`trans_frm_dept`='$pm_frm_dept',`trans_frm_desig`='$pm_frm_desig',`trans_frm_othr_desig`='$pm_frm_otherdesig',`trans_frm_pay_scale_type`='$pm_frm_ps_type_3',`trans_frm_scale`='$pm_frm_scale',`trans_frm_level`='$pm_frm_level',`trans_frm_group`='$pm_frm_group',`trans_frm_station`='$pm_frm_station',`trans_frm_othr_station`='$pm_frm_otherstation',`trans_frm_rop`='$pm_frm_rop',`trans_frm_billunit`='$pm_frm_bill_unith',`trans_frm_depot`='$pm_frm_depoth',`trans_to_dept`='$pm_to_dept',`trans_to_desig`='$pm_to_desig',`trans_to_othr_desig`='$pm_to_otherdesig',`trans_to_pay_scale_type`='$pm_to_ps_type_3',`trans_to_scale`='$pm_to_scale',`trans_to_level`='$pm_to_level',`trans_to_group`='$pm_to_group',`trans_to_station`='$pm_to_station',`trans_to_othr_station`='$pm_to_otherstation',`trans_to_rop`='$pm_to_rop',`trans_to_billunit`='$pm_to_bill_unitj',`trans_to_depot`='$pm_to_depotj',`trans_carried_out_type`='$prtf_carried',`trans_carri_wef`='$prtf_wefdate',`trans_carri_date_of_incr`='$prtf_incrdate',`trans_car_re_accept_ltr_no`='$prtf_acc_ltr_no',`trans_car_re_accept_ltr_date`='$prtf_acc_ltr_date',`trans_car_re_wef_date`='$prtf_carr_wef_date',`trans_car_re_remark`='$prtf_carr_remark',`date_time`=Now(),`updated_by`=$updated_by,`trans_remark`='$trans_remark' WHERE id='$tran_id'");
+					$sql1=mysqli_query($conn,"UPDATE `prft_transfer_temp` SET `temp_transaction_id`='$transaction_id',`zone`='$zone',`division`='$division',`trans_pf_no`='$pm_pf',`trans_order_type`='$pm_ordertype',`trans_letter_no`='$pm_letterno',`trans_letter_date`='$pm_letterdate',`trans_wef`='$pm_wef',`trans_frm_dept`='$pm_frm_dept',`trans_frm_desig`='$pm_frm_desig',`trans_frm_othr_desig`='$pm_frm_otherdesig',`trans_frm_pay_scale_type`='$pm_frm_ps_type_3',`trans_frm_scale`='$pm_frm_scale',`trans_frm_level`='$pm_frm_level',`trans_frm_group`='$pm_frm_group',`trans_frm_station`='$pm_frm_station',`trans_frm_othr_station`='$pm_frm_otherstation',`trans_frm_rop`='$pm_frm_rop',`trans_frm_billunit`='$pm_frm_bill_unith',`trans_frm_depot`='$pm_frm_depoth',`trans_to_dept`='$pm_to_dept',`trans_to_desig`='$pm_to_desig',`trans_to_othr_desig`='$pm_to_otherdesig',`trans_to_pay_scale_type`='$pm_to_ps_type_3',`trans_to_scale`='$pm_to_scale',`trans_to_level`='$pm_to_level',`trans_to_group`='$pm_to_group',`trans_to_station`='$pm_to_station',`trans_to_othr_station`='$pm_to_otherstation',`trans_to_rop`='$pm_to_rop',`trans_to_billunit`='$pm_to_bill_unitj',`trans_to_depot`='$pm_to_depotj',`trans_carried_out_type`='$prtf_carried',`trans_carri_wef`='$prtf_wefdate',`trans_carri_date_of_incr`='$prtf_incrdate',`trans_car_re_accept_ltr_no`='$prtf_acc_ltr_no',`trans_car_re_accept_ltr_date`='$prtf_acc_ltr_date',`trans_car_re_wef_date`='$prtf_carr_wef_date',`trans_car_re_remark`='$prtf_carr_remark',`date_time`=Now(),`updated_by`=$updated_by,`trans_remark`='$trans_remark' WHERE id='$tran_id'");
 					
 				}
 
@@ -3569,10 +3569,10 @@ if (isset($_REQUEST['action'])) {
 		  		$to_date=$_POST['rev_pen_to_date'];
 		  		$remark=$_POST['revise_remark'];
 		  		$status=1;
-                dbcon1();
-		  		$sql=mysql_query("update penalty_temp set revised_letter_no='$rev_ltr_no',revised_letter_date='$rev_ltr_date',revised_from_Date='$from_date',revised_to_date='$to_date',revised_remark='$remark',status='$status' where id='$id'");
+                $conn=dbcon1();
+		  		$sql=mysqli_query($conn,"update penalty_temp set revised_letter_no='$rev_ltr_no',revised_letter_date='$rev_ltr_date',revised_from_Date='$from_date',revised_to_date='$to_date',revised_remark='$remark',status='$status' where id='$id'");
 
-		  		echo "update penalty_temp set revised_letter_no='$rev_ltr_no',revised_letter_date='$rev_ltr_date',revised_from_Date='$from_date',revised_to_date='$to_date',revised_remark='$remark' where id='$id'".mysql_error();
+		  		echo "update penalty_temp set revised_letter_no='$rev_ltr_no',revised_letter_date='$rev_ltr_date',revised_from_Date='$from_date',revised_to_date='$to_date',revised_remark='$remark' where id='$id'".mysqli_error($conn);
 		  		if($sql)
 		  		{
 		  		//	echo "<script>alert('Penalty Revised Successfully');window.location='penalty_update.php'</script>";

@@ -566,14 +566,15 @@ include_once('create_log.php');
 			</thead>
 			<tbody>
 				<?php
-				$i = 1;
 				$conn = dbcon1();
-				$sql = mysqli_query($conn, "select * from log_history order by id desc limit 50");
+				$i = 1;
+
+				$sql = mysqli_query($conn, "SELECT * FROM log_history ORDER BY id DESC LIMIT 50");
 				while ($res = mysqli_fetch_array($sql)) {
 					$dt = date('d-m-Y', strtotime($res['date_time']));
 					echo "<tr>";
 					echo "<td>$i</td>";
-					echo "<td>" . fetch_user_name($res['action_by']) . " " .mc_decrypt($res['activity_details'], ENCRYPTION_KEY) . "</td>";
+					echo "<td>" . fetch_user_name($res['action_by']) . " " . decrypt_data($res['activity_details'], ENCRYPTION_KEY) . "</td>";
 					echo "<td>" . $res['action_on'] . "</td>";
 					echo "<td>" . $res['ip_address'] . "</td>";
 					echo "<td>$dt" . substr($res['date_time'], 10) . "</td>";
@@ -581,11 +582,8 @@ include_once('create_log.php');
 					$i++;
 				}
 				?>
-				<!--tr>
-				<td>John</td>
-				<td>Doe</td>
-			  </tr-->
 			</tbody>
+
 		</table>
 		<script>
 			$(function() {

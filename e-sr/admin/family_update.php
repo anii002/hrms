@@ -62,7 +62,7 @@ create_log($action, $action_on);
 									<input type="text" id="fc_pf_no<?php //echo $i;
 																	?>" name="fc_pf_no<?php //echo $i;
 																						?>" class="form-control TextNumber" value="<?php //echo $result2['fmy_pf_number'];
-																																					?>"   >
+																																	?>"   >
 								  </div>
                                 </div>
 						    </div-->

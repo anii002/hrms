@@ -1,8 +1,5 @@
 							<!-- tabular section code -->
-							
-							
-							
-							
+						
 							<!----Medical Details------>
 							<div class="tab-pane" id="medical">
 							    <h3>&nbsp;&nbsp;Medical Details</h3>
@@ -22,7 +19,7 @@
 							            <tbody>
 							                <?php
                                             // dbcon1();
-                                            $sql = mysqli_query($conn1, "select * from medical_temp where medi_pf_number='$pf_no'");
+                                            $sql = mysqli_query($conn, "select * from medical_temp where medi_pf_number='$pf_no'");
                                             $cnt = 1;
                                             while ($result = mysqli_fetch_array($sql)) {
                                                 echo "<tr>";
@@ -304,7 +301,7 @@
 							                                                <?php
                                                                             $pf_no = $_GET['pf'];
                                                                             $cnt_pr = 1;
-                                                                            $sql = mysqli_query($conn1, "select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
+                                                                            $sql = mysqli_query($conn, "select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
                                                                             while ($result = mysqli_fetch_array($sql)) {
                                                                                 echo "<tr>";
                                                                                 echo "<td>$cnt_pr</td>";
@@ -385,7 +382,7 @@
 							                                                <?php
                                                                             $pf_no = $_GET['pf'];
                                                                             $cnt_rv = 1;
-                                                                            $sql = mysqli_query($conn1, "select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
+                                                                            $sql = mysqli_query($conn, "select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
                                                                             while ($result = mysqli_fetch_array($sql)) {
                                                                                 echo "<tr>";
                                                                                 echo "<td>$cnt_rv</td>";
@@ -468,7 +465,7 @@
 							                                                <?php
                                                                             $pf_no = $_GET['pf'];
                                                                             $cnt_tr = 1;
-                                                                            $sql = mysqli_query($conn1, "select * from prft_transfer_temp where trans_pf_no='$pf_no'");
+                                                                            $sql = mysqli_query($conn, "select * from prft_transfer_temp where trans_pf_no='$pf_no'");
                                                                             while ($result = mysqli_fetch_array($sql)) {
                                                                                 echo "<tr>";
                                                                                 echo "<td>$cnt_tr</td>";
@@ -554,7 +551,7 @@
                                                                             // dbcon1();
                                                                             $pf_no = $_GET['pf'];
                                                                             $cnt_fx = 1;
-                                                                            $sql1 = mysqli_query($conn1, "select * from prft_fixation_temp where fix_pf_no='$pf_no'");
+                                                                            $sql1 = mysqli_query($conn, "select * from prft_fixation_temp where fix_pf_no='$pf_no'");
                                                                             $cnt = mysqli_num_rows($sql1);
 
 
@@ -612,7 +609,7 @@
                                     $pf_no = $_GET['pf'];
                                     //echo "<script>alert('$pf_no');</script>";
                                     $cnt = 1;
-                                    $query = mysqli_query($conn1, "Select * from penalty_temp where pen_pf_number='$pf_no'");
+                                    $query = mysqli_query($conn, "Select * from penalty_temp where pen_pf_number='$pf_no'");
                                     //echo "Select * from penalty_temp where pen_pf_number='$pf_no'".mysql_error();
                                     while ($result = mysqli_fetch_assoc($query)) {
 
@@ -684,7 +681,7 @@
 							<!--Increment tab begins -->
 							<?php
                             // dbcon1();
-                            $sql = mysqli_query($conn1, "select * from  increment_temp where incr_pf_number='$pf_no'");
+                            $sql = mysqli_query($conn, "select * from  increment_temp where incr_pf_number='$pf_no'");
                             $sql_fetch = mysqli_fetch_array($sql);
                             ?>
 							<div class="tab-pane" id="increment">
@@ -710,7 +707,7 @@
 							                </tr>
 							                <?php
                                             // dbcon1();
-                                            $sql = mysqli_query($conn1, "select * from  increment_temp where incr_pf_number='$pf_no'");
+                                            $sql = mysqli_query($conn, "select * from  increment_temp where incr_pf_number='$pf_no'");
                                             $cnt = "1";
                                             while ($result = mysqli_fetch_array($sql)) {
 
@@ -754,7 +751,7 @@
 							            <tbody>
 							                <?php
                                             // dbcon1();
-                                            $sql = mysqli_query($conn1, "select * from  advance_temp where adv_pf_number='$pf_no'");
+                                            $sql = mysqli_query($conn, "select * from  advance_temp where adv_pf_number='$pf_no'");
                                             if ($sql) {
                                                 while ($fetch_sql = mysqli_fetch_array($sql)) {
                                                     $pf_no = $fetch_sql['adv_pf_number'];
@@ -843,7 +840,7 @@
 
 							                <?php
                                             //property query
-                                            $sql = mysqli_query($conn1, "select * from  property_temp where pro_pf_number='$pf_no'");
+                                            $sql = mysqli_query($conn, "select * from  property_temp where pro_pf_number='$pf_no'");
                                             if ($sql) {
                                                 while ($fetch_sql = mysqli_fetch_array($sql)) {
                                                     $pf_no = $fetch_sql['pro_pf_number'];
@@ -945,7 +942,7 @@
 							        <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
 							        <?php
                                     // dbcon1();
-                                    $sql = mysqli_query($conn1, "select * from  family_temp where emp_pf='$pf_no'");
+                                    $sql = mysqli_query($conn, "select * from  family_temp where emp_pf='$pf_no'");
 
                                     while ($result = mysqli_fetch_array($sql)) {
 
@@ -1001,7 +998,7 @@
 							            <tbody>
 							                <?php
                                             // dbcon1();
-                                            $sql = mysqli_query($conn1, "select * from  award_temp where awd_pf_number='$pf_no'");
+                                            $sql = mysqli_query($conn, "select * from  award_temp where awd_pf_number='$pf_no'");
                                             if ($sql) {
                                                 while ($fetch_sql = mysqli_fetch_array($sql)) {
                                                     $awd_pf_number = $fetch_sql['awd_pf_number'];
@@ -1072,7 +1069,7 @@
 							                                    <div class="table-responsive">
 							                                        <?php
                                                                     // dbcon1();
-                                                                    $sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no'");
+                                                                    $sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no'");
                                                                     while ($result = mysqli_fetch_array($sql)) {
 
                                                                         echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -1175,7 +1172,7 @@
 							                                        <div class="table-responsive">
 							                                            <?php
                                                                         // dbcon1();
-                                                                        $sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
+                                                                        $sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
                                                                         while ($result = mysqli_fetch_array($sql)) {
 
                                                                             echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -1277,7 +1274,7 @@
 							                                        <div class="table-responsive">
 							                                            <?php
                                                                         // dbcon1();
-                                                                        $sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
+                                                                        $sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
                                                                         while ($result = mysqli_fetch_array($sql)) {
 
                                                                             echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -1363,7 +1360,7 @@
 							            <tbody>
 							                <?php
                                             // dbcon1();
-                                            $nominee = mysqli_query($conn1, "select * from  training_temp where pf_number='$pf_no'");
+                                            $nominee = mysqli_query($conn, "select * from  training_temp where pf_number='$pf_no'");
                                             while ($fetch_nominee = mysqli_fetch_array($nominee)) {
 
                                                 $tra_pf_number = $fetch_nominee['pf_number'];
@@ -1667,7 +1664,7 @@
 							                            <tbody>
 							                                <?php
                                                             // dbcon1();
-                                                            $sql = mysqli_query($conn1, "select * from medical_temp where medi_pf_number='$pf_no'");
+                                                            $sql = mysqli_query($conn, "select * from medical_temp where medi_pf_number='$pf_no'");
                                                             $cnt = 1;
                                                             while ($result = mysqli_fetch_array($sql)) {
                                                                 echo "<tr>";
@@ -1940,7 +1937,7 @@
 							                                                                            <?php
                                                                                                         $pf_no = $_GET['pf'];
                                                                                                         $cnt_pr = 1;
-                                                                                                        $sql = mysqli_query($conn1, "select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
+                                                                                                        $sql = mysqli_query($conn, "select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
                                                                                                         while ($result = mysqli_fetch_array($sql)) {
                                                                                                             echo "<tr>";
                                                                                                             echo "<td>$cnt_pr</td>";
@@ -2011,7 +2008,7 @@
 							                                                                            <?php
                                                                                                         $pf_no = $_GET['pf'];
                                                                                                         $cnt_rv = 1;
-                                                                                                        $sql = mysqli_query($conn1, "select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
+                                                                                                        $sql = mysqli_query($conn, "select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
                                                                                                         while ($result = mysqli_fetch_array($sql)) {
                                                                                                             echo "<tr>";
                                                                                                             echo "<td>$cnt_rv</td>";
@@ -2084,7 +2081,7 @@
 							                                                                            <?php
                                                                                                         $pf_no = $_GET['pf'];
                                                                                                         $cnt_tr = 1;
-                                                                                                        $sql = mysqli_query($conn1, "select * from prft_transfer_temp where trans_pf_no='$pf_no'");
+                                                                                                        $sql = mysqli_query($conn, "select * from prft_transfer_temp where trans_pf_no='$pf_no'");
                                                                                                         while ($result = mysqli_fetch_array($sql)) {
                                                                                                             echo "<tr>";
                                                                                                             echo "<td>$cnt_tr</td>";
@@ -2162,7 +2159,7 @@
                                                                                                         // dbcon1();
                                                                                                         $pf_no = $_GET['pf'];
                                                                                                         $cnt_fx = 1;
-                                                                                                        $sql1 = mysqli_query($conn1, "select * from prft_fixation_temp where fix_pf_no='$pf_no'");
+                                                                                                        $sql1 = mysqli_query($conn, "select * from prft_fixation_temp where fix_pf_no='$pf_no'");
                                                                                                         $cnt = mysqli_num_rows($sql1);
 
 
@@ -2218,7 +2215,7 @@
                                                     $pf_no = $_GET['pf'];
                                                     //echo "<script>alert('$pf_no');</script>";
                                                     $cnt = 1;
-                                                    $query = mysqli_query($conn1, "Select * from penalty_temp where pen_pf_number='$pf_no'");
+                                                    $query = mysqli_query($conn, "Select * from penalty_temp where pen_pf_number='$pf_no'");
                                                     //echo "Select * from penalty_temp where pen_pf_number='$pf_no'".mysql_error();
                                                     while ($result = mysqli_fetch_assoc($query)) {
 
@@ -2277,7 +2274,7 @@
 							                    </div>
 							                    <?php
                                                 // dbcon1();
-                                                $sql = mysqli_query($conn1, "select * from  increment_temp where incr_pf_number='$pf_no'");
+                                                $sql = mysqli_query($conn, "select * from  increment_temp where incr_pf_number='$pf_no'");
                                                 $sql_fetch = mysqli_fetch_array($sql);
                                                 ?>
 							                    <div class="table-responsive" style="padding:20px;">
@@ -2302,7 +2299,7 @@
 							                                </tr>
 							                                <?php
                                                             // dbcon1();
-                                                            $sql = mysqli_query($conn1, "select * from  increment_temp where incr_pf_number='$pf_no'");
+                                                            $sql = mysqli_query($conn, "select * from  increment_temp where incr_pf_number='$pf_no'");
                                                             $cnt = "1";
                                                             while ($result = mysqli_fetch_array($sql)) {
 
@@ -2341,7 +2338,7 @@
 							                            <tbody>
 							                                <?php
                                                             // dbcon1();
-                                                            $sql = mysqli_query($conn1, "select * from  advance_temp where adv_pf_number='$pf_no'");
+                                                            $sql = mysqli_query($conn, "select * from  advance_temp where adv_pf_number='$pf_no'");
                                                             if ($sql) {
                                                                 while ($fetch_sql = mysqli_fetch_array($sql)) {
                                                                     $pf_no = $fetch_sql['adv_pf_number'];
@@ -2423,7 +2420,7 @@
 							                            <tbody>
 							                                <?php
                                                             //property query
-                                                            $sql = mysqli_query($conn1, "select * from  property_temp where pro_pf_number='$pf_no'");
+                                                            $sql = mysqli_query($conn, "select * from  property_temp where pro_pf_number='$pf_no'");
                                                             if ($sql) {
                                                                 while ($fetch_sql = mysqli_fetch_array($sql)) {
                                                                     $pf_no = $fetch_sql['pro_pf_number'];
@@ -2520,7 +2517,7 @@
 							                        <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
 							                        <?php
                                                     // dbcon1();
-                                                    $sql = mysqli_query($conn1, "select * from  family_temp where emp_pf='$pf_no'");
+                                                    $sql = mysqli_query($conn, "select * from  family_temp where emp_pf='$pf_no'");
 
                                                     while ($result = mysqli_fetch_array($sql)) {
 
@@ -2570,7 +2567,7 @@
 							                            <tbody>
 							                                <?php
                                                             // dbcon1();
-                                                            $sql = mysqli_query($conn1, "select * from  award_temp where awd_pf_number='$pf_no'");
+                                                            $sql = mysqli_query($conn, "select * from  award_temp where awd_pf_number='$pf_no'");
                                                             if ($sql) {
                                                                 while ($fetch_sql = mysqli_fetch_array($sql)) {
                                                                     $awd_pf_number = $fetch_sql['awd_pf_number'];
@@ -2641,7 +2638,7 @@
 							                                                                <div class="table-responsive">
 							                                                                    <?php
                                                                                                 // dbcon1();
-                                                                                                $sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no'");
+                                                                                                $sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no'");
                                                                                                 while ($result = mysqli_fetch_array($sql)) {
 
                                                                                                     echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -2732,7 +2729,7 @@
 							                                                                <div class="table-responsive">
 							                                                                    <?php
                                                                                                 // dbcon1();
-                                                                                                $sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
+                                                                                                $sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
                                                                                                 while ($result = mysqli_fetch_array($sql)) {
 
                                                                                                     echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -2827,7 +2824,7 @@
 							                                                                <div class="table-responsive">
 							                                                                    <?php
                                                                                                 // dbcon1();
-                                                                                                $sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
+                                                                                                $sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
                                                                                                 while ($result = mysqli_fetch_array($sql)) {
 
                                                                                                     echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -2913,7 +2910,7 @@
 							                            <tbody>
 							                                <?php
                                                             // dbcon1();
-                                                            $nominee = mysqli_query($conn1, "select * from  training_temp where pf_number='$pf_no'");
+                                                            $nominee = mysqli_query($conn, "select * from  training_temp where pf_number='$pf_no'");
                                                             while ($fetch_nominee = mysqli_fetch_array($nominee)) {
 
                                                                 $tra_pf_number = $fetch_nominee['pf_number'];
@@ -3084,7 +3081,7 @@
 								<tbody>
 									<?php
 									// dbcon1();
-									$sql = mysqli_query($conn1, "select * from medical_temp where medi_pf_number='$pf_no'");
+									$sql = mysqli_query($conn, "select * from medical_temp where medi_pf_number='$pf_no'");
 									$cnt = 1;
 									while ($result = mysqli_fetch_array($sql)) {
 										echo "<tr>";
@@ -3357,7 +3354,7 @@
 																				<?php
 																				$pf_no = $_GET['pf'];
 																				$cnt_pr = 1;
-																				$sql = mysqli_query($conn1, "select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
+																				$sql = mysqli_query($conn, "select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
 																				while ($result = mysqli_fetch_array($sql)) {
 																					echo "<tr>";
 																					echo "<td>$cnt_pr</td>";
@@ -3428,7 +3425,7 @@
 																				<?php
 																				$pf_no = $_GET['pf'];
 																				$cnt_rv = 1;
-																				$sql = mysqli_query($conn1, "select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
+																				$sql = mysqli_query($conn, "select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
 																				while ($result = mysqli_fetch_array($sql)) {
 																					echo "<tr>";
 																					echo "<td>$cnt_rv</td>";
@@ -3501,7 +3498,7 @@
 																				<?php
 																				$pf_no = $_GET['pf'];
 																				$cnt_tr = 1;
-																				$sql = mysqli_query($conn1, "select * from prft_transfer_temp where trans_pf_no='$pf_no'");
+																				$sql = mysqli_query($conn, "select * from prft_transfer_temp where trans_pf_no='$pf_no'");
 																				while ($result = mysqli_fetch_array($sql)) {
 																					echo "<tr>";
 																					echo "<td>$cnt_tr</td>";
@@ -3579,7 +3576,7 @@
 																				// dbcon1();
 																				$pf_no = $_GET['pf'];
 																				$cnt_fx = 1;
-																				$sql1 = mysqli_query($conn1, "select * from prft_fixation_temp where fix_pf_no='$pf_no'");
+																				$sql1 = mysqli_query($conn, "select * from prft_fixation_temp where fix_pf_no='$pf_no'");
 																				$cnt = mysqli_num_rows($sql1);
 
 
@@ -3635,7 +3632,7 @@
 							$pf_no = $_GET['pf'];
 							//echo "<script>alert('$pf_no');</script>";
 							$cnt = 1;
-							$query = mysqli_query($conn1, "Select * from penalty_temp where pen_pf_number='$pf_no'");
+							$query = mysqli_query($conn, "Select * from penalty_temp where pen_pf_number='$pf_no'");
 							//echo "Select * from penalty_temp where pen_pf_number='$pf_no'".mysql_error();
 							while ($result = mysqli_fetch_assoc($query)) {
 
@@ -3694,7 +3691,7 @@
 						</div>
 						<?php
 						// dbcon1();
-						$sql = mysqli_query($conn1, "select * from  increment_temp where incr_pf_number='$pf_no'");
+						$sql = mysqli_query($conn, "select * from  increment_temp where incr_pf_number='$pf_no'");
 						$sql_fetch = mysqli_fetch_array($sql);
 						?>
 						<div class="table-responsive" style="padding:20px;">
@@ -3719,7 +3716,7 @@
 									</tr>
 									<?php
 									// dbcon1();
-									$sql = mysqli_query($conn1, "select * from  increment_temp where incr_pf_number='$pf_no'");
+									$sql = mysqli_query($conn, "select * from  increment_temp where incr_pf_number='$pf_no'");
 									$cnt = "1";
 									while ($result = mysqli_fetch_array($sql)) {
 
@@ -3758,7 +3755,7 @@
 								<tbody>
 									<?php
 									// dbcon1();
-									$sql = mysqli_query($conn1, "select * from  advance_temp where adv_pf_number='$pf_no'");
+									$sql = mysqli_query($conn, "select * from  advance_temp where adv_pf_number='$pf_no'");
 									if ($sql) {
 										while ($fetch_sql = mysqli_fetch_array($sql)) {
 											$pf_no = $fetch_sql['adv_pf_number'];
@@ -3840,7 +3837,7 @@
 								<tbody>
 									<?php
 									//property query
-									$sql = mysqli_query($conn1, "select * from  property_temp where pro_pf_number='$pf_no'");
+									$sql = mysqli_query($conn, "select * from  property_temp where pro_pf_number='$pf_no'");
 									if ($sql) {
 										while ($fetch_sql = mysqli_fetch_array($sql)) {
 											$pf_no = $fetch_sql['pro_pf_number'];
@@ -3937,7 +3934,7 @@
 							<hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
 							<?php
 							// dbcon1();
-							$sql = mysqli_query($conn1, "select * from  family_temp where emp_pf='$pf_no'");
+							$sql = mysqli_query($conn, "select * from  family_temp where emp_pf='$pf_no'");
 
 							while ($result = mysqli_fetch_array($sql)) {
 
@@ -3987,7 +3984,7 @@
 								<tbody>
 									<?php
 									// dbcon1();
-									$sql = mysqli_query($conn1, "select * from  award_temp where awd_pf_number='$pf_no'");
+									$sql = mysqli_query($conn, "select * from  award_temp where awd_pf_number='$pf_no'");
 									if ($sql) {
 										while ($fetch_sql = mysqli_fetch_array($sql)) {
 											$awd_pf_number = $fetch_sql['awd_pf_number'];
@@ -4057,7 +4054,7 @@
 																	<div class="table-responsive">
 																		<?php
 																		// dbcon1();
-																		$sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no'");
+																		$sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no'");
 																		while ($result = mysqli_fetch_array($sql)) {
 
 																			echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -4150,7 +4147,7 @@
 																	<div class="table-responsive">
 																		<?php
 																		// dbcon1();
-																		$sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
+																		$sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
 																		while ($result = mysqli_fetch_array($sql)) {
 
 																			echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -4245,7 +4242,7 @@
 																	<div class="table-responsive">
 																		<?php
 																		// dbcon1();
-																		$sql = mysqli_query($conn1, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
+																		$sql = mysqli_query($conn, "select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
 																		while ($result = mysqli_fetch_array($sql)) {
 
 																			echo "<table border='1' class='table table-bordered'  style='width:100%'>";
@@ -4331,7 +4328,7 @@
 								<tbody>
 									<?php
 									// dbcon1();
-									$nominee = mysqli_query($conn1, "select * from  training_temp where pf_number='$pf_no'");
+									$nominee = mysqli_query($conn, "select * from  training_temp where pf_number='$pf_no'");
 									while ($fetch_nominee = mysqli_fetch_array($nominee)) {
 
 										$tra_pf_number = $fetch_nominee['pf_number'];

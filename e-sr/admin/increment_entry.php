@@ -142,13 +142,11 @@ include_once('../global/header1.php'); ?>
 
 									<div class="form-group">
 
-										<!--label class="control-label col-md-2 col-sm-3 col-xs-12" >Scale</label-->
+										<label class="control-label col-md-2 col-sm-3 col-xs-12" >Scale</label>
 
 										<div class="col-md-12 col-sm-8 col-xs-12">
 
 											<select class="form-control primary select2 scale_drop_1" num="1" id="scale_drop_1" name="scale_drop_1" style="width:100%;">
-
-
 
 											</select>
 
@@ -162,7 +160,7 @@ include_once('../global/header1.php'); ?>
 
 									<div class="form-group">
 
-										<!--label class="control-label col-md-4 col-sm-3 col-xs-12" >Level<span class=""></span></label-->
+										<!-- label class="control-label col-md-4 col-sm-3 col-xs-12" >Level<span class=""></span></label -->
 
 										<div class="col-md-12 col-sm-8 col-xs-12">
 

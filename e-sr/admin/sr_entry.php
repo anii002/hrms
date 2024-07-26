@@ -263,9 +263,9 @@ Follow me on Twitter @maridlcrmn
 				<select class="form-control select2" style="width:100%;" id="modal_zone" name="modal_zone">
 					<option value="blank" selected>--Select Zone--</option>
 					<?php
-						dbcon();
-						$sql=mysql_query("select * from aims");
-						while($sql_fetch=mysql_fetch_array($sql))
+						$conn=dbcon();
+						$sql=mysqli_query($conn,"select * from aims");
+						while($sql_fetch=mysqli_fetch_array($sql))
 						{
 							echo "<option value='".$sql_fetch['RLYCODE']."'>".$sql_fetch['LONGDESC']."</option>";
 						}
@@ -372,9 +372,9 @@ Follow me on Twitter @maridlcrmn
 				<select class="form-control select2" style="width:100%;" id="modal_zone_station" name="modal_zone_station">
 					<option value="blank" selected>--Select Zone--</option>
 					<?php
-						dbcon();
-						$sql=mysql_query("select * from aims");
-						while($sql_fetch=mysql_fetch_array($sql))
+						$conn=dbcon();
+						$sql=mysqli_query($conn,"select * from aims");
+						while($sql_fetch=mysqli_fetch_array($sql))
 						{
 							echo "<option value='".$sql_fetch['RLYCODE']."'>".$sql_fetch['LONGDESC']."</option>";
 						}
@@ -390,8 +390,8 @@ Follow me on Twitter @maridlcrmn
 					<option value="" selected>--Select Division--</option>
 					<?php
 						/* dbcon();
-						$sql=mysql_query("select * from division");
-						while($sql_fetch=mysql_fetch_array($sql))
+						$sql=mysqli_query("select * from division");
+						while($sql_fetch=mysqli_fetch_array($sql))
 						{
 							echo "<option value='".$sql_fetch['rlycode']."'>".$sql_fetch['longdesc']."</option>";
 						} */
@@ -454,9 +454,9 @@ Follow me on Twitter @maridlcrmn
 									<select name="medi_cat" id="medi_cat" class="form-control select2" style="margin-top:0px; width:100%;" required>
 										<option value=" " selected></option>
 										<?php
-												dbcon();
-												$sqlreligion=mysql_query("select * from medical_classi");
-												while($rwDept=mysql_fetch_array($sqlreligion))
+												$conn=dbcon();
+												$sqlreligion=mysqli_query($conn,"select * from medical_classi");
+												while($rwDept=mysqli_fetch_array($sqlreligion))
 												{
 												?>
 												<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["longdesc"]; ?></option>
@@ -481,11 +481,12 @@ Follow me on Twitter @maridlcrmn
 								<?php
 								$last_pf="";
 								if($_SESSION['same_pf_no']!="")
-								{	dbcon1();
+								{	
+									$conn=dbcon1();
 									$last_pf=$_SESSION['same_pf_no'];
-									$sql=mysql_query("select dob from biodata_temp where pf_number='$last_pf'");
+									$sql=mysqli_query($conn,"select dob from biodata_temp where pf_number='$last_pf'");
 									
-									while($result=mysql_fetch_array($sql)){
+									while($result=mysqli_fetch_array($sql)){
 										$last_pf=date('d-m-Y', strtotime($result['dob']));
 									}
 								}else{
@@ -1755,7 +1756,7 @@ $(document).on("click",".add_source",function(){
 	//alert(t);
 	
 	
-	var source="<br><div class='col-md-6 col-sm-12 col-xs-12'><div class='form-group'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Source Type</label><div class='col-md-8 col-sm-8 col-xs-12' ><select name='pd_sourcr_type"+t+"["+r+"]' id='pd_sourcr_type"+r+"' class='form-control select2' style='margin-top:0px; width:100%;' required><option disabled selected >Select Source Type</option><?php dbcon(); $sqlreligion=mysql_query("select * from property_source") or die(mysql_error()); while($rwDept=mysql_fetch_array($sqlreligion)){echo "<option value='".$rwDept['id']."'>".$rwDept['property_source']."</option>";}?></select></div></div></div><div class='col-md-6 col-sm-12 col-xs-12'><div class='form-group' ><label class='control-label col-md-4 col-sm-1 col-xs-12'>Amount</label><div class='col-md-8 col-sm-12 col-xs-12'><input type='text' id='pd_source_amt"+r+"' name='pd_source_amt"+t+"["+r+"]' class='form-control TextNumber' placeholder='Enter Source Amount' required></div></div></div><br>";
+	var source="<br><div class='col-md-6 col-sm-12 col-xs-12'><div class='form-group'><label class='control-label col-md-4 col-sm-3 col-xs-12' >Source Type</label><div class='col-md-8 col-sm-8 col-xs-12' ><select name='pd_sourcr_type"+t+"["+r+"]' id='pd_sourcr_type"+r+"' class='form-control select2' style='margin-top:0px; width:100%;' required><option disabled selected >Select Source Type</option><?php dbcon(); $sqlreligion=mysqli_query($conn,"select * from property_source") or die(mysqli_error($conn)); while($rwDept=mysqli_fetch_array($sqlreligion)){echo "<option value='".$rwDept['id']."'>".$rwDept['property_source']."</option>";}?></select></div></div></div><div class='col-md-6 col-sm-12 col-xs-12'><div class='form-group' ><label class='control-label col-md-4 col-sm-1 col-xs-12'>Amount</label><div class='col-md-8 col-sm-12 col-xs-12'><input type='text' id='pd_source_amt"+r+"' name='pd_source_amt"+t+"["+r+"]' class='form-control TextNumber' placeholder='Enter Source Amount' required></div></div></div><br>";
 
 	
 	$("#add_source_div"+t).append(source);
@@ -1782,7 +1783,7 @@ var ad=1;
 $("#incr_add_row").click(function(){
 	debugger;
 	ad++;
-	var add_new_row="<tr><td>"+ad+"</td><td><select class='form-control primary select2' id='incr_type"+ad+"' name='incr_type"+ad+"' style='width:100%;' required><option value='blank' selected>-- Select Type --</option><option value='blank' ></option><?php $sqlDept=mysql_query('select * from increment_type');while($rwDept=mysql_fetch_array($sqlDept)){echo "<option value=' ".$rwDept["id"]."'> ".$rwDept["increment_type"]."</option>";}?></select></td><td><select class='form-control primary ps_type_addnew_row select2' id='ps_type_row_"+ad+"' name='ps_type_row_"+ad+"' style='margin-top:0px; width:100%;' num='"+ad+"' required><option value='' selected hidden disabled>-- Select PC Type --</option><?php echo $pay_scale_type;?></select></td><td><div class='col-md-12 col-sm-12 col-xs-12' id='scale_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'> <div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 scale_drop_"+ad+"' id='scale_drop_"+ad+"' name='scale_drop_"+ad+"' style='width:100%;'></select></div></div></div><div class='col-md-12 col-sm-12 col-xs-12' id='level_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'><div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 level_drop_"+ad+"' id='level_drop_"+ad+"' name='level_drop_"+ad+"' style='width:100%;'></select></div></div></div></td><td><input type='text' style='width:100%' id='incr_add_row_rop_"+ad+"' placeholder='enter rop' name='incr_add_row_rop"+ad+"'></td><td><input type='text' class='form-control primary calender_picker'placeholder='enter date' id='incr_date"+ad+"' name='incr_date"+ad+"' required/></td><td><textarea style='resize:none;width:100%' id='incr_row_reason_"+ad+"'name='incr_row_reason"+ad+"' placeholder='enter reason'> </textarea></td></tr>";
+	var add_new_row="<tr><td>"+ad+"</td><td><select class='form-control primary select2' id='incr_type"+ad+"' name='incr_type"+ad+"' style='width:100%;' required><option value='blank' selected>-- Select Type --</option><option value='blank' ></option><?php $sqlDept=mysqli_query($conn,'select * from increment_type');while($rwDept=mysqli_fetch_array($sqlDept)){echo "<option value=' ".$rwDept["id"]."'> ".$rwDept["increment_type"]."</option>";}?></select></td><td><select class='form-control primary ps_type_addnew_row select2' id='ps_type_row_"+ad+"' name='ps_type_row_"+ad+"' style='margin-top:0px; width:100%;' num='"+ad+"' required><option value='' selected hidden disabled>-- Select PC Type --</option><?php echo $pay_scale_type;?></select></td><td><div class='col-md-12 col-sm-12 col-xs-12' id='scale_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'> <div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 scale_drop_"+ad+"' id='scale_drop_"+ad+"' name='scale_drop_"+ad+"' style='width:100%;'></select></div></div></div><div class='col-md-12 col-sm-12 col-xs-12' id='level_row_"+ad+"' num='"+ad+"' style='display:none;'><div class='form-group'><div class='col-md-12 col-sm-8 col-xs-12'><select class='form-control primary select2 level_drop_"+ad+"' id='level_drop_"+ad+"' name='level_drop_"+ad+"' style='width:100%;'></select></div></div></div></td><td><input type='text' style='width:100%' id='incr_add_row_rop_"+ad+"' placeholder='enter rop' name='incr_add_row_rop"+ad+"'></td><td><input type='text' class='form-control primary calender_picker'placeholder='enter date' id='incr_date"+ad+"' name='incr_date"+ad+"' required/></td><td><textarea style='resize:none;width:100%' id='incr_row_reason_"+ad+"'name='incr_row_reason"+ad+"' placeholder='enter reason'> </textarea></td></tr>";
 	
 	$("#ad_row_incr").append(add_new_row);
 	$("#row_count").val(ad);

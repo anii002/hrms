@@ -2,7 +2,7 @@
 // session_start();
 $_GLOBALS['a'] = 'biodata';
 include_once('../global/header_update.php');
-// include_once('../dbconfig/dbcon.php');
+include_once('../dbconfig/dbcon.php');
 include('create_log.php');
 // echo 'test';exit;
 $action = "Visited Biodata page";
@@ -107,7 +107,6 @@ create_log($action, $action_on);
 								<label class="control-label col-md-4 col-sm-3 col-xs-12">Gender</label>
 								<div class="col-md-8 col-sm-8 col-xs-12">
 									<select name="bio_gender" id="bio_gender" class="form-control bio_all_status select2" style="margin-top:0px; width:100%;" required>
-
 										<option value="" disabled selected>SELECT GENDER </option>
 										<option value="blank">NA</option>
 										<?php

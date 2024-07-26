@@ -31,7 +31,7 @@ $conn1=dbcon1();
 
 <?php
 				
-				// Bio
+				   // Bio
 					 $pf_no=$_GET['pf'];
 					 $query=mysql_query("Select * from biodata_track where pf_number='$pf_no' ");
 					 
@@ -245,7 +245,7 @@ $conn1=dbcon1();
 							}
 			
 
-/*//property query
+           /*//property query
 			$sql=mysql_query("select * from  property_temp where pro_pf_number='$pf_no'");
 				if($sql){
 					while($fetch_sql=mysql_fetch_array($sql))

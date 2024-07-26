@@ -285,7 +285,7 @@
 										<option value="blank" selected></option>
 										<?php
 										$conn = dbcon();
-										$sqlDept = mysqli_query($conn,"select * from designation");
+										$sqlDept = mysqli_query($conn,"select * from designations");
 										while ($rwDept = mysqli_fetch_array($sqlDept)) {
 										?>
 											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["desiglongdesc"]; ?></option>

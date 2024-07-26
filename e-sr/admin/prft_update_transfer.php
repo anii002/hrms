@@ -7,7 +7,7 @@
  $_GLOBALS['a'] ='prft';
 include_once('../global/header_update.php');
 include('create_log.php');
-dbcon();
+$conn=dbcon();
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
@@ -140,14 +140,14 @@ dbcon();
 			 <div class="tab-pane" id="prft">
 				 <h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Transfer </h3>
 			<?php 
-			dbcon1();
+			$conn=dbcon1();
 			$pf_no=$_GET['pf_no'];
 			$id=$_GET['id'];
 			
 			if($pf_no!='trans'){
-				$query=mysql_query("select * from  prft_transfer_temp where trans_pf_no='$pf_no' and id='$id'");
-				$cnt=mysql_num_rows($query);
-				$result=mysql_fetch_array($query);
+				$query=mysqli_query($conn,"select * from  prft_transfer_temp where trans_pf_no='$pf_no' and id='$id'");
+				$cnt=mysqli_num_rows($query);
+				$result=mysqli_fetch_array($query);
 			
 				$action="Viewed PRFT Transfer single record On SR Entry";
 			}else{
@@ -182,9 +182,9 @@ dbcon();
 									<select class="form-control primary odrtype2 select2" id="tf_ordertype" name="tf_ordertype" style="width:100%;" >
 									<option value="" selected hidden disabled>-- Select Order Type --</option>
 									<?php
-											dbcon();
-											$sqlDept=mysql_query("select * from order_type_transfer");
-											while($rwDept=mysql_fetch_array($sqlDept))
+											$conn=dbcon();
+											$sqlDept=mysqli_query($conn,"select * from order_type_transfer");
+											while($rwDept=mysqli_fetch_array($sqlDept))
 											{
 											?>
 											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["type"]; ?></option>

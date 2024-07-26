@@ -6,7 +6,7 @@
  // }
  $_GLOBALS['a'] ='prft';
 include_once('../global/header_update.php');
-dbcon();
+$conn=dbcon();
 include('create_log.php');
 
 ?>
@@ -141,7 +141,7 @@ include('create_log.php');
 			 <div class="tab-pane" id="prft">
 				 <h3 class="box-title"><i class="fa fa-book"></i>&nbsp;&nbsp;Fixaction </h3>
 			<?php 
-			dbcon1();
+			$conn=dbcon1();
 			$pf_no=$_GET['pf_no'];
 			$id=$_GET['id'];
 			
@@ -149,9 +149,9 @@ include('create_log.php');
 			
 			if($pf_no!='fix'){
 				
-				$query=mysql_query("select * from  prft_fixaction_temp where fix_pf_no='$pf_no' and id='$id'");
-				$cnt=mysql_num_rows($query);
-				$result=mysql_fetch_array($query);
+				$query=mysqli_query($conn,"select * from  prft_fixaction_temp where fix_pf_no='$pf_no' and id='$id'");
+				$cnt=mysqli_num_rows($query);
+				$result=mysqli_fetch_array($query);
 			
 				$action="Viewed PRFT Fixation single record On SR Entry";
 			}else{
@@ -184,9 +184,9 @@ include('create_log.php');
 									<select class="form-control primary odrtype select2" id="fx_ordertype" name="fx_ordertype" style="width:100%;" >
 									<option value="" selected hidden disabled>-- Select Order Type --</option>
 										<?php
-											dbcon();
-											$sqlDept=mysql_query("select * from  order_type_fixation");
-											while($rwDept=mysql_fetch_array($sqlDept))
+											$conn=dbcon();
+											$sqlDept=mysqli_query($conn,"select * from  order_type_fixation");
+											while($rwDept=mysqli_fetch_array($sqlDept))
 											{
 											?>
 											<option value="<?php echo $rwDept["id"]; ?>"><?php echo $rwDept["type"]; ?></option>

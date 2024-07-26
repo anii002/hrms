@@ -35,11 +35,11 @@
 														</thead>
 														<tbody>
 														<?php 
-														dbcon1();
+														$conn=dbcon1();
 														
-														$query=mysql_query("select * from user_login");
+														$query=mysqli_query($conn,"select * from user_login");
 														$cnt=0;
-														while($res=mysql_fetch_array($query)){
+														while($res=mysqli_fetch_array($query)){
 															$bill=$res['multi_bill_unit'];
 															$pf=$res['pf_no'];
 															$acdc=$res["act_deact"];

@@ -369,7 +369,7 @@ function fetch_user($user)
 
 function fetch_user_name($user)
 {
-	$conn = dbcon();
+	$conn = dbcon1();
 	if (!empty($user)) {
 		$sql = "SELECT * FROM tbl_login WHERE adminid = ?";
 		$stmt = $conn->prepare($sql);

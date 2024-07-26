@@ -17,10 +17,10 @@ $_GLOBALS['a'] ='pwd';
 				<!--<h3 class="box-title"><i class="fa fa-book"></i> &nbsp;&nbsp;Present Working Details</h3>-->
 			</div>
 			<?php 
-				dbcon1();
+				$conn=dbcon1();
 				$pw_exist=0;
-				$sql=mysql_query("select * from present_work_temp where preapp_pf_number='".$_SESSION['set_update_pf']."'");
-				$sql_fetch=mysql_num_rows($sql);
+				$sql=mysqli_query($conn,"select * from present_work_temp where preapp_pf_number='".$_SESSION['set_update_pf']."'");
+				$sql_fetch=mysqli_num_rows($sql);
 				if($sql_fetch>=0){
 					$pw_exist=1;
 				}

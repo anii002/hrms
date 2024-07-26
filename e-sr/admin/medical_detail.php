@@ -32,6 +32,7 @@ $conn = dbcon1();
 			<?php
 			$conn = dbcon1();
 			$pf_no_id = $_GET['pf'];
+			
 			$page = $_GET['page'];
 			//echo "<script>alert('$page');</script>";
 			$sql = mysqli_query($conn, "select * from medical_temp where medi_pf_number='$pf_no_id'");
@@ -61,14 +62,14 @@ $conn = dbcon1();
 				//$medi_refdate=$result['medi_refdate'];
 				//$date=date_create($medi_refdate);
 				//$medi_refdate = date_format($date,"d-m-Y");
-
 				$medi_refdate = date('d-m-Y', strtotime($result['medi_refdate']));
 				//echo "<script>alert('$medi_refdate');</script>";
 				$medi_remark = $result['medi_remark'];
 				$datetime = $result['datetime'];
 				$date = date_create($datetime);
 				$datetime = date_format($date, "d-m-Y");
-				$updated_by = fetch_user($result['updated_by']);
+				// print_r("$pf_no_id");
+				$updated_by = $result['updated_by'];
 			}
 			?>
 			<div class="row">

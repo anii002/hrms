@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 // echo $_SESSION['SESSION_ROLE'];
+
 ?>
 
 <style>
@@ -200,7 +201,6 @@ error_reporting(0);
                             <!-- User image -->
                             <li class="user-header">
                                 <img src="../plugins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
                                 <p>
                                     <?php echo $rwname; ?>
                                 </p>
