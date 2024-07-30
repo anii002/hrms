@@ -112,14 +112,14 @@ switch ($_REQUEST['action']) {
       $empid1 = $_SESSION['empid'];
       $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
       $msg = 'PC active the ' . $pfno . ' user';
-      db_connect("esoluhp6_travel_allowance1");
+      db_connect("drmpsurh_travel_allowance1");
       user_activity($empid1, $file_name, 'Active User', $msg);
       echo "User Activated successfully";
     } else {
       $empid1 = $_SESSION['empid'];
       $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
       $msg = 'PC unable to active the ' . $pfno . ' user';
-      db_connect("esoluhp6_travel_allowance1");
+      db_connect("drmpsurh_travel_allowance1");
       user_activity($empid1, $file_name, 'Active User', $msg);
       echo "Something went wrong";
     }
@@ -133,14 +133,14 @@ switch ($_REQUEST['action']) {
       $empid1 = $_SESSION['empid'];
       $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
       $msg = 'PC deactive the ' . $pfno . ' user';
-      db_connect("esoluhp6_travel_allowance1");
+      db_connect("drmpsurh_travel_allowance1");
       user_activity($empid1, $file_name, 'Deactive User', $msg);
       echo "User Deactivated successfully";
     } else {
       $empid1 = $_SESSION['empid'];
       $file_name = basename($_SERVER["SCRIPT_FILENAME"], '.php');
       $msg = 'PC unable to deactive the ' . $pfno . ' user';
-      db_connect("esoluhp6_travel_allowance1");
+      db_connect("drmpsurh_travel_allowance1");
       user_activity($empid1, $file_name, 'Deactive User', $msg);
       echo "Something went wrong";
     }

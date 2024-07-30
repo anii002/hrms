@@ -632,7 +632,7 @@ switch($_REQUEST['action'])
             $empid1=$_SESSION['empid'];
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
             $msg='Superadmin active the '.$pfno.' User';
-            db_connect("esoluhp6_travel_allowance1");
+            db_connect("drmpsurh_travel_allowance1");
             user_activity($empid1,$file_name,'Active DA',$msg);
             echo "User Activated successfully";
         }
@@ -641,7 +641,7 @@ switch($_REQUEST['action'])
             $empid1=$_SESSION['empid'];
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
             $msg='Superadmin unable to active the '.$pfno.' User';
-            db_connect("esoluhp6_travel_allowance1");
+            db_connect("drmpsurh_travel_allowance1");
             user_activity($empid1,$file_name,'Active DA',$msg);
             echo "Something went wrong";
         }

@@ -1,7 +1,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
    <div class="page-footer-inner">
-       2019 &copy; Salgem Infoigy Tech Pvt Ltd.
+       2024 &copy; Infoigy Tech Pvt Ltd.
    </div>
    <div class="scroll-to-top">
       <i class="icon-arrow-up"></i>

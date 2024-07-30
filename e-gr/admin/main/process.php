@@ -1400,35 +1400,41 @@ if (isset($_GET['action'])) {
 
 
 
-		case 'return_back_action':
-			// 			print_r($_POST);
-			$mobile = $_POST["emp_mob"];
-			$name_array = "";
-			$tmp_name_array = "";
-			$cnt = 0;
-			if ($_FILES['upfile']['error'][0] != 4) {
-				$cnt = count($_FILES['upfile']['name']);
-				for ($i = 0; $i < $cnt; $i++) {
-					$name_array[$i] = $_FILES['upfile']['name'][$i];
-					$tmp_name_array[$i] = $_FILES['upfile']['tmp_name'][$i];
+			case 'return_back_action':
+				// Debugging: print the $_POST array
+				// print_r($_POST);
+				$mobile = $_POST["emp_mob"];
+				$name_array = array();
+				$tmp_name_array = array();
+				$cnt = 0;
+			
+				if ($_FILES['upfile']['error'][0] != 4) {
+					$cnt = count($_FILES['upfile']['name']);
+					for ($i = 0; $i < $cnt; $i++) {
+						$name_array[$i] = $_FILES['upfile']['name'][$i];
+						$tmp_name_array[$i] = $_FILES['upfile']['tmp_name'][$i];
+					}
 				}
-			}
-			// print_r($_POST);
-			$action = $_POST['action'];
-			$section = isset($_POST["section"]) ? $_POST["section"] : 0;
-			if (return_back_action($name_array, $tmp_name_array, $_POST['griv_ref_no'], $_POST['emp_id'], $_POST['hidden_id'], $_POST['auth'], $_POST['remark'], $action, $mobile, $section)) {
-				if ($action == 3) {
-					echo "<script>window.location.href='returned_back.php';alert('Grievance Closed Successfully');</script>";
+			
+				// Debugging: print the $_POST array again if needed
+				// print_r($_POST);
+			
+				$action = $_POST['action'];
+				$section = isset($_POST["section"]) ? $_POST["section"] : 0;
+				$auth = isset($_POST['auth']) ? $_POST['auth'] : '';
+			
+				if (return_back_action($name_array, $tmp_name_array, $_POST['griv_ref_no'], $_POST['emp_id'], $_POST['hidden_id'], $auth, $_POST['remark'], $action, $mobile, $section)) {
+					if ($action == 3) {
+						echo "<script>window.location.href='returned_back.php';alert('Grievance Closed Successfully');</script>";
+					} else {
+						echo "<script>window.location.href='returned_back.php';alert('Grievance Returned Successfully');</script>";
+					}
 				} else {
-
-					echo "<script>window.location.href='returned_back.php';alert('Grievance Returned Successfully');</script>";
+					echo "<script>window.location.href='returned_back.php';alert('Grievance Not Returned');</script>";
 				}
-			} //window.location.href='returned_back.php';
-			else {
-				echo "<script>window.location.href='returned_back.php';alert('Grievance Not Returned');</script>";
-			}
-
-			break;
+			
+				break;
+			
 		case 'active_user':
 			if (active_user($_POST['hidden_active'])) {
 				echo "<script>window.location.href='user_list.php';alert('User Activated Successfully');</script>";

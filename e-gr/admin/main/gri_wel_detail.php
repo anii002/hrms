@@ -36,17 +36,18 @@ include('functions.php');
 
                             $exe_query = mysqli_query($db_egr,$fetch_query) or die(mysqli_error($db_egr));
                             while ($result = mysqli_fetch_array($exe_query)) {
-                                $emp_id = $result['emp_no'];
+                                 $emp_id = $result['emp_no'];
                                 $emp_name = $result['name'];
                                 $emp_mob = $result['mobile'];
                                 $emp_type = $result['empType'];
                                 $emp_depart = $result['department'];
                                 $emp_desig =  $result['designation'];
                                 $emp_email =  $result['emp_email'];
-                                $emp_aadhar = $result['emp_aadhar'];
+                                echo$emp_aadhar = $result['emp_aadhar'];
                                 $emp_office = $result['office'];
                                 $emp_station = $result['station'];
                                 $gri_type = $result['gri_type'];
+                                // echo $emp_station;
                                 $gri_desc = $result['gri_desc'];
                                 $up_doc = $result['up_doc'];
                                 $gri_upload_date = $result['gri_upload_date'];
@@ -179,7 +180,7 @@ include('functions.php');
                                         <label class="control-label col-md-2 col-sm-3 col-xs-12"></label>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
                                             <?php
-                                            $fetch_cat = mysqli_query($db_egr,"select cat_name from category where cat_id=$gri_type");
+                                            $fetch_cat = mysqli_query($db_egr,"select cat_name from category");
                                             while ($cat_fetch = mysqli_fetch_array($fetch_cat)) {
                                                 $cat_name = $cat_fetch['cat_name'];
                                             }
@@ -215,60 +216,82 @@ include('functions.php');
                                         </thead>
                                         <tbody>
 
-                                            <?php
-                                            function get_status($status)
-                                            {
-                                                global $db_egr;
-                                                $sql1 = mysqli_query($db_egr,"select status from status where id=$status");
-                                                $status_fetch = "";
-                                                while ($sql_query1 = mysqli_fetch_array($sql1)) {
-                                                    $status_fetch = $sql_query1['status'];
-                                                }
-                                                return $status_fetch;
-                                            }
-                                            function get_action($action)
-                                            {
-                                                global $db_egr;
-                                                $f_action = mysqli_query($db_egr,"select action from action where id=$action");
-                                                while ($action_f = mysqli_fetch_array($f_action)) {
-                                                    $a_c = $action_f['action'];
-                                                }
-                                                return $a_c;
-                                            }
-                                            $fire_all = mysqli_query($db_egr,"select  * from tbl_grievance where gri_ref_no='" . $gri_ref_no . "'");
-                                            while ($all_fetch = mysqli_fetch_array($fire_all)) {
-                                                // print_r($all_fetch);
-                                                $gri_ref_no = $all_fetch['gri_ref_no'];
-                                                $forwarded_date = $all_fetch['gri_upload_date'];
-                                                $remark = $all_fetch['gri_desc'];
-                                                $return_action=get_action($all_fetch['action']);
-                                                $status = get_status($all_fetch['status']);
-                                                $doc_id = $all_fetch['doc_id'];
-                                                $upload = $all_fetch["uploaded_by"];
-                                                echo "<tr>";
-                                                echo "<td>$gri_ref_no</td>";
-                                                echo "<td>$remark</td>";
-                                                echo "<td>$forwarded_date</td>";
-                                                //	echo "<td>$return_action</td>";
-                                                echo "<td>$status</td>";
-                                                $sql_doc_sec = mysqli_query($db_egr,"select * from doc where griv_ref_no='$gri_ref_no' and uploaded_by='$upload' and doc_id='$doc_id'");
-                                                echo "<td>";
-                                                $count_doc = 1;
-                                                $cnt = 0;
-                                                while ($doc_fetch = mysqli_fetch_array($sql_doc_sec)) {
-                                                    //echo $doc_fetch['doc_path'];
-                                                    echo "<a href='../../admin/main/admin_upload/" . $doc_fetch['doc_path'] . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "' >DOC&nbsp;&nbsp;&nbsp;</a>";
-                                                    $cnt++;
-                                                }
-                                                if (mysqli_num_rows($sql_doc_sec) > 0) {
-                                                    $count_doc++;
-                                                }
+    <?php
+    function get_status($status)
+    {
+        global $db_egr;
+        $stmt = $db_egr->prepare("SELECT status FROM status WHERE id = ?");
+        $stmt->bind_param("i", $status);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $status_fetch = "";
+        while ($row = $result->fetch_assoc()) {
+            $status_fetch = $row['status'];
+        }
+        $stmt->close();
+        return $status_fetch;
+    }
 
-                                                echo "</td>";
-                                                echo "</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
+    function get_action($action)
+    {
+        global $db_egr;
+        $stmt = $db_egr->prepare("SELECT action FROM action WHERE id = ?");
+        $stmt->bind_param("i", $action);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $a_c = "";
+        while ($row = $result->fetch_assoc()) {
+            $a_c = $row['action'];
+        }
+        $stmt->close();
+        return $a_c;
+    }
+
+    // Assuming $gri_ref_no is set properly before this
+    $stmt = $db_egr->prepare("SELECT * FROM tbl_grievance WHERE gri_ref_no = ?");
+    $stmt->bind_param("s", $gri_ref_no);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($all_fetch = $result->fetch_assoc()) {
+        $gri_ref_no = $all_fetch['gri_ref_no'];
+        $forwarded_date = $all_fetch['gri_upload_date'];
+        $remark = $all_fetch['gri_desc'];
+        $return_action = get_action($all_fetch['action']);
+        $status = get_status($all_fetch['status']);
+        $doc_id = $all_fetch['doc_id'];
+        $upload = $all_fetch["uploaded_by"];
+        
+        echo "<tr>";
+        echo "<td>$gri_ref_no</td>";
+        echo "<td>$remark</td>";
+        echo "<td>$forwarded_date</td>";
+        echo "<td>$status</td>";
+        
+        $stmt_doc = $db_egr->prepare("SELECT * FROM doc WHERE griv_ref_no = ? AND uploaded_by = ? AND doc_id = ?");
+        $stmt_doc->bind_param("ssi", $gri_ref_no, $upload, $doc_id);
+        $stmt_doc->execute();
+        $result_doc = $stmt_doc->get_result();
+        
+        echo "<td>";
+        $count_doc = 1;
+        $cnt = 0;
+        while ($doc_fetch = $result_doc->fetch_assoc()) {
+            echo "<a href='../../admin/main/admin_upload/" . htmlspecialchars($doc_fetch['doc_path']) . "' target='_blank' id='" . $cnt . "' name='" . $cnt . "' >DOC&nbsp;&nbsp;&nbsp;</a>";
+            $cnt++;
+        }
+        if ($result_doc->num_rows > 0) {
+            $count_doc++;
+        }
+        echo "</td>";
+        echo "</tr>";
+        
+        $stmt_doc->close();
+    }
+    $stmt->close();
+    ?>
+</tbody>
+
                                     </table>
                                 </div>
 

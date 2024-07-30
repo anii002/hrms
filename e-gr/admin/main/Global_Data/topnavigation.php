@@ -19,8 +19,13 @@ $profile_image = isset($_SESSION['profile_image']) ? $_SESSION['profile_image'] 
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="../../../images/profile/<?php echo $profile_image; ?>" alt="Profile Image">
-                        <?php echo $session_name; ?>
+                        <?php if (isset($_SESSION['profile_image'])) { ?>
+                            <img src="../../../images/profile/<?php echo $_SESSION['profile_image'];  ?>" alt="Profile Image">
+                        <?php } else { ?>
+                            <img src="images/User_Circle.png" alt="">
+                        <?php } ?>
+                        <?php
+                        echo ucwords($_SESSION['SESSION_NAME']); ?>
                         <span class=" fa fa-angle-down"></span>
                     </a>
 

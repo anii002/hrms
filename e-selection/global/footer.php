@@ -1,6 +1,6 @@
 <!-- /.content-wrapper -->
   <footer class="main-footer" id="footer">
-    <strong>Copyright &copy; 2017-2018 <a href="http://www.infoigy.com" target="_blank">SALGEM Infoigy Tech Pvt Ltd</a>.</strong> All rights
+    <strong>Copyright &copy; 2024 <a href="http://www.infoigy.com" target="_blank">Infoigy Tech Pvt Ltd</a>.</strong> All rights
     reserved.<span style="float:right">Version 1.0.0</span>
   </footer>
  <?php

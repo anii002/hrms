@@ -6,14 +6,13 @@ require_once 'list.php';
 
 $id = $_GET['id'];
 $sql = "SELECT * FROM register_user WHERE id = '$id'";
-$result = mysql_query($sql);
-$row = mysql_fetch_assoc($result);
+$result = mysqli_query($conn,$sql);
+$row = mysqli_fetch_assoc($result);
 // echo "<pre>";
 // print_r($row);exit();
 
 
 ?>
-
 
 <div class="bgwhite">
 
@@ -57,12 +56,12 @@ $row = mysql_fetch_assoc($result);
                 <?php
                 $dept = $row['department'];
                 $sql_dept1 = "SELECT DEPTNO, DEPTDESC FROM department WHERE DEPTNO = '$dept'";
-                $result_dept1 = mysql_query($sql_dept1);
-                $row_dept1 = mysql_fetch_assoc($result_dept1);
+                $result_dept1 = mysqli_query($conn,$sql_dept1);
+                $row_dept1 = mysqli_fetch_assoc($result_dept1);
                 ?>
                 <option value="<?php echo $row_dept1['DEPTNO']; ?>">
                   <?php echo $row_dept1['DEPTDESC']; ?></option>
-                <?php while ($row_dept = mysql_fetch_assoc($result_dept)) { ?>
+                <?php while ($row_dept = mysqli_fetch_assoc($result_dept)) { ?>
                   <option value="<?php echo $row_dept['DEPTNO']; ?>"><?php echo $row_dept['DEPTDESC']; ?>
                   </option>
                 <?php } ?>
@@ -76,12 +75,12 @@ $row = mysql_fetch_assoc($result);
                 <?php
                 $desig = $row['designation'];
                 $sql_desig = "SELECT DESIGCODE, DESIGLONGDESC FROM designations WHERE DESIGCODE = '$desig'";
-                $result_desig = mysql_query($sql_desig);
-                $row_desig = mysql_fetch_assoc($result_desig);
+                $result_desig = mysqli_query($conn,$sql_desig);
+                $row_desig = mysqli_fetch_assoc($result_desig);
                 ?>
                 <option value="<?php echo $row_desig['DESIGCODE']; ?>">
                   <?php echo $row_desig['DESIGLONGDESC']; ?></option>
-                <?php while ($row_desg = mysql_fetch_assoc($result_desg)) { ?>
+                <?php while ($row_desg = mysqli_fetch_assoc($result_desg)) { ?>
                   <option value="<?php echo $row_desg['DESIGCODE']; ?>">
                     <?php echo $row_desg['DESIGLONGDESC']; ?></option>
                 <?php } ?>
@@ -97,7 +96,7 @@ $row = mysql_fetch_assoc($result);
               <select name="bill_unit" id="bill_unit" class="form-control select2" required>
                 <option value="<?php echo $row['bill_unit']; ?>"><?php echo $row['bill_unit']; ?>
                 </option>
-                <?php while ($row_bill = mysql_fetch_assoc($result_bill)) { ?>
+                <?php while ($row_bill = mysqli_fetch_assoc($result_bill)) { ?>
                   <option value="<?php echo $row_bill['billunit']; ?>">
                     <?php echo $row_bill['billunit']; ?></option>
                 <?php } ?>
@@ -107,8 +106,8 @@ $row = mysql_fetch_assoc($result);
             <?php
             $pay = $row['7th_pay_level'];
             $sql_pay = "SELECT num, pay_text FROM paylevel WHERE num = '$pay'";
-            $result_pay = mysql_query($sql_pay);
-            $row_pay = mysql_fetch_assoc($result_pay);
+            $result_pay = mysqli_query($conn,$sql_pay);
+            $row_pay = mysqli_fetch_assoc($result_pay);
             ?>
 
             <div class="col-md-3 col-lg-3 col-sm-12 form-group">
@@ -116,7 +115,7 @@ $row = mysql_fetch_assoc($result);
               <select class="form-control select2" name="pay_level" id="pay_level">
                 <option value="<?php echo $row_pay['num']; ?>"><?php echo $row_pay['pay_text']; ?>
                 </option>
-                <?php while ($row_pay_level = mysql_fetch_assoc($result_pay_level)) {  ?>
+                <?php while ($row_pay_level = mysqli_fetch_assoc($result_pay_level)) {  ?>
                   <option value="<?php echo $row_pay_level['num']; ?>">
                     <?php echo $row_pay_level['pay_text']; ?></option>
                 <?php } ?>
@@ -145,12 +144,12 @@ $row = mysql_fetch_assoc($result);
                 <?php
                 $station = $row['station'];
                 $sql_station1 = "SELECT stationcode, stationdesc FROM station WHERE stationcode = '$station'";
-                $result_station1 = mysql_query($sql_station1);
-                $row_station1 = mysql_fetch_assoc($result_station1);
+                $result_station1 = mysqli_query($conn,$sql_station1);
+                $row_station1 = mysqli_fetch_assoc($result_station1);
                 ?>
                 <option value="<?php echo $row_station1['stationcode']; ?>">
                   <?php echo $row_station1['stationdesc']; ?></option>
-                <?php while ($row_station = mysql_fetch_assoc($result_station)) { ?>
+                <?php while ($row_station = mysqli_fetch_assoc($result_station)) { ?>
                   <option value="<?php echo $row_station['stationcode']; ?>">
                     <?php echo $row_station['stationdesc']; ?></option>
                 <?php } ?>

@@ -123,8 +123,8 @@ include('../dbconfig/dbcon.php');
 				<li class="dropdown dropdown-user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					 <?php 
-				$query = mysql_query("select img from employees where pfno='".$_SESSION['user']."'");
-				$result = mysql_fetch_array($query);
+				$query = mysqli_query($conn,"select img from employees where pfno='".$_SESSION['user']."'");
+				$result = mysqli_fetch_array($query);
 				if($result['img']=="")
 				{
 			?>

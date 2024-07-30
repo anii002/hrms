@@ -52,7 +52,7 @@ include('common/sidebar.php');
                             <p>कुल दावे /<br> Total Claims</p>
                         </div>
                     </div>
-                    <a class="more" href="#">
+                    <a class="more" href="co_Show_claimed_TA.php">
                         अधिक जानकारी / View more <i class="m-icon-swapright m-icon-white"></i>
                     </a>
                 </div>

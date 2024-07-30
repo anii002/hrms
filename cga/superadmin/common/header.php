@@ -156,7 +156,7 @@ include('control/function.php');
 							<!-- <li class="divider">
 						</li> -->
 							<li>
-								<a href="../../../hrms/dashbord.php">
+								<a href="../../../hrms/dashboard.php">
 									<i class="fas fa-home"></i>Home</a>
 							</li>
 							<li>
@@ -188,7 +188,7 @@ include('control/function.php');
 					<div class="modal-body">
 
 
-						<form action="../../../../redi_module.php" method="POST" class="horizontal-form">
+						<form action="../../hrms/redi_module.php" method="POST" class="horizontal-form">
 
 							<div class="">
 								<div class="row">

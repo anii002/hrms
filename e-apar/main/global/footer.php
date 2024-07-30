@@ -1,7 +1,7 @@
 <!-- /.content-wrapper -->
   <footer class="main-footer" id="footer">
     <div class="page-footer-inner text-right">
-        © Copyright 2020 <a href="http://www.infoigy.com/" target="_blank">Salgem Infoigy Tech Pvt Ltd.</a>All rights reserved.
+        © Copyright 2024 <a href="http://www.infoigy.com/" target="_blank">Infoigy Tech Pvt Ltd.</a>All rights reserved.
     </div>
   </footer>
  <?php

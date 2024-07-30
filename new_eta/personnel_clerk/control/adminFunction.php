@@ -8,7 +8,7 @@ function AddAdmin($empid, $username, $role, $dept, $station, $empname, $mobile, 
   $query = "insert into users(empid,username,role,dept,station) values('$empid','$username','$role','$dept','$station')";
   $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
 
-  db_connect("esoluhp6_sur_railway");
+  db_connect("drmpsurh_sur_railway");
 
   $user_p_query = "SELECT pf_num,tamm from user_permission WHERE pf_num='" . $empid . "' ";
   $user_p_result = mysqli_query($conn,$user_p_query);
@@ -38,7 +38,7 @@ function AddAdmin($empid, $username, $role, $dept, $station, $empname, $mobile, 
 
 
   if ($result && $result_up) {
-    db_connect("esoluhp6_travel_allowance1");
+    db_connect("drmpsurh_travel_allowance1");
     $query1 = "UPDATE `employees` SET `name`='" . $empname . "',`desig`='" . $design . "',`mobile`='" . $mobile . "',`email`='" . $email . "',`level`='" . $paylevel . "' WHERE `pfno`='" . $empid . "' ";
     $result1 = mysqli_query($conn,$query1);
     if ($result1) {
@@ -451,7 +451,7 @@ function activeUser($pfno, $active,$role)
   $query = "update users set status='$active' where empid='$pfno' AND role='".$role."' ";
   $result = mysqli_query($conn,$query) or die(mysqli_error($conn,));
   
-  db_connect("esoluhp6_sur_railway");
+  db_connect("drmpsurh_sur_railway");
 
   $user_p_query = "SELECT pf_num,tamm from user_permission WHERE pf_num='" . $pfno . "' ";
   $user_p_result = mysqli_query($conn,$user_p_query);
@@ -539,7 +539,7 @@ function deactiveUser($pfno, $active,$role)
 //   exit();
   $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   
-  db_connect("esoluhp6_sur_railway");
+  db_connect("drmpsurh_sur_railway");
 
   $user_p_query = "SELECT pf_num,tamm from user_permission WHERE pf_num='" . $pfno . "' ";
   $user_p_result = mysqli_query($conn,$user_p_query);

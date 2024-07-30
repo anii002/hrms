@@ -42,8 +42,7 @@ include('control/function.php');
 
                                             <div class="portlet-body">
                                                 <div class="table-scrollable summary-table">
-                                                    <table id="example1"
-                                                        class="table table-hover table-bordered display">
+                                                    <table id="example1" class="table table-hover table-bordered display">
                                                         <thead>
                                                             <tr class="warning">
                                                                 <th>अनु क्रमांक<br>ID</th>
@@ -59,14 +58,14 @@ include('control/function.php');
                                                         </thead>
                                                         <tbody>
                                                             <?php
-															$query_emp = "SELECT empid,name,dept,ip_address,file_name,action,message,created_at FROM `audit_table`, employees WHERE employees.pfno = audit_table.empid AND employees.dept NOT IN ('01') ORDER BY audit_table.id DESC";
-															$result_emp = mysqli_query($conn, $query_emp);
-															echo mysqli_error($conn);
-															$sr = 1;
-															while ($value_emp = mysqli_fetch_array($result_emp)) {
-																$r = '';
-																$role = '';
-																echo "
+                                                            $query_emp = "SELECT empid,name,dept,ip_address,file_name,action,message,created_at FROM `audit_table`, employees WHERE employees.pfno = audit_table.empid AND employees.dept NOT IN ('01') ORDER BY audit_table.id DESC";
+                                                            $result_emp = mysqli_query($conn, $query_emp);
+                                                            echo mysqli_error($conn);
+                                                            $sr = 1;
+                                                            while ($value_emp = mysqli_fetch_array($result_emp)) {
+                                                                $r = '';
+                                                                $role = '';
+                                                                echo "
                   <tr>
                   <td>" . $sr++ . "</td>
                     <td>" . $value_emp['empid'] . "</td>
@@ -77,10 +76,10 @@ include('control/function.php');
                     <td>" . $value_emp['action'] . "</td>
                     <td>" . $value_emp['message'] . "</td>
                     <td>" . $value_emp['created_at'] . "</td>";
-																echo "</tr>
+                                                                echo "</tr>
                 ";
-															}
-															?>
+                                                            }
+                                                            ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -147,8 +146,7 @@ include('control/function.php');
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title">Employee Data : <span id="emp_name1" name="emp_name1"></span> </h4>
     </div>
-    <form action="control/adminProcess.php?action=updateEmpData" method="post" enctype="multipart/form-data"
-        autocomplete="off" class="horizontal-form">
+    <form action="control/adminProcess.php?action=updateEmpData" method="post" enctype="multipart/form-data" autocomplete="off" class="horizontal-form">
         <!-- -->
         <div class="modal-body">
             <div class="portlet-body form">
@@ -161,8 +159,7 @@ include('control/function.php');
                                 <label class="control-label">कर्मचारी आईडी / PFNO</label>
                                 <div class="input-group">
                                     <span>
-                                        <input class="form-control" readonly type="text" id="emp_pfno"
-                                            name="emp_pfno" />
+                                        <input class="form-control" readonly type="text" id="emp_pfno" name="emp_pfno" />
                                     </span>
                                 </div>
                             </div>
@@ -172,8 +169,7 @@ include('control/function.php');
                                 <label class="control-label">नाम / Name</label>
                                 <div class="input-group">
                                     <span>
-                                        <input class="form-control" readonly type="text" id="emp_name"
-                                            name="emp_name" />
+                                        <input class="form-control" readonly type="text" id="emp_name" name="emp_name" />
                                     </span>
                                 </div>
                             </div>
@@ -187,8 +183,7 @@ include('control/function.php');
                                 <label class="control-label">मोबाइल / Mobile</label>
                                 <div class="input-group">
                                     <span>
-                                        <input class="form-control" maxlength="10" type="text" id="emp_mobile"
-                                            name="emp_mobile" required />
+                                        <input class="form-control" maxlength="10" type="text" id="emp_mobile" name="emp_mobile" required />
                                     </span>
                                 </div>
                             </div>
@@ -199,16 +194,15 @@ include('control/function.php');
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">पदनाम / Designation</label>
-                                <select name="emp_desig" id="emp_desig" class="select2 form-control" tabindex="-1"
-                                    aria-hidden="true">
+                                <select name="emp_desig" id="emp_desig" class="select2 form-control" tabindex="-1" aria-hidden="true">
                                     <option value="0">Please Select Desig</option>
                                     <?php
-									$query_emp = "SELECT `DESIGCODE`,`DESIGLONGDESC` FROM `designations`";
-									$result_emp = mysqli_query($conn, $query_emp);
-									while ($value_emp = mysqli_fetch_array($result_emp)) {
-										echo "<option value='" . $value_emp['DESIGCODE'] . "'>" . $value_emp['DESIGLONGDESC'] . "</option>";
-									}
-									?>
+                                    $query_emp = "SELECT `DESIGCODE`,`DESIGLONGDESC` FROM `designations`";
+                                    $result_emp = mysqli_query($conn, $query_emp);
+                                    while ($value_emp = mysqli_fetch_array($result_emp)) {
+                                        echo "<option value='" . $value_emp['DESIGCODE'] . "'>" . $value_emp['DESIGLONGDESC'] . "</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -217,17 +211,16 @@ include('control/function.php');
                             <div class="form-group">
                                 <label class="control-label">स्तर / Level</label>
 
-                                <select name="emp_level" id="emp_level" class="select2 form-control" tabindex="-1"
-                                    aria-hidden="true">
+                                <select name="emp_level" id="emp_level" class="select2 form-control" tabindex="-1" aria-hidden="true">
                                     <option value="0">Please Select Level</option>
 
                                     <?php
-									$query_emp = "SELECT `num` FROM `paylevel`";
-									$result_emp = mysqli_query($conn, $query_emp);
-									while ($value_emp = mysqli_fetch_array($result_emp)) {
-										echo "<option value='" . $value_emp['num'] . "'>" . $value_emp['num'] . "</option>";
-									}
-									?>
+                                    $query_emp = "SELECT `num` FROM `paylevel`";
+                                    $result_emp = mysqli_query($conn, $query_emp);
+                                    while ($value_emp = mysqli_fetch_array($result_emp)) {
+                                        echo "<option value='" . $value_emp['num'] . "'>" . $value_emp['num'] . "</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -238,17 +231,16 @@ include('control/function.php');
                             <div class="form-group">
                                 <label class="control-label">स्टेशन / Station</label>
 
-                                <select name="emp_station[]" id="emp_station" multiple="multiple"
-                                    class="select2 form-control" tabindex="-1" aria-hidden="true">
+                                <select name="emp_station[]" id="emp_station" multiple="multiple" class="select2 form-control" tabindex="-1" aria-hidden="true">
                                     <option value="">Please Select Station</option>
                                     <option value="">All</option>
                                     <?php
-									$query_emp = "select stationcode,stationdesc from station";
-									$result_emp = mysqli_query($conn, $query_emp);
-									while ($value_emp = mysqli_fetch_array($result_emp)) {
-										echo "<option value='" . $value_emp['stationcode'] . "'>" . $value_emp['stationdesc'] . "</option>";
-									}
-									?>
+                                    $query_emp = "select stationcode,stationdesc from station";
+                                    $result_emp = mysqli_query($conn, $query_emp);
+                                    while ($value_emp = mysqli_fetch_array($result_emp)) {
+                                        echo "<option value='" . $value_emp['stationcode'] . "'>" . $value_emp['stationdesc'] . "</option>";
+                                    }
+                                    ?>
                                 </select>
                                 <!-- </div> -->
                             </div>
@@ -258,8 +250,7 @@ include('control/function.php');
                             <div class="form-group">
                                 <label class="control-label">उपयोगकर्ता / User</label>
 
-                                <select name="emp_role" id="emp_role" class="form-control select2" tabindex="-1"
-                                    aria-hidden="true" required>
+                                <select name="emp_role" id="emp_role" class="form-control select2" tabindex="-1" aria-hidden="true" required>
                                     <option value="0" selected>Select User </option>
                                     <option value="12">Controlling Incharge</option>
                                     <option value="13">Controlling Officer</option>
@@ -285,173 +276,173 @@ include('control/function.php');
 include 'common/footer.php';
 ?>
 <script>
-$(document).on("click", ".btn_action", function() {
-    var value = $(this).attr('id');
-    // alert(value);
-    $.ajax({
-            url: 'control/adminProcess.php',
-            type: 'POST',
-            data: {
-                action: 'fetchEmployeeUpdated',
-                id: value
-            },
-        })
-        .done(function(html) {
-            // alert(html);
-            var data = JSON.parse(html);
-            // alert(data.desig);
-            $("#emp_pfno").val(data.pfno);
-            $("#emp_name").val(data.name);
-            $("#emp_name1").val(data.name);
-            $("#emp_mobile").val(data.mobile);
-            $("#emp_desig").val(data.desig_id).trigger("change");
-            $("#emp_station").val(data.station).trigger("change");
-            $("#emp_level").val(data.level).trigger("change");
-            $("#emp_role").val(data.role).trigger("change");
-            // $("#dept").val(data.dept);
-        });
+    // $(document).on("click", ".btn_action", function() {
+    //     var value = $(this).attr('id');
+    //     // alert(value);
+    //     $.ajax({
+    //             url: 'control/adminProcess.php',
+    //             type: 'POST',
+    //             data: {
+    //                 action: 'fetchEmployeeUpdated',
+    //                 id: value
+    //             },
+    //         })
+    //         .done(function(html) {
+    //             // alert(html);
+    //             var data = JSON.parse(html);
+    //             // alert(data.desig);
+    //             $("#emp_pfno").val(data.pfno);
+    //             $("#emp_name").val(data.name);
+    //             $("#emp_name1").val(data.name);
+    //             $("#emp_mobile").val(data.mobile);
+    //             $("#emp_desig").val(data.desig_id).trigger("change");
+    //             $("#emp_station").val(data.station).trigger("change");
+    //             $("#emp_level").val(data.level).trigger("change");
+    //             $("#emp_role").val(data.role).trigger("change");
+    //             // $("#dept").val(data.dept);
+    //         });
 
-});
+    // });
 
-$(document).on("change", "#empid", function() {
-    var value = $("#empid").val();
-    $.ajax({
-            url: 'control/adminProcess.php',
-            type: 'POST',
-            data: {
-                action: 'fetchEmployee1',
-                id: value
-            },
-        })
-        .done(function(html) {
-            var data = JSON.parse(html);
-            // alert(data);
-            //alert(data.f1);
-            if (data == 1) {
-                alert("Already Exists");
-                $("#empid").val('');
-                $("#empid").focus();
+    // $(document).on("change", "#empid", function() {
+    //     var value = $("#empid").val();
+    //     $.ajax({
+    //             url: 'control/adminProcess.php',
+    //             type: 'POST',
+    //             data: {
+    //                 action: 'fetchEmployee1',
+    //                 id: value
+    //             },
+    //         })
+    //         .done(function(html) {
+    //             var data = JSON.parse(html);
+    //             // alert(data);
+    //             //alert(data.f1);
+    //             if (data == 1) {
+    //                 alert("Already Exists");
+    //                 $("#empid").val('');
+    //                 $("#empid").focus();
 
-            }
-            //   else if(data.fl==0)
-            //   {
-            //       alert("Employee not authorized..");
-            //       $("#empid").val('');
-            //     $("#empid").focus();
+    //             }
+    //             //   else if(data.fl==0)
+    //             //   {
+    //             //       alert("Employee not authorized..");
+    //             //       $("#empid").val('');
+    //             //     $("#empid").focus();
 
-            //   }
-            else if (data.empid == null) {
-                alert("PF Number Not Found..");
-                $("#empid").val('');
-                $("#empid").focus();
-            } else {
-                $("#empid").val(data.empid);
-                $("#empname").val(data.empname);
-                $("#mobile").val(data.mobile);
-                $("#design").val(data.designation);
-                $("#email").val(data.email);
-                $("#paylevel").val(data.level).trigger("change");
-                var val = Math.floor(1000 + Math.random() * 9000);
-                $("#psw").val(val);
-                $("#username").val(data.empid);
+    //             //   }
+    //             else if (data.empid == null) {
+    //                 alert("PF Number Not Found..");
+    //                 $("#empid").val('');
+    //                 $("#empid").focus();
+    //             } else {
+    //                 $("#empid").val(data.empid);
+    //                 $("#empname").val(data.empname);
+    //                 $("#mobile").val(data.mobile);
+    //                 $("#design").val(data.designation);
+    //                 $("#email").val(data.email);
+    //                 $("#paylevel").val(data.level).trigger("change");
+    //                 var val = Math.floor(1000 + Math.random() * 9000);
+    //                 $("#psw").val(val);
+    //                 $("#username").val(data.empid);
 
-            }
+    //             }
 
-        });
+    //         });
 
-});
-
-
-$(document).on("click", ".activeUser", function(e) {
-    e.preventDefault();
-    var id = $(this).val();
-    // alert(id);
-    var result = confirm("Confirm!!! proceed for user activation?");
-    if (result == true) {
-        $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: {
-                    action: 'activeUser',
-                    id: id
-                },
-            })
-            .done(function(html) {
-                alert(html);
-                window.location = "add_user.php";
-            });
-    }
-});
-$(document).on("click", ".deactiveUser", function(e) {
-    e.preventDefault();
-    var id = $(this).val();
-    // alert(id);
-    var result = confirm("Confirm!!! proceed for user deactivation?");
-    if (result == true) {
-        $.ajax({
-                url: 'control/adminProcess.php',
-                type: 'POST',
-                data: {
-                    action: 'deactiveUser',
-                    id: id
-                },
-            })
-            .done(function(html) {
-                alert(html);
-                window.location = "add_user.php";
-            });
-    }
-});
+    // });
 
 
+    // $(document).on("click", ".activeUser", function(e) {
+    //     e.preventDefault();
+    //     var id = $(this).val();
+    //     // alert(id);
+    //     var result = confirm("Confirm!!! proceed for user activation?");
+    //     if (result == true) {
+    //         $.ajax({
+    //                 url: 'control/adminProcess.php',
+    //                 type: 'POST',
+    //                 data: {
+    //                     action: 'activeUser',
+    //                     id: id
+    //                 },
+    //             })
+    //             .done(function(html) {
+    //                 alert(html);
+    //                 window.location = "add_user.php";
+    //             });
+    //     }
+    // });
+    // $(document).on("click", ".deactiveUser", function(e) {
+    //     e.preventDefault();
+    //     var id = $(this).val();
+    //     // alert(id);
+    //     var result = confirm("Confirm!!! proceed for user deactivation?");
+    //     if (result == true) {
+    //         $.ajax({
+    //                 url: 'control/adminProcess.php',
+    //                 type: 'POST',
+    //                 data: {
+    //                     action: 'deactiveUser',
+    //                     id: id
+    //                 },
+    //             })
+    //             .done(function(html) {
+    //                 alert(html);
+    //                 window.location = "add_user.php";
+    //             });
+    //     }
+    // });
 
-$(document).on("click", ".generatePassword", function() {
-    var pf = $(this).attr('id');
-    $("#pf_no_cp").val(pf);
-    // alert(pf);
-    $.ajax({
-            url: 'control/adminProcess.php',
-            type: 'POST',
-            data: {
-                action: 'generatePassword',
-                id: pf
-            },
-        })
-        .done(function(html) {
-            // 			alert(html);
-            if (html != 0) {
-                $("#new_password").val(html);
-            } else {
-                alert("Password Not Generated.");
-            }
-        });
-
-});
 
 
-function phonenumber(inputtxt) {
+    // $(document).on("click", ".generatePassword", function() {
+    //     var pf = $(this).attr('id');
+    //     $("#pf_no_cp").val(pf);
+    //     // alert(pf);
+    //     $.ajax({
+    //             url: 'control/adminProcess.php',
+    //             type: 'POST',
+    //             data: {
+    //                 action: 'generatePassword',
+    //                 id: pf
+    //             },
+    //         })
+    //         .done(function(html) {
+    //             // 			alert(html);
+    //             if (html != 0) {
+    //                 $("#new_password").val(html);
+    //             } else {
+    //                 alert("Password Not Generated.");
+    //             }
+    //         });
 
-    var phoneno = /^[6789]\d{9}$/;
-    if ((inputtxt.value.match(phoneno))) {
-        return true;
-    } else {
-        $("#mobile").val("");
-        $("#mobile").focus();
-        alert("Invalid Mobile number");
+    // });
 
-        return false;
-    }
-}
 
-function email_valid(inputtxt) {
-    var phoneno = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ((inputtxt.value.match(phoneno))) {
-        return true;
-    } else {
-        alert("Enter Valid Email Address");
-        // $("#email").val("");                  
-        $("#email").focus();
-        return false;
-    }
-}
+    // function phonenumber(inputtxt) {
+
+    //     var phoneno = /^[6789]\d{9}$/;
+    //     if ((inputtxt.value.match(phoneno))) {
+    //         return true;
+    //     } else {
+    //         $("#mobile").val("");
+    //         $("#mobile").focus();
+    //         alert("Invalid Mobile number");
+
+    //         return false;
+    //     }
+    // }
+
+    // function email_valid(inputtxt) {
+    //     var phoneno = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    //     if ((inputtxt.value.match(phoneno))) {
+    //         return true;
+    //     } else {
+    //         alert("Enter Valid Email Address");
+    //         // $("#email").val("");                  
+    //         $("#email").focus();
+    //         return false;
+    //     }
+    // }
 </script>

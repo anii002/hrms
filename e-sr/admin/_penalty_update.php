@@ -45,16 +45,16 @@ $_GLOBALS['a'] ='penalty';
              <div id="add_penalty">
              </div>
              <?php
-						dbcon1();
-						$sql=mysql_query("select * from penalty_temp where pen_pf_number='".$_SESSION['set_update_pf']."'");
-						$count_pe=mysql_num_rows($sql);	
+						$conn=dbcon1();
+						$sql=mysqli_query($conn,"select * from penalty_temp where pen_pf_number='".$_SESSION['set_update_pf']."'");
+						$count_pe=mysqli_num_rows($sql);	
                         if($count_pe==0)
 						{
 							echo "<label class='control-label col-md-4 col-sm-3 col-xs-12' style='font-size:15px;color:red;'>Penalty for This Employee Is Not Available</label>";
 						}						
 						for($i=1;$i<=$count_pe;$i++){
 							
-							$result=mysql_fetch_array($sql);
+							$result=mysqli_fetch_array($sql);
 		
 					?>
              <h3><?php echo $i;?> Penalty</h3>
@@ -78,7 +78,7 @@ $_GLOBALS['a'] ='penalty';
                      <button type='button' class='btn btn-danger pull-right revise_penalty' data-toggle='modal'
                          data-target='#revise_penalty' id="btn_revise_penalty" penalty_id="<?php echo $result['id']; ?>"
                          <?php if($result['status']==1){ echo 'readonly'; }?>
-                         <?php if($result['status']==1){echo disabled;} ?>>Revise Penalty</button>
+                         <?php if($result['status']==1){echo 'disabled';} ?>>Revise Penalty</button>
                  </div>
              </div>
              <br>
@@ -91,7 +91,7 @@ $_GLOBALS['a'] ='penalty';
                              <input type="text" id="pen_awarded<?php echo $i;?>" name="pen_awarded<?php echo $i;?>"
                                  class="form-control calender_picker"
                                  value="<?php echo date('d-m-Y', strtotime($result['pen_issued'])); ?>"
-                                 <?php if($result['status']==1){echo readonly;}?>>
+                                 <?php if($result['status']==1){echo 'readonly';}?>>
                          </div>
                      </div>
                  </div>
@@ -123,7 +123,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                              <input type="text" id="l_no<?php echo $i;?>" name="l_no<?php echo $i;?>"
                                  class="form-control " placeholder="Enter Letter No"
                                  value="<?php echo $result['pen_letterno'];?>"
-                                 <?php if($result['status']==1){echo readonly;}?>>
+                                 <?php if($result['status']==1){echo 'readonly';}?>>
                          </div>
                      </div>
                  </div>
@@ -134,7 +134,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                              <input type="text" id="ltr_date<?php echo $i;?>" name="ltr_date<?php echo $i;?>"
                                  class="form-control calender_picker" placeholder="Enter Date"
                                  value="<?php echo date('d-m-Y', strtotime($result['pen_letterdate'])); ?>"
-                                 <?php if($result['status']==1){echo readonly;}?>>
+                                 <?php if($result['status']==1){echo 'readonly';}?>>
                          </div>
                      </div>
                  </div>
@@ -147,7 +147,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                          <div class="col-md-8 col-sm-8 col-xs-12">
                              <select name="chrg_stat<?php echo $i;?>" id="chrg_stat<?php echo $i;?>"
                                  class="form-control select2" style="margin-top:0px; width:100%;"
-                                 <?php if($result['status']==1){echo disabled;}?>>
+                                 <?php if($result['status']==1){echo 'disabled';}?>>
                                  <?php echo get_chargesheet($result['pen_chargestatus']);?>
                              </select>
                          </div>
@@ -160,7 +160,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                              <input type="text" id="pen_chrg_ref_no<?php echo $i;?>"
                                  name="pen_chrg_ref_no<?php echo $i;?>" class="form-control"
                                  value="<?php echo $result['pen_chargeref'];?>"
-                                 <?php if($result['status']==1){echo readonly;}?>>
+                                 <?php if($result['status']==1){echo 'readonly';}?>>
                          </div>
                      </div>
                  </div>
@@ -173,7 +173,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                              <input type="text" id="f_date<?php echo $i;?>" name="f_date<?php echo $i;?>"
                                  class="form-control calender_picker" placeholder="Enter Letter No"
                                  value="<?php echo date('d-m-Y', strtotime($result['pen_from'])); ?>"
-                                 <?php if($result['status']==1){echo readonly;} else {echo required; }?>>
+                                 <?php if($result['status']==1){echo 'readonly';} else {echo 'required'; }?>>
                          </div>
                      </div>
                  </div>
@@ -184,7 +184,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                              <input type="text" id="t_date<?php echo $i;?>" name="t_date<?php echo $i;?>"
                                  class="form-control calender_picker" placeholder="Enter Letter No"
                                  value="<?php echo date('d-m-Y', strtotime($result['pen_to'])); ?>"
-                                 <?php if($result['status']==1){echo readonly;} else {echo required; }?>>
+                                 <?php if($result['status']==1){echo 'readonly';} else {echo 'required'; }?>>
                          </div>
                      </div>
                  </div>
@@ -198,7 +198,7 @@ $peef=date('d-m-Y', strtotime($result['pen_effetcted']));
                          <div class="col-md-10">
                              <textarea style="resize:none" rows="4" cols="20" class="form-control primary description"
                                  id="penalty_remark<?php echo $i;?>" name="penalty_remark<?php echo $i;?>"
-                                 <?php if($result['status']==1){echo readonly;} else {echo required; }?>><?php echo $result['pen_remark'];?></textarea>
+                                 <?php if($result['status']==1){echo 'readonly';} else {echo 'required'; }?>><?php echo $result['pen_remark'];?></textarea>
                          </div>
                      </div>
                  </div>

@@ -13,7 +13,7 @@
 			$password = hashPassword($_POST['password']);
 
 			$sql_pass = "UPDATE user_permission SET password = '$password' WHERE id = '$id'";
-			$result_pass = mysql_query($sql_pass);
+			$result_pass = mysqli_query($conn,$sql_pass);
 
 			if($result_pass)
 			{
@@ -59,7 +59,7 @@
 			if(move_uploaded_file($_FILES['image']['tmp_name'],'images/profile/'.$image))
 			{
 						$sql_img = "UPDATE user_permission SET image = '$image' WHERE id = '$id'";
-						$result_img = mysql_query($sql_img);
+						$result_img = mysqli_query($conn,$sql_img);
 
 						if($result_img)
 						{ 

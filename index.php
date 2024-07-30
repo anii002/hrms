@@ -1,5 +1,5 @@
-<?php 
-include_once("common/headerlogin.php"); 
+<?php
+include_once("common/headerlogin.php");
 // password_hash("Sachin@1234", PASSWORD_DEFAULT);
 ?>
 
@@ -18,12 +18,10 @@ include_once("common/headerlogin.php");
                 <p class="login-box-msg">Login Here Using Your PF number &amp; Password</p>
                 <form method="POST" id="frmLogin" autocomplete="off">
                     <div class="form-group">
-                        <input type="text" name="username" id="username" class="form-control"
-                            placeholder="Enter PF Number" required autofocus>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Enter PF Number" required autofocus>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Enter Password" required>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
                     </div>
                     <div class="row">
                         <div class="col-xs-4 col-md-4 submit-btn text-center">
@@ -44,7 +42,7 @@ include_once("common/headerlogin.php");
             </div>
         </div>
         <div class="copyrighttext">
-            <p class="text-white">Design &amp; Developed by <a href="http://infoigy.com" target="_blank">Infoigy</a></p>
+            <p class="text-white">Developed by <a href="http://infoigy.com" target="_blank">Infoigy</a></p>
         </div>
     </div>
 </div>
@@ -69,71 +67,71 @@ include_once("common/headerlogin.php");
 <link rel="stylesheet" type="text/css" href="new_eta/assets/global/plugins/js_glow/jquery.jgrowl.css" />
 
 <script>
-$(document).ready(function() {
-    // Initialize Select2
-    // $('#username').select2();
+    $(document).ready(function() {
+        // Initialize Select2
+        // $('#username').select2();
 
-    // // Initialize Datepicker
-    // $('#password').datepicker();
+        // // Initialize Datepicker
+        // $('#password').datepicker();
 
-    $("#frmLogin").submit(function(e) {
-        e.preventDefault();
-        var postData = new FormData($(this)[0]);
-        postData.append("Flag", "Login");
+        $("#frmLogin").submit(function(e) {
+            e.preventDefault();
+            var postData = new FormData($(this)[0]);
+            postData.append("Flag", "Login");
 
-        try {
-            $.ajax({
-                url: "./operations/LoginOperations.php",
-                type: "POST",
-                data: postData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(data, textStatus, jqXHR) {
-                    // console.log(data);
-                    // var Response = JSON.parse(data); // Pass the 'data' variable to JSON.parse()
-                    // console.log(Response);
-                    // console.log(data, textStatus);
+            try {
+                $.ajax({
+                    url: "./operations/LoginOperations.php",
+                    type: "POST",
+                    data: postData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data, textStatus, jqXHR) {
+                        // console.log(data);
+                        // var Response = JSON.parse(data); // Pass the 'data' variable to JSON.parse()
+                        // console.log(Response);
+                        // console.log(data, textStatus);
 
-                    if (data.res === "success" || data.res === "superadmin") {
+                        if (data.res === "success" || data.res === "superadmin") {
 
-                        $.jGrowl("Loading... Please Wait...", {
-                            sticky: true
-                        });
-                        $.jGrowl(" Welcome to HRMS", {
-                            header: 'Access Granted'
-                        });
-                        console.log(data.pf);
-                        var delay = 1500;
-                        setTimeout(function() {
-                            if (data.res === "superadmin") {
-                                window.location = 'super_admin_dashboard.php';
-                            } else {
-                                window.location = 'dashboard.php';
-                            }
-                        }, delay);
-                    } else if (data.res === "not_found") {
-                        $.jGrowl(
-                            "Please check your username, password, or user not registered with HRMS Module", {
-                                header: 'Login Failed'
+                            $.jGrowl("Loading... Please Wait...", {
+                                sticky: true
                             });
+                            $.jGrowl(" Welcome to HRMS", {
+                                header: 'Access Granted'
+                            });
+                            console.log(data.pf);
+                            var delay = 1500;
+                            setTimeout(function() {
+                                if (data.res === "superadmin") {
+                                    window.location = 'super_admin_dashboard.php';
+                                } else {
+                                    window.location = 'dashboard.php';
+                                }
+                            }, delay);
+                        } else if (data.res === "not_found") {
+                            $.jGrowl(
+                                "Please check your username, password, or user not registered with HRMS Module", {
+                                    header: 'Login Failed'
+                                });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX error:", errorThrown);
+                        // Handle AJAX errors here
+                        $.jGrowl("An error occurred while processing your request", {
+                            header: 'Error'
+                        });
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("AJAX error:", errorThrown);
-                    // Handle AJAX errors here
-                    $.jGrowl("An error occurred while processing your request", {
-                        header: 'Error'
-                    });
-                }
-            });
-        } catch (error) {
-            console.error("An unexpected error occurred:", error);
-            // Handle unexpected errors here
-            $.jGrowl("An unexpected error occurred", {
-                header: 'Error'
-            });
-        }
+                });
+            } catch (error) {
+                console.error("An unexpected error occurred:", error);
+                // Handle unexpected errors here
+                $.jGrowl("An unexpected error occurred", {
+                    header: 'Error'
+                });
+            }
+        });
     });
-});
 </script>

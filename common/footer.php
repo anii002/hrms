@@ -12,9 +12,9 @@
 
         </div> -->
 
-    <h5>&copy; Copyright 2022, All rights
+    <h5>&copy; Copyright 2024, All rights
 
-        reserved. <a href="http://infoigy.com" target="_blank"><img width="80px" src="images/infoigylogo.png" alt="infoigy-logo"></a> </h5>
+        reserved.<a href="http://www.infoigy.com/" target="_blank">Infoigy Tech Pvt Ltd.</a></h5>
 
 </footer>
 

@@ -121,9 +121,9 @@ include('../dbconfig/dbcon.php');
 	<div class="pre-loader preloader-single shadow-inner mg-t-30">
         <div class="ts_preloading_box">
             <div id="ts-preloader-absolute30">
-                <!-- <div id="absolute30">
+                <div id="absolute30">
                     <span></span><span></span><span></span><span></span><span></span>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

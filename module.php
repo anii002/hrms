@@ -156,30 +156,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($name == 'sar') {
         $sar = explode(',', $row['e_sar']);
-        for ($i = 0; $i < count($sar); $i++) {
         ?>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-check">
-                    <div class="radio-container" style="display: flex; justify-content: space-between;">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="sar" id="admin" value="0" <?php if ($sar[$i] == "0") echo 'checked'; ?>>
-                            Admin
-                        </label>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="sar" id="clerk" value="1" <?php if ($sar[$i] == "1") echo 'checked'; ?>>
-                            Clerk
-                        </label>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="sar" id="employee" value="2" <?php if ($sar[$i] == "2") echo 'checked'; ?>>
-                            Employee
-                        </label>
-                    </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-check">
+                <div class="radio-container" style="display: flex; justify-content: space-between;">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="sar" id="admin" value="0" <?php if (in_array("0", $sar)) echo 'checked'; ?>>
+                        Admin
+                    </label>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="sar" id="clerk" value="1" <?php if (in_array("1", $sar)) echo 'checked'; ?>>
+                        Clerk
+                    </label>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="sar" id="employee" value="2" <?php if (in_array("2", $sar)) echo 'checked'; ?>>
+                        Employee
+                    </label>
                 </div>
             </div>
+        </div>
         <?php
-        }
     }
-
 
     if ($name == 'frm') {
         $forms = explode(',', $row['forms']);

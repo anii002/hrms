@@ -8,7 +8,7 @@ include_once('../global/sidebaradmin.php');
 //error_reporting(0);
 include('mini_function.php');
 include_once('../dbconfig/dbcon.php');
-dbcon1();
+$conn=dbcon1();
 
 
 ?>
@@ -33,14 +33,14 @@ dbcon1();
 				
 				// Bio
 					 $pf_no=$_GET['pf'];
-					 $query=mysql_query("Select * from biodata_track where pf_number='$pf_no' ");
+					 $query=mysqli_query($conn,"Select * from biodata_track where pf_number='$pf_no' ");
 					 
-					 if(mysql_num_rows($query)<=0)
+					 if(mysqli_num_rows($query)<=0)
 					 {
 						 echo "<script>alert('This PF Number is not Registered');</script>";
 						 $pf_number=$oldpf_number=$identity_number=$sr_no=$dob=$mobile_number=$emp_name=$emp_old_name=$f_h_selction=$f_h_name=$cug=$aadhar_number=$email=$pan_number=$present_address=$pre_statecode=$pre_pincode=$permanent_address=$per_statecode=$per_pincode=$identification_mark=$religion=$community=$caste=$gender=$marrital_status=$recruit_code=$group_col=$education_ini=$edu_desc_ini=$education_sub=$edu_desc_sub=$bank_name=$account_number=$micr_number=$ifsc_code=$ruid_no=$bank_address=$nps_no=$imagefile="";
 					 }else{
-					 while($result=mysql_fetch_assoc($query))
+					 while($result=mysqli_fetch_assoc($query))
 					    {
 							$pf_number=$result['pf_number'];
 							$oldpf_number=$result['oldpf_number'];
@@ -85,10 +85,10 @@ dbcon1();
 				        }
 					 }
 			//Appointment
-					dbcon1();
-					$query=mysql_query("Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysql_error());
-						//$resultset = mysql_fetch_array($query);
-						while($result=mysql_fetch_array($query))
+			$conn=dbcon1();
+					$query=mysqli_query("Select * from  appointment_temp where app_pf_number='$pf_no'") or die(mysqli_error());
+						//$resultset = mysqli_fetch_array($query);
+						while($result=mysqli_fetch_array($query))
 						{
 							$app_pf_number=$result['app_pf_number']; 
 							$app_designation=get_designation($result['app_designation']);
@@ -113,10 +113,10 @@ dbcon1();
 						}
 					  
 			 // Present Appointment
-					dbcon1();
+			 $conn=dbcon1();
 					$pf_no=$_GET['pf'];
-					$query=mysql_query("Select * from present_work_temp where preapp_pf_number='$pf_no'");
-					while($result=mysql_fetch_assoc($query))
+					$query=mysqli_query($conn,"Select * from present_work_temp where preapp_pf_number='$pf_no'");
+					while($result=mysqli_fetch_assoc($query))
 						{
 							$preapp_pf_number=$result['preapp_pf_number'];  
 							$pre_app_department=get_department($result['preapp_department']);  
@@ -156,8 +156,8 @@ dbcon1();
 		 /*	//prtf code	 
 			dbcon1();
 					$pf_no=$_GET['pf'];
-					$query=mysql_query("Select * from prft_temp where prft_pf_number='$pf_no' ");
-					while($result=mysql_fetch_assoc($query))
+					$query=mysqli_query("Select * from prft_temp where prft_pf_number='$pf_no' ");
+					while($result=mysqli_fetch_assoc($query))
 						{
 							$prft_pf_number=$result['prft_pf_number'];  
 							$prft_type=get_prtf_type($result['prft_type']);
@@ -189,8 +189,8 @@ dbcon1();
 						}
 				//Nominee Query
 				dbcon1();
-					$nominee=mysql_query("select * from nominee_temp where nom_pf_number='$pf_no'");
-					while($fetch_nominee=mysql_fetch_array($nominee))
+					$nominee=mysqli_query("select * from nominee_temp where nom_pf_number='$pf_no'");
+					while($fetch_nominee=mysqli_fetch_array($nominee))
 						{
 							$nom_nomination_type =get_nom_type($fetch_nominee['nom_type']);
 							$nom_pf_number1 = $fetch_nominee['nom_pf_number'];
@@ -211,10 +211,10 @@ dbcon1();
 						}
 					*/
 				//awards query
-				dbcon1();
-					$sql=mysql_query("select * from  award_temp where awd_pf_number='$pf_no'");
+				$conn=dbcon1();
+					$sql=mysqli_query($conn,"select * from  award_temp where awd_pf_number='$pf_no'");
 					if($sql){
-						while($fetch_sql=mysql_fetch_array($sql))
+						while($fetch_sql=mysqli_fetch_array($sql))
 						{
 							$awd_pf_number = $fetch_sql['awd_pf_number'];
 							$awd_award_date	 = $fetch_sql['awd_date'];
@@ -226,10 +226,10 @@ dbcon1();
 					}
 
 				//advance query
-				dbcon1();
-				$sql=mysql_query("select * from  advance_temp where adv_pf_number='$pf_no'");
+				$conn=dbcon1();
+				$sql=mysqli_query($conn,"select * from  advance_temp where adv_pf_number='$pf_no'");
 				if($sql){
-						while($fetch_sql=mysql_fetch_array($sql))
+						while($fetch_sql=mysqli_fetch_array($sql))
 							{
 									$pf_no = $fetch_sql['adv_pf_number'];
 									$advance_type=$fetch_sql['adv_type'];
@@ -256,9 +256,9 @@ dbcon1();
 
 
 			//property query
-			$sql=mysql_query("select * from  property_temp where pro_pf_number='$pf_no'");
+			$sql=mysqli_query("select * from  property_temp where pro_pf_number='$pf_no'");
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 					  $pf_no = $fetch_sql['pro_pf_number'];
 					  $property_type=$fetch_sql['pro_type'];
@@ -282,8 +282,8 @@ dbcon1();
 				//Penalty fetch query
 				 //Umesh Code Here
 				 dbcon1();
-				  $query=mysql_query("Select * from penalty_temp where pen_pf_number='$pf_no'");
-					 while($result=mysql_fetch_assoc($query))
+				  $query=mysqli_query("Select * from penalty_temp where pen_pf_number='$pf_no'");
+					 while($result=mysqli_fetch_assoc($query))
 					 {
 						 $pen_pf_number=$result['pen_pf_number'];
 						 $pen_type=$result['pen_type'];
@@ -299,13 +299,13 @@ dbcon1();
 					 }
 		
 		//increment query	
-			$sql=mysql_query("select * from  increment_track where incr_pf_number='$pf_no' ORDER BY ID DESC");
-		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysql_error();
+			$sql=mysqli_query($conn,"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY ID DESC");
+		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysqli_error();
 			$data=[];
 			$cnt='0';
 			$i='0';
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 						$data[$cnt]=$fetch_sql;
 						$cnt++;
@@ -529,9 +529,9 @@ dbcon1();
 					}
 					else
 					{
-						$sql=mysql_query("select * from  increment_track where incr_pf_number='$pf_no' order by id desc limit 1");
+						$sql=mysqli_query("select * from  increment_track where incr_pf_number='$pf_no' order by id desc limit 1");
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 						$inc_transc_id=$fetch_sql['final_transaction_id'];
 						$inc_updated_date1=$fetch_sql['date_time'];
@@ -556,14 +556,14 @@ dbcon1();
 
 
 //property
-$sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORDER BY ID DESC");
-		//	echo"select * from  property_track where pro_pf_number='$pf_no' ORDER BY id DESC".mysql_error();
+$sql=mysqli_query("select * from  property_track where pro_pf_number='$pf_no' ORDER BY ID DESC");
+		//	echo"select * from  property_track where pro_pf_number='$pf_no' ORDER BY id DESC".mysqli_error();
 			$data=[];
 			$cnt='0';
 			$i='0';
 				if($sql)
 				{
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 						$data[$cnt]=$fetch_sql;
 						$cnt++;
@@ -863,9 +863,9 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 				}
 				else
 				{
-					$sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORDER BY ID DESC LIMIT 1");
+					$sql=mysqli_query("select * from  property_track where pro_pf_number='$pf_no' ORDER BY ID DESC LIMIT 1");
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 					  $pro_transc_id=$fetch_sql['final_transaction_id'];
 					  $pro_updated_date1=$fetch_sql['date_time'];
@@ -906,8 +906,8 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 
 
 	//Training query
-		$nominee=mysql_query("select * from  training_temp where pf_number='$pf_no'");
-			while($fetch_nominee=mysql_fetch_array($nominee))
+		$nominee=mysqli_query("select * from  training_temp where pf_number='$pf_no'");
+			while($fetch_nominee=mysqli_fetch_array($nominee))
 			{
 				
 				$tra_pf_number=$fetch_nominee['pf_number'];
@@ -927,9 +927,9 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 				dbcon1();
 				$pf_no=$_GET['pf'];
 				
-					$query=mysql_query("Select * from lastentry_temp where pf_number='$pf_no' ");
+					$query=mysqli_query("Select * from lastentry_temp where pf_number='$pf_no' ");
 					
-					 while($result=mysql_fetch_assoc($query))
+					 while($result=mysqli_fetch_assoc($query))
 					    {
 							$pf_number=$result['pf_number'];
 							$doj=$result['date_of_join'];
@@ -958,9 +958,9 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 						//Prft promotion Code Start
 						
 						/* $pf_no=$_GET['pf'];
-					 $query=mysql_query("Select * from prft_promotion_temp where pro_pf_no='$pf_no'");
-					// echo "Select * from prft_promotion_temp where pro_pf_no='$pf_no'".mysql_error();
-						while($result=mysql_fetch_assoc($query))		
+					 $query=mysqli_query("Select * from prft_promotion_temp where pro_pf_no='$pf_no'");
+					// echo "Select * from prft_promotion_temp where pro_pf_no='$pf_no'".mysqli_error();
+						while($result=mysqli_fetch_assoc($query))		
 						
 						{
 							$pro_pf_no=$result['pro_pf_no'];
@@ -1002,8 +1002,8 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 				        }
 						//prft reversion code
 						 $pf_no=$_GET['pf'];
-					 $query=mysql_query("Select * from prft_reversion_temp where rev_pf_no='$pf_no' ");
-					 while($result=mysql_fetch_assoc($query))		
+					 $query=mysqli_query("Select * from prft_reversion_temp where rev_pf_no='$pf_no' ");
+					 while($result=mysqli_fetch_assoc($query))		
 						{
 							$rev_pf_no=$result['rev_pf_no'];
 							$rev_order_type=$result['rev_order_type'];
@@ -1299,9 +1299,9 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
                                         <tbody>
                                             <?php 
 					dbcon1();
-					$sql=mysql_query("select * from medical_temp where medi_pf_number='$pf_no'");
+					$sql=mysqli_query("select * from medical_temp where medi_pf_number='$pf_no'");
 					$cnt=1;
-					while($result=mysql_fetch_array($sql))
+					while($result=mysqli_fetch_array($sql))
 					{
 						echo "<tr>";
 						echo "<td>$cnt</td>";
@@ -1693,8 +1693,8 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
                                                                             <tbody>
                                                                                 <?php
 					$cnt_pr=1;
-					$sql=mysql_query("select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
-					while($result=mysql_fetch_array($sql)){
+					$sql=mysqli_query("select * from  prft_promotion_temp where pro_pf_no='$pf_no'");
+					while($result=mysqli_fetch_array($sql)){
 						echo "<tr>";
 						echo "<td>$cnt_pr</td>";
 						echo "<td>".$result['pro_pf_no']."</td>";
@@ -1779,8 +1779,8 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
                                                                             <tbody>
                                                                                 <?php
 					$cnt_rv=1;
-					$sql=mysql_query("select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
-					while($result=mysql_fetch_array($sql)){
+					$sql=mysqli_query("select * from   prft_reversion_temp where rev_pf_no='$pf_no'");
+					while($result=mysqli_fetch_array($sql)){
 						echo "<tr>";
 						echo "<td>$cnt_rv</td>";
 						echo "<td>".$result['rev_pf_no']."</td>";
@@ -1868,8 +1868,8 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
                                                                             <tbody>
                                                                                 <?php
 						$cnt_tr=1;
-						$sql=mysql_query("select * from prft_transfer_temp where trans_pf_no='$pf_no'");
-						while($result=mysql_fetch_array($sql)){
+						$sql=mysqli_query("select * from prft_transfer_temp where trans_pf_no='$pf_no'");
+						while($result=mysqli_fetch_array($sql)){
 							echo "<tr>";
 							echo "<td>$cnt_tr</td>";
 							echo "<td>".$result['trans_pf_no']."</td>";
@@ -1953,8 +1953,8 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
                                                                             <tbody>
                                                                                 <?php
 						$cnt_fx=1;
-						$sql=mysql_query("select * from prft_fixation_temp where fix_pf_no='$pf_no'");
-						while($result=mysql_fetch_array($sql)){
+						$sql=mysqli_query("select * from prft_fixation_temp where fix_pf_no='$pf_no'");
+						while($result=mysqli_fetch_array($sql)){
 							echo "<tr>";
 							echo "<td>$cnt_fx</td>";
 							echo "<td>".$result['fix_pf_no']."</td>";
@@ -2000,13 +2000,13 @@ $sql=mysql_query("select * from  property_track where pro_pf_number='$pf_no' ORD
 
 
 dbcon1();
-				$sql=mysql_query("select * from  penalty_track where pen_pf_number='$pf_no' ORDER BY ID DESC");
+				$sql=mysqli_query("select * from  penalty_track where pen_pf_number='$pf_no' ORDER BY ID DESC");
 		
 			$data=[];
 			$cnt='0';
 			$i='0';
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 						$data[$cnt]=$fetch_sql;
 						$cnt++;
@@ -2279,8 +2279,8 @@ dbcon1();
 				else{
 					
 					 dbcon1();
-				  $query=mysql_query("Select * from penalty_track where pen_pf_number='$pf_no'");
-					 $result=mysql_fetch_assoc($query);
+				  $query=mysqli_query("Select * from penalty_track where pen_pf_number='$pf_no'");
+					 $result=mysqli_fetch_assoc($query);
 					 
 						 $pen_final_transaction_id=$result['final_transaction_id'];
 						 $pen_pf_number=$result['pen_pf_number'];
@@ -2489,10 +2489,10 @@ dbcon1();
                             <!---- advance details---->
                             <?php
 dbcon1();
-				$sql=mysql_query("select * from  advance_track where adv_pf_number='$pf_no'");
+				$sql=mysqli_query("select * from  advance_track where adv_pf_number='$pf_no'");
 				if($sql){
 					echo'   <div class="tab-pane" id="advance">';
-						while($fetch_sql=mysql_fetch_array($sql))
+						while($fetch_sql=mysqli_fetch_array($sql))
 							{
 									$pf_no = $fetch_sql['adv_pf_number'];
 									$advance_type=$fetch_sql['adv_type'];
@@ -2685,9 +2685,9 @@ dbcon1();
                                     <h3>&nbsp;&nbsp;Family Composition Details</h3>
                                     <hr style="height:1px;border:none;color:#f39c12;background-color:#f39c12;">
                                     <?php
-		$sql=mysql_query("select * from  family_temp where emp_pf='$pf_no'");
+		$sql=mysqli_query("select * from  family_temp where emp_pf='$pf_no'");
 		
-		while($result=mysql_fetch_array($sql)){
+		while($result=mysqli_fetch_array($sql)){
 			
 			$fmy_pf_number=$result['fmy_pf_number'];
 			$fmy_updatedate=$result['fmy_updatedate'];
@@ -2736,13 +2736,13 @@ dbcon1();
 
 
 dbcon1();
-				$sql=mysql_query("select * from  award_track where awd_pf_number='$pf_no' ORDER BY ID DESC");
-		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysql_error();
+				$sql=mysqli_query("select * from  award_track where awd_pf_number='$pf_no' ORDER BY ID DESC");
+		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysqli_error();
 			$data=[];
 			$cnt='0';
 			$i='0';
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 						$data[$cnt]=$fetch_sql;
 						$cnt++;
@@ -2907,11 +2907,11 @@ dbcon1();
 				}
 				else{
 					dbcon1();
-					$sql=mysql_query("select * from  award_track where awd_pf_number='$pf_no'");
+					$sql=mysqli_query("select * from  award_track where awd_pf_number='$pf_no'");
 					if($sql){
-						while($fetch_sql=mysql_fetch_array($sql))
+						while($fetch_sql=mysqli_fetch_array($sql))
 					  {
-						$fetch_sql=mysql_fetch_array($sql);
+						$fetch_sql=mysqli_fetch_array($sql);
 						
 						    $awd_final_transaction_id=$fetch_sql['final_transaction_id'];
 							$awd_pf_number = $fetch_sql['awd_pf_number'];
@@ -3012,8 +3012,8 @@ dbcon1();
                                                                 <div class="box">
                                                                     <div class="table-responsive">
                                                                         <?php 
-				$sql=mysql_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='PF'");
-				while($result=mysql_fetch_array($sql)){
+				$sql=mysqli_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='PF'");
+				while($result=mysqli_fetch_array($sql)){
 					
 					echo "<table border='1' class='table table-bordered'  style='width:100%'>";
 					echo "<tbody>";
@@ -3114,8 +3114,8 @@ dbcon1();
                                                                 <div class="box">
                                                                     <div class="table-responsive">
                                                                         <?php 
-				$sql=mysql_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
-				while($result=mysql_fetch_array($sql)){
+				$sql=mysqli_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GIS'");
+				while($result=mysqli_fetch_array($sql)){
 					
 					echo "<table border='1' class='table table-bordered'  style='width:100%'>";
 					echo "<tbody>";
@@ -3216,8 +3216,8 @@ dbcon1();
                                                                 <div class="box">
                                                                     <div class="table-responsive">
                                                                         <?php 
-				$sql=mysql_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
-				while($result=mysql_fetch_array($sql)){
+				$sql=mysqli_query("select * from  nominee_temp where nom_pf_number='$pf_no' and nom_type='GRA'");
+				while($result=mysqli_fetch_array($sql)){
 					
 					echo "<table border='1' class='table table-bordered'  style='width:100%'>";
 					echo "<tbody>";
@@ -3297,13 +3297,13 @@ dbcon1();
                                 <?php
 
 			dbcon1();
-				$sql=mysql_query("select *from  training_track where pf_number='$pf_no' ORDER BY ID DESC");
-		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysql_error();
+				$sql=mysqli_query("select *from  training_track where pf_number='$pf_no' ORDER BY ID DESC");
+		//	echo"select * from  increment_track where incr_pf_number='$pf_no' ORDER BY id DESC".mysqli_error();
 			$data=[];
 			$cnt='0';
 			$i='0';
 				if($sql){
-					while($fetch_sql=mysql_fetch_array($sql))
+					while($fetch_sql=mysqli_fetch_array($sql))
 					{
 						$data[$cnt]=$fetch_sql;
 						$cnt++;
@@ -3564,8 +3564,8 @@ dbcon1();
 				else{
 				
 				
-				$sql=mysql_query("select *from advance_leave where adv_pf_number='$pf_no' ORDER BY ID DESC LIMIT 1");
-				while($fetch_sql1=mysql_fetch_array($sql))
+				$sql=mysqli_query("select *from advance_leave where adv_pf_number='$pf_no' ORDER BY ID DESC LIMIT 1");
+				while($fetch_sql1=mysqli_fetch_array($sql))
 				{
 										
 				$tra_pf_number=$fetch_nominee['pf_number'];

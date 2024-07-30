@@ -1,4 +1,5 @@
 <?php
+
 // session_start();
 function add_employee($emp_type, $emp_id, $emp_name, $emp_dept, $emp_desig, $emp_mob, $emp_email, $emp_aadhar, $emp_address1, $emp_address2, $emp_state, $emp_city, $office_emp_address1, $office_emp_address2, $office_emp_state, $office_emp_city, $emp_pincode, $office_emp_pincode)
 {
@@ -494,76 +495,72 @@ function forward_grievance_wel($name_array, $tmp_name_array, $griv_ref_no, $emp_
 
 function return_back_action($name_array, $tmp_name_array, $griv_ref_no, $emp_id, $hidden_id, $auth, $remark, $action, $emp_mobile, $section)
 {
-	// var_dump($name_array, $tmp_name_array, $griv_ref_no, $emp_id, $hidden_id, $auth, $remark, $action, $emp_mobile);
-	global $db_egr, $db_common;
-	$_remark = mysqli_real_escape_string($db_egr, $remark);
-	if ($action == "3") {
-		$status = "4";
-	} else {
-		$status = "2";
-	}
-	$last_doc = "";
-	if (!empty($name_array)) {
-		$sql_count = mysqli_query($db_egr, "SELECT count(*) as count FROM doc where griv_ref_no='$griv_ref_no'") or die(mysqli_error($db_egr));
-		$fetch_count = mysqli_fetch_array($sql_count);
-		// print_r($fetch_count);
-		$count = $fetch_count['count'];
-		$count++;
-		$folder_name = "admin_upload/";
-		if (!file_exists($folder_name)) {
-			mkdir($folder_name, 0777);
-		}
-		for ($i = 0; $i < count($tmp_name_array); $i++) {
-			$temp = explode(".", $name_array[$i]);
-			$newfilename = rand(1000, 99999) . '.' . end($temp);
-			$file_ext = strtolower(end($temp));
-			$expensions = array("pdf", "doc", "docx", "jpg", "jpeg", "png", "txt");
-			if (in_array($file_ext, $expensions) == false) {
-				// $errors = "Extension not allowed, please choose only pdf file.";
-				return false;
-			}
-			// $sql="insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by,count) values('$griv_ref_no','$newfilename',NOW(),'$hidden_id','$last_id')";
-			$current_date = date("Y-m-d H:i:s");
-			$sql = "insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by,count) values('$griv_ref_no','$newfilename','$current_date','$hidden_id','$count')";
-			$sql_img = mysqli_query($db_egr, $sql) or die(mysqli_error($db_egr));
-			$last_doc = mysqli_insert_id($db_egr);
-			//echo "insert into doc(griv_ref_no,doc_path,upload_date,uploaded_by) values('$gri_ref_no','$folder_name.$newfilename',NOW(),'$hidden_id')".mysqli_error();
-			move_uploaded_file($tmp_name_array[$i], $folder_name . $newfilename);
-		}
-	}
-	$current_date = date("Y-m-d H:i:s");
-	$sql_query = "insert into tbl_grievance_forward(griv_ref_no,emp_id,user_id,user_id_forwarded,forwarded_date,remark,status,admin_action,doc_id) values('$griv_ref_no','$emp_id','$hidden_id','$auth','$current_date','$_remark','$status','$action','$last_doc')";
-	// $sql_query = "insert into tbl_grievance_forward(griv_ref_no,emp_id,user_id,user_id_forwarded,forwarded_date,remark,status,admin_action) values('$griv_ref_no','$emp_id','$hidden_id','$auth',NOW(),'$_remark','$status','$action')";
-	$fire_query = mysqli_query($db_egr, $sql_query) or trigger_error("Query Failed: " . mysqli_error($db_egr));
-	$last_id = mysqli_insert_id($db_egr);
+    global $db_egr, $db_common;
+    $_remark = mysqli_real_escape_string($db_egr, $remark);
+    $status = ($action == "3") ? "4" : "2";
+    $last_doc = "";
 
+    if (!empty($name_array) && is_array($tmp_name_array)) {
+        $sql_count = mysqli_query($db_egr, "SELECT count(*) as count FROM doc WHERE griv_ref_no='$griv_ref_no'") or die(mysqli_error($db_egr));
+        $fetch_count = mysqli_fetch_array($sql_count);
+        $count = $fetch_count['count'] + 1;
 
-	$set_zero = mysqli_query($db_egr, "update tbl_grievance_forward set status='0' where griv_ref_no='$griv_ref_no' and id < $last_id", $db_egr);
-	//echo $set_zero;
-	if ($action == 1) {
-		$sql_inner = "update tbl_grievance set status='$status',section_id='$section' where gri_ref_no='$griv_ref_no'";
-	} else if ($action == 3) {
-		$sql_inner = "update tbl_grievance set status='$status',closedby='$hidden_id'  where gri_ref_no='$griv_ref_no'";
-	} else {
-		if (isBA() || isBo()) {
-			$sql_inner = "update tbl_grievance set status='$status',section_id='$section'  where gri_ref_no='$griv_ref_no'";
-		}
-	}
-	$status_update = mysqli_query($db_egr, $sql_inner);
-	if ($status_update) {
-		if ($action == 3) {
-			$message = "Your e-Grievance closed successfully with '" . $griv_ref_no . "' reference no.";
-			if (SendSMS($emp_mobile, $message)) {
-				echo "<script>alert('SMS send successfully.');</script>";
-			} else {
-				echo "<script>alert('SMS send failed.');</script>";
-			}
-		}
-		return true;
-	} else {
-		return false;
-	}
+        $folder_name = "admin_upload/";
+        if (!file_exists($folder_name)) {
+            mkdir($folder_name, 0777);
+        }
+
+        for ($i = 0; $i < count($tmp_name_array); $i++) {
+            $temp = explode(".", $name_array[$i]);
+            $newfilename = rand(1000, 99999) . '.' . end($temp);
+            $file_ext = strtolower(end($temp));
+            $expensions = array("pdf", "doc", "docx", "jpg", "jpeg", "png", "txt");
+
+            if (in_array($file_ext, $expensions) == false) {
+                return false;
+            }
+
+            $current_date = date("Y-m-d H:i:s");
+            $sql = "INSERT INTO doc(griv_ref_no, doc_path, upload_date, uploaded_by, count) VALUES ('$griv_ref_no', '$newfilename', '$current_date', '$hidden_id', '$count')";
+            $sql_img = mysqli_query($db_egr, $sql) or die(mysqli_error($db_egr));
+            $last_doc = mysqli_insert_id($db_egr);
+
+            move_uploaded_file($tmp_name_array[$i], $folder_name . $newfilename);
+        }
+    }
+
+    $current_date = date("Y-m-d H:i:s");
+    $sql_query = "INSERT INTO tbl_grievance_forward(griv_ref_no, emp_id, user_id, user_id_forwarded, forwarded_date, remark, status, admin_action, doc_id) VALUES ('$griv_ref_no', '$emp_id', '$hidden_id', '$auth', '$current_date', '$_remark', '$status', '$action', '$last_doc')";
+    $fire_query = mysqli_query($db_egr, $sql_query) or trigger_error("Query Failed: " . mysqli_error($db_egr));
+    $last_id = mysqli_insert_id($db_egr);
+
+    $set_zero = mysqli_query($db_egr, "UPDATE tbl_grievance_forward SET status='0' WHERE griv_ref_no='$griv_ref_no' AND id < $last_id");
+
+    if ($action == 1) {
+        $sql_inner = "UPDATE tbl_grievance SET status='$status', section_id='$section' WHERE gri_ref_no='$griv_ref_no'";
+    } else if ($action == 3) {
+        $sql_inner = "UPDATE tbl_grievance SET status='$status', closedby='$hidden_id' WHERE gri_ref_no='$griv_ref_no'";
+    } else {
+        // If there is some other condition to be checked, add the appropriate logic here
+        $sql_inner = "UPDATE tbl_grievance SET status='$status', section_id='$section' WHERE gri_ref_no='$griv_ref_no'";
+    }
+
+    $status_update = mysqli_query($db_egr, $sql_inner);
+    if ($status_update) {
+        if ($action == 3) {
+            $message = "Your e-Grievance closed successfully with '" . $griv_ref_no . "' reference no.";
+            if (SendSMS($emp_mobile, $message)) {
+                echo "<script>alert('SMS send successfully.');</script>";
+            } else {
+                echo "<script>alert('SMS send failed.');</script>";
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
 }
+
 function active_user($hidden_active)
 {
 	global $db_egr;

@@ -9,7 +9,6 @@ if (!isset($_SESSION["UserName"])) {
 }
 
 $id = $_SESSION['user_id'];
-
 $sql = "SELECT * FROM user_permission WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
@@ -91,7 +90,7 @@ $row = $result->fetch_assoc();
                     </div>
                     <div class="pull-left info">
                         <p><?php echo htmlspecialchars($row['name']); ?></p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
                     </div>
                 </div>
 

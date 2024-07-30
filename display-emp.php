@@ -5,10 +5,10 @@ $GLOBALS['flag']="5";
     
         $id = $_SESSION['user_id'];
         $sql = "SELECT * FROM user_permission WHERE id = '$id'";
-        $result = mysql_query($sql);
-        $row = mysql_fetch_assoc($result);     
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_assoc($result);     
         $sql_fetch = "SELECT * FROM register_user";
-        $result_fetch = mysql_query($sql_fetch);
+        $result_fetch = mysqli_query($conn,$sql_fetch);
 
  
 ?>

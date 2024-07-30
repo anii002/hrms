@@ -127,11 +127,11 @@ include('../dbconfig/dbcon.php');
 		<!-- BEGIN HEADER INNER -->
 		<div class="pre-loader preloader-single shadow-inner mg-t-30">
 			<div class="ts_preloading_box">
-				<!-- <div id="ts-preloader-absolute30">
-					<div id="absolute30">
+				<div id="ts-preloader-absolute30">
+					<!-- <div id="absolute30">
 						<span></span><span></span><span></span><span></span><span></span>
-					</div>
-				</div> -->
+					</div> -->
+				</div>
 			</div>
 		</div>
 		<div class="pre-otploader" id="otp_loader" style="display:none;">
@@ -233,7 +233,7 @@ include('../dbconfig/dbcon.php');
 					<div class="modal-body">
 
 
-						<form action="../../../../redi_module.php" method="POST" class="horizontal-form">
+						<form action="../../hrms/redi_module.php" method="POST" class="horizontal-form">
 
 							<div class="">
 								<div class="row">

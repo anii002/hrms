@@ -4,7 +4,7 @@ include_once("../common/db.php");
 
 include_once("CommonFunctions.php");
 
-//dbcon('esoluhp6_sur_railway');
+//dbcon('drmpsurh_sur_railway');
 
 $Flag = $_REQUEST["Flag"];
 
@@ -22,22 +22,19 @@ if ($Flag == "PFNoVerify") {
 
         if ($rwRecords = mysqli_fetch_assoc($rstRecords)) {
 
-            
+
 
             extract($rwRecords);
 
             $Data = array("name" => $empname, "dob" => $birthdate, "desigcode" => $desigcode, "billunit" => $billunit, "stationcode" => $stationcode, "phoneno" => $phoneno, "deptcode" => $deptcode);
-
         }
 
         $Result["res"] = "success";
 
         $Result["Data"] = $Data;
-
     }
 
     echo json_encode($Result);
-
 } else if ($Flag == "Register") {
 
 
@@ -94,7 +91,7 @@ if ($Flag == "PFNoVerify") {
 
     $dob = $_POST["txtDOB"];
 
-    
+
 
     $doa = $_POST["txtDateOfAppointment"];
 
@@ -108,20 +105,17 @@ if ($Flag == "PFNoVerify") {
 
     $sql = "INSERT INTO `register_user`(`emp_no`, `name`, `designation`, `department`, `bill_unit`, `station`, `dob`, `doa`, `basic_pay`, `7th_pay_level`, `mobile`, `password`, `empType`) VALUES ('$empno','$name','$desigation','$department','$bill_unit','$station','$dob','$doa','$basic_pay','$pay_level','$mobile','$password','$empType')";
 
-    if (mysqli_query($conn , $sql)) {
+    if (mysqli_query($conn, $sql)) {
 
         $Result["res"] = "success";
 
         $Result["message"] = "Successfully Registered!";
-
     } else {
 
         $Result["res"] = "fail";
 
         $Result["message"] = "Please Try Again!";
-
     }
 
     echo json_encode($Result);
-
 }

@@ -31,7 +31,7 @@
       <div class="container">
           <div class="row">
               <div class="col-md-6 col-lg-6 col-sm-7">
-                  <h5>© Copyright 2020 <a href="http://infoigy.com" target="_blank"> Salgem Infoigy Tech Pvt. Ltd. </a>All rights reserved.</h5>
+                  <h5>© Copyright 2024 <a href="http://infoigy.com" target="_blank"> Infoigy Tech Pvt. Ltd. </a>All rights reserved.</h5>
               </div>
               <div class="col-md-6 col-lg-6 col-sm-5 socialmedia">
                   <ul class="text-right">

@@ -1,14 +1,14 @@
-<?php 
+<?php
 
- session_start();
+//  session_start();
 
- if(!isset($_SESSION['SESS_MEMBER_NAME']))
+//  if(!isset($_SESSION['SESS_MEMBER_NAME']))
 
- {
+//  {
 
-	 echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
+// 	 echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
 
- }
+//  }
 
 include_once('../global/header.php');
 
@@ -18,79 +18,79 @@ include_once('../global/topbar.php');
 
 ?>
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
 
-    <section class="content-header" style=" padding-left:20px;padding-bottom:10px;">
+  <section class="content-header" style=" padding-left:20px;padding-bottom:10px;">
 
-      <h1>
+    <h1>
 
-        Recruitment Code Master
+      Recruitment Code Master
 
-      </h1>
+    </h1>
 
-    </section>
+  </section>
 
-    <section class="content">
+  <section class="content">
 
-        <div class="box box-info">
+    <div class="box box-info">
 
-            <div class="box-header with-border">
+      <div class="box-header with-border">
 
-              <h3 class="box-title">Recruitment Code</h3>
+        <h3 class="box-title">Recruitment Code</h3>
+
+      </div>
+
+      <!-- /.box-header -->
+
+      <!-- form start -->
+
+
+
+      <!--Umesh Code Here-->
+
+      <form class="form-horizontal" method="POST" action="process.php?action=add_recruitment">
+
+        <div class="box-body">
+
+          <div class="form-group">
+
+            <label for="inputEmail3" class="col-md-2 col-sm-2 col-xs-12 control-label">Recruitment Code</label>
+
+
+
+            <div class="col-md-6 col-sm-10 col-xs-12">
+
+              <input type="text" class="form-control" placeholder="Enter Recruitment Code" name="recruit" id="desc" required maxlength="50">
 
             </div>
 
-            <!-- /.box-header -->
+          </div>
 
-            <!-- form start -->
+          <div class="form-group">
 
-			
+            <label for="inputPassword3" class="col-md-2 col-sm-2 col-xs-12 control-label"></label>
 
-			<!--Umesh Code Here-->
+            <div class="col-md-6 col-sm-10 col-xs-12">
 
-            <form class="form-horizontal" method="POST" action="process.php?action=add_recruitment">
+              <button type="submit" class="btn btn-primary">ADD</button>
 
-              <div class="box-body">
+              <button type="reset" class="btn btn-warning">Cancel</button>
 
-                <div class="form-group">
+            </div>
 
-                  <label for="inputEmail3" class="col-md-2 col-sm-2 col-xs-12 control-label">Recruitment Code</label>
+          </div>
 
 
 
-                  <div class="col-md-6 col-sm-10 col-xs-12">
+        </div>
 
-                    <input type="text" class="form-control"  placeholder="Enter Recruitment Code" name="recruit" id="desc" required maxlength="50">
+      </form>
 
-                  </div>
+    </div>
 
-                </div>
 
-				<div class="form-group">
 
-                  <label for="inputPassword3" class="col-md-2 col-sm-2 col-xs-12 control-label"></label>
-
-                  <div class="col-md-6 col-sm-10 col-xs-12">
-
-                <button type="submit" class="btn btn-primary">ADD</button>
-
-                     <button type="reset" class="btn btn-warning">Cancel</button>
-
-                  </div>
-
-                </div>
-
-                
-
-              </div>
-
-            </form>
-
-         </div>
-
-	
-
-	 <section class="content">
+    <section class="content">
 
       <div class="row">
 
@@ -112,55 +112,50 @@ include_once('../global/topbar.php');
 
                 <thead>
 
-                <tr>
+                  <tr>
 
-                  <th>Id</th>
+                    <th>Id</th>
 
-                  <th>Recruitment Code List</th>
+                    <th>Recruitment Code List</th>
 
-                  <th>Action</th>
+                    <th>Action</th>
 
-                </tr>
+                  </tr>
 
                 </thead>
 
                 <tbody>
 
-               <?php 
+                  <?php
 
-					$sql=mysqli_query($conn,"select * from recruitment_code");
+                  $sql = mysqli_query($conn, "select * from recruitment_code");
 
-					while($result=mysqli_fetch_array($sql))
+                  while ($result = mysqli_fetch_array($sql)) {
 
-					{
+                    echo "<tr>";
 
-						echo "<tr>";
+                    echo "<td>" . $result['id'] . "</td>";
 
-						echo "<td>".$result['id']."</td>";
+                    echo "<td>" . $result['recruitment_code'] . "</td>";
 
-						echo "<td>".$result['recruitment_code']."</td>";
+                    echo "<td>
 
-						echo "<td>
+							<button type='button' value='" . $result['id'] . "' data-target='#update' data-toggle='modal' class='btn btn-primary update_btn'>Update</button>
 
-							<button type='button' value='".$result['id']."' data-target='#update' data-toggle='modal' class='btn btn-primary update_btn'>Update</button>
-
-                      <button value='".$result['id']."' data-toggle='modal' data-target='#delete' class='btn btn-danger deleteBtn' style='margin-left:8px;'>Delete</button>
+                      <button value='" . $result['id'] . "' data-toggle='modal' data-target='#delete' class='btn btn-danger deleteBtn' style='margin-left:8px;'>Delete</button>
 
 						</td>";
 
-						echo "</tr>";
+                    echo "</tr>";
+                  }
 
-						
-
-					}
-
-				?>
+                  ?>
 
                 </tbody>
 
                 <tfoot>
 
-               
+
 
                 </tfoot>
 
@@ -184,242 +179,239 @@ include_once('../global/topbar.php');
 
     </section>
 
-		 <!--Umesh Code end here-->
+    <!--Umesh Code end here-->
 
-		 <script>
+    <script>
+      $(function() {
 
-  $(function () {
+        $('#example1').DataTable()
 
-    $('#example1').DataTable()
+        /* $('#example2').DataTable({
 
-    /* $('#example2').DataTable({
+          'paging'      : true,
 
-      'paging'      : true,
+          'lengthChange': false,
 
-      'lengthChange': false,
+          'searching'   : false,
 
-      'searching'   : false,
+          'ordering'    : true,
 
-      'ordering'    : true,
+          'info'        : true,
 
-      'info'        : true,
+          'autoWidth'   : false
 
-      'autoWidth'   : false
+        }) */
 
-    }) */
+      })
+    </script>
 
-  })
+  </section>
 
-</script> 
+</div>
 
-    </section>
-
-  </div>
-
-  <!--Content code end here--->
+<!--Content code end here--->
 
 
 
-  
 
-  <!-- Umesh Coding Here-->
 
-  
+<!-- Umesh Coding Here-->
 
-  
 
-  <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 
-    <div class="modal-dialog">
 
-      <div class="modal-content">
 
-        <div class="modal-header">
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <div class="modal-dialog">
 
-          <h4 class="modal-title" id=""><strong>Update Recruitment Code</strong></h4>
+    <div class="modal-content">
 
-        </div>
+      <div class="modal-header">
 
-       <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h4 class="modal-title" id=""><strong>Update Recruitment Code</strong></h4>
+
+      </div>
+
+      <div class="modal-body">
 
         <form class="form-horizontal" method="POST" action="process.php?action=update_recruitment">
 
-              <div class="box-body">
-
-                <div class="form-group">
-
-                  <label for="inputEmail3" class="col-md-3 col-sm-3 col-xs-12 control-label">Recruitment Code</label>
-
-
-
-                  <div class="col-md-8 col-sm-10 col-xs-12">
-
-                    <input type="text" class="form-control"  placeholder="Recruitment Code" name="update_recruit" id="update_recruit" required maxlength="50">
-
-					<input type="hidden" class="form-control"  placeholder="Enter Department Name" name="hide_field" id="hide_field" required maxlength="50">
-
-                  </div>
-
-                </div>
-
-                
-
-                  
-
-                 
-
-                </div>
-
-                <div class="modal-footer">
-
-          <button type="submit" class="btn btn-success">Submit</button>
-
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
-
-              </div>
-
-      </div>
-
-	  
-
-	 <!--Umesh Coding End here-->
-
-	 
-
-	 
-
-        
-
-      </form>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-
-    <div class="modal-dialog">
-
-      <div class="modal-content">
-
-        <div class="modal-header">
-
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-          <h4 class="modal-title" id=""><strong>Delete Recruitment Code</strong></h4>
-
-        </div>
-
-        <div class="modal-body">
-
-           <form class="form-horizontal" method="POST" action="process.php?action=delete_recruitment">
-
-
+          <div class="box-body">
 
             <div class="form-group">
 
-              Do you really want to delete the specified record?
+              <label for="inputEmail3" class="col-md-3 col-sm-3 col-xs-12 control-label">Recruitment Code</label>
 
-              <div class="col-sm-10">
 
-                <input type="hidden" class="form-control" id="delete_id" name="delete_id">
+
+              <div class="col-md-8 col-sm-10 col-xs-12">
+
+                <input type="text" class="form-control" placeholder="Recruitment Code" name="update_recruit" id="update_recruit" required maxlength="50">
+
+                <input type="hidden" class="form-control" placeholder="Enter Department Name" name="hide_field" id="hide_field" required maxlength="50">
 
               </div>
 
             </div>
 
-        </div>
 
-        <div class="modal-footer">
 
-          <button type="submit" class="btn btn-success">Submit</button>
 
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-        </div>
 
-      </form>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button type="submit" class="btn btn-success">Submit</button>
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+          </div>
 
       </div>
 
     </div>
 
+
+
+    <!--Umesh Coding End here-->
+
+
+
+
+
+
+
+    </form>
+
   </div>
 
-   <?php
+</div>
 
- include_once('../global/footer.php');
+</div>
 
- ?>
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h4 class="modal-title" id=""><strong>Delete Recruitment Code</strong></h4>
+
+      </div>
+
+      <div class="modal-body">
+
+        <form class="form-horizontal" method="POST" action="process.php?action=delete_recruitment">
 
 
 
- 
+          <div class="form-group">
 
- 
+            Do you really want to delete the specified record?
 
- 
+            <div class="col-sm-10">
 
- <!--Umesh Code Here-->
+              <input type="hidden" class="form-control" id="delete_id" name="delete_id">
 
-   <script>
+            </div>
 
-  $(function () {
+          </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="submit" class="btn btn-success">Submit</button>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<?php
+
+include_once('../global/footer.php');
+
+?>
+
+
+
+
+
+
+
+
+
+<!--Umesh Code Here-->
+
+<script>
+  $(function() {
 
     $('#example1').DataTable()
 
   });
 
-  $(document).on("click",".update_btn",function(){
+  $(document).on("click", ".update_btn", function() {
 
-	 var values = $(this).val();
+    var values = $(this).val();
 
-	 // alert(values);
+    // alert(values);
 
-			$.ajax({
+    $.ajax({
 
-                url: 'process.php',
+        url: 'process.php',
 
-                type: 'POST',
+        type: 'POST',
 
-                data: {action: 'fetchrecruitment', id: values}
+        data: {
+          action: 'fetchrecruitment',
+          id: values
+        }
 
-              })
+      })
 
-              .done(function(html) {
+      .done(function(html) {
 
-				  //alert(html);
+        //alert(html);
 
-                var data = JSON.parse(html);
+        var data = JSON.parse(html);
 
-                $("#update_recruit").val(data.recruitment_code);
+        $("#update_recruit").val(data.recruitment_code);
 
-                $("#hide_field").val(values);
+        $("#hide_field").val(values);
 
-              });
+      });
 
   });
 
-  
-
-  $(document).on("click", ".deleteBtn", function(){
-
-            debugger;
-
-              var id = $(this).val();
-
-                $("#delete_id").val(id);
-
-          });
 
 
+  $(document).on("click", ".deleteBtn", function() {
 
+    debugger;
+
+    var id = $(this).val();
+
+    $("#delete_id").val(id);
+
+  });
 </script>
 
 <!--Umesh Code End Here-->

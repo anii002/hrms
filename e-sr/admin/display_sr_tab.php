@@ -144,7 +144,8 @@ if (mysqli_num_rows($query) <= 0) {
 	// $recruit_code = $result['recruit_code'];
 	$group_col = get_group($result['group_col']);
 	// $group_col = $result['group_col'];
-	$education_ini = get_initial_edu($result['education_ini']);
+	$education_ini =$result['education_ini'];
+	// echo $education_ini;
 	// $education_ini = $result['education_ini'];
 	$edu_desc_ini = $result['edu_desc_ini'];
 	$education_sub = get_sub_edu($result['education_sub']);
@@ -487,9 +488,19 @@ if (mysqli_num_rows($query) <= 0) {
 										<tbody>
 											<tr>
 												<td colspan="5"></td>
-												<td style="width:10%"> <img id="blah" src="upload_doc/<?php echo $imagefile; ?>" width="200px" height="200px" /></td>
-
+												<td style="width:10%">
+													<?php
+													$imagePath = "upload_doc/" . $imagefile;
+													if (!empty($imagefile) && file_exists($imagePath)) {
+														$src = $imagePath;
+													} else {
+														$src = "https://via.placeholder.com/200";
+													}
+													?>
+													<img id="blah" src="<?php echo $src; ?>" width="200px" height="200px" />
+												</td>
 											</tr>
+
 											<tr>
 												<td><label class="control-label labelhed ">PF Number</label></td>
 												<td> <label class="control-label labelhdata"> <?php echo $pf_number_bio ?></label></td>
@@ -669,8 +680,19 @@ if (mysqli_num_rows($query) <= 0) {
 								<tbody>
 									<tr>
 										<td colspan="5"></td>
-										<td style="width:10%"> <img id="blah" src="../admin/upload_doc/<?php echo $imagefile; ?>" width="200px" height="200px" /></td>
+										<td style="width:10%">
+											<?php
+											$imagePath = "../admin/upload_doc/" . $imagefile;
+											if (!empty($imagefile) && file_exists($imagePath)) {
+												$src = $imagePath;
+											} else {
+												$src = "https://via.placeholder.com/200"; // Path to your dummy image
+											}
+											?>
+											<img id="blah" src="<?php echo $src; ?>" width="200px" height="200px" />
+										</td>
 									</tr>
+
 									<tr>
 										<td><label class="control-label labelhed ">PF Number</label></td>
 										<td> <label class="control-label labelhdata"> <?php echo $pf_number_bio; ?></label></td>

@@ -15,18 +15,42 @@ function AddAdmin($empid,$username,$psw,$role,$dept)
     return false;
 }
 
-function changeimg($name,$tmp_name)
-{
+function changeimg($name, $tmp_name) {
   global $conn;
-	$upload_dir = "../profile/".$_SESSION['empid'].".jpg";
-	$dir = "profile/".$_SESSION['empid'].".jpg";
-	if (move_uploaded_file($tmp_name, $upload_dir)) {
-		$query = mysqli_query($conn, "update users set img='$dir' where empid='".$_SESSION['empid']."'");
-        return true;
-    } else {
-        return false;
-    }
+  
+  // Define the upload directory
+  $upload_dir = "../profile/";
+  $filename = $_SESSION['empid'] . ".jpg";
+  $upload_path = $upload_dir . $filename;
+  $db_path = "profile/" . $filename;
+  
+  // Check if the upload directory exists, if not, create it
+  if (!is_dir($upload_dir)) {
+      mkdir($upload_dir, 0777, true);
+  }
+  
+  // Validate file type (you can add more checks if needed)
+  $allowed_types = ['image/jpeg', 'image/jpg', 'image/png'];
+  $file_type = mime_content_type($tmp_name);
+  if (!in_array($file_type, $allowed_types)) {
+      return false;
+  }
+  
+  // Move the uploaded file
+  if (move_uploaded_file($tmp_name, $upload_path)) {
+      // Update the database with the new image path
+      $stmt = $conn->prepare("UPDATE users SET img=? WHERE empid=?");
+      $stmt->bind_param("ss", $db_path, $_SESSION['empid']);
+      if ($stmt->execute()) {
+          return true;
+      } else {
+          return false;
+      }
+  } else {
+      return false;
+  }
 }
+
 function updateUser($fname,$email,$mobile,$design)
 {
   global $conn;

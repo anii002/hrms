@@ -1,11 +1,11 @@
 <?php
 
-session_start();
+// session_start();
 
-if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
+// if (!isset($_SESSION['SESS_MEMBER_NAME'])) {
 
-  echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
-}
+//   echo "<script>window.location='http://localhost/E-APAR/index.php';</script>";
+// }
 
 include_once('../global/header.php');
 

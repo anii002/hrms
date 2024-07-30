@@ -41,7 +41,7 @@
                         <?php 
                         if(isset($_SESSION['profile_image'])) {
                         ?>
-                            <img src="../../../../hrms/images/profile/ <?php echo $_SESSION['profile_image']; ?>" class="user-image" alt="User Image">
+                            <img src="../../../images/profile/<?php echo $_SESSION['profile_image']; ?>" class="user-image" alt="User Image">
                         <?php } else { ?>
                             <img src="../plugins/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                         <?php } ?>

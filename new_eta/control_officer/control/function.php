@@ -124,22 +124,38 @@ function getdepot($id)
 }
 
 
-function getjourneytype($id)
-{
+function getjourneytype($id) {
   global $conn;
-  $query = "SELECT `journey_type` FROM `journey_type_master` WHERE `id`='$id'";
-  $result = mysqli_query($conn, $query);
-  $value = mysqli_fetch_array($result);
-  return $value['journey_type'];
+  $query = "SELECT `journey_type` FROM `journey_type_master` WHERE `id`=?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $value = $result->fetch_array(MYSQLI_ASSOC);
+
+  if ($value) {
+      return $value['journey_type'];
+  } else {
+      return null; // or you can return a default value or an error message
+  }
 }
-function getjourneypurpose($id)
-{
+
+function getjourneypurpose($id) {
   global $conn;
-  $query = "SELECT `journey_purpose` FROM `journey_purpose_master` WHERE `id`='$id'";
-  $result = mysqli_query($conn, $query);
-  $value = mysqli_fetch_array($result);
-  return $value['journey_purpose'];
+  $query = "SELECT `journey_purpose` FROM `journey_purpose_master` WHERE `id`=?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $value = $result->fetch_array(MYSQLI_ASSOC);
+
+  if ($value) {
+      return $value['journey_purpose'];
+  } else {
+      return null; // or you can return a default value or an error message
+  }
 }
+
 function getobjective($id)
 {
   global $conn;

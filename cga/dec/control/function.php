@@ -54,7 +54,7 @@ function fetch_station_profile($id)
   $value = mysqli_fetch_array($result);
   $data = "<option value='" . $value['station_id'] . "'>" . $value['station_name'] . "</option>";
   $query = "select * from stations where station_id <> '$id'";
-  $result = mysqli_query($query);
+  $result = mysqli_query($con,$query);
   while ($value = mysqli_fetch_array($result))
     $data .= "<option value='" . $value['station_id'] . "'>" . $value['station_name'] . "</option>";
   return $data;

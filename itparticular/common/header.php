@@ -118,7 +118,7 @@ $con = dbcon2();
         <div class="page-header-inner">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.php">
+                <a href="dashboard.php">
 
                     <h4>IT Particular</h4>
                 </a>

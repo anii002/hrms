@@ -1,7 +1,7 @@
 <?php
 $GLOBALS['flag'] = "4.91";
 include('common/header.php');
-include('common/sidebar1.php');
+include('common/sidebar.php');
 include('dbcon.php');
 $conn1 = dbcon1();
 ?>

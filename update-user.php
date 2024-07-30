@@ -4,7 +4,7 @@
 	$user = "root";
 	$pass = "";
 	$host = "localhost";
-	$db = "esoluhp6_travel_allowance1";
+	$db = "drmpsurh_travel_allowance1";
 	mysqli_connect($host,$user,$pass);
 	mysqli_select_db($db); 
 

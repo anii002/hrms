@@ -120,7 +120,7 @@ if (!isset($_SESSION['user'])) {
         <div class="page-header-inner">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.php">
+                <a href="dashboard.php">
                     <h4>EIMS</h4>
                 </a>
                 <div class="menu-toggler sidebar-toggler hide"></div>
@@ -188,7 +188,7 @@ if (!isset($_SESSION['user'])) {
                         <h4 class="modal-title" style="text-align:center">Login As</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="../../../../redi_module.php" method="POST" class="horizontal-form">
+                        <form action="../../hrms/redi_module.php" method="POST" class="horizontal-form">
                             <div class="">
                                 <div class="row">
                                     <div id="rad"></div>

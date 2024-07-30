@@ -45,8 +45,6 @@ include_once('../global/topbar.php');
 
             <label for="inputEmail3" class="col-md-2 col-sm-2 col-xs-12 control-label">Department Name</label>
 
-
-
             <div class="col-md-6 col-sm-10 col-xs-12">
 
               <input type="text" class="form-control" placeholder="Enter Department Name" name="name" id="desc" required maxlength="50">
@@ -137,7 +135,7 @@ include_once('../global/topbar.php');
 
                 <?php
 
-                $sql = mysqli_query($conn,"select * from  department");
+                $sql = mysqli_query($conn, "select * from  department");
 
                 while ($result = mysqli_fetch_array($sql)) {
 

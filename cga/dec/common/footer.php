@@ -1,7 +1,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
    <div class="page-footer-inner">
-    © Copyright 2020 <a href="http://www.infoigy.com/" target="_blank">Salgem Infoigy Tech Pvt Ltd.</a>All rights reserved.
+    © Copyright 2024 <a href="http://www.infoigy.com/" target="_blank">Infoigy Tech Pvt Ltd.</a>All rights reserved.
    </div>
    <div class="scroll-to-top">
       <i class="icon-arrow-up"></i>
@@ -43,10 +43,6 @@
     <script src="../assets/other/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
     <script src="../assets/other/plugins/jquery-datatable/jquery-datatable.js"></script>
-
-
-
-
 
 <script>
 jQuery(document).ready(function() {       

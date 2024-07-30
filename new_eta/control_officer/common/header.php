@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-	echo "<script>alert('Unauthorized  Access!!!');window.location='../../../index.php'</script>";
+    echo "<script>alert('Unauthorized  Access!!!');window.location='../../../index.php'</script>";
 }
 include('../dbconfig/dbcon.php');
 ?>
@@ -19,27 +19,20 @@ include('../dbconfig/dbcon.php');
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Khand:300,400,500,600,700&amp;subset=devanagari"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Khand:300,400,500,600,700&amp;subset=devanagari" rel="stylesheet">
     <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        media="all">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
 
     <link rel="stylesheet" href="../assets/global/plugins/js_glow/jquery.jgrowl.css" type="text/css" />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!--<link href="../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css">-->
     <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
-        type="text/css" />
+    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
-        type="text/css" />
+    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <link href="../assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
@@ -48,8 +41,7 @@ include('../dbconfig/dbcon.php');
     <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css"
-        href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
     <!-- BEGIN PAGE STYLES -->
     <link href="../assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE STYLES -->
@@ -70,64 +62,64 @@ include('../dbconfig/dbcon.php');
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <style type="text/css">
-.pre-loader {
-    background-color: #ffff;
-    /*background-image: url("img/abc.gif");*/
-    position: fixed;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 10000000;
-}
+    .pre-loader {
+        background-color: #ffff;
+        /*background-image: url("img/abc.gif");*/
+        position: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 10000000;
+    }
 
 
-.pre-otploader {
-    background-color: #ffff;
-    background-image: url("../assets/img/loader-2.gif");
-    position: fixed;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 10000000;
-}
+    .pre-otploader {
+        background-color: #ffff;
+        background-image: url("../assets/img/loader-2.gif");
+        position: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 10000000;
+    }
 
 
 
-.btn-orange-moon {
-    background: #FF416C;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FF416C, #FF4B2B);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: #fff;
-    /*border: 3px solid #eee;*/
-}
+    .btn-orange-moon {
+        background: #FF416C;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #FF416C, #FF4B2B);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #FF416C, #FF4B2B);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: #fff;
+        /*border: 3px solid #eee;*/
+    }
 
-.modal-width {
-    width: 100% !important;
-    max-width: 700px;
-    left: 45% !important;
-}
+    .modal-width {
+        width: 100% !important;
+        max-width: 700px;
+        left: 45% !important;
+    }
 
-.loginas {
-    margin-top: 5px;
-    margin-right: 10px;
-}
+    .loginas {
+        margin-top: 5px;
+        margin-right: 10px;
+    }
 
-.loginas li {
-    list-style: none;
-}
+    .loginas li {
+        list-style: none;
+    }
 
-.loginas li a {
-    color: #fff;
-}
+    .loginas li a {
+        color: #fff;
+    }
 </style>
 
 <body class="page-header-fixed page-quick-sidebar-over-content page-style-square page-sidebar-closed">
@@ -137,9 +129,9 @@ include('../dbconfig/dbcon.php');
         <div class="pre-loader preloader-single shadow-inner mg-t-30">
             <div class="ts_preloading_box">
                 <div id="ts-preloader-absolute30">
-                    <!-- <div id="absolute30">
+                    <div id="absolute30">
                         <span></span><span></span><span></span><span></span><span></span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,8 +154,7 @@ include('../dbconfig/dbcon.php');
             </div>
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
-                data-target=".navbar-collapse">
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
             </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
@@ -173,20 +164,18 @@ include('../dbconfig/dbcon.php');
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                            data-close-others="true">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <?php
-							$query = mysqli_query($conn,"select img from employees where pfno='" . $_SESSION['empid'] . "'");
-							$result = mysqli_fetch_array($query);
-							if (!isset($_SESSION['profile_image'])) {
-								?>
-                            <img alt="" class="img-circle" src="../assets/admin/layout/img/avatar3_small.jpg" />
+                            $query = mysqli_query($conn, "SELECT img FROM users WHERE empid='" . $_SESSION['empid'] . "'");
+                            $result = mysqli_fetch_array($query);
+                            if (!isset($result['img']) || empty($result['img'])) {
+                            ?>
+                                <img alt="" class="img-circle" src="../assets/admin/layout/img/avatar3_small.jpg" />
                             <?php
-						} else {
-							?>
-                            <img alt="" class="img-circle"
-                                src="../../../hrms/images/profile/<?php echo $_SESSION['profile_image']; ?>" />
-                            <?php	} ?>
+                            } else {
+                            ?>
+                                <img alt="" class="img-circle" src="../../new_eta/control_officer/<?php echo $result['img']; ?>" />
+                            <?php } ?>
                             <span class="username username-hide-on-mobile">
                                 <span class="empname" style="color: floralwhite;">
                                     <?php echo $_SESSION['admin_name']; ?>
@@ -194,35 +183,36 @@ include('../dbconfig/dbcon.php');
                             </span>
                             <i class="fa fa-angle-down"></i>
                         </a>
+
                         <ul class="dropdown-menu dropdown-menu-default">
                             <?php
-							if ($GLOBALS['flag'] == "5.2") {
-								?>
-                            <li class="active">
+                            if ($GLOBALS['flag'] == "5.2") {
+                            ?>
+                                <li class="active">
                                 <?php } else { ?>
-                            <li>
-                                <?php }	?>
+                                <li>
+                                <?php }    ?>
                                 <!--<a href="../../../profile.php">-->
                                 <!--<i class="far fa-key"></i> Change Password </a>-->
-                            </li>
-                            <!-- <li class="divider">
+                                </li>
+                                <!-- <li class="divider">
 						</li> -->
-                            <!--<li>
+                                <!--<li>
 							<a href="../logout.php">
 							<i class="fas fa-sign-out-alt"></i> Log Out </a>
 						</li>-->
-                            <li>
-                                <a href="../../../hrms/dashboard.php">
-                                    <i class="fas fa-home"></i>Home</a>
-                            </li>
-                            <li>
-                                <a href="../../../hrms/new_eta/control_officer/profile.php">
-                                    <i class="fas fa-user"></i>Profile</a>
-                            </li>
-                            <li>
-                                <a href="../../../hrms/Logout.php">
-                                    <i class="fas fa-sign-out-alt"></i> Log Out </a>
-                            </li>
+                                <li>
+                                    <a href="../../../hrms/dashboard.php">
+                                        <i class="fas fa-home"></i>Home</a>
+                                </li>
+                                <li>
+                                    <a href="../../../hrms/new_eta/control_officer/profile.php">
+                                        <i class="fas fa-user"></i>Profile</a>
+                                </li>
+                                <li>
+                                    <a href="../../../hrms/Logout.php">
+                                        <i class="fas fa-sign-out-alt"></i> Log Out </a>
+                                </li>
                         </ul>
 
                         <!--				<ul class="loginas pull-right">
@@ -234,12 +224,10 @@ include('../dbconfig/dbcon.php');
                 </ul>
 
                 <ul class="loginas pull-right">
-                    <li><a class="btn btn-info" data-toggle="modal" onClick="modu('tamm')" href="#"
-                            data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Login As</a></li>
+                    <li><a class="btn btn-info" data-toggle="modal" onClick="modu('tamm')" href="#" data-target="#myModal"><i class="fas fa-sign-in-alt"></i> Login As</a></li>
                 </ul>
 
-                <div id="myModal" class="modal modal-width fade modal-scroll" data-replace="true" tabindex="-1"
-                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div id="myModal" class="modal modal-width fade modal-scroll" data-replace="true" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-header btn-orange-moon">
                         <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
                         <h4 class="modal-title" style="text-align:center">Login As</h4>

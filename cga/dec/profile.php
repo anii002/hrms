@@ -70,7 +70,7 @@ include('common/sidebar.php');
 								<img src="../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
 							<?php
 							} else {
-								echo "<img class='img-responsive' src='" . $result['img'] . "'  alt='User profile picture'>";
+								echo "<img class='img-responsive' src='" .$result['img'] . "'  alt='User profile picture'>";
 							}
 							?>
 							<?php

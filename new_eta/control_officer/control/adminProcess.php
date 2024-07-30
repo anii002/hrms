@@ -5,10 +5,16 @@ include('function.php');
 
 switch ($_REQUEST['action']) {
   case 'changeimg':
-    if (changeimg($_FILES["profile"]["name"], $_FILES["profile"]["tmp_name"])) {
-      echo "<script>alert('Profile photo uploaded successfully');window.location='../profile.php';</script>";
+    if (isset($_FILES['profile']) && $_FILES['profile']['error'] == UPLOAD_ERR_OK) {
+        $filename = $_FILES['profile']['name'];
+        $tmp_name = $_FILES['profile']['tmp_name'];
+        if (changeimg($filename, $tmp_name)) {
+            echo "<script>alert('Profile photo uploaded successfully');window.location='../profile.php';</script>";
+        } else {
+            echo "<script>alert('Failed to upload');window.location='../profile.php';</script>";
+        }
     } else {
-      echo "<script>alert('Failed to upload');window.location='../profile.php';</script>";
+        echo "<script>alert('No file uploaded or file upload error');window.location='../profile.php';</script>";
     }
     break;
 

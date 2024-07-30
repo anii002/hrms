@@ -20,20 +20,25 @@ require_once 'common/header-without-menu.php';
                     <div class="box-primary">
                         <div class="box-body box-profile">
                             <div class="box-bg">
-                                <img src="images/profile/<?php echo $row['image']; ?>" class="img-circle"
-                                    alt="User Image">
+                                <?php
+                                $imagePath = 'images/profile/' . $row['image'];
+                                $dummyImage = '../hrms/images/profile/User_Circle.png';
+                                if (!file_exists($imagePath) || empty($row['image'])) {
+                                    $imagePath = $dummyImage;
+                                }
+                                ?>
+                                <img src="<?php echo $imagePath; ?>" class="img-circle" alt="User Image">
                                 <h3 class="profile-username text-center"><?php echo $row['name']; ?></h3>
                                 <!-- <p class="text-muted text-center">Controlling Incharge</p> -->
                                 <p>PF Number - <?php echo $row['emp_no']; ?></p>
                             </div>
+
                             <ul class="list-group list-group-unbordered text-left">
                                 <li class="list-group-item">
-                                    <i class="fa fa-mobile fa-lg"></i>Mobile No. <a
-                                        class="pull-right"><?php echo $row['mobile']; ?></a>
+                                    <i class="fa fa-mobile fa-lg"></i>Mobile No. <a class="pull-right"><?php echo $row['mobile']; ?></a>
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa fa-envelope"></i>Email Id <a
-                                        class="pull-right"><?php echo $row['emp_email']; ?></a>
+                                    <i class="fa fa-envelope"></i>Email Id <a class="pull-right"><?php echo $row['emp_email']; ?></a>
                                 </li>
                             </ul>
                         </div>
@@ -43,18 +48,15 @@ require_once 'common/header-without-menu.php';
                     <div class="box-right">
                         <h4><i class="fa fa-lock"></i> Change Password</h4>
                         <div class="col-md-6">
-                            <form role="form" method="POST" action="profile_edit.php?action=password" autocomplete="off"
-                                name="pro_form">
+                            <form role="form" method="POST" action="profile_edit.php?action=password" autocomplete="off" name="pro_form">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="Password">New Password</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Password" autofocus>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" autofocus>
                                     </div>
                                     <div class="form-group">
                                         <label for="Confirm Password">Confirm Password</label>
-                                        <input type="password" class="form-control" id="conf_password"
-                                            name="conf_password" placeholder="Confirm Password">
+                                        <input type="password" class="form-control" id="conf_password" name="conf_password" placeholder="Confirm Password">
                                     </div>
 
                                 </div>
@@ -64,8 +66,7 @@ require_once 'common/header-without-menu.php';
                                 </div>
                             </form>
 
-                            <form method="POST" action="profile_edit.php?action=image" autocomplete="off"
-                                enctype="multipart/form-data">
+                            <form method="POST" action="profile_edit.php?action=image" autocomplete="off" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="Image">Update Profile Photo</label>
                                     <input type="file" id="image" name="image" required>

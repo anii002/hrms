@@ -48,8 +48,8 @@
 		$gender = $_POST['gender'];
 
 		$sql_fet = "SELECT * FROM register_user WHERE emp_no = '$pf_no'";
-		$result_fet = mysql_query($sql_fet);
-		$count = mysql_num_rows($result_fet);
+		$result_fet = mysqli_query($conn,$sql_fet);
+		$count = mysqli_num_rows($result_fet);
 		// print_r($count);exit();
 		if($count == 0)
 		{
@@ -57,27 +57,27 @@
 			$sql = "INSERT INTO user_permission (pf_num, e_sar, tamm, e_grievance, e_notification, it_form, e_app, forms, e_apar) VALUES ('$pf_num', 2, 4, 4, 2, 1, 3, 1, 6)";
 			// echo "<pre>";
 			//print_r($sql);exit();
-			$result = mysql_query($sql);
-			//echo mysql_error();exit();
+			$result = mysqli_query($conn,$sql);
+			//echo mysqli_error();exit();
 			if($result)
 			{
 			    $sql_reg = "SELECT * FROM register_user WHERE emp_no = '$pf_no'";
-				$result_reg = mysql_query($sql_reg);
-				$row_reg = mysql_fetch_assoc($result_reg);
+				$result_reg = mysqli_query($conn,$sql_reg);
+				$row_reg = mysqli_fetch_assoc($result_reg);
 
 				$sql_user = "INSERT INTO user_permission (pf_num, e_sar, tamm, e_grievance, e_notification, it_form) VALUES ('$pf_no', 2, 4, 4, 2, 1)";
-				$result_user = mysql_query($sql_user);
+				$result_user = mysqli_query($conn,$sql_user);
 				if($result_user)
 				{
-					mysql_connect('localhost','drmpsurh_test','root@123');
-					mysql_select_db('drmpsurh_travel_allowance1');
+					mysqli_connect('localhost','root','');
+					mysqli_select_db($conn,'drmpsurh_travel_allowance1');
 					$sql_ta = "SELECT pfno, mobile FROM employees WHERE pfno = '$pf_no'";
-					$result_ta = mysql_query($sql_ta);
-					$count_ta = mysql_num_rows($result_ta);
+					$result_ta = mysqli_query($conn,$sql_ta);
+					$count_ta = mysqli_num_rows($result_ta);
 					if($count_ta == 1)
 					{
 						$sql_taup = "UPDATE employees SET mobile = '$mobile' WHERE pfno = '$pf_no'";
-						$result_taup = mysql_query($sql_taup);
+						$result_taup = mysqli_query($conn,$sql_taup);
 					}
 					if($count_ta == 0)
 					{
@@ -96,7 +96,7 @@
 						$bdate = $bdate1[2].'-'.$bdate1[1].'-'.$bdate1[0];
 						$apdate = $apdate1[2].'-'.$apdate1[1].'-'.$apdate1[0];
 						$sql_taup = "INSERT INTO employees (BU, pfno, name, desig, station, mobile, dept, bp, bdate, apdate, level, psw) VALUES ('".$row_reg['bill_unit']."', '".$row_reg['emp_no']."', '".$row_reg['name']."', '".$row_reg['designation']."', '".$row_reg['station']."', '".$row_reg['mobile']."' ,'".$row_reg['department']."', '".$row_reg['basic_pay']."', '$bdate', '$apdate', '".$row_reg['7th_pay_level']."', '".$row_reg['password']."')";
-					$result_taup = mysql_query($sql_taup);
+					$result_taup = mysqli_query($conn,$sql_taup);
 					}
 					//exit();
 					echo "<script>alert('Employee Registered Successfully')</script>";

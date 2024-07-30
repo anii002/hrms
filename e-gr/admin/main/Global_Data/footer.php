@@ -123,7 +123,7 @@
 
 <footer>
     <div class="pull-right">
-        © Copyright <?php echo date('Y'); ?> <a href="http://infoigy.com" target="_blank"> Salgem Infoigy Tech Pvt. Ltd. </a>All rights reserved.
+        © Copyright <?php echo date('Y'); ?> <a href="http://infoigy.com" target="_blank">Infoigy Tech Pvt. Ltd. </a>All rights reserved.
     </div>
     <div class="clearfix"></div>
 </footer>

@@ -120,7 +120,7 @@ $(document).ready(function() {
 
 <footer>
     <div class="pull-right">
-        © Copyright 2020 <a href="http://infoigy.com"> Salgem Infoigy Tech Pvt. Ltd. </a>All rights reserved. 
+        © Copyright 2024 <a href="http://infoigy.com"> Infoigy Tech Pvt. Ltd. </a>All rights reserved. 
     </div>
     <div class="clearfix"></div>
 </footer>

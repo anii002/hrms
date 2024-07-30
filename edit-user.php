@@ -5,12 +5,12 @@ $GLOBALS['flag']="0";
         $id = $_SESSION['user_id'];
         
         $sql = "SELECT * FROM user_permission WHERE id = '$id' AND delete_status = 0";
-        $result = mysql_query($sql);
-        $row = mysql_fetch_assoc($result);     
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_assoc($result);     
         $id1 = $_GET['id'];
       	$sql_fetch = "SELECT * FROM user_permission WHERE id = '$id1' AND delete_status = 0";
-      	$result_fetch = mysql_query($sql_fetch);
-      	$row_fetch = mysql_fetch_assoc($result_fetch);
+      	$result_fetch = mysqli_query($conn,$sql_fetch);
+      	$row_fetch = mysqli_fetch_assoc($result_fetch);
         $pf_num = $row_fetch['pf_num'];
         
          if(isset($row_fetch['e_grievance']))
@@ -137,8 +137,8 @@ $GLOBALS['flag']="0";
         
   
         $sql_fet = "SELECT * FROM register_user WHERE emp_no = '$pf_num'";
-        $result_fet = mysql_query($sql_fet);
-        $row_fet = mysql_fetch_assoc($result_fet); 
+        $result_fet = mysqli_query($conn,$sql_fet);
+        $row_fet = mysqli_fetch_assoc($result_fet); 
         // echo "<pre>";
         // print_r($row_fet);exit();
 ?>    
@@ -180,8 +180,8 @@ $GLOBALS['flag']="0";
                    <?php
                    $dept = $row_fet['department'];
                    $sql_dept = "SELECT DEPTDESC FROM department WHERE DEPTNO = '$dept'";
-                   $result_dept = mysql_query($sql_dept);
-                   $row_dept = mysql_fetch_assoc($result_dept);
+                   $result_dept = mysqli_query($conn,$sql_dept);
+                   $row_dept = mysqli_fetch_assoc($result_dept);
                     ?>       
 
                           <div class="col-md-3 col-lg-3 col-sm-12 form-group">
@@ -192,8 +192,8 @@ $GLOBALS['flag']="0";
                           <?php
               $desig = $row_fet['designation'];
               $sql_desig = "SELECT DESIGLONGDESC FROM designations WHERE DESIGCODE = '$desig'";
-              $result_desig = mysql_query($sql_desig);
-              $row_desig = mysql_fetch_assoc($result_desig);
+              $result_desig = mysqli_query($conn,$sql_desig);
+              $row_desig = mysqli_fetch_assoc($result_desig);
                     ?>
 
                           <div class="col-md-3 col-lg-3 col-sm-12 form-group">
@@ -212,8 +212,8 @@ $GLOBALS['flag']="0";
                           <?php
               $pay = $row_fet['7th_pay_level'];
               $sql_pay = "SELECT num, pay_text FROM paylevel WHERE num = '$pay'";
-              $result_pay = mysql_query($sql_pay);
-              $row_pay = mysql_fetch_assoc($result_pay);
+              $result_pay = mysqli_query($conn,$sql_pay);
+              $row_pay = mysqli_fetch_assoc($result_pay);
                           ?>
                           <div class="col-md-3 col-lg-3 col-sm-12 form-group">
                             <label>Pay Level</label>

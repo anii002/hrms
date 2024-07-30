@@ -547,7 +547,7 @@ function deactiveUser($pfno,$active,$role){
  $query = "update users set status='$active' where empid='$pfno' AND role='".$role."' ";
   $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
   
-  db_connect("esoluhp6_sur_railway");
+  db_connect("");
 
   $user_p_query = "SELECT pf_num,tamm from user_permission WHERE pf_num='" . $pfno . "' ";
   $user_p_result = mysqli_query($conn,$user_p_query);

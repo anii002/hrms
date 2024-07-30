@@ -385,20 +385,23 @@ include('control/function.php');
 									</div>
 
 									<div class="col-md-12 trackprint-btn">
-    <ul>
-        <input type="hidden" value="<?php echo isset($row3['month']) ? $row3['month'] : ''; ?>" name="ta_manth" id="ta_manth">
-        <input type="hidden" value="<?php echo isset($row3['cardpass']) ? $row3['cardpass'] : ''; ?>" name="cardpass" id="cardpass">
-        <input type="hidden" value="<?php echo isset($row3['year']) ? $row3['year'] : ''; ?>" name="year" id="year">
+										<ul>
+											<input type="hidden" value="<?php echo isset($row3['month']) ? htmlspecialchars($row3['month'], ENT_QUOTES, 'UTF-8') : ''; ?>" name="ta_manth" id="ta_manth">
+											<input type="hidden" value="<?php echo isset($row3['cardpass']) ? htmlspecialchars($row3['cardpass'], ENT_QUOTES, 'UTF-8') : ''; ?>" name="cardpass" id="cardpass">
+											<input type="hidden" value="<?php echo isset($row3['year']) ? htmlspecialchars($row3['year'], ENT_QUOTES, 'UTF-8') : ''; ?>" name="year" id="year">
 
-        <?php
-        $month = isset($row3['month']) ? end(explode(',', $row3['month'])) : '';
-        ?>
-        
-        <li><a href="otp_forward_ta.php?reference_no=<?php echo isset($_GET['ref_no']) ? $_GET['ref_no'] : ''; ?>" class="btn green btnhide">Forward</a></li>
-        <li><a href="Add_More_TA_Entry_Form.php?reference_no=<?php echo isset($_GET['ref_no']) ? $_GET['ref_no'] : ''; ?>&cardpass=<?php echo isset($row3['cardpass']) ? $row3['cardpass'] : ''; ?>&month=<?php echo $month; ?>&year=<?php echo isset($row3['year']) ? $row3['year'] : ''; ?>" class='btn blue btnhide'>Add More TA</a></li>
-        <li><button onclick="print_button()" class="btn green btnhide">Print</button></li>
-    </ul>
-</div>
+											<?php
+											// Ensure we safely handle the `month` value
+											$monthArray = isset($row3['month']) ? explode(',', $row3['month']) : [];
+											$month = !empty($monthArray) ? end($monthArray) : '';
+											?>
+
+											<li><a href="otp_forward_ta.php?reference_no=<?php echo isset($_GET['ref_no']) ? htmlspecialchars($_GET['ref_no'], ENT_QUOTES, 'UTF-8') : ''; ?>" class="btn green btnhide">Forward</a></li>
+											<li><a href="Add_More_TA_Entry_Form.php?reference_no=<?php echo isset($_GET['ref_no']) ? htmlspecialchars($_GET['ref_no'], ENT_QUOTES, 'UTF-8') : ''; ?>&cardpass=<?php echo isset($row3['cardpass']) ? htmlspecialchars($row3['cardpass'], ENT_QUOTES, 'UTF-8') : ''; ?>&month=<?php echo htmlspecialchars($month, ENT_QUOTES, 'UTF-8'); ?>&year=<?php echo isset($row3['year']) ? htmlspecialchars($row3['year'], ENT_QUOTES, 'UTF-8') : ''; ?>" class='btn blue btnhide'>Add More TA</a></li>
+											<li><button onclick="print_button()" class="btn green btnhide">Print</button></li>
+										</ul>
+
+									</div>
 
 								</div>
 

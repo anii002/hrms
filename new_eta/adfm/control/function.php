@@ -120,11 +120,16 @@ function getdepartment($id)
 
 function getdepot($id)
 {
-  global $conn;
-  $query = "SELECT `id`,`depot` FROM `depot_master` WHERE depot_master.id='".$id."' AND depot_master.status='1'";
-  $result = mysqli_query($conn,$query);
-  $value = mysqli_fetch_array($result);
-  return $value['depot'];
+    global $conn;
+    $query = "SELECT `id`,`depot` FROM `depot_master` WHERE `id`='" . mysqli_real_escape_string($conn, $id) . "' AND `status`='1'";
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $value = mysqli_fetch_array($result);
+        return $value['depot'];
+    } else {
+        return "Depot not found";
+    }
 }
 
 

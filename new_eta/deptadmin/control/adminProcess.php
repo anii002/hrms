@@ -217,7 +217,7 @@ include('adminFunction.php');
             $empid1=$_SESSION['empid'];
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
             $msg='DA activating the '.$pfno.' user';
-            db_connect("esoluhp6_travel_allowance1");
+            db_connect("drmpsurh_travel_allowance1");
             user_activity($empid1,$file_name,'Active User',$msg);
             echo "User Activated successfully";
         }
@@ -226,7 +226,7 @@ include('adminFunction.php');
             $empid1=$_SESSION['empid'];
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
             $msg='DA unable to activate the '.$pfno.' user';
-            db_connect("esoluhp6_travel_allowance1");
+            db_connect("drmpsurh_travel_allowance1");
             user_activity($empid1,$file_name,'Active User',$msg);
             echo "Something went wrong";
             
@@ -242,7 +242,7 @@ include('adminFunction.php');
             $empid1=$_SESSION['empid'];
             $file_name=basename($_SERVER["SCRIPT_FILENAME"], '.php');
             $msg='DA deactivating the '.$pfno.' user';
-            db_connect("esoluhp6_travel_allowance1");
+            db_connect("drmpsurh_travel_allowance1");
             user_activity($empid1,$file_name,'Deactive User',$msg);
             echo "User Deactivated successfully";
         }

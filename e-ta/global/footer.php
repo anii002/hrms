@@ -2,7 +2,7 @@
      <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.1
     </div>
-    Design and Developed By <strong><a href="http://www.infoigy.com">SALGEM Infoigy Tech Pvt Ltd</a></strong>
+    Developed By <strong><a href="http://www.infoigy.com">Infoigy Tech Pvt Ltd</a></strong>
   </footer>
 
   <div class="control-sidebar-bg"></div>

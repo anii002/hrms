@@ -80,20 +80,22 @@ $da = 0;
 							//echo ($conn,"SELECT forward_status,estcrk_status,generated_date,DA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='".$row5['summary_id']."'");
 							$qry61 = mysqli_query($conn, "SELECT forward_status,estcrk_status,pa_status,generated_date,DA_approved_time,PA_approved_time,EST_approved_time FROM `master_summary` WHERE `summary_id`='" . $row51['summary_id'] . "'");
 							$row61 = mysqli_fetch_array($qry61);
-							if ($row1['hold_status'] == 1 && $row61['forward_status'] == "") {
+
+							if (isset($row1['hold_status']) && isset($row61['forward_status'])) {
+								if ($row1['hold_status'] == 1 && $row61['forward_status'] == "") {
 						?>
-								<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
-								<div class="text-center">
-									<h5><?php
-										echo $row3['name'] . "(SO Admin)";
-										?></h5>
-									<p>Received - <?php echo $arrived_time; ?></p>
-									<p>Pending time - <?php echo $elapsed; ?></p>
+									<div class="downarrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+									<div class="text-center">
+										<h5><?php
+											echo $row3['name'] . "(SO Admin)";
+											?></h5>
+										<p>Received - <?php echo $arrived_time; ?></p>
+										<p>Pending time - <?php echo $elapsed; ?></p>
 							<?php
-								//	echo "<p>Pending from $d5.$d6.$d7.$d8</p>";
+									//	echo "<p>Pending from $d5.$d6.$d7.$d8</p>";
+								}
 							}
 						}
-
 							?>
 
 
@@ -306,7 +308,7 @@ $da = 0;
 											</div>
 										</div>
 								</div>
-								</div>
+									</div>
 					</div>
 					<?php
 					include 'common/footer.php';

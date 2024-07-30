@@ -48,9 +48,9 @@
 
 			$result = mysqli_query($conn, $sql);
 			// echo  mysql_error();
-			//dbcon1('esoluhp6_travel_allowance1');
+			//dbcon1('drmpsurh_travel_allowance1');
 			// 			mysql_connect('localhost','esoluhp6_test','root@123');
-			// 			mysql_select_db('esoluhp6_travel_allowance1');
+			// 			mysql_select_db('drmpsurh_travel_allowance1');
 			// 			exit();
 			// $sql1 = "INSERT INTO employees (pfno, name, mobile, desig, dept, BU, station, bp, level, apdate, bdate, psw) VALUES ('$pf_no', '$name', '$mobile', '$designation', '$department', '$bill_unit', '$station', '$basic_pay', '$pay_level', '$doa', '$dob', '$password')";
 			// $insertin_ta = mysql_query($sql1);
@@ -65,7 +65,7 @@
 
 			// if(isset($_SESSION['reg_data']) && isset($_SESSION['pf_no']) && isset($_SESSION['mobile']))
 			// {
-			//     dbcon1('esoluhp6_sur_railway');
+			//     dbcon1('drmpsurh_sur_railway');
 				// otp1($mobile,$pf_no);
 				echo "<script>alert('Employee Registered Successfully')</script>";
 				echo "<script>window.location.href = 'index.php'</script>";

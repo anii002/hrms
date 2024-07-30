@@ -513,7 +513,7 @@ function AddAdmin($empid, $username, $psw, $dept)
     $result = $query->execute();
 
     // Connect to user_permission database
-    db_connect("esoluhp6_sur_railway");
+    db_connect("drmpsurh_sur_railway");
 
     // Check if the user already has permissions
     $user_p_query = $conn->prepare("SELECT pf_num, tamm FROM user_permission WHERE pf_num = ?");
@@ -535,7 +535,7 @@ function AddAdmin($empid, $username, $psw, $dept)
 
     if ($result && $result_up) {
         // Connect to employees database
-        db_connect("esoluhp6_travel_allowance1");
+        db_connect("drmpsurh_travel_allowance1");
 
         // Update the employee details
         $query1 = $conn->prepare("UPDATE employees SET name = ?, desig = ?, mobile = ?, email = ?, level = ? WHERE pfno = ?");
@@ -564,7 +564,7 @@ function AddAcctAdmin($empid, $username, $psw, $bu)
     $result = $query->execute();
 
     // Connect to user_permission database
-    db_connect("esoluhp6_sur_railway");
+    db_connect("drmpsurh_sur_railway");
 
     // Check if the user already has permissions
     $user_p_query = $conn->prepare("SELECT pf_num, tamm FROM user_permission WHERE pf_num = ?");

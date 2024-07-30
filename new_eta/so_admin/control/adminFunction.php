@@ -8,7 +8,7 @@ function AddAdmin($empid,$username,$role,$dept,$station,$empname,$mobile,$email,
     $query = "insert into users(empid,username,role,dept,station) values('$empid','$username','$role','$dept','$station')";
     $result = mysqli_query($conn,$query) or die(mysqli_error($conn));
     
-    db_connect("esoluhp6_sur_railway");
+    db_connect("drmpsurh_sur_railway");
     $user_p_query="SELECT pf_num,tamm from user_permission WHERE pf_num='".$empid."' ";
     $user_p_result=mysqli_query($conn,$user_p_query);
     $user_p_cnt=mysqli_num_rows($user_p_result);
@@ -38,7 +38,7 @@ function AddAdmin($empid,$username,$role,$dept,$station,$empname,$mobile,$email,
     
     if($result && $result_up)
     {
-        db_connect("esoluhp6_travel_allowance1");
+        db_connect("drmpsurh_travel_allowance1");
         $query1="UPDATE `employees` SET `name`='".$empname."',`desig`='".$design."',`mobile`='".$mobile."',`email`='".$email."',`level`='".$paylevel."' WHERE `pfno`='".$empid."' ";
         $result1=mysqli_query($conn,$query1);
         if($result1)
