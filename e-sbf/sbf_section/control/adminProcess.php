@@ -13,16 +13,16 @@ include('adminFunction.php');
             // $c_otp = $_REQUEST['c_otp'];
 
             $flag='0';
-            dbcon();
+            $conn=dbcon();
             
             $query1 = "UPDATE `tbl_form_forward` SET `fw_status`='1' WHERE `ref_id`='".$ref."' AND forwarded_to='".$empid."'";
-            $result1 = mysql_query($query1);
+            $result1 = mysqli_query($conn,$query1);
 
             $date=date('Y-m-d H:i:s');
-            dbcon();
+            $conn=dbcon();
             
            $query = "INSERT into tbl_form_forward(empid,ref_id,forwarded_to,fw_date) values('".$emp_no."','".$ref."','".$forwardName."','".$date."')";
-            $result = mysql_query($query);
+            $result = mysqli_query($conn,$query);
                     
             if($result && $result1)
             {
@@ -41,11 +41,11 @@ include('adminFunction.php');
             $emp_no = $_POST['txt_emp_pf'];
             $ref = $_POST['ref_no'];
 
-            dbcon();
+            $conn=dbcon();
             
              $query1 = "UPDATE `tbl_form_details` SET `rejected`='1', `rejected_by`='".$empid_session."' WHERE `reference_id`='".$ref."' AND emp_no='".$emp_no."'";
             
-            $result1 = mysql_query($query1);
+            $result1 = mysqli_query($conn,$query1);
 
                     
             if($result1)
@@ -58,14 +58,14 @@ include('adminFunction.php');
             }
     break;
     case 'get_data':
-                dbcon();
+        $conn=dbcon();
                 $id = $_POST['id'];
                 //print_r($id);exit();
                 $sql = "SELECT emp_no, name_of_child_ward, name_of_course, date_of_birth_stud, present_year, created_at  FROM tbl_form_details WHERE scheme_id = '$id'";
-                $result = mysql_query($sql);
+                $result = mysqli_query($conn,$sql);
                 $i = 1;
 
-                while($row = mysql_fetch_assoc($result))
+                while($row = mysqli_fetch_assoc($result))
                     {
                         $emp = get_emp($row['emp_no']);
                         $des = get_designation($emp['designation']);

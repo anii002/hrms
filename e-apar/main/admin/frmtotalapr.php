@@ -140,7 +140,8 @@ include_once('../global/sidebaradmin.php');
                                         if ($result && $result['image'] != "") {
                                             $query = mysqli_query($conn, "SELECT * FROM scanned_apr WHERE empid='$emplcode' AND year='$demo_year'");
                                             $rwQuery = mysqli_fetch_array($query);
-                                            $Rtype = $rwQuery['reporttype'];
+                                            $Rtype = isset($rwQuery['reporttype']) ? $rwQuery['reporttype'] : null;
+
                                             if ($Rtype == 'APAR Report') {
                                                 echo "<td><label style='font-size:10px;'>AV[AR]</label></td>";
                                             } else {

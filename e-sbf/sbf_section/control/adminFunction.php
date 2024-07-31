@@ -6,28 +6,30 @@ include("../../dbconfig/dbcon.php");
 include("function.php");
 function get_emp($pf)
 	{	
-	    dbcon1();
+	    $conn=dbcon1();
 
 		$sql = "SELECT name, designation, station FROM register_user WHERE emp_no = '$pf'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_assoc($result);
 		return $row;
 	}
 
 	function get_designation($id)
-	{dbcon1();
+	{
+		$conn=dbcon1();
 		$sql = "SELECT DESIGLONGDESC FROM designations WHERE DESIGCODE = '$id'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_assoc($result);
 		return $row['DESIGLONGDESC'];
 	}
 
 
 	function get_station($id)
-	{dbcon1();
+	{
+		$conn=dbcon1();
 		$sql = "SELECT stationdesc FROM station WHERE stationcode = '$id'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_assoc($result);
 		return $row['stationdesc'];
 	}
 

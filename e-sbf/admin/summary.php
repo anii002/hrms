@@ -129,10 +129,10 @@
 		});
 		function print_button()
    		{
-//       		$(".btnhide").hide(); 
-//       		$("#scheme_hide").hide();
-//       		window.print();
-// 			window.location.reload();	
+      		$(".btnhide").hide(); 
+      		$("#scheme_hide").hide();
+      		window.print();
+			window.location.reload();	
             var id = $('.btnhide').val();
            window.open('http://drmpsur-hrms.in/e-sbf/admin/reports.php?id='  + id, '_blank');
    		}

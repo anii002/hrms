@@ -27,7 +27,13 @@
 	$rowid = mysqli_fetch_array($resultid);
 	$id = $rowid['empid'];
 	$pfid = $rowid['emplcode'];
-	$pfid = $pfid + 1;
+	if (is_numeric($pfid)) {
+		$pfid = $pfid + 1;
+	} else {
+		// Handle the non-numeric case, e.g., initialize or set to a default numeric value
+		$pfid = 1; // or any default numeric value
+	}
+	
 	$employee = 'India@0' . sprintf("%02d", $pfid); //generate_id(1);
 
 

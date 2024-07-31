@@ -12,7 +12,7 @@ include_once('../global/topbar.php');
 include_once('../global/sidebaradmin.php');
 
 // Database connection
-include_once('../global/db_connect.php'); // Adjust this to your actual database connection script
+// include_once('../global/db_connect.php'); // Adjust this to your actual database connection script
 
 ?>
 

@@ -114,9 +114,20 @@ switch ($_REQUEST['action']) {
     }
 
     break;
-
-  default:
-    echo "Invalid option";
-    break;
+    switch ($variable) {
+      case 'value1':
+          // code to execute if $variable == 'value1'
+          break;
+      case 'value2':
+          // code to execute if $variable == 'value2'
+          break;
+      case 'value3':
+          // code to execute if $variable == 'value3'
+          break;
+      default:
+          echo "Invalid option";
+          break;
+  }
+  
 }
 ?>
