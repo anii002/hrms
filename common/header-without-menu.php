@@ -2,7 +2,7 @@
 require_once 'common/db.php';
 $conn = createConnection();
 if (!isset($_SESSION["UserName"])) {
-    echo "<script>window.location.href='dasboadrd.php';</script>";
+    echo "<script>window.location.href='dashboard.php';</script>";
 }
 
 if ($_SESSION['UserName'] == 'Employee') {

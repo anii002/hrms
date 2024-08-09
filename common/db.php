@@ -3,7 +3,7 @@ session_start();
 // header('Content-Type: application/json');
 $servername = "localhost";
 $username = "drmpsurh_sur_railway"; // 08/08/2024
-$password = "Admin@123";// 08/08/2024
+$password = "Mq-n.pzXT83i";// 08/08/2024
 $db = "drmpsurh_sur_railway";
 
 $conn = new mysqli($servername, $username, $password, $db);
